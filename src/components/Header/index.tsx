@@ -1,9 +1,19 @@
-import React from 'react'
+'use client'
+
+import React from 'react';
+import TopBar from './TopBar';
+import InfoBar from './InfoBar';
+import Navbar from './Navbar';
 
 const Header = () => {
   return (
     <div>
-      <h1>Welcome to Charifund header</h1>
+      <TopBar />
+      <div className='px-15'>
+        <InfoBar />
+        <Navbar />
+      </div>
+
     </div>
   )
 }
