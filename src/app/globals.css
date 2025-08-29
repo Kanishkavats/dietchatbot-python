@@ -10,6 +10,21 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-palate-orange: #ffb347;
+  --color-palate-yellow: #ffc107;
+  --color-palate-brown: #964b00;
+  --color-palate-lime: #3ead3c;
+  --color-palate-green: #00715d;
+  --color-palate-blue: #246af4;
+  --color-palate-lawn-green: rgb(130, 180, 64);
+  --color-palate-lawn-green-hover:rgb(111, 154, 55);
+  --color-palate-purple: #bb54e1;
+  --color-palate-teal: #44a9aa;
+  --color-palate-red: #ff0000;
+  --color-palate-black: #111111;
+  --color-palate-white: #ffffff;
+  --color-palate-gray: #262626;
+  --color-palate-dark-slate-gray: #1c302d;
 }
 
 @media (prefers-color-scheme: dark) {
