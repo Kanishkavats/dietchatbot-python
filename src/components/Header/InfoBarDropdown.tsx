@@ -2,7 +2,6 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
-import Image from "next/image";
 
 export interface DropdownOption {
   label?: string;

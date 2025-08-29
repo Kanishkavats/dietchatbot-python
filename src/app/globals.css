@@ -14,15 +14,18 @@
   --color-palate-yellow: #ffc107;
   --color-palate-brown: #964b00;
   --color-palate-lime: #3ead3c;
-  --color-palate-green: #00715d;
   --color-palate-blue: #246af4;
+  --color-palate-green: #122f2a;
   --color-palate-lawn-green: rgb(130, 180, 64);
-  --color-palate-lawn-green-hover:rgb(111, 154, 55);
+  --color-palate-quaternary-green: #00715d;
+  --color-palate-lawn-green-hover: rgb(111, 154, 55);
   --color-palate-purple: #bb54e1;
   --color-palate-teal: #44a9aa;
   --color-palate-red: #ff0000;
   --color-palate-black: #111111;
+  --color-palate-black2: rgb(102, 116, 113);
   --color-palate-white: #ffffff;
+  --color-palate-white2:#949d9c;
   --color-palate-gray: #262626;
   --color-palate-dark-slate-gray: #1c302d;
 }
@@ -34,8 +37,16 @@
   }
 }
 
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+  /* Optional */
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

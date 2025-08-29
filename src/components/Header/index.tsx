@@ -25,7 +25,7 @@ const Header = () => {
         <TopBar />
       </div>
 
-      <div className="px-15 pt-10">
+      <div className="px-2 pt-17 md:px-15 md:pt-13">
         <InfoBar />
 
         {/* First Navbar - visible when not scrolled */}
@@ -44,7 +44,7 @@ const Header = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -50, opacity: 0 }}
               transition={{ duration: 0.6, ease: 'easeInOut' }}
-              className="fixed top-10 left-0 right-0 bg-palate-white shadow-md z-50"
+              className="fixed top-13 left-0 right-0 bg-palate-white shadow-md z-50"
             >
               <Navbar />
             </motion.div>

@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import UISettingsPanel from "@/components/UISettingsPanel";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,13 +28,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
         <header>
           <Header />
         </header>
+        <div className="absolute inset-0 z-50 flex items-center h-screen justify-start p-4">
+          <UISettingsPanel />
+        </div>
         <main>{children}</main>
-        <footer>
+        <footer >
           <Footer />
         </footer>
       </body>

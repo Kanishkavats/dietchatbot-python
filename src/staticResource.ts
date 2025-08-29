@@ -2,6 +2,24 @@ import { homeFive, homeFour, homeOne, homeThree, homeTwo } from "./assets";
 import { NavItem } from "./header";
 
 
+// ✅ Data arrays
+export const currencies = ["USD", "EUR", "INR"];
+
+export const languages = [
+  { label: "English", icon: "twemoji:flag-england" },
+  { label: "Spanish", icon: "twemoji:flag-united-states" },
+  { label: "Chinese", icon: "twemoji:flag-china" },
+  { label: "Italian", icon: "twemoji:flag-italy" },
+];
+
+export const socialIcons = [
+  { icon: "fa6-brands:facebook-f", label: "Facebook", link: "#" },
+  { icon: "simple-icons:vimeo", label: "Vimeo", link: "#" },
+  { icon: "fa6-brands:twitter", label: "Twitter", link: "#" },
+  { icon: "fa6-brands:linkedin-in", label: "LinkedIn", link: "#" },
+];
+
+
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "Home",
@@ -59,3 +77,42 @@ export const NAV_ITEMS: NavItem[] = [
   ] },
   { label: "Contact Us", dropdown: null },
 ];
+
+
+export const footerData = {
+  brand: {
+    name: "Charifund",
+    description:
+      "Our Secure Online Donation Platform Allows You To Make Contributions Quickly And Safely. Choose From Various.",
+    socials: [
+      { icon: "mdi:facebook", href: "#" },
+      { icon: "mdi:vimeo", href: "#" },
+      { icon: "mdi:twitter", href: "#" },
+      { icon: "mdi:linkedin", href: "#" },
+    ],
+  },
+  quickLinks: [
+    { label: "About Us", href: "#" },
+    { label: "Our News", href: "#" },
+    { label: "Our Campaign", href: "#" },
+    { label: "FAQ", href: "#" },
+    { label: "Get A Quote", href: "#" },
+  ],
+  services: [
+    { label: "Our Causes", href: "#" },
+    { label: "Education Support", href: "#" },
+    { label: "Our Campaign", href: "#" },
+    { label: "Food Support", href: "#" },
+    { label: "Health Support", href: "#" },
+  ],
+  contact: {
+    address: "455 west orchard street kings mountain, nc 280867",
+    phone: "+088 (246) 642-27-10",
+    email: "example@email.com",
+  },
+  bottomLinks: [
+    { label: "Terms & Conditions", href: "#" },
+    { label: "Privacy Policy", href: "#" },
+    { label: "Cookie Settings", href: "#" },
+  ],
+};
