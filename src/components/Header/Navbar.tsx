@@ -8,6 +8,8 @@ import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
 import { MobileBackdrop } from "./MobileDrawer/MobileBackdrop";
 import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
 import DonateButton from "@/helper/Buttons/DonateButton";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const Navbar = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -66,6 +68,7 @@ const Navbar = () => {
     }
   }, [searchOpen]);
 
+  const { primaryColor } = useSelector((state: RootState) => state.theme);
 
   return (
     <nav className="w-full flex items-center justify-between  md:px-8 py-4 relative">
@@ -73,7 +76,9 @@ const Navbar = () => {
       <motion.img src={logo.src} alt="Logo" className="h-10" />
 
       {/* Main Nav Items - visible only on xl and up */}
-      <ul className="hidden xl:flex items-center gap-6 bg-palate-yellow px-10 py-6 rounded-full font-medium text-black relative">
+      <ul
+        style={{ backgroundColor: `var(${primaryColor})` }}
+        className={`hidden xl:flex items-center gap-6  px-10 py-6 rounded-full font-medium text-black relative bg-${primaryColor}`}>
         {NAV_ITEMS.map((item, i) => (
           <li
             key={i}

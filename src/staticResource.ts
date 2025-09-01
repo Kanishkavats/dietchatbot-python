@@ -1,5 +1,5 @@
 import { homeFive, homeFour, homeOne, homeThree, homeTwo } from "./assets";
-import { NavItem } from "./header";
+import { NavItem } from "./types/header";
 
 
 // ✅ Data arrays

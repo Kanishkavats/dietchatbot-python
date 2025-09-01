@@ -1,7 +1,7 @@
 'use client';
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { NavItem } from "@/header";
+import { NavItem } from "@/types/header";
 
 interface MobileDropdownItemProps {
   item: NavItem;

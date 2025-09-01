@@ -7,6 +7,8 @@ import Image from "next/image";
 import { motion, useAnimationControls, useInView } from "framer-motion";
 import { useRef } from "react";
 import Divider from "@/helper/HorizontalDevider";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const Footer = () => {
 
@@ -31,21 +33,21 @@ const Footer = () => {
     hidden: { opacity: 0, y: 50 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
+  const { primaryColor } = useSelector((state: RootState) => state.theme);
 
   // Common base for underline effect
-  const underlineBase =
-    "relative inline-flex items-center gap-2  before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-palate-yellow before:block before:scale-x-0 before:origin-center before:transition-transform";
+  const underlineBase = `relative inline-flex items-center gap-2  before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-${primaryColor} before:block before:scale-x-0 before:origin-center before:transition-transform`;
 
   // Variant: triggers from parent group
-  const underlineOnGroupHover = `${underlineBase} text-palate-white2 transition-colors group-hover:text-palate-yellow before:duration-500 group-hover:before:scale-x-100`;
+  const underlineOnGroupHover = `${underlineBase} text-palate-white2 transition-colors group-hover:text-[var(--primary-color)] before:duration-500 group-hover:before:scale-x-100`;
 
   // Variant: triggers on element itself
-  const underlineOnHover = `${underlineBase} cursor-pointer hover:text-palate-yellow before:duration-300 hover:before:scale-x-100`;
-
+  const underlineOnHover = `${underlineBase} cursor-pointer hover:text-${primaryColor} before:duration-300 hover:before:scale-x-100`;
 
   return (
     <footer ref={ref} className="bg-palate-green text-white py-5 px-[3%] xl:px-6 relative">
       <Newsletter />
+      
       <motion.div
         animate={{
           scale: [1, 1.3, 1], 
@@ -85,7 +87,7 @@ const Footer = () => {
               <a
                 key={i}
                 href={s.href}
-                className="w-10 h-10 flex items-center justify-center border border-palate-white2/30 transition duration-200 rounded-full hover:bg-palate-yellow hover:text-palate-green"
+                className={`w-10 h-10 flex items-center justify-center border border-palate-white2/30 transition duration-200 rounded-full hover:bg-${primaryColor} hover:text-palate-green`}
               >
                 <Icon icon={s.icon} width="15" />
               </a>

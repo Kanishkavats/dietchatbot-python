@@ -4,6 +4,10 @@ import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import UISettingsPanel from "@/components/UISettingsPanel";
+import { Provider } from "react-redux";
+import ThemeApplier from "@/helper/ThemeApplier";
+import { store } from "@/store";
+import Providers from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,16 +34,20 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased relative`}
       >
-        <header>
-          <Header />
-        </header>
-        <div className="fixed top-1/2 left-0 z-50 h-screen p-4">
-          <UISettingsPanel />
-        </div>
-        <main>{children}</main>
-        <footer >
-          <Footer />
-        </footer>
+        <Providers>
+          <ThemeApplier />
+
+            <header>
+              <Header />
+            </header>
+            <div className="fixed top-1/2 left-0 z-50 h-screen p-4">
+              <UISettingsPanel />
+            </div>
+            <main>{children}</main>
+            <footer >
+              <Footer />
+            </footer>
+        </Providers>
       </body>
     </html>
   );

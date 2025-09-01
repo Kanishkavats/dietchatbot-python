@@ -4,8 +4,12 @@ import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { InfoBarDropdown } from "./InfoBarDropdown";
 import { currencies, languages, socialIcons } from "@/staticResource";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const InfoBar = () => {
+
+  const { primaryColor } = useSelector((state: RootState) => state.theme);
 
   return (
     <motion.div
@@ -18,12 +22,13 @@ const InfoBar = () => {
 
         {/* Left: Email & Phone */}
         <div className="flex items-center space-x-6">
-          <motion.div whileHover={{ cursor:'pointer' }} className="flex items-center space-x-2 transition duration-111 hover:text-palate-yellow">
-            <Icon icon="mdi:email-outline" className="text-palate-yellow w-5 h-5" />
+          <motion.div whileHover={{ cursor: 'pointer' }} className={`flex items-center space-x-2 transition duration-111 hover:text-${primaryColor}`}>
+            <Icon icon="mdi:email-outline" className={` w-5 h-5  text-${primaryColor} `} />
             <span className="">support@example.com</span>
           </motion.div>
-          <motion.div whileHover={{ cursor:'pointer' }} className="flex items-center space-x-2 hover:text-palate-yellow">
-            <Icon icon="mdi:phone" className="text-palate-yellow w-5 h-5" />
+          <motion.div whileHover={{ cursor: 'pointer' }}
+            className={`flex items-center space-x-2 hover:text-${primaryColor}`}>
+            <Icon icon="mdi:phone" className={` w-5 h-5  text-${primaryColor}`} />
             <span className="">+2(305) 587-3407</span>
           </motion.div>
         </div>
@@ -33,17 +38,18 @@ const InfoBar = () => {
           <InfoBarDropdown options={languages} label="Menu" />
 
           {/* Social Icons */}
-          <div className="flex items-center space-x-4 text-gray-300">
+          <div className="flex items-center space-x-4 text-palate-white2">
             {socialIcons.map(({ icon, label, link }) => (
-              <motion.a
+              <a
                 key={label}
                 href={link}
                 aria-label={label}
-                whileHover={{ scale: 1, color: "#F3BB11" }}
-                className="cursor-pointer"
+                // whileHover={{ scale: 1.2 }}
+                className={`cursor-pointer text-palate-white hover:text-${primaryColor} transition-colors duration-200`}
               >
                 <Icon icon={icon} className="w-[18px] h-[18px]" />
-              </motion.a>
+              </a>
+
             ))}
           </div>
 
