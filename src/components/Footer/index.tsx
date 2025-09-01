@@ -1,213 +1,214 @@
 "use client";
-import { footerData } from "@/staticResource";
+import React, { useState } from 'react';
+import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import Newsletter from "./Newsletter";
-import { logoLight } from "@/assets";
-import Image from "next/image";
-import { motion, useAnimationControls, useInView } from "framer-motion";
-import { useRef } from "react";
-import Divider from "@/helper/HorizontalDevider";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { logo } from "../../../public/assets";
 
 const Footer = () => {
+  const [email, setEmail] = useState('');
 
-  // ref for the whole footer
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.2 });
-  const iconControls = useAnimationControls();
-
-
-  // Parent container animation (for stagger effect)
-  const container = {
-    hidden: {},
-    show: {
-      transition: {
-        staggerChildren: 0.25, // delay between each child
-      },
-    },
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle newsletter subscription
+    console.log('Newsletter subscription:', email);
+    setEmail('');
   };
 
-  // Each item animation
-  const item = {
-    hidden: { opacity: 0, y: 50 },
-    show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
-  };
-  const { primaryColor } = useSelector((state: RootState) => state.theme);
+  const quickLinks = [
+    { label: "About Us", href: "/about" },
+    { label: "Our News", href: "/news" },
+    { label: "Our Campaign", href: "/campaign" },
+    { label: "FAQ", href: "/faq" },
+    { label: "Get A Quote", href: "/quote" },
+  ];
 
-  // Common base for underline effect
-  const underlineBase = `relative inline-flex items-center gap-2  before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-${primaryColor} before:block before:scale-x-0 before:origin-center before:transition-transform`;
+  const services = [
+    { label: "Our Causes", href: "/causes" },
+    { label: "Education Support", href: "/education" },
+    { label: "Our Campaign", href: "/campaign" },
+    { label: "Food Support", href: "/food" },
+    { label: "Health Support", href: "/health" },
+  ];
 
-  // Variant: triggers from parent group
-  const underlineOnGroupHover = `${underlineBase} text-palate-white2 transition-colors group-hover:text-[var(--primary-color)] before:duration-500 group-hover:before:scale-x-100`;
-
-  // Variant: triggers on element itself
-  const underlineOnHover = `${underlineBase} cursor-pointer hover:text-${primaryColor} before:duration-300 hover:before:scale-x-100`;
+  const socialIcons = [
+    { icon: "fa6-brands:facebook-f", label: "Facebook", link: "#" },
+    { icon: "simple-icons:vimeo", label: "Vimeo", link: "#" },
+    { icon: "fa6-brands:twitter", label: "Twitter", link: "#" },
+    { icon: "fa6-brands:linkedin-in", label: "LinkedIn", link: "#" },
+  ];
 
   return (
-    <footer ref={ref} className="bg-palate-green text-white py-5 px-[3%] xl:px-6 relative">
-      <Newsletter />
-      
-      <motion.div
-        animate={{
-          scale: [1, 1.3, 1], 
-         opacity: [0.6, 1, 0.6]
-        }}
-        transition={{
-          duration: 3,       // total time for one cycle
-          repeat: Infinity,  // loop forever
-          ease: "easeInOut", // smooth animation
-        }}
-        className="absolute top-[29%] xl:top-[32%] left-0 xl:left-8 transform -translate-y-1/2 text-palate-yellow"
-      >
-        <Icon
-          icon="guidance:heart"
-          className=" size-10 xl:size-20 rotate-[320deg]"
-        />
-      </motion.div>
-
-
-      {/* Main Grid */}
-      <motion.div
-        className="max-w-7xl mx-auto py-12 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10"
-        variants={container}
-        initial="hidden"
-        animate={inView ? "show" : "hidden"}
-      >
-        {/* Brand */}
-        <motion.div variants={item}>
-          <div className="h-10 w-50 relative">
-            <Image src={logoLight} fill alt={footerData.brand.name} />
-          </div>
-          <p className="mt-8 text-palate-white2 tracking-tight leading-7">
-            {footerData.brand.description}
-          </p>
-          <div className="flex gap-3 mt-6">
-            {footerData.brand.socials.map((s, i) => (
-              <a
-                key={i}
-                href={s.href}
-                className={`w-10 h-10 flex items-center justify-center border border-palate-white2/30 transition duration-200 rounded-full hover:bg-${primaryColor} hover:text-palate-green`}
-              >
-                <Icon icon={s.icon} width="15" />
-              </a>
-            ))}
-          </div>
-        </motion.div>
-        {/* Quick links */}
-        <motion.div variants={item}>
-          <h3 className="text-2xl font-semibold mb-4">Quick Links</h3>
-          <div className="w-[35%] mb-6">
-            <Divider />
+    <footer className="w-full bg-[#1A3635] text-white">
+      {/* Newsletter Section */}
+      <div className="max-w-7xl mx-auto px-6 py-12 border-b border-gray-600">
+        <div className="flex flex-col lg:flex-row items-center justify-between space-y-6 lg:space-y-0">
+          {/* Left Side */}
+          <div className="flex items-start space-x-4">
+            <div className="relative">
+              <Icon 
+                icon="mdi:heart-outline" 
+                className="w-12 h-12 text-yellow-400 absolute -top-2 -left-2" 
+              />
+            </div>
+            <div>
+              <h3 className="text-3xl font-bold mb-2">Subscribe To Our Newsletter</h3>
+              <p className="text-gray-300 text-lg">Regular Inspections And Feedback Mechanisms</p>
+            </div>
           </div>
 
-          <ul className="space-y-4">
-            {footerData.quickLinks.map((link, i) => (
-              <li key={i} className="relative group">
-                <a
-                  href={link.href}
-                  className={underlineOnGroupHover}
+          {/* Right Side - Newsletter Form */}
+          <form onSubmit={handleSubmit} className="flex items-center space-x-3">
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter Email"
+              className="px-6 py-4 rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 min-w-[300px]"
+              required
+            />
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              type="submit"
+              className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center space-x-2"
+            >
+              <Icon icon="mdi:send" className="w-5 h-5" />
+            </motion.button>
+          </form>
+        </div>
+      </div>
+
+      {/* Main Footer Content */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {/* Column 1: Charifund */}
+          <div className="space-y-6">
+            <div className="flex items-center space-x-2">
+              <img src={logo.src} alt="Charifund Logo" className="h-10" />
+              <span className="text-2xl font-bold">Charifund</span>
+            </div>
+            <p className="text-gray-300 leading-relaxed">
+              Our Secure Online Donation Platform Allows You To Make Contributions Quickly And Safely. Choose From Various.
+            </p>
+            <div className="flex items-center space-x-4">
+              {socialIcons.map(({ icon, label, link }) => (
+                <motion.a
+                  key={label}
+                  href={link}
+                  aria-label={label}
+                  whileHover={{ scale: 1.1, color: "#F3BB11" }}
+                  className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-200"
                 >
-                  <Icon icon="mingcute:arrow-up-fill" width={18} height={18} className="rotate-45" />
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </motion.div>
-
-        {/* Services */}
-        <motion.div variants={item}>
-          <h3 className="text-2xl font-semibold mb-4 ps-1">
-            Our Services
-          </h3>
-          <div className="w-[35%] mb-6">
-            <Divider />
-          </div>
-          <ul className="space-y-4">
-            {footerData.services.map((service, i) => (
-              <li key={i} className="relative group">
-                <a
-                  href={service.href}
-                  className={underlineOnGroupHover}
-                >
-                  <Icon icon="mingcute:arrow-up-fill" className="rotate-45" width={18} height={18} />
-
-                  {service.label}
-                </a>
-              </li>
-
-            ))}
-          </ul>
-
-
-
-        </motion.div>
-
-        {/* Contact */}
-        <motion.div variants={item} className="text-palate-white2">
-          <h3 className="text-2xl font-semibold mb-4 text-palate-white">
-            Get In Touch
-          </h3>
-          <div className="w-[35%] mb-6">
-            <Divider />
-          </div>
-          <div className="space-y-4">
-
-            <p
-              className={underlineOnHover}
-            >
-              <Icon icon="mdi:location" width="30" height="30" className="text-palate-yellow" />
-              <span>{footerData.contact.address}</span>
-            </p>
-
-            <p
-              className={underlineOnHover}
-            >
-              <Icon icon="mdi:phone" width="20" height="30" className="text-palate-yellow" />
-              <span>{footerData.contact.phone}</span>
-            </p>
-
-            <p
-              className={underlineOnHover}
-            >
-              <Icon icon="mdi:email" width="20" height="30" className="text-palate-yellow" />
-              <span>{footerData.contact.email}</span>
-            </p>
+                  <Icon icon={icon} className="w-5 h-5" />
+                </motion.a>
+              ))}
+            </div>
           </div>
 
-        </motion.div>
-      </motion.div>
+          {/* Column 2: Quick Links */}
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-xl font-bold mb-3">Quick Links</h4>
+              <div className="w-12 h-1 bg-yellow-400 rounded"></div>
+            </div>
+            <ul className="space-y-3">
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <motion.a
+                    href={link.href}
+                    whileHover={{ x: 5, color: "#F3BB11" }}
+                    className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors duration-200"
+                  >
+                    <Icon icon="mdi:chevron-right" className="w-4 h-4" />
+                    <span>{link.label}</span>
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-      {/* Bottom Section */}
-      <motion.div
-        className="border-t border-gray-600 mt-8 py-6"
-        variants={item}
-        initial="hidden"
-        animate={inView ? "show" : "hidden"}
-      >
-        <div className="max-w-6xl mx-auto
-         flex flex-col md:flex-row items-center justify-between gap-4 ">
-          <p className="text-center xl:text-left">
-            Copyright ©{" "}
-            <span className="text-palate-yellow hover:text-palate-white cursor-pointer">Charifund</span>. All Rights
-            Reserved.
-          </p>
-          <div className="flex flex-wrap justify-center gap-6">
-            {footerData.bottomLinks.map((link, i) => (
-              <a
-                key={i}
-                href={link.href}
-                className={` ${underlineOnHover} text-palate-white`}
-              >
-                {link.label}
-              </a>
-            ))}
+          {/* Column 3: Our Services */}
+          <div className="space-y-6">
+            <div>
+              <h4 className="text-xl font-bold mb-3">Our Services</h4>
+              <div className="w-12 h-1 bg-yellow-400 rounded"></div>
+            </div>
+            <ul className="space-y-3">
+              {services.map((service) => (
+                <li key={service.label}>
+                  <motion.a
+                    href={service.href}
+                    whileHover={{ x: 5, color: "#F3BB11" }}
+                    className="flex items-center space-x-2 text-gray-300 hover:text-yellow-400 transition-colors duration-200"
+                  >
+                    <Icon icon="mdi:chevron-right" className="w-4 h-4" />
+                    <span>{service.label}</span>
+                  </motion.a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Get In Touch */}
+          <div className="space-y-6 relative">
+            <div>
+              <h4 className="text-xl font-bold mb-3">Get In Touch</h4>
+              <div className="w-12 h-1 bg-yellow-400 rounded"></div>
+            </div>
+            <div className="space-y-4">
+              <div className="flex items-start space-x-3">
+                <Icon icon="mdi:map-marker" className="w-5 h-5 text-yellow-400 mt-1 flex-shrink-0" />
+                <span className="text-gray-300 text-sm">
+                  455 west orchard street kings mountain, nc 280867
+                </span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Icon icon="mdi:phone" className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                <span className="text-gray-300">+088 (246) 642-27-10</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Icon icon="mdi:email" className="w-5 h-5 text-yellow-400 flex-shrink-0" />
+                <span className="text-gray-300">example@email.com</span>
+              </div>
+            </div>
+            
+            {/* Decorative Heart */}
+            <div className="absolute -bottom-4 -right-4 opacity-10">
+              <Icon icon="mdi:heart-outline" className="w-32 h-32" />
+            </div>
           </div>
         </div>
-      </motion.div>
+      </div>
+
+      {/* Scroll to Top Button */}
+      <div className="relative">
+        <motion.button
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="absolute -top-6 right-6 w-12 h-12 bg-[#12322D] rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-black transition-all duration-200 shadow-lg"
+        >
+          <Icon icon="mdi:chevron-up" className="w-6 h-6" />
+        </motion.button>
+      </div>
+
+    
     </footer>
   );
 };
 
 export default Footer;
+
+
+
+  /* CONFLICTED CODE FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+      The code below was from the develop branch but conflicts with our version.
+      It includes different imports and a completely different Footer structure.
+      Key differences:
+      - Uses footerData from staticResource
+      - Uses logoLight from assets  
+      - Has Newsletter component
+      - Different styling and layout
+      - Uses Redux for theme
+      - Has motion animations with staggered effects
+      */

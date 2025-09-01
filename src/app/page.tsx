@@ -1,10 +1,11 @@
-import Home from "@/components/Home";
-import Image from "next/image";
+import Home from '@/components/Home';
+import CharityWithDifference from '../components/CharityWithDiffrence';
 
-export default function page() {
+export default function Page() {
   return (
     <div>
       <Home />
+      <CharityWithDifference />
     </div>
   );
 }
