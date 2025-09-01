@@ -1,4 +1,5 @@
 import { charityLife, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, theBird, treeLife } from "./assets";
+import { FAQItem } from "./types/faq";
 import { NavItem } from "./types/header";
 
 
@@ -126,4 +127,28 @@ export const PartnersCompaniesData = [
   { src: loremIpsum.src, alt: "Lorem Ipsum" },
   { src: charityLife.src, alt: "Charity Life" },
   { src: heartCare.src, alt: "Heart Care" },
+];
+
+
+export const faqData: FAQItem[] = [
+  {
+    question: "What kind of recipes can I find on your website?",
+    answer:
+      "It is a long established fact that a reader will be distracted by the readable the a content of a page when looking at its layout. Many desktop publishing packages and web page editors.",
+  },
+  {
+    question: "Are the recipes suitable for beginners?",
+    answer:
+      "It is a long established fact that a reader will be distracted by the readable the a content of a page when looking at its layout. Many desktop publishing packages and web page editors.",
+  },
+  {
+    question: "Do you offer cooking tips and techniques?",
+    answer:
+      "It is a long established fact that a reader will be distracted by the readable the a content of a page when looking at its layout. Many desktop publishing packages and web page editors.",
+  },
+  {
+    question: "How frequently you update you recipe collection?",
+    answer:
+      "It is a long established fact that a reader will be distracted by the readable the a content of a page when looking at its layout. Many desktop publishing packages and web page editors.",
+  },
 ];
