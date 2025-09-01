@@ -1,5 +1,5 @@
 import { homeFive, homeFour, homeOne, homeThree, homeTwo } from "./assets";
-import { NavItem } from "./header";
+import { NavItem } from "./types/header";
 
 
 // ✅ Data arrays
@@ -85,10 +85,10 @@ export const footerData = {
     description:
       "Our Secure Online Donation Platform Allows You To Make Contributions Quickly And Safely. Choose From Various.",
     socials: [
-      { icon: "mdi:facebook", href: "#" },
+      { icon: "line-md:facebook", href: "#" },
       { icon: "mdi:vimeo", href: "#" },
       { icon: "mdi:twitter", href: "#" },
-      { icon: "mdi:linkedin", href: "#" },
+      { icon: "fontisto:linkedin", href: "#" },
     ],
   },
   quickLinks: [

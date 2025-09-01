@@ -3,12 +3,13 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { logo } from "@/assets";
-import { NAV_ITEMS, socialIcons } from "@/staticResource";
+import { NAV_ITEMS } from "@/staticResource";
 import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
 import { MobileBackdrop } from "./MobileDrawer/MobileBackdrop";
 import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
-import { useAnimationControls } from "framer-motion";
 import DonateButton from "@/helper/Buttons/DonateButton";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
 
 const Navbar = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -17,13 +18,9 @@ const Navbar = () => {
   const [drawerDelay, setDrawerDelay] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const DRAWER_ANIMATION_DELAY = 0.6; // seconds
+  const DRAWER_ANIMATION_DELAY = 0.6;
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [showCloseButton, setShowCloseButton] = useState(false);
-
-
-
-
 
 
   // Reset backdrop animation flag on open/close
@@ -40,8 +37,6 @@ const Navbar = () => {
       setDrawerDelay(true);
     }
   }, [mobileMenuOpen]);
-
-
 
   const closeMenu = () => {
     setIsClosing(true);
@@ -73,15 +68,7 @@ const Navbar = () => {
     }
   }, [searchOpen]);
 
-
-
-
-
-
-  // Inside your component:
-  const iconControls = useAnimationControls();
-
-
+  const { primaryColor } = useSelector((state: RootState) => state.theme);
 
   return (
     <nav className="w-full flex items-center justify-between  md:px-8 py-4 relative">
@@ -89,7 +76,9 @@ const Navbar = () => {
       <motion.img src={logo.src} alt="Logo" className="h-10" />
 
       {/* Main Nav Items - visible only on xl and up */}
-      <ul className="hidden xl:flex items-center gap-6 bg-palate-yellow px-10 py-6 rounded-full font-medium text-black relative">
+      <ul
+        style={{ backgroundColor: `var(${primaryColor})` }}
+        className={`hidden xl:flex items-center gap-6  px-10 py-6 rounded-full font-medium text-black relative bg-${primaryColor}`}>
         {NAV_ITEMS.map((item, i) => (
           <li
             key={i}
@@ -117,11 +106,11 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Right Section - Always visible */}
       <div className="flex items-center gap-4">
         {/* Search Icon (visible on lg and down) */}
         <div className="font-bold">
-          <button onClick={() => setSearchOpen(true)} className="cursor-pointer">
+          <button onClick={() => {
+            setSearchOpen(true)}} className="cursor-pointer">
             <Icon icon="mdi:magnify" width={32} height={32} />
           </button>
         </div>
