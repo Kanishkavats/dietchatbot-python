@@ -33,7 +33,7 @@ export default function RootLayout({
         <header>
           <Header />
         </header>
-        <div className="absolute inset-0 z-50 flex items-center h-screen justify-start p-4">
+        <div className="fixed top-1/2 left-0 z-50 h-screen p-4">
           <UISettingsPanel />
         </div>
         <main>{children}</main>

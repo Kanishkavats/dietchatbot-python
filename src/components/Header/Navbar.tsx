@@ -3,11 +3,10 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { logo } from "@/assets";
-import { NAV_ITEMS, socialIcons } from "@/staticResource";
+import { NAV_ITEMS } from "@/staticResource";
 import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
 import { MobileBackdrop } from "./MobileDrawer/MobileBackdrop";
 import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
-import { useAnimationControls } from "framer-motion";
 import DonateButton from "@/helper/Buttons/DonateButton";
 
 const Navbar = () => {
@@ -17,13 +16,9 @@ const Navbar = () => {
   const [drawerDelay, setDrawerDelay] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const DRAWER_ANIMATION_DELAY = 0.6; // seconds
+  const DRAWER_ANIMATION_DELAY = 0.6;
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [showCloseButton, setShowCloseButton] = useState(false);
-
-
-
-
 
 
   // Reset backdrop animation flag on open/close
@@ -40,8 +35,6 @@ const Navbar = () => {
       setDrawerDelay(true);
     }
   }, [mobileMenuOpen]);
-
-
 
   const closeMenu = () => {
     setIsClosing(true);
@@ -72,15 +65,6 @@ const Navbar = () => {
       setShowCloseButton(false);
     }
   }, [searchOpen]);
-
-
-
-
-
-
-  // Inside your component:
-  const iconControls = useAnimationControls();
-
 
 
   return (
@@ -117,11 +101,11 @@ const Navbar = () => {
         ))}
       </ul>
 
-      {/* Right Section - Always visible */}
       <div className="flex items-center gap-4">
         {/* Search Icon (visible on lg and down) */}
         <div className="font-bold">
-          <button onClick={() => setSearchOpen(true)} className="cursor-pointer">
+          <button onClick={() => {
+            setSearchOpen(true)}} className="cursor-pointer">
             <Icon icon="mdi:magnify" width={32} height={32} />
           </button>
         </div>

@@ -28,8 +28,9 @@ const DonateButton = () => {
         <motion.div
           animate={iconControls}
           transition={{ duration: 0.4, ease: "easeInOut" }}
+
         >
-          <Icon icon="mdi:arrow-top-right" width={18} height={18} />
+          <Icon icon="mdi:arrow-top-right"  width={18} height={18} />
         </motion.div>
       </div>
     </motion.button>
