@@ -1,9 +1,20 @@
 "use client";
-import { motion } from "framer-motion";
-import { useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
 import { Dropdown, DropdownOption } from "./Dropdown";
 import { homeOne, homeTwo, homeThree, homeFour, homeFive, logo } from "../../../public/assets";
+
+/* CONFLICTED IMPORTS FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+import { logo } from "@/assets";
+import { NAV_ITEMS } from "@/staticResource";
+import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
+import { MobileBackdrop } from "./MobileDrawer/MobileBackdrop";
+import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
+import DonateButton from "@/helper/Buttons/DonateButton";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+*/
 
 interface NavItem {
   label: string;
@@ -127,9 +138,17 @@ const Navbar = () => {
             <span className="text-sm">Donate Now</span>
             <Icon icon="mdi:arrow-top-right" width={16} height={16} />
           </motion.button>
-        </div>
-      </div>
-    </nav>
+
+          {/* CONFLICTED NAVBAR STRUCTURE FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+          The develop branch had a completely different Navbar implementation with:
+          - Mobile menu functionality  
+          - Different dropdown structure
+          - Redux theme integration
+          - Mobile backdrop and drawer components
+          - Different responsive design approach
+          - Complex search overlay system
+          - Mobile drawer with backdrop animations
+          */
   );
 };
 

@@ -1,7 +1,7 @@
 "use client";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
 
 // ✅ Data arrays
 const currencies = ["USD", "EUR", "INR"];
@@ -26,6 +26,14 @@ const InfoBar = () => {
   const [selectedCurrency, setSelectedCurrency] = useState("USD");
   const [selectedLanguage, setSelectedLanguage] = useState("English");
 
+  /* CONFLICTED IMPORTS AND LOGIC FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+  import { InfoBarDropdown } from "./InfoBarDropdown";
+  import { currencies, languages, socialIcons } from "@/staticResource";
+  import { useSelector } from "react-redux";
+  import { RootState } from "@/store";
+  const { primaryColor } = useSelector((state: RootState) => state.theme);
+  */
+
   return (
     <motion.div
       initial={{ y: -50, opacity: 0 }}
@@ -45,8 +53,22 @@ const InfoBar = () => {
             <Icon icon="mdi:phone" className="text-yellow-400 w-4 h-4" />
             <span className="text-sm font-medium">+2(305) 587-3407</span>
           </motion.div>
-        </div>
 
+          {/* CONFLICTED STYLING FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+          Different styling approach with theme support:
+          className="w-full bg-palate-green text-white text-sm py-2 rounded-b-2xl hidden lg:block"
+          <div className="flex flex-col md:flex-row justify-between items-center px-8 py-2 space-y-2 md:space-y-0">
+            <motion.div whileHover={{ cursor: 'pointer' }} className={`flex items-center space-x-2 transition duration-111 hover:text-${primaryColor}`}>
+              <Icon icon="mdi:email-outline" className={` w-5 h-5  text-${primaryColor} `} />
+              <span className="">support@example.com</span>
+            </motion.div>
+            <motion.div whileHover={{ cursor: 'pointer' }} className={`flex items-center space-x-2 hover:text-${primaryColor}`}>
+              <Icon icon="mdi:phone" className={` w-5 h-5  text-${primaryColor}`} />
+              <span className="">+2(305) 587-3407</span>
+            </motion.div>
+          */
+          </motion.div>
+        </div>
         {/* Right: Dropdowns & Social Icons */}
         <div className="flex items-center space-x-4">
           {/* Currency Dropdown */}
@@ -107,6 +129,13 @@ const InfoBar = () => {
 
           {/* Social Icons */}
           <div className="flex items-center space-x-3 text-white">
+
+          {/* CONFLICTED DROPDOWN APPROACH FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+          Different dropdown implementation using reusable component:
+          <InfoBarDropdown options={currencies} label="Currency" />
+          <InfoBarDropdown options={languages} label="Menu" />
+          <div className="flex items-center space-x-4 text-palate-white2">
+          */
             {socialIcons.map(({ icon, label, link }) => (
               <motion.a
                 key={label}
@@ -117,8 +146,18 @@ const InfoBar = () => {
               >
                 <Icon icon={icon} className="w-4 h-4" />
               </motion.a>
+
+              {/* CONFLICTED STYLING FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+              Different approach without motion.a and theme-based colors:
+              <a
+                className={`cursor-pointer text-palate-white hover:text-${primaryColor} transition-colors duration-200`}
+              >
+                <Icon icon={icon} className="w-[18px] h-[18px]" />
+              </a>
+              */
             ))}
           </div>
+
         </div>
       </div>
     </motion.div>

@@ -191,6 +191,18 @@ const Footer = () => {
           <Icon icon="mdi:chevron-up" className="w-6 h-6" />
         </motion.button>
       </div>
+
+      {/* CONFLICTED CODE FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+      The code below was from the develop branch but conflicts with our version.
+      It includes different imports and a completely different Footer structure.
+      Key differences:
+      - Uses footerData from staticResource
+      - Uses logoLight from assets  
+      - Has Newsletter component
+      - Different styling and layout
+      - Uses Redux for theme
+      - Has motion animations with staggered effects
+      */
     </footer>
   );
 };

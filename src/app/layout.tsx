@@ -3,6 +3,11 @@ import { Caveat, Nunito } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import UISettingsPanel from "@/components/UISettingsPanel";
+import { Provider } from "react-redux";
+import ThemeApplier from "@/helper/ThemeApplier";
+import { store } from "@/store";
+import Providers from "./providers";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -32,6 +37,22 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        
+        {/* CONFLICTED CODE FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+        <Providers>
+          <ThemeApplier />
+          <header>
+            <Header />
+          </header>
+          <div className="fixed top-1/2 left-0 z-50 h-screen p-4">
+            <UISettingsPanel />
+          </div>
+          <main>{children}</main>
+          <footer>
+            <Footer />
+          </footer>
+        </Providers>
+        */
       </body>
     </html>
   );

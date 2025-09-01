@@ -129,7 +129,7 @@ export default function HelpingEachOther() {
             </div>
 
             {/* Main Heading */}
-            <h2 className="text-4xl lg:text-5xl font-Nunito ,sans-serif text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up" style={{animationDelay: '0.8s'}}>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up" style={{animationDelay: '0.8s'}}>
               Helping Each Other Can Make{' '}
               <span className="text-yellow-400 animate-pulse">World</span> Better
             </h2>
