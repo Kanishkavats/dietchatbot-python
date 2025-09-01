@@ -1,10 +1,9 @@
-import Home from "@/components/Home";
-import Image from "next/image";
+import CharityWithDifference from '../components/CharityWithDiffrence';
 
-export default function page() {
+export default function Home() {
   return (
     <div>
-      
+      <CharityWithDifference />
     </div>
   );
 }

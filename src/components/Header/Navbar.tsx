@@ -2,6 +2,10 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
+import { Dropdown, DropdownOption } from "./Dropdown";
+import { homeOne, homeTwo, homeThree, homeFour, homeFive, logo } from "../../../public/assets";
+
+/* CONFLICTED IMPORTS FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
 import { logo } from "@/assets";
 import { NAV_ITEMS } from "@/staticResource";
 import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
@@ -10,200 +14,141 @@ import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
 import DonateButton from "@/helper/Buttons/DonateButton";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+*/
+
+interface NavItem {
+  label: string;
+  dropdown: DropdownOption[] | null;
+}
+
+const NAV_ITEMS: NavItem[] = [
+  {
+    label: "Home",
+    dropdown: [
+      { name: "Home One", image: homeOne.src },
+      { name: "Home Two", image: homeTwo.src },
+      { name: "Home Three", image: homeThree.src },
+      { name: "Home Four", image: homeFour.src },
+      { name: "Home Five", image: homeFive.src },
+    ],
+  },
+  { label: "About Us", dropdown: null },
+  {
+    label: "Causes",
+    dropdown: [
+      { label: "Our Causes", href: "/causes" },
+      { label: "Cause Details", href: "/causes/details" },
+    ],
+  },
+  {
+    label: "Pages",
+    dropdown: [
+      { label: "FAQ", href: "/faq" },
+      { label: "Donate Us", href: "/donate" },
+      { label: "Become Volunteer", href: "/volunteer" },
+      { label: "Team", 
+        children: [
+          {label: "Our Teams", href: "/team" },
+          {label: "Team Details", href: "/team" },
+        ]
+       },
+      { label: "Shop", 
+        children: [
+          { label: "Our Shop", href: "/shop" },
+          { label: "Product Detials", href: "/shop" },
+          { label: "View Cart", href: "/shop" },
+          { label: "Checkout", href: "/shop" },
+        ],
+      },
+      {
+        label: "Events",
+        children: [
+          { label: "Events", href: "/events" },
+          { label: "Event Details", href: "/events/details" },
+        ],
+      },
+    ],
+  },
+  { 
+    label: "News", 
+    dropdown: [
+      { label: "News List View", href: "/news/list" },
+      { label: "News Grid View", href: "/news/grid" },
+      { label: "News Details", href: "/news/details" },
+    ]
+  },
+  { label: "Contact Us", dropdown: null },
+];
 
 const Navbar = () => {
   const [open, setOpen] = useState<string | null>(null);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [backdropDone, setBackdropDone] = useState(false);
-  const [drawerDelay, setDrawerDelay] = useState(true);
-  const [isClosing, setIsClosing] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
-  const DRAWER_ANIMATION_DELAY = 0.6;
-  const [showSearchInput, setShowSearchInput] = useState(false);
-  const [showCloseButton, setShowCloseButton] = useState(false);
-
-
-  // Reset backdrop animation flag on open/close
-  useEffect(() => {
-    if (mobileMenuOpen) {
-      const timer = setTimeout(() => {
-        setBackdropDone(true);
-        setDrawerDelay(false);
-      }, DRAWER_ANIMATION_DELAY * 1000); // convert to ms
-
-      return () => clearTimeout(timer);
-    } else {
-      setBackdropDone(false);
-      setDrawerDelay(true);
-    }
-  }, [mobileMenuOpen]);
-
-  const closeMenu = () => {
-    setIsClosing(true);
-    setBackdropDone(false);
-    setTimeout(() => {
-      setMobileMenuOpen(false);
-      setIsClosing(false);
-      setDrawerDelay(true);
-    }, 900); // matches the backdrop exit delay
-  };
-
-  useEffect(() => {
-    if (searchOpen) {
-      const inputTimer = setTimeout(() => {
-        setShowSearchInput(true);
-      }, 600); // after backdrop
-
-      const closeBtnTimer = setTimeout(() => {
-        setShowCloseButton(true);
-      }, 900); // after input anim finishes
-
-      return () => {
-        clearTimeout(inputTimer);
-        clearTimeout(closeBtnTimer);
-      };
-    } else {
-      setShowSearchInput(false);
-      setShowCloseButton(false);
-    }
-  }, [searchOpen]);
-
-  const { primaryColor } = useSelector((state: RootState) => state.theme);
+  const [activeItem, setActiveItem] = useState("Home");
 
   return (
-    <nav className="w-full flex items-center justify-between  md:px-8 py-4 relative">
-      {/* Logo */}
-      <motion.img src={logo.src} alt="Logo" className="h-10" />
+    <nav className="w-full bg-white shadow-sm">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        {/* Logo */}
+        <motion.div 
+          whileHover={{ scale: 1.05 }}
+          className="flex items-center space-x-3"
+        >
+          <img src={logo.src} alt="Charifund Logo" className="h-12" />
+          <span className="text-2xl font-bold text-gray-800 font-charifund"></span>
+        </motion.div>
 
-      {/* Main Nav Items - visible only on xl and up */}
-      <ul
-        style={{ backgroundColor: `var(${primaryColor})` }}
-        className={`hidden xl:flex items-center gap-6  px-10 py-6 rounded-full font-medium text-black relative bg-${primaryColor}`}>
-        {NAV_ITEMS.map((item, i) => (
-          <li
-            key={i}
-            className="relative cursor-pointer"
-            onMouseEnter={() => setOpen(item.label)}
-            onMouseLeave={() => setOpen(null)}
+        {/* Menu - All items in single yellow box */}
+        <ul className="flex items-center bg-[#FFCC00] px-8 py-3 rounded-full font-medium text-black font-charifund">
+          {NAV_ITEMS.map((item, i) => (
+            <li
+              key={i}
+              className="relative cursor-pointer"
+              onMouseEnter={() => setOpen(item.label)}
+              onMouseLeave={() => setOpen(null)}
+            >
+              <div className="flex items-center space-x-1 px-3">
+                <span className="font-medium text-sm">{item.label}</span>
+                {item.dropdown && (
+                  <motion.span
+                    animate={{ rotate: open === item.label ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    <Icon icon="mdi:chevron-down" width={14} height={14} />
+                  </motion.span>
+                )}
+              </div>
+
+              {/* Dropdown */}
+              {item.dropdown && <Dropdown options={item.dropdown} open={open === item.label} />}
+            </li>
+          ))}
+        </ul>
+
+        {/* Right Section */}
+        <div className="flex items-center space-x-4">
+          <motion.button 
+            whileHover={{ scale: 1.1 }}
+            className="p-2 text-gray-600 hover:text-[#FFCC00] transition-colors duration-200"
           >
-            <div className="flex items-center gap-1 font-semibold">
-              {item.label}
-              {item.dropdown && (
-                <motion.span
-                  animate={{ rotate: open === item.label ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <Icon icon="mdi:chevron-down" width={16} height={16} />
-                </motion.span>
-              )}
-            </div>
+            <Icon icon="mdi:magnify" width={20} height={20} />
+          </motion.button>
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            className="flex items-center space-x-2 bg-[#FFCC00] hover:bg-[#E6B800] px-6 py-3 rounded-full font-semibold text-white transition-colors duration-200 shadow-md"
+          >
+            <span className="text-sm">Donate Now</span>
+            <Icon icon="mdi:arrow-top-right" width={16} height={16} />
+          </motion.button>
 
-            {/* Dropdown */}
-            {item.dropdown && open === item.label && (
-              <NavbarDropdown options={item.dropdown} />
-            )}
-          </li>
-        ))}
-      </ul>
-
-      <div className="flex items-center gap-4">
-        {/* Search Icon (visible on lg and down) */}
-        <div className="font-bold">
-          <button onClick={() => {
-            setSearchOpen(true)}} className="cursor-pointer">
-            <Icon icon="mdi:magnify" width={32} height={32} />
-          </button>
-        </div>
-        <AnimatePresence>
-          {searchOpen && (
-            <>
-              {/* Backdrop */}
-              <motion.div
-                initial={{ y: "-100%", opacity: 0 }}
-                animate={{ y: 0, opacity: 0.8 }}
-                exit={{ y: "-100%", opacity: 0 }}
-                transition={{ duration: 0.6, ease: "easeInOut" }}
-                className="fixed inset-0 bg-black z-40"
-              // onClick={() => setSearchOpen(false)} // click on outside  to close
-              />
-
-              {/* Search Input */}
-              {showSearchInput && (
-                <motion.div
-                  initial={{ scaleX: 0, opacity: 0 }}
-                  animate={{ scaleX: 1, opacity: 1 }}
-                  exit={{ scaleX: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  className="fixed top-1/2 left-1/2 z-50 transform -translate-x-1/2 -translate-y-1/2 origin-center"
-                >
-                  <div className="bg-white rounded-md w-[90vw] max-w-3xl flex items-center justify-between px-6 py-4 shadow-xl">
-                    <input
-                      type="text"
-                      placeholder="Search...."
-                      className="w-full text-lg focus:outline-none"
-                    />
-                    <Icon icon="mdi:magnify" width={24} height={24} className="text-black opacity-60" />
-                  </div>
-                </motion.div>
-              )}
-
-              {/* Close Button */}
-              {showCloseButton && (
-                <motion.button
-                  initial={{ y: 0, opacity: 0 }}
-                  animate={{ y: -100, opacity: 1 }}
-                  exit={{ y: 0, opacity: 0 }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                  onClick={() => setSearchOpen(false)}
-                  className="fixed top-1/2 left-1/2 w-17 h-17 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-palate-white rounded-full shadow-md cursor-pointer"
-                >
-                  <div className="bg-palate-yellow w-17 h-17  flex items-center justify-center  rounded-full relative -top-[2px]">
-                    <Icon icon="mdi:close" width={26} height={26} className="text-black" />
-                  </div>
-                </motion.button>
-              )}
-            </>
-          )}
-        </AnimatePresence>
-
-        {/* Donate Button (visible on all sizes) */}
-        <div className="hidden md:block">
-          <DonateButton />
-        </div>
-
-        {/* Menu Icon (visible on lg and down) */}
-        <div className="xl:hidden block">
-          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-palate-green">
-            <Icon icon="ci:menu-alt-02" width={36} height={38} />
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu - shown only when toggled */}
-      <AnimatePresence>
-        {(mobileMenuOpen || isClosing) && (
-          <>
-            <MobileBackdrop
-              isClosing={isClosing}
-              drawerDelay={drawerDelay}
-            />
-            {(backdropDone || isClosing) && (
-              <MobileDrawer
-                drawerDelay={DRAWER_ANIMATION_DELAY}
-                isClosing={isClosing}
-                open={open}
-                setOpen={setOpen}
-                setMobileMenuOpen={setMobileMenuOpen}
-              />
-            )}
-          </>
-        )}
-      </AnimatePresence>
-
-
-
-
-    </nav>
+          {/* CONFLICTED NAVBAR STRUCTURE FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+          The develop branch had a completely different Navbar implementation with:
+          - Mobile menu functionality  
+          - Different dropdown structure
+          - Redux theme integration
+          - Mobile backdrop and drawer components
+          - Different responsive design approach
+          - Complex search overlay system
+          - Mobile drawer with backdrop animations
+          */
   );
 };
 

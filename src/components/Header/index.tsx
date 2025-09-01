@@ -20,22 +20,30 @@ const Header = () => {
   }, []);
 
   return (
+    <header className="w-full">
+      <TopBar />
+      <InfoBar />
+      <Navbar />
+    </header>
+
+    {/* CONFLICTED CODE FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
+    The code below was from develop branch with different header structure:
+    - Uses sticky positioning
+    - Has scroll-based animations
+    - Different layout and styling
+    - Contains framer-motion scroll effects
+    
     <div className="sticky top-0 z-50 bg-background transition-all duration-300">
       <div className="fixed top-0 left-0 right-0 z-50">
         <TopBar />
       </div>
-
       <div className="px-2 pt-17 md:px-15 md:pt-13">
         <InfoBar />
-
-        {/* First Navbar - visible when not scrolled */}
         {!scrolled && (
           <div className="transition-opacity duration-300">
             <Navbar />
           </div>
         )}
-
-        {/* Second Navbar - animated with framer-motion when scrolled */}
         <AnimatePresence>
           {scrolled && (
             <motion.div
@@ -52,6 +60,7 @@ const Header = () => {
         </AnimatePresence>
       </div>
     </div>
+    */
   );
 };
 
