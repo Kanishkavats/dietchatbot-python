@@ -1,10 +1,11 @@
-import Image from "next/image";
+import CharityWithDifference from '../components/CharityWithDiffrence';
+import HelpingEachOther from '../components/HelpingEachOther';
 
 export default function Home() {
   return (
     <div>
-        <h2>Welcome to Charifund</h2>
-        <p>Your development environment for Charifund.</p>
+      <CharityWithDifference />
+      <HelpingEachOther />
     </div>
   );
 }

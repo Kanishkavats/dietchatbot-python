@@ -7,14 +7,11 @@ import Navbar from './Navbar';
 
 const Header = () => {
   return (
-    <div>
+    <header className="w-full">
       <TopBar />
-      <div className='px-15'>
-        <InfoBar />
-        <Navbar />
-      </div>
-
-    </div>
+      <InfoBar />
+      <Navbar />
+    </header>
   )
 }
 
