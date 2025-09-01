@@ -1,12 +1,16 @@
 'use client'
-import { Icon } from '@iconify/react/dist/iconify.js';
 
 import React from 'react'
-import UISettingsPanel from '../UISettingsPanel';
+import HeroCarousel from '../Hero';
+import PartnersCompanies from '../PartnersCompanies';
+import Charity from '../CharifyCard';
 
 const Home = () => {
   return (
     <div>
+      <HeroCarousel />
+      <PartnersCompanies />
+      <Charity />
     </div>
   )
 }

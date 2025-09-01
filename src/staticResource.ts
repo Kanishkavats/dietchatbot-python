@@ -1,4 +1,4 @@
-import { homeFive, homeFour, homeOne, homeThree, homeTwo } from "./assets";
+import { charityLife, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, theBird, treeLife } from "./assets";
 import { NavItem } from "./types/header";
 
 
@@ -116,3 +116,14 @@ export const footerData = {
     { label: "Cookie Settings", href: "#" },
   ],
 };
+
+
+
+
+export const PartnersCompaniesData = [
+  { src: theBird.src, alt: "The Bird" },
+  { src: treeLife.src, alt: "Tree Life" },
+  { src: loremIpsum.src, alt: "Lorem Ipsum" },
+  { src: charityLife.src, alt: "Charity Life" },
+  { src: heartCare.src, alt: "Heart Care" },
+];

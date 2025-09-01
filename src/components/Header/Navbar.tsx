@@ -7,9 +7,10 @@ import { NAV_ITEMS } from "@/staticResource";
 import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
 import { MobileBackdrop } from "./MobileDrawer/MobileBackdrop";
 import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
-import DonateButton from "@/helper/Buttons/DonateButton";
+import DonateButton from "@/helper/Buttons/Button";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
+import Button from "@/helper/Buttons/Button";
 
 const Navbar = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -168,7 +169,7 @@ const Navbar = () => {
 
         {/* Donate Button (visible on all sizes) */}
         <div className="hidden md:block">
-          <DonateButton />
+          <Button text="Donate Now" />
         </div>
 
         {/* Menu Icon (visible on lg and down) */}

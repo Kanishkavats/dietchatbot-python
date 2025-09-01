@@ -1,10 +1,10 @@
 'use client';
-import { motion, useAnimationControls } from "framer-motion";
+import { motion} from "framer-motion";
 import { Icon } from "@iconify/react";
 import { logo } from "@/assets";
 import { NAV_ITEMS, socialIcons } from "@/staticResource";
 import MobileDropdownItem from "./MobileDropdownItem";
-import DonateButton from "./DonateButton";
+import Button from "@/helper/Buttons/Button";
 
 interface MobileDrawerProps {
   drawerDelay: number; // <-- Change from boolean to number
@@ -61,7 +61,7 @@ export const MobileDrawer = ({
 
       {/* Social Icons */}
       <div className="flex  items-center justify-center space-x-4 mt-1">
-        <DonateButton />
+        <Button text="Donate Now" />
       </div>
       <div className="flex  items-center justify-center space-x-4 mt-10">
 

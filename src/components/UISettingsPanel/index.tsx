@@ -120,11 +120,7 @@ const UISettingsPanel = () => {
                   <button
                     key={color}
                     onClick={() => dispatch(setPrimaryColor(color))}
-                    className={`h-12 rounded ${bg} border-2 ${
-                      primaryColor === color
-                        ? "border-black"
-                        : "border-transparent"
-                    }`}
+                    className={`h-12 rounded cursor-pointer ${bg} `}
                   />
                 );
               })}
