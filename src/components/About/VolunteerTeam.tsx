@@ -37,10 +37,30 @@ const VolunteerTeam = () => {
   const [activeSocialBar, setActiveSocialBar] = useState<number | null>(null);
 
   const teamMembers = [
-    { name: "Michel Fokluz", role: "Volunteer", img: "/assets/volunteer1.png", delay: 0 },
-    { name: "Arian Drobloas", role: "Volunteer", img: "/assets/volunteer2.png", delay: 300 },
-    { name: "Jara Klintof", role: "Volunteer", img: "/assets/volunteer3.png", delay: 600 },
-    { name: "Aiden Markram", role: "Volunteer", img: "/assets/volunteer4.png", delay: 900 },
+    {
+      name: "Michel Fokluz",
+      role: "Volunteer",
+      img: "/assets/volunteer1.png",
+      delay: 0,
+    },
+    {
+      name: "Arian Drobloas",
+      role: "Volunteer",
+      img: "/assets/volunteer2.png",
+      delay: 300,
+    },
+    {
+      name: "Jara Klintof",
+      role: "Volunteer",
+      img: "/assets/volunteer3.png",
+      delay: 600,
+    },
+    {
+      name: "Aiden Markram",
+      role: "Volunteer",
+      img: "/assets/volunteer4.png",
+      delay: 900,
+    },
   ];
 
   return (
@@ -103,58 +123,66 @@ const VolunteerTeam = () => {
 
       <section className="bg-cover bg-center bg-[url('/assets/bg-one-volunteer.png')]">
         <div className="py-16 container mx-auto px-4 text-center">
+          <div className="container mx-auto px-4">
+            
           <i className="text-xl mr-2 text-[var(--color-palate-quaternary-green)] hand-icon"></i>
           <span className="text-[var(--color-palate-quaternary-green)] mb-2 inline-block">
             Start Donating Poor People
           </span>
           <h2 className="text-4xl md:text-5xl font-bold mb-8">
-            Meet Our Volunteer <br/> <span className="text-yellow-400">Team</span> Members
+            Meet Our Volunteer <br />{" "}
+            <span className="text-yellow-400">Team</span> Members
           </h2>
 
           <div className="container mx-auto px-4 py-16">
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {teamMembers.map((member, idx) => (
-          <div key={idx} className="relative bg-[#f1f0ee] shadow rounded-2xl overflow-hidden group">
-            
+              {teamMembers.map((member, idx) => (
+                <div
+                  key={idx}
+                  className="relative bg-[#f1f0ee] shadow rounded-2xl overflow-hidden group"
+                >
+                  <div
+                    className="relative w-full aspect-[4/5] cursor-pointer"
+                    onMouseEnter={() => setActiveSocialBar(idx)}
+                    onMouseLeave={() => setActiveSocialBar(null)}
+                  >
+                    <Image
+                      src={member.img}
+                      alt={member.name}
+                      fill
+                      className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
+                    />
 
-            <div
-              className="relative w-full aspect-[4/5] cursor-pointer"
-              onMouseEnter={() => setActiveSocialBar(idx)}
-              onMouseLeave={() => setActiveSocialBar(null)}
-            >
-              <Image
-                src={member.img}
-                alt={member.name}
-                fill
-                className="object-cover transition-transform duration-300 ease-in-out group-hover:scale-105"
-              />
+                    <button className="absolute bottom-0 right-2 w-10 h-10 flex items-center justify-center  bg-black text-white rounded-full transition-colors duration-300   group-hover:bg-yellow-400 ">
+                      <span className="inline-block transition-transform duration-300 group-hover:rotate-45">
+                        <FiPlus />
+                      </span>
+                    </button>
 
-              <button className="absolute bottom-0 right-2 bg-black p-3 rounded-full z-10">
-                <FiPlus className="text-white" />
-              </button>
-              <button className="absolute bottom-0 right-2 bg-yellow p-3 rounded-full z-10">
+                    <button className="absolute bottom-0 right-2 bg-yellow p-3 rounded-full z-10"></button>
 
-              </button>
-
-              {activeSocialBar === idx && (
-                <div className="absolute bottom-14 right-0 z-20 opacity-0 animate-fade-in transition-opacity duration-300">
-                  <SocialBar />
+                    {activeSocialBar === idx && (
+                      <div className="absolute bottom-14 right-0 z-20 opacity-0 animate-fade-in-down transition-opacity duration-300">
+                        <SocialBar />
+                      </div>
+                    )}
+                  </div>
+                  <div className="bg-[#f1f0ee] p-4 flex flex-col items-start transition-colors duration-300 group-hover:bg-[var(--color-palate-quaternary-green)]">
+                    <h6 className="font-semibold text-md text-black transition-colors duration-300 group-hover:text-white">
+                      {member.name}
+                    </h6>
+                    <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400">
+                      {member.role}
+                    </p>
+                  </div>
                 </div>
-              )}
+                
+              ))}
             </div>
-            <div className="bg-[#f1f0ee] p-4 flex flex-col items-start transition-colors duration-300 group-hover:bg-[var(--color-palate-quaternary-green)]">
-              <h6 className="font-semibold text-md text-black transition-colors duration-300 group-hover:text-white">
-                {member.name}
-              </h6>
-              <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400">
-                {member.role}
-              </p>
-            </div>
-          </div>
-        ))}
-      </div>
 
-            <div className="flex items-center justify-center py-10">
+            
+          </div>
+          <div className="flex items-center justify-center py-10">
               <Button
                 text="View All"
                 bgColor="[var(--color-palate-yellow)]"
@@ -163,6 +191,7 @@ const VolunteerTeam = () => {
                 hoverBg="before:bg-[var(--color-palate-quaternary-green)]"
               />
             </div>
+      
           </div>
         </div>
       </section>
