@@ -2,7 +2,7 @@
 import PanelButton from "@/helper/Buttons/PlaneButton";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setPrimaryColor } from "@/store/themeSlice";
 import { RootState } from "@/store";
@@ -66,6 +66,15 @@ const UISettingsPanel = () => {
   const closeDrawer = () => setIsOpen(false);
 
   const drawerWidth = 320;
+
+
+  useEffect(()=>{
+    dispatch(setPrimaryColor({
+    bg: "bg-palate-yellow",
+    text: "text-palate-yellow",
+    hoverText: "hover:text-palate-yellow",
+    }))
+  },[])
 
   return (
     <>
