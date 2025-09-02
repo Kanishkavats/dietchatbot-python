@@ -15,7 +15,10 @@ import charityLife from './charityLife.png'
 import heartCare from './heartCare.png'
 import cardBlue from './card-blue.png';
 import cardGreen from './card-green.png'
-import cardYellow from './card-yellow.png'
+import cardYellow from './card-yellow.png';
+import manWithChildren from './manWithTowChildren.png'
+import womenWithOneChild from './womenWithOneChild.png';
+import verticalShape from './verticalSshape.png'
 
 
-export { logo, logoLight, homeOne, homeTwo, homeThree, homeFour, homeFive, spradeBase, bannerTwoShape, theBird, treeLife, loremIpsum, charityLife, heartCare, cardBlue, cardGreen, cardYellow };
+export { logo, logoLight, homeOne, homeTwo, homeThree, homeFour, homeFive, spradeBase, bannerTwoShape, theBird, treeLife, loremIpsum, charityLife, heartCare, cardBlue, cardGreen, cardYellow, manWithChildren, womenWithOneChild, verticalShape };

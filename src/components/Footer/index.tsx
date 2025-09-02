@@ -40,43 +40,50 @@ const Footer = () => {
   return (
     <footer className="w-full bg-[#1A3635] text-white">
       {/* Newsletter Section */}
-      <div className="max-w-7xl mx-auto px-6 py-12 border-b border-gray-600">
-        <div className="flex flex-col lg:flex-row items-center justify-between space-y-6 lg:space-y-0">
-          {/* Left Side */}
-          <div className="flex items-start space-x-4">
-            <div className="relative">
-              <Icon 
-                icon="mdi:heart-outline" 
-                className="w-12 h-12 text-yellow-400 absolute -top-2 -left-2" 
-              />
-            </div>
-            <div>
-              <h3 className="text-3xl font-bold mb-2">Subscribe To Our Newsletter</h3>
-              <p className="text-gray-300 text-lg">Regular Inspections And Feedback Mechanisms</p>
-            </div>
-          </div>
-
-          {/* Right Side - Newsletter Form */}
-          <form onSubmit={handleSubmit} className="flex items-center space-x-3">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter Email"
-              className="px-6 py-4 rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 min-w-[300px]"
-              required
-            />
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              type="submit"
-              className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center space-x-2"
-            >
-              <Icon icon="mdi:send" className="w-5 h-5" />
-            </motion.button>
-          </form>
-        </div>
+     <div className="max-w-7xl mx-auto px-6 py-12 border-b border-gray-600">
+  <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between space-y-6 lg:space-y-0 lg:space-x-6">
+    
+    {/* Left Side */}
+    <div className="flex items-start space-x-4 w-full lg:w-auto">
+      <div className="relative flex-shrink-0">
+        <Icon 
+          icon="mdi:heart-outline" 
+          className="w-12 h-12 text-yellow-400 absolute -top-2 -left-2" 
+        />
       </div>
+      <div>
+        <h3 className="text-2xl sm:text-3xl font-bold mb-2">Subscribe To Our Newsletter</h3>
+        <p className="text-gray-300 text-sm sm:text-lg">Regular Inspections And Feedback Mechanisms</p>
+      </div>
+    </div>
+
+    {/* Right Side - Newsletter Form */}
+    <form 
+      onSubmit={handleSubmit} 
+      className="flex flex-col sm:flex-row items-stretch sm:items-center w-full lg:w-auto space-y-3 sm:space-y-0 sm:space-x-3"
+    >
+      <input
+        type="email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Enter Email"
+        className="px-4 sm:px-6 py-3 sm:py-4 rounded-lg bg-white text-gray-800 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-full sm:min-w-[300px]"
+        required
+      />
+      <motion.button
+        whileHover={{ scale: 1.05 }}
+        whileTap={{ scale: 0.95 }}
+        type="submit"
+        className="bg-yellow-400 hover:bg-yellow-500 text-black px-6 py-3 sm:py-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center sm:justify-center space-x-2 w-full sm:w-auto"
+      >
+        <Icon icon="mdi:send" className="w-5 h-5" />
+        <span className="hidden sm:inline">Subscribe</span>
+      </motion.button>
+    </form>
+
+  </div>
+</div>
+
 
       {/* Main Footer Content */}
       <div className="max-w-7xl mx-auto px-6 py-12">
@@ -200,15 +207,3 @@ const Footer = () => {
 export default Footer;
 
 
-
-  /* CONFLICTED CODE FROM DEVELOP BRANCH - COMMENTED OUT TO PRESERVE
-      The code below was from the develop branch but conflicts with our version.
-      It includes different imports and a completely different Footer structure.
-      Key differences:
-      - Uses footerData from staticResource
-      - Uses logoLight from assets  
-      - Has Newsletter component
-      - Different styling and layout
-      - Uses Redux for theme
-      - Has motion animations with staggered effects
-      */
