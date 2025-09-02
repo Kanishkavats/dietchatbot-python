@@ -251,7 +251,7 @@ export default function HelpingEachOther() {
             <div className="flex items-center justify-between opacity-0 anim-fade-in-up" style={{animationDelay: '1.8s'}}>
               <div className="flex items-center gap-4">
                 
-                <button className="bg-orange-400 hover:bg-orange-500 text-black font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform">
+                <button className="bg-orange-400 hover:bg-green-800 text-black font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform">
                   More About Us
                 </button>
               </div>
