@@ -1,20 +1,58 @@
+"use client";
+
 import Image from 'next/image';
+import { useState, useCallback } from 'react';
+import ReactPlayer from 'react-player';
 
 export default function HelpingEachOther() {
-  return (
-    <section className="relative py-20 bg-white overflow-hidden">
-      {/* Settings Icon */}
-      <div className="absolute left-8 top-20 z-20">
-        <div className="w-12 h-12 bg-blue-500 rounded-lg flex items-center justify-center shadow-lg hover:bg-blue-600 transition-all duration-300 cursor-pointer animate-bounce">
-          <svg className="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
-            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/>
-            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001 1.51H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z"/>
-          </svg>
-        </div>
-      </div>
+  const [isVideoOpen, setIsVideoOpen] = useState(false);
 
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+  const handleVideoOpen = useCallback(() => {
+    setIsVideoOpen(true);
+  }, []);
+
+  const handleVideoClose = useCallback(() => {
+    setIsVideoOpen(false);
+  }, []);
+
+  return (
+    <>
+      {/* Video Player Overlay */}
+      {isVideoOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
+          <div className="relative w-full max-w-4xl mx-4">
+            {/* Close Button */}
+            <button
+              onClick={handleVideoClose}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+            >
+              <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+            
+            {/* Video Player */}
+            <div className="relative w-full aspect-video bg-black rounded-lg overflow-hidden">
+                             <ReactPlayer
+                 url="https://www.youtube.com/watch?v=XxVg_s8xAms"
+                 width="100%"
+                 height="100%"
+                 controls
+                 playing={isVideoOpen}
+                 onError={(error) => console.log('Video error:', error)}
+                 onReady={() => console.log('Video ready')}
+                 stopOnUnmount={true}
+               />
+            </div>
+          </div>
+        </div>
+      )}
+
+      <section className="relative py-20 bg-white overflow-hidden">
+      
+
+      <div className="container mx-auto px-12 lg:px-20 xl:px-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Left Column - Visual Elements */}
           <div className="relative opacity-0 anim-fade-in-left">
             {/* Vertical Banner with Text */}
@@ -36,7 +74,7 @@ export default function HelpingEachOther() {
             </div>
 
             {/* Image Composition */}
-            <div className="relative ml-20">
+            <div className="relative ml-24">
               {/* Large Main Image with overlay and play button */}
               <div className="relative w-[420px] h-[520px] md:w-[575px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
                 <Image
@@ -47,7 +85,11 @@ export default function HelpingEachOther() {
                   priority
                 />
                 <div className="absolute inset-0 bg-emerald-900/60 mix-blend-multiply"></div>
-                <button aria-label="Play video" className="absolute inset-0 flex items-center justify-center group">
+                <button 
+                  aria-label="Play video" 
+                  className="absolute inset-0 flex items-center justify-center group"
+                  onClick={handleVideoOpen}
+                >
                   <span className="relative flex items-center justify-center">
                     <span className="absolute w-32 h-32 rounded-full bg-black/30 group-hover:bg-black/40 transition-colors"></span>
                     <span className="absolute w-24 h-24 rounded-full border-2 border-dashed border-yellow-400 animate-spin" style={{animationDuration: '8s'}}></span>
@@ -66,7 +108,7 @@ export default function HelpingEachOther() {
               </div>
 
               {/* Bottom-right small card */}
-              <div className="absolute -bottom-10 -right-0 w-56 h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
+              <div className="absolute -bottom-10 -right-10 w-56 h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                 <Image src="/assets/section2/thumb-bottom.png" alt="Smiling child" fill className="object-cover" />
               </div>
 
@@ -79,7 +121,7 @@ export default function HelpingEachOther() {
             </div>
 
             {/* Decorative Elements */}
-            <div className="absolute -left-4 top-1/2 transform -translate-y-1/2 opacity-30 hover:opacity-50 transition-opacity duration-300">
+            <div className="absolute -left-8 top-1/2 transform -translate-y-1/2 opacity-30 hover:opacity-50 transition-opacity duration-300">
               <Image
                 src="/assets/section2/hand (1) section2.png"
                 alt="Hand outline"
@@ -89,7 +131,7 @@ export default function HelpingEachOther() {
               />
             </div>
 
-            <div className="absolute -left-8 bottom-20 hover:scale-110 transition-transform duration-300">
+            <div className="absolute -left-12 bottom-20 hover:scale-110 transition-transform duration-300">
               <Image
                 src="/assets/section2/parasuit.png"
                 alt="Hot air balloon"
@@ -102,7 +144,7 @@ export default function HelpingEachOther() {
           </div>
 
           {/* Right Column - Content */}
-          <div className="relative opacity-0 anim-fade-in-right" style={{animationDelay: '0.2s'}}>
+          <div className="relative opacity-0 anim-fade-in-right pl-8" style={{animationDelay: '0.2s'}}>
             {/* Wavy Green Line */}
             <div className="mb-6 opacity-0 anim-slide-in-right" style={{animationDelay: '0.4s'}}>
               <svg className="w-32 h-8" viewBox="0 0 128 32" fill="none">
@@ -118,18 +160,18 @@ export default function HelpingEachOther() {
 
             {/* Subtitle */}
             <div className="flex items-center gap-3 mb-4 opacity-0 anim-fade-in-up" style={{animationDelay: '0.6s'}}>
-              <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center animate-pulse">
+              {/* <div className="w-6 h-6 bg-green-600 rounded-full flex items-center justify-center animate-pulse">
                 <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
                 </svg>
-              </div>
+              </div> */}
               {/* <p className="text-green-600 text-lg font-caveat text-4xl font-bold">Start Donating Poor People</p> */}
               <i className="text-xl mr-2 text-green-600 hand-icon"></i>
-            <span className="text-green-600 font-caveat text-2xl font-bold">Start Donating Poor People</span>
+              <span className="text-green-600 font-caveat text-2xl font-bold">Start Donating Poor People</span>
             </div>
 
             {/* Main Heading */}
-            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up" style={{animationDelay: '0.8s'}}>
+            <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'}}>
               Helping Each Other Can Make{' '}
               <span className="text-yellow-400 animate-pulse">World</span> Better
             </h2>
@@ -142,27 +184,39 @@ export default function HelpingEachOther() {
 
             {/* Feature Blocks */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              {/* Start Helping Them */}
-              <div className="text-center p-6 bg-gray-50 rounded-xl hover:bg-gray-100 hover:shadow-lg transition-all duration-300 opacity-0 anim-fade-in-up" style={{animationDelay: '1.2s'}}>
-                <div className="w-16 h-16 mx-auto mb-4 bg-yellow-400 rounded-full flex items-center justify-center hover:bg-yellow-500 transition-all duration-300">
-                  <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Start Helping Them</h3>
-                <p className="text-gray-600 text-sm">Raising Awareness About The Charity Mission And Cause.</p>
-              </div>
+                             {/* Start Helping Them */}
+               <div className="flex items-center p-6 bg-gray-50 rounded-xl hover:bg-gray-100 hover:shadow-lg transition-all duration-300 opacity-0 anim-fade-in-up" style={{animationDelay: '1.2s'}}>
+                 <div className="w-16 h-16 mr-4 flex items-center justify-center hover:scale-110 transition-all duration-300">
+                   <Image
+                     src="/assets/section2/football_hands.jpg"
+                     alt="Football hands icon"
+                     width={64}
+                     height={64}
+                     className="object-contain"
+                   />
+                 </div>
+                 <div>
+                   <h3 className="text-xl font-bold text-gray-900 mb-2" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'}}>Start Helping Them</h3>
+                   <p className="text-gray-600 text-sm">Raising Awareness About The Charity Mission And Cause.</p>
+                 </div>
+               </div>
 
-              {/* Make Donations */}
-              <div className="text-center p-6 bg-gray-50 rounded-xl hover:bg-gray-100 hover:shadow-lg transition-all duration-300 opacity-0 anim-fade-in-up" style={{animationDelay: '1.4s'}}>
-                <div className="w-16 h-16 mx-auto mb-4 bg-yellow-400 rounded-full flex items-center justify-center hover:bg-yellow-500 transition-all duration-300">
-                  <svg className="w-8 h-8 text-black" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-                  </svg>
-                </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Make Donations</h3>
-                <p className="text-gray-600 text-sm">Raising Awareness About The Charity Mission And Cause.</p>
-              </div>
+               {/* Make Donations */}
+               <div className="flex items-center p-6 bg-gray-50 rounded-xl hover:bg-gray-100 hover:shadow-lg transition-all duration-300 opacity-0 anim-fade-in-up" style={{animationDelay: '1.4s'}}>
+                 <div className="w-16 h-16 mr-4 flex items-center justify-center hover:scale-110 transition-all duration-300">
+                   <Image
+                     src="/assets/section2/heart_hands.jpg"
+                     alt="Heart hands icon"
+                     width={64}
+                     height={64}
+                     className="object-contain"
+                   />
+                 </div>
+                 <div>
+                   <h3 className="text-xl font-bold text-gray-900 mb-2" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'}}>Make Donations</h3>
+                   <p className="text-gray-600 text-sm">Raising Awareness About The Charity Mission And Cause.</p>
+                 </div>
+               </div>
             </div>
 
             {/* Checklist */}
@@ -196,8 +250,8 @@ export default function HelpingEachOther() {
             {/* Bottom Section */}
             <div className="flex items-center justify-between opacity-0 anim-fade-in-up" style={{animationDelay: '1.8s'}}>
               <div className="flex items-center gap-4">
-                <div className="w-4 h-4 bg-teal-400 rounded-full animate-ping"></div>
-                <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform">
+                
+                <button className="bg-orange-400 hover:bg-orange-500 text-black font-bold py-4 px-8 rounded-xl transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform">
                   More About Us
                 </button>
               </div>
@@ -232,5 +286,6 @@ export default function HelpingEachOther() {
         </button>
       </div>
     </section>
+    </>
   );
 }
