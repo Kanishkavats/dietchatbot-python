@@ -1,4 +1,4 @@
-"use client";
+"use cliet";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
@@ -10,6 +10,7 @@ import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import Button from "@/helper/Buttons/Button";
+import { useRouter } from "next/navigation";
 
 const Navbar = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -21,6 +22,7 @@ const Navbar = () => {
   const DRAWER_ANIMATION_DELAY = 0.6;
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [showCloseButton, setShowCloseButton] = useState(false);
+  const route =useRouter()
 
 
   // Reset backdrop animation flag on open/close
@@ -86,7 +88,14 @@ const Navbar = () => {
             onMouseEnter={() => setOpen(item.label)}
             onMouseLeave={() => setOpen(null)}
           >
-            <div className="flex items-center gap-1 font-semibold">
+            <div className="flex items-center gap-1 font-semibold"
+            onClick={()=>{
+              if(item?.href){
+                route.push(item?.href)
+              }
+            }
+          }
+            >
               {item.label}
               {item.dropdown && (
                 <motion.span
