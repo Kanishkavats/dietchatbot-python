@@ -347,6 +347,8 @@ body {
   animation: scale-in 0.5s ease-out;
 }
 
+
+
 /* Carousel transition effects */
 .carousel-slide-enter {
   opacity: 0;
@@ -551,5 +553,106 @@ body {
 
 .animate-wave {
   animation: wave 3s linear infinite;
+}
+
+/* Grid line animation */
+@keyframes moveTopBottom {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+.grid-line{
+    animation: moveTopBottom 4s ease-in-out infinite;
+}
+
+/* HelpAndDonate Component Styles */
+.help-donate-swiper .swiper-slide {
+  height: auto;
+}
+
+.help-donate-swiper .swiper-button-next,
+.help-donate-swiper .swiper-button-prev {
+  display: none;
+}
+
+/* Custom styles for donation cards */
+.donation-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.donation-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.donation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.donation-card:hover::before {
+  left: 100%;
+}
+
+/* Progress bar animation */
+.progress-bar-fill {
+  transition: width 1s ease-in-out;
+}
+
+/* Category tag styles */
+.category-tag {
+  background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Navigation button hover effects */
+.nav-btn-prev:hover,
+.nav-btn-next:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Carousel indicator styles */
+.carousel-indicator {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel-indicator:hover {
+  transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+  background: linear-gradient(135deg, #046B59 0%, #122F2A 100%);
+  box-shadow: 0 2px 8px rgba(4, 107, 89, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .help-donate-swiper .swiper-slide {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .help-donate-swiper .swiper-slide {
+    margin: 0 5px;
+  }
 }
 

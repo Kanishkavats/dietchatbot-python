@@ -1,6 +1,11 @@
 import Home from '@/src/components/Home';
-import HelpingEachOther from '@/src/components/HelpingEachOther';
+
 import CharityWithDifference from '../components/CharityWithDiffrence';
+
+import HelpingEachOther from '../components/HelpingEachOther';
+import HelpAndDonate from '../components/HelpAndDonate';
+
+
 
 export default function Page() {
   return (
@@ -8,6 +13,8 @@ export default function Page() {
       <Home />
       <CharityWithDifference />
       <HelpingEachOther/>
+      <HelpAndDonate />
+      
     </div>
   );
 }
