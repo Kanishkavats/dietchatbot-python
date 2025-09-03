@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import { Caveat, Nunito } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import UISettingsPanel from "@/components/UISettingsPanel";
+import Header from "@/src/components/Header";
+import Footer from "@/src/components/Footer";
+import UISettingsPanel from "@/src/components/UISettingsPanel";
 import { Provider } from "react-redux";
-import ThemeApplier from "@/helper/ThemeApplier";
-import { store } from "@/store";
+import ThemeApplier from "@/src/helper/ThemeApplier";
 import Providers from "./providers";
 
 const caveat = Caveat({

@@ -1,5 +1,5 @@
 "use client";
-import { RootState } from "@/store";
+import { RootState } from "@/src/store";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { motion } from "framer-motion";
 import { useSelector } from "react-redux";

@@ -1,0 +1,79 @@
+"use client";
+
+import React from "react";
+
+export interface RadioOption {
+  label: string;
+  value: string;
+}
+
+interface RadioGroupProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "onChange"> {
+  name: string;
+  options: RadioOption[];
+  value: string;
+  onChange: (value: string) => void;
+  selectedColor?: string;    // e.g. "var(--green)" or "bg-blue-500"
+  unselectedColor?: string;  // e.g. "gray"
+}
+
+
+const RadioGroup: React.FC<RadioGroupProps> = ({
+  name,
+  options,
+  value,
+  onChange,
+  className,
+  selectedColor = "var(--green)",
+  unselectedColor = "#d1d5db", // tailwind gray-300
+  ...props
+}) => {
+  return (
+    <div className={`flex flex-wrap gap-4 ${className ?? ""}`}
+      {...props}>
+      {options.map((option) => {
+        const isSelected = value === option.value;
+        return (
+          <label
+            key={option.value}
+            className="flex items-center space-x-2 cursor-pointer select-none"
+          >
+            {/* hidden native input */}
+            <input
+              type="radio"
+              name={name}
+              value={option.value}
+              checked={isSelected}
+              onChange={() => onChange(option.value)}
+              className="hidden"
+            />
+
+            {/* custom radio */}
+            <span
+              className={`
+    w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors
+  `}
+              style={{
+                borderColor: selectedColor,
+                backgroundColor: isSelected ? "transparent" : `${selectedColor}20`, // light padding for unselected
+              }}
+            >
+              {isSelected && (
+                <span
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{ backgroundColor: selectedColor }}
+                />
+              )}
+            </span>
+
+
+
+            {/* label */}
+            <span className="text-md font-medium">{option.label}</span>
+          </label>
+        );
+      })}
+    </div>
+  );
+};
+
+export default RadioGroup;
