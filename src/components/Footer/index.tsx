@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { logo } from "../../../public/assets";
+import { logo } from '@/public/assets';
 
 const Footer = () => {
   const [email, setEmail] = useState('');

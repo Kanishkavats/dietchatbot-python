@@ -25,7 +25,7 @@ export const NavbarDropdown = ({ options }: DropdownProps) => {
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
-      className="absolute top-full mt-2 bg-white rounded-md shadow-lg py-2 z-50 w-48"
+      className="absolute top-full mt-0 bg-white rounded-md shadow-lg py-2 z-50 w-48"
     >
       {options.map((opt) => (
         <DropdownOptionItem

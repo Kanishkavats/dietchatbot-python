@@ -1,6 +1,6 @@
-import Home from '@/components/Home';
+import Home from '@/src/components/Home';
+import HelpingEachOther from '@/src/components/HelpingEachOther';
 import CharityWithDifference from '../components/CharityWithDiffrence';
-import HelpingEachOther from '@/components/HelpingEachOther';
 
 export default function Page() {
   return (

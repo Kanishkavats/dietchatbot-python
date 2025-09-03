@@ -1,10 +1,10 @@
-import FAQ from '@/src/components/FAQ'
+import DonateUs from '@/src/components/DonateUs'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <FAQ />
+      <DonateUs />
     </div>
   )
 }

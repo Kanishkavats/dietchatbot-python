@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import TopBar from './TopBar';
 import InfoBar from './InfoBar';
 import Navbar from './Navbar';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -40,7 +39,7 @@ const Header = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -50, opacity: 0 }}
               transition={{ duration: 0.6, ease: 'easeInOut' }}
-              className="fixed top-0 left-0 right-0 bg-palate-white shadow-md z-50"
+              className="fixed top-0 left-0 right-0 bg-[var(--white)] shadow-md z-50"
             >
               <Navbar />
             </motion.div>
