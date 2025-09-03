@@ -1,3 +1,4 @@
 import VolunteerTeam from "./VolunteerTeam";
+import ValueableCustomer from "./ValueableCustomer";
 
-export default VolunteerTeam;
+export { VolunteerTeam, ValueableCustomer };
