@@ -30,11 +30,26 @@ const ValueableCustomer = () => {
     },
   ];
 
-  const slides = [...testimonials, ...testimonials, ...testimonials];
-  const visibleCards = 3;
+  const slides = [...testimonials, ...testimonials];
 
+  const [visibleCards, setVisibleCards] = useState(3);
   const [index, setIndex] = useState(0);
   const [instant, setInstant] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setVisibleCards(1);
+      } else if (window.innerWidth < 1024) {
+        setVisibleCards(2);
+      } else {
+        setVisibleCards(3);
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   const handleNext = () => {
     setInstant(false);
@@ -60,7 +75,7 @@ const ValueableCustomer = () => {
 
   return (
     <section className="relative w-full min-h-screen bg-[url('/assets/bg-one-volunteer.png')] bg-cover bg-center py-16">
-      <div className="absolute top-0 left-0 w-[60%] h-[40%] bg-[url('/assets/valueableshape.png')] bg-no-repeat bg-contain "></div>
+      <div className="absolute top-0 left-0 w-[60%] h-[40%] bg-[url('/assets/valueableshape.png')] bg-no-repeat bg-contain"></div>
       <div className="mt-20">
         <div className="py-16">
           <div className="flex items-center justify-center">
@@ -91,10 +106,10 @@ const ValueableCustomer = () => {
               {slides.map((item, idx) => (
                 <div
                   key={idx}
-                  className="px-3 "
+                  className="px-3"
                   style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <div className="relative bg-white border border-yellow-400 rounded-2xl p-6 flex flex-col  justify-between shadow-sm h-full overflow-hidden">
+                  <div className="relative bg-white border border-yellow-400 rounded-2xl p-6 flex flex-col justify-between shadow-sm h-full overflow-hidden">
                     <Image
                       src="/assets/99.png"
                       alt="green spade"
