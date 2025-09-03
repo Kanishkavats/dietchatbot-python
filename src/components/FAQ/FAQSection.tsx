@@ -3,10 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import FAQAccordion from "../Accordians/FAQAccordion";
-import { faqData } from "@/staticResource";
-import { manWithChildren, verticalShape, womenWithOneChild } from "@/assets";
+import { faqData } from "@/src/staticResource";
+import { manWithChildren, verticalShape, womenWithOneChild } from "@/public/assets";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { RootState } from "@/src/store";
 import { Icon } from "@iconify/react/dist/iconify.js";
 
 
@@ -15,7 +15,7 @@ const FAQSection = () => {
   const { primaryColor } = useSelector((state: RootState) => state.theme)
 
   return (
-    <section className="bg-white lg:ps-16 py-16 md:py-24 flex justify-center items-center">
+    <section className="bg-[var(--white)] lg:ps-16 py-16 md:py-24 flex justify-center items-center">
       <div className="w-[95%] px-4 lg:flex md:gap-12 items-start ">
         {/* FAQ Accordion */}
         <div className="lg:w-1/2">
@@ -24,7 +24,7 @@ const FAQSection = () => {
             <span>Start Donating Poor People</span>
           </div>
           <h2 className=" text-3xl xl:text-4xl font-bold text-gray-900 mb-8">
-            Frequently <span className="text-yellow-400">Asked</span> Questions
+            Frequently <span className="text-[var(--yellow)]">Asked</span> Questions
           </h2>
           <div className="space-y-6">
             {faqData.map((item, index) => (
@@ -39,7 +39,7 @@ const FAQSection = () => {
         </div>
 
         {/* Side Images */}
-        <div className=" hidden lg:block lg:w-1/2 mt-12 xl:mt-0 h-screen relative lg:flex ps-[5%] items-center  bg-palate-quaternary-green">
+        <div className=" hidden lg:block lg:w-1/2 mt-12 xl:mt-0 h-screen relative lg:flex ps-[5%] items-center  bg-[var(--green)]">
           <div className="absolute top-0 left-0 w-10 h-full z-10">
             <Image
               src={verticalShape.src}
