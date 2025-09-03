@@ -1,5 +1,5 @@
+import LatestNews from "@/src/components/Latestnews";
 
-import LatestNews from "@/components/Latestnews";
 
 
 export default function NewsPage() {
