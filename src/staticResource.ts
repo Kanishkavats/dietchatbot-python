@@ -24,15 +24,17 @@ export const socialIcons = [
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "Home",
-    dropdown: [
-      { name: "Home One", image: homeOne.src },
-      { name: "Home Two", image: homeTwo.src },
-      { name: "Home Three", image: homeThree.src },
-      { name: "Home Four", image: homeFour.src },
-      { name: "Home Five", image: homeFive.src },
-    ],
+    dropdown:null,
+    href:'/'
+    // dropdown: [
+    //   { name: "Home One", image: homeOne.src },
+    //   { name: "Home Two", image: homeTwo.src },
+    //   { name: "Home Three", image: homeThree.src },
+    //   { name: "Home Four", image: homeFour.src },
+    //   { name: "Home Five", image: homeFive.src },
+    // ],
   },
-  { label: "About Us", dropdown: null },
+  { label: "About Us", dropdown: null, href:'/about' },
   {
     label: "Causes",
     dropdown: [
