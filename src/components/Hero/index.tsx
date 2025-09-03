@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { useState, useRef } from "react";
-import { bannerTwoShape, homeFive, homeTwo, spradeBase } from "@/assets";
+import { bannerTwoShape, homeFive, homeTwo, spradeBase } from "../../../public/assets/index";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import Button from "@/helper/Buttons/Button";

@@ -4,7 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import FAQAccordion from "../Accordians/FAQAccordion";
 import { faqData } from "@/staticResource";
-import { manWithChildren, verticalShape, womenWithOneChild } from "@/assets";
+import { manWithChildren, verticalShape, womenWithOneChild } from "../../../public/assets/index";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { Icon } from "@iconify/react/dist/iconify.js";

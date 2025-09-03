@@ -1,4 +1,4 @@
-import { charityLife, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, theBird, treeLife } from "./assets";
+import { charityLife, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, theBird, treeLife } from "../public/assets/index";
 import { FAQItem } from "./types/faq";
 import { NavItem } from "./types/header";
 
