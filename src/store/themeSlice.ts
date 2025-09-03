@@ -7,7 +7,7 @@ interface ThemeState {
 }
 
 const initialState: ThemeState = {
-  primaryColor: "palate-blue", // default
+  primaryColor: "palate-yellow", // default
 };
 
 const themeSlice = createSlice({

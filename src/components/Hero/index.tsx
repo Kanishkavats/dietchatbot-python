@@ -8,10 +8,10 @@ import "swiper/css/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { useState, useRef } from "react";
-import { bannerTwoShape, homeFive, homeTwo, spradeBase } from "../../../public/assets/index";
+import { bannerTwoShape, homeFive, homeTwo, spradeBase } from "@/public/assets";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store";
-import Button from "@/helper/Buttons/Button";
+import { RootState } from "@/src/store";
+import Button from "../common/Buttons/Button";
 
 const slides = [
     {

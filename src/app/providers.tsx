@@ -1,8 +1,8 @@
 "use client";
 
 import { Provider } from "react-redux";
-import ThemeApplier from "@/helper/ThemeApplier";
-import { store } from "@/store";
+import ThemeApplier from "@/src/helper/ThemeApplier";
+import { store } from "@/src/store";
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (

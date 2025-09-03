@@ -2,40 +2,40 @@
 
 /* Font imports */
 @font-face {
-  font-family: 'Charifund';
-  src: url('/fonts/charifund.woff2') format('woff2');
+  font-family: "Charifund";
+  src: url("/fonts/charifund.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FontAwesome';
-  src: url('/fonts/fa-solid-900.woff2') format('woff2');
+  font-family: "FontAwesome";
+  src: url("/fonts/fa-solid-900.woff2") format("woff2");
   font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FontAwesome';
-  src: url('/fonts/fa-regular-400.woff2') format('woff2');
+  font-family: "FontAwesome";
+  src: url("/fonts/fa-regular-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'FontAwesome';
-  src: url('/fonts/fa-brands-400.woff2') format('woff2');
+  font-family: "FontAwesome";
+  src: url("/fonts/fa-brands-400.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Slick';
-  src: url('/fonts/slick.653a4cbb.woff') format('woff');
+  font-family: "Slick";
+  src: url("/fonts/slick.653a4cbb.woff") format("woff");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -44,20 +44,23 @@
 :root {
   --white: #ffffff;
   --foreground: #171717;
-  --green: #046B59;
-  --dark-green: #122F2A;
+  --green: #046b59;
+  --dark-green: #122f2a;
   --gray-green: #667471;
 
   --yellow: #FFC107;
   --orange: #FF5528;
   
   /* Additional colors for cards */
-  --blue: #3B82F6;
-  --purple: #8B5CF6;
-  --red: #EF4444;
-  
+  --blue: #3b82f6;
+  --purple: #8b5cf6;
+  --red: #ef4444;
+
   /* Background colors */
   --gray-100: #F3F4F6;
+  --gray-200: #e5e7eb;
+  --gray-400:#9CA3AF;
+  --gray-500:#6B7280;
   --orange-50: #f16108;
   --yellow-50: hsl(55, 90%, 52%);
   --blue-50: #0b2b55;
@@ -66,34 +69,34 @@
 }
 
 body {
-  font-family: 'Charifund', Arial, Helvetica, sans-serif;
+  font-family: "Charifund", Arial, Helvetica, sans-serif;
   background-color: var(--white);
 }
 
 /* Custom styles for charity component */
 .font-cursive {
-  font-family: 'Brush Script MT', cursive;
+  font-family: "Brush Script MT", cursive;
 }
 
 /* Font utility classes */
 .font-charifund {
-  font-family: 'Charifund', Arial, Helvetica, sans-serif;
+  font-family: "Charifund", Arial, Helvetica, sans-serif;
 }
 
 .font-slick {
-  font-family: 'Slick', Arial, Helvetica, sans-serif;
+  font-family: "Slick", Arial, Helvetica, sans-serif;
 }
 
 .font-awesome {
-  font-family: 'FontAwesome', Arial, Helvetica, sans-serif;
+  font-family: "FontAwesome", Arial, Helvetica, sans-serif;
 }
 
 .font-caveat {
-  font-family: 'Caveat', cursive;
+  font-family: "Caveat", cursive;
 }
 
 .font-nunito {
-  font-family: var(--font-nunito), 'Nunito', sans-serif;
+  font-family: var(--font-nunito), "Nunito", sans-serif;
 }
 
 /* Smooth transitions for carousel */
@@ -114,13 +117,18 @@ body {
 
 /* Cloud-like card shape */
 .charity-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+  background: linear-gradient(
+    45deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.1) 50%,
+    transparent 70%
+  );
   border-radius: 32px;
   z-index: -1;
   opacity: 0;
@@ -133,7 +141,11 @@ body {
 
 /* Gradient overlays for cards */
 .card-overlay {
-  background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.7) 100%
+  );
 }
 
 /* Custom button styles */
@@ -151,26 +163,33 @@ body {
 }
 
 .cloud-border::after {
-  content: '';
+  content: "";
   position: absolute;
   top: -4px;
   left: -4px;
   right: -4px;
   bottom: -4px;
-  background: linear-gradient(45deg, 
-    transparent 0%, 
-    rgba(255,255,255,0.1) 25%, 
-    transparent 50%, 
-    rgba(255,255,255,0.1) 75%, 
-    transparent 100%);
+  background: linear-gradient(
+    45deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.1) 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.1) 75%,
+    transparent 100%
+  );
   border-radius: 34px;
   z-index: -1;
   animation: shimmer 3s ease-in-out infinite;
 }
 
 @keyframes shimmer {
-  0%, 100% { opacity: 0; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 /* Wavy border effect */
@@ -179,14 +198,17 @@ body {
 }
 
 .wavy-border::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -2px;
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: 
-    radial-gradient(circle at 20% 20%, currentColor 2px, transparent 2px),
+  background: radial-gradient(
+      circle at 20% 20%,
+      currentColor 2px,
+      transparent 2px
+    ),
     radial-gradient(circle at 80% 20%, currentColor 2px, transparent 2px),
     radial-gradient(circle at 40% 80%, currentColor 2px, transparent 2px),
     radial-gradient(circle at 80% 80%, currentColor 2px, transparent 2px);
@@ -208,11 +230,11 @@ body {
 }
 /*custom animation */
 @keyframes fade-in-down {
-  from{
+  from {
     opacity: 0;
     transform: translateY(-30px);
   }
-  to{
+  to {
     opacity: 1;
     transform: translateY(0);
   }
@@ -248,7 +270,8 @@ body {
 }
 
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -257,7 +280,8 @@ body {
 }
 
 @keyframes float-delay {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0px);
   }
   50% {
@@ -266,7 +290,8 @@ body {
 }
 
 @keyframes icon-bounce {
-  0%, 100% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
@@ -307,6 +332,20 @@ body {
   }
 }
 
+@keyframes dip-dop {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+    filter: brightness(1) contrast(1);
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.8;
+    filter: brightness(0.9) contrast(1.3);
+  }
+}
+
 /* Animation classes */
 .animate-fade-in {
   animation: fade-in 1s ease-out;
@@ -344,6 +383,10 @@ body {
   animation: scale-in 0.5s ease-out;
 }
 
+.animate-dip-dop {
+  animation: dip-dop 1.5s infinite ease-in-out;
+}
+
 /* Carousel transition effects */
 .carousel-slide-enter {
   opacity: 0;
@@ -368,9 +411,15 @@ body {
 }
 
 /* Staggered animation for cards */
-.card-stagger-1 { animation-delay: 0.1s; }
-.card-stagger-2 { animation-delay: 0.2s; }
-.card-stagger-3 { animation-delay: 0.3s; }
+.card-stagger-1 {
+  animation-delay: 0.1s;
+}
+.card-stagger-2 {
+  animation-delay: 0.2s;
+}
+.card-stagger-3 {
+  animation-delay: 0.3s;
+}
 
 /* Smooth carousel container */
 .carousel-container {
@@ -387,21 +436,21 @@ body {
 }
 
 .hand-icon::before {
-  content: '\e821';
+  content: "\e821";
 }
 
 /* Font Awesome Icon Classes for Charity Cards */
 .icon-healthy-food::before {
-  content: '\f2e7';
-  font-family: 'FontAwesome';
+  content: "\f2e7";
+  font-family: "FontAwesome";
   font-weight: 900;
   display: inline-block;
   transform: none !important;
 }
 
 .icon-medical-care::before {
-  content: '\f0f8';
-  font-family: 'FontAwesome';
+  content: "\f0f8";
+  font-family: "FontAwesome";
   font-weight: 900;
   display: inline-block;
   transform: none !important;
@@ -410,8 +459,8 @@ body {
 }
 
 .icon-education::before {
-  content: '\f19d';
-  font-family: 'FontAwesome';
+  content: "\f19d";
+  font-family: "FontAwesome";
   font-weight: 900;
   display: inline-block;
   transform: none !important;
@@ -420,45 +469,45 @@ body {
 }
 
 .icon-clean-water::before {
-  content: '\f773';
-  font-family: 'FontAwesome';
+  content: "\f773";
+  font-family: "FontAwesome";
   font-weight: 900;
   display: inline-block;
   transform: none !important;
 }
 
 .icon-shelter::before {
-  content: '\f015';
-  font-family: 'FontAwesome';
+  content: "\f015";
+  font-family: "FontAwesome";
   font-weight: 900;
   display: inline-block;
   transform: none !important;
 }
 
 .icon-emergency::before {
-  content: '\f0f9';
-  font-family: 'FontAwesome';
+  content: "\f0f9";
+  font-family: "FontAwesome";
   font-weight: 900;
   display: inline-block;
   transform: none !important;
 }
 
 .bg-image-1 {
-  background-image: url('/assets/bg-one.png');
+  background-image: url("/assets/bg-one.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-2 {
-  background-image: url('/assets/bg-three.png');
+  background-image: url("/assets/bg-three.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-3 {
-  background-image: url('/assets//bg-two.png');
+  background-image: url("/assets//bg-two.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -548,5 +597,106 @@ body {
 
 .animate-wave {
   animation: wave 3s linear infinite;
+}
+
+/* Grid line animation */
+@keyframes moveTopBottom {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+.grid-line{
+    animation: moveTopBottom 4s ease-in-out infinite;
+}
+
+/* HelpAndDonate Component Styles */
+.help-donate-swiper .swiper-slide {
+  height: auto;
+}
+
+.help-donate-swiper .swiper-button-next,
+.help-donate-swiper .swiper-button-prev {
+  display: none;
+}
+
+/* Custom styles for donation cards */
+.donation-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.donation-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.donation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.donation-card:hover::before {
+  left: 100%;
+}
+
+/* Progress bar animation */
+.progress-bar-fill {
+  transition: width 1s ease-in-out;
+}
+
+/* Category tag styles */
+.category-tag {
+  background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Navigation button hover effects */
+.nav-btn-prev:hover,
+.nav-btn-next:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Carousel indicator styles */
+.carousel-indicator {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel-indicator:hover {
+  transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+  background: linear-gradient(135deg, #046B59 0%, #122F2A 100%);
+  box-shadow: 0 2px 8px rgba(4, 107, 89, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .help-donate-swiper .swiper-slide {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .help-donate-swiper .swiper-slide {
+    margin: 0 5px;
+  }
 }
 

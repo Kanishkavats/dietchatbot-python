@@ -1,56 +1,56 @@
 "use client";
-import PanelButton from "@/helper/Buttons/PlaneButton";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPrimaryColor } from "@/store/themeSlice";
-import { RootState } from "@/store";
+import { setPrimaryColor } from "@/src/store/themeSlice";
+import { RootState } from "@/src/store";
+import Button from "../common/Buttons/Button";
 
 // ✅ Static color mapping for Tailwind
 const colorClassMap: Record<
   string,
   { bg: string; text: string; hoverText: string }
 > = {
-  "palate-orange": {
-    bg: "bg-palate-orange",
-    text: "text-palate-orange",
-    hoverText: "hover:text-palate-orange",
+  "orange": {
+    bg: "bg-orange",
+    text: "text-orange",
+    hoverText: "hover:text-orange",
   },
   "palate-yellow": {
-    bg: "bg-palate-yellow",
-    text: "text-palate-yellow",
-    hoverText: "hover:text-palate-yellow",
+    bg: "bg-yellow",
+    text: "text-yellow",
+    hoverText: "hover:text-yellow",
   },
   "palate-brown": {
-    bg: "bg-palate-brown",
-    text: "text-palate-brown",
-    hoverText: "hover:text-palate-brown",
+    bg: "bg-brown",
+    text: "text-brown",
+    hoverText: "hover:text-brown",
   },
   "palate-lime": {
-    bg: "bg-palate-lime",
-    text: "text-palate-lime",
-    hoverText: "hover:text-palate-lime",
+    bg: "bg-lime",
+    text: "text-lime",
+    hoverText: "hover:text-lime",
   },
   "palate-blue": {
-    bg: "bg-palate-blue",
-    text: "text-palate-blue",
-    hoverText: "hover:text-palate-blue",
+    bg: "bg-blue",
+    text: "text-blue",
+    hoverText: "hover:text-blue",
   },
   "palate-purple": {
-    bg: "bg-palate-purple",
-    text: "text-palate-purple",
-    hoverText: "hover:text-palate-purple",
+    bg: "bg-purple",
+    text: "text-purple",
+    hoverText: "hover:text-purple",
   },
   "palate-teal": {
-    bg: "bg-palate-teal",
-    text: "text-palate-teal",
-    hoverText: "hover:text-palate-teal",
+    bg: "bg-teal",
+    text: "text-teal",
+    hoverText: "hover:text-teal",
   },
   "palate-red": {
-    bg: "bg-palate-red",
-    text: "text-palate-red",
-    hoverText: "hover:text-palate-red",
+    bg: "bg-red",
+    text: "text-red",
+    hoverText: "hover:text-red",
   },
 };
 
@@ -70,9 +70,9 @@ const UISettingsPanel = () => {
 
   useEffect(()=>{
     dispatch(setPrimaryColor({
-    bg: "bg-palate-yellow",
-    text: "text-palate-yellow",
-    hoverText: "hover:text-palate-yellow",
+    bg: "bg-yellow",
+    text: "text-yellow",
+    hoverText: "hover:text-yellow",
     }))
   },[])
 
@@ -95,7 +95,7 @@ const UISettingsPanel = () => {
       {/* Toggle button */}
       <motion.button
         onClick={toggleDrawer}
-        className="fixed top-1/2 left-0 transform -translate-y-1/2 px-4 py-2 bg-palate-blue text-white rounded-tr rounded-br flex items-center justify-center cursor-pointer z-50"
+        className="fixed top-1/2 left-0 transform -translate-y-1/2 px-4 py-2 bg-blue text-white rounded-tr rounded-br flex items-center justify-center cursor-pointer z-50"
         style={{ minWidth: 48, minHeight: 48 }}
         animate={{ x: isOpen ? drawerWidth : 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 30 }}
@@ -137,18 +137,18 @@ const UISettingsPanel = () => {
 
             <h2 className="text-center font-bold mb-4">BOXED VERSION</h2>
             <div className="flex justify-center gap-4 mb-8">
-              <PanelButton text="BOXED" />
-              <PanelButton text="FULL WIDTH" />
+              <Button text="BOXED" />
+              <Button text="FULL WIDTH" />
             </div>
 
             <div className="flex justify-center gap-4 mb-8">
-              <PanelButton text="NO" />
-              <PanelButton text="YES" bgColor="bg-black" />
+              <Button text="NO" />
+              <Button text="YES" bgColor="bg-black" />
             </div>
 
             <div className="flex justify-center gap-4 mb-8">
-              <PanelButton text="YES" />
-              <PanelButton text="NO" bgColor="bg-black" />
+              <Button text="YES" />
+              <Button text="NO" bgColor="bg-black" />
             </div>
 
             <p className="text-center text-gray-500 text-sm">
