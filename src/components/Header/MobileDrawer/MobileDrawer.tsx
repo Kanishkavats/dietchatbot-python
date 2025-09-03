@@ -1,10 +1,10 @@
 'use client';
 import { motion} from "framer-motion";
 import { Icon } from "@iconify/react";
-import { logo } from "@/assets";
-import { NAV_ITEMS, socialIcons } from "@/staticResource";
+import { NAV_ITEMS, socialIcons } from "@/src/staticResource";
 import MobileDropdownItem from "./MobileDropdownItem";
-import Button from "@/helper/Buttons/Button";
+import { logo } from "../../../../public/assets";
+import Button from "../../common/Buttons/Button";
 
 interface MobileDrawerProps {
   drawerDelay: number; // <-- Change from boolean to number

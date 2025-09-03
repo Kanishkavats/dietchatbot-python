@@ -1,4 +1,5 @@
-import { charityLife, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, theBird, treeLife } from "./assets";
+import { charityLife, galleryImageOne, galleryImageThree, galleryImageTwo, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, phOne, phTree, phTwo, theBird, treeLife, womenWithOneChild, womenWithOneChildDark } from "../public/assets";
+import { Cause } from "./types/donateUs";
 import { FAQItem } from "./types/faq";
 import { NavItem } from "./types/header";
 
@@ -46,7 +47,7 @@ export const NAV_ITEMS: NavItem[] = [
     label: "Pages",
     dropdown: [
       { label: "FAQ", href: "/faq" },
-      { label: "Donate Us", href: "/donate" },
+      { label: "Donate Us", href: "/donate-us" },
       { label: "Become Volunteer", href: "/volunteer" },
       {
         label: "Team",
@@ -154,3 +155,49 @@ export const faqData: FAQItem[] = [
       "It is a long established fact that a reader will be distracted by the readable the a content of a page when looking at its layout. Many desktop publishing packages and web page editors.",
   },
 ];
+
+
+// donate us page
+
+export const GalleryImage = [
+  { src: galleryImageOne, className: "col-span-1 lg:col-span-2" },
+  { src: womenWithOneChildDark },
+  { src: galleryImageTwo },
+  { src: galleryImageThree, className: "col-span-1 lg:col-span-2" },
+];
+
+export const causes: Cause[] = [
+  {
+    id: 1,
+    title: "Where Innovation Meets Foundation",
+    date: "November 19, 2024",
+    image: phOne.src,
+  },
+  {
+    id: 2,
+    title: "Where Innovation Meets Foundation",
+    date: "November 19, 2024",
+    image: phTree.src,
+  },
+  {
+    id: 3,
+    title: "Where Innovation Meets Foundation",
+    date: "November 22, 2024",
+    image: phTwo.src,
+  },
+];
+
+export   const tags = [
+    "T-Shirt",
+    "Banner Design",
+    "Brochures",
+    "Landing",
+    "Print",
+    "Business Card",
+  ];
+
+  export  const Donationmethods = [
+    { label: "Test Donation", value: "test" },
+    { label: "Offline Donation", value: "offline" },
+    { label: "Credit Card", value: "credit" },
+  ];

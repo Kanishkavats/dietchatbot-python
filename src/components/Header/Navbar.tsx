@@ -2,15 +2,15 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Icon } from "@iconify/react";
-import { logo } from "@/assets";
-import { NAV_ITEMS } from "@/staticResource";
+import { NAV_ITEMS } from "@/src/staticResource";
 import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
 import { MobileBackdrop } from "./MobileDrawer/MobileBackdrop";
 import { MobileDrawer } from "./MobileDrawer/MobileDrawer";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store";
-import Button from "@/helper/Buttons/Button";
+import { RootState } from "@/src/store";
 import { useRouter } from "next/navigation";
+import { logo } from "../../../public/assets";
+import Button from "../common/Buttons/Button";
 
 const Navbar = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -79,8 +79,7 @@ const Navbar = () => {
 
       {/* Main Nav Items - visible only on xl and up */}
       <ul
-        style={{ backgroundColor: `var(${primaryColor})` }}
-        className={`hidden xl:flex items-center gap-6  px-10 py-6 rounded-full font-medium text-black relative bg-${primaryColor}`}>
+        className={`hidden xl:flex items-center gap-x-6   px-10  rounded-full font-medium text-black relative bg-[var(--yellow)]`}>
         {NAV_ITEMS.map((item, i) => (
           <li
             key={i}
@@ -88,7 +87,7 @@ const Navbar = () => {
             onMouseEnter={() => setOpen(item.label)}
             onMouseLeave={() => setOpen(null)}
           >
-            <div className="flex items-center gap-1 font-semibold"
+            <div className="flex items-center gap-1 font-semibold  py-6"
             onClick={()=>{
               if(item?.href){
                 route.push(item?.href)
@@ -164,7 +163,7 @@ const Navbar = () => {
                   exit={{ y: 0, opacity: 0 }}
                   transition={{ duration: 0.4, ease: "easeInOut" }}
                   onClick={() => setSearchOpen(false)}
-                  className="fixed top-1/2 left-1/2 w-17 h-17 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-palate-white rounded-full shadow-md cursor-pointer"
+                  className="fixed top-1/2 left-1/2 w-17 h-17 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-[var(--white)] rounded-full shadow-md cursor-pointer"
                 >
                   <div className="bg-palate-yellow w-17 h-17  flex items-center justify-center  rounded-full relative -top-[2px]">
                     <Icon icon="mdi:close" width={26} height={26} className="text-black" />

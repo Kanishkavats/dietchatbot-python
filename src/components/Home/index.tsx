@@ -9,6 +9,7 @@ const Home = () => {
     <div>
       <HeroCarousel />
       <PartnersCompanies />
+      
     </div>
   )
 }

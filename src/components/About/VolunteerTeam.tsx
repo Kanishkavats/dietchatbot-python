@@ -1,6 +1,6 @@
 "use client";
 
-import Button from "@/helper/Buttons/Button";
+import Button from "../common/Buttons/Button";
 import Image from "next/image";
 import { FiPlus } from "react-icons/fi";
 import { FaBehance, FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";

@@ -1,4 +1,4 @@
-import FAQ from '@/components/FAQ'
+import FAQ from '@/src/components/FAQ'
 import React from 'react'
 
 const page = () => {

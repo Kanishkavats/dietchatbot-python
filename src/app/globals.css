@@ -47,60 +47,25 @@
   --green: #046b59;
   --dark-green: #122f2a;
   --gray-green: #667471;
-}
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-  --color-palate-orange: #ffb347;
-  --color-palate-yellow: #ffc107;
-  --color-palate-brown: #964b00;
-  --color-palate-lime: #3ead3c;
-  --color-palate-blue: #246af4;
-  --color-palate-green: #122f2a;
-  --color-palate-lawn-green: rgb(130, 180, 64);
-  --color-palate-quaternary-green: #00715d;
-  --color-palate-lawn-green-hover: rgb(111, 154, 55);
-  --color-palate-purple: #bb54e1;
-  --color-palate-teal: #44a9aa;
-  --color-palate-red: #ff0000;
-  --color-palate-black: #111111;
-  --color-palate-black2: rgb(102, 116, 113);
-  --color-palate-white: #ffffff;
-  --color-palate-white2: #949d9c;
-  --color-palate-gray: #262626;
-  --color-palate-white-gray: #edeeef;
-  --color-palate-dark-slate-gray: #1c302d;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
-  /* Optional */
-  --yellow: #ffc107;
-  --orange: #ff5528;
-
+  --yellow: #FFC107;
+  --orange: #FF5528;
+  
   /* Additional colors for cards */
   --blue: #3b82f6;
   --purple: #8b5cf6;
   --red: #ef4444;
 
   /* Background colors */
-  --gray-100: #f3f4f6;
-  --orange-50: #fff7ed;
-  --yellow-50: #fefce8;
-  --blue-50: #eff6ff;
-  --purple-50: #faf5ff;
-  --red-50: #fef2f2;
+  --gray-100: #F3F4F6;
+  --gray-200: #e5e7eb;
+  --gray-400:#9CA3AF;
+  --gray-500:#6B7280;
+  --orange-50: #f16108;
+  --yellow-50: hsl(55, 90%, 52%);
+  --blue-50: #0b2b55;
+  --purple-50: #4c3167;
+  --red-50: #c12d2d;
 }
 
 body {
@@ -489,6 +454,8 @@ body {
   font-weight: 900;
   display: inline-block;
   transform: none !important;
+  position: relative;
+  z-index: 30;
 }
 
 .icon-education::before {
@@ -497,6 +464,8 @@ body {
   font-weight: 900;
   display: inline-block;
   transform: none !important;
+  position: relative;
+  z-index: 30;
 }
 
 .icon-clean-water::before {
@@ -543,3 +512,191 @@ body {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+/* Missing animation classes for HelpingEachOther component */
+@keyframes fade-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes draw-line {
+  from {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+  }
+  to {
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 0;
+  }
+}
+
+.anim-fade-in-left {
+  animation: fade-in-left 1s ease-out forwards;
+}
+
+.anim-fade-in-right {
+  animation: fade-in-right 1s ease-out forwards;
+}
+
+.anim-fade-in-up {
+  animation: fade-in-up 1s ease-out forwards;
+}
+
+.anim-slide-in-right {
+  animation: slide-in-right 1s ease-out forwards;
+}
+
+.anim-draw-2s {
+  animation: draw-line 2s ease-out forwards;
+}
+
+.anim-draw-2s-delay-600 {
+  animation: draw-line 2s ease-out 0.6s forwards;
+}
+
+/* Wave animation for the wavy line */
+@keyframes wave {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-wave {
+  animation: wave 3s linear infinite;
+}
+
+/* Grid line animation */
+@keyframes moveTopBottom {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+
+.grid-line{
+    animation: moveTopBottom 4s ease-in-out infinite;
+}
+
+/* HelpAndDonate Component Styles */
+.help-donate-swiper .swiper-slide {
+  height: auto;
+}
+
+.help-donate-swiper .swiper-button-next,
+.help-donate-swiper .swiper-button-prev {
+  display: none;
+}
+
+/* Custom styles for donation cards */
+.donation-card {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.donation-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.donation-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.donation-card:hover::before {
+  left: 100%;
+}
+
+/* Progress bar animation */
+.progress-bar-fill {
+  transition: width 1s ease-in-out;
+}
+
+/* Category tag styles */
+.category-tag {
+  background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+/* Navigation button hover effects */
+.nav-btn-prev:hover,
+.nav-btn-next:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Carousel indicator styles */
+.carousel-indicator {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.carousel-indicator:hover {
+  transform: scale(1.2);
+}
+
+.carousel-indicator.active {
+  background: linear-gradient(135deg, #046B59 0%, #122F2A 100%);
+  box-shadow: 0 2px 8px rgba(4, 107, 89, 0.3);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .help-donate-swiper .swiper-slide {
+    margin: 0 10px;
+  }
+}
+
+@media (max-width: 640px) {
+  .help-donate-swiper .swiper-slide {
+    margin: 0 5px;
+  }
+}
+
