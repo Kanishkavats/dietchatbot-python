@@ -1,22 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 import React from "react";
 import { FaFacebookF, FaVimeoV, FaTwitter, FaLinkedinIn, FaRegCalendarAlt } from "react-icons/fa";
@@ -24,7 +6,7 @@ import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 import Image from "next/image";
 
-const App = () => {
+const LatestNews = () => {
   return (
     <div className="bg-gray-50 font-sans antialiased text-gray-800">
       <section className="relative w-full overflow-hidden">
@@ -715,7 +697,7 @@ const NewsCard = ({ img, category, title }) => (
 
 
 
-export default App;
+export default LatestNews;
 
 
 
