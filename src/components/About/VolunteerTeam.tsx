@@ -62,68 +62,11 @@ const VolunteerTeam = () => {
 
   return (
     <div>
-      <section className="relative min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] lg:min-h-[90vh] ">
-        <div className="relative flex items-center justify-center bg-cover bg-center bg-[url('/assets/banner-bg.png')] min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] lg:min-h-[90vh]  w-full">
-          <div className="absolute inset-0 bg-gradient-to-r from-black/90 to-transparent w-1/3"></div>
-          <div className="absolute left-0 top-0 bottom-0 h-180 w-80 md:w-130  animate-[updown_0.5s_ease-in-out_infinite] ease-in-out infinite overflow-hidden">
-            <Image
-              src="/assets/shape-left.png"
-              alt="shape left"
-              fill
-              className="object-cover animate-float pointer-events-none select-none"
-            />
-          </div>
-
-          <div className="w-full  px-4 py-32 text-center text-white">
-            <i className="text-xl mr-2 text-[#ffc107] hand-icon"></i>
-            <span className="text-yellow-400 font-caveat text-xl md:text-2xl font-semibold">
-              Start Donating Poor People
-            </span>
-            <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-nunito leading-snug">
-              Children Need Your Help By <br /> Donating Today
-            </p>
-
-            <div className="flex justify-center items-center gap-4 mt-6">
-              <div className="flex items-center justify-center flex-wrap gap-3 mt-6">
-                <div className="text-white bg-black/25  rounded-full">
-                  <Button
-                    text="Discover More"
-                    bgColor="transparent"
-                    textColor="text-white"
-                    hoverTextColor="text-white"
-                    hoverBg="before:bg-[var(--color-palate-yellow)]"
-                  />
-                </div>
-
-                <div className="">
-                  <Button
-                    text="Get A Quote"
-                    bgColor="[var(--color-palate-yellow)]"
-                    textColor="text-black"
-                    hoverTextColor="text-white"
-                    hoverBg="before:bg-[var(--color-palate-quaternary-green)]"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* <div className="absolute w-full h-19 pointer-events-none select-none">
-            <Image
-              src="/assets/bottomsection.png"
-              alt="bottom shape"
-              fill
-              className="object-cover"
-            />
-          </div> */}
-        </div>
-      </section>
-
       <section className=" relative bg-cover py-16 bg-center w-full bg-[url('/assets/bg-one-volunteer.png')]">
         <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
-          <div className="flex items-center justify-center gap-2 mb-2">
-            <i className="text-xl text-[var(--color-palate-quaternary-green)] hand-icon"></i>
-            <span className="text-[var(--color-palate-quaternary-green)] font-caveat font-semibold">
+          <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
+            <i className="text-xl  hand-icon"></i>
+            <span className=" font-caveat font-semibold">
               Start Donating Poor People
             </span>
           </div>
@@ -173,10 +116,10 @@ const VolunteerTeam = () => {
           <div className="flex items-center justify-center py-10">
             <Button
               text="View All"
-              bgColor="[var(--color-palate-yellow)]"
+              bgColor="bg-[#FFC107]"
               textColor="white"
               hoverTextColor="text-black"
-              hoverBg="before:bg-[var(--color-palate-quaternary-green)]"
+              hoverBg="before:bg-[#046b59]"
             />
           </div>
         </div>

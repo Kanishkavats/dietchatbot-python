@@ -78,7 +78,8 @@ const ValueableCustomer = () => {
       <div className="absolute top-0 left-0 w-[60%] h-[40%] bg-[url('/assets/valueableshape.png')] bg-no-repeat bg-contain"></div>
       <div className="mt-20">
         <div className="py-16">
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center text-[#046b59]">
+            <i className="text-xl  hand-icon"></i>
             <span className="text-[var(--color-palate-quaternary-green)] text-xl font-caveat font-semibold">
               Start Donating Poor People
             </span>
@@ -154,13 +155,13 @@ const ValueableCustomer = () => {
           <div className="flex justify-center gap-4 mt-8">
             <button
               onClick={handlePrev}
-              className="w-14 h-14 rounded-full bg-gray-800 hover:bg-[var(--color-palate-yellow)] hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="w-14 h-14 rounded-full bg-gray-800 hover:bg-[#FFC107] hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
               <ArrowLeft size={28} />
             </button>
             <button
               onClick={handleNext}
-              className="w-14 h-14 rounded-full bg-[var(--color-palate-yellow)] hover:bg-gray-800 text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="w-14 h-14 rounded-full bg-[#FFC107] hover:bg-gray-800 text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
               <ArrowRight size={28} />
             </button>
