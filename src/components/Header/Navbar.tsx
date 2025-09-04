@@ -40,16 +40,6 @@ const Navbar = () => {
     }
   }, [mobileMenuOpen]);
 
-  const closeMenu = () => {
-    setIsClosing(true);
-    setBackdropDone(false);
-    setTimeout(() => {
-      setMobileMenuOpen(false);
-      setIsClosing(false);
-      setDrawerDelay(true);
-    }, 900); // matches the backdrop exit delay
-  };
-
   useEffect(() => {
     if (searchOpen) {
       const inputTimer = setTimeout(() => {
@@ -70,7 +60,6 @@ const Navbar = () => {
     }
   }, [searchOpen]);
 
-  const { primaryColor } = useSelector((state: RootState) => state.theme);
 
   return (
     <nav className="w-full flex items-center justify-between  md:px-8 py-4 relative">
@@ -87,7 +76,7 @@ const Navbar = () => {
             onMouseEnter={() => setOpen(item.label)}
             onMouseLeave={() => setOpen(null)}
           >
-            <div className="flex items-center gap-1 font-semibold  py-6"
+            <div className="flex items-center gap-1 font-semibold font-nunito  py-6"
             onClick={()=>{
               if(item?.href){
                 route.push(item?.href)
@@ -176,7 +165,7 @@ const Navbar = () => {
 
         {/* Donate Button (visible on all sizes) */}
         <div className="hidden md:block">
-          <Button text="Donate" />
+          <Button text="Donate Now" />
         </div>
 
         {/* Menu Icon (visible on lg and down) */}

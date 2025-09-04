@@ -43,8 +43,8 @@
 
 :root {
   --white: #ffffff;
-  --foreground: #171717;
-  --green: #046b59;
+  --foreground:rgb(23, 23, 23); 
+  --green: rgb(4, 107, 89);
   --dark-green: #122f2a;
   --gray-green: #667471;
 

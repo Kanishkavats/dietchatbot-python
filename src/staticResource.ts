@@ -1,8 +1,22 @@
-import { charityLife, galleryImageOne, galleryImageThree, galleryImageTwo, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, phOne, phTree, phTwo, theBird, treeLife, womenWithOneChild, womenWithOneChildDark } from "../public/assets";
+import { bannerOne, bannerTwo, charityLife, galleryImageOne, galleryImageThree, galleryImageTwo, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, phOne, phTree, phTwo, theBird, treeLife, womenWithOneChild, womenWithOneChildDark } from "../public/assets";
 import { Cause } from "./types/donateUs";
 import { FAQItem } from "./types/faq";
 import { NavItem } from "./types/header";
 
+// home hero banner image 
+
+export const homeHeroImages = [
+    {
+        id: 1,
+        image: bannerOne.src,
+    },
+    {
+        id: 2,
+        image: bannerTwo.src,
+        tagline: "Start Donating Poor People",
+        heading: ["Giving Help", "To Those", "Who Need It."],
+    },
+];
 
 // ✅ Data arrays
 export const currencies = ["USD", "EUR", "INR"];
@@ -25,17 +39,10 @@ export const socialIcons = [
 export const NAV_ITEMS: NavItem[] = [
   {
     label: "Home",
-    dropdown:null,
-    href:'/'
-    // dropdown: [
-    //   { name: "Home One", image: homeOne.src },
-    //   { name: "Home Two", image: homeTwo.src },
-    //   { name: "Home Three", image: homeThree.src },
-    //   { name: "Home Four", image: homeFour.src },
-    //   { name: "Home Five", image: homeFive.src },
-    // ],
+    dropdown: null,
+    href: '/'
   },
-  { label: "About Us", dropdown: null, href:'/about' },
+  { label: "About Us", dropdown: null, href: '/about' },
   {
     label: "Causes",
     dropdown: [
@@ -74,11 +81,13 @@ export const NAV_ITEMS: NavItem[] = [
       },
     ],
   },
-  { label: "News", dropdown: [
-    { label: "News List view", href: "/news-list" },
-    { label: "News Grid View", href: "/news-grid" },
-    { label: "News Details", href: "/news-details" },
-  ] },
+  {
+    label: "News", dropdown: [
+      { label: "News List view", href: "/news-list" },
+      { label: "News Grid View", href: "/news-grid" },
+      { label: "News Details", href: "/news-details" },
+    ]
+  },
   { label: "Contact Us", dropdown: null },
 ];
 
@@ -121,9 +130,6 @@ export const footerData = {
   ],
 };
 
-
-
-
 export const PartnersCompaniesData = [
   { src: theBird.src, alt: "The Bird" },
   { src: treeLife.src, alt: "Tree Life" },
@@ -157,7 +163,7 @@ export const faqData: FAQItem[] = [
 ];
 
 
-// donate us page
+// donate us page data
 
 export const GalleryImage = [
   { src: galleryImageOne, className: "col-span-1 lg:col-span-2" },
@@ -187,17 +193,44 @@ export const causes: Cause[] = [
   },
 ];
 
-export   const tags = [
-    "T-Shirt",
-    "Banner Design",
-    "Brochures",
-    "Landing",
-    "Print",
-    "Business Card",
-  ];
+export const tags = [
+  "T-Shirt",
+  "Banner Design",
+  "Brochures",
+  "Landing",
+  "Print",
+  "Business Card",
+];
 
-  export  const Donationmethods = [
-    { label: "Test Donation", value: "test" },
-    { label: "Offline Donation", value: "offline" },
-    { label: "Credit Card", value: "credit" },
-  ];
+export const Donationmethods = [
+  { label: "Test Donation", value: "test" },
+  { label: "Offline Donation", value: "offline" },
+  { label: "Credit Card", value: "credit" },
+];
+
+// ✅ volunteer page data
+export const VolunteerPage = {
+  subtitle: "Become A Volunteer",
+  title: "Volunteer Requirements",
+  description:
+    "Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit Voluptatem Accusantium Doloremque Laudantium, Totam Rem Aperiam, Eaque Inventore",
+};
+
+export const VolunteerNotice = {
+  icon: "mdi:alert",
+  title: "Notice",
+  message:
+    "Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed.",
+};
+
+export const VolunteerProgress = [
+  { label: "Donation Collect", value: 70 },
+  { label: "Successful Events", value: 85 },
+];
+
+export const VolunteerFeatures = [
+  { text: "Best Quality Services"},
+  { text: "Time Saving"},
+  { text: "Meet The Deadlines"},
+  { text: "24/7 Customer Support"},
+];

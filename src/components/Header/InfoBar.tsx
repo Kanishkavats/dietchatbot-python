@@ -16,7 +16,7 @@ const InfoBar = () => {
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.2 }}
-      className="w-full bg-[var(--green)] text-white text-sm py-2 rounded-b-2xl hidden lg:block"
+      className="w-full bg-[var(--dark-green)] text-white text-sm py-2 rounded-b-2xl hidden lg:block"
     >
       <div className="flex flex-col md:flex-row justify-between items-center px-8 py-2 space-y-2 md:space-y-0">
 

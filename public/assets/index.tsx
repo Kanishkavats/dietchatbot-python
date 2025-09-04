@@ -28,6 +28,8 @@ import overView from './overview.png';
 import galleryImageOne from './galleryImageOne.png';
 import galleryImageTwo from './galleryImageTwo.png';
 import galleryImageThree from './galleryImageTree.png';
+import bannerOne from "./banner-one-bg.png";
+import bannerTwo from './banner-two-bg.png'
 
 export {
   logo,
@@ -60,4 +62,6 @@ export {
   galleryImageOne,
   galleryImageTwo,
   galleryImageThree,
+  bannerOne, 
+  bannerTwo
 };

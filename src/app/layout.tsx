@@ -38,9 +38,6 @@ export default function RootLayout({
           <header>
             <Header />
           </header>
-          <div className="fixed top-1/2 left-0 z-50 h-screen p-4">
-            <UISettingsPanel />
-          </div>
           <main>{children}</main>
           <footer>
             <Footer />
