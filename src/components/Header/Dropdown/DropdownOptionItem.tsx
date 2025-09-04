@@ -1,5 +1,5 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { DropdownOption } from "./NavbarDropdown";
 import { DropdownSubmenu } from "./DropdownSubmenu";
@@ -25,7 +25,8 @@ export const DropdownOptionItem = ({
   const hasChildren = opt.children && opt.children.length > 0;
   const displayLabel = opt.label || opt.name || "Item";
   const imageOptions = options.filter((o) => o.image);
-
+  console.log("opt", opt)
+  console.log("options", options)
   return (
     <div
       key={displayLabel}

@@ -18,7 +18,7 @@ interface DropdownProps {
 export const NavbarDropdown = ({ options }: DropdownProps) => {
   const [open, setOpen] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
-
+  console.log(options)
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
@@ -31,11 +31,11 @@ export const NavbarDropdown = ({ options }: DropdownProps) => {
         <DropdownOptionItem
           key={opt.label || opt.name}
           opt={opt}
+          options={options}
           open={open}
           setOpen={setOpen}
           hovered={hovered}
           setHovered={setHovered}
-          options={options}
         />
       ))}
     </motion.div>

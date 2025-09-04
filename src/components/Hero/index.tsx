@@ -5,8 +5,6 @@ import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { bannerOne, bannerTwo, spradeBase } from "@/public/assets";
 import Button from "../common/Buttons/Button";
-import { useSelector } from "react-redux";
-import { RootState } from "@/src/store";
 
 const images = [bannerOne.src, bannerTwo.src];
 
@@ -16,7 +14,7 @@ const fadeSlideIn = {
     visible: {
         opacity: 1,
         x: 0,
-        transition: { duration: 1, ease: "easeOut" },
+        transition: { duration: 1, ease: "easeOut" as const },
     },
 };
 
