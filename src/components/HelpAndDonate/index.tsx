@@ -7,6 +7,8 @@ import type { Swiper as SwiperType } from 'swiper';
 import "swiper/css";
 import "swiper/css/navigation";
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+
 
 const donationCards = [
   {
@@ -43,7 +45,7 @@ const donationCards = [
     id: 4,
     image: "/assets/section3/childenweworkfor.png",
     category: "Health",
-    title: "Children We Work With",
+    title: "Children We Work ",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
     progress: 85,
     raised: "$8500",
@@ -51,20 +53,45 @@ const donationCards = [
   }
 ];
 
+// Create 8 cards by repeating the original 4
+const allDonationCards = [...donationCards, ...donationCards];
+
 const HelpAndDonate: React.FC = () => {
+  const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [leftButtonColor, setLeftButtonColor] = useState<'yellow' | 'green'>('green');
+  const [rightButtonColor, setRightButtonColor] = useState<'yellow' | 'green'>('yellow');
+  const [hoveredLeft, setHoveredLeft] = useState(false);
+  const [hoveredRight, setHoveredRight] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
+
+  const handleCardClick = (category: string) => {
+    if (category === 'Food') {
+      router.push('/donation?type=food');
+    } else if (category === 'Health') {
+      router.push('/donation?type=health');
+    }
+  };
 
   const handlePrev = () => {
     if (swiperRef.current) {
       swiperRef.current.slidePrev();
     }
+    // Set both buttons to the hovered color of left button
+    const newColor = hoveredLeft ? 'yellow' : 'green';
+    setLeftButtonColor(newColor);
+    setRightButtonColor(newColor);
   };
 
   const handleNext = () => {
     if (swiperRef.current) {
       swiperRef.current.slideNext();
     }
+    // Set both buttons to the hovered color of right button
+    const newColor = hoveredRight ? 'green' : 'yellow';
+    setLeftButtonColor(newColor);
+    setRightButtonColor(newColor);
   };
 
   return (
@@ -102,42 +129,61 @@ const HelpAndDonate: React.FC = () => {
           </div>
 
                     {/* Right Side - Navigation Arrows */}
-          <div className="flex items-center gap-4 ml-8 mt-8">
+          <div className="flex items-center gap-4 ml-12 mt-12">
             <button
               onClick={handlePrev}
-              className="w-12 h-12 bg-black rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
+              onMouseEnter={() => setHoveredLeft(true)}
+              onMouseLeave={() => setHoveredLeft(false)}
+              className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
               style={{
+                backgroundColor: hoveredLeft ? '#FBBF24' : (leftButtonColor === 'yellow' ? '#FBBF24' : '#07110eff'),
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
               }}
             >
-              <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                 <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </button>
             <button
               onClick={handleNext}
-              className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
+              onMouseEnter={() => setHoveredRight(true)}
+              onMouseLeave={() => setHoveredRight(false)}
+              className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
               style={{
+                backgroundColor: hoveredRight ? '#07110eff' : (rightButtonColor === 'yellow' ? '#FBBF24' : '#07110eff'),
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
               }}
             >
-              <svg className="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                 <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </button>
           </div>
         </div>
+  
 
+       <div className="absolute -left-15 top-180 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300">
+               <Image
+                src="/assets/section2/spade.png"
+                 alt="Hand outline"
+                 width={80}
+                 height={80}
+                className="animate-[float_3s_ease-in-out_infinite]"
+                      />
+        </div>
+                 
         {/* Carousel Section */}
         <div className="relative">
           <Swiper
             modules={[Navigation, Autoplay]}
             slidesPerView={1}
-            spaceBetween={30}
+            spaceBetween={26}
             loop={true}
-            autoplay={{ delay: 5000, disableOnInteraction: false }}
+            autoplay={{ delay: 2000, disableOnInteraction: false }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             breakpoints={{
@@ -154,16 +200,19 @@ const HelpAndDonate: React.FC = () => {
               '--swiper-navigation-size': '0px'
             } as React.CSSProperties}
           >
-            {donationCards.map((card) => (
-              <SwiperSlide key={card.id} className="h-auto">
+            {allDonationCards.map((card, index) => (
+              <SwiperSlide key={`${card.id}-${index}`} className="h-auto">
                 <div 
-                  className="bg-white rounded-2xl shadow-lg overflow-hidden relative transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl "
+                  className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
                   style={{
                     transition: 'all 0.3s ease',
                     position: 'relative',
                     overflow: 'hidden',
                     fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'
                   }}
+                  onMouseEnter={() => setHoveredCard(card.id)}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  onClick={() => handleCardClick(card.category)}
                 >
                   {/* Shimmer effect overlay */}
                   <div 
@@ -177,7 +226,7 @@ const HelpAndDonate: React.FC = () => {
                   />
                   
                   {/* Card Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  <div className="relative h-48 rounded-lg overflow-hidden">
                     <Image
                       src={card.image}
                       alt={card.title}
@@ -186,10 +235,17 @@ const HelpAndDonate: React.FC = () => {
                     />
                     {/* Category Tag */}
                     <div 
-                      className="absolute top-4 left-4 px-3 py-1 rounded-full text-black text-sm font-medium"
+                      className="absolute top-4 left-4 px-3 py-1 rounded-full text-black text-sm font-medium transition-all duration-300"
                       style={{
-                        background: 'linear-gradient(135deg, #FFC107 0%, #FFD54F 100%)',
-                        boxShadow: '0 2px 8px rgba(255, 193, 7, 0.3)'
+                        background: hoveredCard === card.id 
+                          ? 'linear-gradient(135deg, #151414d6 0%, #000000 100%)'
+                          : 'linear-gradient(135deg, #FFC107 0%, #FFD54F 100%)',
+                        color: hoveredCard === card.id ? 'white' : 'black',
+                        boxShadow: hoveredCard === card.id 
+                          ? '0 2px 8px rgba(34, 197, 94, 0.4)'
+                          : '0 2px 8px rgba(255, 193, 7, 0.3)',
+                        transform: hoveredCard === card.id ? 'scale(1.05)' : 'scale(1)',
+                        transition: 'all 0.3s ease'
                       }}
                     >
                       {card.category}
@@ -199,7 +255,19 @@ const HelpAndDonate: React.FC = () => {
                   {/* Card Content */}
                   <div className="p-6">
                     {/* Title */}
-                    <h3 className="text-xl font-bold text-dark-green mb-3">{card.title}</h3>
+                    <h3 
+                      className="text-xl font-bold mb-3 transition-colors duration-300 cursor-pointer"
+                      style={{
+                        color: hoveredCard === card.id ? '#6b5103' : '#122F2A', // Yellow mustard on hover, dark green default
+                        transition: 'color 0.3s ease'
+                      }}
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        router.push('/child-education');
+                      }}
+                    >
+                      {card.title}
+                    </h3>
                     
                     {/* Description */}
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">{card.description}</p>
@@ -225,7 +293,19 @@ const HelpAndDonate: React.FC = () => {
                     </div>
                     
                     {/* Donate Button */}
-                    <button className="w-full py-3 px-4 border-2 border-dark-green text-dark-green font-semibold rounded-lg hover:bg-dark-green hover:text-white transition-all duration-300">
+                    <button 
+                      className=" py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300"
+                      style={{
+                        backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
+                        borderColor: hoveredCard === card.id ? '#000000' : '#1a2d29ff',
+                        color: hoveredCard === card.id ? 'white' : '#122F2A',
+                        transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
+                        boxShadow: hoveredCard === card.id 
+                          ? '0 4px 12px rgba(34, 197, 94, 0.3)'
+                          : 'none',
+                        transition: 'all 0.3s ease'
+                      }}
+                    >
                       Donate Now
                     </button>
                   </div>
@@ -234,9 +314,9 @@ const HelpAndDonate: React.FC = () => {
             ))}
           </Swiper>
 
-          {/* Carousel Indicators */}
+          {/* Carousel Indicators - 8 dots */}
           <div className="flex justify-center mt-8 space-x-2">
-            {donationCards.map((_, index) => (
+            {Array.from({ length: 8 }, (_, index) => (
               <button
                 key={index}
                 onClick={() => {
