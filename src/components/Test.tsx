@@ -17,7 +17,7 @@ const Test = () => {
   return (
     <div className="bg-white py-12 px-5 flex justify-center">
       <div className="flex flex-wrap justify-between items-start max-w-[1200px] gap-12 w-full">
-        {/* Left Section */}
+        
         <div className="flex-1 min-w-[300px]">
           <p className="inline-flex items-center justify-center gap-2 text-[#00715D] text-2xl font-caveat mb-2">
             <FaHandHoldingHeart className="text-[#00715D] text-lg" /> Get In Touch
@@ -29,7 +29,7 @@ const Test = () => {
           </p>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Location */}
+           
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-3">
               <FaMapMarkerAlt className="text-[#6b5103] text-xl mt-1" />
               <div>
@@ -38,7 +38,7 @@ const Test = () => {
               </div>
             </div>
 
-            {/* Phone */}
+            
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-3">
               <FaPhoneAlt className="text-[#6b5103] text-xl mt-1" />
               <div>
@@ -47,7 +47,7 @@ const Test = () => {
               </div>
             </div>
 
-            {/* Email */}
+           
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-3">
               <FaEnvelope className="text-[#6b5103] text-xl mt-1" />
               <div>
@@ -56,7 +56,7 @@ const Test = () => {
               </div>
             </div>
 
-            {/* Social */}
+            
             <div className="flex flex-col md:flex-row items-start gap-4 md:gap-3">
               <FaShareAlt className="text-[#6b5103] text-xl mt-1" />
               <div>
@@ -78,7 +78,7 @@ const Test = () => {
               </div>
             </div>
 
-            {/* Contact Image */}
+            
             <div className="col-span-1 md:col-span-2 text-center mt-5 md:mt-0">
               <Image
                 src="/contact.png"
@@ -91,7 +91,7 @@ const Test = () => {
           </div>
         </div>
 
-        {/* Right Section - Form */}
+        
         <div className="flex-1 min-w-[300px] bg-white p-10 rounded-xl border border-gray-200 shadow-md">
           <h2 className="text-2xl font-bold mb-2">Fill Up The Form</h2>
           <p className="text-[#667471] text-base font-nunito mb-5">

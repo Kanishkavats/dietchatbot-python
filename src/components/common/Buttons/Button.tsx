@@ -18,7 +18,7 @@ const Button: React.FC<DynamicButtonProps> = ({
   text,
   icon = "mdi:arrow-top-right", // default icon
   hoverBg = "before:bg-[var(--green)]",
-  textColor = "text-black",
+  textColor = "text-[var(--foreground)]",
   hoverTextColor = "group-hover:text-white",
   bgColor="bg-[var(--yellow)]",
   onClick,
@@ -40,7 +40,7 @@ const Button: React.FC<DynamicButtonProps> = ({
           transition: { duration: 0.4, ease: "easeInOut" },
         },
       }}
-      className={`w-full relative px-10 py-4 cursor-pointer rounded-full font-semibold 
+      className={`w-full relative px-10 py-4 cursor-pointer rounded-full font-semibold font-nunito
         ${bgColor} ${textColor} 
         overflow-hidden group
         before:content-[''] before:absolute before:inset-0 ${hoverBg} 
