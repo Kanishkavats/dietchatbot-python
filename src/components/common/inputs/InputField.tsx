@@ -20,19 +20,21 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
 }) => {
   const [field, meta] = useField(props);
 
+  const isTextarea = as === "textarea";
+
   return (
     <div className="w-full">
       {label && <label className="block mb-1 font-medium">{label}</label>}
       <div
-        className={`flex items-baseline gap-2 bg-[var(--gray-100)] px-3 py-3 rounded-md border ${
+        className={`flex gap-2 bg-[var(--gray-200)]/60 px-3 py-4 rounded-md border ${
           meta.touched && meta.error ? "border-[var(--red)]" : "border-transparent"
-        }`}
+        } ${isTextarea ? "items-start" : "items-center"}`}
       >
-        {as === "textarea" ? (
+        {isTextarea ? (
           <textarea
             {...field}
             placeholder={placeholder}
-            className="w-full bg-transparent outline-none resize-none"
+            className="w-full bg-transparent outline-none resize-none text-[14px]"
             rows={4}
           />
         ) : (
@@ -40,13 +42,18 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
             {...field}
             type={type}
             placeholder={placeholder}
-            className="w-full bg-transparent outline-none"
+            className="w-full bg-transparent outline-none text-[14px]"
           />
         )}
-        {icon && <Icon icon={icon} className="text-gray-500 text-lg font-bold size-6" />}
+        {icon && (
+          <Icon
+            icon={icon}
+            className="text-[var(--gray-500)]/60 text-lg font-bold size-5 mt-[2px]"
+          />
+        )}
       </div>
       {meta.touched && meta.error && (
-        <p className="text-sm text-red-500 mt-1">{meta.error}</p>
+        <p className="text-[10px] text-[var(--red)] mt-1">{meta.error}</p>
       )}
     </div>
   );

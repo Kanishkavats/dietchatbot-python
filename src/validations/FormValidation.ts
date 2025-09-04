@@ -9,5 +9,15 @@ export const formSchema = Yup.object().shape({
   message: Yup.string().optional(),
 });
 
-// ✅ use Yup.InferType instead of z.infer
 export type FormValues = Yup.InferType<typeof formSchema>;
+
+export const volunteerSchema = Yup.object().shape({
+  firstName: Yup.string().required("First Name is required"),
+  lastName: Yup.string().required("Last Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  phone: Yup.string().required("Phone Number is required"),
+  occupation: Yup.string().required("Occupation is required"),
+  message: Yup.string().required("Message is required"),
+});
+
+export type VolunteerValues = Yup.InferType<typeof volunteerSchema >
