@@ -234,3 +234,104 @@ export const VolunteerFeatures = [
   { text: "Meet The Deadlines"},
   { text: "24/7 Customer Support"},
 ];
+
+// about page voluntear team members data
+export const teamMembers = [
+    {
+      name: "Michel Fokluz",
+      role: "Volunteer",
+      img: "/assets/volunteer1.png",
+      delay: 0,
+    },
+    {
+      name: "Arian Drobloas",
+      role: "Volunteer",
+      img: "/assets/volunteer2.png",
+      delay: 300,
+    },
+    {
+      name: "Jara Klintof",
+      role: "Volunteer",
+      img: "/assets/volunteer3.png",
+      delay: 600,
+    },
+    {
+      name: "Aiden Markram",
+      role: "Volunteer",
+      img: "/assets/volunteer4.png",
+      delay: 900,
+    },
+    {
+      name: "Michel Fokluz",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear5.png",
+      delay: 0,
+    },
+    {
+      name: "Arian Drobloas",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear6.png",
+      delay: 300,
+    },
+    {
+      name: "Jara Klintof",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear7.png",
+      delay: 600,
+    },
+    {
+      name: "Aiden Markram",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear8.png",
+      delay: 900,
+    },
+    {
+      name: "Michel Fokluz",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear5.png",
+      delay: 0,
+    },
+    {
+      name: "Arian Drobloas",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear6.png",
+      delay: 300,
+    },
+    {
+      name: "Jara Klintof",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear7.png",
+      delay: 600,
+    },
+    {
+      name: "Aiden Markram",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear8.png",
+      delay: 900,
+    }
+  ];
+
+  // aboutpage  testimonials data
+export  const testimonials = [
+    {
+      name: "Michel Smith",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+    {
+      name: "Ruby Klara",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+    {
+      name: "Bishu Kiev",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+  ];
