@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { Caveat, Nunito } from "next/font/google";
-import "./globals.css";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
-import UISettingsPanel from "@/src/components/UISettingsPanel";
-import { Provider } from "react-redux";
-import ThemeApplier from "@/src/helper/ThemeApplier";
-import Providers from "./providers";
+import "@/src/app/globals.css";
+import AdminSideBar from "@/src/components/Admin/sidebar";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -33,16 +28,13 @@ export default function RootLayout({
       <body
         className={`${caveat.variable} ${nunito.variable} antialiased min-h-screen flex flex-col`}
       >
-        {/* <Providers> */}
-          {/* <ThemeApplier /> */}
-          <header>
-            {/* <Header /> */}
-          </header>
-          <main>{children}</main>
-          <footer>
-            {/* <Footer /> */}
-          </footer>
-        {/* </Providers> */}
+
+        {/* for route */}
+        {/* <div className="relative flex gap-2 h-screen">
+          <AdminSideBar/>
+           <main className="pt-12 px-5">{children}</main> 
+        </div> */}
+        <main>{children}</main>
       </body>
     </html>
   );
