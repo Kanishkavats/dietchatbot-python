@@ -2,20 +2,7 @@
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
-
-export interface DropdownOption {
-  label?: string;
-  icon?: string;
-  image?: string;
-  name?: string;
-  href?: string;
-  children?: DropdownOption[];
-}
-
-interface DropdownProps {
-  options: (DropdownOption | string)[];
-  label: string; // Default label if no item is selected
-}
+import { DropdownOption, DropdownProps } from "@/src/types/header";
 
 const dropdownVariants = {
   hidden: { opacity: 0, y: -10 },
@@ -35,16 +22,19 @@ export const InfoBarDropdown = ({ options, label }: DropdownProps) => {
     return typeof opt === "string" ? { label: opt } : opt;
   };
 
-  // Close dropdown on outside click
+   // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
         setOpen(false);
       }
     };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+
+    // use click instead of mousedown
+    document.addEventListener("click", handleClickOutside);
+    return () => document.removeEventListener("click", handleClickOutside);
   }, []);
+
 
   const handleSelect = (opt: DropdownOption | string) => {
     setSelected(opt);
@@ -58,11 +48,11 @@ export const InfoBarDropdown = ({ options, label }: DropdownProps) => {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 cursor-pointer  text-white"
+        className="flex items-center gap-2 cursor-pointer  text-[var(--white)]"
       >
         {selectedOption.icon && (
           <span className="bg-gray-600 rounded-full p-1">
-            <Icon icon={selectedOption.icon} className="size-4 rounded-full text-black" />
+            <Icon icon={selectedOption.icon} className="size-4 rounded-full text-[var(--foreground)]" />
           </span>
         )}
         <span>{selectedOption.label || label}</span>
@@ -77,7 +67,7 @@ export const InfoBarDropdown = ({ options, label }: DropdownProps) => {
             initial="hidden"
             animate="visible"
             exit="exit"
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.3 }}
             className="absolute left-0 mt-2 w-fit bg-white text-gray-800 shadow-lg rounded-lg overflow-hidden z-50"
           >
             {options.map((opt, idx) => {

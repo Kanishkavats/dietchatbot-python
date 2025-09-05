@@ -7,7 +7,8 @@ import homeThree from './home-three.png';
 import homeFour from './home-four.png';
 import homeFive from './home-five.png';
 import spradeBase from './sprade-base.png';
-import bannerTwoShape from './banner-two-shape.png';
+import verticleYellowShape from './verticle-yellow-shape.png';
+import horizontalWhiteShape from './horizontal-white-shape.png'
 import theBird from './theBird.png';
 import treeLife from './treeLife.png';
 import loremIpsum from './loremIpsum.png';
@@ -29,7 +30,9 @@ import galleryImageOne from './galleryImageOne.png';
 import galleryImageTwo from './galleryImageTwo.png';
 import galleryImageThree from './galleryImageTree.png';
 import bannerOne from "./banner-one-bg.png";
-import bannerTwo from './banner-two-bg.png'
+import bannerTwo from './banner-two-bg.png';
+import bannerBg from './banner-bg.png';
+import homeCommunity from './home-community.png'
 
 export {
   logo,
@@ -41,7 +44,8 @@ export {
   homeFour,
   homeFive,
   spradeBase,
-  bannerTwoShape,
+  verticleYellowShape,
+  horizontalWhiteShape,
   theBird,
   treeLife,
   loremIpsum,
@@ -63,5 +67,7 @@ export {
   galleryImageTwo,
   galleryImageThree,
   bannerOne, 
-  bannerTwo
+  bannerTwo,
+  bannerBg,
+  homeCommunity
 };

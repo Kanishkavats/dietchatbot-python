@@ -46,26 +46,22 @@
   --foreground:rgb(23, 23, 23); 
   --green: rgb(4, 107, 89);
   --dark-green: #122f2a;
-  --gray-green: #667471;
-
   --yellow: #FFC107;
+  --yellow-50: hsl(55, 90%, 52%);
   --orange: #FF5528;
-  
-  /* Additional colors for cards */
-  --blue: #3b82f6;
+  --orange-50: #f16108;
   --purple: #8b5cf6;
-  --red: #ef4444;
-
-  /* Background colors */
+  --gray-green: #667471;
   --gray-100: #F3F4F6;
   --gray-200: #e5e7eb;
   --gray-400:#9CA3AF;
   --gray-500:#6B7280;
-  --orange-50: #f16108;
-  --yellow-50: hsl(55, 90%, 52%);
+  --blue: #3b82f6;
   --blue-50: #0b2b55;
   --purple-50: #4c3167;
+  --red: #ef4444;
   --red-50: #c12d2d;
+  --brown:#6b5103;
 }
 
 body {

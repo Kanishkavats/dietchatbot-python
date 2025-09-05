@@ -25,11 +25,11 @@ const Header = () => {
 
         {/* First Navbar - visible when not scrolled */}
         {!scrolled && (
-          <div className="transition-opacity duration-300">
+          <div className="transition-opacity duration-300 md:px-8">
             <Navbar />
           </div>
         )}
-
+      </div>
         {/* Second Navbar - animated with framer-motion when scrolled */}
         <AnimatePresence>
           {scrolled && (
@@ -39,13 +39,12 @@ const Header = () => {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -50, opacity: 0 }}
               transition={{ duration: 0.6, ease: 'easeInOut' }}
-              className="fixed top-0 left-0 right-0 bg-[var(--white)] shadow-md z-50 px-2 md:px-0"
+              className="fixed top-0 left-0 right-0 bg-[var(--white)] shadow-md z-50 px-2 md:px-3"
             >
               <Navbar />
             </motion.div>
           )}
         </AnimatePresence>
-      </div>
     </div>
   );
 };

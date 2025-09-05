@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 
 interface MobileBackdropProps {
   isClosing: boolean;
-  drawerDelay: boolean;
+  drawerDelay: number;
 }
 
 export const MobileBackdrop = ({ isClosing, drawerDelay}: MobileBackdropProps) => {

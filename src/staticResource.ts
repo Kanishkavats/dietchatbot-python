@@ -6,16 +6,16 @@ import { NavItem } from "./types/header";
 // home hero banner image 
 
 export const homeHeroImages = [
-    {
-        id: 1,
-        image: bannerOne.src,
-    },
-    {
-        id: 2,
-        image: bannerTwo.src,
-        tagline: "Start Donating Poor People",
-        heading: ["Giving Help", "To Those", "Who Need It."],
-    },
+  {
+    id: 1,
+    image: bannerOne.src,
+  },
+  {
+    id: 2,
+    image: bannerTwo.src,
+    tagline: "Start Donating Poor People",
+    heading: ["Giving Help", "To Those", "Who Need It."],
+  },
 ];
 
 // ✅ Data arrays
@@ -57,6 +57,22 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Donate Us", href: "/donate-us" },
       { label: "Become Volunteer", href: "/volunteer" },
       {
+        label: "Events",
+        children: [
+          { label: "Events", href: "/events" },
+          { label: "Event Details", href: "/events/details" },
+        ],
+      },
+      {
+        label: "Shop",
+        children: [
+          { label: "Our Shop", href: "/our-shop" },
+          { label: "Product Details", href: "/product-details" },
+          { label: "View Cart", href: "/view-cart" },
+          { label: "Checkout", href: "/checkout" },
+        ],
+      },
+      {
         label: "Team",
         children: [
           { label: "Our Teams", href: "/team" },
@@ -64,31 +80,25 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        label: "Shop",
-        children: [
-          { label: "Our Shop", href: "/shop" },
-          { label: "Product Details", href: "/shop" },
-          { label: "View Cart", href: "/shop" },
-          { label: "Checkout", href: "/shop" },
-        ],
+        label: "Coming Soon",
+        href: "/coming-soon"
       },
       {
-        label: "Events",
-        children: [
-          { label: "Events", href: "/events" },
-          { label: "Event Details", href: "/events/details" },
-        ],
+        label: "Error",
+        href: "/error"
       },
+
+
     ],
   },
   {
     label: "News", dropdown: [
-      { label: "News List view", href: "/news-list" },
+      { label: "News List view", href: "/latestnews" },
       { label: "News Grid View", href: "/news-grid" },
       { label: "News Details", href: "/news-details" },
     ]
   },
-  { label: "Contact Us", dropdown: null },
+  { label: "Contact Us", dropdown: null, href: "contact" },
 ];
 
 
@@ -229,8 +239,9 @@ export const VolunteerProgress = [
 ];
 
 export const VolunteerFeatures = [
-  { text: "Best Quality Services"},
-  { text: "Time Saving"},
-  { text: "Meet The Deadlines"},
-  { text: "24/7 Customer Support"},
+  { text: "Best Quality Services" },
+  { text: "Time Saving" },
+  { text: "Meet The Deadlines" },
+  { text: "24/7 Customer Support" },
 ];
+

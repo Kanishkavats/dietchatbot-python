@@ -2,6 +2,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { DropdownOptionItem } from "./DropdownOptionItem";
+import { Icon } from "@iconify/react/dist/iconify.js";
+
 
 export interface DropdownOption {
   label?: string;
@@ -18,20 +20,19 @@ interface DropdownProps {
 export const NavbarDropdown = ({ options }: DropdownProps) => {
   const [open, setOpen] = useState<string | null>(null);
   const [hovered, setHovered] = useState<string | null>(null);
-  console.log(options)
   return (
     <motion.div
       initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
       transition={{ duration: 0.2 }}
-      className="absolute top-full mt-0 bg-white rounded-md shadow-lg py-2 z-50 w-48"
+      className="absolute top-full mt-0 bg-[var(--white)] rounded-md shadow-lg py-2 z-50 w-48 "
     >
+      <Icon icon="bxs:up-arrow" className="absolute -top-0 left-5 size-4 text-[var(--brown)]" />
       {options.map((opt) => (
         <DropdownOptionItem
           key={opt.label || opt.name}
           opt={opt}
-          options={options}
           open={open}
           setOpen={setOpen}
           hovered={hovered}
