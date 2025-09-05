@@ -4,31 +4,9 @@ import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
-
+import { testimonials } from "@/src/staticResource";
 const ValueableCustomer = () => {
-  const testimonials = [
-    {
-      name: "Michel Smith",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Ruby Klara",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Bishu Kiev",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-  ];
+  
 
   const slides = [...testimonials, ...testimonials];
 
