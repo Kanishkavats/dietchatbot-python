@@ -1,11 +1,11 @@
-import LatestNews from "@/src/components/Latestnews";
+import Event from "@/src/components/Event";
 
 
 
 export default function NewsPage() {
   return (
     <>
-      <LatestNews />
+      <Event />
       
       
     </>
