@@ -10,6 +10,7 @@ const Home = () => {
     <div>
       <HeroStaticSlider />
       <PartnersCompanies />
+        <Community />
     </div>
   )
 }

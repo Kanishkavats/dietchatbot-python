@@ -16,7 +16,7 @@ const Community = () => {
 
     return (
         <section className="relative bg-[var(--green)] text-[var(--white)] flex justify-center items-center">
-            <section className="  py-20 w-11/12 xl:w-10/12 ">
+            <section className="  py-20 w-11/12 xl:w-10/12 font-nunito">
 
                 <p className="text-[var(--yellow)] font-medium flex items-center gap-2 font-caveat text-2xl">
                     <Icon icon="mdi:hand-heart" className=" cursor-pointer" />
@@ -35,15 +35,14 @@ const Community = () => {
                     </div>
                 </div>
 
-                <div className="max-w-7xl bg-[var(--white)] rounded-2xl mx-auto flex flex-col lg:flex-row items-center gap-10 lg:gap-20">
-                    {/* Left: Donation Form */}
-                    <div className="bg-[var(--white)] text-[var(--foreground)] rounded-xl shadow-lg p-8 lg:p-12 w-full lg:w-1/2 relative z-10">
-                        <h2 className="text-2xl font-semibold mb-5">Support Where It Counts.</h2>
+                <div className="max-w-7xl bg-[var(--white)] rounded-2xl overflow-hidden mx-auto grid grid-cols-5">
 
-                            <div className="mb-6">
+                    <div className="bg-[var(--white)] text-[var(--foreground)] rounded-xl shadow-lg p-8 lg:p-12 w-full col-span-3 relative z-10">
+                        <h2 className="text-3xl font-bold  mb-10">Support Where It Counts.</h2>
 
-                        <Notice message="Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed." />
-                            </div>
+                        <div className="mb-8">
+                            <Notice message="Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed." />
+                        </div>
 
                         {/* Donation Input */}
                         <DonationInput
@@ -67,14 +66,12 @@ const Community = () => {
                         <Button text="Donate Now" />
                     </div>
 
-                    {/* Right: Image */}
-                    <div className="w-full lg:w-1/2 relative ">
+                    <div className="w-full  relative col-span-2 ">
                         <div className="overflow-hidden rounded-r-xl">
                             <Image
                                 src={homeCommunity}
                                 alt="Donation"
-                                width={600}
-                                height={400}
+                                fill
                                 className="object-cover w-full h-full"
                             />
                         </div>
