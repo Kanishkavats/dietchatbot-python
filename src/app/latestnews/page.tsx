@@ -8,7 +8,7 @@ export default function NewsPage() {
     <>
           <ChildrenNeed/>
       <LatestNews />
-      {/* ...rest of the page */}
+      
       
     </>
   );

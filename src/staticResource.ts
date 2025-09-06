@@ -218,7 +218,7 @@ export const Donationmethods = [
   { label: "Credit Card", value: "credit" },
 ];
 
-// ✅ volunteer page data
+
 export const VolunteerPage = {
   subtitle: "Become A Volunteer",
   title: "Volunteer Requirements",
@@ -244,4 +244,207 @@ export const VolunteerFeatures = [
   { text: "Meet The Deadlines" },
   { text: "24/7 Customer Support" },
 ];
+
+
+// about page voluntear team members data
+export const teamMembers = [
+    {
+      name: "Michel Fokluz",
+      role: "Volunteer",
+      img: "/assets/volunteer1.png",
+      delay: 0,
+    },
+    {
+      name: "Arian Drobloas",
+      role: "Volunteer",
+      img: "/assets/volunteer2.png",
+      delay: 300,
+    },
+    {
+      name: "Jara Klintof",
+      role: "Volunteer",
+      img: "/assets/volunteer3.png",
+      delay: 600,
+    },
+    {
+      name: "Aiden Markram",
+      role: "Volunteer",
+      img: "/assets/volunteer4.png",
+      delay: 900,
+    },
+    {
+      name: "Michel Fokluz",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear5.png",
+      delay: 0,
+    },
+    {
+      name: "Arian Drobloas",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear6.png",
+      delay: 300,
+    },
+    {
+      name: "Jara Klintof",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear7.png",
+      delay: 600,
+    },
+    {
+      name: "Aiden Markram",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear8.png",
+      delay: 900,
+    },
+    {
+      name: "Michel Fokluz",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear5.png",
+      delay: 0,
+    },
+    {
+      name: "Arian Drobloas",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear6.png",
+      delay: 300,
+    },
+    {
+      name: "Jara Klintof",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear7.png",
+      delay: 600,
+    },
+    {
+      name: "Aiden Markram",
+      role: "Volunteer",
+      img: "/assets/aboutsection/voluntear8.png",
+      delay: 900,
+    }
+  ];
+
+  // aboutpage  testimonials data
+export  const testimonials = [
+    {
+      name: "Michel Smith",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+    {
+      name: "Ruby Klara",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+    {
+      name: "Bishu Kiev",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+  ];
+export interface Event {
+  id: number;
+  date: string;
+  title: string;
+  location: string;
+  image: string;
+}
+
+export const events: Event[] = [
+  {
+    id: 1,
+    date: "October 19, 2025",
+    title: "Transforming Lives Charity Golf Tournament",
+    location: "135 W, 46nd Street, New York",
+    image: "/one.png",
+  },
+  {
+    id: 2,
+    date: "October 19, 2025",
+    title: "Unity in Giving Community Charity Event",
+    location: "135 W, 46nd Street, New York",
+    image: "/two.png",
+  },
+  {
+    id: 3,
+    date: "October 19, 2025",
+    title: "Unity in Giving Community Charity Event",
+    location: "135 W, 46nd Street, New York",
+    image: "/three.png",
+  }
+];
+
+
+export interface Comment {
+  id: number;
+  name: string;
+  avatar: string;
+  content: string;
+  time: string;
+}
+
+export const comments: Comment[] = [
+  {
+    id: 1,
+    name: "Martha Grey",
+    avatar: "/assets/author-four.png",
+    content:
+      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    time: "2 Min Ago",
+  },
+  {
+    id: 2,
+    name: "Jackie Dawson",
+    avatar: "/assets/author.png",
+    content:
+      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    time: "2 Min Ago",
+  },
+  {
+    id: 3,
+    name: "Hesia Lara",
+    avatar: "/assets/author-two.png",
+    content:
+      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    time: "2 Min Ago",
+  },
+];
+
+export interface RecentPost {
+  id: number;
+  title: string;
+  date: string;
+  image: string;
+  alt: string;
+}
+
+export const recentPosts: RecentPost[] = [
+  {
+    id: 1,
+    title: "Where Innovation Meets Foundation",
+    date: "November 19, 2024",
+    image: "/assets/ph-one bottom.png",
+    alt: "Family with woman holding child",
+  },
+  {
+    id: 2,
+    title: "Where Innovation Meets Foundation",
+    date: "November 19, 2024",
+    image: "/assets/ph-two bottom.png",
+    alt: "Group of hands stacked together",
+  },
+  {
+    id: 3,
+    title: "Structures That Stand, Dreams That Soar",
+    date: "November 22, 2024",
+    image: "/assets/three bottomm.png",
+    alt: "Two young children looking at camera",
+  },
+];
+
+
 
