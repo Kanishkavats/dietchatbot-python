@@ -47,12 +47,14 @@ const Button: React.FC<DynamicButtonProps> = ({
         before:transition-transform before:duration-500 
         before:origin-center before:scale-x-0 hover:before:scale-x-100 before:z-0`}
     >
-      <div
-        className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${hoverTextColor}`}
+     <div
+        className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${hoverTextColor} 
+        whitespace-nowrap`}  
       >
-        <span>{text}</span>
+        <span className="leading-none">{text}</span>
         {icon && (
           <motion.div
+            className="flex items-center justify-center leading-none"
             animate={iconControls}
             transition={{ duration: 0.4, ease: "easeInOut" }}
           >

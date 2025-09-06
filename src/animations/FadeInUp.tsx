@@ -6,11 +6,13 @@ interface FadeInUpProps {
   children: ReactNode;
   delay?: number;
   className?: string;
+  initialYExis?:number;
 }
 
-const FadeInUp = ({ children, delay = 0, className = "" }: FadeInUpProps) => (
+const FadeInUp = ({ children, delay = 0, className = "", initialYExis = 40 }: FadeInUpProps) => (
+
   <motion.div
-    initial={{ opacity: 0, y: 40 }}
+    initial={{ opacity: 0, y: initialYExis }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, amount: 0.2 }}
     transition={{ duration: 0.6, delay }}

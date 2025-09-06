@@ -1,14 +1,4 @@
 
-
-
-
-
-
-
-
-
-
-
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -30,43 +20,6 @@ import { FiSearch } from "react-icons/fi";
 const LatestNews = () => {
   return (
     <div className="bg-gray-50 font-sans antialiased text-gray-800">
-      
-      <section className="relative w-full overflow-hidden">
-        <div className="absolute inset-0 -z-10">
-          <Image
-            src="/banner-bg.png"
-            alt="Banner background"
-            width={1920}
-            height={1080}
-            className="h-[70vh] lg:h-[80vh] w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-[#082a25]/60" />
-        </div>
-
-        <div className="absolute top-0 left-0 w-full overflow-hidden leading-[0]">
-          <svg
-            viewBox="0 0 500 150"
-            preserveAspectRatio="none"
-            className="w-full h-[60px]"
-          >
-            <path
-              d="M-5.64,37.56 C118.11,135.10 347.73,-42.79 503.10,63.01 L500.00,0.00 L0.00,0.00 Z"
-              className="fill-white"
-            ></path>
-          </svg>
-        </div>
-
-        <div className="relative flex items-center justify-center h-[70vh] lg:h-[80vh]">
-          <div className="text-center px-4">
-            <span className="inline-flex items-center gap-2 text-yellow-400 font-caveat text-lg md:text-xl drop-shadow-md">
-              <i className="icon-donation" /> Start Donating Poor People
-            </span>
-            <h2 className="mt-3 text-white font-extrabold text-3xl md:text-5xl lg:text-6xl drop-shadow-lg">
-              Latest News
-            </h2>
-          </div>
-        </div>
-      </section>
 
       <section className="py-20 px-4">
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">

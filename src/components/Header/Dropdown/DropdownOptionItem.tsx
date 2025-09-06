@@ -1,13 +1,12 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { DropdownOption } from "./NavbarDropdown";
 import { DropdownSubmenu } from "./DropdownSubmenu";
-import { DropdownImagePreview } from "./DropdownImagePreview";
+import AnimatedReveal from "@/src/animations/AnimatedReveal";
+import { usePathname } from "next/navigation";
 
 interface Props {
   opt: DropdownOption;
-  options: DropdownOption[];
   open: string | null;
   setOpen: (v: string | null) => void;
   hovered: string | null;
@@ -16,20 +15,21 @@ interface Props {
 
 export const DropdownOptionItem = ({
   opt,
-  options,
   open,
   setOpen,
   hovered,
   setHovered,
 }: Props) => {
+  const pathname = usePathname();
   const hasChildren = opt.children && opt.children.length > 0;
   const displayLabel = opt.label || opt.name || "Item";
-  const imageOptions = options.filter((o) => o.image);
+  const isActive = pathname === opt.href; 
+  const isHovered = hovered === displayLabel || isActive; 
 
   return (
     <div
       key={displayLabel}
-      className="relative group border-b border-gray-100 last:border-b-0"
+      className="relative group border-b border-[var(--gray-100)] last:border-b-0"
       onMouseEnter={() => {
         setHovered(displayLabel);
         if (hasChildren) setOpen(displayLabel);
@@ -40,39 +40,47 @@ export const DropdownOptionItem = ({
       }}
     >
       {/* Standard dropdown link */}
-      {!opt.image && (
-        <a
-          href={opt.href || "#"}
-          className="flex items-center justify-between gap-2 px-4 py-2 text-gray-700  hover:text-palate-brown transition-colors duration-200 relative"
+      <a
+        href={opt.href || "#"}
+        className={`flex items-center justify-between gap-2 px-4 py-2 transition-colors duration-200 relative
+          ${isHovered ? "text-[var(--brown)] " : "text-[var(--foreground)]/90 hover:text-[var(--brown)]"}`}
+      >
+        {/* Left dash icon animation */}
+        <AnimatedReveal
+          direction="left"
+          distance={8}
+          duration={0.2}
+          animate={isHovered ? { x: 0, opacity: 1 } : { x: -8, opacity: 0 }}
+          className="absolute left-2"
         >
-          <motion.span
-            initial={{ x: -8, opacity: 0 }}
-            animate={hovered === displayLabel ? { x: 0, opacity: 1 } : { x: -8, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="absolute left-2"
-          >
-            <Icon icon="mdi:minus" width="16" height="16" />
-          </motion.span>
+          <Icon icon="mdi:minus" width="16" height="16" />
+        </AnimatedReveal>
 
-          <motion.span
-            animate={hovered === displayLabel ? { x: 10 } : { x: 0 }}
-            transition={{ duration: 0.2 }}
-            className="flex-1"
-          >
-            {displayLabel}
-          </motion.span>
+        {/* Label text animation */}
+        <AnimatedReveal
+          direction="right"
+          distance={10}
+          duration={0.2}
+          className="flex-1"
+          animate={isHovered ? { x: 10 } : { x: 0 }}
+        >
+          {displayLabel}
+        </AnimatedReveal>
 
-          {hasChildren && <Icon icon="mdi:chevron-right" width="16" height="16" />}
-        </a>
-      )}
+        {hasChildren && (
+          <Icon icon="mdi:chevron-right" width="16" height="16" />
+        )}
+      </a>
 
       {/* Nested dropdown */}
-      <DropdownSubmenu parent={opt} open={open} displayLabel={displayLabel} />
-
-      {/* Image preview */}
-      {opt.image && (
-        <DropdownImagePreview imageOptions={imageOptions} />
-      )}
+      <DropdownSubmenu
+        parent={opt}
+        open={open}
+        displayLabel={displayLabel}
+        hovered={hovered}
+        setHovered={setHovered}
+        setOpen={setOpen}
+      />
     </div>
   );
 };

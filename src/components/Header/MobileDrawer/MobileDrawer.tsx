@@ -33,13 +33,13 @@ export const MobileDrawer = ({
         delay: !isClosing ? drawerDelay : 0, 
         ease: 'easeInOut',
       }}
-      className="fixed top-14 left-0 h-full w-full md:w-104 bg-white shadow-lg z-50 pt-10 pb-20 xl:hidden overflow-y-auto"
+      className="fixed top-0 left-0 h-full w-full md:w-104 bg-[var(--white)] shadow-lg z-50 pt-6 pb-20 xl:hidden overflow-y-auto"
     >
 
       {/* Close Button */}
-      <div className="flex justify-end mr-4 text-palate-brown">
+      <div className="flex justify-end mr-4 text-[var(--brown)] ">
         <button onClick={() => setMobileMenuOpen(false)}>
-          <Icon icon="line-md:menu-to-close-alt-transition" width={34} height={34} />
+          <Icon icon="line-md:menu-to-close-alt-transition" className="font-extrabold" width={34} height={34} />
         </button>
       </div>
 
@@ -55,15 +55,16 @@ export const MobileDrawer = ({
             item={item}
             open={open}
             setOpen={setOpen}
+             setMobileMenuOpen={setMobileMenuOpen} 
           />
         ))}
       </ul>
 
       {/* Social Icons */}
-      <div className="flex  items-center justify-center space-x-4 mt-1">
+      <div className="px-8 mt-5">
         <Button text="Donate Now" />
       </div>
-      <div className="flex  items-center justify-center space-x-4 mt-10">
+      <div className="flex  items-center justify-center space-x-4 mt-10 ">
 
         {socialIcons.map(({ icon, label, link }) => (
           <motion.a
@@ -71,7 +72,7 @@ export const MobileDrawer = ({
             href={link}
             aria-label={label}
             whileHover={{ scale: 1, color: "#F3BB11" }}
-            className="cursor-pointer bg-palate-gray p-3 rounded-full text-white"
+            className="cursor-pointer bg-[var(--dark-green)] p-3 rounded-full text-[var(--white)]"
           >
             <Icon icon={icon} className="w-5 h-5" />
           </motion.a>
