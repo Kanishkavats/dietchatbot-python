@@ -6,6 +6,9 @@ import { FiPlus } from "react-icons/fi";
 import { FaBehance, FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { teamMembers } from "@/src/staticResource";
 import Pagination from "../common/Pagination";
+import Link from "next/link";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { useRef, useEffect } from "react";
 
 const SocialBar = () => {
   const socials = [
@@ -26,6 +29,53 @@ const SocialBar = () => {
         </div>
       ))}
     </div>
+  );
+};
+
+const VolunteerCard = ({ member, idx }) => {
+  const ref = useRef(null);
+  const controls = useAnimation();
+  const inView = useInView(ref, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (inView) controls.start({ opacity: 1, y: 0 });
+  }, [inView, controls]);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={controls}
+      transition={{ duration: 0.8, delay: idx * 0.2, ease: "easeOut" }}
+      className="relative bg-[#f1f0ee] shadow rounded-2xl overflow-hidden group"
+    >
+      <Link href={`/volunteer/${member.id}`} className="block">
+        <div className="relative w-full aspect-[4/5] cursor-pointer overflow-hidden">
+          <Image
+            src={member.img}
+            alt={member.name}
+            fill
+            className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+          />
+          <div className="absolute bottom-16 right-2 z-20 opacity-0 group-hover:opacity-100 transform group-hover:translate-y-10 translate-y-2 transition-all duration-300">
+            <SocialBar />
+          </div>
+        </div>
+      </Link>
+      <div className="relative bg-[#f1f0ee] h-28 p-8 flex flex-col items-start transition-colors duration-500 group-hover:bg-[#122f2a]">
+        <h6 className="font-semibold text-md text-black transition-colors duration-300 group-hover:text-white">
+          {member.name}
+        </h6>
+        <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400">
+          {member.role}
+        </p>
+        <button className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-colors duration-300 group-hover:bg-yellow-400 overflow-visible">
+          <span className="inline-block transition-transform duration-300 group-hover:rotate-45">
+            <FiPlus size={24} />
+          </span>
+        </button>
+      </div>
+    </motion.div>
   );
 };
 
@@ -65,35 +115,7 @@ const VolunteerTeam = () => {
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {membersToShow.map((member, idx) => (
-              <div
-                key={idx}
-                className="relative bg-[#f1f0ee] shadow rounded-2xl overflow-hidden group"
-              >
-                <div className="relative w-full aspect-[4/5] cursor-pointer overflow-hidden">
-                  <Image
-                    src={member.img}
-                    alt={member.name}
-                    fill
-                    className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-                  />
-                  <div className="absolute bottom-16 right-2 z-20 opacity-0 group-hover:opacity-100 transform group-hover:translate-y-10 translate-y-2 transition-all duration-300">
-                    <SocialBar />
-                  </div>
-                </div>
-                <div className="relative bg-[#f1f0ee] h-28 p-8 flex flex-col items-start transition-colors duration-500 group-hover:bg-[#122f2a]">
-                  <h6 className="font-semibold text-md text-black transition-colors duration-300 group-hover:text-white">
-                    {member.name}
-                  </h6>
-                  <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400">
-                    {member.role}
-                  </p>
-                  <button className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-colors duration-300 group-hover:bg-yellow-400 overflow-visible">
-                    <span className="inline-block transition-transform duration-300 group-hover:rotate-45">
-                      <FiPlus size={24} />
-                    </span>
-                  </button>
-                </div>
-              </div>
+              <VolunteerCard key={member.id} member={member} idx={idx} />
             ))}
           </div>
         </div>
