@@ -2,10 +2,12 @@
 "use client";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { FiSearch } from "react-icons/fi";
+import { FiSearch, FiHeart, FiShare } from "react-icons/fi";
 import { IoLocationSharp, IoCalendarSharp } from "react-icons/io5";
+
 import {
-  FaCheckCircle,
+
+  FaRegCheckCircle,
   FaFacebookF,
   FaTwitter,
   FaPinterest,
@@ -17,6 +19,15 @@ import {
 } from "react-icons/fa";
 import { comments, recentPosts, tags } from "@/src/staticResource";
 
+
+const socialLinks = [
+    { icon: FaFacebookF, bg: "#4267B2", label: "Facebook" }  ,
+       { icon: FaTwitter, bg: "#1DA1F2", label: "Twitter" },   
+         { icon: FaPinterest, bg: "#E60023", label: "Pinterest" },
+     { icon: FaLinkedinIn, bg: "#0077B5", label: "LinkedIn" },
+     { icon: FaTumblr, bg: "#36465D", label: "Tumblr" },
+   ];
+
 export default function BlogPage() {
   return (
     <motion.div
@@ -27,9 +38,9 @@ export default function BlogPage() {
     >
       <div className="container mx-auto p-4 md:p-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          
-          <main className="lg:w-2/3 bg-white p-6 rounded-xl shadow-lg">
-            
+
+          <main className="lg:w-2/3  p-6 ">
+
             <div className="relative w-full h-[400px] mb-6 rounded-lg overflow-hidden">
               <Image
                 src="/assets/poster 2.png"
@@ -40,7 +51,7 @@ export default function BlogPage() {
               />
             </div>
 
-            <div className="flex items-center space-x-4 text-gray-500 mb-6">
+            <div className="flex items-center space-x-4 text-black-500 mb-6">
               <span className="flex items-center gap-1">
                 <IoCalendarSharp className="text-yellow-500" /> 02 Apr 2021
               </span>
@@ -76,34 +87,34 @@ export default function BlogPage() {
             {/* === Bullet Points === */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-gray-700 mb-8">
               <div className="flex items-center gap-2">
-                <FaCheckCircle className="text-green-700 text-xl" /> Empower
+                <FaRegCheckCircle className="text-green-700 text-xl" /> Empower
                 Through Charity
               </div>
               <div className="flex items-center gap-2">
-                <FaCheckCircle className="text-green-700 text-xl" /> Giving Hope,
+                <FaRegCheckCircle className="text-green-700 text-xl" /> Giving Hope,
                 Changing Lives
               </div>
               <div className="flex items-center gap-2">
                 {" "}
-                <FaCheckCircle className="text-green-700 text-xl" />
+                <FaRegCheckCircle className="text-green-700 text-xl" />
                 Healing Communities
               </div>
               <div className="flex items-center gap-2">
                 {" "}
-                <FaCheckCircle className="text-green-700 text-xl" />
+                <FaRegCheckCircle className="text-green-700 text-xl" />
                 Together We Can
               </div>
               <div className="flex items-center gap-2">
-                <FaCheckCircle className="text-green-700 text-xl" /> Compassion In
+                <FaRegCheckCircle className="text-green-700 text-xl" /> Compassion In
                 Action
               </div>
               <div className="flex items-center gap-2">
-                <FaCheckCircle className="text-green-700 text-xl" /> Every Act
+                <FaRegCheckCircle className="text-green-700 text-xl" /> Every Act
                 Counts
               </div>
             </div>
 
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                 <Image
@@ -123,12 +134,18 @@ export default function BlogPage() {
               </div>
             </div>
 
+
             
+
+
             <div className="flex flex-col gap-6 items-center justify-between mb-8">
-              <div className="flex gap-4 justify-center items-center">
+
+
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 w-full justify-center items-center">
                 <a
                   href="#"
-                  className="w-40 h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#4267B2] text-white hover:opacity-90 transition-all"
+                  className="w-full h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#4267B2] text-white hover:opacity-90 transition-all"
                 >
                   <FaFacebookF className="text-3xl mb-2" />
                   <span className="text-lg font-medium">Facebook</span>
@@ -136,7 +153,7 @@ export default function BlogPage() {
 
                 <a
                   href="#"
-                  className="w-40 h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#1DA1F2] text-white hover:opacity-90 transition-all"
+                  className="w-full h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#1DA1F2] text-white hover:opacity-90 transition-all"
                 >
                   <FaTwitter className="text-3xl mb-2" />
                   <span className="text-lg font-medium">Twitter</span>
@@ -144,7 +161,7 @@ export default function BlogPage() {
 
                 <a
                   href="#"
-                  className="w-40 h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#E60023] text-white hover:opacity-90 transition-all"
+                  className="w-full h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#E60023] text-white hover:opacity-90 transition-all"
                 >
                   <FaPinterest className="text-3xl mb-2" />
                   <span className="text-lg font-medium">Pinterest</span>
@@ -152,22 +169,24 @@ export default function BlogPage() {
 
                 <a
                   href="#"
-                  className="w-40 h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#0077B5] text-white hover:opacity-90 transition-all"
+                  className="w-full h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#0077B5] text-white hover:opacity-90 transition-all"
                 >
                   <FaLinkedinIn className="text-3xl mb-2" />
                   <span className="text-lg font-medium">LinkedIn</span>
                 </a>
 
+
                 <a
                   href="#"
-                  className="w-40 h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#36465D] text-white hover:opacity-90 transition-all"
+                  className="w-full h-32 flex flex-col justify-center items-center rounded-md shadow-md bg-[#36465D] text-white hover:opacity-90 transition-all sm:col-span-2 lg:col-span-1"
                 >
                   <FaTumblr className="text-3xl mb-2" />
                   <span className="text-lg font-medium">Tumblr</span>
                 </a>
               </div>
 
-              <div className="relative w-full h-[200px] md:w-1/2 rounded-lg overflow-hidden border">
+
+              <div className="relative w-full h-[450px]  rounded-lg overflow-hidden border">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976378252907!3d40.69766374874312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2588f046ee661%3A0xa0b3281fcecc08c!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1716298418080!5m2!1sen!2sin"
                   width="100%"
@@ -181,7 +200,7 @@ export default function BlogPage() {
               </div>
             </div>
 
-            
+
             <div>
               <h2 className="text-2xl font-bold mb-6">
                 {comments.length.toString().padStart(2, "0")} Comments
@@ -209,10 +228,10 @@ export default function BlogPage() {
                       </p>
                       <div className="w-[540px] h-[30px] mt-[15px] flex items-center gap-6 text-sm text-gray-500">
                         <button className="flex items-center gap-1 hover:text-blue-500">
-                          <i className="far fa-thumbs-up"></i> Like
+                          <FiHeart /> Like
                         </button>
                         <button className="flex items-center gap-1 hover:text-blue-500">
-                          <i className="far fa-reply"></i> Reply
+                          <FiShare /> Reply
                         </button>
                         <span className="text-gray-600">{comment.time}</span>
                       </div>
@@ -222,52 +241,57 @@ export default function BlogPage() {
               </div>
             </div>
 
+
+
+
+
+            <form className="space-y-4 bg-white">
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
+                  <FaUser size={18} />
+                  <input
+                    type="text"
+                    placeholder="Your Name"
+                    className="w-full bg-transparent focus:outline-none ml-2"
+                  />
+                </div>
+
+                
+                <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
+                  <FaEnvelope className="text-xl mt-1" />
+                  <input
+                    type="email"
+                    placeholder="Enter Email"
+                    className="w-full bg-transparent focus:outline-none ml-2"
+                  />
+                </div>
+              </div>
+
+              
+               <div className="flex items-start bg-[#F2F2F2]  rounded-md px-4 py-2 h-auto w-full lg:w-[656px] lg:h-[184px] lg:px-5 lg:py-3">
+                <FaComment size={18} />
+                <textarea
+                  placeholder="Type Your Comments..."
+                  className="w-full bg-transparent focus:outline-none resize-none ml-2"
+                ></textarea>
+              </div>
+
+              
+              <button 
+                type="submit"
+                className="w-full sm:w-auto bg-[#122F2A] text-white text-[16px] px-6 py-3 rounded-md hover:opacity-90 transition"
+              >
+                Submit Comment
+              </button>
+            </form>
+                 
             
-            <div className="p-6 bg-white rounded-lg">
-              <h2 className="text-2xl font-bold text-black mb-6">
-                Leave A Comment
-              </h2>
-              <form className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="flex items-center bg-[#F2F2F2] rounded-md px-5 py-3 w-[316px] h-[96px]">
-                    <FaUser size={18} />
-                    <input
-                      type="text"
-                      placeholder="Your Name"
-                      className="w-full bg-transparent focus:outline-none"
-                    />
-                  </div>
 
-                  <div className="flex items-center bg-[#F2F2F2] rounded-md px-5 py-3 w-[316px] h-[96px]">
-                    <FaEnvelope className=" text-xl mt-1" />
-                    <input
-                      type="email"
-                      placeholder="Enter Email"
-                      className="w-full bg-transparent focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-start bg-[#F2F2F2] rounded-md px-5 py-3 w-[656px] h-[184px]">
-                  <FaComment size={18} />
-                  <textarea
-                    placeholder="Type Your Comments..."
-                    rows={5}
-                    className="w-full bg-transparent focus:outline-none resize-none"
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  className="w-[189.34px] h-[50px] bg-[#122F2A] text-white font-[Nunito] text-[16px] px-[30px] py-[13px] rounded-md hover:opacity-90 transition"
-                >
-                  Submit Comment
-                </button>
-              </form>
-            </div>
           </main>
 
-          
+
           <aside className="lg:w-1/3 space-y-8">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-2xl font-bold text-gray-800 mb-4">
@@ -328,10 +352,10 @@ export default function BlogPage() {
               </div>
             </div>
 
-            <div className="relative w-full p-8 rounded-lg shadow-md overflow-hidden text-center text-white bg-cover bg-center bg-[url('/assets/overview.png')]">
+            <div className="relative w-full h-[440px] p-8 rounded-lg shadow-md overflow-hidden text-center text-white bg-cover bg-center bg-[url('/assets/overview.png')]">
               <div className="absolute inset-0"></div>
 
-              <div className="relative z-10">
+              <div className="relative z-10 mt-10">
                 <div className="flex justify-center mb-4">
                   <div className="w-16 h-16 rounded-full flex items-center justify-center overflow-hidden">
                     <img
@@ -342,20 +366,22 @@ export default function BlogPage() {
                   </div>
                 </div>
 
-                <p className="text-sm font-light mb-2">
+                <p className="text-sm font-light mb-4">
                   Small Donations Bigger Impact
                 </p>
-                <h3 className="text-2xl font-bold mb-4 leading-tight">
+                <h3 className="text-2xl font-bold mb-6 leading-tight">
                   Education Health For Every Child
                 </h3>
-                <button className="px-6 py-3 bg-yellow-500 text-black-800 font-semibold rounded-lg hover:bg-yellow-600 transition-colors">
+                <button className="px-6 py-3 mb-2 bg-yellow-500 text-black-800 font-semibold rounded-lg hover:bg-yellow-600 transition-colors">
                   Get A Quote &rarr;
                 </button>
               </div>
             </div>
           </aside>
         </div>
-      </div>
-    </motion.div>
+      </div >
+    </motion.div >
   );
 }
+
+
