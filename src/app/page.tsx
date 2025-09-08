@@ -1,9 +1,14 @@
 import Home from '@/src/components/Home';
 
-import CharityWithDifference from '../components/CharityWithDiffrence';
+import { CharityWithDiffrence as CharityWithDifference } from '../components/Charity_with_Difference';
 
-import HelpingEachOther from '../components/HelpingEachOther';
+import HelpingEachOther from '../components/HelpingEachOther/HelpingEachOther';
 import HelpAndDonate from '../components/HelpAndDonate';
+import BecomeVolunteer from '../components/BecomeVolunteer';
+import { VolunteerTeam , ValueableCustomer } from '../components/About';
+import Community from '../components/Home/Community'
+import ChildOldCare from '../components/ChildOldCare';
+
 
 
 
@@ -14,6 +19,11 @@ export default function Page() {
       <CharityWithDifference />
       <HelpingEachOther/>
       <HelpAndDonate />
+      <BecomeVolunteer/>
+      <VolunteerTeam/>
+      <Community/>
+      <ValueableCustomer/>
+      <ChildOldCare />
     </div>
   );
 }

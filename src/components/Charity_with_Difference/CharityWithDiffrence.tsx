@@ -132,7 +132,7 @@ export default function CharityWithDifference() {
         <div className="absolute top-20 left-10 opacity-30 z-0 animate-float">
           <div className="relative">
             <Image 
-              src="/assets/hand.png" 
+              src="/assets/charity_with_difference/hand.png" 
               alt="Hand with heart" 
               width={120} 
               height={120}

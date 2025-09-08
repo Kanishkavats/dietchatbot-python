@@ -8,7 +8,7 @@ import homeFour from './home-four.png';
 import homeFive from './home-five.png';
 import spradeBase from './sprade-base.png';
 import verticleYellowShape from './verticle-yellow-shape.png';
-import horizontalWhiteShape from './horizontal-white-shape.png'
+import horizontalWhiteShape from './horizontal-white-shape.png';
 import theBird from './theBird.png';
 import treeLife from './treeLife.png';
 import loremIpsum from './loremIpsum.png';
@@ -22,17 +22,17 @@ import womenWithOneChild from './womenWithOneChild.png';
 import womenWithOneChildDark from './womenWithOneChild-dark.png';
 import verticalShape from './verticalSshape.png';
 import manWithChildren from './manWithTowChildren.png';
-import phOne from './ph-one bottom.png';
-import phTwo from './ph-two bottom.png';
-import phTree from './three bottomm.png';
-import overView from './overview.png';
+import phOne from './charity_with_difference/ph-one bottom.png';
+import phTwo from './charity_with_difference/ph-two bottom.png';
+import phTree from './charity_with_difference/three bottomm.png';
+import overView from './charity_with_difference/overview.png';
 import galleryImageOne from './galleryImageOne.png';
 import galleryImageTwo from './galleryImageTwo.png';
 import galleryImageThree from './galleryImageTree.png';
-import bannerOne from "./banner-one-bg.png";
+import bannerOne from './banner-one-bg.png';
 import bannerTwo from './banner-two-bg.png';
 import bannerBg from './banner-bg.png';
-import homeCommunity from './home-community.png'
+import homeCommunity from './home-community.png';
 
 export {
   logo,
@@ -66,7 +66,7 @@ export {
   galleryImageOne,
   galleryImageTwo,
   galleryImageThree,
-  bannerOne, 
+  bannerOne,
   bannerTwo,
   bannerBg,
   homeCommunity

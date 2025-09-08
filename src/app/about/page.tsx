@@ -1,8 +1,7 @@
 import { ChildrenNeed,  ScrollImgSection, SendMsg, ValueableCustomer } from "@/src/components/About";
 import {VolunteerTeam} from "@/src/components/About";
-import PageBanner from "@/src/components/common/PageBanner";
-import FAQSection from "@/src/components/FAQ/FAQSection";
-import HelpingEachOther from "@/src/components/HelpingEachOther";
+import FAQ from "@/src/components/FAQ";
+import HelpingEachOther from "@/src/components/HelpingEachOther/HelpingEachOther";
 import React from "react";
 
 const Page = () => {
