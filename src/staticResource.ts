@@ -239,10 +239,10 @@ export const VolunteerProgress = [
 ];
 
 export const VolunteerFeatures = [
-  { text: "Best Quality Services" },
-  { text: "Time Saving" },
-  { text: "Meet The Deadlines" },
-  { text: "24/7 Customer Support" },
+  { text: "Best Quality Services"},
+  { text: "Time Saving"},
+  { text: "Meet The Deadlines"},
+  { text: "24/7 Customer Support"},
 ];
 
 
@@ -346,6 +346,8 @@ export  const testimonials = [
         "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
     },
   ];
+
+
 export interface Event {
   id: number;
   date: string;

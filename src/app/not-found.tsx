@@ -1,11 +1,12 @@
-"use client";
+'use client'
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./common/Buttons/Button";
 import { motion } from "framer-motion";
+import Button from "../components/common/Buttons/Button";
 
-const PageNotFound = () => {
+
+const NotFound = () => {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] bg-white px-4 text-center py-10 sm:py-16">
       <div className="w-[250px] sm:w-[350px] md:w-[500px] mx-auto">
@@ -33,48 +34,48 @@ const PageNotFound = () => {
         </Link>
       </div>
 
-     <motion.div
-  className="absolute top-[5%] right-[5%] z-0"
-  animate={{
-    scale: [1, 1.2, 1], 
-    filter: [
-      "brightness(0.8)",  
-      "brightness(1.4)",  
-      "brightness(0.8)",  
-    ],
-    opacity: [0.5, 1, 0.5], 
-  }}
-  transition={{
-    duration: 6,
-    repeat: Infinity,
-    ease: "easeInOut",
-  }}
->
-  <Image
-    src="/assets/greenspade.png"
-    alt="green spade"
-    width={120}
-    height={120}
-    className="opacity-90"
-  />
-</motion.div>
+      <motion.div
+        className="absolute top-[5%] right-[5%] z-0"
+        animate={{
+          scale: [1, 1.2, 1],
+          filter: [
+            "brightness(0.8)",
+            "brightness(1.4)",
+            "brightness(0.8)",
+          ],
+          opacity: [0.5, 1, 0.5],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
+        }}
+      >
+        <Image
+          src="/assets/greenspade.png"
+          alt="green spade"
+          width={120}
+          height={120}
+          className="opacity-90"
+        />
+      </motion.div>
 
 
       <motion.div
         className="absolute bottom-[8%] left-[3%] z-0"
         animate={{
-    scale: [1, 1.2, 1], 
-    filter: [
-      "brightness(0.8)",  
-      "brightness(1.4)",  
-      "brightness(0.8)",  
-    ],
-    opacity: [0.5, 1, 0.5], 
-  }}
-  transition={{
-    duration: 6,
-    repeat: Infinity,
-    ease: "easeInOut",
+          scale: [1, 1.2, 1],
+          filter: [
+            "brightness(0.8)",
+            "brightness(1.4)",
+            "brightness(0.8)",
+          ],
+          opacity: [0.5, 1, 0.5],
+        }}
+        transition={{
+          duration: 6,
+          repeat: Infinity,
+          ease: "easeInOut",
 
         }}
       >
@@ -87,7 +88,7 @@ const PageNotFound = () => {
         />
       </motion.div>
     </div>
-  );
-};
+  )
+}
 
-export default PageNotFound;
+export default NotFound

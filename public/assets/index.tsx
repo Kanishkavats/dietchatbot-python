@@ -14,9 +14,6 @@ import treeLife from './treeLife.png';
 import loremIpsum from './loremIpsum.png';
 import charityLife from './charityLife.png';
 import heartCare from './heartCare.png';
-import cardBlue from './card-blue.png';
-import cardGreen from './card-green.png';
-import cardYellow from './card-yellow.png';
 import posterTwo from './poster-two.png';
 import womenWithOneChild from './womenWithOneChild.png';
 import womenWithOneChildDark from './womenWithOneChild-dark.png';
@@ -32,7 +29,10 @@ import galleryImageThree from './galleryImageTree.png';
 import bannerOne from "./banner-one-bg.png";
 import bannerTwo from './banner-two-bg.png';
 import bannerBg from './banner-bg.png';
-import homeCommunity from './home-community.png'
+import homeCommunity from './home-community.png';
+import yellowspade from './yellowspade.png';
+import valueableshape from './valueableshape.png';
+import mask from './mask.png'
 
 export {
   logo,
@@ -51,9 +51,6 @@ export {
   loremIpsum,
   charityLife,
   heartCare,
-  cardBlue,
-  cardGreen,
-  cardYellow,
   posterTwo,
   manWithChildren,
   verticalShape,
@@ -69,5 +66,8 @@ export {
   bannerOne, 
   bannerTwo,
   bannerBg,
-  homeCommunity
+  homeCommunity,
+  yellowspade,
+  valueableshape,
+  mask
 };

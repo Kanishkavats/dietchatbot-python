@@ -11,9 +11,7 @@ export default function Page() {
   return (
     <div>
       <Home />
-      <CharityWithDifference />
-      <HelpingEachOther/>
-      <HelpAndDonate />
+     
     </div>
   );
 }

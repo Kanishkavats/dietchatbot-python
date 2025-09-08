@@ -5,6 +5,7 @@ import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { testimonials } from "@/src/staticResource";
+
 const ValueableCustomer = () => {
   
 
