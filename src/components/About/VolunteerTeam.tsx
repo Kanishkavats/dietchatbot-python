@@ -103,8 +103,8 @@ const VolunteerTeam = () => {
     <section className="relative bg-cover py-16 bg-center w-full bg-[url('/assets/bg-one-volunteer.png')]">
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
         <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
-          <i className="text-xl hand-icon"></i>
-          <span className="font-caveat font-semibold">
+          <i className="text-2xl hand-icon"></i>
+          <span className="font-caveat text-2xl font-semibold">
             Start Donating Poor People
           </span>
         </div>
@@ -120,14 +120,15 @@ const VolunteerTeam = () => {
           </div>
         </div>
         {!showPagination && visibleCount < teamMembers.length && (
-          <div className="flex items-center justify-center py-6">
+          <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
             <Button
               text="View All"
               bgColor="bg-[#FFC107]"
-              textColor="white"
-              hoverTextColor="text-black"
+              textColor=" text-black "
+              hoverTextColor="group-hover:text-white"
               hoverBg="before:bg-[#046b59]"
               onClick={handleViewAll}
+              className="h-[60px]"
             />
           </div>
         )}

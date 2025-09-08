@@ -2,6 +2,7 @@
 import React from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { string } from "zod";
 
 // ✅ Props for reusability
 interface DynamicButtonProps {
@@ -12,6 +13,7 @@ interface DynamicButtonProps {
   hoverTextColor?: string; // Hover text color
   onClick?: () => void;
   bgColor?: string; // Background color class
+  className?: string;
 }
 
 const Button: React.FC<DynamicButtonProps> = ({
@@ -21,6 +23,7 @@ const Button: React.FC<DynamicButtonProps> = ({
   textColor = "text-[var(--foreground)]",
   hoverTextColor = "group-hover:text-white",
   bgColor="bg-[var(--yellow)]",
+  className="",
   onClick,
 }) => {
   const iconControls = useAnimationControls();
@@ -45,7 +48,7 @@ const Button: React.FC<DynamicButtonProps> = ({
         overflow-hidden group
         before:content-[''] before:absolute before:inset-0 ${hoverBg} 
         before:transition-transform before:duration-500 
-        before:origin-center before:scale-x-0 hover:before:scale-x-100 before:z-0`}
+        before:origin-center before:scale-x-0 hover:before:scale-x-100 before:z-0 ${className}`}
     >
      <div
         className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${hoverTextColor} 

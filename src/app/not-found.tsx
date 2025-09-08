@@ -2,10 +2,10 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Button from "./common/Buttons/Button";
+import Button from "../components/common/Buttons/Button";
 import { motion } from "framer-motion";
 
-const PageNotFound = () => {
+const NotFound = () => {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-[calc(100vh-4rem)] bg-white px-4 text-center py-10 sm:py-16">
       <div className="w-[250px] sm:w-[350px] md:w-[500px] mx-auto">
@@ -90,4 +90,4 @@ const PageNotFound = () => {
   );
 };
 
-export default PageNotFound;
+export default NotFound;
