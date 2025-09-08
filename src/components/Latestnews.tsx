@@ -78,7 +78,7 @@ const LatestNews = () => {
                 key={i}
                 variants={cardVariants}
                 initial="hidden"
-                animate="visible"
+                animate="visible"z
               >
                 <Box />
               </motion.div>

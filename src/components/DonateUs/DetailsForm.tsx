@@ -1,5 +1,5 @@
 "use client";
-import { formSchema, FormValues } from "@/src/validations/FormValidation";
+import { DetailsformSchema, FormValues } from "@/src/utils/validations/FormValidation";
 import { Formik, Form } from "formik";
 import InputField from "../common/inputs/InputField";
 import Button from "../common/Buttons/Button";
@@ -24,7 +24,7 @@ const DetailsForm = () => {
             <h2 className="text-2xl font-bold mb-6">Details Information</h2>
             <Formik
                 initialValues={initialValues}
-                validationSchema={formSchema}   
+                validationSchema={DetailsformSchema}   
                 onSubmit={handleSubmit}
             >
                 {() => (
