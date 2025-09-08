@@ -3,7 +3,7 @@ import { Icon } from "@iconify/react/dist/iconify.js";
 import { motion, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setPrimaryColor } from "@/src/store/themeSlice";
+import { setPrimaryColor } from "@/src/store/slice/themeSlice";
 import { RootState } from "@/src/store";
 import Button from "../common/Buttons/Button";
 

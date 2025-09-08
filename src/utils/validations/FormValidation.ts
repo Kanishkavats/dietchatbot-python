@@ -1,6 +1,6 @@
 import * as Yup from "yup";
 
-export const formSchema = Yup.object().shape({
+export const DetailsformSchema = Yup.object().shape({
   firstName: Yup.string().min(2, "First name is required").required(),
   lastName: Yup.string().min(2, "Last name is required").required(),
   email: Yup.string().email("Invalid email").required(),
@@ -9,7 +9,7 @@ export const formSchema = Yup.object().shape({
   message: Yup.string().optional(),
 });
 
-export type FormValues = Yup.InferType<typeof formSchema>;
+export type FormValues = Yup.InferType<typeof DetailsformSchema>;
 
 export const volunteerSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
@@ -21,3 +21,13 @@ export const volunteerSchema = Yup.object().shape({
 });
 
 export type VolunteerValues = Yup.InferType<typeof volunteerSchema >
+
+
+
+export const loginSchema = Yup.object({
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  password: Yup.string().min(6, "Min 6 characters").required("Password is required"),
+});
+
+
+export type loginValues = Yup.InferType<typeof loginSchema >

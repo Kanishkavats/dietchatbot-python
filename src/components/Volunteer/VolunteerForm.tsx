@@ -3,7 +3,7 @@
 import { Formik, Form } from "formik";
 import InputField from "../common/inputs/InputField";
 import Button from "../common/Buttons/Button";
-import { volunteerSchema, VolunteerValues } from "@/src/validations/FormValidation";
+import { volunteerSchema, VolunteerValues } from "@/src/utils/validations/FormValidation";
 
 // ✅ Initial values
 const initialValues: VolunteerValues = {
