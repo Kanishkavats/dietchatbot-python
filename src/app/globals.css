@@ -489,21 +489,21 @@ body {
 }
 
 .bg-image-1 {
-  background-image: url("/assets/bg-one.png");
+  background-image: url("/assets/charity_with_difference/bg-one.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-2 {
-  background-image: url("/assets/bg-three.png");
+  background-image: url("/assets/charity_with_difference/bg-three.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-3 {
-  background-image: url("/assets//bg-two.png");
+  background-image: url("/assets/charity_with_difference/bg-two.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;

@@ -6,7 +6,7 @@ export default function CallToAction() {
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/assets/overview.png"
+          src="/assets/charity_with_difference/overview.png"
           alt="Children in need"
           fill
           className="object-cover"
@@ -19,7 +19,7 @@ export default function CallToAction() {
         {/* Heart logo */}
         <div className="w-16 h-16 flex items-center justify-center shadow-lg mb-6">
           <Image
-            src="/assets/logo heart bottom banner.png"
+            src="/assets/charity_with_difference/logo heart bottom banner.png"
             alt="Heart logo"
             width={64}
             height={64}
