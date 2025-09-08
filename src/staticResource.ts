@@ -3,7 +3,7 @@ import { Cause } from "./types/donateUs";
 import { FAQItem } from "./types/faq";
 import { NavItem } from "./types/header";
 
- 
+// home hero banner image 
 
 export const homeHeroImages = [
   {
@@ -18,7 +18,7 @@ export const homeHeroImages = [
   },
 ];
 
-
+// ✅ Data arrays
 export const currencies = ["USD", "EUR", "INR"];
 
 export const languages = [
@@ -173,7 +173,7 @@ export const faqData: FAQItem[] = [
 ];
 
 
-
+// donate us page data
 
 export const GalleryImage = [
   { src: galleryImageOne, className: "col-span-1 lg:col-span-2" },
@@ -381,10 +381,6 @@ export const events: Event[] = [
 ];
 
 
-
-
-
-
 export interface Comment {
   id: number;
   name: string;
@@ -419,9 +415,6 @@ export const comments: Comment[] = [
     time: "2 Min Ago",
   },
 ];
-
-
-
 
 export interface RecentPost {
   id: number;
