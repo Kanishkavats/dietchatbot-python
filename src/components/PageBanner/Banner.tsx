@@ -3,7 +3,13 @@
 import React from 'react';
 import Image from 'next/image';
 
-export default function ChildEducationBanner() {
+export default function Banner({
+  Heading = "",
+  BannerMoto = ""
+}: {
+  Heading: string;
+  BannerMoto: string;
+}) {
   return (
     <div className="relative w-full h-[500px] overflow-hidden">
       {/* Background Image with Overlay */}
@@ -31,13 +37,13 @@ export default function ChildEducationBanner() {
             <i className="text-xl mr-2 text-yellow-400 hand-icon"></i>
         
           <span className="text-yellow-400 font-caveat text-xl md:text-2xl font-semibold">
-            Start Donating Poor People
+            {Heading}
           </span>
         </div>
 
         {/* Main Title */}
         <h1 className="text-white text-5xl md:text-7xl font-cursive font-bold mb-8 drop-shadow-lg">
-          Our Causes
+          {BannerMoto}
         </h1>
 
         {/* Golden Heart Graphic */}
