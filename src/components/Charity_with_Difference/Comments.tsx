@@ -4,21 +4,21 @@ const comments = [
   {
     id: 1,
     name: "Martha Grey",
-    image: "/assets/author-four.png",
+    image: "/assets/charity_with_difference/author-four.png",
     comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
     timeAgo: "2 Min Ago"
   },
   {
     id: 2,
     name: "Jackie Dawson",
-    image: "/assets/one-author.png",
+    image: "/assets/charity_with_difference/one-author.png",
     comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
     timeAgo: "5 Min Ago"
   },
   {
     id: 3,
     name: "Hesia Lara",
-    image: "/assets/author-two.png",
+    image: "/assets/charity_with_difference/author-two.png",
     comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
     timeAgo: "10 Min Ago"
   }

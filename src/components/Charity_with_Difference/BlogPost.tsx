@@ -8,7 +8,7 @@ export default function BlogPost() {
       {/* Featured Image */}
       <div className="relative rounded-lg overflow-hidden h-96 w-full">
         <Image
-          src="/assets/poster 2.png"
+          src="/assets/charity_with_difference/poster 2.png"
           alt="African children running outdoors"
           fill
           className="object-cover"
@@ -98,7 +98,7 @@ export default function BlogPost() {
           <div className="grid grid-cols-2 gap-4">
             <div className="relative h-48 w-full">
               <Image
-                src="/assets/pp-one.png"
+                src="/assets/charity_with_difference/pp-one.png"
                 alt="Young child smiling"
                 fill
                 className="object-cover rounded-lg"
@@ -106,7 +106,7 @@ export default function BlogPost() {
             </div>
             <div className="relative h-48 w-full">
               <Image
-                src="/assets/pp-two.png"
+                src="/assets/charity_with_difference/pp-two.png"
                 alt="Group of children laughing"
                 fill
                 className="object-cover rounded-lg"

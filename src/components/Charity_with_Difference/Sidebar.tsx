@@ -1,5 +1,5 @@
 import SearchSection from './SearchSection';
-import RecentPosts from './RecentPosts';
+import RecentPosts from '../RecentPosts';
 import TagsSection from './TagsSection';
 import CallToAction from './CallToAction';
 

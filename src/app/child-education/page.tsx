@@ -1,12 +1,14 @@
-import BlogPost from '../../components/BlogPost';
-import Sidebar from '../../components/Sidebar';
-import ChildEducationBanner from '../../components/ChildEducationBanner';
+import { BlogPost, Sidebar } from '../../components/Charity_with_Difference';
+import Banner from '../../components/PageBanner/Banner';
 
 export default function ChildEducationPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Banner Section */}
-      <ChildEducationBanner />
+      <Banner 
+        Heading="Start Donating Poor People"
+        BannerMoto="Causes Details"
+      />
       
       {/* Main Content */}
       <div className="py-8">
