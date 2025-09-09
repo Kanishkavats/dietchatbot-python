@@ -242,10 +242,8 @@ export const VolunteerFeatures = [
   { text: "Best Quality Services"},
   { text: "Time Saving"},
   { text: "Meet The Deadlines"},
-  { text: "24/7 Customer Support"},
-];
-
-
+  { text: "24/7 Customer Support"}
+]
 // about page voluntear team members data
 export const teamMembers = [
     {
@@ -447,6 +445,11 @@ export const recentPosts: RecentPost[] = [
     alt: "Two young children looking at camera",
   },
 ];
+
+
+
+export const totalPages = Math.ceil(events.length / 2);
+
 
 
 
