@@ -242,85 +242,96 @@ export const VolunteerFeatures = [
   { text: "Best Quality Services"},
   { text: "Time Saving"},
   { text: "Meet The Deadlines"},
-  { text: "24/7 Customer Support"},
-];
-
-
+  { text: "24/7 Customer Support"}
+]
 // about page voluntear team members data
 export const teamMembers = [
-    {
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/volunteer1.png",
-      delay: 0,
-    },
-    {
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/volunteer2.png",
-      delay: 300,
-    },
-    {
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/volunteer3.png",
-      delay: 600,
-    },
-    {
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/volunteer4.png",
-      delay: 900,
-    },
-    {
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear5.png",
-      delay: 0,
-    },
-    {
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear6.png",
-      delay: 300,
-    },
-    {
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear7.png",
-      delay: 600,
-    },
-    {
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear8.png",
-      delay: 900,
-    },
-    {
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear5.png",
-      delay: 0,
-    },
-    {
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear6.png",
-      delay: 300,
-    },
-    {
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear7.png",
-      delay: 600,
-    },
-    {
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear8.png",
-      delay: 900,
-    }
-  ];
+  {
+    id: 1,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/volunteer1.png",
+    delay: 0,
+  },
+  {
+    id: 2,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/volunteer2.png",
+    delay: 300,
+  },
+  {
+    id: 3,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/volunteer3.png",
+    delay: 600,
+  },
+  {
+    id: 4,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/volunteer4.png",
+    delay: 900,
+  },
+  {
+    id: 5,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear5.png",
+    delay: 0,
+  },
+  {
+    id: 6,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear6.png",
+    delay: 300,
+  },
+  {
+    id: 7,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear7.png",
+    delay: 600,
+  },
+  {
+    id: 8,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear8.png",
+    delay: 900,
+  },
+  {
+    id: 9,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear5.png",
+    delay: 0,
+  },
+  {
+    id: 10,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear6.png",
+    delay: 300,
+  },
+  {
+    id: 11,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear7.png",
+    delay: 600,
+  },
+  {
+    id: 12,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear8.png",
+    delay: 900,
+  }
+];
+
 
   // aboutpage  testimonials data
 export  const testimonials = [
@@ -447,6 +458,11 @@ export const recentPosts: RecentPost[] = [
     alt: "Two young children looking at camera",
   },
 ];
+
+
+
+export const totalPages = Math.ceil(events.length / 2);
+
 
 
 
