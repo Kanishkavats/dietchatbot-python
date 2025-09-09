@@ -9,14 +9,14 @@ const FAQSideImages = () => {
   const { primaryColor } = useSelector((state: RootState) => state.theme);
 
   return (
-    <div className="hidden lg:flex lg:w-1/2 mt-12 xl:mt-0 h-screen relative ps-[5%] items-center bg-[var(--green)]">
+    <div className="hidden lg:flex lg:w-1/2 mt-12 xl:mt-0 h-screen relative ps-[5%] items-center bg-green">
       {/* Vertical Shape */}
       <div className="absolute top-0 left-0 w-10 h-full z-10">
         <Image src={verticalShape.src} fill alt="shape" />
       </div>
 
       {/* Man with Children */}
-      <FadeInUp className="w-full md:w-3/5 h-[80%] relative rounded-2xl border-10 border-[var(--white)] shadow-lg">
+      <FadeInUp className="w-full md:w-3/5 h-[80%] relative rounded-2xl border-10 border-white shadow-lg">
         <div className="relative w-full h-full">
           <Image
             src={manWithChildren.src}
@@ -25,7 +25,7 @@ const FAQSideImages = () => {
             className="object-cover"
           />
           <div
-            className={`w-4 h-30 xl:h-40 rounded-xl absolute bottom-0 right-[-50px] bg-${primaryColor}`}
+            className={`w-4 h-30 xl:h-40 rounded-xl absolute bottom-0 right-[-50px] bg-red`}
           />
         </div>
       </FadeInUp>

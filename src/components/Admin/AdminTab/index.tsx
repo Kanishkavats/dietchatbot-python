@@ -7,6 +7,7 @@ import Members from "../Members";
 import Help from "../Help";
 import Guide from "../Guide";
 import Settings from "../Settings";
+import Campaign from "../Campaign";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -18,6 +19,7 @@ const AdminTab = () => {
     help: <Help />,
     guide: <Guide />,
     settings: <Settings />,
+    campaign: <Campaign />
   };
   return (
     <div>
