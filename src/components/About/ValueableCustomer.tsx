@@ -3,34 +3,15 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { testimonials } from "@/src/staticResource";
 import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const ValueableCustomer = () => {
-  const testimonials = [
-    {
-      name: "Michel Smith",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Ruby Klara",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Bishu Kiev",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-  ];
-
-  const slides = [...testimonials, ...testimonials];
+  const { ref, inView } = useInView({
+    triggerOnce: true,
+    threshold: 0.2,
+  });
 
   const [visibleCards, setVisibleCards] = useState(3);
   const [index, setIndex] = useState(0);
@@ -38,27 +19,25 @@ const ValueableCustomer = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth < 768) {
-        setVisibleCards(1);
-      } else if (window.innerWidth < 1024) {
-        setVisibleCards(2);
-      } else {
-        setVisibleCards(3);
-      }
+      if (window.innerWidth < 768) setVisibleCards(1);
+      else if (window.innerWidth < 1024) setVisibleCards(2);
+      else setVisibleCards(3);
     };
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  const slides = [...testimonials, ...testimonials.slice(0, visibleCards)];
+
   const handleNext = () => {
     setInstant(false);
-    setIndex((prev) => prev + 1);
+    setIndex((prev) => (prev + 1 >= slides.length ? 0 : prev + 1));
   };
 
   const handlePrev = () => {
     setInstant(false);
-    setIndex((prev) => (prev - 1 < 0 ? testimonials.length - 1 : prev - 1));
+    setIndex((prev) => (prev - 1 < 0 ? slides.length - 1 : prev - 1));
   };
 
   useEffect(() => {
@@ -67,20 +46,26 @@ const ValueableCustomer = () => {
   }, []);
 
   useEffect(() => {
-    if (index === testimonials.length) {
+    if (index >= slides.length - visibleCards + 1) {
       setInstant(true);
       setIndex(0);
     }
-  }, [index, testimonials.length]);
+  }, [index, slides.length, visibleCards]);
 
   return (
     <section className="relative w-full min-h-screen bg-[url('/assets/bg-one-volunteer.png')] bg-cover bg-center py-16">
       <div className="absolute top-0 left-0 w-[60%] h-[40%] bg-[url('/assets/valueableshape.png')] bg-no-repeat bg-contain"></div>
       <div className="mt-20">
-        <div className="py-16">
-          <div className="flex items-center justify-center text-[#046b59]">
-            <i className="text-xl  hand-icon"></i>
-            <span className="text-[var(--color-palate-quaternary-green)] text-xl font-caveat font-semibold">
+        <motion.div
+          className="py-16"
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="flex items-center gap-2 justify-center text-[#046b59]">
+            <i className="text-2xl hand-icon"></i>
+            <span className="text-[#046b59] text-2xl font-caveat font-semibold">
               Start Donating Poor People
             </span>
           </div>
@@ -93,12 +78,14 @@ const ValueableCustomer = () => {
               Awesome Feedback
             </h2>
           </div>
-        </div>
+        </motion.div>
         <div className="container mx-auto px-4">
           <div className="relative overflow-hidden w-full">
             <motion.div
               className="flex"
-              animate={{ x: `-${index * (100 / visibleCards)}%` }}
+              animate={{
+                x: `-${(100 / slides.length) * index}%`,
+              }}
               transition={
                 instant ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
               }
@@ -110,7 +97,7 @@ const ValueableCustomer = () => {
                   className="px-3"
                   style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <div className="relative bg-white border border-yellow-400 rounded-2xl p-6 flex flex-col justify-between shadow-sm h-full overflow-hidden">
+                  <div className="relative bg-white border border-yellow-400 rounded-2xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
                     <Image
                       src="/assets/99.png"
                       alt="green spade"
@@ -119,7 +106,7 @@ const ValueableCustomer = () => {
                       className="absolute top-8 right-6 opacity-10 z-0"
                     />
                     <div>
-                      <div className="flex mb-4">
+                      <div className="flex mb-4 px-6">
                         {Array.from({ length: 5 }).map((_, i) => (
                           <IoMdStar
                             key={i}
@@ -128,11 +115,11 @@ const ValueableCustomer = () => {
                           />
                         ))}
                       </div>
-                      <p className="text-[#667471] leading-relaxed">
+                      <p className="text-[#667471] text-lg  px-6 leading-relaxed break-words">
                         “{item.review}”
                       </p>
                     </div>
-                    <div className="flex items-center mt-6">
+                    <div className="flex items-center mt-6 mb-3 px-6">
                       <Image
                         src={item.avatar}
                         alt={item.name}

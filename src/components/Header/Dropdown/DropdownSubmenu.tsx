@@ -1,39 +1,54 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { DropdownOption } from "./NavbarDropdown";
 import { DropdownOptionItem } from "./DropdownOptionItem";
+import AnimatedReveal from "@/src/animations/AnimatedReveal";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 interface Props {
   parent: DropdownOption;
   open: string | null;
   displayLabel: string;
+  hovered: string | null;
+  setHovered: (v: string | null) => void;
+  setOpen: (v: string | null) => void;
 }
 
-export const DropdownSubmenu = ({ parent, open, displayLabel }: Props) => {
+export const DropdownSubmenu = ({
+  parent,
+  open,
+  displayLabel,
+  hovered,
+  setHovered,
+  setOpen,
+}: Props) => {
   if (!parent.children) return null;
 
   return (
     <AnimatePresence>
       {open === displayLabel && (
-        <motion.div
-          initial={{ opacity: 0, x: 10 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: 10 }}
-          transition={{ duration: 0.2 }}
-          className="absolute top-0 left-full bg-white rounded-md shadow-lg py-2 w-44"
+        <AnimatedReveal
+          direction="up"
+          distance={8}
+          duration={0.4}
+          className="absolute top-0 left-full bg-[var(--white)] rounded-md shadow-lg py-2 w-44"
         >
+          <Icon
+            icon="bxs:left-arrow"
+            className="absolute top-3 -left-4 size-5 text-[var(--brown)]"
+          />
+
           {parent.children.map((sub) => (
             <DropdownOptionItem
               key={sub.label || sub.name}
               opt={sub}
-              options={parent.children || []}
               open={open}
-              setOpen={() => {}}
-              hovered={null}
-              setHovered={() => {}}
+              setOpen={setOpen}   // ✅ allow recursive submenu expansion
+              hovered={hovered}
+              setHovered={setHovered}
             />
           ))}
-        </motion.div>
+        </AnimatedReveal>
       )}
     </AnimatePresence>
   );

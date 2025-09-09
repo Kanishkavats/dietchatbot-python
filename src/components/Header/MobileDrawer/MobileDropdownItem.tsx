@@ -1,26 +1,49 @@
-'use client';
+"use client";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { NavItem } from "@/types/header";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { NavItem } from "@/src/types/header";
 
 interface MobileDropdownItemProps {
   item: NavItem;
   open: string | null;
   setOpen: React.Dispatch<React.SetStateAction<string | null>>;
+  setMobileMenuOpen: (open: boolean) => void;
+  level?: number; // ✅ nesting level for styling
 }
 
-const MobileDropdownItem = ({ item, open, setOpen }: MobileDropdownItemProps) => {
+const MobileDropdownItem = ({
+  item,
+  open,
+  setOpen,
+  setMobileMenuOpen,
+  level = 0,
+}: MobileDropdownItemProps) => {
   const isDropdownOpen = open === item.label;
+  const pathname = usePathname();
+  const isActive = pathname === item.href;
 
   return (
-    <li className="border-b first:border-t border-gray-200 pl-10 pr-3">
-      <button
-        className={`w-full flex justify-between font-medium text-left ${isDropdownOpen ? 'text-palate-brown' : 'text-palate-black'}`}
-        onClick={() => setOpen(prev => (prev === item.label ? null : item.label))}
-      >
-        <span className="flex justify-center items-center py-3 font-bold">{item.label}</span>
-        {item.dropdown && (
-          <div className="py-4 w-12 h-full border-l-2 border-gray-200 flex justify-center items-center">
+    <li
+      className={`border-b first:border-t border-[var(--gray-200)] pl-${
+        10 + level * 4
+      } pr-3`} // ✅ increase padding for nesting
+    >
+      {item.dropdown ? (
+        <button
+          className={`w-full flex justify-between font-medium text-left ${
+            isDropdownOpen ? "text-[var(--brown)]" : "text-[var(--foreground)]"
+          }`}
+          onClick={() =>
+            setOpen((prev) => (prev === item.label ? null : item.label))
+          }
+        >
+          <span className="flex justify-center items-center py-3 font-bold">
+            {item.label}
+          </span>
+          <div className="py-4 w-12 h-full border-l-2 border-[var(--gray-200)] flex justify-center items-center">
             <motion.div
               animate={{ rotate: isDropdownOpen ? 180 : 0 }}
               transition={{ duration: 0.3 }}
@@ -32,9 +55,20 @@ const MobileDropdownItem = ({ item, open, setOpen }: MobileDropdownItemProps) =>
               />
             </motion.div>
           </div>
-        )}
-      </button>
+        </button>
+      ) : (
+        <Link
+          href={item.href || "#"}
+          onClick={() => setMobileMenuOpen(false)}
+          className={`flex justify-between py-3 font-bold transition-colors duration-300 ${
+            isActive ? "text-[var(--brown)]" : "text-[var(--foreground)]"
+          }`}
+        >
+          {item.label}
+        </Link>
+      )}
 
+      {/* ✅ Nested dropdowns (recursive) */}
       <AnimatePresence>
         {item.dropdown && isDropdownOpen && (
           <motion.ul
@@ -42,23 +76,41 @@ const MobileDropdownItem = ({ item, open, setOpen }: MobileDropdownItemProps) =>
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="overflow-hidden mt-1 text-sm text-gray-700"
+            className="overflow-hidden mt-1 text-sm text-[var(--blue-50)]"
           >
-            {item.dropdown.map((subItem, j) => (
-              <li
-                key={j}
-                className="flex items-center border-b first:border-t border-gray-200 py-4 gap-2 text-palate-black font-bold cursor-pointer group"
-              >
-                {subItem.image && (
-                  <motion.img
-                    src={subItem.image}
-                    alt=""
-                    className="w-4 h-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                )}
-                {subItem.label}
-              </li>
-            ))}
+            {item.dropdown.map((subItem, j) => {
+              const subActive = pathname === subItem.href;
+
+              return (
+                <li
+                  key={j}
+                  className="flex flex-col border-b first:border-t border-[var(--gray-200)]"
+                >
+                  {subItem.dropdown ? (
+                    // ✅ recursion for deeper levels
+                    <MobileDropdownItem
+                      item={subItem}
+                      open={open}
+                      setOpen={setOpen}
+                      setMobileMenuOpen={setMobileMenuOpen}
+                      level={level + 1}
+                    />
+                  ) : (
+                    <Link
+                      href={subItem.href || "#"}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`py-3 pl-${10 + (level + 1) * 4} font-bold cursor-pointer transition-colors duration-300 ${
+                        subActive
+                          ? "text-[var(--brown)]"
+                          : "text-[var(--foreground)]"
+                      }`}
+                    >
+                      {subItem.label}
+                    </Link>
+                  )}
+                </li>
+              );
+            })}
           </motion.ul>
         )}
       </AnimatePresence>

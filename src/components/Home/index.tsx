@@ -1,15 +1,14 @@
 'use client'
 
 import React from 'react'
-import HeroCarousel from '../Hero';
-import PartnersCompanies from '../PartnersCompanies';
+import PartnersCompanies from './PartnersCompanies';
+import HeroStaticSlider from './Hero';
 
 const Home = () => {
   return (
     <div>
-      <HeroCarousel />
+      <HeroStaticSlider />
       <PartnersCompanies />
-      
     </div>
   )
 }

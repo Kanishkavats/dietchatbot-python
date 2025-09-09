@@ -1,11 +1,6 @@
 import type { Metadata } from "next";
 import { Caveat, Nunito } from "next/font/google";
 import "./globals.css";
-import Header from "@/src/components/Header";
-import Footer from "@/src/components/Footer";
-import UISettingsPanel from "@/src/components/UISettingsPanel";
-import { Provider } from "react-redux";
-import ThemeApplier from "@/src/helper/ThemeApplier";
 import Providers from "./providers";
 
 const caveat = Caveat({
@@ -34,16 +29,8 @@ export default function RootLayout({
         className={`${caveat.variable} ${nunito.variable} antialiased min-h-screen flex flex-col`}
       >
         <Providers>
-          <ThemeApplier />
-          <header>
-            <Header />
-          </header>
-          <main>{children}</main>
-          <footer>
-            <Footer />
-          </footer>
+         {children}
         </Providers>
-        */
       </body>
     </html>
   );

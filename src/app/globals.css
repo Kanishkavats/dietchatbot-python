@@ -43,34 +43,64 @@
 
 :root {
   --white: #ffffff;
-  --foreground:rgb(23, 23, 23); 
-  --green: rgb(4, 107, 89);
+  --foreground: rgb(23, 23, 23);
+  --green: #046b59;
   --dark-green: #122f2a;
   --gray-green: #667471;
+  --primaryColor: #ffc107;
+  --yellow: #ffc107;
+  --orange: #ff5528;
 
-  --yellow: #FFC107;
-  --orange: #FF5528;
-  
   /* Additional colors for cards */
   --blue: #3b82f6;
   --purple: #8b5cf6;
   --red: #ef4444;
 
   /* Background colors */
-  --gray-100: #F3F4F6;
+  --gray-100: #f3f4f6;
   --gray-200: #e5e7eb;
-  --gray-400:#9CA3AF;
-  --gray-500:#6B7280;
+  --gray-400: #9ca3af;
+  --gray-500: #6b7280;
   --orange-50: #f16108;
   --yellow-50: hsl(55, 90%, 52%);
   --blue-50: #0b2b55;
   --purple-50: #4c3167;
+  --red: #ef4444;
   --red-50: #c12d2d;
+  --brown: #6b5103;
+}
+
+@theme {
+  --color-primaryColor: #FFC107;
+  --color-secondaryColor: #00715D;
+  --color-inputColor: #f8e4aa;
+  --color-white: #ffffff;
+  --color-foreground: rgb(23, 23, 23);
+  --color-green: rgb(4, 107, 89);
+  --color-dark-green: #122f2a;
+  --color-gray-green: #667471;
+  --color-primaryColor: #ffc107;
+  --color-yellow: #ffc107;
+  --color-orange: #ff5528;
+  --color-blue: #3b82f6;
+  --color-purple: #8b5cf6;
+  --color-red: #ef4444;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-orange-50: #f16108;
+  --color-yellow-50: hsl(55, 90%, 52%);
+  --color-blue-50: #0b2b55;
+  --color-purple-50: #4c3167;
+  --color-red: #ef4444;
+  --color-red-50: #c12d2d;
+  --color-brown: #6b5103;
 }
 
 body {
   font-family: "Charifund", Arial, Helvetica, sans-serif;
-  background-color: var(--white);
+  background-color: var(--color-white);
 }
 
 /* Custom styles for charity component */
@@ -123,12 +153,10 @@ body {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: linear-gradient(
-    45deg,
-    transparent 30%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 70%
-  );
+  background: linear-gradient(45deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 70%);
   border-radius: 32px;
   z-index: -1;
   opacity: 0;
@@ -141,11 +169,9 @@ body {
 
 /* Gradient overlays for cards */
 .card-overlay {
-  background: linear-gradient(
-    135deg,
-    rgba(255, 255, 255, 0.9) 0%,
-    rgba(255, 255, 255, 0.7) 100%
-  );
+  background: linear-gradient(135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.7) 100%);
 }
 
 /* Custom button styles */
@@ -169,24 +195,24 @@ body {
   left: -4px;
   right: -4px;
   bottom: -4px;
-  background: linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 25%,
-    transparent 50%,
-    rgba(255, 255, 255, 0.1) 75%,
-    transparent 100%
-  );
+  background: linear-gradient(45deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 25%,
+      transparent 50%,
+      rgba(255, 255, 255, 0.1) 75%,
+      transparent 100%);
   border-radius: 34px;
   z-index: -1;
   animation: shimmer 3s ease-in-out infinite;
 }
 
 @keyframes shimmer {
+
   0%,
   100% {
     opacity: 0;
   }
+
   50% {
     opacity: 1;
   }
@@ -204,11 +230,9 @@ body {
   left: -2px;
   right: -2px;
   bottom: -2px;
-  background: radial-gradient(
-      circle at 20% 20%,
+  background: radial-gradient(circle at 20% 20%,
       currentColor 2px,
-      transparent 2px
-    ),
+      transparent 2px),
     radial-gradient(circle at 80% 20%, currentColor 2px, transparent 2px),
     radial-gradient(circle at 40% 80%, currentColor 2px, transparent 2px),
     radial-gradient(circle at 80% 80%, currentColor 2px, transparent 2px);
@@ -223,22 +247,26 @@ body {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 /*custom animation */
 @keyframes fade-in-down {
   from {
     opacity: 0;
     transform: translateY(-30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 .animate-fade-in-down {
   animation: fade-in-down 0.3s ease-out forwards;
 }
@@ -248,6 +276,7 @@ body {
     opacity: 0;
     transform: translateY(40px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -259,10 +288,12 @@ body {
     opacity: 0;
     transform: translateY(40px);
   }
+
   50% {
     opacity: 0;
     transform: translateY(40px);
   }
+
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -270,30 +301,36 @@ body {
 }
 
 @keyframes float {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-10px);
   }
 }
 
 @keyframes float-delay {
+
   0%,
   100% {
     transform: translateY(0px);
   }
+
   50% {
     transform: translateY(-8px);
   }
 }
 
 @keyframes icon-bounce {
+
   0%,
   100% {
     transform: scale(1);
   }
+
   50% {
     transform: scale(1.1);
   }
@@ -304,6 +341,7 @@ body {
     opacity: 0;
     transform: translateX(-100px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -315,6 +353,7 @@ body {
     opacity: 0;
     transform: translateX(100px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -326,6 +365,7 @@ body {
     opacity: 0;
     transform: scale(0.8);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -333,12 +373,14 @@ body {
 }
 
 @keyframes dip-dop {
+
   0%,
   100% {
     transform: scale(1);
     opacity: 1;
     filter: brightness(1) contrast(1);
   }
+
   50% {
     transform: scale(1.2);
     opacity: 0.8;
@@ -414,9 +456,11 @@ body {
 .card-stagger-1 {
   animation-delay: 0.1s;
 }
+
 .card-stagger-2 {
   animation-delay: 0.2s;
 }
+
 .card-stagger-3 {
   animation-delay: 0.3s;
 }
@@ -493,21 +537,21 @@ body {
 }
 
 .bg-image-1 {
-  background-image: url("/assets/bg-one.png");
+  background-image: url("/assets/charity_with_difference/bg-one.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-2 {
-  background-image: url("/assets/bg-three.png");
+  background-image: url("/assets/charity_with_difference/bg-three.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-3 {
-  background-image: url("/assets//bg-two.png");
+  background-image: url("/assets/charity_with_difference/bg-two.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -519,6 +563,7 @@ body {
     opacity: 0;
     transform: translateX(-50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -530,6 +575,7 @@ body {
     opacity: 0;
     transform: translateX(50px);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -541,6 +587,7 @@ body {
     opacity: 0;
     transform: translateY(30px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -552,6 +599,7 @@ body {
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
   }
+
   to {
     stroke-dasharray: 1000;
     stroke-dashoffset: 0;
@@ -587,9 +635,11 @@ body {
   0% {
     transform: translateX(0);
   }
+
   50% {
     transform: translateX(10px);
   }
+
   100% {
     transform: translateX(0);
   }
@@ -604,17 +654,18 @@ body {
   0% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
+
   100% {
     transform: translateY(0);
   }
 }
 
-
-.grid-line{
-    animation: moveTopBottom 4s ease-in-out infinite;
+.grid-line {
+  animation: moveTopBottom 4s ease-in-out infinite;
 }
 
 /* HelpAndDonate Component Styles */
@@ -640,13 +691,16 @@ body {
 }
 
 .donation-card::before {
-  content: '';
+  content: "";
   position: absolute;
   top: 0;
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.2),
+      transparent);
   transition: left 0.5s ease;
 }
 
@@ -661,7 +715,7 @@ body {
 
 /* Category tag styles */
 .category-tag {
-  background: linear-gradient(135deg, #FFC107 0%, #FFD54F 100%);
+  background: linear-gradient(135deg, #ffc107 0%, #ffd54f 100%);
   box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
 }
 
@@ -683,7 +737,7 @@ body {
 }
 
 .carousel-indicator.active {
-  background: linear-gradient(135deg, #046B59 0%, #122F2A 100%);
+  background: linear-gradient(135deg, #046b59 0%, #122f2a 100%);
   box-shadow: 0 2px 8px rgba(4, 107, 89, 0.3);
 }
 
@@ -699,4 +753,3 @@ body {
     margin: 0 5px;
   }
 }
-
