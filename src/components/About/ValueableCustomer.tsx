@@ -4,6 +4,8 @@ import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { testimonials } from "@/src/staticResource";
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 
 const ValueableCustomer = () => {
   const { ref, inView } = useInView({
@@ -63,7 +65,7 @@ const ValueableCustomer = () => {
         >
           <div className="flex items-center gap-2 justify-center text-[#046b59]">
             <i className="text-2xl hand-icon"></i>
-            <span className="text-[var(--color-palate-quaternary-green)] text-2xl font-caveat font-semibold">
+            <span className="text-[#046b59] text-2xl font-caveat font-semibold">
               Start Donating Poor People
             </span>
           </div>
@@ -95,7 +97,7 @@ const ValueableCustomer = () => {
                   className="px-3"
                   style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <div className="relative bg-white border border-yellow-400 rounded-2xl p-6 flex flex-col justify-between shadow-sm h-96 overflow-hidden">
+                  <div className="relative bg-white border border-yellow-400 rounded-2xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
                     <Image
                       src="/assets/99.png"
                       alt="green spade"
