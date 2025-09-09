@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Caveat, Nunito } from "next/font/google";
 import "./globals.css";
+import "./curosal.css";
 import Providers from "./providers";
 
 const caveat = Caveat({
