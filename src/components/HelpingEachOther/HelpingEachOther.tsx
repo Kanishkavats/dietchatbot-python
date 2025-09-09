@@ -72,11 +72,11 @@ export default function HelpingEachOther() {
         </div>
       )}
 
-      <section className="help relative py-20 bg-white overflow-hidden">
+      <section className="relative py-20 bg-white overflow-hidden">
         <div className="container mx-auto ">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-x-4 gap-y-10 items-center" >
+          <div className="grid grid-cols-1 lg:grid-cols-2   gap-y-10 items-center" >
             {/*========= Left side - Visual Elements ===========*/}
-            <div className="relative  opacity-0 anim-fade-in-left max-w-full">
+            <div className="relative  opacity-0 anim-fade-in-left">
               {/* Vertical Banner with Text */}
 
               {/* Grid Image */}
@@ -125,7 +125,7 @@ export default function HelpingEachOther() {
                 </div>
 
                 {/* Large Main Image with overlay and play button */}
-                <div className="relative max-w-[500px] w-full md:h-[600px] rounded-2xl shadow-2xl border-8 border-white">
+                <div className="relative max-w-[450px]  md:h-[500px] rounded-2xl shadow-2xl border-8 border-white">
                   <Image
                     src="/assets/section2/thumb-lg.png"
                     alt="Children in need"
@@ -221,7 +221,7 @@ export default function HelpingEachOther() {
 
             {/* Right side - Content */}
             <div
-              className="relative opacity-0 py-10   anim-fade-in-right w-full "
+              className="relative opacity-0 py-10  anim-fade-in-right w-full "
               style={{ animationDelay: "0.2s" }}
             >
               {/* Subtitle */}

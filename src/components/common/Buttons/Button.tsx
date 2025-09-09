@@ -24,7 +24,6 @@ const Button: React.FC<DynamicButtonProps> = ({
   textColor = "text-[var(--foreground)]",
   hoverTextColor = "group-hover:text-white",
   bgColor = "bg-[var(--yellow)]",
-  bgColor="bg-[var(--yellow)]",
   className="",
   onClick,
   disabled = false, // ✅ added default

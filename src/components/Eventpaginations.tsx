@@ -32,7 +32,8 @@ const EventPagination: React.FC<EventPaginationProps> = ({
           transition`}
       >
         «
-
+      </button>
+      
       {allowedPages.map((page) => (
         <button
           key={page}
@@ -65,6 +66,6 @@ const EventPagination: React.FC<EventPaginationProps> = ({
       </button>
     </div>
   );
-};
+}
 
 export default EventPagination;
