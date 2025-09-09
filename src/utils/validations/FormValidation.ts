@@ -1,5 +1,6 @@
 import * as Yup from "yup";
 
+// Existing schemas here...
 export const DetailsformSchema = Yup.object().shape({
   firstName: Yup.string().min(2, "First name is required").required(),
   lastName: Yup.string().min(2, "Last name is required").required(),
@@ -20,14 +21,28 @@ export const volunteerSchema = Yup.object().shape({
   message: Yup.string().required("Message is required"),
 });
 
-export type VolunteerValues = Yup.InferType<typeof volunteerSchema >
-
-
+export type VolunteerValues = Yup.InferType<typeof volunteerSchema>;
 
 export const loginSchema = Yup.object({
   email: Yup.string().email("Invalid email").required("Email is required"),
   password: Yup.string().min(6, "Min 6 characters").required("Password is required"),
 });
 
+export type loginValues = Yup.InferType<typeof loginSchema>;
 
-export type loginValues = Yup.InferType<typeof loginSchema >
+// ✅ Register validation
+export const registerSchema = Yup.object({
+  name: Yup.string()
+    .min(2, "Name must be at least 2 characters")
+    .required("Name is required"),
+  email: Yup.string().email("Invalid email").required("Email is required"),
+  phone: Yup.string()
+    .matches(/^[0-9]+$/, "Phone must be digits only")
+    .min(10, "Phone must be at least 10 digits")
+    .required("Phone is required"),
+  password: Yup.string()
+    .min(6, "Password must be at least 6 characters")
+    .required("Password is required"),
+});
+
+export type registerValues = Yup.InferType<typeof registerSchema>;
