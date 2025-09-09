@@ -17,7 +17,7 @@ const Navbar = () => {
   const [drawerDelay, setDrawerDelay] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const DRAWER_ANIMATION_DELAY = 0.6;
+  const DRAWER_ANIMATION_DELAY = 0;
   const route = useRouter()
 
   // Reset backdrop animation flag on open/close

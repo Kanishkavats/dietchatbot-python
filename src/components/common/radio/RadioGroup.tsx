@@ -35,7 +35,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
         return (
           <label
             key={option.value}
-            className="flex items-center space-x-2 cursor-pointer select-none"
+            className="flex items-center space-x-2  cursor-pointer select-none"
           >
             {/* hidden native input */}
             <input
@@ -49,14 +49,18 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 
             {/* custom radio */}
             <span
-              className={`
-    w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors
-  `}
+              className={` w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors  ${isSelected ? 'opacity-100': 'opacity-50'}`}
               style={{
                 borderColor: selectedColor,
-                backgroundColor: isSelected ? "transparent" : `${selectedColor}20`, // light padding for unselected
+                backgroundColor: isSelected ? "transparent" : `${selectedColor}20`, 
               }}
             >
+              {!isSelected && (
+                 <span
+                  className="w-2.5 h-2.5 rounded-full"
+                  style={{ backgroundColor: selectedColor }}
+                />
+              )}
               {isSelected && (
                 <span
                   className="w-2.5 h-2.5 rounded-full"
@@ -64,8 +68,6 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
                 />
               )}
             </span>
-
-
 
             {/* label */}
             <span className="text-md font-medium">{option.label}</span>

@@ -4,8 +4,6 @@ import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { testimonials } from "@/src/staticResource";
-import { motion } from "framer-motion";
-import { useInView } from "react-intersection-observer";
 
 const ValueableCustomer = () => {
   const { ref, inView } = useInView({
