@@ -457,9 +457,7 @@ export const recentPosts: RecentPost[] = [
     image: "/assets/three bottomm.png",
     alt: "Two young children looking at camera",
   },
-];
-
-
+]
 
 export const totalPages = Math.ceil(events.length / 2);
 
