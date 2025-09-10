@@ -8,6 +8,9 @@ import BecomeVolunteer from '../components/BecomeVolunteer';
 import { VolunteerTeam , ValueableCustomer } from '../components/About';
 import Community from '../components/Home/Community'
 import ChildOldCare from '../components/ChildOldCare';
+import DonateDifferentWay from '../components/DonateDifferentWay';
+import LatestNews from '../components/LatestNewsArticle';
+import LatestNewsArticle from '../components/LatestNewsArticle';
 
 
 
@@ -24,6 +27,8 @@ export default function Page() {
       <Community/>
       <ValueableCustomer/>
       <ChildOldCare />
+      <DonateDifferentWay />
+      <LatestNewsArticle />
     </div>
   );
 }
