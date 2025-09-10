@@ -246,79 +246,92 @@ export const VolunteerFeatures = [
 ]
 // about page voluntear team members data
 export const teamMembers = [
-    {
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/volunteer1.png",
-      delay: 0,
-    },
-    {
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/volunteer2.png",
-      delay: 300,
-    },
-    {
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/volunteer3.png",
-      delay: 600,
-    },
-    {
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/volunteer4.png",
-      delay: 900,
-    },
-    {
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear5.png",
-      delay: 0,
-    },
-    {
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear6.png",
-      delay: 300,
-    },
-    {
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear7.png",
-      delay: 600,
-    },
-    {
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear8.png",
-      delay: 900,
-    },
-    {
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear5.png",
-      delay: 0,
-    },
-    {
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear6.png",
-      delay: 300,
-    },
-    {
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear7.png",
-      delay: 600,
-    },
-    {
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear8.png",
-      delay: 900,
-    }
-  ];
+  {
+    id: 1,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/volunteer1.png",
+    delay: 0,
+  },
+  {
+    id: 2,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/volunteer2.png",
+    delay: 300,
+  },
+  {
+    id: 3,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/volunteer3.png",
+    delay: 600,
+  },
+  {
+    id: 4,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/volunteer4.png",
+    delay: 900,
+  },
+  {
+    id: 5,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear5.png",
+    delay: 0,
+  },
+  {
+    id: 6,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear6.png",
+    delay: 300,
+  },
+  {
+    id: 7,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear7.png",
+    delay: 600,
+  },
+  {
+    id: 8,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear8.png",
+    delay: 900,
+  },
+  {
+    id: 9,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear5.png",
+    delay: 0,
+  },
+  {
+    id: 10,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear6.png",
+    delay: 300,
+  },
+  {
+    id: 11,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear7.png",
+    delay: 600,
+  },
+  {
+    id: 12,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear8.png",
+    delay: 900,
+  }
+];
+
 
   // aboutpage  testimonials data
 export  const testimonials = [
@@ -449,6 +462,59 @@ export const recentPosts: RecentPost[] = [
 
 
 export const totalPages = Math.ceil(events.length / 2);
+
+// ChildOldCare component data
+export const childOldCareImages = [
+  { src: '/assets/childoldcare/4people.png', alt: 'Image 1' },
+  { src: '/assets/childoldcare/child.png', alt: 'Image 2' },
+  { src: '/assets/childoldcare/brownchild.png', alt: 'Image 3' },
+  { src: '/assets/childoldcare/4people.png', alt: 'Image 1' },
+  { src: '/assets/childoldcare/child.png', alt: 'Image 2' },
+  { src: '/assets/childoldcare/brownchild.png', alt: 'Image 3' }
+];
+
+export const childOldCareSliderSettings = {
+  className: "center",
+  centerMode: true,
+  infinite: true,
+  centerPadding: "60px",
+  slidesToShow: 3,
+  speed: 500,
+  arrows: true,
+  dots: false,
+  autoplay: false,
+  draggable: true,
+  swipeToSlide: true,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 2,
+        centerPadding: "40px"
+      }
+    },
+    {
+      breakpoint: 768,
+      settings: {
+        slidesToShow: 1,
+        centerPadding: "20px"
+      }
+    }
+  ]
+};
+
+// DonateDifferentWay component data
+export const donateDifferentWayTabs = [
+  { id: 'mission', label: 'Our Mission' },
+  { id: 'vision', label: 'Our Vision' },
+  { id: 'excellence', label: 'Excellence' }
+];
+
+export const donateDifferentWayMissionItems = [
+  'We Help Companies Develop Powerful Corporate Social',
+  'Helped Fund 3,265 Project Powerful Corporate Poor',
+  'Dedicated Tech Services'
+];
 
 
 

@@ -51,12 +51,12 @@
 
 .slider-container .slick-prev {
   left: 16px;
-  background: var(--green) !important;
+  background: green !important;
 }
 
 .slider-container .slick-next {
   right: 16px;
-  background: var(--yellow) !important;
+  background: yellow !important;
 }
 
 .slider-container .slick-prev:before,
