@@ -1,3 +1,4 @@
+'use client'
 import React, { JSX } from "react";
 import Breadcrumb from "../Breadcrumb";
 import { motion, Variants } from "framer-motion";

@@ -25,12 +25,12 @@ const Login = () => {
               Sign In
             </h1>
             <LoginForm />
-            <p className="text-sm text-gray-700 mt-4 text-center">
+            {/* <p className="text-sm text-gray-700 mt-4 text-center">
               Don’t have an account yet?{" "}
               <Link href="/register" className="font-medium text-primaryColor hover:underline">
                 Sign up
               </Link>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

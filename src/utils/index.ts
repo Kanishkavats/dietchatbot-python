@@ -1,4 +1,4 @@
-import { MdOutlineDashboardCustomize, MdNotificationsActive, MdIntegrationInstructions } from "react-icons/md";
+import { MdOutlineDashboardCustomize, MdNotificationsActive, MdIntegrationInstructions, MdCampaign } from "react-icons/md";
 import { FaHandsHelping } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import { HiUsers } from "react-icons/hi";
@@ -47,5 +47,11 @@ export const sidebarAd = [
     lable: "Settings",
     nav: "settings",
     link: "/admin/settings",
+  },
+{
+    icon: MdCampaign ,
+    lable: "Campaign",
+    nav: "campaign",
+    link: "/admin/campaign",
   },
 ];
