@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
-import { testimonials } from "@/src/staticResource";
+ import { testimonials } from "@/src/staticResource";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
