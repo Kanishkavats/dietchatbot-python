@@ -48,11 +48,11 @@ export const InfoBarDropdown = ({ options, label }: DropdownProps) => {
       {/* Trigger button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 cursor-pointer  text-[var(--white)]"
+        className="flex items-center gap-2 cursor-pointer  text-white"
       >
         {selectedOption.icon && (
           <span className="bg-gray-600 rounded-full p-1">
-            <Icon icon={selectedOption.icon} className="size-4 rounded-full text-[var(--foreground)]" />
+            <Icon icon={selectedOption.icon} className="size-4 rounded-full text-foreground" />
           </span>
         )}
         <span>{selectedOption.label || label}</span>

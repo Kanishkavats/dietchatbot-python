@@ -79,10 +79,9 @@
   --color-green: rgb(4, 107, 89);
   --color-dark-green: #122f2a;
   --color-gray-green: #667471;
-  --color-primaryColor: #ffc107;
+  --color-lime-green:#4ade80;
   --color-yellow: #ffc107;
   --color-orange: #ff5528;
-  --color-blue: #3b82f6;
   --color-purple: #8b5cf6;
   --color-red: #ef4444;
   --color-gray-100: #f3f4f6;
@@ -91,6 +90,7 @@
   --color-gray-500: #6b7280;
   --color-orange-50: #f16108;
   --color-yellow-50: hsl(55, 90%, 52%);
+  --color-blue: #3b82f6;
   --color-blue-50: #0b2b55;
   --color-purple-50: #4c3167;
   --color-red: #ef4444;

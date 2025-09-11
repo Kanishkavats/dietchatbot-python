@@ -11,9 +11,9 @@ const SearchBox = () => (
       <input
         type="text"
         placeholder="Search Here..."
-        className="flex-1 outline-none bg-transparent text-gray-700"
+        className="flex-1 outline-none bg-transparent text-foreground/60"
       />
-      <Icon icon="mdi:magnify" className="text-gray-500 text-xl" />
+      <Icon icon="mdi:magnify" className="text-foreground/60 text-xl" />
     </div>
   </FadeInUp>
 );

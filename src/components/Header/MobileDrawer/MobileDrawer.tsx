@@ -33,11 +33,11 @@ export const MobileDrawer = ({
         delay: !isClosing ? drawerDelay : 0, 
         ease: 'easeInOut',
       }}
-      className="fixed top-0 left-0 h-full w-full md:w-104 bg-[var(--white)] shadow-lg z-50 pt-6 pb-20 xl:hidden overflow-y-auto"
+      className="fixed top-0 left-0 h-full w-full md:w-104 bg-white shadow-lg z-50 pt-6 pb-20 xl:hidden overflow-y-auto"
     >
 
       {/* Close Button */}
-      <div className="flex justify-end mr-4 text-[var(--brown)] ">
+      <div className="flex justify-end mr-4 text-brown ">
         <button onClick={() => setMobileMenuOpen(false)}>
           <Icon icon="line-md:menu-to-close-alt-transition" className="font-extrabold" width={34} height={34} />
         </button>
@@ -72,7 +72,7 @@ export const MobileDrawer = ({
             href={link}
             aria-label={label}
             whileHover={{ scale: 1, color: "#F3BB11" }}
-            className="cursor-pointer bg-[var(--dark-green)] p-3 rounded-full text-[var(--white)]"
+            className="cursor-pointer bg-dark-green p-3 rounded-full text-white"
           >
             <Icon icon={icon} className="w-5 h-5" />
           </motion.a>

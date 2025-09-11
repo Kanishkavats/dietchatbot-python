@@ -25,7 +25,7 @@ const DonateUs = () => {
         decoIcon="mdi:ribbon"
         decoPosition="absolute bottom-10 left-10"
       />
-      <section className="bg-[var(--gray-100)] py-16 flex justify-center items-center w-full">
+      <section className="bg-gray-100 py-16 flex justify-center items-center w-full">
         <div className="w-11/12 xl:w-10/12">
           <div className=" grid grid-cols-1 xl:grid-cols-3 gap-10">
             <div className="xl:col-span-2 relative">
