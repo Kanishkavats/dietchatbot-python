@@ -49,13 +49,13 @@ const BecomeVolunteer: React.FC = () => {
             <h3 className="text-white text-3xl font-bold mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>Become A Volunteer?</h3>
             
             {/* Contact Button */}
-            <button className="bg-teal-700 hover:bg-yellow-400 hover:text-black text-white px-8 py-5 rounded-full font-medium transition-colors">
+            <button className="bg-green hover:bg-yellow-50 hover:text-black text-white px-8 py-5 rounded-full font-medium transition-colors">
               Contact Now
             </button>
           </div>
           
           {/* Jagged Border Right */}
-          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-400" style={{
+          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-50" style={{
             clipPath: 'polygon(0 0, 100% 10%, 0 20%, 100% 30%, 0 40%, 100% 50%, 0 60%, 100% 70%, 0 80%, 100% 90%, 0 100%)'
           }}></div>
         </div>
@@ -72,16 +72,16 @@ const BecomeVolunteer: React.FC = () => {
           <div className="relative z-10 h-full flex flex-col items-center justify-center">
             {/* Navigation Dots */}
             <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-              <div className="w-3 h-3 bg-green-300 rounded-full mb-2"></div>
+              <div className="w-3 h-3 bg-green rounded-full mb-2"></div>
             </div>
             <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-              <div className="w-3 h-3 bg-green-300 rounded-full mb-2"></div>
+              <div className="w-3 h-3 bg-green rounded-full mb-2"></div>
             </div>
             
             {/* Play Button */}
             <div className="relative">
               <motion.div 
-                className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center relative cursor-pointer"
+                className="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center relative cursor-pointer"
                 style={{
                   border: '2px dashed #000000',
                   boxShadow: '0 0 0 0 rgba(11, 10, 7, 0.7)'
@@ -110,7 +110,7 @@ const BecomeVolunteer: React.FC = () => {
           </div>
           
           {/* Jagged Border Right */}
-          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-400" style={{
+          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-50" style={{
             clipPath: 'polygon(0 0, 100% 10%, 0 20%, 100% 30%, 0 40%, 100% 50%, 0 60%, 100% 70%, 0 80%, 100% 90%, 0 100%)'
           }}></div>
         </div>
@@ -143,7 +143,7 @@ const BecomeVolunteer: React.FC = () => {
             <h3 className="text-white text-3xl font-bold mb-8"style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>Make Donation To Us?</h3>
             
             {/* Donate Button */}
-            <button className="bg-yellow-400 hover:bg-teal-700 hover:text-white text-black px-8 py-5 rounded-full font-medium transition-colors">
+            <button className="bg-yellow-50 hover:bg-green hover:text-white text-black px-8 py-5 rounded-full font-medium transition-colors">
               Donate Now
             </button>
           </div>

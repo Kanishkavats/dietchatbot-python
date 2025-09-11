@@ -1,7 +1,3 @@
-
-
-
-
 "use client";
 import React from "react";
 import Link from "next/link";
@@ -15,8 +11,6 @@ interface EventListProps {
 
 export default function EventList({ currentPage }: EventListProps) {
   const itemsPerPage = 3;
-  const totalPages = Math.ceil(events.length / itemsPerPage);
-
   const indexOfLast = currentPage * itemsPerPage;
   const indexOfFirst = indexOfLast - itemsPerPage;
   const currentEvents = events.slice(indexOfFirst, indexOfLast);
@@ -26,7 +20,7 @@ export default function EventList({ currentPage }: EventListProps) {
   }
 
   return (
-    <section className="py-16 bg-white">
+    <section className="py-16 bg-[#ffffff]">
       <div
         className="
           flex flex-col items-center gap-6
@@ -40,8 +34,10 @@ export default function EventList({ currentPage }: EventListProps) {
               relative w-full h-[250px] sm:h-[350px]
               lg:w-[570px] lg:h-[600px]
               bg-black rounded-[4px] overflow-hidden
+              charity-card animate-fade-in card-stagger-1
             "
           >
+            
             <motion.img
               src="/assets/yellowspade.png"
               alt="yellow heart"
@@ -52,9 +48,10 @@ export default function EventList({ currentPage }: EventListProps) {
                 scale: [0.8, 1.1, 0.5],
               }}
               transition={{ duration: 3, ease: "easeInOut" }}
-              className="absolute left-[20px] top-1/2 -translate-y-1/2 w-[80px] sm:w-[120px] h-auto z-20"
+              className="absolute left-[20px] top-1/2 -translate-y-1/2 w-[80px] sm:w-[120px] h-auto z-20 animate-float"
             />
 
+            
             <Link href="/event-details" className="absolute inset-0">
               <img
                 src={currentEvents[0].image}
@@ -63,12 +60,14 @@ export default function EventList({ currentPage }: EventListProps) {
               />
             </Link>
             <div className="absolute inset-0 bg-black/40" />
-            <div className="absolute left-4 sm:left-8 bottom-6 sm:bottom-10 flex flex-col gap-2 max-w-[255px] text-white">
-              <span className="text-sm">{currentEvents[0].date}</span>
-              <h3 className="text-lg sm:text-2xl font-semibold leading-snug">
+
+            
+            <div className="absolute left-4 sm:left-8 bottom-6 sm:bottom-10 flex flex-col gap-2 max-w-[255px] text-[#ffffff] animate-slide-up-delay">
+              <span className="text-sm font-nunito">{currentEvents[0].date}</span>
+              <h3 className="text-lg sm:text-2xl font-semibold leading-snug font-charifund">
                 <Link href="/event-details">{currentEvents[0].title}</Link>
               </h3>
-              <p className="text-sm flex items-center gap-2">
+              <p className="text-sm flex items-center gap-2 font-nunito">
                 <i className="fa-solid fa-location-dot text-primary"></i>
                 {currentEvents[0].location}
               </p>
@@ -83,14 +82,15 @@ export default function EventList({ currentPage }: EventListProps) {
             lg:w-[570px] lg:h-[600px]
           "
         >
-          {currentEvents.slice(1).map((event: Event) => (
+          {currentEvents.slice(1).map((event: Event, index) => (
             <div
               key={event.id}
-              className="
+              className={`
                 relative w-full h-[200px] sm:h-[250px]
                 lg:w-[570px] lg:h-[284px]
                 bg-black rounded-[4px] overflow-hidden
-              "
+                charity-card animate-fade-in card-stagger-${index + 2}
+              `}
             >
               <Link href="/event-details" className="absolute inset-0">
                 <img
@@ -100,12 +100,14 @@ export default function EventList({ currentPage }: EventListProps) {
                 />
               </Link>
               <div className="absolute inset-0 bg-black/40" />
-              <div className="absolute left-4 sm:left-6 bottom-4 sm:bottom-6 text-white max-w-[250px]">
-                <span className="text-sm">{event.date}</span>
-                <h3 className="text-base sm:text-xl font-semibold leading-snug">
+
+              
+              <div className="absolute left-4 sm:left-6 bottom-4 sm:bottom-6 text-[#ffffff] max-w-[250px] animate-slide-up-delay">
+                <span className="text-sm font-nunito">{event.date}</span>
+                <h3 className="text-base sm:text-xl font-semibold leading-snug font-charifund">
                   <Link href="/event-details">{event.title}</Link>
                 </h3>
-                <p className="text-sm flex items-center gap-2">
+                <p className="text-sm flex items-center gap-2 font-nunito">
                   <i className="fa-solid fa-location-dot text-primary"></i>
                   {event.location}
                 </p>

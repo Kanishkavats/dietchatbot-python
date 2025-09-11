@@ -115,7 +115,8 @@ const VolunteerTeam = () => {
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {membersToShow.map((member, idx) => (
-              <VolunteerCard key={member.id} member={member} idx={idx} />
+              
+              <VolunteerCard key={idx} member={member} idx={idx} />
             ))}
           </div>
         </div>
