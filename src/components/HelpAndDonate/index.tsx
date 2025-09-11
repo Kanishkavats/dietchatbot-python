@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { motion, useInView } from 'framer-motion';
 
 
 const donationCards = [
@@ -65,6 +66,8 @@ const HelpAndDonate: React.FC = () => {
   const [hoveredLeft, setHoveredLeft] = useState(false);
   const [hoveredRight, setHoveredRight] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
+  const spadeRef = useRef(null);
+  const isSpadeInView = useInView(spadeRef, { once: true, amount: 0.3 });
 
   const handleCardClick = (category: string) => {
     if (category === 'Food') {
@@ -143,7 +146,6 @@ const HelpAndDonate: React.FC = () => {
             >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                 <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </button>
             <button
@@ -159,14 +161,19 @@ const HelpAndDonate: React.FC = () => {
             >
               <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                 <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </button>
           </div>
         </div>
   
 
-       <div className="absolute -left-15 top-180 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300">
+       <motion.div 
+         ref={spadeRef}
+         className="absolute -left-15 top-180 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300"
+         initial={{ opacity: 0, transform: "translateZ(0)" }}
+         animate={isSpadeInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+         transition={{ duration: 1 }}
+       >
                <Image
                 src="/assets/section2/spade.png"
                  alt="Hand outline"
@@ -174,7 +181,7 @@ const HelpAndDonate: React.FC = () => {
                  height={80}
                 className="animate-[float_3s_ease-in-out_infinite]"
                       />
-        </div>
+        </motion.div>
                  
         {/* Carousel Section */}
         <div className="relative">
@@ -227,12 +234,19 @@ const HelpAndDonate: React.FC = () => {
                   
                   {/* Card Image */}
                   <div className="relative h-48 rounded-lg overflow-hidden">
-                    <Image
-                      src={card.image}
-                      alt={card.title}
-                      fill
-                      className="object-cover"
-                    />
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: -3 }}
+                      transition={{ duration: 0.4 }}
+                      className="w-full h-full"
+                    >
+                      <Image
+                        src={card.image}
+                        alt={card.title}
+                        fill
+                        className="object-cover"
+                       
+                      />
+                    </motion.div>
                     {/* Category Tag */}
                     <div 
                       className="absolute top-4 left-4 px-3 py-1 rounded-full text-black text-sm font-medium transition-all duration-300"
@@ -273,7 +287,7 @@ const HelpAndDonate: React.FC = () => {
                     <p className="text-gray-600 text-sm leading-relaxed mb-4">{card.description}</p>
                     
                     {/* Progress Bar */}
-                    <div className="mb-4">
+                    <div className="bg-gray-100 rounded-lg p-2 mb-4">
                       <div className="flex justify-between text-sm text-gray-500 mb-2">
                         <span>Donation</span>
                         <span>{card.progress}%</span>
@@ -284,30 +298,30 @@ const HelpAndDonate: React.FC = () => {
                           style={{ width: `${card.progress}%` }}
                         ></div>
                       </div>
+                      
+                      {/* Amounts */}
+                      <div className="flex justify-between text-sm text-gray-500 mb-4 mt-4">
+                        <span>Raised: {card.raised}</span>
+                        <span>Goal: <span className="text-brown">{card.goal}</span></span>
+                      </div>
+                      
+                      {/* Donate Button */}
+                      <button 
+                        className=" py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300"
+                        style={{
+                          backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
+                          borderColor: hoveredCard === card.id ? '#000000' : '#1a2d29ff',
+                          color: hoveredCard === card.id ? 'white' : '#122F2A',
+                          transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
+                          boxShadow: hoveredCard === card.id 
+                            ? '0 4px 12px rgba(34, 197, 94, 0.3)'
+                            : 'none',
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                        Donate Now
+                      </button>
                     </div>
-                    
-                    {/* Amounts */}
-                    <div className="flex justify-between text-sm text-gray-500 mb-4">
-                      <span>Raised: {card.raised}</span>
-                      <span>Goal: {card.goal}</span>
-                    </div>
-                    
-                    {/* Donate Button */}
-                    <button 
-                      className=" py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
-                        borderColor: hoveredCard === card.id ? '#000000' : '#1a2d29ff',
-                        color: hoveredCard === card.id ? 'white' : '#122F2A',
-                        transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
-                        boxShadow: hoveredCard === card.id 
-                          ? '0 4px 12px rgba(34, 197, 94, 0.3)'
-                          : 'none',
-                        transition: 'all 0.3s ease'
-                      }}
-                    >
-                      Donate Now
-                    </button>
                   </div>
                 </div>
               </SwiperSlide>
@@ -324,20 +338,32 @@ const HelpAndDonate: React.FC = () => {
                     swiperRef.current.slideTo(index);
                   }
                 }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 ${
-                  activeIndex === index 
-                    ? 'bg-gradient-to-br from-green-600 to-dark-green shadow-lg'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
+                className="w-5 h-5 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 flex items-center justify-center"
                 style={{
                   transition: 'all 0.3s ease',
                   cursor: 'pointer',
-                  ...(activeIndex === index && {
-                    background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)',
-                    boxShadow: '0 2px 8px rgba(4, 107, 89, 0.3)'
+                  ...(activeIndex === index ? {
+                    border: '2px solid #046B59',
+                    backgroundColor: 'transparent'
+                  } : {
+                    border: 'none',
+                    backgroundColor: 'transparent'
                   })
                 }}
-              />
+              >
+                <div 
+                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                    activeIndex === index 
+                      ? 'bg-gradient-to-br from-green to-dark-green'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  style={{
+                    ...(activeIndex === index && {
+                      background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)'
+                    })
+                  }}
+                />
+              </button>
             ))}
           </div>
         </div>

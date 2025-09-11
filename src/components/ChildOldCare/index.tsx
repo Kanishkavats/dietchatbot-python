@@ -13,12 +13,44 @@ const ScrollBanner: React.FC = () => {
   const settings = childOldCareSliderSettings;
 
   return (
-    <div className="relative w-full h-[500px] gap-10 overflow-hidden">
+    <div className="relative w-full h-[500px] gap-10 mt-15 overflow-hidden">
+      {/* Custom CSS for hiding arrows on desktop */}
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          .child-old-care-slider .slick-prev,
+          .child-old-care-slider .slick-next {
+            opacity: 0 !important;
+            pointer-events: auto !important;
+            position: absolute !important;
+            z-index: 10 !important;
+          }
+          
+          .child-old-care-slider .slick-prev {
+            left: 0 !important;
+            width: 50px !important;
+            height: 100% !important;
+          }
+          
+          .child-old-care-slider .slick-next {
+            right: 0 !important;
+            width: 50px !important;
+            height: 100% !important;
+          }
+          
+          @media (max-width: 768px) {
+            .child-old-care-slider .slick-prev,
+            .child-old-care-slider .slick-next {
+              opacity: 1 !important;
+            }
+          }
+        `
+      }} />
+      
       {/* Custom Slider Container */}
-      <div className="slider-container">
+      <div className="slider-container child-old-care-slider">
         <Slider {...settings}>
           {images.map((image, index) => (
-            <div key={index} className="px-3">
+            <div key={index} className="px-2">
               <div
               style={{
                 backgroundImage:` url(${image.src})`,
@@ -73,9 +105,6 @@ const ScrollBanner: React.FC = () => {
         
       </div>
 
-      {/* Gradient overlays for smooth edges */}
-      <div className="absolute top-0 left-0 w-20 h-full bg-gradient-to-r from-[var(--color-white)] to-transparent pointer-events-none"></div>
-      <div className="absolute top-0 right-0 w-20 h-full bg-gradient-to-l from-[var(--color-white)] to-transparent pointer-events-none"></div>
     </div>
   );
 };

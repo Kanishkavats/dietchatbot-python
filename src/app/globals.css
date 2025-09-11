@@ -101,6 +101,20 @@
 body {
   font-family: "Charifund", Arial, Helvetica, sans-serif;
   background-color: var(--color-white);
+  cursor: none; /* Hide default cursor */
+}
+
+/* Custom cursor styles */
+.custom-cursor {
+  pointer-events: none;
+  z-index: 9999;
+  position: fixed;
+  transition: opacity 0.1s ease;
+}
+
+/* Hide cursor on interactive elements */
+a, button, input, textarea, select, [role="button"] {
+  cursor: none !important;
 }
 
 /* Custom styles for charity component */

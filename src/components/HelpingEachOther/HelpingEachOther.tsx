@@ -1,18 +1,16 @@
 "use client";
-
-
-
-
-"use client";
 import { FaCheckCircle } from "react-icons/fa";
 import Image from 'next/image';
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef } from 'react';
 import ReactPlayer from 'react-player';
 import { useRouter } from 'next/navigation';
 import { FiPhoneCall } from "react-icons/fi";
+import { motion, useInView } from 'framer-motion';
 export default function HelpingEachOther() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const router = useRouter();
+  const thumbRef = useRef(null);
+  const isThumbInView = useInView(thumbRef, { once: true, amount: 0.3 });
   const handleVideoOpen = useCallback(() => {
     setIsVideoOpen(true);
   }, []);
@@ -48,14 +46,6 @@ export default function HelpingEachOther() {
                 onError={(error) => console.log('Video error:', error)}
                 onReady={() => console.log('Video ready')}
                 stopOnUnmount={true}
-                config={{
-                  youtube: {
-                    playerVars: {
-                      modestbranding: 1,
-                      rel: 0
-                    }
-                  }
-                }}
               />
             </div>
           </div>
@@ -81,7 +71,7 @@ export default function HelpingEachOther() {
                 </div>
               </div>
               
-              <div className="absolute -left-10 top-70 -bottom-4 z-10">
+              <div className="absolute -left-10 top-95 -bottom-4 z-10">
                 <Image
                   src="/assets/section2/grid.png"
                   alt="Grid pattern"
@@ -121,7 +111,13 @@ export default function HelpingEachOther() {
                   />
                 </div>
                 
-                <div className="relative w-[420px] h-[520px] md:w-[575px] md:h-[600px] rounded-2xl overflow-hidden shadow-2xl">
+                <motion.div 
+                  ref={thumbRef}
+                  className="relative w-[420px] h-[520px] md:w-[575px] md:h-[600px] rounded-3xl border-12 border-white overflow-hidden shadow-2xl"
+                  initial={{ opacity: 0, transform: "translateZ(0)" }}
+                  animate={isThumbInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+                  transition={{ duration: 1 }}
+                >
                   <Image
                     src="/assets/section2/thumb-lg.png"
                     alt="Children in need"
@@ -148,7 +144,7 @@ export default function HelpingEachOther() {
                       </span>
                     </span>
                   </button>
-                </div>
+                </motion.div>
    
                 <div className="absolute -top-10 -left-24 w-60 h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-top 2section.png" alt="Community meal" fill className="object-cover" />
@@ -159,28 +155,44 @@ export default function HelpingEachOther() {
                 </div>
               </div>
              
-              <div className="absolute -left-15 top-2 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300">
+              <div className="absolute -left-25 top-2 transform -translate-y-1/2 opacity-60 hover:opacity-50 transition-opacity duration-300">
                 <Image
                   src="/assets/section2/hand (1) section2.png"
                   alt="Hand outline"
-                  width={80}
-                  height={80}
+                  width={90}
+                  height={90}
                   className="animate-[float_3s_ease-in-out_infinite]"
                 />
               </div>
-              <div className="absolute -left-12 bottom-20 hover:scale-110 transition-transform duration-300">
-                <Image
+                <motion.div 
+              className="absolute -left-12 bottom-20 hover:scale-110 transition-transform duration-300"
+              animate={{
+                top: [-150, 1372.21, -150],
+                x: [0, -53.371, 0],
+                rotate: [0, -23.4842, 0]
+              }}
+              transition={{
+                duration: 15,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "loop"
+              }}
+              style={{
+                insetInlineStart: '8%',
+                zIndex: -1
+              }}
+            >
+              <Image
                   src="/assets/section2/parasuit.png"
                   alt="Hot air balloon"
                   width={100}
                   height={100}
-                  style={{
-                    top: '398.231px',
-                    transform: 'translateX(-49.9345%) rotate(-10.3928deg)',
-                    animation: 'fall 15s ease-in-out infinite',
-                  }}
+                  
                 />
-              </div>
+               
+            </motion.div>
+                
+             
             </div>
            
             <div className="relative opacity-0 anim-fade-in-right pl-8" style={{ animationDelay: '0.2s' }}>
@@ -210,12 +222,12 @@ export default function HelpingEachOther() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10 mb-8">
                 
                 <div className="flex items-center gap-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.2s' }}>
-                  <div className="w-16 h-16 bg-yellow-400 rounded-lg flex items-center justify-center shadow-md">
+                  <div className="w-24 h-24  rounded-lg flex items-center justify-center shadow-md">
                     <Image
                       src="/assets/section2/football_hands.jpg" 
                       alt="Football hands icon"
-                      width={48}
-                      height={48}
+                      width={100}
+                      height={100}
                       className="object-contain"
                     />
                   </div>
@@ -233,13 +245,15 @@ export default function HelpingEachOther() {
                 </div>
                 
                 <div className="flex items-center gap-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.4s' }}>
-                  <div className="w-16 h-16 bg-yellow-400 rounded-lg flex items-center justify-center shadow-md">
+                  <div className="w-24 h-24  rounded-lg flex items-center justify-center shadow-md">
                     <Image
                       src="/assets/section2/heart_hands.jpg" 
-                      width={48}
-                      height={48}
+                      alt="hearthand"
+                      width={100}
+                      height={100}
                       className="object-contain"
                     />
+
                   </div>
                   <div>
                     <h3
@@ -278,7 +292,7 @@ export default function HelpingEachOther() {
                   onClick={handleMoreAboutUs}
                   className="bg-yellow-400 hover:bg-[#046b59] hover:text-white text-black font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform px-12 py-5 text-base font-nunito"
                   style={{
-                    width: "206.51px",
+                    width: "210px",
                     height: "70px",
                     fontSize: "16px",
                     fontFamily: "Nunito, sans-serif",

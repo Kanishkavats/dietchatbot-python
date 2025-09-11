@@ -1,20 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
 
 const DonateDifferentWay: React.FC = () => {
   const [activeTab, setActiveTab] = useState('mission');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const mainImageRef = useRef(null);
+  const bottomImageRef = useRef(null);
+  const isInView = useInView(mainImageRef, { once: true, amount: 0.3 });
+  const isBottomImageInView = useInView(bottomImageRef, { once: true, amount: 0.3 });
 
   // Use imported data from staticResource
   const tabs = donateDifferentWayTabs;
   const missionItems = donateDifferentWayMissionItems;
 
   return (
-    <div className='w-full py-8 px-4 mt-15 bg-white'>
+    <div className='w-full py-8 px-4 mt-25 bg-white'>
       <div className='max-w-7xl mx-auto'>
         {/* Header Section - Centered at top */}
         <div className='flex items-center justify-center mb-8 ml-15'>
@@ -49,7 +53,13 @@ const DonateDifferentWay: React.FC = () => {
             </motion.div>
 
             {/* Video player with actual image */}
-            <div className='relative rounded-2xl overflow-hidden w-110 h-5/6 -mt-15 bg-gray-200 z-10'>
+            <motion.div 
+              ref={mainImageRef}
+              className='relative rounded-2xl overflow-hidden w-110 h-5/6 -mt-15 bg-gray-200 z-10'
+              initial={{ opacity: 0, transform: 'translateZ(0)' }}
+              animate={isInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
+              transition={{ duration: 1 }}
+            >
               <Image
                 src='/assets/section3/givehealthsupport.png' 
                 alt='Children in need' 
@@ -59,7 +69,12 @@ const DonateDifferentWay: React.FC = () => {
                   e.currentTarget.style.display = 'none';
                 }}
               />
-              <div className='absolute inset-0  bg-opacity-20'></div>
+              {/* Green highlight overlay with grainy texture */}
+              <div className='absolute inset-0 bg-green-200 bg-opacity-60 mix-blend-multiply'></div>
+              <div className='absolute inset-0 opacity-30' style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
+                mixBlendMode: 'overlay'
+              }}></div>
               <div className='absolute inset-0 flex items-center justify-center'>
                 <motion.div 
                   className='w-20 h-20 bg-yellow rounded-full flex items-center justify-center cursor-pointer hover:bg-yellow-500 transition-colors shadow-lg'
@@ -83,17 +98,23 @@ const DonateDifferentWay: React.FC = () => {
                   </svg>
                 </motion.div>
               </div>
-            </div>
+            </motion.div>
             
             {/* Small overlapping image */}
-            <div className='relative rounded-4xl overflow-hidden border-10 border-white w-70 h-58 ml-auto -mt-35 z-10 -mr-10'>
+            <motion.div 
+              ref={bottomImageRef}
+              className='relative rounded-4xl overflow-hidden border-10 border-white w-70 h-58 ml-auto -mt-35 z-10 -mr-10'
+              initial={{ opacity: 0, transform: 'translateZ(0)' }}
+              animate={isBottomImageInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
+              transition={{ duration: 1, delay: 0.3 }}
+            >
               <Image
                 src='/assets/section2/thumb-bottom.png' 
                 alt='Happy child running' 
                 fill={true}
                 className='w-full h-full object-cover'
               />
-            </div>
+            </motion.div>
           </div>
 
           {/* Right side - Content section */}

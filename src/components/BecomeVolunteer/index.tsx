@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import React, { useState, useRef } from 'react';
+import { motion , useInView} from 'framer-motion';
 import Image from 'next/image';
 
 const BecomeVolunteer: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const leftPanelRef = useRef(null);
+  const rightPanelRef = useRef(null);
+  const leftPanelInView = useInView(leftPanelRef, { once: true });
+  const rightPanelInView = useInView(rightPanelRef, { once: true });
 
   const openVideoModal = () => {
     setIsVideoModalOpen(true);
@@ -32,9 +36,14 @@ const BecomeVolunteer: React.FC = () => {
           </div>
           
           {/* Content */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
+          <div ref={leftPanelRef} className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
             {/* Heart Icon */}
-            <div className="mb-4">
+            <motion.div 
+              className="mb-4"
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={leftPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
               <Image 
                 src="/assets/becomevolunter/icon.png" 
                 alt="Hand Heart Icon" 
@@ -42,21 +51,41 @@ const BecomeVolunteer: React.FC = () => {
                 height={60} 
                 className="w-12 h-12"
               />
-            </div>
+            </motion.div>
             
             {/* Text Content */}
-            <p className="text-white text-sm mb-2">We Give Child A Gift Of A Education</p>
-            <h3 className="text-white text-3xl font-bold mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>Become A Volunteer?</h3>
+            <motion.p 
+              className="text-white text-sm mb-2"
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={leftPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            >
+              We Give Child A Gift Of A Education
+            </motion.p>
+            <motion.h3 
+              className="text-white text-3xl font-bold mb-8" 
+              style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={leftPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+            >
+              Become A Volunteer?
+            </motion.h3>
             
             {/* Contact Button */}
-            <button className="bg-green hover:bg-yellow-50 hover:text-black text-white px-8 py-5 rounded-full font-medium transition-colors">
+            <motion.button 
+              className="bg-green hover:bg-yellow-50 hover:text-black text-white px-8 py-5 rounded-full font-medium transition-colors"
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={leftPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            >
               Contact Now
-            </button>
+            </motion.button>
           </div>
           
           {/* Jagged Border Right */}
-          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-50" style={{
-            clipPath: 'polygon(0 0, 100% 10%, 0 20%, 100% 30%, 0 40%, 100% 50%, 0 60%, 100% 70%, 0 80%, 100% 90%, 0 100%)'
+          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow" style={{
+            clipPath: 'polygon(0 0, 100% 5%, 0 12%, 100% 18%, 0 25%, 100% 35%, 0 42%, 100% 48%, 0 55%, 100% 62%, 0 68%, 100% 75%, 0 82%, 100% 88%, 0 95%, 100% 100%)'
           }}></div>
         </div>
 
@@ -70,18 +99,12 @@ const BecomeVolunteer: React.FC = () => {
           
           {/* Content */}
           <div className="relative z-10 h-full flex flex-col items-center justify-center">
-            {/* Navigation Dots */}
-            <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-              <div className="w-3 h-3 bg-green rounded-full mb-2"></div>
-            </div>
-            <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-              <div className="w-3 h-3 bg-green rounded-full mb-2"></div>
-            </div>
+
             
             {/* Play Button */}
             <div className="relative">
               <motion.div 
-                className="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center relative cursor-pointer"
+                className="w-20 h-20 bg-yellow rounded-full flex items-center justify-center relative cursor-pointer"
                 style={{
                   border: '2px dashed #000000',
                   boxShadow: '0 0 0 0 rgba(11, 10, 7, 0.7)'
@@ -110,8 +133,8 @@ const BecomeVolunteer: React.FC = () => {
           </div>
           
           {/* Jagged Border Right */}
-          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-50" style={{
-            clipPath: 'polygon(0 0, 100% 10%, 0 20%, 100% 30%, 0 40%, 100% 50%, 0 60%, 100% 70%, 0 80%, 100% 90%, 0 100%)'
+          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow" style={{
+            clipPath: 'polygon(0 0, 100% 5%, 0 12%, 100% 18%, 0 25%, 100% 35%, 0 42%, 100% 48%, 0 55%, 100% 62%, 0 68%, 100% 75%, 0 82%, 100% 88%, 0 95%, 100% 100%)'
           }}></div>
         </div>
 
@@ -122,13 +145,18 @@ const BecomeVolunteer: React.FC = () => {
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{ backgroundImage: "url('/banner-bg.png')" }}
           >
-            <div className="absolute inset-0 bg-teal-600/60"></div>
+            <div className="absolute inset-0 bg-teal-600/55"></div>
           </div>
           
           {/* Content */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
+          <div ref={rightPanelRef} className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
             {/* Heart Icon */}
-            <div className="mb-4">
+            <motion.div 
+              className="mb-4"
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={rightPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
               <Image 
                 src="/assets/becomevolunter/icon.png" 
                 alt="Hand Heart Icon" 
@@ -136,16 +164,36 @@ const BecomeVolunteer: React.FC = () => {
                 height={60} 
                 className="w-12 h-12"
               />
-            </div>
+            </motion.div>
             
             {/* Text Content */}
-            <p className="text-white text-sm mb-2">We Give Child A Gift Of A Education</p>
-            <h3 className="text-white text-3xl font-bold mb-8"style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>Make Donation To Us?</h3>
+            <motion.p 
+              className="text-white text-sm mb-2"
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={rightPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            >
+              We Give Child A Gift Of A Education
+            </motion.p>
+            <motion.h3 
+              className="text-white text-3xl font-bold mb-8"
+              style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={rightPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+            >
+              Make Donation To Us?
+            </motion.h3>
             
             {/* Donate Button */}
-            <button className="bg-yellow-50 hover:bg-green hover:text-white text-black px-8 py-5 rounded-full font-medium transition-colors">
+            <motion.button 
+              className="bg-yellow-50 hover:bg-green hover:text-white text-black px-8 py-5 rounded-full font-medium transition-colors"
+              initial={{ opacity: 0, transform: "translateZ(0)" }}
+              animate={rightPanelInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            >
               Donate Now
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
