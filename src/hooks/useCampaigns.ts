@@ -1,0 +1,136 @@
+
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchAllCampaigns, fetchCampaignById, deleteSingleCampaign } from "../services/campaignApi";
+import { CampaignFormValues } from "../utils/validations/FormValidation";
+import { CampaignFormProps } from "@/src/types/campaign";
+import toast from "react-hot-toast";
+
+// Convert values to FormData
+const buildFormData = (values: CampaignFormValues) => {
+  const formData = new FormData();
+  formData.append("title", values.title);
+  formData.append("category", values.category);
+  formData.append("description", values.description);
+  formData.append("goalAmount", values.goalAmount.toString());
+  formData.append("summary", values.summary);
+  formData.append("location", values.location);
+
+  if (!values.keyPoints) values.keyPoints = [];
+  values.keyPoints.forEach((point) => formData.append("keyPoints[]", point));
+
+  if (values.images && values.images.length > 0) {
+    values.images.forEach((file) => {
+      if (file instanceof File) {
+        formData.append("images", file);
+      }
+    });
+  }
+
+  return formData;
+};
+
+
+//  function to handle campaign create
+const handleCreateCampaign = (
+  values: CampaignFormValues,
+  createMutation: any,
+  resetForm: () => void,
+  setSubmitting: (isSubmitting: boolean) => void,
+  onClose: () => void
+) => {
+  toast.dismiss();
+  toast.loading("Creating campaign...");
+  const formData = buildFormData(values);
+
+  createMutation.mutate(formData, {
+    onSuccess: () => {
+      toast.dismiss();
+      toast.success("Campaign created");
+      resetForm();
+      setSubmitting(false);
+      onClose();
+    },
+    onError: (err: any) => {
+      toast.dismiss();
+      toast.error(err?.message || "Failed to create");
+      setSubmitting(false);
+    },
+  });
+};
+
+// function to handle campaign update
+const handleUpdateCampaign = (
+  id: string,
+  values: CampaignFormValues,
+  updateMutation: any,
+  resetForm: () => void,
+  setSubmitting: (isSubmitting: boolean) => void,
+  onClose: () => void
+) => {
+  toast.dismiss();
+  toast.loading("Updating campaign...");
+  const formData = buildFormData(values);
+
+  updateMutation.mutate(
+    { id, values: formData },
+    {
+      onSuccess: () => {
+        toast.dismiss();
+        toast.success("Campaign updated");
+        resetForm();
+        setSubmitting(false);
+        onClose();
+      },
+      onError: (err: any) => {
+        toast.dismiss();
+        toast.error(err?.message || "Failed to update");
+        setSubmitting(false);
+      },
+    }
+  );
+};
+
+// unified form submit
+export const submitCampaignForm = (
+  values: CampaignFormValues,
+  initialData: CampaignFormProps["initialData"],
+  createMutation: any,
+  updateMutation: any,
+  resetForm: () => void,
+  setSubmitting: (isSubmitting: boolean) => void,
+  onClose: () => void
+) => {
+  if (initialData?.id) {
+    handleUpdateCampaign(initialData.id.toString(), values, updateMutation, resetForm, setSubmitting, onClose);
+  } else {
+    handleCreateCampaign(values, createMutation, resetForm, setSubmitting, onClose);
+  }
+};
+
+// Fetch campaigns
+export const useFetchAllCampaigns = () => {
+  return useQuery({
+    queryKey: ["campaigns"],
+    queryFn: fetchAllCampaigns,
+  });
+};
+
+export const useFetchSingleCampaign = (id?: string) => {
+  return useQuery({
+    queryKey: ["campaign", id],
+    queryFn: () => fetchCampaignById(id!),
+    enabled: !!id, 
+  });
+};
+
+
+//  Delete campaign
+export const useDeleteSignleCampaign = () => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: deleteSingleCampaign,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+    },
+  });
+};

@@ -25,10 +25,10 @@ const VolunteerForm = () => {
   };
 
   return (
-    <div className="w-full mx-auto bg-[var(--white)] px-3 xl:px-8 py-6 xl:py-10 rounded-lg  border border-[var(--gray-200)]">
+    <div className="w-full mx-auto bg-white px-3 xl:px-8 py-6 xl:py-10 rounded-lg  border border-gray-200">
       {/* Heading */}
       <h2 className="text-sm xl:text-3xl font-nunito font-bold mb-2">Fill Up The Form</h2>
-      <p className="mt-4 mb-12 text-[var(--gray-500)] text-[15px] leading-5 xl:max-w-[70%]">
+      <p className="mt-4 mb-12 text-gray-500 text-[15px] leading-5 xl:max-w-[70%]">
         Your Email Address Will Not Be Published. Required Fields Are Marked *
       </p>
 
@@ -89,7 +89,7 @@ const VolunteerForm = () => {
 
             <Button
               text="Submit Now"
-              hoverBg="before:bg-[var(--foreground)]"
+              hoverBg="before:bg-foreground"
               />
               </div>
           </Form>

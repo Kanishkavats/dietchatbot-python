@@ -16,7 +16,7 @@ const NavbarMenu = ({ navItems, open, setOpen, route }: Props) => {
   const pathname = usePathname();
 
   return (
-    <ul className="hidden xl:flex items-center gap-x-6 px-10 rounded-full font-medium text-black relative bg-[var(--yellow)]">
+    <ul className="hidden xl:flex items-center gap-x-6 px-10 rounded-full font-medium text-black relative bg-yellow">
       {navItems.map((item, i) => {
         const isActive = pathname === item.href;
         return (
@@ -28,7 +28,7 @@ const NavbarMenu = ({ navItems, open, setOpen, route }: Props) => {
           >
             <div
               className={`flex items-center gap-1 font-semibold font-nunito py-6 transition-colors duration-200
-            ${isActive ? "text-[var(--brown)]" : "text-[var(--foreground)]/90 hover:text-[var(--brown)]"}`}
+            ${isActive ? "text-brown" : "text-foreground/90 hover:text-brown"}`}
               onClick={() => {
                 if (item?.href) route.push(item?.href);
               }}

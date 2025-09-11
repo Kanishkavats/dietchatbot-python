@@ -29,7 +29,7 @@ export const DropdownOptionItem = ({
   return (
     <div
       key={displayLabel}
-      className="relative group border-b border-[var(--gray-100)] last:border-b-0"
+      className="relative group border-b border-gray-100 last:border-b-0"
       onMouseEnter={() => {
         setHovered(displayLabel);
         if (hasChildren) setOpen(displayLabel);
@@ -43,7 +43,7 @@ export const DropdownOptionItem = ({
       <a
         href={opt.href || "#"}
         className={`flex items-center justify-between gap-2 px-4 py-2 transition-colors duration-200 relative
-          ${isHovered ? "text-[var(--brown)] " : "text-[var(--foreground)]/90 hover:text-[var(--brown)]"}`}
+          ${isHovered ? "text-brown " : "text-foreground/90 hover:text-brown"}`}
       >
         {/* Left dash icon animation */}
         <AnimatedReveal
