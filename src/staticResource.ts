@@ -245,29 +245,8 @@ export const VolunteerFeatures = [
   { text: "24/7 Customer Support"},
 ];
 
-export  const testimonials = [
-    {
-      name: "Michel Smith",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Ruby Klara",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Bishu Kiev",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-  ];
+
+
 
 
   export const teamMembers = [
@@ -359,6 +338,29 @@ export  const testimonials = [
 
 
 
+export  const testimonials = [
+    {
+      name: "Michel Smith",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+    {
+      name: "Ruby Klara",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+    {
+      name: "Bishu Kiev",
+      role: "Cloth Store Inc.",
+      avatar: "/assets/author.png",
+      review:
+        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    },
+  ];
 
 
    
@@ -477,6 +479,153 @@ export const recentPosts: RecentPost[] = [
 
 export const totalPages = Math.ceil(events.length / 2);
 
+// Charity with Difference component data
+export interface CharityCard {
+  id: number;
+  title: string;
+  description: string;
+  icon: string;
+  image: string;
+  color: string;
+  bgColor: string;
+}
+
+export const charityCards: CharityCard[] = [
+  {
+    id: 1,
+    title: "Healthy Food",
+    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
+    icon: "\e82a",
+    image: "/blue_bg.jpeg",
+    color: "border-green-600",
+    bgColor: "bg-gray-100"
+    
+  },
+  {
+    id: 2,
+    title: "Medical Care",
+    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
+    icon: "\e82b",
+     image: "/green_bg.jpeg",
+    color: "border-orange-500",
+    bgColor: "bg-orange-50"
+   
+  },
+  {
+    id: 3,
+    title: "Child Education",
+    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
+    icon: "\e829",
+    image: "/yellow_bg.jpeg",
+    color: "border-yellow-500",
+    bgColor: "bg-yellow-50"
+  },
+  {
+    id: 4,
+    title: "Healthy Food",
+    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
+    icon: "\e82a",
+   image: "/blue_bg.jpeg",
+    color: "border-green-600",
+    bgColor: "bg-gray-100"
+  },
+  {
+    id: 5,
+    title: "Medical Care",
+    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
+    icon: "\e82b",
+      image: "/green_bg.jpeg",
+    color: "border-orange-500",
+    bgColor: "bg-orange-50"
+   
+  },
+  {
+    id: 6,
+    title: "Child Education",
+    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
+    icon: "\e829",
+    image: "/yellow_bg.jpeg",
+    color: "border-yellow-500",
+    bgColor: "bg-yellow-50"
+  },
+];
+
+// Charity with Difference Comments data
+export interface CharityComment {
+  id: number;
+  name: string;
+  image: string;
+  comment: string;
+  timeAgo: string;
+}
+
+export const charityComments: CharityComment[] = [
+  {
+    id: 1,
+    name: "Martha Grey",
+    image: "/assets/charity_with_difference/author-four.png",
+    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    timeAgo: "2 Min Ago"
+  },
+  {
+    id: 2,
+    name: "Jackie Dawson",
+    image: "/assets/charity_with_difference/one-author.png",
+    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    timeAgo: "5 Min Ago"
+  },
+  {
+    id: 3,
+    name: "Hesia Lara",
+    image: "/assets/charity_with_difference/author-two.png",
+    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    timeAgo: "10 Min Ago"
+  }
+];
+
+// Charity with Difference Recent Posts data
+export interface CharityRecentPost {
+  id: number;
+  title: string;
+  date: string;
+  image: string;
+  alt: string;
+}
+
+export const charityRecentPosts: CharityRecentPost[] = [
+  {
+    id: 1,
+    title: "Where Innovation Meets Foundation",
+    date: "November 19, 2024",
+    image: "/assets/charity_with_difference/ph-one bottom.png",
+    alt: "Family with woman holding child"
+  },
+  {
+    id: 2,
+    title: "Where Innovation Meets Foundation",
+    date: "November 19, 2024",
+    image: "/assets/charity_with_difference/ph-two bottom.png",
+    alt: "Group of hands stacked together"
+  },
+  {
+    id: 3,
+    title: "Structures That Stand, Dreams That Soar",
+    date: "November 22, 2024",
+    image: "/assets/charity_with_difference/three bottomm.png",
+    alt: "Two young children looking at camera"
+  }
+];
+
+// Charity with Difference Tags data
+export const charityTags = [
+  "T-Shirt",
+  "Banner Design",
+  "Brochures",
+  "Landing",
+  "Print",
+  "Business Card"
+];
+
 // ChildOldCare component data
 export const childOldCareImages = [
   { src: '/assets/childoldcare/4people.png', alt: 'Image 1' },
@@ -489,9 +638,9 @@ export const childOldCareImages = [
 
 export const childOldCareSliderSettings = {
   className: "center",
-  centerMode: true,
+  centerMode: false,
   infinite: true,
-  centerPadding: "60px",
+  centerPadding: "0px",
   slidesToShow: 3,
   speed: 500,
   arrows: true,
@@ -504,14 +653,32 @@ export const childOldCareSliderSettings = {
       breakpoint: 1024,
       settings: {
         slidesToShow: 2,
-        centerPadding: "40px"
+        centerPadding: "0px",
+        arrows: true,
+        draggable: true,
+        swipeToSlide: true
       }
     },
     {
       breakpoint: 768,
       settings: {
         slidesToShow: 1,
-        centerPadding: "20px"
+        centerPadding: "0px",
+        arrows: true,
+        draggable: true,
+        swipeToSlide: true,
+        centerMode: false
+      }
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        centerPadding: "0px",
+        arrows: true,
+        draggable: true,
+        swipeToSlide: true,
+        centerMode: false
       }
     }
   ]

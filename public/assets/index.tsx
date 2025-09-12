@@ -32,7 +32,29 @@ import bannerBg from './banner-bg.png';
 import homeCommunity from './home-community.png';
 import yellowspade from './yellowspade.png';
 import valueableshape from './valueableshape.png';
-import mask from './mask.png'
+import mask from './mask.png';
+import icon from './becomevolunter/icon.png';
+import yellow_image from './becomevolunter/yellow_image.png';
+import becomevolunter from './becomevolunter/becomevolunter.png';
+import videobg from './becomevolunter/videobg.png';
+import icon1 from './childoldcare/icon1.png';
+import icon2 from './childoldcare/icon2.png';
+import child from './childoldcare/child.png';
+import brownchild from './childoldcare/brownchild.png';
+import line from './section2/line.png';
+import parasuit from './section2/parasuit.png';
+import shapeleft from './section2/shapeleft.png';
+import spade from './section2/spade.png';
+import grid from './section2/grid.png';
+import football_hands from './section2/football_hands.jpg';
+import heart_hands from './section2/heart_hands.jpg';
+import bgsection from './section3/bgsection3.png';
+import childrenweworkfor from './section3/childenweworkfor.png';
+import givehealthsupport from './section3/givehealthsupport.png';
+import helpforeducation from './section3/helpforeducation.png';
+import helpforfood from './section3/helpforfood.png'
+
+
 
 export {
   logo,
@@ -69,5 +91,26 @@ export {
   homeCommunity,
   yellowspade,
   valueableshape,
-  mask
+  mask,
+  icon,
+  yellow_image,
+  becomevolunter,
+  videobg,
+  icon1,
+  icon2,
+  child,
+  brownchild,
+  line,
+  parasuit,
+  shapeleft,
+  spade,
+  grid,
+  football_hands,
+  heart_hands,
+  bgsection,
+  childrenweworkfor,
+  givehealthsupport,
+  helpforeducation,
+  helpforfood
+ 
 };

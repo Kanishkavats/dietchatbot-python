@@ -1,172 +1,220 @@
 "use client";
 
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import Image from 'next/image';
+import React, { useState, useRef } from "react";
+import { motion, useInView } from "framer-motion";
+import Image from "next/image";
 
 const BecomeVolunteer: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+  const leftPanelRef = useRef(null);
+  const rightPanelRef = useRef(null);
+  const leftPanelInView = useInView(leftPanelRef, { once: true });
+  const rightPanelInView = useInView(rightPanelRef, { once: true });
 
-  const openVideoModal = () => {
-    setIsVideoModalOpen(true);
-  };
-
-  const closeVideoModal = () => {
-    setIsVideoModalOpen(false);
-  };
+  const openVideoModal = () => setIsVideoModalOpen(true);
+  const closeVideoModal = () => setIsVideoModalOpen(false);
 
   return (
-    <section className="relative w-full h-[500px] overflow-hidden">
-      
-
+    <section className="relative w-full lg:h-[500px] md:h-auto h-auto overflow-hidden lg:px-0 md:px-4 px-4">
       {/* Three Panel Layout */}
-      <div className="flex h-full relative">
-        {/* Left Panel - Volunteer Section */}
-        <div className="flex-1 relative">
-          {/* Background Image */}
-          <div 
+      <div className="flex h-full lg:flex-row flex-col gap-4 lg:gap-0 relative">
+        {/* Left Panel */}
+        <div className="flex-1 relative lg:h-full md:h-[400px] h-[300px]">
+          <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: "url('/assets/becomevolunter/becomevolunter.png')" }}
+            style={{
+              backgroundImage:
+                "url('/assets/becomevolunter/becomevolunter.png')",
+            }}
           >
             <div className="absolute inset-0 bg-black/55"></div>
           </div>
-          
-          {/* Content */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
-            {/* Heart Icon */}
-            <div className="mb-4">
-              <Image 
-                src="/assets/becomevolunter/icon.png" 
-                alt="Hand Heart Icon" 
-                width={60} 
-                height={60} 
-                className="w-12 h-12"
+
+          <div
+            ref={leftPanelRef}
+            className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 md:px-6 lg:px-8"
+          >
+            <motion.div
+              className="mb-3 md:mb-4"
+              initial={{ opacity: 0 }}
+              animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
+              <Image
+                src="/assets/becomevolunter/icon.png"
+                alt="Hand Heart Icon"
+                width={60}
+                height={60}
+                className="w-10 h-10 md:w-12 md:h-12"
               />
-            </div>
-            
-            {/* Text Content */}
-            <p className="text-white text-sm mb-2">We Give Child A Gift Of A Education</p>
-            <h3 className="text-white text-3xl font-bold mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>Become A Volunteer?</h3>
-            
-            {/* Contact Button */}
-            <button className="bg-green hover:bg-yellow-50 hover:text-black text-white px-8 py-5 rounded-full font-medium transition-colors">
+            </motion.div>
+
+            <motion.p
+              className="text-white text-xs md:text-sm mb-2"
+              initial={{ opacity: 0 }}
+              animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            >
+              We Give Child A Gift Of A Education
+            </motion.p>
+            <motion.h3
+              className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-6 md:mb-8"
+              style={{
+                fontFamily: "var(--font-nunito), Nunito, sans-serif",
+                fontWeight: "700",
+              }}
+              initial={{ opacity: 0 }}
+              animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+            >
+              Become A Volunteer?
+            </motion.h3>
+
+            <motion.button
+              className="bg-green hover:bg-yellow hover:text-black text-white px-6 md:px-8 lg:px-9 py-3 md:py-4 rounded-full text-sm md:text-base font-medium transition-colors"
+              initial={{ opacity: 0 }}
+              animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            >
               Contact Now
-            </button>
+            </motion.button>
           </div>
-          
-          {/* Jagged Border Right */}
-          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-50" style={{
-            clipPath: 'polygon(0 0, 100% 10%, 0 20%, 100% 30%, 0 40%, 100% 50%, 0 60%, 100% 70%, 0 80%, 100% 90%, 0 100%)'
-          }}></div>
         </div>
 
-        {/* Middle Panel - Video Section */}
-        <div className="flex-1 relative">
-          {/* Background Image */}
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: "url('/assets/becomevolunter/videobg.png')" }}
-          ></div>
-          
-          {/* Content */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-center">
-            {/* Navigation Dots */}
-            <div className="absolute top-1/2 left-4 transform -translate-y-1/2">
-              <div className="w-3 h-3 bg-green rounded-full mb-2"></div>
-            </div>
-            <div className="absolute top-1/2 right-4 transform -translate-y-1/2">
-              <div className="w-3 h-3 bg-green rounded-full mb-2"></div>
-            </div>
-            
-            {/* Play Button */}
-            <div className="relative">
-              <motion.div 
-                className="w-20 h-20 bg-yellow-50 rounded-full flex items-center justify-center relative cursor-pointer"
+        {/* Middle Panel */}
+        <div className="flex-1 relative lg:h-full md:h-[400px] h-[300px] min-h-[200px]">
+          <div
+            className="bg-[url('/assets/becomevolunter/yellow_image.png')] bg-center bg-no-repeat w-full h-full absolute lg:!w-[120%] lg:translate-x-[-10%] inset-0 z-10"
+            style={{ backgroundSize: "100% 100%" }}
+          >
+            <div
+              className="absolute inset-0"
+              style={{
+                inset: "0px 5px 0px 5px",
+                WebkitMaskImage:
+                  "url('/assets/becomevolunter/yellow_image.png')",
+                maskImage: "url('/assets/becomevolunter/yellow_image.png')",
+                WebkitMaskRepeat: "no-repeat",
+                maskRepeat: "no-repeat",
+                WebkitMaskPosition: "center",
+                maskPosition: "center",
+                WebkitMaskSize: "99% 100%",
+                maskSize: "99% 100%",
+              }}
+            >
+              <div
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                 style={{
-                  border: '2px dashed #000000',
-                  boxShadow: '0 0 0 0 rgba(11, 10, 7, 0.7)'
+                  backgroundImage: "url('/assets/becomevolunter/videobg.png')",
+                }}
+              ></div>
+            </div>
+          </div>
+
+          <div className="relative z-10 h-full flex flex-col items-center justify-center md:bg-center">
+            <div className="relative">
+              <motion.div
+                className="w-16 h-16 md:w-20 md:h-20 bg-yellow rounded-full flex items-center justify-center relative cursor-pointer"
+                style={{
+                  border: "2px dashed #000000",
                 }}
                 animate={{
                   boxShadow: [
-                    '0 0 0 0 rgba(6, 6, 4, 0.7)',
-                    '0 0 0 20px rgba(255, 193, 7, 0)',
-                    '0 0 0 0 rgba(255, 193, 7, 0)'
-                  ]
+                    "0 0 0 0 rgba(6, 6, 4, 0.7)",
+                    "0 0 0 20px rgba(255, 193, 7, 0)",
+                    "0 0 0 0 rgba(255, 193, 7, 0)",
+                  ],
                 }}
                 transition={{
                   duration: 3,
-                  ease: 'linear',
+                  ease: "linear",
                   delay: 2,
-                  repeat: Infinity
+                  repeat: Infinity,
                 }}
                 onClick={openVideoModal}
               >
-               
-                <div 
-                  className="w-0 h-0 border-l-[16px] border-l-black-800 border-t-[12px] border-t-transparent border-b-[12px] border-b-transparent ml-1"
-                ></div>
+                <div className="w-0 h-0 border-l-[12px] md:border-l-[16px] border-l-black border-t-[8px] md:border-t-[12px] border-t-transparent border-b-[8px] md:border-b-[12px] border-b-transparent ml-1"></div>
               </motion.div>
             </div>
           </div>
-          
-          {/* Jagged Border Right */}
-          <div className="absolute right-0 top-0 bottom-0 w-2 bg-yellow-50" style={{
-            clipPath: 'polygon(0 0, 100% 10%, 0 20%, 100% 30%, 0 40%, 100% 50%, 0 60%, 100% 70%, 0 80%, 100% 90%, 0 100%)'
-          }}></div>
         </div>
 
-        {/* Right Panel - Donation Section */}
-        <div className="flex-1 relative">
-          {/* Background Image */}
-          <div 
+        {/* Right Panel */}
+        <div className="flex-1 relative lg:h-full md:h-[400px] h-[300px]">
+          <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: "url('/banner-bg.png')" }}
+            style={{ backgroundImage: "url('/assets/section2/thumb-lg.png')" }}
           >
-            <div className="absolute inset-0 bg-teal-600/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-transparent"></div>
           </div>
-          
-          {/* Content */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-8">
-            {/* Heart Icon */}
-            <div className="mb-4">
-              <Image 
-                src="/assets/becomevolunter/icon.png" 
-                alt="Hand Heart Icon" 
-                width={60} 
-                height={60} 
-                className="w-12 h-12"
+
+          <div
+            ref={rightPanelRef}
+            className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 md:px-6 lg:px-8"
+          >
+            <motion.div
+              className="mb-3 md:mb-4"
+              initial={{ opacity: 0 }}
+              animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            >
+              <Image
+                src="/assets/becomevolunter/icon.png"
+                alt="Hand Heart Icon"
+                width={60}
+                height={60}
+                className="w-10 h-10 md:w-12 md:h-12"
               />
-            </div>
-            
-            {/* Text Content */}
-            <p className="text-white text-sm mb-2">We Give Child A Gift Of A Education</p>
-            <h3 className="text-white text-3xl font-bold mb-8"style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>Make Donation To Us?</h3>
-            
-            {/* Donate Button */}
-            <button className="bg-yellow-50 hover:bg-green hover:text-white text-black px-8 py-5 rounded-full font-medium transition-colors">
+            </motion.div>
+
+            <motion.p
+              className="text-white text-xs md:text-sm mb-2"
+              initial={{ opacity: 0 }}
+              animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+            >
+              We Give Child A Gift Of A Education
+            </motion.p>
+            <motion.h3
+              className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-6 md:mb-8"
+              style={{
+                fontFamily: "var(--font-nunito), Nunito, sans-serif",
+                fontWeight: "700",
+              }}
+              initial={{ opacity: 0 }}
+              animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
+            >
+              Make Donation To Us?
+            </motion.h3>
+
+            <motion.button
+              className="bg-yellow hover:bg-green hover:text-white text-black px-6 md:px-8 lg:px-9 py-3 md:py-4 rounded-full text-sm md:text-base font-medium transition-colors"
+              initial={{ opacity: 0 }}
+              animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
+              transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+            >
               Donate Now
-            </button>
+            </motion.button>
           </div>
         </div>
       </div>
 
-      {/* YouTube Video Modal */}
+      {/* Video Modal */}
       {isVideoModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
           <div className="relative w-full max-w-4xl mx-4">
-            {/* Close Button */}
             <button
               onClick={closeVideoModal}
               className="absolute -top-10 right-0 text-white text-2xl font-bold hover:text-gray-300 transition-colors"
             >
               ×
             </button>
-            
-            {/* Video Container */}
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+
+            <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
-                src="https://www.youtube.com/embed/XxVg_s8xAms?si=0UwTlJoWAMUgT34S&autoplay=1"
+                src="https://www.youtube.com/embed/XxVg_s8xAms?autoplay=1"
                 title="YouTube video player"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -176,7 +224,6 @@ const BecomeVolunteer: React.FC = () => {
           </div>
         </div>
       )}
-      
     </section>
   );
 };

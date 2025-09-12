@@ -33,6 +33,24 @@ const LatestNewsArticle: React.FC = () => {
       initial="hidden"
       animate="visible"
       transition={{ delay: index * 0.2 }}
+      {...(index === 0 && {
+        initial: { opacity: 0, transform: "translateZ(0)" },
+        whileInView: { opacity: 1, transform: "translateZ(0)" },
+        viewport: { once: true, amount: 0.3 },
+        transition: { duration: 1 }
+      })}
+      {...(index === 1 && {
+        initial: { opacity: 0, transform: "translateZ(0)" },
+        whileInView: { opacity: 1, transform: "translateZ(0)" },
+        viewport: { once: true, amount: 0.3 },
+        transition: { duration: 1, delay: 0.3 }
+      })}
+      {...(index === 2 && {
+        initial: { opacity: 0, transform: "translateZ(0)" },
+        whileInView: { opacity: 1, transform: "translateZ(0)" },
+        viewport: { once: true, amount: 0.3 },
+        transition: { duration: 1, delay: 0.6 }
+      })}
     >
       <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
         <motion.img
@@ -51,11 +69,11 @@ const LatestNewsArticle: React.FC = () => {
       <div className="flex-1">
         <div className="flex items-center gap-6 text-sm mb-3 text-gray-600 group-hover:text-white transition-colors">
           <span className="flex items-center gap-2">
-            <FaUser size={18} className="text-yellow-500" />
+            <FaUser size={18} className="text-yellow" />
             {author}
           </span>
           <span className="flex items-center gap-2">
-            <FaComment size={18} className="text-yellow-500" />
+            <FaComment size={18} className="text-yellow" />
             Comments ({comments})
           </span>
         </div>
@@ -65,7 +83,7 @@ const LatestNewsArticle: React.FC = () => {
       <div className="flex items-center gap-2 relative">
         <a
           href="#"
-          className="font-[Nunito,sans-serif] text-[14px] text-[#064E3B] font-bold hover:text-yellow-500 transition-colors flex items-center gap-2"
+          className="font-[Nunito,sans-serif] text-[14px] text-[#064E3B] font-bold hover:text-yellow transition-colors flex items-center gap-2"
         >
           Read More
           <FaArrowRight className="text-[#064E3B]" />
@@ -85,7 +103,7 @@ const LatestNewsArticle: React.FC = () => {
 
   return (
     <div 
-      className='w-full py-20 px-4 relative'
+      className='w-full py-20 px-4 mt-20 relative'
       style={{
         backgroundImage: 'url("/assets/section3/bgsection3.png")',
         backgroundSize: 'cover',
@@ -101,9 +119,10 @@ const LatestNewsArticle: React.FC = () => {
         <div className='text-center mb-16 relative'>
           <motion.div
             className="flex items-center justify-center gap-2 mb-4"
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, transform: "translateZ(0)" }}
+            whileInView={{ opacity: 1, transform: "translateZ(0)" }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1 }}
           >
             <i className="text-xl text-[var(--green)] hand-icon"></i>
             <span className="text-[#046b59] text-2xl font-caveat font-semibold">Start Donating Poor People</span>
@@ -111,9 +130,10 @@ const LatestNewsArticle: React.FC = () => {
           
           <motion.h2 
             className='text-4xl lg:text-6xl font-nunito font-extrabold text-[#122f2a] leading-tight mb-4'
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            initial={{ opacity: 0, transform: "translateZ(0)" }}
+            whileInView={{ opacity: 1, transform: "translateZ(0)" }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1, delay: 0.2 }}
           >
             Our Latest <span className="text-[#ffc107]">News</span> & Articles <br/>You Like
           </motion.h2>

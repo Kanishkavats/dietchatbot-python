@@ -1,28 +1,5 @@
 import Image from 'next/image';
-
-const comments = [
-  {
-    id: 1,
-    name: "Martha Grey",
-    image: "/assets/charity_with_difference/author-four.png",
-    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
-    timeAgo: "2 Min Ago"
-  },
-  {
-    id: 2,
-    name: "Jackie Dawson",
-    image: "/assets/charity_with_difference/one-author.png",
-    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
-    timeAgo: "5 Min Ago"
-  },
-  {
-    id: 3,
-    name: "Hesia Lara",
-    image: "/assets/charity_with_difference/author-two.png",
-    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
-    timeAgo: "10 Min Ago"
-  }
-];
+import { charityComments } from '../../staticResource';
 
 export default function Comments() {
   return (
@@ -30,7 +7,7 @@ export default function Comments() {
       <h3 className="text-2xl font-bold text-gray-900 mb-6">03 Comments</h3>
       
       <div className="space-y-6">
-        {comments.map((comment) => (
+        {charityComments.map((comment) => (
           <div key={comment.id} className="flex gap-4">
             {/* Profile Picture */}
             <div className="flex-shrink-0">

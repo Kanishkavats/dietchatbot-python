@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useState, useCallback } from 'react';
 import ReactPlayer from 'react-player';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 export default function HelpingEachOther() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
@@ -178,19 +179,31 @@ export default function HelpingEachOther() {
               />
             </div>
 
-            <div className="absolute -left-12 bottom-20 hover:scale-110 transition-transform duration-300">
+            <motion.div 
+              className="absolute -left-12 bottom-20 hover:scale-110 transition-transform duration-300"
+              animate={{
+                top: [-150, 1372.21, -150],
+                x: [0, -53.371, 0],
+                rotate: [0, -23.4842, 0]
+              }}
+              transition={{
+                duration: 15,
+                ease: "easeInOut",
+                repeat: Infinity,
+                repeatType: "loop"
+              }}
+              style={{
+                insetInlineStart: '8%',
+                zIndex: -1
+              }}
+            >
               <Image
                 src="/assets/section2/parasuit.png"
                 alt="Hot air balloon"
                 width={100}
                 height={100}
-                style={{
-                  top: '398.231px',
-                  transform: 'translateX(-49.9345%) rotate(-10.3928deg)',
-                  animation: 'fall 15s ease-in-out infinite'
-                }}
               />
-            </div>
+            </motion.div>
           </div>
 
          
