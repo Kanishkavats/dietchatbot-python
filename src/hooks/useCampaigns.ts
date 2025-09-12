@@ -1,6 +1,6 @@
 
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { fetchAllCampaigns, fetchCampaignById, deleteSingleCampaign } from "../services/campaignApi";
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
+import { fetchAllCampaigns, fetchCampaignById, deleteSingleCampaign} from "../services/campaignApi";
 import { CampaignFormValues } from "../utils/validations/FormValidation";
 import { CampaignFormProps } from "@/src/types/campaign";
 import toast from "react-hot-toast";
@@ -14,6 +14,9 @@ const buildFormData = (values: CampaignFormValues) => {
   formData.append("goalAmount", values.goalAmount.toString());
   formData.append("summary", values.summary);
   formData.append("location", values.location);
+   values.existingImages?.forEach((url) => {
+    if (url) formData.append("existingImages[]", url);
+  });
 
   if (!values.keyPoints) values.keyPoints = [];
   values.keyPoints.forEach((point) => formData.append("keyPoints[]", point));
@@ -40,6 +43,7 @@ const handleCreateCampaign = (
 ) => {
   toast.dismiss();
   toast.loading("Creating campaign...");
+  console.log("values", values);
   const formData = buildFormData(values);
 
   createMutation.mutate(formData, {
@@ -69,6 +73,8 @@ const handleUpdateCampaign = (
 ) => {
   toast.dismiss();
   toast.loading("Updating campaign...");
+  console.log("values", values);
+  console.log("values", values.existingImages);
   const formData = buildFormData(values);
 
   updateMutation.mutate(
@@ -107,19 +113,21 @@ export const submitCampaignForm = (
   }
 };
 
-// Fetch campaigns
-export const useFetchAllCampaigns = () => {
+// ✅ Fetch campaigns with pagination
+export const useFetchAllCampaigns = (page: number, limit: number = 10) => {
   return useQuery({
-    queryKey: ["campaigns"],
-    queryFn: fetchAllCampaigns,
+    queryKey: ["campaigns", page, limit], // different cache per page+limit
+    queryFn: () => fetchAllCampaigns(page, limit),
+     placeholderData: keepPreviousData, 
   });
 };
+
 
 export const useFetchSingleCampaign = (id?: string) => {
   return useQuery({
     queryKey: ["campaign", id],
     queryFn: () => fetchCampaignById(id!),
-    enabled: !!id, 
+    enabled: !!id,
   });
 };
 
@@ -131,6 +139,12 @@ export const useDeleteSignleCampaign = () => {
     mutationFn: deleteSingleCampaign,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+      toast.success("Campaign deleted successfully");
     },
+    onError: (error: any) => {
+      toast.error(error?.message || "Failed to delete campaign");
+    }
   });
 };
+
+

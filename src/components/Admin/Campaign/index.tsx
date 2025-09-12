@@ -5,7 +5,7 @@ import CampaignTable from './CampaignTable';
 
 const Campaign = () => {
   return (
-    <div className=''>
+    <div>
       <Breadcrumb lable="Compain" />
       <section className='mt-5'>
         <CampaignTable />

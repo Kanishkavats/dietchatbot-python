@@ -12,57 +12,79 @@ const EventPagination: React.FC<EventPaginationProps> = ({
   totalPages,
   onPageChange,
 }) => {
-  const allowedPages = [1, 2, 3];
+  // helper function to generate pages with ellipsis
+  const getPages = () => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 5) {
+      // show all if few pages
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1); // always show first
+
+      if (currentPage > 3) pages.push("...");
+
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+
+      for (let i = start; i <= end; i++) pages.push(i);
+
+      if (currentPage < totalPages - 2) pages.push("...");
+
+      pages.push(totalPages); // always show last
+    }
+
+    return pages;
+  };
+
+  const pages = getPages();
 
   return (
     <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
-      
+      {/* Previous Button */}
       <button
-        onClick={() => {
-          const currentIndex = allowedPages.indexOf(currentPage);
-          if (currentIndex > 0) onPageChange(allowedPages[currentIndex - 1]);
-        }}
-        disabled={currentPage === allowedPages[0]}
-        className={`w-10 h-10 flex items-center justify-center rounded-full text-[#ffffff] 
+        onClick={() => onPageChange(currentPage - 1)}
+        disabled={currentPage === 1}
+        className={`w-10 h-10 flex items-center justify-center rounded-full text-white 
           transition-all duration-300 transform hover:scale-110 animate-fade-in
-          ${currentPage === allowedPages[0]
-            ? "bg-[#e5e7eb] cursor-not-allowed"
-            : "bg-green-700 hover:bg-[#046B59]"} 
-          `}
+          ${currentPage === 1
+            ? "bg-gray-300 cursor-not-allowed"
+            : "bg-lime-green hover:bg-green cursor-pointer"} 
+        `}
       >
         «
       </button>
 
-      
-      {allowedPages.map((page, index) => (
-        <button
-          key={page}
-          onClick={() => onPageChange(page)}
-          className={`w-10 h-10 flex items-center justify-center rounded-full  
-            transition-all duration-300 transform hover:scale-110 animate-slide-up card-stagger-${index + 1}
-            ${page === currentPage
-              ? "bg-yellow-400 text-black font-bold shadow-lg"
-              : "bg-[#ffffff] text-black hover:bg-[#F3F4F6]"} 
+      {/* Page Numbers */}
+      {pages.map((page, index) =>
+        page === "..." ? (
+          <span key={index} className="px-2 text-gray-500">...</span>
+        ) : (
+          <button
+            key={page}
+            onClick={() => onPageChange(Number(page))}
+            className={`w-10 h-10 flex items-center justify-center rounded-full  
+              transition-all duration-300 transform hover:scale-110 animate-slide-up card-stagger-${index + 1}
+              ${page === currentPage
+                ? "bg-yellow-400 text-black font-bold shadow-lg"
+                : "bg-white text-black hover:bg-gray-100 cursor-pointer"} 
             `}
-        >
-          {page}
-        </button>
-      ))}
+          >
+            {page}
+          </button>
+        )
+      )}
 
-      
+      {/* Next Button */}
       <button
-        onClick={() => {
-          const currentIndex = allowedPages.indexOf(currentPage);
-          if (currentIndex < allowedPages.length - 1)
-            onPageChange(allowedPages[currentIndex + 1]);
-        }}
-        disabled={currentPage === allowedPages[allowedPages.length - 1]}
-        className={`w-10 h-10 flex items-center justify-center rounded-full text-[#ffffff]
+        onClick={() => onPageChange(currentPage + 1)}
+        disabled={currentPage === totalPages}
+        className={`w-10 h-10 flex items-center justify-center rounded-full text-white
           transition-all duration-300 transform hover:scale-110 animate-fade-in
-          ${currentPage === allowedPages[allowedPages.length - 1]
-            ? "bg-[#e5e7eb] cursor-not-allowed"
-            : "bg-green-700 hover:bg-[#046B59]"} 
-          `}
+          ${currentPage === totalPages
+            ? "bg-gray-300 cursor-not-allowed"
+            : "bg-lime-green cursor-pointer hover:bg-green"} 
+        `}
       >
         »
       </button>
@@ -71,4 +93,3 @@ const EventPagination: React.FC<EventPaginationProps> = ({
 };
 
 export default EventPagination;
-

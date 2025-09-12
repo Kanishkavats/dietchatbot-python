@@ -1,7 +1,8 @@
 import React from "react";
 import { Campaign } from "../Data/staticData";
-import CampaignActions from "./CampaignActions";
 import { CampaignColumnCallbacks } from "@/src/types/campaign";
+import TableRowActions from "./CampaignActions";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 
 
 
@@ -10,28 +11,30 @@ export const getCampaignColumns = ({
   onDelete,
   onView,
 }: CampaignColumnCallbacks) => [
-  { name: "ID", selector: (row: Campaign) => row.id, width: "80px" },
-  { name: "Title", selector: (row: Campaign) => row.title, sortable: true },
-  { name: "Organizer", selector: (row: Campaign) => row.organizer },
-  { name: "Category", selector: (row: Campaign) => row.category },
-  {
-    name: "Goal",
-    selector: (row: Campaign) => `₹${row.goalAmount.toLocaleString()}`,
-  },
-  {
-    name: "Raised",
-    selector: (row: Campaign) => `₹${row.raisedAmount.toLocaleString()}`,
-  },
-  { name: "Status", selector: (row: Campaign) => row.status },
-  {
-    name: "Actions",
-    cell: (row: Campaign) => (
-      <CampaignActions
-        row={row}
-        onEdit={onEdit}
-        onDelete={onDelete}
-        onView={onView}
-      />
-    ),
-  },
-];
+    { name: "SNo", cell: (_row: Campaign, index: number) => index + 1, width: "80px" },
+    { name: "Title", selector: (row: Campaign) => row.title, sortable: true },
+    { name: "Organizer", selector: (row: Campaign) => row.organizer },
+    { name: "Category", selector: (row: Campaign) => row.category },
+    {
+      name: "Goal",
+      selector: (row: Campaign) => `₹${row.goalAmount.toLocaleString()}`,
+    },
+    {
+      name: "Raised",
+      selector: (row: Campaign) => `₹${row.raisedAmount.toLocaleString()}`,
+    },
+    { name: "Status", selector: (row: Campaign) => row.status },
+    {
+      name: "Actions",
+      cell: (row: Campaign) => (
+        <TableRowActions
+          row={row}
+          actions={[
+            { label: "View Campaign", icon: <FaEye />, onClick: onView, colorClass: "text-blue-500 hover:text-blue-700" },
+            { label: "Edit Campaign", icon: <FaEdit />, onClick: onEdit, colorClass: "text-green-500 hover:text-green-700" },
+            { label: "Delete Campaign", icon: <FaTrash />, onClick: onDelete, colorClass: "text-red-500 hover:text-red-700" },
+          ]}
+        />
+      ),
+    },
+  ];

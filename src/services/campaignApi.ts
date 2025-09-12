@@ -9,10 +9,12 @@ export const createCampaign = async (campaign: CampaignFormValues) => {
 };
 
 // ✅ Get all campaigns
-export const fetchAllCampaigns = async () => {
-  const { data } = await api.get("/api/V1/campaign/getAllCampaigns");
+// Get all campaigns with pagination
+export const fetchAllCampaigns = async (page: number = 1, limit: number = 2) => {
+  const { data } = await api.get(`/api/V1/campaign/getAllCampaigns?page=${page}&limit=${limit}`);
   return data;
 };
+
 
 // Get single campaign by ID
 export const fetchCampaignById = async (id: string) => {
