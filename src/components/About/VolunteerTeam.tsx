@@ -1,6 +1,5 @@
 "use client";
 
-
 import { useState } from "react";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
@@ -12,6 +11,7 @@ import Link from "next/link";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useRef, useEffect } from "react";
 
+
 const SocialBar = () => {
   const socials = [
     { icon: <FaFacebookF />, color: "bg-white" },
@@ -20,37 +20,34 @@ const SocialBar = () => {
     { icon: <FaBehance />, color: "bg-white" },
   ];
 
-  interface TeamMember {
-  img: string;
-  id: number;
-  name: string;
-  role: string;
-  delay: number;
-}
-interface VolunteerCardProps {
-  member: TeamMember;
-  idx: number;
-}
   return (
     <div className="flex flex-col gap-2 p-2 rounded shadow-md">
       {socials.map((social, idx) => (
-        <div key={idx} className="relative group">
-          <button
-            className={`w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black transition-colors duration-300 ${social.color} hover:bg-yellow-400`}
-          >
-            {social.icon}
-          </button>
-        </div>
+        <button
+          key={idx}
+          className={`w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black transition-colors duration-300 ${social.color} hover:bg-yellow-400`}
+        >
+          {social.icon}
+        </button>
       ))}
     </div>
   );
 };
 
 
+interface TeamMember {
+  img: string;
+  id: number;
+  name: string;
+  role: string;
+  delay: number;
+}
 
+interface VolunteerCardProps {
+  member: TeamMember;
+  idx: number;
+}
 
-
-// const VolunteerCard = ({ member, idx }) => {
 const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
   const ref = useRef(null);
   const controls = useAnimation();
@@ -67,10 +64,10 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
       animate={controls}
       transition={{ duration: 0.8, delay: idx * 0.2, ease: "easeOut" }}
       className="relative bg-[#f1f0ee] shadow rounded-2xl overflow-hidden group"
+      whileHover="hover"
     >
       <Link href={`/volunteer/${member.id}`} className="block">
         <div className="relative w-full aspect-[4/5] cursor-pointer overflow-hidden">
-          
           <Image
             src={member.img}
             alt={member.name}
@@ -78,18 +75,21 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
             className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
 
+          
           <motion.div
             initial={{ opacity: 0 }}
-            whileHover={{ opacity: 1 }}
-            transition={{ duration: 0.4 }}
+            variants={{
+              hover: { opacity: 1, transition: { duration: 0.4 } },
+            }}
             className="absolute bottom-0 left-0 right-0 h-1/2 bg-gradient-to-t from-[#046b59]/90 to-transparent"
           />
 
           
           <motion.div
             initial={{ x: 60, opacity: 0 }}
-            whileHover={{ x: 0, opacity: 1 }}
-            transition={{ duration: 0.4 }}
+            variants={{
+              hover: { x: 0, opacity: 1, transition: { duration: 0.4 } },
+            }}
             className="absolute top-1/3 right-3 z-20"
           >
             <SocialBar />
@@ -105,7 +105,6 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
         <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400">
           {member.role}
         </p>
-
 
         <button className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-colors duration-300 group-hover:bg-yellow-400 overflow-visible">
           <span className="inline-block transition-transform duration-300 group-hover:rotate-45">
@@ -132,10 +131,7 @@ const VolunteerTeam = () => {
   };
 
   const membersToShow = showPagination
-    ? teamMembers.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      )
+    ? teamMembers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
     : teamMembers.slice(0, visibleCount);
 
   return (
@@ -154,17 +150,17 @@ const VolunteerTeam = () => {
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {membersToShow.map((member, idx) => (
-              
               <VolunteerCard key={idx} member={member} idx={idx} />
             ))}
           </div>
         </div>
+
         {!showPagination && visibleCount < teamMembers.length && (
           <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
             <Button
               text="View All"
               bgColor="bg-[#FFC107]"
-              textColor=" text-black "
+              textColor="text-black"
               hoverTextColor="group-hover:text-white"
               hoverBg="before:bg-[#046b59]"
               onClick={handleViewAll}
@@ -172,6 +168,7 @@ const VolunteerTeam = () => {
             />
           </div>
         )}
+
         {showPagination && (
           <Pagination
             currentPage={currentPage}
@@ -184,6 +181,7 @@ const VolunteerTeam = () => {
           />
         )}
       </div>
+
       <div className="top absolute top-[10%] right-[6%] z-[-1] font-bold">
         <Image
           src="/assets/greenspade.png"
@@ -198,9 +196,3 @@ const VolunteerTeam = () => {
 };
 
 export default VolunteerTeam;
-
-
-
-
-
-
