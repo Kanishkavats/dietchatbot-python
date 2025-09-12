@@ -78,7 +78,7 @@ const VolunteerProfile = ({ member }) => {
               </motion.a>
             </div>
 
-            <p className="text-gray-600 mb-6 text-sm font-nunito">
+            <p className="text-gray-600 mb-6 text-sm font-nunito ">
               Lorem ipsum dolor sit amet, con adipiscing elit. Etiam convallis
               elit id imperdiet. Quisq commodo simply free ornare tortor.
             </p>
@@ -88,7 +88,7 @@ const VolunteerProfile = ({ member }) => {
             </h3>
 
             <div className="mb-3">
-              <div className="flex justify-between text-sm font-medium text-gray-700">
+              <div className="flex justify-between text-sm  text-black-700 font-bold ">
                 <span>Donation Collect</span>
                 <span>70%</span>
               </div>
@@ -101,7 +101,7 @@ const VolunteerProfile = ({ member }) => {
             </div>
 
             <div className="mb-6">
-              <div className="flex justify-between text-sm font-medium text-gray-700">
+              <div className="flex justify-between text-sm  text-black-700 font-bold">
                 <span>Successful Events</span>
                 <span>85%</span>
               </div>
@@ -113,7 +113,7 @@ const VolunteerProfile = ({ member }) => {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 mb-6 text-sm text-gray-700">
+            <div className="grid grid-cols-2 gap-3 mb-6 text-sm text-black-700">
               <p className="flex items-center gap-2 font-bold">
                 <CircleCheckBig className="text-[#046b59]" /> Best Quality
                 Services
@@ -129,7 +129,7 @@ const VolunteerProfile = ({ member }) => {
                 Support
               </p>
             </div>
-            <div className="w-58">
+            {/* <div className="w-58 round-full">
               <Button
                 text="Donate With Me"
                 bgColor="bg-[#FFC107]"
@@ -138,7 +138,23 @@ const VolunteerProfile = ({ member }) => {
                 hoverBg="before:bg-[#046b59]"
                 onClick={() => router.push("/donate-us")}
               />
+            </div> */}
+            <div className="w-58 round full">
+              <Button
+                text="Donate With Me"
+                bgColor="bg-[#FFC107]"
+                textColor="text-black"
+                hoverTextColor="group-hover:text-white"
+                hoverBg="before:bg-[#046b59]"
+                onClick={() => router.push("/donate-us")}
+                className="font-[Nunito] text-[16px] px-[40px] py-[22px]"
+              />
             </div>
+           
+
+
+
+
           </div>
         </div>
 

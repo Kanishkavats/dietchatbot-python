@@ -63,6 +63,7 @@ const LoginForm = () => {
 
           {/* Submit button */}
           <Button
+          type="submit"
             hoverBg="before:bg-[var(--green)]"
             disabled={isPending || isSubmitting}
           >

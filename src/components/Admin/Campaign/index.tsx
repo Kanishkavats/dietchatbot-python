@@ -1,12 +1,15 @@
 'use client'
 import React from 'react';
 import Breadcrumb from '../Breadcrumb';
+import CampaignTable from './CampaignTable';
 
 const Campaign = () => {
   return (
     <div className=''>
       <Breadcrumb lable="Compain" />
-        <h1 className='text-black'>Compains</h1>
+      <section className='mt-5'>
+        <CampaignTable />
+      </section>
     </div>
   )
 }

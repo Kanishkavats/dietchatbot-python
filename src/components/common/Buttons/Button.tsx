@@ -2,11 +2,12 @@
 import React from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { string } from "zod";
+// import { string } from "zod";
 
-// ✅ Props for reusability
+
 interface DynamicButtonProps {
-  text?: string; 
+  type?: "button" | "submit" | "reset"; 
+  text?: string;
   icon?: string;
   hoverBg?: string;
   textColor?: string;
@@ -14,26 +15,31 @@ interface DynamicButtonProps {
   onClick?: () => void;
   bgColor?: string;
   disabled?: boolean;
-  children?: React.ReactNode; // ✅ added children
+  children?: React.ReactNode;
+  rounded?: string;
 }
 
+
 const Button: React.FC<DynamicButtonProps> = ({
+  type,
   text,
-  icon = "mdi:arrow-top-right", // default icon
-  hoverBg = "before:bg-[var(--green)]",
-  textColor = "text-[var(--foreground)]",
+  icon = "mdi:arrow-top-right",
+  hoverBg = "before:bg-green",
+  textColor = "text-foreground",
   hoverTextColor = "group-hover:text-white",
-  bgColor = "bg-[var(--yellow)]",
+  bgColor = "bg-yellow",
   onClick,
-  disabled = false, // ✅ added default
-  children, // ✅ destructure children
+  disabled = false,
+  children,
+  rounded = "rounded-full",
 }) => {
   const iconControls = useAnimationControls();
 
   return (
     <motion.button
-      onClick={onClick}
-      disabled={disabled} // ✅ added
+      type={type || "button"}
+      {...(onClick ? { onClick } : {})}
+      disabled={disabled}
       onHoverStart={() => iconControls.start({ rotate: 45 })}
       onHoverEnd={() => iconControls.start({ rotate: 0 })}
       initial="rest"
@@ -46,17 +52,17 @@ const Button: React.FC<DynamicButtonProps> = ({
           transition: { duration: 0.4, ease: "easeInOut" },
         },
       }}
-      className={`w-full relative px-10 py-4 cursor-pointer rounded-full font-semibold font-nunito
-        ${bgColor} ${textColor} 
+      className={`w-full relative px-10 py-4 cursor-pointer font-semibold font-nunito
+        ${bgColor} ${textColor}  ${rounded}
         overflow-hidden group
         before:content-[''] before:absolute before:inset-0 ${hoverBg} 
         before:transition-transform before:duration-500 
         before:origin-center before:scale-x-0 hover:before:scale-x-100 before:z-0
-        ${disabled ? "opacity-50 cursor-not-allowed" : ""}`} 
+        ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >
       <div
         className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${hoverTextColor} 
-        whitespace-nowrap`}  
+        whitespace-nowrap`}
       >
         {children ? (
           children

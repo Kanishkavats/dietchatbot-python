@@ -31,11 +31,11 @@ export const DropdownSubmenu = ({
           direction="up"
           distance={8}
           duration={0.4}
-          className="absolute top-0 left-full bg-[var(--white)] rounded-md shadow-lg py-2 w-44"
+          className="absolute top-0 left-full bg-white rounded-md shadow-lg py-2 w-44"
         >
           <Icon
             icon="bxs:left-arrow"
-            className="absolute top-3 -left-4 size-5 text-[var(--brown)]"
+            className="absolute top-3 -left-4 size-5 text-brown"
           />
 
           {parent.children.map((sub) => (
@@ -43,7 +43,7 @@ export const DropdownSubmenu = ({
               key={sub.label || sub.name}
               opt={sub}
               open={open}
-              setOpen={setOpen}   // ✅ allow recursive submenu expansion
+              setOpen={setOpen}   
               hovered={hovered}
               setHovered={setHovered}
             />

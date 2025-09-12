@@ -15,8 +15,6 @@ const DonationCard: React.FC<DonationCardProps> = ({
 }) => {
   return (
     <FadeInUp className="relative h-[500px] rounded-2xl overflow-hidden shadow-lg flex items-center justify-center text-center">
-      {/* ✅ Background Image */}
-      {backgroundImage ? (
         <Image
           src={backgroundImage}
           alt="Background"
@@ -24,11 +22,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
           className="object-cover"
           priority
         />
-      ) : (
-        <div className="absolute inset-0 bg-[var(--green)]" /> // fallback color
-      )}
-
-      {/* ✅ Overlay */}
+    
       <div className="absolute inset-0 bg-black/30 z-0" />
 
       {/* ✅ Content */}
@@ -41,7 +35,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
         )}
 
         {/* Subtitle */}
-        <p className="text-sm text-gray-300 mb-2">{subtitle}</p>
+        <p className="text-sm text-gray-200 mb-2">{subtitle}</p>
 
         {/* Title */}
         <h3 className="text-3xl font-bold leading-snug mb-12">{title}</h3>

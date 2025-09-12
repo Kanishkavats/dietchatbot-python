@@ -6,8 +6,16 @@ import { horizontalWhiteShape, spradeBase } from "@/public/assets";
 import PulsingImage from "./PulsingImage";
 
 export const  pageBannerBackgourndColor ={
-          background:
-            "linear-gradient(to right, color-mix(in srgb, var(--dark-green) 100%, var(--dark-green)), color-mix(in srgb, var(--dark-green) 90%, transparent), color-mix(in srgb, var(--foreground) 30%, transparent), color-mix(in srgb, var(--foreground) 0%, transparent))",
+         background: `
+  linear-gradient(
+    to right,
+    color-mix(in srgb, theme(colors.dark-green) 100%, theme(colors.dark-green)),
+    color-mix(in srgb, theme(colors.dark-green) 90%, transparent),
+    color-mix(in srgb, theme(colors.foreground) 30%, transparent),
+    color-mix(in srgb, theme(colors.foreground) 0%, transparent)
+  )
+`
+,
         }
 const PageBanner: React.FC<PageBannerProps> = ({
   bgImage,
@@ -40,7 +48,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
       {/* Content */}
       <div className="relative z-3 text-center px-6">
         <div
-          className="font-caveat text-2xl flex items-center justify-center gap-2 text-[var(--yellow)] mb-4"
+          className="font-caveat text-2xl flex items-center justify-center gap-2 text-yellow mb-4"
         >
           <Icon icon={smallIcon} width={20} height={20} />
           <span className="font-semibold">{tagline}</span>
@@ -48,7 +56,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
 
         {/* Title */}
         <h1
-          className="text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-[var(--white)] font-nunito"
+          className="text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-white font-nunito"
         >
           {title}
         </h1>
