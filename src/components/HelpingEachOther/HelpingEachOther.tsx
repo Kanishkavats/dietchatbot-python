@@ -1,9 +1,4 @@
 "use client";
-
-
-
-
-"use client";
 import { FaCheckCircle } from "react-icons/fa";
 import Image from 'next/image';
 import { useState, useCallback } from 'react';

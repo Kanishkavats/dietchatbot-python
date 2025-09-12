@@ -1,26 +1,16 @@
 "use client";
 
 
-import { useState } from "react";
-import Button from "../common/Buttons/Button";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import { FiPlus } from "react-icons/fi";
 import { FaBehance, FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
 import { teamMembers } from "@/src/staticResource";
-import Pagination from "../common/Pagination";
+import Pagination from "@/src/components/common/Pagination";
 import Link from "next/link";
 import { motion, useAnimation, useInView } from "framer-motion";
-import { useRef, useEffect } from "react";
 
-const SocialBar = () => {
-  const socials = [
-    { icon: <FaFacebookF />, color: "bg-white" },
-    { icon: <FaTwitter />, color: "bg-white" },
-    { icon: <FaInstagram />, color: "bg-white" },
-    { icon: <FaBehance />, color: "bg-white" },
-  ];
-
-  interface TeamMember {
+interface TeamMember {
   img: string;
   id: number;
   name: string;
@@ -31,6 +21,15 @@ interface VolunteerCardProps {
   member: TeamMember;
   idx: number;
 }
+
+
+const SocialBar = () => {
+  const socials = [
+    { icon: <FaFacebookF />, color: "bg-white" },
+    { icon: <FaTwitter />, color: "bg-white" },
+    { icon: <FaInstagram />, color: "bg-white" },
+    { icon: <FaBehance />, color: "bg-white" },
+  ];
   return (
     <div className="flex flex-col gap-2 p-2 rounded shadow-md">
       {socials.map((social, idx) => (
@@ -50,7 +49,8 @@ interface VolunteerCardProps {
 
 
 
-// const VolunteerCard = ({ member, idx }) => {
+
+
 const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
   const ref = useRef(null);
   const controls = useAnimation();
@@ -78,6 +78,7 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
             className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
           />
 
+          
           <motion.div
             initial={{ opacity: 0 }}
             whileHover={{ opacity: 1 }}
@@ -106,7 +107,7 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
           {member.role}
         </p>
 
-
+        
         <button className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-colors duration-300 group-hover:bg-yellow-400 overflow-visible">
           <span className="inline-block transition-transform duration-300 group-hover:rotate-45">
             <FiPlus size={24} />
@@ -118,26 +119,15 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
 };
 
 
-const VolunteerTeam = () => {
-  const itemsPerPage = 4;
+const Ourteams = () => {
+  const itemsPerPage = 8; 
   const totalPages = Math.ceil(teamMembers.length / itemsPerPage);
-  const [visibleCount, setVisibleCount] = useState(itemsPerPage);
-  const [showPagination, setShowPagination] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const handleViewAll = () => {
-    setVisibleCount(teamMembers.length);
-    setShowPagination(true);
-    setCurrentPage(1);
-  };
-
-  const membersToShow = showPagination
-    ? teamMembers.slice(
-        (currentPage - 1) * itemsPerPage,
-        currentPage * itemsPerPage
-      )
-    : teamMembers.slice(0, visibleCount);
-
+  
+  const membersToShow = teamMembers.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
   return (
     <section className="relative bg-cover py-16 bg-center w-full bg-[url('/assets/bg-one-volunteer.png')]">
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
@@ -152,27 +142,15 @@ const VolunteerTeam = () => {
           <span className="text-yellow-400">Team</span> Members
         </h2>
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-4">
             {membersToShow.map((member, idx) => (
-              
-              <VolunteerCard key={idx} member={member} idx={idx} />
+              <VolunteerCard key={member.id} member={member} idx={idx} />
             ))}
           </div>
         </div>
-        {!showPagination && visibleCount < teamMembers.length && (
-          <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
-            <Button
-              text="View All"
-              bgColor="bg-[#FFC107]"
-              textColor=" text-black "
-              hoverTextColor="group-hover:text-white"
-              hoverBg="before:bg-[#046b59]"
-              onClick={handleViewAll}
-              className="h-[60px]"
-            />
-          </div>
-        )}
-        {showPagination && (
+        
+        {totalPages > 1 && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
@@ -184,7 +162,7 @@ const VolunteerTeam = () => {
           />
         )}
       </div>
-      <div className="top absolute top-[10%] right-[6%] z-[-1] font-bold">
+       <div className="top absolute top-[10%] right-[6%] z-[-1] font-bold">
         <Image
           src="/assets/greenspade.png"
           alt="green spade"
@@ -196,11 +174,6 @@ const VolunteerTeam = () => {
     </section>
   );
 };
-
-export default VolunteerTeam;
-
-
-
-
-
-
+export default Ourteams;
+   
+      

@@ -2,11 +2,11 @@
 import React from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
-import { string } from "zod";
+// import { string } from "zod";
 
-// ✅ Props for reusability
+
 interface DynamicButtonProps {
-  type?: "button" | "submit" | "reset"; // ✅ add this
+  type?: "button" | "submit" | "reset"; 
   text?: string;
   icon?: string;
   hoverBg?: string;
