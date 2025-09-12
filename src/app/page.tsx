@@ -9,7 +9,7 @@ import { VolunteerTeam , ValueableCustomer } from '../components/About';
 import Community from '../components/Home/Community'
 import ChildOldCare from '../components/ChildOldCare';
 import DonateDifferentWay from '../components/DonateDifferentWay';
-;
+
 import LatestNewsArticle from '../components/LatestNewsArticle';
 import CustomCursor from '../components/CustomCursor/CustomCursor';
 

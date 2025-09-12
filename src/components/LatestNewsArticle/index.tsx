@@ -69,11 +69,11 @@ const LatestNewsArticle: React.FC = () => {
       <div className="flex-1">
         <div className="flex items-center gap-6 text-sm mb-3 text-gray-600 group-hover:text-white transition-colors">
           <span className="flex items-center gap-2">
-            <FaUser size={18} className="text-yellow-500" />
+            <FaUser size={18} className="text-yellow" />
             {author}
           </span>
           <span className="flex items-center gap-2">
-            <FaComment size={18} className="text-yellow-500" />
+            <FaComment size={18} className="text-yellow" />
             Comments ({comments})
           </span>
         </div>
@@ -83,7 +83,7 @@ const LatestNewsArticle: React.FC = () => {
       <div className="flex items-center gap-2 relative">
         <a
           href="#"
-          className="font-[Nunito,sans-serif] text-[14px] text-[#064E3B] font-bold hover:text-yellow-500 transition-colors flex items-center gap-2"
+          className="font-[Nunito,sans-serif] text-[14px] text-[#064E3B] font-bold hover:text-yellow transition-colors flex items-center gap-2"
         >
           Read More
           <FaArrowRight className="text-[#064E3B]" />

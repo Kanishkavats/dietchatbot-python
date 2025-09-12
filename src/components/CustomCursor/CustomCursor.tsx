@@ -46,14 +46,15 @@ const CustomCursor = () => {
         zIndex: 9999,
         opacity: isVisible ? 1 : 0,
         transition: 'opacity 0.1s ease',
-      }}
+      }} 
+     
     >
       <div
         style={{
-          width: '100%',
-          height: '100%',
+          width: '130%',
+          height: '130%',
           borderRadius: '50%',
-          background: 'linear-gradient(135deg, #4ECDC4 0%, #2E8B87 100%)',
+          background: ' linear-gradient(135deg, #4ECDC4 0%, #2E8B87 100%)',
           boxShadow: '0 0 0 2px rgba(78, 205, 196, 0.3)',
           position: 'relative',
         }}
@@ -67,7 +68,7 @@ const CustomCursor = () => {
             width: '10px',
             height: '10px',
             borderRadius: '50%',
-            background: 'green',
+            background: 'dark-green',
             boxShadow: 'inset 0 0 2px rgba(0, 0, 0, 0.2)',
           }}
         />

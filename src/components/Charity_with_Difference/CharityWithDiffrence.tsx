@@ -10,75 +10,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CharityCard from './CharityCard';
-
-interface CharityCard {
-  id: number;
-  title: string;
-  description: string;
-  icon: string;
-  image: string;
-  color: string;
-  bgColor: string;
-}
-
-const charityCards: CharityCard[] = [
-  {
-    id: 1,
-    title: "Healthy Food",
-    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
-    icon: "\e82a",
-    image: "/blue_bg.jpeg",
-    color: "border-green-600",
-    bgColor: "bg-gray-100"
-  },
-  {
-    id: 2,
-    title: "Medical Care",
-    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
-    icon: "\e82b",
-    image: "/green_bg.jpeg",
-    color: "border-orange-500",
-    bgColor: "bg-orange-50"
-  },
-  {
-    id: 3,
-    title: "Child Education",
-    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
-    icon: "\e829",
-    image: "/yellow_bg.jpeg",
-    color: "border-yellow-500",
-    bgColor: "bg-yellow-50"
-  },
-
-  {
-    id: 4,
-    title: "Healthy Food",
-    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
-    icon: "\e82a",
-    image: "/blue_bg.jpeg",
-    color: "border-green-600",
-    bgColor: "bg-gray-100"
-  },
-  {
-    id: 5,
-    title: "Medical Care",
-    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
-    icon: "\e82b",
-    image: "/green_bg.jpeg",
-    color: "border-orange-500",
-    bgColor: "bg-orange-50"
-  },
-  {
-    id: 6,
-    title: "Child Education",
-    description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
-    icon: "\e829",
-    image: "/yellow_bg.jpeg",
-    color: "border-yellow-500",
-    bgColor: "bg-yellow-50"
-  },
-
-];
+import { charityCards } from '../../staticResource';
 
 export default function CharityWithDifference() {
   // Animation refs

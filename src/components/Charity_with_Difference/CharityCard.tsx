@@ -76,9 +76,9 @@ const CharityCard: React.FC<CharityCardProps> = ({
       case 1: return 'icon-healthy-food';
       case 2: return 'icon-medical-care';
       case 3: return 'icon-education';
-      case 4: return 'icon-clean-water';
-      case 5: return 'icon-shelter';
-      case 6: return 'icon-emergency';
+      case 4: return 'icon-healthy-food';
+      case 5: return 'icon-medical-care';
+      case 6: return 'icon-education';
       default: return 'icon-healthy-food';
     }
   };

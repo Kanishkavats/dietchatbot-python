@@ -13,8 +13,8 @@ const ScrollBanner: React.FC = () => {
   const settings = childOldCareSliderSettings;
 
   return (
-    <div className="relative w-full h-[500px] gap-10 mt-15 overflow-hidden">
-      {/* Custom CSS for hiding arrows on desktop */}
+    <div className="relative w-full h-[500px] md:h-[600px] lg:h-[500px] gap-10 mt-15 overflow-hidden">
+      {/* Custom CSS for responsive design */}
       <style dangerouslySetInnerHTML={{
         __html: `
           .child-old-care-slider .slick-prev,
@@ -37,10 +37,35 @@ const ScrollBanner: React.FC = () => {
             height: 100% !important;
           }
           
-          @media (max-width: 768px) {
+          /* Mobile and tablet responsive styles */
+          @media (max-width: 1024px) {
             .child-old-care-slider .slick-prev,
             .child-old-care-slider .slick-next {
               opacity: 1 !important;
+            }
+            
+            .child-old-care-slider .slick-prev {
+              left: 10px !important;
+              width: 40px !important;
+              height: 40px !important;
+              top: 50% !important;
+              transform: translateY(-50%) !important;
+            }
+            
+            .child-old-care-slider .slick-next {
+              right: 10px !important;
+              width: 40px !important;
+              height: 40px !important;
+              top: 50% !important;
+              transform: translateY(-50%) !important;
+            }
+          }
+          
+          /* Mobile specific styles */
+          @media (max-width: 768px) {
+            .child-old-care-slider .slick-prev,
+            .child-old-care-slider .slick-next {
+              opacity: 0.7 !important;
             }
           }
         `
@@ -50,15 +75,15 @@ const ScrollBanner: React.FC = () => {
       <div className="slider-container child-old-care-slider">
         <Slider {...settings}>
           {images.map((image, index) => (
-            <div key={index} className="px-2">
+            <div key={index} className="px-1 md:px-2 lg:px-2">
               <div
               style={{
                 backgroundImage:` url(${image.src})`,
-                backgroundSize: '150% 150%',
+                backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
               }}
-              className="w-full h-[600px] relative">
+              className="w-full h-[400px] md:h-[500px] lg:h-[600px] relative rounded-t-[20px] md:rounded-t-[30px] lg:rounded-none">
                
               </div>
             </div>
@@ -66,8 +91,8 @@ const ScrollBanner: React.FC = () => {
         </Slider>
       </div>
 
-        {/* Top curved overlay */}
-        <div className="absolute bottom-[-2px] left-0 w-full h-40 gap-2 pointer-events-none">
+        {/* Bottom curved overlay with text */}
+        <div className="absolute bottom-[-2px] left-0 w-full h-32 md:h-40 lg:h-40 gap-2 pointer-events-none">
           <svg
             className="w-full h-full"
             viewBox="0 0 100 20"
@@ -80,18 +105,18 @@ const ScrollBanner: React.FC = () => {
           </svg>
           
           {/* Text overlay on bottom curve */}
-          <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 text-center">
-            <h2 className="text-2xl font-bold text-dark-green mb-1">
+          <div className="absolute bottom-2 md:bottom-4 lg:bottom-0 left-1/2 transform -translate-x-1/2 text-center px-4">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-dark-green mb-1 leading-tight">
               Old People & Child Trouble
             </h2>
-            <p className='text-xl  font-small text-gray-400'>
-              child & oldcare
+            <p className='text-sm md:text-lg lg:text-xl font-small text-gray-400'>
+              Child & Old Care
             </p>
           </div>
         </div>
 
-      {/* Bottom curved overlay with text */}
-      <div className="absolute scale-y-[-1] top-0 left-0 w-full h-30 pointer-events-none">
+      {/* Top curved overlay */}
+      <div className="absolute scale-y-[-1] top-0 left-0 w-full h-24 md:h-30 lg:h-30 pointer-events-none">
         <svg
           className="w-full h-full"
           viewBox="0 0 100 20"
