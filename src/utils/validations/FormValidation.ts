@@ -30,7 +30,7 @@ export const loginSchema = Yup.object({
 
 export type loginValues = Yup.InferType<typeof loginSchema>;
 
-// ✅ Register validation
+// ======================= Register validation  =======================
 export const registerSchema = Yup.object({
   name: Yup.string()
     .min(2, "Name must be at least 2 characters")
@@ -47,7 +47,8 @@ export const registerSchema = Yup.object({
 
 export type registerValues = Yup.InferType<typeof registerSchema>;
 
-// ✅ Yup validation schema
+// ======================= Campaign =======================
+
 export const campaignSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   category: Yup.string().required("Category is required"),
@@ -56,8 +57,16 @@ export const campaignSchema = Yup.object().shape({
   summary: Yup.string().required("Summary is required"),
   keyPoints: Yup.array().of(Yup.string().required()).min(1, "Add at least one key point"),
   images: Yup.array().of(Yup.mixed()).min(1, "Images are required"),
+  existingImages: Yup.array().of(Yup.string()),
   location: Yup.string().required("Location is required"),
 });
 
 
 export type CampaignFormValues = Yup.InferType<typeof campaignSchema>;
+
+// ======================= Category =======================
+export const categorySchema = Yup.object().shape({
+  name: Yup.string().required("Category name is required"),
+});
+
+export type CategoryFormValues = Yup.InferType<typeof categorySchema>;

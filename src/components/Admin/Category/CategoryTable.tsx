@@ -1,0 +1,135 @@
+"use client";
+
+import React, { useState, useMemo, useCallback } from "react";
+import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import Dropdown from "../Common/Dropdown";
+import CustomInput from "../Common/CustomInput";
+import Button from "../../common/Buttons/Button";
+import Drawer from "../Common/Drawer";
+import DataTableWrapper from "../Common/DataTableWrapper";
+import { CategorySearchOptions } from "../Data/staticData";
+import CategoryForm from "./CategoryForm";
+import TableRowActions from "../Campaign/CampaignActions";
+import { useFetchCategory, useDeleteCategory } from "@/src/hooks/useCategory";
+import { CategoryColumnCallbacks } from "@/src/types/campaign";
+import { Category } from "@/src/services/categoryApi";
+
+// Column generator similar to getCampaignColumns
+export const getCategoryColumns = ({
+  onEdit,
+  onDelete,
+  onView,
+}: CategoryColumnCallbacks) => [
+  { name: "SNo", cell: (_row: Category, index: number) => index + 1, width: "80px" },
+  { name: "Name", selector: (row: Category) => row.name, sortable: true },
+  {
+    name: "Actions",
+    cell: (row: Category) => (
+      <TableRowActions
+        row={row}
+        actions={[
+          { label: "View Category", icon: <FaEye />, onClick: onView, colorClass: "text-blue-500 hover:text-blue-700" },
+          { label: "Edit Category", icon: <FaEdit />, onClick: onEdit, colorClass: "text-green-500 hover:text-green-700" },
+          { label: "Delete Category", icon: <FaTrash />, onClick: onDelete, colorClass: "text-red-500 hover:text-red-700" },
+        ]}
+      />
+    ),
+  },
+];
+
+const CategoryTable = () => {
+  const [search, setSearch] = useState("");
+  const [searchField, setSearchField] = useState<"name">("name");
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [editCategory, setEditCategory] = useState<string | null>(null);
+  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+
+  const { data: categoryData } = useFetchCategory();
+  const { mutate: deleteCategory } = useDeleteCategory();
+
+
+  const handleEdit = useCallback((c: Category) => {
+    setEditCategory(c.id);
+    setMode("edit");
+    setDrawerOpen(true);
+  }, []);
+
+  const handleView = useCallback((c: Category) => {
+    setEditCategory(c.id);
+    setMode("view");
+    setDrawerOpen(true);
+  }, []);
+
+  const handleDelete = useCallback(
+    (c: Category) => {
+      if (confirm(`Are you sure you want to delete "${c.name}"?`)) {
+        deleteCategory(c.id);
+      }
+    },
+    [deleteCategory]
+  );
+
+  const filteredData = useMemo(() => {
+    return categoryData?.category?.filter((c: Category) =>
+      c[searchField].toLowerCase().includes(search.toLowerCase())
+    );
+  }, [categoryData, search, searchField]);
+
+  const columns = useMemo(
+    () => getCategoryColumns({ onEdit: handleEdit, onDelete: handleDelete, onView: handleView }),
+    [handleEdit, handleDelete, handleView]
+  );
+
+  return (
+    <div>
+      {/* Top controls */}
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+        <div className="w-fit flex flex-col sm:flex-row gap-2">
+          <Dropdown options={CategorySearchOptions} value={searchField} onChange={setSearchField} />
+          <CustomInput
+            placeholder={`Search by ${searchField}...`}
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="w-fit">
+          <Button
+            text="Add Category"
+            onClick={() => {
+              setDrawerOpen(true);
+              setEditCategory(null);
+              setMode("add");
+            }}
+            bgColor="bg-lime-green"
+            hoverBg="before:bg-primaryColor"
+            textColor="text-white"
+            hoverTextColor="group-hover:text-foreground"
+          />
+        </div>
+      </div>
+
+      {/* Data table */}
+      <DataTableWrapper columns={columns} data={filteredData} pagination />
+
+      {/* Drawer */}
+      <Drawer
+        isOpen={drawerOpen}
+        onClose={() => {
+          setDrawerOpen(false);
+          setEditCategory(null);
+          setMode("add");
+        }}
+        title={mode === "edit" ? "Edit Category" : mode === "view" ? "View Category" : "Add Category"}
+        width="400px"
+      >
+        <CategoryForm
+          initialData={categoryData?.category?.find((c: Category) => c.id === editCategory)}
+          onClose={() => setDrawerOpen(false)}
+          mode={mode}
+        />
+      </Drawer>
+    </div>
+  );
+};
+
+export default CategoryTable;

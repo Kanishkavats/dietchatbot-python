@@ -6,11 +6,11 @@ import { IoMdClose } from "react-icons/io";
 interface CustomFileInputProps {
   label?: string;
   name: string;
-  onChange: (files: File[], updatedImageUrls?: string[]) => void; // returns new files and updated existing image URLs
+  onChange: (files: File[], updatedImageUrls?: string[]) => void; // new files + updated existing urls
   error?: string;
   disabled?: boolean;
-  readOnly?: boolean;
-  imageUrl?: string[]; // existing images for edit/view
+  mode?: "add" | "edit" | "view";
+ initialUrls?: string[]; // existing images from API
 }
 
 const CustomFileInput: React.FC<CustomFileInputProps> = ({
@@ -19,19 +19,20 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
   onChange,
   error,
   disabled = false,
-  readOnly = false,
-  imageUrl = [],
+  mode = "add",
+  initialUrls = [],
 }) => {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [newPreviews, setNewPreviews] = useState<string[]>([]);
-  const [existingPreviews, setExistingPreviews] = useState<string[]>(imageUrl || []);
+  const [existingPreviews, setExistingPreviews] = useState<string[]>(initialUrls);
 
-  // Initialize existing previews
-  useEffect(() => {
-    setExistingPreviews(imageUrl || []);
-  }, [imageUrl]);
 
-  // Handle adding new images
+  // Sync existing images if props change
+  // useEffect(() => {
+  //   setExistingPreviews(initialUrls);
+  // }, [initialUrls]);
+
+  // Handle new file selection
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files || []);
     if (files.length > 0) {
@@ -64,18 +65,22 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
     onChange(selectedFiles, updatedExisting);
   };
 
-
-  console.log("readonly", readOnly);
+  const isView = mode === "view";
+  const isEditable = mode === "add" || mode === "edit";
 
   return (
     <div className="w-full relative">
       {label && (
-        <label htmlFor={name} className={`block mb-1 font-medium ${readOnly ? "text-white" : "text-gray-700"}`}>
+        <label
+          htmlFor={name}
+          className={`block mb-1 font-medium ${isView ? "text-gray-600" : "text-gray-700"}`}
+        >
           {label}
         </label>
       )}
 
-      {!readOnly && (
+      {/* File picker visible only in add/edit */}
+      {isEditable && (
         <div
           className={`flex flex-col gap-2 bg-gray-200/60 px-3 py-2 rounded-md border relative
           ${error ? "border-red-500" : "border-transparent"}`}
@@ -109,11 +114,11 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
                 alt="Existing preview"
                 className="w-full h-32 object-cover rounded-md border"
               />
-              {!readOnly && (
+              {isEditable && (
                 <button
                   type="button"
                   onClick={() => removeExistingImage(src)}
-                  className="absolute top-1 right-1 text-red-500 bg-white rounded-full p-1"
+                  className="absolute top-1 right-1 text-red bg-white rounded-full p-1 cursor-pointer"
                 >
                   <IoMdClose />
                 </button>
@@ -129,7 +134,7 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
                 alt={`New preview ${idx + 1}`}
                 className="w-full h-32 object-cover rounded-md border"
               />
-              {!readOnly && (
+              {isEditable && (
                 <button
                   type="button"
                   onClick={() => removeNewImage(idx)}

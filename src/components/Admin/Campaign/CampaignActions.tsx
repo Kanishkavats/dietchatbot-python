@@ -1,45 +1,27 @@
+
 "use client";
 
+import { TableRowActionsProps } from "@/src/types/campaign";
 import { Tooltip } from "@mui/material";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
-import { Campaign } from "../Data/staticData";
+import React from "react";
 
-interface Props {
-  row: Campaign;
-  onEdit: (campaign: Campaign) => void;
-  onDelete: (campaign: Campaign) => void;
-  onView: (campaign: Campaign) => void;
-}
 
-const CampaignActions = ({ row, onEdit, onDelete, onView }: Props) => {
+
+const TableRowActions = <RowType,>({ row, actions, className = "" }: TableRowActionsProps<RowType>) => {
   return (
-    <div className="flex gap-3">
-      <Tooltip title="View Campaign">
-        <button
-          onClick={() => onView(row)}
-          className="text-blue-50 hover:text-blue cursor-pointer"
-        >
-          <FaEye />
-        </button>
-      </Tooltip>
-      <Tooltip title="Edit Campaign">
-        <button
-          onClick={() => onEdit(row)}
-          className="text-lime-green hover:text-green cursor-pointer"
-        >
-          <FaEdit />
-        </button>
-      </Tooltip>
-      <Tooltip title="Delete Campaign">
-        <button
-          onClick={() => onDelete(row)}
-          className="text-red hover:text-red-700 cursor-pointer"
-        >
-          <FaTrash />
-        </button>
-      </Tooltip>
+    <div className={`flex gap-3 ${className}`}>
+      {actions.map((action, index) => (
+        <Tooltip key={index} title={action.label}>
+          <button
+            onClick={() => action.onClick(row)}
+            className={`cursor-pointer ${action.colorClass || "text-gray-600 hover:text-gray-900"}`}
+          >
+            {action.icon}
+          </button>
+        </Tooltip>
+      ))}
     </div>
   );
 };
 
-export default CampaignActions;
+export default TableRowActions;

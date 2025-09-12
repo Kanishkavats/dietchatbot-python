@@ -57,10 +57,8 @@ export const CampaignSearchOptions = [
   { label: "Category", value: "category" },
 ] as const;
 
+export const CategorySearchOptions = [
+  { label: "Name", value: "name" },
+] as const;
 
-export const campaignCategories = [
-  { label: "Food", value: "Food" },
-  { label: "Education", value: "Education" },
-  { label: "Health", value: "Health" },
-  { label: "Technology", value: "Technology" },
-]
+

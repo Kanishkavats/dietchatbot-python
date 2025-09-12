@@ -1,24 +1,11 @@
 "use client";
-import React, { useState, ChangeEvent, KeyboardEvent } from "react";
+import React, { useState} from "react";
 import { Icon } from "@iconify/react";
+import { AdminCustomInputProps } from "@/src/types/adminCommon";
 
-interface CustomInputProps {
-  label?: string;
-  icon?: string;
-  type?: string;
-  as?: "input" | "textarea";
-  placeholder?: string;
-  value: string | number;
-  onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  error?: string;
-  name?: string;
-  onKeyDown?: (e: KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
-  className?: string,
-  disabled?: boolean;
-  readOnly?: boolean; 
-}
 
-const CustomInput: React.FC<CustomInputProps> = ({
+
+const CustomInput: React.FC<AdminCustomInputProps> = ({
   label,
   icon,
   type = "text",
