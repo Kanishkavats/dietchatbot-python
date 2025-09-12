@@ -1,35 +1,12 @@
 import Image from 'next/image';
-
-const recentPosts = [
-  {
-    id: 1,
-    title: "Where Innovation Meets Foundation",
-    date: "November 19, 2024",
-    image: "/assets/charity_with_difference/ph-one bottom.png",
-    alt: "Family with woman holding child"
-  },
-  {
-    id: 2,
-    title: "Where Innovation Meets Foundation",
-    date: "November 19, 2024",
-    image: "/assets/charity_with_difference/ph-two bottom.png",
-    alt: "Group of hands stacked together"
-  },
-  {
-    id: 3,
-    title: "Structures That Stand, Dreams That Soar",
-    date: "November 22, 2024",
-    image: "/assets/charity_with_difference/three bottomm.png",
-    alt: "Two young children looking at camera"
-  }
-];
+import { charityRecentPosts } from '../../staticResource';
 
 export default function RecentPosts() {
   return (
     <div className="bg-white rounded-lg shadow-md p-6">
       <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Posts</h3>
       <div className="space-y-4">
-        {recentPosts.map((post) => (
+        {charityRecentPosts.map((post) => (
           <div key={post.id} className="flex items-start gap-3">
             <div className="relative w-16 h-16 flex-shrink-0">
               <Image

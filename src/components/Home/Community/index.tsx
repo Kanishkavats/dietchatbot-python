@@ -48,7 +48,11 @@ const Community = () => {
 
             <section className="z-3 py-20 w-11/12 xl:w-10/12 font-nunito  shadow-5xl">
 
-                <AnimatedReveal
+                <motion.div
+                    initial={{ opacity: 0, transform: "translateZ(0)" }}
+                    whileInView={{ opacity: 1, transform: "translateZ(0)" }}
+                    transition={{ duration: 1 }}
+                    viewport={{ once: true, margin: "-100px" }}
                 >
 
                     <p className="text-[var(--yellow)] font-medium flex items-center gap-2 font-caveat text-2xl">
@@ -60,7 +64,7 @@ const Community = () => {
                         Join The <span className="text-[var(--yellow)]">Community</span>  To Give  Education For Children
                     </h1>
 
-                </AnimatedReveal>
+                </motion.div>
                 <AnimatedReveal className="max-w-7xl h-[650px] bg-[var(--white)] rounded-2xl overflow-hidden mx-auto grid xl:grid-cols-5 relative bottom-[-50px] z-5 mb-15">
 
                     <div className="bg-[var(--white)] text-[var(--foreground)] rounded-xl  py-4 px-4 md:p-12 w-full col-span-3  relative z-10">
@@ -94,9 +98,14 @@ const Community = () => {
                             <Button text="Donate Now" />
                         </div>
                     </div>
-                    <AnimatedReveal direction="right">
+                    <motion.div
+                        initial={{ opacity: 0, transform: "translateZ(0)" }}
+                        whileInView={{ opacity: 1, transform: "translateZ(0)" }}
+                        transition={{ duration: 1, delay: 0.2 }}
+                        viewport={{ once: true, margin: "-100px" }}
+                    >
                         <SideImage />
-                    </AnimatedReveal>
+                    </motion.div>
 
                 </AnimatedReveal>
             </section>

@@ -8,6 +8,7 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { motion, useInView } from 'framer-motion';
 
 
 const donationCards = [
@@ -65,6 +66,8 @@ const HelpAndDonate: React.FC = () => {
   const [hoveredLeft, setHoveredLeft] = useState(false);
   const [hoveredRight, setHoveredRight] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
+  const spadeRef = useRef(null);
+  const isSpadeInView = useInView(spadeRef, { once: true, amount: 0.3 });
 
   const handleCardClick = (category: string) => {
     if (category === 'Food') {
@@ -95,7 +98,7 @@ const HelpAndDonate: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 min-h-[500px]  overflow-hidden ">
+    <section className="relative py-12 md:py-16 lg:py-20 min-h-[400px] md:min-h-[500px] overflow-hidden">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -104,21 +107,21 @@ const HelpAndDonate: React.FC = () => {
         <div className="absolute inset-0 bg-black/4"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 max-w-7xl">
+      <div className="relative z-10 container mx-auto px-3 sm:px-4 max-w-7xl">
         {/* Header Section */}
-        <div className="flex items-start justify-between mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-8 md:mb-12 lg:mb-16">
           {/* Left Side - Main Content */}
-          <div className="flex-1 max-w-2xl">
+          <div className="flex-1 max-w-2xl mb-6 lg:mb-0">
             {/* Top Left Text */}
-            <div className="flex items-center mb-6">
-              <i className="text-xl mr-2  text-[var(--green)]  hand-icon"></i>
-              <span className=" text-[var(--green)] font-caveat text-2xl font-bold">Start Donating Poor People</span>
+            <div className="flex items-center mb-4 md:mb-6">
+              <i className="text-lg md:text-xl mr-2 text-[var(--green)] hand-icon"></i>
+              <span className="text-[var(--green)] font-caveat text-lg md:text-xl lg:text-2xl font-bold">Start Donating Poor People</span>
             </div>
 
             {/* Main Heading */}
-            <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>
-              <div className="w-[761px]">
-                <span className=" text-gray-800">Help & </span>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 md:mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>
+              <div className="w-full lg:w-[761px]">
+                <span className="text-gray-800">Help & </span>
                 <span className="text-yellow-400">Donate </span>
                 <span className="text-gray-800">Them when</span>
               </div>
@@ -128,67 +131,73 @@ const HelpAndDonate: React.FC = () => {
             </h2>
           </div>
 
-                    {/* Right Side - Navigation Arrows */}
-          <div className="flex items-center gap-4 ml-12 mt-12">
+          {/* Right Side - Navigation Arrows */}
+          <div className="flex items-center justify-center lg:justify-end gap-3 md:gap-4 lg:ml-12 lg:mt-12">
             <button
               onClick={handlePrev}
               onMouseEnter={() => setHoveredLeft(true)}
               onMouseLeave={() => setHoveredLeft(false)}
-              className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
+              className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
               style={{
                 backgroundColor: hoveredLeft ? '#FBBF24' : (leftButtonColor === 'yellow' ? '#FBBF24' : '#07110eff'),
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
               }}
             >
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                 <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </button>
             <button
               onClick={handleNext}
               onMouseEnter={() => setHoveredRight(true)}
               onMouseLeave={() => setHoveredRight(false)}
-              className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
+              className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
               style={{
                 backgroundColor: hoveredRight ? '#07110eff' : (rightButtonColor === 'yellow' ? '#FBBF24' : '#07110eff'),
                 transition: 'all 0.3s ease',
                 boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
               }}
             >
-              <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                 <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" strokeWidth={2} strokeLinecap="round" />
               </svg>
             </button>
           </div>
         </div>
   
 
-       <div className="absolute -left-15 top-180 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300">
+       <motion.div 
+         ref={spadeRef}
+         className="absolute -left-8 md:-left-12 lg:-left-15 top-32 md:top-40 lg:top-180 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300 hidden sm:block"
+         initial={{ opacity: 0, transform: "translateZ(0)" }}
+         animate={isSpadeInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+         transition={{ duration: 1 }}
+       >
                <Image
                 src="/assets/section2/spade.png"
                  alt="Hand outline"
-                 width={80}
-                 height={80}
-                className="animate-[float_3s_ease-in-out_infinite]"
+                 width={60}
+                 height={60}
+                 className="animate-[float_3s_ease-in-out_infinite] md:w-16 md:h-16 lg:w-20 lg:h-20"
                       />
-        </div>
+        </motion.div>
                  
         {/* Carousel Section */}
         <div className="relative">
           <Swiper
             modules={[Navigation, Autoplay]}
             slidesPerView={1}
-            spaceBetween={26}
+            spaceBetween={20}
             loop={true}
             autoplay={{ delay: 2000, disableOnInteraction: false }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 30 },
-              1024: { slidesPerView: 3, spaceBetween: 30 },
+              480: { slidesPerView: 1, spaceBetween: 20 },
+              640: { slidesPerView: 2, spaceBetween: 24 },
+              768: { slidesPerView: 2, spaceBetween: 26 },
+              1024: { slidesPerView: 3, spaceBetween: 28 },
               1280: { slidesPerView: 4, spaceBetween: 30 }
             }}
             className="h-auto"
@@ -226,16 +235,23 @@ const HelpAndDonate: React.FC = () => {
                   />
                   
                   {/* Card Image */}
-                  <div className="relative h-48 rounded-lg overflow-hidden">
-                    <Image
-                      src={card.image}
-                      alt={card.title}
-                      fill
-                      className="object-cover"
-                    />
+                  <div className="relative h-40 sm:h-44 md:h-48 rounded-lg overflow-hidden">
+                    <motion.div
+                      whileHover={{ scale: 1.1, rotate: -3 }}
+                      transition={{ duration: 0.4 }}
+                      className="w-full h-full"
+                    >
+                      <Image
+                        src={card.image}
+                        alt={card.title}
+                        fill
+                        className="object-cover"
+                       
+                      />
+                    </motion.div>
                     {/* Category Tag */}
                     <div 
-                      className="absolute top-4 left-4 px-3 py-1 rounded-full text-black text-sm font-medium transition-all duration-300"
+                      className="absolute top-3 left-3 md:top-4 md:left-4 px-2 py-1 md:px-3 md:py-1 rounded-full text-black text-xs md:text-sm font-medium transition-all duration-300"
                       style={{
                         background: hoveredCard === card.id 
                           ? 'linear-gradient(135deg, #151414d6 0%, #000000 100%)'
@@ -253,10 +269,10 @@ const HelpAndDonate: React.FC = () => {
                   </div>
 
                   {/* Card Content */}
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     {/* Title */}
                     <h3 
-                      className="text-xl font-bold mb-3 transition-colors duration-300 cursor-pointer"
+                      className="text-lg md:text-xl font-bold mb-2 md:mb-3 transition-colors duration-300 cursor-pointer"
                       style={{
                         color: hoveredCard === card.id ? '#6b5103' : '#122F2A', // Yellow mustard on hover, dark green default
                         transition: 'color 0.3s ease'
@@ -270,44 +286,44 @@ const HelpAndDonate: React.FC = () => {
                     </h3>
                     
                     {/* Description */}
-                    <p className="text-gray-600 text-sm leading-relaxed mb-4">{card.description}</p>
+                    <p className="text-gray-600 text-xs md:text-sm leading-relaxed mb-3 md:mb-4">{card.description}</p>
                     
                     {/* Progress Bar */}
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm text-gray-500 mb-2">
+                    <div className="bg-gray-100 rounded-lg p-2 md:p-2 mb-3 md:mb-4">
+                      <div className="flex justify-between text-xs md:text-sm text-gray-500 mb-2">
                         <span>Donation</span>
                         <span>{card.progress}%</span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
+                      <div className="w-full bg-gray-200 rounded-full h-1.5 md:h-2">
                         <div 
-                          className="bg-yellow-400 h-2 rounded-full transition-all duration-1000 ease-in-out"
+                          className="bg-yellow-400 h-1.5 md:h-2 rounded-full transition-all duration-1000 ease-in-out"
                           style={{ width: `${card.progress}%` }}
                         ></div>
                       </div>
+                      
+                      {/* Amounts */}
+                      <div className="flex justify-between text-xs md:text-sm text-gray-500 mb-3 md:mb-4 mt-3 md:mt-4">
+                        <span>Raised: {card.raised}</span>
+                        <span>Goal: <span className="text-brown">{card.goal}</span></span>
+                      </div>
+                      
+                      {/* Donate Button */}
+                      <button 
+                        className="w-full py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300 text-sm md:text-base"
+                        style={{
+                          backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
+                          borderColor: hoveredCard === card.id ? '#000000' : '#1a2d29ff',
+                          color: hoveredCard === card.id ? 'white' : '#122F2A',
+                          transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
+                          boxShadow: hoveredCard === card.id 
+                            ? '0 4px 12px rgba(34, 197, 94, 0.3)'
+                            : 'none',
+                          transition: 'all 0.3s ease'
+                        }}
+                      >
+                        Donate Now
+                      </button>
                     </div>
-                    
-                    {/* Amounts */}
-                    <div className="flex justify-between text-sm text-gray-500 mb-4">
-                      <span>Raised: {card.raised}</span>
-                      <span>Goal: {card.goal}</span>
-                    </div>
-                    
-                    {/* Donate Button */}
-                    <button 
-                      className=" py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300"
-                      style={{
-                        backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
-                        borderColor: hoveredCard === card.id ? '#000000' : '#1a2d29ff',
-                        color: hoveredCard === card.id ? 'white' : '#122F2A',
-                        transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
-                        boxShadow: hoveredCard === card.id 
-                          ? '0 4px 12px rgba(34, 197, 94, 0.3)'
-                          : 'none',
-                        transition: 'all 0.3s ease'
-                      }}
-                    >
-                      Donate Now
-                    </button>
                   </div>
                 </div>
               </SwiperSlide>
@@ -315,7 +331,7 @@ const HelpAndDonate: React.FC = () => {
           </Swiper>
 
           {/* Carousel Indicators - 8 dots */}
-          <div className="flex justify-center mt-8 space-x-2">
+          <div className="flex justify-center mt-6 md:mt-8 space-x-1.5 md:space-x-2">
             {Array.from({ length: 8 }, (_, index) => (
               <button
                 key={index}
@@ -324,20 +340,32 @@ const HelpAndDonate: React.FC = () => {
                     swiperRef.current.slideTo(index);
                   }
                 }}
-                className={`w-3 h-3 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 ${
-                  activeIndex === index 
-                    ? 'bg-gradient-to-br from-green-600 to-dark-green shadow-lg'
-                    : 'bg-gray-300 hover:bg-gray-400'
-                }`}
+                className="w-4 h-4 md:w-5 md:h-5 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 flex items-center justify-center"
                 style={{
                   transition: 'all 0.3s ease',
                   cursor: 'pointer',
-                  ...(activeIndex === index && {
-                    background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)',
-                    boxShadow: '0 2px 8px rgba(4, 107, 89, 0.3)'
+                  ...(activeIndex === index ? {
+                    border: '2px solid #046B59',
+                    backgroundColor: 'transparent'
+                  } : {
+                    border: 'none',
+                    backgroundColor: 'transparent'
                   })
                 }}
-              />
+              >
+                <div 
+                  className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
+                    activeIndex === index 
+                      ? 'bg-gradient-to-br from-green to-dark-green'
+                      : 'bg-gray-300 hover:bg-gray-400'
+                  }`}
+                  style={{
+                    ...(activeIndex === index && {
+                      background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)'
+                    })
+                  }}
+                />
+              </button>
             ))}
           </div>
         </div>
