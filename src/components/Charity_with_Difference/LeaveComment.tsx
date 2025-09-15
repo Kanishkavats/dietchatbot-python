@@ -10,9 +10,9 @@ export default function LeaveComment() {
     <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
       <h2 className="text-xl sm:text-2xl font-bold text-black mb-6">Leave A Comment</h2>
       <form className="space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-1">
           <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-            <FaUser size={18} />
+            <FaUser className="text-[#6B7280]"size={18} />
             <input
               type="text"
               placeholder="Your Name"
@@ -20,7 +20,7 @@ export default function LeaveComment() {
             />
           </div>
           <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-            <FaEnvelope className="text-xl mt-1" />
+            <FaEnvelope className="text-xl mt-1 text-[#6B7280]" />
             <input
               type="email"
               placeholder="Enter Email"
@@ -30,7 +30,7 @@ export default function LeaveComment() {
         </div>
 
         <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[656px] lg:h-[184px] lg:px-5 lg:py-3">
-          <FaComment size={18} />
+          <FaComment className="text-[#6B7280]"size={18} />
           <textarea
             placeholder="Type Your Comments..."
             className="w-full bg-transparent focus:outline-none resize-none ml-2"
@@ -45,5 +45,7 @@ export default function LeaveComment() {
         </button>
       </form>
     </div>
+    
+
   );
 }

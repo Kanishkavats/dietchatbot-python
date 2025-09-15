@@ -8,7 +8,8 @@ export default function TagsSection() {
         {charityTags.map((tag, index) => (
           <button
             key={index}
-            className="px-3 py-2 bg-gray-100 text-gray-700 rounded-lg text-sm hover:bg-gray-200 transition-colors"
+            
+            className="bg-white text-gray-700 px-4 py-2 rounded shadow-sm cursor-pointer hover:bg-[#FBBF24] hover:text-white transition"
           >
             {tag}
           </button>
