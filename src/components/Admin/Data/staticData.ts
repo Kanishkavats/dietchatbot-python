@@ -11,45 +11,10 @@ export interface Campaign {
   status: string;
   startDate: string;
   endDate: string;
-  images?: (string | File)[]; // will send from frontend
-  imageUrl?: string[]; // will come from backend
+  images?: (string | File)[];
+  imageUrl?: string[]; 
   location: string;
 }
-
-export const initialCampaigns: Campaign[] = [
-  {
-    id: 1,
-    title: "Food for Flood Victims",
-    organizer: "Relief Org",
-    category: "Charity",
-    description: "Providing essential food supplies to flood victims.",
-    goalAmount: 50000,
-    raisedAmount: 32000,
-    summary: "A campaign to help flood-affected families.",
-    keyPoints: JSON.stringify(["Immediate relief", "Community support"]),
-    status: "Active",
-    startDate: "2025-09-01",
-    endDate: "2025-09-30",
-    images: [""],
-    location: "New York, USA",
-  },
-  {
-    id: 2,
-    title: "School Supplies Drive",
-    organizer: "Community Helpers",
-    category: "Education",
-    description: "Distributing school supplies to underprivileged children.",
-    goalAmount: 20000,
-    raisedAmount: 20000,
-    summary: "Helping kids get ready for school with proper supplies.",
-    keyPoints: JSON.stringify(["Notebooks", "Stationery kits"]),
-    status: "Completed",
-    startDate: "2025-08-01",
-    endDate: "2025-08-15",
-    images: [""],
-    location: "San Francisco, USA",
-  },
-];
 
 export const CampaignSearchOptions = [
   { label: "Title", value: "title" },
@@ -59,6 +24,35 @@ export const CampaignSearchOptions = [
 
 export const CategorySearchOptions = [
   { label: "Name", value: "name" },
+] as const;
+
+export interface Blog {
+  id: number;
+  title: string;
+  description: string;
+  summary: string;
+  quote: string;               
+  quoteAuthor: string;         
+  category: string;            
+  content: string;
+  author: string;
+  tags?: string[];             
+  keyPoints?: string[];        
+  location: string;
+  status: "draft" | "published" | "archived";
+  createdAt: string;
+  updatedAt?: string;
+  images?: (string | File)[];  
+  imageUrl?: string[];         
+}
+
+
+export const BlogSearchOptions = [
+  { label: "Title", value: "title" },
+  { label: "Category", value: "category" },
+  { label: "Location", value: "location" },
+  { label: "CreatedAt", value: "createdAt" },
+  { label: "UpdatedAt", value: "updatedAt" },
 ] as const;
 
 

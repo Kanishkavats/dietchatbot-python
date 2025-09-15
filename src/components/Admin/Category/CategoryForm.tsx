@@ -105,8 +105,10 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
                 <Button
                   type="submit"
                   disabled={isSubmitting || createMutation.isPending || updateMutation.isPending}
-                  rounded="rounded-md"
                   bgColor="bg-lime-green"
+                  paddingx="px-4"
+                  paddingy="py-2"
+                  rounded="rounded-[5px] "
                 >
                   {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
                     <ButtonLoader />
@@ -120,10 +122,12 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
                   type="button"
                   text="Cancel"
                   onClick={onClose}
-                  rounded="rounded-md"
                   bgColor="bg-gray-500"
                   hoverBg="before:bg-gray-700"
                   textColor="text-white"
+                  paddingx="px-4"
+                  paddingy="py-2"
+                  rounded="rounded-[5px] "
                 />
               </div>
             )}

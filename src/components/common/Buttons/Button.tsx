@@ -17,6 +17,8 @@ interface DynamicButtonProps {
   disabled?: boolean;
   children?: React.ReactNode;
   rounded?: string;
+  paddingx?: string;
+  paddingy?: string;
 }
 
 
@@ -32,6 +34,8 @@ const Button: React.FC<DynamicButtonProps> = ({
   disabled = false,
   children,
   rounded = "rounded-full",
+  paddingx = "px-10",
+  paddingy = "py-4",
 }) => {
   const iconControls = useAnimationControls();
 
@@ -52,8 +56,8 @@ const Button: React.FC<DynamicButtonProps> = ({
           transition: { duration: 0.4, ease: "easeInOut" },
         },
       }}
-      className={`w-full relative px-10 py-4 cursor-pointer font-semibold font-nunito
-        ${bgColor} ${textColor}  ${rounded}
+      className={`w-full relative  cursor-pointer font-semibold font-nunito
+        ${bgColor} ${textColor}  ${rounded} ${paddingx} ${paddingy}
         overflow-hidden group
         before:content-[''] before:absolute before:inset-0 ${hoverBg} 
         before:transition-transform before:duration-500 

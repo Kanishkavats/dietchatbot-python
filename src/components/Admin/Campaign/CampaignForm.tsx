@@ -241,7 +241,9 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                   <Button
                     type="submit"
                     disabled={isSubmitting || createMutation.isPending || updateMutation.isPending}
-                    rounded="rounded-md"
+                    paddingx="px-4"
+                    paddingy="py-2"
+                    rounded="rounded-[5px] "
                     bgColor="bg-lime-green"
                   >
                     {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
@@ -256,10 +258,12 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                     type="button"
                     text="Cancel"
                     onClick={onClose}
-                    rounded="rounded-md"
                     bgColor="bg-gray-500"
                     hoverBg="before:bg-gray-700"
                     textColor="text-white"
+                    paddingx="px-4"
+                    paddingy="py-2"
+                    rounded="rounded-[5px] "
                   />
                 </div>
               )}

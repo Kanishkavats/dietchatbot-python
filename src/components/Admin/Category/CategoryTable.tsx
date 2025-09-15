@@ -12,7 +12,8 @@ import CategoryForm from "./CategoryForm";
 import TableRowActions from "../Campaign/CampaignActions";
 import { useFetchCategory, useDeleteCategory } from "@/src/hooks/useCategory";
 import { CategoryColumnCallbacks } from "@/src/types/campaign";
-import { Category } from "@/src/services/categoryApi";
+import { Category } from "@/src/types/category";
+import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 // Column generator similar to getCampaignColumns
 export const getCategoryColumns = ({
@@ -20,22 +21,22 @@ export const getCategoryColumns = ({
   onDelete,
   onView,
 }: CategoryColumnCallbacks) => [
-  { name: "SNo", cell: (_row: Category, index: number) => index + 1, width: "80px" },
-  { name: "Name", selector: (row: Category) => row.name, sortable: true },
-  {
-    name: "Actions",
-    cell: (row: Category) => (
-      <TableRowActions
-        row={row}
-        actions={[
-          { label: "View Category", icon: <FaEye />, onClick: onView, colorClass: "text-blue-500 hover:text-blue-700" },
-          { label: "Edit Category", icon: <FaEdit />, onClick: onEdit, colorClass: "text-green-500 hover:text-green-700" },
-          { label: "Delete Category", icon: <FaTrash />, onClick: onDelete, colorClass: "text-red-500 hover:text-red-700" },
-        ]}
-      />
-    ),
-  },
-];
+    { name: "SNo", cell: (_row: Category, index: number) => index + 1, width: "80px" },
+    { name: "Name", selector: (row: Category) => row.name, sortable: true },
+    {
+      name: "Actions",
+      cell: (row: Category) => (
+        <TableRowActions
+          row={row}
+          actions={[
+            { label: "View Category", icon: <FaEye />, onClick: onView, colorClass: "text-blue-500 hover:text-blue-700" },
+            { label: "Edit Category", icon: <FaEdit />, onClick: onEdit, colorClass: "text-green-500 hover:text-green-700" },
+            { label: "Delete Category", icon: <FaTrash />, onClick: onDelete, colorClass: "text-red-500 hover:text-red-700" },
+          ]}
+        />
+      ),
+    },
+  ];
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");
@@ -84,32 +85,40 @@ const CategoryTable = () => {
     <div>
       {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-        <div className="w-fit flex flex-col sm:flex-row gap-2">
-          <Dropdown options={CategorySearchOptions} value={searchField} onChange={setSearchField} />
-          <CustomInput
-            placeholder={`Search by ${searchField}...`}
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-        </div>
-        <div className="w-fit">
-          <Button
-            text="Add Category"
-            onClick={() => {
-              setDrawerOpen(true);
-              setEditCategory(null);
-              setMode("add");
-            }}
-            bgColor="bg-lime-green"
-            hoverBg="before:bg-primaryColor"
-            textColor="text-white"
-            hoverTextColor="group-hover:text-foreground"
-          />
-        </div>
+        <AnimatedReveal direction="left" delay={0.1}>
+
+          <div className="w-fit flex flex-col sm:flex-row gap-2">
+            <Dropdown options={CategorySearchOptions} value={searchField} onChange={setSearchField} />
+            <CustomInput
+              placeholder={`Search by ${searchField}...`}
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+        </AnimatedReveal>
+        <AnimatedReveal direction="left" delay={0.3}>
+          <div className="w-fit">
+            <Button
+              text="Add Category"
+              onClick={() => {
+                setDrawerOpen(true);
+                setEditCategory(null);
+                setMode("add");
+              }}
+              bgColor="bg-lime-green"
+              hoverBg="before:bg-primaryColor"
+              textColor="text-white"
+              hoverTextColor="group-hover:text-foreground"
+              paddingx="px-4"
+              paddingy="py-2"
+              rounded="rounded-[5px] "
+            />
+          </div>
+        </AnimatedReveal>
       </div>
 
       {/* Data table */}
-      <DataTableWrapper columns={columns} data={filteredData} pagination />
+      <DataTableWrapper columns={columns} data={filteredData} />
 
       {/* Drawer */}
       <Drawer

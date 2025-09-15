@@ -19,6 +19,24 @@ export const sidebarAd = [
     link: "/admin/dashboard",
 },
 {
+    icon: MdCampaign ,
+    lable: "Campaign",
+    nav: "campaign",
+    link: "/admin/campaign",
+  },
+{
+    icon: MdCategory  ,
+    lable: "Category",
+    nav: "category",
+    link: "/admin/category",
+  },
+{
+    icon: FaBloggerB,
+    lable: "Blog",
+    nav: "blog",
+    link: "/admin/blog",
+  },
+{
     icon: MdNotificationsActive,
     lable: "Notifications",
     nav: "notifications",
@@ -48,22 +66,5 @@ export const sidebarAd = [
     nav: "settings",
     link: "/admin/settings",
   },
-{
-    icon: MdCampaign ,
-    lable: "Campaign",
-    nav: "campaign",
-    link: "/admin/campaign",
-  },
-{
-    icon: MdCategory  ,
-    lable: "Category",
-    nav: "category",
-    link: "/admin/category",
-  },
-{
-    icon: FaBloggerB,
-    lable: "Blog",
-    nav: "blog",
-    link: "/admin/blog",
-  },
+
 ];

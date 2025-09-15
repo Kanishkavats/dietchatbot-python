@@ -9,3 +9,8 @@ export interface CategoryColumnCallbacks {
   onDelete: (category: Category) => void;
   onView: (category: Category) => void;
 }
+
+export interface Category {
+  id: string;
+  name: string;
+}
