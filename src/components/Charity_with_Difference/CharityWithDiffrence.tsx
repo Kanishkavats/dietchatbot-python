@@ -12,6 +12,7 @@ import 'swiper/css/pagination';
 import CharityCard from './CharityCard';
 import { charityCards } from '../../staticResource';
 
+
 export default function CharityWithDifference() {
   // Animation refs
   const headerRef = useRef(null);

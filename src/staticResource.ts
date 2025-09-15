@@ -424,7 +424,7 @@ export const comments: Comment[] = [
     name: "Martha Grey",
     avatar: "/assets/author-four.png",
     content:
-      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In, \nImperdiet Assueverit Contentiones, An His Cib.",
     time: "2 Min Ago",
   },
   {
@@ -432,7 +432,7 @@ export const comments: Comment[] = [
     name: "Jackie Dawson",
     avatar: "/assets/author.png",
     content:
-      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In \nImperdiet Assueverit Contentiones, An His Cib.",
     time: "2 Min Ago",
   },
   {
@@ -440,7 +440,7 @@ export const comments: Comment[] = [
     name: "Hesia Lara",
     avatar: "/assets/author-two.png",
     content:
-      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+      "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In \nImperdiet Assueverit Contentiones, An His Cib.",
     time: "2 Min Ago",
   },
 ];
@@ -564,21 +564,21 @@ export const charityComments: CharityComment[] = [
     id: 1,
     name: "Martha Grey",
     image: "/assets/charity_with_difference/author-four.png",
-    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In \nImperdiet Assueverit Contentiones, An His Cib",
     timeAgo: "2 Min Ago"
   },
   {
     id: 2,
     name: "Jackie Dawson",
     image: "/assets/charity_with_difference/one-author.png",
-    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In \nImperdiet Assueverit Contentiones, An His Cib.",
     timeAgo: "5 Min Ago"
   },
   {
     id: 3,
     name: "Hesia Lara",
     image: "/assets/charity_with_difference/author-two.png",
-    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In Imperdiet Assueverit Contentiones, An His Cib.",
+    comment: "Ut Sint Posse Sit, Eum Sumo Diam Ea. Liber Consectetuer In Mei, Sea In \nImperdiet Assueverit Contentiones, An His Cib.",
     timeAgo: "10 Min Ago"
   }
 ];
