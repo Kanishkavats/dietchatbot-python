@@ -13,8 +13,8 @@ const CauseCard = ({ cause }: { cause: Cause }) => (
       <Image src={cause.image} alt={cause.title} fill className="object-cover" />
     </div>
     <div>
-      <div className="flex items-center text-[var(--gray-500)] text-sm gap-1">
-        <Icon icon="mdi:calendar" className=" text-[var(--gray-500)]" />
+      <div className="flex items-center text-gray-500 text-sm gap-1">
+        <Icon icon="mdi:calendar" className=" text-gray-500" />
         <span>{cause.date}</span>
       </div>
       <h4 className="font-medium text-[19px] pt-3 text-black hover:text-green-600">

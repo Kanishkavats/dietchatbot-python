@@ -11,6 +11,7 @@ import { useRouter, usePathname } from "next/navigation";
 import Cookies from "js-cookie";
 import Loader from "../components/common/Loader";
 import { Toaster } from "react-hot-toast";
+import CustomCursor from "../components/CustomCursor/CustomCursor";
 
 export default function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -58,8 +59,8 @@ export default function Providers({ children }: { children: ReactNode }) {
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeApplier />
-
-        {loading ? <Loader /> :<>
+        <CustomCursor />
+        {loading ? <Loader /> : <>
           {showLayout ? (
             <>
               {!hideHeaderFooter && (
@@ -79,7 +80,7 @@ export default function Providers({ children }: { children: ReactNode }) {
           )}
         </>
         }
-       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       </QueryClientProvider>
     </Provider>
   );

@@ -6,10 +6,10 @@ import LatestNews from "@/src/components/Latestnews";
 export default function NewsPage() {
   return (
     <>
-          <ChildrenNeed/>
+      <ChildrenNeed />
       <LatestNews />
-      
-      
+
+
     </>
   );
 }

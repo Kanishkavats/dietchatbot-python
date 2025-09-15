@@ -7,6 +7,7 @@ import { bannerOne, bannerTwo, horizontalWhiteShape, spradeBase, verticleYellowS
 import Button from "../../common/Buttons/Button";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import Image from "next/image";
+import { pageBannerBackgourndColor } from "../../common/PageBanner";
 
 const images = [bannerOne.src, bannerTwo.src];
 
@@ -68,10 +69,7 @@ export default function HeroStaticSlider() {
       {/*  Text Overlay */}
       <div
         className="absolute inset-0  flex flex-col justify-center items-start px-10 lg:px-20 z-20 font-nunito"
-        style={{
-          background:
-            "linear-gradient(to right, color-mix(in srgb, var(--dark-green) 90%, transparent), color-mix(in srgb, var(--foreground) 50%, transparent), color-mix(in srgb, var(--foreground) 0%, transparent))",
-        }}
+        style={pageBannerBackgourndColor}
       >
         <AnimatedReveal
           key={index}
@@ -80,7 +78,7 @@ export default function HeroStaticSlider() {
           duration={1}
           className="space-y-6"
         >
-          <p className="text-[var(--yellow)] font-medium flex items-center gap-2 font-caveat">
+          <p className="text-yellow font-medium flex items-center gap-2 font-caveat">
             <Icon icon="mdi:hand-heart" className="text-2xl cursor-pointer" />
             Start Donating Poor People
           </p>
@@ -92,10 +90,10 @@ export default function HeroStaticSlider() {
           <div className="flex flex-wrap md:flex-nowrap gap-4 mt-6 w-fit">
             <Button
               text="Discover More"
-              textColor="text-[var(--green)]"
-              bgColor="bg-[var(--dark-green)]/30"
-              hoverBg="before:bg-[var(--yellow)]"
-              hoverTextColor="text-[var(--foreground)]"
+              textColor="text-white"
+              bgColor="bg-black/30"
+              hoverBg="before:bg-yellow"
+              hoverTextColor="group-hover:text-foreground"
             />
             <Button text="Get A Quote" />
           </div>
@@ -105,13 +103,13 @@ export default function HeroStaticSlider() {
         <div className="absolute right-22 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-4 z-30 ">
           <button
             onClick={handlePrev}
-            className="w-12 h-12 cursor-pointer rounded-full bg-[var(--dark-green)] flex items-center justify-center text-white shadow-md hover:scale-105 hover:bg-[var(--yellow)] transition"
+            className="w-12 h-12 cursor-pointer rounded-full bg-dark-green flex items-center justify-center text-white shadow-md hover:scale-105 hover:bg-yellow transition"
           >
             <Icon icon="mdi:chevron-left" className="text-2xl" />
           </button>
           <button
             onClick={handleNext}
-            className="w-12 h-12 rounded-full bg-[var(--yellow)] cursor-pointer flex items-center justify-center text-white shadow-md hover:scale-105 hover:bg-[var(--dark-green)] transition"
+            className="w-12 h-12 rounded-full bg-yellow cursor-pointer flex items-center justify-center text-white shadow-md hover:scale-105 hover:bg-dark-green transition"
           >
             <Icon icon="mdi:chevron-right" className="text-2xl" />
           </button>

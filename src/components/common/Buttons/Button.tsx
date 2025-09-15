@@ -57,7 +57,7 @@ const Button: React.FC<DynamicButtonProps> = ({
         },
       }}
       className={`w-full relative  cursor-pointer font-semibold font-nunito
-        ${bgColor} ${textColor}  ${rounded} ${paddingx} ${paddingy}
+        ${bgColor}   ${rounded} ${paddingx} ${paddingy} 
         overflow-hidden group
         before:content-[''] before:absolute before:inset-0 ${hoverBg} 
         before:transition-transform before:duration-500 
@@ -65,7 +65,7 @@ const Button: React.FC<DynamicButtonProps> = ({
         ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
     >
       <div
-        className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${hoverTextColor} 
+        className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${textColor} ${hoverTextColor} 
         whitespace-nowrap`}
       >
         {children ? (

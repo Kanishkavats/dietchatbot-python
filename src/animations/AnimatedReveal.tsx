@@ -1,6 +1,7 @@
 "use client";
 import { motion, MotionProps } from "framer-motion";
-import { ReactNode } from "react";
+import { ReactNode, useRef } from "react";
+import { useInView } from "framer-motion";
 
 interface AnimatedRevealProps extends MotionProps {
   children: ReactNode;
@@ -8,16 +9,10 @@ interface AnimatedRevealProps extends MotionProps {
   direction?: "up" | "down" | "left" | "right";
   duration?: number;
   delay?: number;
-  distance?: number; // 👈 NEW: how far to slide before appearing
+  distance?: number;
+  once?: boolean; 
 }
 
-/**
- * Reusable animation wrapper.
- * - direction: sets slide direction
- * - distance: how far it slides (default 40px)
- * - duration & delay: control speed
- * - fully accepts MotionProps overrides
- */
 const AnimatedReveal = ({
   children,
   className = "",
@@ -25,12 +20,15 @@ const AnimatedReveal = ({
   duration = 0.6,
   delay = 0,
   distance = 40,
+  once = true,
   initial,
   animate,
   transition,
   ...rest
 }: AnimatedRevealProps) => {
-  // ✅ Dynamic variants based on direction + distance
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once });
+
   const variants: Record<string, any> = {
     up: { opacity: 0, y: distance },
     down: { opacity: 0, y: -distance },
@@ -40,11 +38,14 @@ const AnimatedReveal = ({
 
   return (
     <motion.div
+      ref={ref}
       initial={initial || variants[direction]}
       animate={
-        typeof animate === "object"
-          ? { opacity: 1, x: 0, y: 0, ...animate }
-          : { opacity: 1, x: 0, y: 0 }
+        isInView
+          ? typeof animate === "object"
+            ? { opacity: 1, x: 0, y: 0, ...animate }
+            : { opacity: 1, x: 0, y: 0 }
+          : undefined
       }
       transition={transition || { duration, delay, ease: "easeOut" }}
       className={className}

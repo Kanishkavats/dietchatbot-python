@@ -23,20 +23,20 @@ const Notice: React.FC<NoticeProps> = ({
 }) => {
   return (
     <div
-      className={`xl:px-15 max-w-[35rem] flex items-center relative p-3 border border-[var(--gray-200)] bg-[var(--yellow)]/8 rounded xl:rounded-full shadow-sm ${wrapperClassName}`}
+      className={`xl:px-15 max-w-[35rem] flex items-center relative p-3 border border-gray-200 bg-yellow/8 rounded xl:rounded-full shadow-sm ${wrapperClassName}`}
     >
       {/* Icon section (only visible on xl) */}
       <div
-        className={`h-full w-[4px] absolute top-0 left-10 hidden xl:flex justify-center items-center bg-[var(--dark-green)] ${iconWrapperClassName}`}
+        className={`h-full w-[4px] absolute top-0 left-10 hidden xl:flex justify-center items-center bg-dark-green ${iconWrapperClassName}`}
       >
-        <span className={`text-lg text-[var(--yellow)] ${iconClassName}`}>
+        <span className={`text-lg text-yellow ${iconClassName}`}>
           {icon}
         </span>
       </div>
 
       {/* Text */}
-      <p className={`text-[15px] text-[var(--gray-green)] ${messageClassName}`}>
-        <strong className={`font-semibold text-[var(--foreground)] ${titleClassName}`}>
+      <p className={`text-[15px] text-gray-green ${messageClassName}`}>
+        <strong className={`font-semibold text---foreground ${titleClassName}`}>
           {title}:
         </strong>{" "}
         {message}
