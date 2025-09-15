@@ -1,10 +1,7 @@
 // src/services/categoryApi.ts
 import api from "./api";
 
-export interface Category {
-  id: string;
-  name: string;
-}
+
 
 // ✅ Fetch all categories
 export const fetchCategory = async () => {

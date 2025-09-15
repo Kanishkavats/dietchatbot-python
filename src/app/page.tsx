@@ -14,8 +14,6 @@ import LatestNewsArticle from '../components/LatestNewsArticle';
 import CustomCursor from '../components/CustomCursor/CustomCursor';
 
 
-
-
 export default function Page() {
   return (
     <div>

@@ -1,0 +1,91 @@
+"use client";
+import React, { useState, useEffect } from "react";
+import { IoMdClose } from "react-icons/io";
+import CustomInput from "../../Admin/Common/CustomInput";
+
+interface MultiInputListProps {
+  label: string;
+  values: string[];
+  onChange: (items: string[]) => void;
+  placeholder?: string;
+  isView?: boolean;
+  colorClass?: { normal: string; view: string }; // optional styling
+}
+
+const MultiInputList: React.FC<MultiInputListProps> = ({
+  label,
+  values,
+  onChange,
+  placeholder,
+  isView = false,
+  colorClass = { normal: "bg-lime-200 text-lime-800", view: "bg-gray-100 text-gray-600" },
+}) => {
+  const [inputValue, setInputValue] = useState("");
+
+  const addItem = () => {
+    const trimmed = inputValue.trim();
+    if (trimmed && !values.includes(trimmed)) {
+      onChange([...values, trimmed]);
+    }
+    setInputValue("");
+  };
+
+  const removeItem = (item: string) => {
+    onChange(values.filter((v) => v !== item));
+  };
+
+const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    addItem();
+  }
+};
+
+
+  return (
+    <div className="flex flex-col gap-2">
+      <label className="font-medium">{label}</label>
+      {!isView && (
+        <div className="flex gap-2 items-center">
+          <CustomInput
+            placeholder={placeholder || `Add ${label.toLowerCase()}`}
+            value={inputValue}
+            onChange={(e) => setInputValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="flex-1"
+          />
+          <button
+            type="button"
+            onClick={addItem}
+            className="bg-primaryColor cursor-pointer text-white px-3 py-2 rounded-md"
+          >
+            Add
+          </button>
+        </div>
+      )}
+      <div className="flex flex-wrap gap-2 mt-2">
+        {values.map((item) => (
+          <span
+            key={item}
+            className={`flex items-center gap-1 px-2 py-1 rounded-md text-sm ${
+              isView ? colorClass.view : colorClass.normal
+            }`}
+          >
+            {item}
+            {!isView && (
+              <button
+                type="button"
+                onClick={() => removeItem(item)}
+                className="text-red font-bold ml-1"
+              >
+                <IoMdClose />
+              </button>
+            )}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+export default MultiInputList;

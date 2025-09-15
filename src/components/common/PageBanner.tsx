@@ -5,8 +5,8 @@ import { PageBannerProps } from "@/src/types/hero";
 import { horizontalWhiteShape, spradeBase } from "@/public/assets";
 import PulsingImage from "./PulsingImage";
 
-export const  pageBannerBackgourndColor ={
-         background: `
+export const pageBannerBackgourndColor = {
+  background: `
   linear-gradient(
     to right,
     color-mix(in srgb, theme(colors.dark-green) 100%, theme(colors.dark-green)),
@@ -15,8 +15,7 @@ export const  pageBannerBackgourndColor ={
     color-mix(in srgb, theme(colors.foreground) 0%, transparent)
   )
 `
-,
-        }
+}
 const PageBanner: React.FC<PageBannerProps> = ({
   bgImage,
   smallIcon = "mdi:gift-outline",

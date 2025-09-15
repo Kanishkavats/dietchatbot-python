@@ -9,8 +9,9 @@ interface DrawerProps {
   onClose: () => void;
   children: ReactNode;
   title?: string;
-  width?: string;
+  width?: string; // max width for large screens
   className?: string;
+  mobileFullScreen?: boolean; // optional: make full width on mobile
 }
 
 const Drawer: React.FC<DrawerProps> = ({
@@ -20,6 +21,7 @@ const Drawer: React.FC<DrawerProps> = ({
   title,
   width = "400px",
   className = "",
+  mobileFullScreen = true,
 }) => {
   return (
     <AnimatePresence>
@@ -28,7 +30,7 @@ const Drawer: React.FC<DrawerProps> = ({
           {/* Overlay */}
           <motion.div
             key="overlay"
-            className="fixed inset-0 bg-black bg-opacity-40 z-40 "
+            className="fixed inset-0 bg-black bg-opacity-40 z-40"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
@@ -38,25 +40,26 @@ const Drawer: React.FC<DrawerProps> = ({
           {/* Drawer panel */}
           <motion.div
             key="drawer"
-            className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50   overflow-auto ${className}`}
-            style={{ width }}
+            className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50 overflow-auto
+              ${className}
+              w-full sm:w-[${width}] ${mobileFullScreen ? "sm:w-[400px]" : ""}`}
+            style={{ maxWidth: width }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
             transition={{ type: "tween", duration: 0.3 }}
           >
-            <div className="flex items-center justify-between px-6 py-4 sticky top-0  mb-6 border-b border-gray-200 bg-primaryColor  z-3">
-              <h2 className="text-xl font-semibold text-foreground  ">
-                {title}
-              </h2>
-
-              <IoClose className="cursor-pointer font-bold size-7" onClick={onClose} />
+            {/* Header */}
+            <div className="flex items-center justify-between px-6 py-4 sticky top-0 bg-primaryColor border-b border-gray-200 z-10">
+              {title && <h2 className="text-xl font-semibold text-foreground">{title}</h2>}
+              <IoClose
+                className="cursor-pointer w-6 h-6 text-foreground"
+                onClick={onClose}
+              />
             </div>
 
-            <div className="px-6 z-2">
-
-              {children}
-            </div>
+            {/* Content */}
+            <div className="px-6 py-4">{children}</div>
           </motion.div>
         </>
       )}

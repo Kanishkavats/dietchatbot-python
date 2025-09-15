@@ -1,15 +1,21 @@
-import React from 'react'
-import Breadcrumb from '../Breadcrumb'
+"use client";
 
-const Blog = () => {
-    return (
-        <div>
-            <Breadcrumb lable="Blog" />
-            <section className='mt-5'>
-                
-            </section>
-        </div>
-    )
-}
+import React, { useState, useMemo, useCallback } from "react";
+import Breadcrumb from "../Breadcrumb";
+import BlogTable from "./BlogTable";
 
-export default Blog
+const BlogPage = () => {
+
+
+
+  return (
+    <div>
+      <Breadcrumb lable="Blog" />
+      <section className='mt-5'>
+        <BlogTable />
+      </section>
+    </div>
+  );
+};
+
+export default BlogPage;

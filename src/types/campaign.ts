@@ -1,6 +1,6 @@
 import { Campaign } from "../components/Admin/Data/staticData";
-import { Category } from "../services/categoryApi";
 import { CampaignFormValues, CategoryFormValues } from "../utils/validations/FormValidation";
+import { Category } from "./category";
 
 export interface CampaignFormProps {
   initialData?: Partial<CampaignFormValues> & Partial<Campaign>;

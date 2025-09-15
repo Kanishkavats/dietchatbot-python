@@ -22,8 +22,6 @@ const Dropdown = <T extends string | number>({
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  console.log(value)
-  
   // Close dropdown on outside click
   useEffect(() => {
     if (disabled) return;
