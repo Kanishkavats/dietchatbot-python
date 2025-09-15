@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function CallToAction() {
   return (
-    <div className="relative h-[400px] bg-gradient-to-br from-blue-900 to-blue-800 rounded-lg shadow-md overflow-hidden">
+    <div className="relative h-[400px]  rounded-lg shadow-md overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
@@ -12,7 +12,7 @@ export default function CallToAction() {
           className="object-cover"
         />
         {/* Dark overlay */}
-        <div className="absolute inset-0 bg-black/60"></div>
+        <div className="absolute inset-0 "></div>
       </div>
 
       <div className="relative z-10 flex flex-col items-center justify-center h-full text-center p-6">

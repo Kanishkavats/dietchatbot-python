@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Notice from "../../common/Notice";
 import DonationInput from "../../DonateUs/DonationInput";
 import RadioGroup from "../../common/radio/RadioGroup";
@@ -17,6 +18,11 @@ const Community = () => {
     const [amount, setAmount] = useState<string>("50");
     const [method, setMethod] = useState("test");
     const presetAmounts = [20, 50, 100, 200];
+    const router = useRouter();
+
+    const handleDonateNow = () => {
+        router.push('/donate-us');
+    };
 
     return (
         <section
@@ -95,7 +101,7 @@ const Community = () => {
                         </div>
                         <div className="w-fit">
 
-                            <Button text="Donate Now" />
+                            <Button text="Donate Now" onClick={handleDonateNow} />
                         </div>
                     </div>
                     <motion.div

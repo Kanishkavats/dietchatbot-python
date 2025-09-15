@@ -3,6 +3,7 @@
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const BecomeVolunteer: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -10,9 +11,12 @@ const BecomeVolunteer: React.FC = () => {
   const rightPanelRef = useRef(null);
   const leftPanelInView = useInView(leftPanelRef, { once: true });
   const rightPanelInView = useInView(rightPanelRef, { once: true });
+  const router = useRouter();
 
   const openVideoModal = () => setIsVideoModalOpen(true);
   const closeVideoModal = () => setIsVideoModalOpen(false);
+  const handleDonateNow = () => router.push("/donate-us");
+  const handleContactNow = () => router.push("/volunteer");
 
   return (
     <section className="relative w-full lg:h-[500px] md:h-auto h-auto overflow-hidden lg:px-0 md:px-4 px-4">
@@ -75,6 +79,7 @@ const BecomeVolunteer: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+              onClick={handleContactNow}
             >
               Contact Now
             </motion.button>
@@ -193,6 +198,7 @@ const BecomeVolunteer: React.FC = () => {
               initial={{ opacity: 0 }}
               animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
+              onClick={handleDonateNow}
             >
               Donate Now
             </motion.button>

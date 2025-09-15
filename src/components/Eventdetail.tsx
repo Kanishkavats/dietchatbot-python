@@ -136,7 +136,8 @@ export default function BlogPage() {
                     key={comment.id}
                     className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
                   >
-                    <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-yellow-300">
+                    <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400  p-1 bg-white">
+                     
                       <Image
                         src={comment.avatar}
                         alt={comment.name}
@@ -147,7 +148,7 @@ export default function BlogPage() {
                     </div>
                     <div className="flex-1">
                       <h5 className="text-lg sm:text-xl font-bold font-nunito">{comment.name}</h5>
-                      <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug">
+                      <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug whitespace-pre-line">
                         {comment.content}
                       </p>
                       <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
@@ -170,7 +171,7 @@ export default function BlogPage() {
               <form className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-                    <FaUser size={18} />
+                    <FaUser className="text-[#6B7280]" size={18} />
                     <input
                       type="text"
                       placeholder="Your Name"
@@ -178,7 +179,7 @@ export default function BlogPage() {
                     />
                   </div>
                   <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-                    <FaEnvelope className="text-xl mt-1" />
+                    <FaEnvelope className="text-xl mt-1 text-[#6B7280]" />
                     <input
                       type="email"
                       placeholder="Enter Email"
@@ -188,7 +189,7 @@ export default function BlogPage() {
                 </div>
 
                 <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[656px] lg:h-[184px] lg:px-5 lg:py-3">
-                  <FaComment size={18} />
+                  <FaComment className="text-[#6B7280]" size={18} />
                   <textarea
                     placeholder="Type Your Comments..."
                     className="w-full bg-transparent focus:outline-none resize-none ml-2"
@@ -234,7 +235,7 @@ export default function BlogPage() {
                         className="object-cover rounded-lg"
                       />
                     </div>
-                     <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0">
                       <p className="text-xs sm:text-sm text-[#6B7280] mb-1">
                         <IoCalendarSharp className="inline-block mr-1" />
                         {post.date}
@@ -278,7 +279,7 @@ export default function BlogPage() {
                 <h3 className="text-lg sm:text-2xl font-bold mb-4 sm:mb-6 leading-tight">
                   Education Health For Every Child
                 </h3>
-                <button className="px-4 sm:px-6 py-2 sm:py-3 bg-text-[#FFC107] text-black-800 font-semibold rounded-lg hover:bg-[#FFC107] transition-colors">
+                <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#FFC107] text-black-800 font-semibold rounded-lg hover:bg-[#122F2A] transition-colors">
                   Get A Quote →
                 </button>
               </div>

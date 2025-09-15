@@ -1,14 +1,16 @@
 import Image from 'next/image';
-import { charityRecentPosts } from '../../staticResource';
+import { recentPosts } from '../../staticResource';
+import { IoCalendarSharp } from "react-icons/io5";
 
 export default function RecentPosts() {
   return (
-    <div className="bg-white rounded-lg shadow-md p-6">
-      <h3 className="text-xl font-bold text-gray-900 mb-4">Recent Posts</h3>
+    
+    <div className="bg-[#ffffff] rounded-lg shadow-md p-4 sm:p-6">
+      <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Recent Posts</h3>
       <div className="space-y-4">
-        {charityRecentPosts.map((post) => (
+        {recentPosts.map((post) => (
           <div key={post.id} className="flex items-start gap-3">
-            <div className="relative w-16 h-16 flex-shrink-0">
+            <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0">
               <Image
                 src={post.image}
                 alt={post.alt}
@@ -17,14 +19,20 @@ export default function RecentPosts() {
               />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-gray-500 mb-1">{post.date}</p>
-              <h4 className="text-sm font-medium text-gray-900 leading-tight">
+              
+              <p className="text-xs sm:text-sm text-[#6B7280] mb-1">
+                <IoCalendarSharp className="inline-block mr-1" />
+                {post.date}
+              </p>
+              <h4 className="text-sm sm:text-base font-bold text-gray-900 leading-tight">
                 {post.title}
               </h4>
             </div>
-          </div>
+        </div>
         ))}
       </div>
     </div>
+
+
   );
 }

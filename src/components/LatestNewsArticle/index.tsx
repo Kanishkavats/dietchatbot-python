@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import {
   FaUser,
@@ -60,10 +61,12 @@ const LatestNewsArticle: React.FC = () => {
           whileHover={{ scale: 1.1, rotate: -3 }}
           transition={{ duration: 0.4 }}
         />
-        <span className="absolute top-3 left-3 bg-[#064E3B] text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1">
-          <span className="text-xs">{categoryIcon}</span>
-          {category}
-        </span>
+        <Link href="/newslist">
+          <span className="absolute top-3 left-3 bg-[#064E3B] text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1 cursor-pointer hover:bg-[#046b59] transition-colors">
+            <span className="text-xs">{categoryIcon}</span>
+            {category}
+          </span>
+        </Link>
       </div>
 
       <div className="flex-1">
@@ -77,7 +80,9 @@ const LatestNewsArticle: React.FC = () => {
             Comments ({comments})
           </span>
         </div>
-        <h3 className="text-lg font-bold leading-snug mb-3 text-gray-800 group-hover:text-white transition-colors">{title}</h3>
+        <Link href="/newsdetails">
+          <h3 className="text-lg font-bold leading-snug mb-3 text-gray-800 group-hover:text-white transition-colors cursor-pointer hover:text-[#064E3B] group-hover:hover:text-white">{title}</h3>
+        </Link>
       </div>
 
       <div className="flex items-center gap-2 relative">
@@ -175,10 +180,12 @@ const LatestNewsArticle: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <button className="bg-[#ffc107] text-black px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 hover:bg-[var(--green)] hover:text-white transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-            View All
-            <FaArrowUp className="text-black hover:text-white transition-colors" />
-          </button>
+          <Link href="/newslist">
+            <button className="bg-[#ffc107] text-black px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 hover:bg-[var(--green)] hover:text-white transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
+              View All
+              <FaArrowUp className="text-black hover:text-white transition-colors" />
+            </button>
+          </Link>
         </motion.div>
 
         {/* Decorative dot */}

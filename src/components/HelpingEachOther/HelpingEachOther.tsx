@@ -51,12 +51,12 @@ export default function HelpingEachOther() {
         </div>
       )}
       <section className="help relative py-20 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-20 xl:px-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-8 xl:px-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-4 xl:gap-16 items-center">
             
             <div className="relative opacity-0 anim-fade-in-left">
              
-              <div className="hidden lg:block absolute left-0 top-40 -bottom-8 w-16 lg:w-16 xl:w-25 bg-[#046b59] rounded-3xl border-t-4 border-b-4 border-yellow-500 flex items-center justify-center z-20 transition-all duration-300">
+              <div className="hidden lg:block absolute left-0 top-50 -bottom-15 w-16 lg:w-16 xl:w-25 bg-[#046b59] rounded-3xl border-t-4 border-b-4 border-yellow-500 flex items-center justify-center z-20 transition-all duration-300">
                 <div
                   className="transform -rotate-90 text-white font-extrabold text-xl  whitespace-nowrap mt-80 px-2"
                   style={{
@@ -84,17 +84,9 @@ export default function HelpingEachOther() {
                 />
               </div>
              
-              <div className="hidden lg:block absolute left-0 lg:left-0 xl:left-2 top-0 bottom-0 flex flex-col justify-center gap-3 z-10">
-                {[...Array(8)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-2 h-2 bg-yellow rounded-full animate-pulse"
-                    style={{ animationDelay: `${i * 0.1}s` }}
-                  />
-                ))}
-              </div>
+ 
               
-              <div className="relative ml-0 md:ml-12 lg:ml-16 xl:ml-24">
+              <div className="relative ml-0 md:ml-16 lg:ml-8 xl:ml-28">
                
                 <div
                   className="hidden lg:block absolute -top-16 left-70 z-30 opacity-0 anim-fade-in-left"
@@ -116,8 +108,8 @@ export default function HelpingEachOther() {
              w-[300px] h-[350px] 
              sm:w-[350px] sm:h-[400px] 
              md:w-[380px] md:h-[450px] 
-             lg:w-[350px] lg:h-[400px]   /* more compact on 1024px */
-             xl:w-[575px] xl:h-[600px]  /* bigger only on desktop */
+             lg:w-[280px] lg:h-[340px]   /* more compact for 1024px */
+             xl:w-[500px] xl:h-[555px]  /* bigger only on desktop */
              mx-auto rounded-3xl border-8 md:border-12 border-white overflow-hidden shadow-2xl"
                   initial={{ opacity: 0, transform: "translateZ(0)" }}
                   animate={isThumbInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
@@ -151,11 +143,11 @@ export default function HelpingEachOther() {
                   </button>
                 </motion.div>
    
-                <div className="hidden md:block absolute -top-8 -left-16 lg:-left-16 xl:-left-24 w-44 h-44 lg:w-44 lg:h-44 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
+                <div className="hidden md:block absolute -top-6 -left-12 lg:-left-8 xl:-left-24 w-44 h-44 lg:w-36 lg:h-36 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-top 2section.png" alt="Community meal" fill className="object-cover" />
                 </div>
                 
-                <div className="hidden md:block absolute -bottom-8 -right-6 lg:-right-6 xl:-right-10 w-44 h-40 lg:w-44 lg:h-40 xl:w-56 xl:h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
+                <div className="hidden md:block absolute -bottom-16 -right-4 lg:-right-2 left-70 xl:-right-10 w-44 h-40 lg:w-36 lg:h-32 xl:w-56 xl:h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-bottom.png" alt="Smiling child" fill className="object-cover" />
                 </div>
               </div>
@@ -200,7 +192,7 @@ export default function HelpingEachOther() {
              
             </div>
            
-            <div className="relative opacity-0 anim-fade-in-right pl-0 md:pl-4 lg:pl-4 xl:pl-8" style={{ animationDelay: '0.2s' }}>
+            <div className="relative opacity-0 anim-fade-in-right pl-0 md:pl-4 lg:pl-0 xl:pl-8" style={{ animationDelay: '0.2s' }}>
               
               <div className="flex items-center gap-3 mb-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
@@ -210,7 +202,7 @@ export default function HelpingEachOther() {
               </div>
              
               <h2
-                className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up"
+                className="text-3xl sm:text-4xl lg:text-3xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up"
                 style={{ fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800' }}
               >
                 Helping Each Other Can Make <span className="text-yellow">World</span> Better
@@ -224,7 +216,7 @@ export default function HelpingEachOther() {
                 Leadership, Communication, Project Management, And Teamwork Skills.
               </p>
              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-10 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-4 mb-8">
                 
                 <div className="flex items-center gap-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.2s' }}>
                   <div className="w-24 h-24 rounded-lg flex items-center justify-center shadow-md">
@@ -274,7 +266,7 @@ export default function HelpingEachOther() {
                 </div>
               </div>
          
-              <div className="space-y-3 mb-8 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.6s' }}>
+              <div className="space-y-3 mb-15 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.6s' }}>
                 <div className="flex items-center gap-3 hover:translate-x-2 transition-transform duration-300">
                   <FaCheckCircle className="text-[#122F2A] w-5 h-5" />
                   <span className="text-[#122F2A]">Helped Fund 3,265 Project Powerful Corporate Poor.</span>
@@ -291,7 +283,7 @@ export default function HelpingEachOther() {
                 </div>
               </div>
             
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-3 lg:gap-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.8s' }}>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-3 lg:gap-2 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.8s' }}>
                
                 <button
                   onClick={handleMoreAboutUs}
@@ -307,7 +299,7 @@ export default function HelpingEachOther() {
                   More About Us
                 </button>
                 
-                <div className="flex items-center gap-3 sm:ml-6 hover:scale-105 transition-transform duration-300">
+                <div className="flex items-center gap-3 sm:ml-6 lg:ml-2 hover:scale-105 transition-transform duration-300">
                   <FiPhoneCall className="w-6 h-6 sm:w-7 sm:h-7 text-[#122F2A]" />
                   <div>
                     <p className="text-[#828A8D] text-[12px] sm:text-[14px] font-nunito leading-none mb-1">
