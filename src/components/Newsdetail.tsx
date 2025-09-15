@@ -53,8 +53,8 @@ export default function Newsdetail() {
                         </p>
                         <div className="bg-gray-100 p-6 border-l-4 border-green-600">
                             <p className="italic text-gray-700">
-                                "Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo
-                                Consequat Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse."
+                                Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo
+                                Consequat Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse. 
                             </p>
                             <div className="mt-4 flex justify-end">
                                 <span className="text-green-700 font-semibold">― Christian Bale</span>

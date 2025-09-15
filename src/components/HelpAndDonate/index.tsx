@@ -309,6 +309,10 @@ const HelpAndDonate: React.FC = () => {
                       
                       {/* Donate Button */}
                       <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          router.push('/donate-us');
+                        }}
                         className="w-full py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300 text-sm md:text-base"
                         style={{
                           backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
