@@ -50,7 +50,7 @@ export default function HelpingEachOther() {
           </div>
         </div>
       )}
-      <section className="help relative py-20 bg-white overflow-hidden">
+      <section className="help relative py-12 lg:py-8 xl:py-20 bg-white overflow-hidden">
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-8 xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-4 xl:gap-16 items-center">
             
@@ -150,6 +150,25 @@ export default function HelpingEachOther() {
                 <div className="hidden md:block absolute -bottom-16 -right-4 lg:-right-2 left-70 xl:-right-10 w-44 h-40 lg:w-36 lg:h-32 xl:w-56 xl:h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-bottom.png" alt="Smiling child" fill className="object-cover" />
                 </div>
+              </div>
+
+              {/* L-shaped yellow line connecting the images */}
+              <div className="absolute -bottom-20 right-54 w-50 h-27 pointer-events-none">
+                <svg
+                  width="100%"
+                  height="100%"
+                  viewBox="0 0 128 128"
+                  className="absolute"
+                >
+                  <path
+                    d="M 20 20 L 20 100 L 100 100"
+                    stroke="#FFC107"
+                    strokeWidth="3"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
               </div>
              
               <div className="absolute -left-25 top-2 transform -translate-y-1/2 opacity-60 hover:opacity-50 transition-opacity duration-300">

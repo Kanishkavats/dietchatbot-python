@@ -126,18 +126,18 @@ export default function CharityWithDifference() {
           {/* Custom Navigation Buttons */}
           <div className="flex justify-center items-center mt-6 space-x-4">
             <button 
-              className="swiper-button-prev-custom bg-dark-green text-white rounded-full w-15 h-15 flex items-center justify-center hover:bg-yellow-500 transition-all duration-300 shadow-lg"
+              className="swiper-button-prev-custom bg-dark-green text-white rounded-full w-15 h-15 flex items-center justify-center hover:bg-yellow-500  transition-all duration-300 shadow-lg"
               onMouseEnter={() => swiperRef.current?.autoplay?.start()}
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
-              <i className="text-2xl">←</i>
+              <i className="text-3xl">←</i>
             </button>
             <button 
               className="swiper-button-next-custom bg-yellow-500 text-white rounded-full w-15 h-15 flex items-center justify-center hover:bg-dark-green transition-all duration-300 shadow-lg"
               onMouseEnter={() => swiperRef.current?.autoplay?.start()}
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
-              <i className="text-2xl">→</i>
+              <i className="text-3xl">→</i>
             </button>
           </div>
 

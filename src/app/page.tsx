@@ -11,7 +11,6 @@ import ChildOldCare from '../components/ChildOldCare';
 import DonateDifferentWay from '../components/DonateDifferentWay';
 
 import LatestNewsArticle from '../components/LatestNewsArticle';
-import CustomCursor from '../components/CustomCursor/CustomCursor';
 
 
 
@@ -19,7 +18,6 @@ import CustomCursor from '../components/CustomCursor/CustomCursor';
 export default function Page() {
   return (
     <div>
-      <CustomCursor />
       <Home />
       <CharityWithDifference />
       <HelpingEachOther/>
