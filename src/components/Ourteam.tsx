@@ -35,7 +35,7 @@ const SocialBar = () => {
       {socials.map((social, idx) => (
         <div key={idx} className="relative group">
           <button
-            className={`w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black transition-colors duration-300 ${social.color} hover:bg-yellow-400`}
+            className={`w-12 h-12 flex items-center justify-center rounded-full shadow-md text-[#000000] transition-colors duration-300 ${social.color} hover:bg-[#FFC107]`}
           >
             {social.icon}
           </button>
@@ -100,15 +100,15 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
 
       
       <div className="relative bg-[#f1f0ee] h-28 p-8 flex flex-col items-start transition-colors duration-500 group-hover:bg-[#122f2a]">
-        <h6 className="font-semibold text-md text-black transition-colors duration-300 group-hover:text-white">
+        <h6 className="font-semibold text-md text-[#000000] transition-colors duration-300 group-hover:text-[#ffffff]">
           {member.name}
         </h6>
-        <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400">
+        <p className="text-sm text-[#000000] transition-colors duration-300 group-hover:text-[#FFC107]">
           {member.role}
         </p>
 
         
-        <button className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-colors duration-300 group-hover:bg-yellow-400 overflow-visible">
+        <button className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-[#00000] text-[#ffffff] rounded-full transition-colors duration-300 group-hover:bg-[#FFC107] overflow-visible">
           <span className="inline-block transition-transform duration-300 group-hover:rotate-45">
             <FiPlus size={24} />
           </span>
@@ -139,7 +139,7 @@ const Ourteams = () => {
         </div>
         <h2 className="text-4xl md:text-5xl font-bold mb-8">
           Meet Our Volunteer <br />
-          <span className="text-yellow-400">Team</span> Members
+          <span className="text-[#FFC107]">Team</span> Members
         </h2>
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           

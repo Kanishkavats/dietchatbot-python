@@ -59,7 +59,7 @@ export default function EventList({ currentPage }: EventListProps) {
                 className="absolute inset-0 w-full h-full object-cover"
               />
             </Link>
-            <div className="absolute inset-0 bg-black/40" />
+            <div className="absolute inset-0 bg-[#000000]" />
 
             
             <div className="absolute left-4 sm:left-8 bottom-6 sm:bottom-10 flex flex-col gap-2 max-w-[255px] text-[#ffffff] animate-slide-up-delay">

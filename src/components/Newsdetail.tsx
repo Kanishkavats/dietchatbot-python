@@ -23,7 +23,7 @@ export default function Newsdetail() {
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
 
-            className="bg-gray-50 font-sans text-gray-800"
+            className="bg-[#f3f4f6] font-sans text-[#667471]"
         >
             <div className="container mx-auto p-4 md:p-8">
                 <div className="flex flex-col lg:flex-row gap-8">
@@ -37,7 +37,7 @@ export default function Newsdetail() {
                                 className="object-cover object-center"
                             />
                         </div>
-                        <div className="flex items-center space-x-4 text-black mb-6">
+                        <div className="flex items-center space-x-4 text-[#000000] mb-6">
                             <span className="flex items-center gap-1">
                                 <IoCalendarSharp className="text-[#FFC107]" /> 02 Apr 2021
                             </span>
@@ -45,27 +45,27 @@ export default function Newsdetail() {
                                 <IoLocationSharp className="text-[#FFC107]" /> 684 West College St. Sun City, USA
                             </span>
                         </div>
-                        <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight font-nunito">
+                        <h1 className="text-4xl font-bold text-[#000000] mb-6 leading-tight font-nunito">
                             Give African Childrens A Good Education
                         </h1>
-                        <p className="text-gray-600 mb-8 font-nunito">
+                        <p className="text-[#667471] mb-8 font-nunito">
                             Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social
                         </p>
-                        <div className="bg-gray-100 p-6 border-l-4 border-green-600">
-                            <p className="italic text-gray-700">
+                        <div className="bg-[#EBEBEB] p-6 border-l-4 border-[#046B59]">
+                            <p className="italic text-[#000000]">
                                 Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo
                                 Consequat Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse. 
                             </p>
                             <div className="mt-4 flex justify-end">
-                                <span className="text-green-700 font-semibold">― Christian Bale</span>
+                                <span className="text-[#046B59] font-semibold">― Christian Bale</span>
                             </div>
                         </div>
-                        <h2 className="text-3xl font-bold text-gray-900 mb-4 font-nunito">Summary</h2>
-                        <p className="text-gray-600 mb-8 font-nunito">
+                        <h2 className="text-3xl font-bold text-[#000000] mb-4 font-nunito">Summary</h2>
+                        <p className="text-[#667471] mb-8 font-nunito">
                             Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black font-bold mb-8">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#000000] font-bold mb-8">
                             <div className="flex items-center gap-2 font-nunito">
                                 <FaRegCheckCircle className="text-[#046B59] text-xl" /> Empower Through Charity
                             </div>
@@ -110,37 +110,37 @@ export default function Newsdetail() {
                         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-6 gap-4">
                             {/* Tags */}
                             <div className="flex items-center flex-wrap gap-2">
-                                <span className="font-medium">Tags:</span>
-                                <button className="border px-3 py-1 rounded text-sm hover:bg-gray-200">
+                                <span className="font-medium text-[#000000]">Tags:</span>
+                                <button className="border px-3 py-1 rounded text-sm hover:bg-[#FFC107]">
                                     Donation
                                 </button>
-                                <button className="border px-3 py-1 rounded text-sm hover:bg-gray-200">
+                                <button className="border px-3 py-1 rounded text-sm hover:bg-[#FFC107]">
                                     Charity
                                 </button>
                             </div>
 
                             {/* Share */}
                             <div className="flex items-center flex-wrap gap-3">
-                                <span className="font-medium">Share:</span>
+                                <span className="font-medium text-[#000000]">Share:</span>
                                 <div className="flex space-x-2">
-                                    <a href="#" className="p-2 bg-gray-100 hover:bg-gray-200 rounded">
-                                        <FaFacebookF className="text-gray-700" />
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
+                                        <FaFacebookF className="text-[#000000]" />
                                     </a>
-                                    <a href="#" className="p-2 bg-gray-100 hover:bg-gray-200 rounded">
-                                        <FaVimeoV className="text-gray-700" />
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
+                                        <FaVimeoV className="text-[#000000]" />
                                     </a>
-                                    <a href="#" className="p-2 bg-gray-100 hover:bg-gray-200 rounded">
-                                        <FaTwitter className="text-gray-700" />
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
+                                        <FaTwitter className="text-[#000000]" />
                                     </a>
-                                    <a href="#" className="p-2 bg-gray-100 hover:bg-gray-200 rounded">
-                                        <FaLinkedinIn className="text-gray-700" />
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
+                                        <FaLinkedinIn className="text-[#000000]" />
                                     </a>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <h2 className="text-2xl font-bold mb-6">
+                            <h2 className="text-2xl font-bold mb-6 text-[#000000]">
                                 {comments.length.toString().padStart(2, "0")} Comments
                             </h2>
                             <div className="space-y-10 mb-8">
@@ -149,7 +149,7 @@ export default function Newsdetail() {
                                         key={comment.id}
                                         className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
                                     >
-                                        <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-yellow-300">
+                                        <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-[hsl(55,90%,52%)]">
                                             <Image
                                                 src={comment.avatar}
                                                 alt={comment.name}
@@ -159,7 +159,7 @@ export default function Newsdetail() {
                                             />
                                         </div>
                                         <div className="flex-1">
-                                            <h5 className="text-lg sm:text-xl font-bold font-nunito">{comment.name}</h5>
+                                            <h5 className="text-lg sm:text-xl font-bold font-nunito text-[#000000]">{comment.name}</h5>
                                             <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug">
                                                 {comment.content}
                                             </p>
@@ -179,7 +179,7 @@ export default function Newsdetail() {
                         </div>
 
                         <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
-                            <h2 className="text-xl sm:text-2xl font-bold text-black mb-6">Leave A Comment</h2>
+                            <h2 className="text-xl sm:text-2xl font-bold text-[#000000] mb-6">Leave A Comment</h2>
                             <form className="space-y-4">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
@@ -210,7 +210,7 @@ export default function Newsdetail() {
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full sm:w-auto bg-[#122F2A] text-white text-[16px] px-6 py-3 rounded-md hover:opacity-90 transition"
+                                    className="w-full sm:w-auto bg-[#122F2A] text-[#ffffff] text-[16px] px-6 py-3 rounded-md hover:opacity-90 transition"
                                 >
                                     Submit Comment
                                 </button>
@@ -233,7 +233,7 @@ export default function Newsdetail() {
                                 alt="Rosalina Willaim profile"
                                 className="rounded-full mx-auto mt-6 w-32 h-32 object-cover"
                             />
-                            <h3 className="text-xl font-bold text-gray-800 mt-4">Rosalina Willaim</h3>
+                            <h3 className="text-xl font-bold text-[#000000] mt-4">Rosalina Willaim</h3>
                             <p className="text-gray-500 text-sm">Front End Developer</p>
                             <p className="text-gray-600 mt-4 text-sm px-4">
                                 He Whimsically Named Egg Canvas Is The Design Director And Photographer
@@ -244,49 +244,50 @@ export default function Newsdetail() {
                                 <a
                                     href="https://www.facebook.com/"
                                     target="_blank"
-                                    className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
                                 >
                                     <FaFacebookF />
                                 </a>
                                 <a
                                     href="https://vimeo.com/"
                                     target="_blank"
-                                    className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
                                 >
                                     <FaVimeoV />
                                 </a>
                                 <a
                                     href="https://twitter.com/"
                                     target="_blank"
-                                    className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
                                 >
                                     <FaTwitter />
                                 </a>
                                 <a
                                     href="https://www.linkedin.com/"
                                     target="_blank"
-                                    className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
+                                   
                                 >
                                     <FaLinkedinIn />
                                 </a>
                             </div>
                         </div>
-                        <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
-                            <h3 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4">Search Here</h3>
+                        <div className="bg-[#EBEBEB] p-4 sm:p-6 rounded-lg shadow-md">
+                            <h3 className="text-lg sm:text-2xl font-bold text-[#000000] mb-4">Search Here</h3>
                             <div className="flex">
                                 <input
                                     type="text"
                                     placeholder="Search here"
-                                    className="w-full p-2 sm:p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+                                    className="w-full p-2 sm:p-3 border border-[#667471] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#FFC107]"
                                 />
-                                <button className="p-2 sm:p-3 rounded-r-lg border border-gray-300 text-gray-600 hover:text-[#FFC107] transition-colors flex items-center justify-center">
+                                <button className="p-2 sm:p-3 rounded-r-lg border border-[#667471] text-[#667471] hover:text-[#FFC107] transition-colors flex items-center justify-center">
                                     <FiSearch size={20} />
                                 </button>
                             </div>
                         </div>
 
-                        <div className="bg-[#ffffff] rounded-lg shadow-md p-4 sm:p-6">
-                            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Recent Posts</h3>
+                        <div className="bg-[#EBEBEB] rounded-lg shadow-md p-4 sm:p-6">
+                            <h3 className="text-lg sm:text-xl font-bold text-[#000000] mb-4">Recent Posts</h3>
                             <div className="space-y-4">
                                 {recentPosts.map((post) => (
                                     <div key={post.id} className="flex items-start gap-3">
@@ -303,7 +304,7 @@ export default function Newsdetail() {
                                                 <IoCalendarSharp className="inline-block mr-1" />
                                                 {post.date}
                                             </p>
-                                            <h4 className="text-sm sm:text-base font-medium text-gray-900 leading-tight">
+                                            <h4 className="text-sm sm:text-base font-medium text-[#000000] leading-tight">
                                                 {post.title}
                                             </h4>
                                         </div>
@@ -312,13 +313,13 @@ export default function Newsdetail() {
                             </div>
                         </div>
 
-                        <div className="bg-[#ffffff] rounded-lg shadow-md p-4 sm:p-6">
-                            <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Tags</h3>
+                        <div className="bg-[#EBEBEB] rounded-lg shadow-md p-4 sm:p-6">
+                            <h3 className="text-lg sm:text-xl font-bold text-[#000000] mb-4">Tags</h3>
                             <div className="flex flex-wrap gap-2">
                                 {tags.map((tag, index) => (
                                     <button
                                         key={index}
-                                        className="px-3 py-2 bg-[#F3F4F6] text-gray-700 rounded-lg text-xs sm:text-sm hover:bg-[#e5e7eb] transition-colors"
+                                        className="px-3 py-2 bg-[#F3F4F6] text-[#000000] rounded-lg text-xs sm:text-sm hover:bg-[#FFC107] transition-colors"
                                     >
                                         {tag}
                                     </button>
