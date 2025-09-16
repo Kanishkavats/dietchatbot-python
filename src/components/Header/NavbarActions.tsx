@@ -24,7 +24,7 @@ const NavbarActions = ({ setSearchOpen, setMobileMenuOpen, mobileMenuOpen }: Pro
 
     {/* Menu Icon (Mobile) */}
     <div className="xl:hidden block">
-      <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-palate-green">
+      <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-green">
         <Icon icon="ci:menu-alt-02" width={36} height={38} />
       </button>
     </div>

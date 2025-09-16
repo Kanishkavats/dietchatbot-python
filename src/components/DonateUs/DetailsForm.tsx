@@ -20,7 +20,7 @@ const DetailsForm = () => {
   };
 
     return (
-        <div className="w-full mx-auto bg-[var(--white)] ">
+        <div className="w-full mx-auto bg-white ">
             <h2 className="text-2xl font-bold mb-6">Details Information</h2>
             <Formik
                 initialValues={initialValues}
@@ -44,7 +44,7 @@ const DetailsForm = () => {
                             icon="mdi:email-outline"
                             as="textarea"
                         />
-                        <Button  text="Save Information" hoverBg='before:bg-[var(--foreground)]' />
+                        <Button  text="Save Information" hoverBg='before:bg-foreground' />
                     </Form>
                 )}
             </Formik>

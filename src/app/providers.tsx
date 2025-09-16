@@ -81,7 +81,8 @@ export default function Providers({ children }: { children: ReactNode }) {
           )}
         </>
         }
-       <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+        <CustomCursor />
+        <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       </QueryClientProvider>
     </Provider>
   );

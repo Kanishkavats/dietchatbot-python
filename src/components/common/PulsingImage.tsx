@@ -2,7 +2,7 @@
 
 import { PulsingImageProps } from "@/src/types/hero";
 import { motion } from "framer-motion";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 
 
 const PulsingImage: React.FC<PulsingImageProps> = ({
@@ -28,7 +28,6 @@ const PulsingImage: React.FC<PulsingImageProps> = ({
         ease: "easeInOut",
       }}
       className={` ${className}`}
-    //   style={{ height, width }}
     >
       <Image src={src} alt={alt} fill className="object-contain" />
     </motion.div>

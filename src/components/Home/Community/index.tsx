@@ -26,7 +26,7 @@ const Community = () => {
 
     return (
         <section
-            className="relative h-[800px]  text-[var(--white)] flex justify-center items-cente overflow-hidde"
+            className="relative h-[800px]  text-white flex justify-center items-cente overflow-hidde"
         >
             <div className="absolute  z-0 inset-0">
                 <Image src={galleryImageTwo.src} alt="bg image" fill className="object-cover" />
@@ -61,19 +61,20 @@ const Community = () => {
                     viewport={{ once: true, margin: "-100px" }}
                 >
 
-                    <p className="text-[var(--yellow)] font-medium flex items-center gap-2 font-caveat text-2xl">
+                    <p className="text-yellow font-medium flex items-center gap-2 font-caveat text-2xl">
                         <Icon icon="mdi:hand-heart" className=" cursor-pointer" />
                         Start Donating Poor People
                     </p>
 
-                    <h1 className="text-2xl md:text-5xl font-extrabold text-[var(--white)] leading-tight mt-5 font-nunito max-w-xl lg:max-w-2xl">
-                        Join The <span className="text-[var(--yellow)]">Community</span>  To Give  Education For Children
+                    <h1 className="text-2xl md:text-5xl font-extrabold text-white leading-tight mt-5 font-nunito max-w-xl lg:max-w-2xl">
+                        Join The <span className="text-yellow">Community</span>  To Give  Education For Children
                     </h1>
 
                 </motion.div>
-                <AnimatedReveal className="max-w-7xl h-[650px] bg-[var(--white)] rounded-2xl overflow-hidden mx-auto grid xl:grid-cols-5 relative bottom-[-50px] z-5 mb-15">
+                <AnimatedReveal
+                 className="max-w-7xl h-[650px] bg-white   rounded-2xl overflow-hidden mx-auto grid xl:grid-cols-5 relative bottom-[-50px] z-5 mb-15">
 
-                    <div className="bg-[var(--white)] text-[var(--foreground)] rounded-xl  py-4 px-4 md:p-12 w-full col-span-3  relative z-10">
+                    <div className="bg-white text-foreground rounded-xl  py-4 px-4 md:p-12 w-full col-span-3  relative z-10">
                         <h2 className="md:text-3xl font-bold mb-3  md:mb-10">Support Where It Counts.</h2>
 
                         <div className="mb-8">
@@ -95,7 +96,7 @@ const Community = () => {
                                 options={Donationmethods}
                                 value={method}
                                 onChange={setMethod}
-                                selectedColor="var(--green)"
+                                selectedColor="green"
                                 className="mb-6"
                             />
                         </div>

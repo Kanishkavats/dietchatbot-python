@@ -7,15 +7,16 @@ import PulsingImage from "./PulsingImage";
 
 export const pageBannerBackgourndColor = {
   background: `
-  linear-gradient(
-    to right,
-    color-mix(in srgb, theme(colors.dark-green) 100%, theme(colors.dark-green)),
-    color-mix(in srgb, theme(colors.dark-green) 90%, transparent),
-    color-mix(in srgb, theme(colors.foreground) 30%, transparent),
-    color-mix(in srgb, theme(colors.foreground) 0%, transparent)
-  )
-`
-}
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--color-dark-green) 100%, var(--color-dark-green)),
+      color-mix(in srgb, var(--color-dark-green) 90%, transparent),
+      color-mix(in srgb, var(--color-foreground) 30%, transparent),
+      color-mix(in srgb, var(--color-foreground) 0%, transparent)
+    )
+  `
+};
+
 const PageBanner: React.FC<PageBannerProps> = ({
   bgImage,
   smallIcon = "mdi:gift-outline",

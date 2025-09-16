@@ -40,12 +40,12 @@ const Donation = () => {
           options={Donationmethods}
           value={method}
           onChange={setMethod}
-          selectedColor="var(--green)"
+          selectedColor="green"
           className="mb-6"
         />
       </div>
       <Button text="Donate Now" />
-      <div className="bg-[var(--gray-200)] h-[3px]" />
+      <div className="bg-gray-200 h-[3px]" />
       <DetailsForm />
     </div>
   );

@@ -30,8 +30,8 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
       {label && <label className="block mb-1 font-medium">{label}</label>}
 
       <div
-        className={`flex gap-2 bg-[var(--gray-200)]/60 px-3 py-4 rounded-md border relative
-          ${meta.touched && meta.error ? "border-[var(--red)]" : "border-transparent"}
+        className={`flex gap-2 bg-gray-200/60 px-3 py-4 rounded-md border relative
+          ${meta.touched && meta.error ? "border-red" : "border-transparent"}
           ${isTextarea ? "items-start" : "items-center"}`}
       >
         {/* Input / Textarea */}
@@ -55,7 +55,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
         {icon && !isPassword && (
           <Icon
             icon={icon}
-            className="text-[var(--gray-500)]/60 text-lg font-bold size-5 mt-[2px]"
+            className="text-gray-500/60 text-lg font-bold size-5 mt-[2px]"
           />
         )}
 
@@ -76,7 +76,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
 
       {/* Error */}
       {meta.touched && meta.error && (
-        <p className="text-[10px] text-[var(--red)] mt-1">{meta.error}</p>
+        <p className="text-[10px] text-red mt-1">{meta.error}</p>
       )}
     </div>
   );
