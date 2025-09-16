@@ -16,6 +16,7 @@ import {
     FaEnvelope,
 } from "react-icons/fa";
 import { comments, recentPosts, tags } from "@/src/staticResource";
+import { ppOne, ppTwo } from '@/public/assets';
 export default function Newsdetail() {
     return (
         <motion.div
@@ -90,7 +91,7 @@ export default function Newsdetail() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                             <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                                 <Image
-                                    src="/assets/pp-one.png"
+                                    src={ppOne}
                                     alt="Young child smiling"
                                     fill
                                     className="object-cover"
@@ -98,7 +99,7 @@ export default function Newsdetail() {
                             </div>
                             <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                                 <Image
-                                    src="/assets/pp-two.png"
+                                    src={ppTwo}
                                     alt="Group of children laughing"
                                     fill
                                     className="object-cover"

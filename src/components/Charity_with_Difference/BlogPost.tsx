@@ -6,6 +6,7 @@ import {
   FaRegCheckCircle,
 
 } from "react-icons/fa";
+import { ppOne, ppTwo } from '@/public/assets';
 
 export default function BlogPost() {
 
@@ -73,7 +74,7 @@ export default function BlogPost() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
           <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
             <Image
-              src="/assets/pp-one.png"
+              src={ppOne}
               alt="Young child smiling"
               fill
               className="object-cover"
@@ -81,7 +82,7 @@ export default function BlogPost() {
           </div>
           <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
             <Image
-              src="/assets/pp-two.png"
+              src={ppTwo}
               alt="Group of children laughing"
               fill
               className="object-cover"

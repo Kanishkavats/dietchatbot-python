@@ -11,7 +11,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CharityCard from './CharityCard';
 import { charityCards } from '../../staticResource';
-
+import { hand } from '@/public/assets';
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 export default function CharityWithDifference() {
   // Animation refs
@@ -57,7 +59,7 @@ export default function CharityWithDifference() {
         <div className="absolute top-2 left-1 opacity-60 z-0 animate-float">
           <div className="relative">
             <Image 
-              src="/assets/charity_with_difference/hand.png" 
+              src={hand} 
               alt="Hand with heart" 
               width={160} 
               height={160}
@@ -70,7 +72,19 @@ export default function CharityWithDifference() {
 
 
         {/* Swiper Section */}
-        <div className="relative z-10">
+        <div 
+          className="relative z-10"
+          onMouseEnter={() => {
+            if (swiperRef.current && swiperRef.current.autoplay) {
+              swiperRef.current.autoplay.stop();
+            }
+          }}
+          onMouseLeave={() => {
+            if (swiperRef.current && swiperRef.current.autoplay) {
+              swiperRef.current.autoplay.start();
+            }
+          }}
+        >
           <Swiper
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
@@ -87,7 +101,7 @@ export default function CharityWithDifference() {
               el: '.swiper-pagination-custom',
             }}
             autoplay={{
-              delay: 4000,
+              delay: 3000,
               disableOnInteraction: false,
             }}
             loop={true}
@@ -130,14 +144,17 @@ export default function CharityWithDifference() {
               onMouseEnter={() => swiperRef.current?.autoplay?.start()}
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
-              <i className="text-3xl">←</i>
+              
+               <FaArrowLeft />
             </button>
             <button 
               className="swiper-button-next-custom bg-yellow-500 text-white rounded-full w-15 h-15 flex items-center justify-center hover:bg-dark-green transition-all duration-300 shadow-lg"
               onMouseEnter={() => swiperRef.current?.autoplay?.start()}
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
-              <i className="text-3xl">→</i>
+            
+              <FaArrowRight />
+              
             </button>
           </div>
 

@@ -458,21 +458,21 @@ export const recentPosts: RecentPost[] = [
     id: 1,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: "/assets/ph-one bottom.png",
+    image: phOne,
     alt: "Family with woman holding child",
   },
   {
     id: 2,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: "/assets/ph-two bottom.png",
+    image: phTwo,
     alt: "Group of hands stacked together",
   },
   {
     id: 3,
     title: "Structures That Stand, Dreams That Soar",
     date: "November 22, 2024",
-    image: "/assets/three bottomm.png",
+    image: phTree,
     alt: "Two young children looking at camera",
   },
 ]
@@ -597,21 +597,21 @@ export const charityRecentPosts: CharityRecentPost[] = [
     id: 1,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: "/assets/charity_with_difference/ph-one bottom.png",
+    image: phOne,
     alt: "Family with woman holding child"
   },
   {
     id: 2,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: "/assets/charity_with_difference/ph-two bottom.png",
+    image: phTwo,
     alt: "Group of hands stacked together"
   },
   {
     id: 3,
     title: "Structures That Stand, Dreams That Soar",
     date: "November 22, 2024",
-    image: "/assets/charity_with_difference/three bottomm.png",
+    image: phTree,
     alt: "Two young children looking at camera"
   }
 ];
@@ -695,6 +695,18 @@ export const donateDifferentWayMissionItems = [
   'We Help Companies Develop Powerful Corporate Social',
   'Helped Fund 3,265 Project Powerful Corporate Poor',
   'Dedicated Tech Services'
+];
+
+export const donateDifferentWayVisionItems = [
+  'Creating A World Where Every Child Has Access To Education',
+  'Building Sustainable Communities Through Technology',
+  'Empowering Future Generations With Knowledge And Skills'
+];
+
+export const donateDifferentWayExcellenceItems = [
+  'Delivering High-Quality Educational Programs',
+  'Maintaining Excellence In All Our Services',
+  'Continuous Improvement And Innovation'
 ];
 
 // LatestNewsArticle component data

@@ -8,11 +8,12 @@ import "swiper/css";
 import "swiper/css/navigation";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import Banner from '../PageBanner/Banner';
+import { bannerBg } from '@/public/assets'
+import PageBanner from '../common/PageBanner'
 import Button from '../common/Buttons/Button';
 import SendMsg from '../About/SendMsg';
 import ChildrenNeed from '../About/ChildrenNeed'
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 
 const donationCards = [
   {
@@ -97,6 +98,70 @@ const donationCards = [
   }
 ];
 
+// Animated Progress Bar Component
+const AnimatedProgressBar: React.FC<{ progress: number; isInView: boolean }> = ({ progress, isInView }) => {
+  const [displayProgress, setDisplayProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    if (isInView) {
+      const timer = setTimeout(() => {
+        setDisplayProgress(progress);
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, progress]);
+
+  return (
+    <div className="mb-4">
+      <div className="flex justify-between text-sm text-gray-500 mb-2">
+        <span>Donation</span>
+        <motion.span
+          initial={{ opacity: 0 }}
+          animate={{ opacity: isInView ? 1 : 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          {displayProgress}%
+        </motion.span>
+      </div>
+      <div className="w-full bg-gray-200 rounded-full h-2">
+        <motion.div 
+          className="bg-yellow-400 h-2 rounded-full relative overflow-hidden"
+          initial={{ width: 0 }}
+          animate={{ width: isInView ? `${progress}%` : 0 }}
+          transition={{ 
+            duration: 1.5, 
+            ease: "easeOut",
+            delay: 0.2
+          }}
+          style={{
+            background: 'linear-gradient(90deg, #FBBF24 0%, #F59E0B 50%, #FBBF24 100%)',
+            backgroundSize: '200% 100%'
+          }}
+        >
+          <motion.div
+            className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
+            animate={{
+              x: isInView ? ['0%', '100%'] : '0%',
+            }}
+            transition={{
+              duration: 1,
+              repeat: Infinity,
+              ease: "linear",
+              delay: 0.5
+            }}
+            style={{
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
+              transform: 'translateX(-100%)'
+            }}
+          />
+        </motion.div>
+      </div>
+    </div>
+  );
+};
+
 const DonationPage: React.FC = () => {
   const router = useRouter();
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
@@ -106,6 +171,10 @@ const DonationPage: React.FC = () => {
   const [hoveredLeft, setHoveredLeft] = useState(false);
   const [hoveredRight, setHoveredRight] = useState(false);
   const swiperRef = useRef<SwiperType | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+  const carouselSectionRef = useRef<HTMLElement>(null);
+  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const isCarouselInView = useInView(carouselSectionRef, { once: true, margin: "-100px" });
 
   const handleCardClick = (category: string) => {
     if (category === 'Food') {
@@ -137,13 +206,18 @@ const DonationPage: React.FC = () => {
 
   return (
     <>
-      <Banner 
-        Heading="Start Donating Poor People"
-        BannerMoto="Our Causes"
+      
+      <PageBanner
+        bgImage={bannerBg}
+        tagline="Start Donating Poor People"
+        title="our causes "
+        smallIcon="mdi:hand-heart"
+        decoIcon="mdi:ribbon"
+        decoPosition="absolute bottom-10 left-10"
       />
 
       {/* Donation Causes Section */}
-      <section className="relative py-20 min-h-[500px] overflow-hidden">
+      <section ref={sectionRef} className="relative py-20 min-h-[500px] overflow-hidden">
 
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl">
@@ -181,21 +255,27 @@ const DonationPage: React.FC = () => {
                 onMouseLeave={() => setHoveredCard(null)}
                 onClick={() => handleCardClick(card.category)}
               >
-                      <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
+                      <div className="relative mb-4 rounded-xl overflow-hidden w-full h-48">
                       <motion.img
                         src={card.image}
                         alt="News"
                         className="absolute top-0 left-0 w-full h-full object-cover"
-                        whileHover={{
-                          scale: 1.1, // zoom
-                          x: -20, // move left
+                        animate={{
+                          scale: hoveredCard === card.id ? 1.1 : 1,
+                          rotate: hoveredCard === card.id ? -3 : 0,
                         }}
                         transition={{
                           duration: 0.5,
                           ease: "easeInOut",
                         }}
                       />
-                      <span className="absolute top-3 left-3 bg-[#064E3B] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                      <span 
+                        className="absolute top-3 left-3 text-sm font-semibold px-5 py-3 rounded-full transition-all duration-300"
+                        style={{
+                          backgroundColor: hoveredCard === card.id ? '#064E3B' : '#FBBF24',
+                          color: hoveredCard === card.id ? '#FFFFFF' : '#000000'
+                        }}
+                      >
                         {card.category}
                       </span>
                     </div>
@@ -245,18 +325,7 @@ const DonationPage: React.FC = () => {
                   <p className="text-gray-600 text-sm leading-relaxed mb-4">{card.description}</p>
 
                   {/* Progress Bar */}
-                  <div className="mb-4">
-                    <div className="flex justify-between text-sm text-gray-500 mb-2">
-                      <span>Donation</span>
-                      <span>{card.progress}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2">
-                      <div 
-                        className="bg-yellow-400 h-2 rounded-full transition-all duration-1000 ease-in-out"
-                        style={{ width: `${card.progress}%` }}
-                      ></div>
-                    </div>
-                  </div>
+                  <AnimatedProgressBar progress={card.progress} isInView={isInView} />
 
                   {/* Amounts */}
                   <div className="flex justify-between text-sm text-gray-500 mb-4">
@@ -289,25 +358,31 @@ const DonationPage: React.FC = () => {
           <div className="flex justify-center items-center mt-12">
             <div className="flex items-center space-x-3">
               {/* Previous Page Button */}
-              <button className="w-12 h-12 rounded-full bg-[#122F2A] flex items-center justify-center text-white hover:bg-[#0f2520] transition-colors duration-300">
+              <button className="w-12 h-12 rounded-full bg-green flex items-center justify-center text-white hover:bg-[#0f2520] transition-colors duration-300">
                 <span className="text-lg font-bold">«</span>
               </button>
 
               {/* Page Numbers */}
-              <button className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-700 hover:border-gray-400 transition-colors duration-300">
+              <button 
+                className="w-12 h-12 rounded-full bg-gray  border-gray flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300"
+                onClick={() => router.push('/latestnews')}
+              >
                 1
               </button>
 
-              <button className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold hover:bg-yellow-500 transition-colors duration-300">
+              <button className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300">
                 2
               </button>
 
-              <button className="w-12 h-12 rounded-full border-2 border-gray-300 flex items-center justify-center text-gray-700 hover:border-gray-400 transition-colors duration-300">
+              <button 
+                className="w-12 h-12 rounded-full bg-gray flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300"
+                onClick={() => router.push('/latestnews')}
+              >
                 3
               </button>
 
                {/* Next Page Button */}
-               <button className="w-12 h-12 rounded-full bg-[#122F2A] flex items-center justify-center text-white hover:bg-[#0f2520] transition-colors duration-300">
+               <button className="w-12 h-12 rounded-full bg-green flex items-center justify-center text-white hover:bg-[#0f2520] transition-colors duration-300">
                 <span className="text-lg font-bold">»</span>
               </button>
             </div>
@@ -321,7 +396,7 @@ const DonationPage: React.FC = () => {
 
 
       {/* Help & Donate Carousel Section */}
-      <section className="relative py-20 min-h-[500px] overflow-hidden">
+      <section ref={carouselSectionRef} className="relative py-20 min-h-[500px] overflow-hidden">
         {/* Background Image */}
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -449,42 +524,26 @@ const DonationPage: React.FC = () => {
                     />
 
                     {/* Card Image */}
-                    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
+                    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-48">
                           <motion.img
                             src={card.image}
                             alt="News"
                             className="absolute top-0 left-0 w-full h-full object-cover"
-                            whileHover={{ scale: 1.1, rotate: -3 }}
+                            animate={{
+                              scale: hoveredCard === card.id ? 1.1 : 1,
+                              rotate: hoveredCard === card.id ? -3 : 0,
+                            }}
                             transition={{ duration: 0.4 }}
                           />
-                          <span className="absolute top-3 left-3 bg-[#064E3B] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                          <span 
+                            className="absolute top-3 left-3 text-sm font-semibold px-5 py-3 rounded-full transition-all duration-300"
+                            style={{
+                              backgroundColor: hoveredCard === card.id ? '#064E3B' : ' #FBBF24',
+                              color: hoveredCard === card.id ? '#FFFFFF' : '#000000'
+                            }}
+                          >
                             {card.category}
                           </span>
-                    </div>
-                    <div className="relative h-48 rounded-lg overflow-hidden">
-                      <Image
-                        src={card.image}
-                        alt={card.title}
-                        fill
-                        className="object-cover"
-                      />
-                      {/* Category Tag */}
-                      <div 
-                        className="absolute top-4 left-4 px-3 py-1 rounded-full text-black text-sm font-medium transition-all duration-300"
-                        style={{
-                          background: hoveredCard === card.id 
-                            ? 'linear-gradient(135deg, #151414d6 0%, #000000 100%)'
-                            : 'linear-gradient(135deg, #FFC107 0%, #FFD54F 100%)',
-                          color: hoveredCard === card.id ? 'white' : 'black',
-                          boxShadow: hoveredCard === card.id 
-                            ? '0 2px 8px rgba(34, 197, 94, 0.4)'
-                            : '0 2px 8px rgba(255, 193, 7, 0.3)',
-                          transform: hoveredCard === card.id ? 'scale(1.05)' : 'scale(1)',
-                          transition: 'all 0.3s ease'
-                        }}
-                      >
-                        {card.category}
-                      </div>
                     </div>
 
                     {/* Card Content */}
@@ -508,18 +567,7 @@ const DonationPage: React.FC = () => {
                       <p className="text-gray-600 text-sm leading-relaxed mb-4">{card.description}</p>
 
                       {/* Progress Bar */}
-                      <div className="mb-4">
-                        <div className="flex justify-between text-sm text-gray-500 mb-2">
-                          <span>Donation</span>
-                          <span>{card.progress}%</span>
-                        </div>
-                        <div className="w-full bg-gray-200 rounded-full h-2">
-                          <div 
-                            className="bg-yellow-400 h-2 rounded-full transition-all duration-1000 ease-in-out"
-                            style={{ width: `${card.progress}%` }}
-                          ></div>
-                        </div>
-                      </div>
+                      <AnimatedProgressBar progress={card.progress} isInView={isCarouselInView} />
 
                       {/* Amounts */}
                       <div className="flex justify-between text-sm text-gray-500 mb-4">
@@ -583,7 +631,7 @@ export default DonationPage;
 // import Button from "../common/Buttons/Button";
 // import SendMsg from "../About/SendMsg";
 // import ChildrenNeed from "../About/ChildrenNeed";
-// import { motion } from "framer-motion";
+// import { motion, useInView } from "framer-motion";
 
 // const donationCards = [
 //   {
@@ -708,7 +756,7 @@ export default DonationPage;
 //                     onClick={() => handleCardClick(card.category)}
 //                   >
 //                     {/* Card Image with Animation */}
-//                     <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
+//                     <div className="relative mb-4 rounded-xl overflow-hidden w-full h-48">
 //                       <motion.img
 //                         src={card.image}
 //                         alt="News"
@@ -812,7 +860,7 @@ export default DonationPage;
 // import Button from "../common/Buttons/Button";
 // import SendMsg from "../About/SendMsg";
 // import ChildrenNeed from "../About/ChildrenNeed";
-// import { motion } from "framer-motion";
+// import { motion, useInView } from "framer-motion";
 
 // const donationCards = [
 //   {
@@ -938,7 +986,7 @@ export default DonationPage;
 //                     onClick={() => handleCardClick(card.category)}
 //                   >
 //                     {/* Card Image with Animation */}
-//                     <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
+//                     <div className="relative mb-4 rounded-xl overflow-hidden w-full h-48">
 //                       <motion.img
 //                         src={card.image}
 //                         alt="News"
