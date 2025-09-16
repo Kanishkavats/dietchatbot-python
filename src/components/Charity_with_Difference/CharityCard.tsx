@@ -96,11 +96,11 @@ const CharityCard: React.FC<CharityCardProps> = ({
       <div className="relative z-10 text-center ">
         {/* Icon */}
                  <div
-           className="w-20 h-20 transition-all duration-300 mx-auto mb-6 rounded-full flex items-center justify-center"
+           className="w-20 h-20 transition-all duration-300 mx-auto mb-6 rounded-full flex items-center justify-center group-hover:scale-x-[-1]"
            style={{ backgroundColor: borderColor }}
          >
                      <i 
-                       className={`text-3xl text-white font-awesome ${iconClass} transition-transform duration-300 group-hover:rotate-360`} 
+                       className={`text-3xl text-white font-awesome ${iconClass} transition-transform duration-300`} 
                        style={{ 
                          fontFamily: 'FontAwesome, Arial, sans-serif'
                        }}
