@@ -59,7 +59,6 @@ export default function Providers({ children }: { children: ReactNode }) {
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeApplier />
-        <CustomCursor />
         {loading ? <Loader /> : <>
           {showLayout ? (
             <>
@@ -80,6 +79,7 @@ export default function Providers({ children }: { children: ReactNode }) {
           )}
         </>
         }
+        <CustomCursor />
         <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
       </QueryClientProvider>
     </Provider>

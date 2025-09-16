@@ -12,6 +12,19 @@ const NavbarSearch = ({ searchOpen, setSearchOpen }: Props) => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [showCloseButton, setShowCloseButton] = useState(false);
 
+  // 🔹 Prevent background scrolling when search is open
+  useEffect(() => {
+    if (searchOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [searchOpen]);
+
   useEffect(() => {
     if (searchOpen) {
       const inputTimer = setTimeout(() => setShowSearchInput(true), 600);
@@ -54,8 +67,14 @@ const NavbarSearch = ({ searchOpen, setSearchOpen }: Props) => {
                   type="text"
                   placeholder="Search...."
                   className="w-full text-lg focus:outline-none"
+                  autoFocus
                 />
-                <Icon icon="mdi:magnify" width={24} height={24} className="text-black opacity-60" />
+                <Icon
+                  icon="mdi:magnify"
+                  width={24}
+                  height={24}
+                  className="text-black opacity-60"
+                />
               </div>
             </motion.div>
           )}
@@ -68,9 +87,9 @@ const NavbarSearch = ({ searchOpen, setSearchOpen }: Props) => {
               exit={{ y: 0, opacity: 0 }}
               transition={{ duration: 0.4, ease: "easeInOut" }}
               onClick={() => setSearchOpen(false)}
-              className="fixed top-1/2 left-1/2 w-17 h-17 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-[var(--white)] rounded-full shadow-md cursor-pointer"
+              className="fixed top-1/2 left-1/2 w-17 h-17 z-50 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-full shadow-md cursor-pointer"
             >
-              <div className="bg-palate-yellow w-17 h-17 flex items-center justify-center rounded-full relative -top-[2px]">
+              <div className="bg-yellow w-17 h-17 flex items-center justify-center rounded-full relative -top-[2px]">
                 <Icon icon="mdi:close" width={26} height={26} className="text-black" />
               </div>
             </motion.button>

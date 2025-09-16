@@ -41,7 +41,7 @@
   font-display: swap;
 }
 
-/* :root {
+:root {
   --white: #ffffff;
   --foreground: rgb(23, 23, 23);
   --green: #046b59;
@@ -64,7 +64,7 @@
   --red: #ef4444;
   --red-50: #c12d2d;
   --brown: #6b5103;
-} */
+}
 
 @theme {
   --color-primaryColor: #FFC107;

@@ -10,7 +10,7 @@ const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   return (
-      <div className="w-full  lg:flex md:gap-12 items-start">
+      <div className="w-full  lg:flex md:gap-12 items-start bg-white  md:px-7 xl:pl-20 xl:pr-0 pt-16 md:pt-24 ">
         {/* Left Side - FAQ */}
         <div className="lg:w-1/2">
           <FadeInUp>
