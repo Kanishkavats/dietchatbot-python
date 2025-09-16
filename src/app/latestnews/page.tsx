@@ -1,13 +1,12 @@
-import { ChildrenNeed } from "@/src/components/About";
-import LatestNews from "@/src/components/Latestnews";
+import Newslist from "@/src/components/Newslist";
 
 
 
 export default function NewsPage() {
   return (
     <>
-          <ChildrenNeed/>
-      <LatestNews />
+          
+      <Newslist />
       
       
     </>
