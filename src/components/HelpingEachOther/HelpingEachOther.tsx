@@ -153,17 +153,17 @@ export default function HelpingEachOther() {
               </div>
 
               {/* L-shaped yellow line connecting the images */}
-              <div className="absolute -bottom-20 right-54 w-50 h-27 pointer-events-none">
+              <div className="absolute -bottom-20 right-70 w-50 h-27 pointer-events-none lg:rounded-2xl">
                 <svg
-                  width="100%"
+                  width="125%"
                   height="100%"
                   viewBox="0 0 128 128"
                   className="absolute"
                 >
                   <path
-                    d="M 20 20 L 20 100 L 100 100"
+                    d="M 20 20 L 20 100 L 120 100"
                     stroke="#FFC107"
-                    strokeWidth="3"
+                    strokeWidth="1"
                     fill="none"
                     strokeLinecap="round"
                     strokeLinejoin="round"

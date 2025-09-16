@@ -1,25 +1,26 @@
 import Image from 'next/image';
+import { phOne, phTwo, phTree } from '@/public/assets';
 
 const recentPosts = [
   {
     id: 1,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: "/assets/ph-one bottom.png",
+    image: phOne,
     alt: "Family with woman holding child"
   },
   {
     id: 2,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: "/assets/ph-two bottom.png",
+    image: phTwo,
     alt: "Group of hands stacked together"
   },
   {
     id: 3,
     title: "Structures That Stand, Dreams That Soar",
     date: "November 22, 2024",
-    image: "/assets/three bottomm.png",
+    image: phTree,
     alt: "Two young children looking at camera"
   }
 ];

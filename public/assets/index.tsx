@@ -23,6 +23,9 @@ import phOne from './charity_with_difference/ph-one bottom.png';
 import phTwo from './charity_with_difference/ph-two bottom.png';
 import phTree from './charity_with_difference/three bottomm.png';
 import overView from './charity_with_difference/overview.png';
+import ppOne from './charity_with_difference/pp-one.png';
+import ppTwo from './charity_with_difference/pp-two.png';
+import hand from './charity_with_difference/hand.png';
 import galleryImageOne from './galleryImageOne.png';
 import galleryImageTwo from './galleryImageTwo.png';
 import galleryImageThree from './galleryImageTree.png';
@@ -82,6 +85,9 @@ export {
   phTwo,
   phTree,
   overView,
+  ppOne,
+  ppTwo,
+  hand,
   galleryImageOne,
   galleryImageTwo,
   galleryImageThree,

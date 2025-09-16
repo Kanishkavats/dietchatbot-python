@@ -176,16 +176,16 @@ const DonateDifferentWay: React.FC = () => {
 
               {/* Tab Content with Donation Cards */}
               <div className='flex flex-col lg:flex-row gap-4 sm:gap-6'>
-                {/* Mission/Excellence Content */}
+                {/* Mission/Vision/Excellence Content */}
                 <div className='flex-1'>
-                  {activeTab === 'mission' && (
+                  {(activeTab === 'mission' || activeTab === 'vision' || activeTab === 'excellence') && (
                     <div className='space-y-3 sm:space-y-4'>
                       <ul className='space-y-2 sm:space-y-3'>
                         {missionItems.map((item, index) => (
                           <li key={index} className='flex items-start space-x-2 sm:space-x-3'>
-                            <div className='w-5 h-5 sm:w-6 sm:h-6 bg-yellow rounded-full flex items-center justify-center flex-shrink-0 mt-0.5'>
-                              <svg className='w-3 h-3 sm:w-4 sm:h-4 text-white' fill='currentColor' viewBox='0 0 24 24'>
-                                <path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/>
+                            <div className='w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center flex-shrink-0 mt-0.5'>
+                              <svg className='w-5 h-5 sm:w-6 sm:h-6 text-yellow' fill='currentColor' viewBox='0 0 24 24' strokeWidth='3' stroke='currentColor'>
+                                <path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' strokeWidth='3'/>
                               </svg>
                             </div>
                             <span className='text-gray-green text-sm sm:text-base'>{item}</span>

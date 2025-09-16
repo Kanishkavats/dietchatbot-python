@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Image from 'next/image';
+import { hand } from '@/public/assets';
 
 export default function Banner({
   Heading = "",
@@ -62,7 +63,7 @@ export default function Banner({
         {/* Additional decorative elements */}
         <div className="absolute top-1/4 right-8 w-16 h-16 opacity-20">
           <Image
-            src="/assets/hand.png"
+            src={hand}
             alt="Helping hand"
             width={64}
             height={64}
