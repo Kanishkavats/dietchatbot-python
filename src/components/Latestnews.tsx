@@ -1,4 +1,14 @@
 "use client";
+
+
+
+
+
+
+
+import { useState } from "react";
+import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
+import Newslist from "./Newslist"; 
 import React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -11,14 +21,86 @@ import {
   FaUser,
   FaComment,
   FaArrowRight,
-  FaAngleDoubleLeft,
-  FaAngleDoubleRight,
+  
 } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 
 const LatestNews = () => {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  
+  const pages = [
+    { id: 1, component: <LatestNewsContent /> }, 
+    { id: 2, component: <Newslist /> },          
+    { id: 3, component: <LatestNewsContent /> }, 
+  ];
+
+  const totalPages = pages.length;
+
+  const goToPage = (page: number) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
+  };
+
   return (
-    <div className="bg-gray-50 font-sans antialiased text-gray-800">
+    <div className="bg-[#f3f4f6] font-sans antialiased text-[#667471]">
+      
+      <div>{pages[currentPage - 1].component}</div>
+
+      {/* Pagination */}
+      <div className="flex justify-center items-center space-x-4 my-10">
+        {/* Prev */}
+        <button
+          onClick={() => goToPage(currentPage - 1)}
+          disabled={currentPage === 1}
+          className={`w-10 h-10 flex items-center justify-center rounded-full 
+            ${currentPage === 1
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-[#046B59] text-white hover:bg-[#FFC107]"}`}
+        >
+          <FaAngleDoubleLeft />
+        </button>
+
+        {/* Page Numbers */}
+        {pages.map((p) => (
+          <button
+            key={p.id}
+            onClick={() => goToPage(p.id)}
+            className={`w-10 h-10 flex items-center justify-center rounded-full border 
+              ${currentPage === p.id
+                ? "bg-[#FFC107] text-black font-semibold"
+                : "border-[#9ca3af] text-[#000000] hover:bg-[#FFC107] hover:text-[#ffffff]"}`}
+          >
+            {p.id}
+          </button>
+        ))}
+
+        {/* Next */}
+        <button
+          onClick={() => goToPage(currentPage + 1)}
+          disabled={currentPage === totalPages}
+          className={`w-10 h-10 flex items-center justify-center rounded-full 
+            ${currentPage === totalPages
+              ? "bg-gray-300 cursor-not-allowed"
+              : "bg-[#046B59] text-white hover:bg-[#FFC107]"}`}
+        >
+          <FaAngleDoubleRight />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+
+
+
+
+
+
+     const LatestNewsContent = () => {
+  return (
+    <div className=" bg-[#f3f4f6] font-sans antialiased text-[#667471]">
 
       <section className="py-20 px-4">
         <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
@@ -87,31 +169,9 @@ const LatestNews = () => {
       </section>
 
       
-      <motion.div
-        className="flex justify-center items-center space-x-4 my-6"
-        variants={cardVariants}
-        initial="hidden"
-        animate="visible"
-      >
-        <button className="w-10 h-10 flex items-center justify-center rounded-full bg-green-700 text-white hover:bg-green-800 transition">
-          <FaAngleDoubleLeft />
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-gray-800 hover:bg-yellow-500 hover:text-white transition">
-          1
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-black font-semibold">
-          2
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center rounded-full border border-gray-400 text-gray-800 hover:bg-yellow-500 hover:text-white transition">
-          3
-        </button>
-        <button className="w-10 h-10 flex items-center justify-center rounded-full bg-green-700 text-white hover:bg-green-800 transition">
-          <FaAngleDoubleRight />
-        </button>
-      </motion.div>
-    </div>
-  );
-};
+     </div>
+   ); 
+ };
 
 
 const cardVariants = {
@@ -126,62 +186,62 @@ const cardVariants = {
 
 const NewsCard = ({ img, category, title }) => (
   <motion.div
-    className="bg-white hover:bg-[#3AB19B] rounded-2xl shadow-lg text-gray-800 overflow-hidden group relative p-5 flex flex-col"
+    className="bg-[#ffffff] hover:bg-[#046b59] rounded-2xl shadow-lg text-[#000000] overflow-hidden group relative p-5 flex flex-col"
     variants={cardVariants}
     initial="hidden"
     animate="visible"
   >
   
-    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
-      <motion.img
-        src={img}
-        alt="News"
-        className="absolute top-0 left-0 w-full h-full object-cover"
-        whileHover={{ scale: 1.1, rotate: -3 }}
-        transition={{ duration: 0.4 }}
-      />
-      <span className="absolute top-3 left-3 bg-[#064E3B] text-white text-xs font-semibold px-3 py-1 rounded-full">
-        {category}
-      </span>
-    </div>
+     <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
+       <motion.img
+         src={img}
+         alt="News"
+         className="absolute top-0 left-0 w-full h-full object-cover"
+         whileHover={{ scale: 1.1, rotate: -3 }}
+         transition={{ duration: 0.4 }}
+       />
+       <span className="absolute top-3 left-3 bg-[#064E text-[#ffffff] text-xs font-semibold px-3 py-1 rounded-full">
+         {category}
+       </span>
+     </div> 
 
     
-    <div className="flex-1">
-      <div className="flex items-center gap-6 text-sm mb-3 text-gray-600">
-        <span className="flex items-center gap-2">
-          <FaUser size={18} className="text-yellow-500" />
-          Robert Fox
-        </span>
-        <span className="flex items-center gap-2">
-          <FaComment size={18} className="text-yellow-500" />
-          Comments (08)
-        </span>
-      </div>
-      <h3 className="text-lg font-bold leading-snug mb-3">{title}</h3>
-    </div>
+     <div className="flex-1">
+       <div className="flex items-center gap-6 text-sm mb-3 text-[#667471]">
+         <span className="flex items-center gap-2">
+           <FaUser size={18} className="text-[#FFC107]" />
+           Robert Fox
+         </span>
+         <span className="flex items-center gap-2">
+           <FaComment size={18} className="text-[#FFC107]" />
+           Comments (08)
+         </span>
+       </div>
+       <h3 className="text-lg font-bold leading-snug mb-3">{title}</h3>
+     </div>
 
     
-    <div className="flex items-center gap-2 relative">
-      <a
-        href="#"
-        className="font-[Nunito,sans-serif] text-[14px] text-black font-bold hover:text-yellow-500 transition-colors flex items-center gap-2"
-      >
-        Read More
-        <FaArrowRight className="text-green-700" />
-      </a>
+     <div className="flex items-center gap-2 relative">
+       <a
+         href="#"
+         className="font-[Nunito,sans-serif] text-[14px] text-black font-bold hover:text-[#FFC107] transition-colors flex items-center gap-2"
+        >
+         Read More
+         <FaArrowRight className="text-[#046B59]" />
+       </a>
 
       
-      <motion.div
-        className="absolute top-1/2 right-4 -translate-y-1/2 opacity-0 group-hover:opacity-100"
-        initial={{ scale: 0.8 }}
-        whileHover={{ scale: [1, 1.2, 1] }}
-        transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-      >
-        <img src="/heart.png" alt="heart-bg" className="w-16 h-16 opacity-90" />
-      </motion.div>
-    </div>
-  </motion.div>
-);
+       <motion.div
+         className="absolute top-1/2 right-4 -translate-y-1/2 opacity-0 group-hover:opacity-100"
+         initial={{ scale: 0.8 }}
+         whileHover={{ scale: [1, 1.2, 1] }}
+         transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+       >
+         <img src="/heart.png" alt="heart-bg" className="w-16 h-16 opacity-90" />
+       </motion.div>
+     </div>
+   </motion.div>
+ );
 
 const sidebarData = [
   
@@ -192,9 +252,9 @@ const sidebarData = [
         alt="Rosalina Willaim profile"
         className="rounded-full mx-auto mt-6 w-32 h-32 object-cover"
       />
-      <h3 className="text-xl font-bold text-gray-800 mt-4">Rosalina Willaim</h3>
-      <p className="text-gray-500 text-sm">Front End Developer</p>
-      <p className="text-gray-600 mt-4 text-sm px-4">
+      <h3 className="text-xl font-bold text-[#000000] mt-4">Rosalina Willaim</h3>
+      <p className="text-[#667471] text-sm">Front End Developer</p>
+      <p className="text-[#667471] mt-4 text-sm px-4">
         He Whimsically Named Egg Canvas Is The Design Director And Photographer
         In New York.
       </p>
@@ -204,28 +264,28 @@ const sidebarData = [
         <a
           href="https://www.facebook.com/"
           target="_blank"
-          className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+          className="text-[#667471] hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
         >
           <FaFacebookF />
         </a>
         <a
           href="https://vimeo.com/"
           target="_blank"
-          className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+          className="text-[#667471] hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
         >
           <FaVimeoV />
         </a>
         <a
           href="https://twitter.com/"
           target="_blank"
-          className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+          className="text-[#667471] hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
         >
           <FaTwitter />
         </a>
         <a
           href="https://www.linkedin.com/"
           target="_blank"
-          className="text-gray-600 hover:text-yellow-500 hover:bg-black p-3 rounded-lg border border-gray-300 transition-colors"
+          className="text-[#667471] hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
         >
           <FaLinkedinIn />
         </a>
@@ -241,9 +301,9 @@ const sidebarData = [
         <input
           type="text"
           placeholder="Search here"
-          className="w-full p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
+          className="w-full p-3 border border-[#667471] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#FFC107]"
         />
-        <button className="p-3 rounded-r-lg border border-gray-300 text-gray-600 hover:text-yellow-500 transition-colors flex items-center justify-center">
+        <button className="p-3 rounded-r-lg border border-[#667471] text-[#667471] hover:text-[#FFC107] transition-colors flex items-center justify-center">
           <FiSearch size={20} />
         </button>
       </div>
@@ -282,11 +342,11 @@ const sidebarData = [
                 className="w-16 h-16 rounded-md object-cover"
               />
               <div>
-                <p className="flex items-center text-sm text-gray-500">
-                  <FaRegCalendarAlt className="mr-2 text-gray-400" />
+                <p className="flex items-center text-sm text-[#667471]">
+                  <FaRegCalendarAlt className="mr-2 text-[#667471]" />
                   {post.date}
                 </p>
-                <h4 className="font-semibold text-gray-800 group-hover:text-[#FBBF24] transition-colors">
+                <h4 className="font-semibold text-[#000000] group-hover:text-[#FBBF24] transition-colors">
                   {post.title}
                 </h4>
               </div>
@@ -300,7 +360,7 @@ const sidebarData = [
 
   () => (
     <div className="bg-[#EBEBEB] p-6 rounded-lg shadow-md">
-      <h3 className="text-2xl font-bold text-gray-800 mb-4">Categories</h3>
+      <h3 className="text-2xl font-bold text-[#000000] mb-4">Categories</h3>
       <div className="space-y-3">
         {[
           { name: "Donation", count: "05" },
@@ -311,7 +371,7 @@ const sidebarData = [
         ].map((cat, i) => (
           <div
             key={i}
-            className="flex justify-between items-center bg-white px-5 py-4 rounded-md cursor-pointer transition hover:bg-black hover:text-white"
+            className="flex justify-between items-center bg-[#ffffff] px-5 py-4 rounded-md cursor-pointer transition hover:bg-[#000000] hover:text-[#ffffff]"
           >
             <span>{cat.name}</span>
             <span>{cat.count}</span>
@@ -324,7 +384,7 @@ const sidebarData = [
   
   () => (
     <div className="bg-[#EBEBEB] p-6 rounded-lg shadow-md">
-      <h3 className="text-xl font-bold text-gray-800 mb-4">Popular Tags</h3>
+      <h3 className="text-xl font-bold text-[#000000] mb-4">Popular Tags</h3>
       <div className="flex flex-wrap gap-3">
         {[
           "T-Shirt",
@@ -336,7 +396,7 @@ const sidebarData = [
         ].map((tag, i) => (
           <span
             key={i}
-            className="bg-white text-gray-700 px-4 py-2 rounded shadow-sm cursor-pointer hover:bg-[#FBBF24] hover:text-white transition"
+            className="bg-[#ffffff] text-[#667471] px-4 py-2 rounded shadow-sm cursor-pointer hover:bg-[#FBBF24] hover:text-[#ffffff] transition"
           >
             {tag}
           </span>
@@ -344,6 +404,7 @@ const sidebarData = [
       </div>
     </div>
   ),
-];
+  ];
+
 
 export default LatestNews;

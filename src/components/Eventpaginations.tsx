@@ -49,7 +49,7 @@ const EventPagination: React.FC<EventPaginationProps> = ({
           transition-all duration-300 transform hover:scale-110 animate-fade-in
           ${currentPage === 1
             ? "bg-[#9ca3af] cursor-not-allowed"
-            : "bg-[#046b59]  hover:bg-[#122f2a]cursor-pointer"} 
+            : "bg-[#046b59]  hover:bg-[#122f2a] cursor-pointer"} 
         `}
       >
         «
@@ -58,7 +58,7 @@ const EventPagination: React.FC<EventPaginationProps> = ({
       
         {pages.map((page, index) =>
          page === "..." ? (
-           <span key={index} className="px-2 text-gray-500">...</span>
+           <span key={index} className="px-2 text-[#667471]">...</span>
          ) : (
            <button
              key={page}
@@ -66,8 +66,8 @@ const EventPagination: React.FC<EventPaginationProps> = ({
              className={`w-10 h-10 flex items-center justify-center rounded-full  
                transition-all duration-300 transform hover:scale-110 animate-slide-up card-stagger-${index + 1}
                ${page === currentPage
-                 ? "bg-hsl(55,90%,52,52%) text-black font-bold shadow-lg"
-                 : "bg-white text-black hover:bg-gray-100 cursor-pointer"} 
+                 ? "bg-[hsl(55,90%,52%)] text-[#000000] font-bold shadow-lg"
+                 : "bg-[#ffffff] text-[#000000] hover:bg-[#122f2a] cursor-pointer"} 
              `}
            >
              {page}
@@ -81,11 +81,11 @@ const EventPagination: React.FC<EventPaginationProps> = ({
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className={`w-10 h-10 flex items-center justify-center rounded-full text-white
+        className={`w-10 h-10 flex items-center justify-center rounded-full text-[#ffffff]
           transition-all duration-300 transform hover:scale-110 animate-fade-in
           ${currentPage === totalPages
-            ? "bg-gray-300 cursor-not-allowed"
-            : "bg-lime-green cursor-pointer hover:bg-green"} 
+            ? "bg-[#9ca3af] cursor-not-allowed"
+            : "bg-[#046b59] cursor-pointer hover:bg-[#122f2a]"} 
         `}
       >
         »
