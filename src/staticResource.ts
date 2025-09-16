@@ -140,6 +140,8 @@ export const footerData = {
   ],
 };
 
+
+
 export const PartnersCompaniesData = [
   { src: theBird.src, alt: "The Bird" },
   { src: treeLife.src, alt: "Tree Life" },

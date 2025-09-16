@@ -45,6 +45,7 @@ import line from './section2/line.png';
 import parasuit from './section2/parasuit.png';
 import shapeleft from './section2/shapeleft.png';
 import spade from './section2/spade.png';
+import spade2 from './sprade2.png';
 import grid from './section2/grid.png';
 import football_hands from './section2/football_hands.jpg';
 import heart_hands from './section2/heart_hands.jpg';
@@ -52,7 +53,8 @@ import bgsection from './section3/bgsection3.png';
 import childrenweworkfor from './section3/childenweworkfor.png';
 import givehealthsupport from './section3/givehealthsupport.png';
 import helpforeducation from './section3/helpforeducation.png';
-import helpforfood from './section3/helpforfood.png'
+import helpforfood from './section3/helpforfood.png';
+
 
 
 
@@ -104,6 +106,7 @@ export {
   parasuit,
   shapeleft,
   spade,
+  spade2,
   grid,
   football_hands,
   heart_hands,

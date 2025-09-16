@@ -1,40 +1,27 @@
 "use client";
 
-import { RootState } from "@/src/store";
 import React from "react";
-import { useSelector } from "react-redux";
 
 interface DividerProps {
-  color?: string;       // Tailwind color classes (default: theme primary color)
-  longWidth?: string;   // Tailwind width classes
-  shortWidth?: string;  // Tailwind width classes
-  height?: string;      // Tailwind height classes
-  gap?: string;         // Tailwind spacing classes
-  center?: boolean;     // If true, center align
+  color?: string;
+  height?: string;
+  gap?: string;
+  center?: boolean;
+  width?: string;
 }
 
 const Divider: React.FC<DividerProps> = ({
-  color,                         // leave undefined for default
-  longWidth = "w-24",
-  shortWidth = "w-4",
+  color = "bg-yellow-400",
   height = "h-[2px]",
   gap = "gap-2",
   center = false,
+  width = "w-full",
 }) => {
-  const { primaryColor } = useSelector((state: RootState) => state.theme);
-
-  // Fallback to Redux theme color if prop not provided
-  const appliedColor = color ?? `bg-${primaryColor}`;
-
   return (
-    <div
-      className={`flex items-center ${gap} ${
-        center ? "justify-center" : ""
-      }`}
-    >
-      <span className={`${height} ${longWidth} ${appliedColor}`}></span>
-      <span className={`${height} ${shortWidth} ${appliedColor}`}></span>
-      <span className={`${height} ${shortWidth} ${appliedColor}`}></span>
+    <div className={`flex items-center ${gap} ${width} ${center ? "justify-center" : ""}`}>
+      <span className={`${height} ${color}`} style={{ width: "60%" }}></span>
+      <span className={`${height} ${color}`} style={{ width: "20%" }}></span>
+      <span className={`${height} ${color}`} style={{ width: "20%" }}></span>
     </div>
   );
 };

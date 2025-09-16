@@ -125,7 +125,7 @@ export default function HeroStaticSlider() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-[29%] xl:top-[82%] right-40 xl:right-38 transform -translate-y-1/2 text-palate-yellow size-14"
+            className="absolute top-[29%] xl:top-[82%] right-40 xl:right-38 transform -translate-y-1/2 text-yellow size-14"
           >
             <img src={spradeBase.src} alt="decoration" />
           </motion.div>
