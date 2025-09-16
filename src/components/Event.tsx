@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import EventList from "./EventList";
-import EventPagination from "./Eventpaginations";
+import Eventpagination from "./Eventpaginations";
 
 const Event = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -44,8 +44,8 @@ const Event = () => {
         <EventList currentPage={currentPage} />
 
         <div className="flex justify-center mt-6">
-          <EventPagination
-            totalPages={5}
+          <Eventpagination
+            totalPages={3}
             currentPage={currentPage}
             onPageChange={(page) => {
               if (page === 1 || page === 3) setCurrentPage(page);
