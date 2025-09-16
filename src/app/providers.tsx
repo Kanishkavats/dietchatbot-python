@@ -59,7 +59,9 @@ export default function Providers({ children }: { children: ReactNode }) {
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeApplier />
-        {loading ? <Loader /> : <>
+        <CustomCursor />
+
+        {loading ? <Loader /> :<>
           {showLayout ? (
             <>
               {!hideHeaderFooter && (

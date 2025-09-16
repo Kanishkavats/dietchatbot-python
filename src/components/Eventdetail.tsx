@@ -198,7 +198,7 @@ export default function BlogPage() {
                 </div>
                 <button
                   type="submit"
-                  className="w-full sm:w-auto bg-[#122F2A] text-white text-[16px] px-6 py-3 rounded-md hover:opacity-90 transition"
+                  className="w-full sm:w-auto bg-[#122F2A] text-[#ffffff] text-[16px] px-6 py-3 rounded-md hover:opacity-90 transition"
                 >
                   Submit Comment
                 </button>
@@ -208,7 +208,7 @@ export default function BlogPage() {
 
 
           <aside className="lg:w-1/3 space-y-8">
-            <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+            <div className="bg-[#ffffff] p-4 sm:p-6 rounded-lg shadow-md">
               <h3 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4">Search Here</h3>
               <div className="flex">
                 <input
