@@ -67,6 +67,7 @@ const DonationPage: React.FC = () => {
     setRightButtonColor(newColor);
   };
 
+
   return (
     <>
       <PageBanner

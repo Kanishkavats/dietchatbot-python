@@ -43,13 +43,7 @@ export const NAV_ITEMS: NavItem[] = [
     href: '/'
   },
   { label: "About Us", dropdown: null, href: '/about' },
-  {
-    label: "Causes",
-    dropdown: [
-      { label: "Our Causes", href: "/causes" },
-      { label: "Cause Details", href: "/causes/details" },
-    ],
-  },
+  { label: "Causes", href: "/causes", dropdown: null },
   {
     label: "Pages",
     dropdown: [
@@ -64,40 +58,16 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        label: "Shop",
-        children: [
-          { label: "Our Shop", href: "/our-shop" },
-          { label: "Product Details", href: "/product-details" },
-          { label: "View Cart", href: "/view-cart" },
-          { label: "Checkout", href: "/checkout" },
-        ],
-      },
-      {
         label: "Team",
         children: [
           { label: "Our Teams", href: "/team" },
           { label: "Team Details", href: "/team" },
         ],
       },
-      {
-        label: "Coming Soon",
-        href: "/coming-soon"
-      },
-      {
-        label: "Error",
-        href: "/error"
-      },
-
 
     ],
   },
-  {
-    label: "News", dropdown: [
-      { label: "News List view", href: "/latestnews" },
-      { label: "News Grid View", href: "/news-grid" },
-      { label: "News Details", href: "/news-details" },
-    ]
-  },
+  { label: "News", href: "/news-grid", dropdown: null },
   { label: "Contact Us", dropdown: null, href: "contact" },
 ];
 
@@ -241,128 +211,133 @@ export const VolunteerProgress = [
 ];
 
 export const VolunteerFeatures = [
-  { text: "Best Quality Services"},
-  { text: "Time Saving"},
-  { text: "Meet The Deadlines"},
-  { text: "24/7 Customer Support"},
+  { text: "Best Quality Services" },
+  { text: "Time Saving" },
+  { text: "Meet The Deadlines" },
+  { text: "24/7 Customer Support" },
 ];
 
 
 
 
 
-  export const teamMembers = [
-    {
-      id:1,
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/volunteer1.png",
-      delay: 0,
-    },
-    {
-      id:2,
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/volunteer2.png",
-      delay: 300,
-    },
-    {
-      id:3,
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/volunteer3.png",
-      delay: 600,
-    },
-    { 
-      id:4,
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/volunteer4.png",
-      delay: 900,
-    },
-    {
-      id:5,
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear5.png",
-      delay: 0,
-    },
-    { 
-      id:6,
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear6.png",
-      delay: 300,
-    },
-    { 
-      id:7,
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear7.png",
-      delay: 600,
-    },
-    {
-      id:8,
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear8.png",
-      delay: 900,
-    },
-    {
-      id:9,
-      name: "Michel Fokluz",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear5.png",
-      delay: 0,
-    },
-    {
-      id:10,
-      name: "Arian Drobloas",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear6.png",
-      delay: 300,
-    },
-    {
-      id:11,
-      name: "Jara Klintof",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear7.png",
-      delay: 600,
-    },
-    { 
-      id:12,
-      name: "Aiden Markram",
-      role: "Volunteer",
-      img: "/assets/aboutsection/voluntear8.png",
-      delay: 900,
-    }
-  ];
+export const teamMembers = [
+  {
+    id: 1,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/volunteer1.png",
+    delay: 0,
+  },
+  {
+    id: 2,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/volunteer2.png",
+    delay: 300,
+  },
+  {
+    id: 3,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/volunteer3.png",
+    delay: 600,
+  },
+  {
+    id: 4,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/volunteer4.png",
+    delay: 900,
+  },
+  {
+    id: 5,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear5.png",
+    delay: 0,
+  },
+  {
+    id: 6,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear6.png",
+    delay: 300,
+  },
+  {
+    id: 7,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear7.png",
+    delay: 600,
+  },
+  {
+    id: 8,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear8.png",
+    delay: 900,
+  },
+  {
+    id: 9,
+    name: "Michel Fokluz",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear5.png",
+    delay: 0,
+  },
+  {
+    id: 10,
+    name: "Arian Drobloas",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear6.png",
+    delay: 300,
+  },
+  {
+    id: 11,
+    name: "Jara Klintof",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear7.png",
+    delay: 600,
+  },
+  {
+    id: 12,
+    name: "Aiden Markram",
+    role: "Volunteer",
+    img: "/assets/aboutsection/voluntear8.png",
+    delay: 900,
+  }
+];
 
 
 
-export  const testimonials = [
-    {
-      name: "Michel Smith",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Ruby Klara",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-    {
-      name: "Bishu Kiev",
-      role: "Cloth Store Inc.",
-      avatar: "/assets/author.png",
-      review:
-        "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
-    },
-  ];
+export const testimonials = [
+  {
+    name: "Michel Smith",
+    role: "Cloth Store Inc.",
+    avatar: "/assets/author.png",
+    review:
+      "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+  },
+  {
+    name: "Ruby Klara",
+    role: "Cloth Store Inc.",
+    avatar: "/assets/author.png",
+    review:
+      "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+  },
+  {
+    name: "Bishu Kiev",
+    role: "Cloth Store Inc.",
+    avatar: "/assets/author.png",
+    review:
+      "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+  },
+];
+
+
+
+  
+
 
 
    
@@ -501,17 +476,17 @@ export const charityCards: CharityCard[] = [
     image: "/blue_bg.jpeg",
     color: "border-green-600",
     bgColor: "bg-gray-100"
-    
+
   },
   {
     id: 2,
     title: "Medical Care",
     description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
     icon: "\e82b",
-     image: "/green_bg.jpeg",
+    image: "/green_bg.jpeg",
     color: "border-orange-500",
     bgColor: "bg-orange-50"
-   
+
   },
   {
     id: 3,
@@ -527,7 +502,7 @@ export const charityCards: CharityCard[] = [
     title: "Healthy Food",
     description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
     icon: "\e82a",
-   image: "/blue_bg.jpeg",
+    image: "/blue_bg.jpeg",
     color: "border-green-600",
     bgColor: "bg-gray-100"
   },
@@ -536,10 +511,10 @@ export const charityCards: CharityCard[] = [
     title: "Medical Care",
     description: "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
     icon: "\e82b",
-      image: "/green_bg.jpeg",
+    image: "/green_bg.jpeg",
     color: "border-orange-500",
     bgColor: "bg-orange-50"
-   
+
   },
   {
     id: 6,
@@ -731,7 +706,7 @@ export const newsData: NewsItem[] = [
     comments: "03"
   },
   {
-    img: "/artical2.png", 
+    img: "/artical2.png",
     category: "Education",
     categoryIcon: "🎓",
     title: "IT Service Case Studies Accelerate Business Fly Success Tech",
@@ -740,7 +715,7 @@ export const newsData: NewsItem[] = [
   },
   {
     img: "/artical3.png",
-    category: "Food", 
+    category: "Food",
     categoryIcon: "🍽️",
     title: "IT Service Case Studies Accelerate Business Fly Success Tech",
     author: "Robert Fox",
@@ -887,6 +862,55 @@ export const donationCardsBig:DonationCardData[] = [
 
 // Create 8 cards by repeating the original 4
 export const allDonationCards = [...donationCards, ...donationCards];
+
+
+
+
+
+
+
+export const newsCards = [
+  { img: "/article1.png", category: "Food", title: "Our New Campaign to Support Displaced Families" },
+  { img: "/artical2.png", category: "Health", title: "Health Camp Provides Medical Aid to Remote Villages" },
+  { img: "/artical3.png", category: "Education", title: "Building New Schools for a Brighter Future" },
+  { img: "/artical4.png", category: "Education", title: "Scholarships for Underprivileged Students" },
+  { img: "/artical5.png", category: "Food", title: "Community Kitchens Feed Thousands" },
+  { img: "/artical6.png", category: "Health", title: "Vaccination Drive Protects Children" },
+  { img: "/artical7.png", category: "Education", title: "Digital Literacy Program Launched" },
+  { img: "/artical8.png", category: "Food", title: "Food Packages Distributed in Flood-Hit Areas" },
+];
+
+export const authorInfo = {
+  img: "/assets/charity_with_difference/author-two.png",
+  name: "Rosalina Willaim",
+  role: "Front End Developer",
+  bio: "He Whimsically Named Egg Canvas Is The Design Director And Photographer In New York.",
+  socials: [
+    { icon: "facebook", url: "https://www.facebook.com/" },
+    { icon: "vimeo", url: "https://vimeo.com/" },
+    { icon: "twitter", url: "https://twitter.com/" },
+    { icon: "linkedin", url: "https://www.linkedin.com/" },
+  ],
+};
+
+// export const recentPosts = [
+//   { img: "/recentpost1.png", date: "November 19, 2024", title: "Where Innovation Meets Foundation" },
+//   { img: "/recentpost2.png", date: "November 19, 2024", title: "Charity That Brings Smiles" },
+//   { img: "/artical3.png", date: "November 22, 2024", title: "Structures That Stand, Dreams That Soar" },
+// ];
+
+export const categories = [
+  { name: "Donation", count: "05" },
+  { name: "Charity", count: "02" },
+  { name: "Volunteer", count: "09" },
+  { name: "Health", count: "07" },
+  { name: "Education", count: "04" },
+];
+
+export const popularTags = [
+  "T-Shirt", "Banner Design", "Brochures", "Landing", "Print", "Business Card"
+];
+
 
 
 

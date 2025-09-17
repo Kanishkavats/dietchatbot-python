@@ -10,6 +10,7 @@ import {
   FaArrowRight,
   FaArrowUp,
 } from 'react-icons/fa';
+import Button from '../common/Buttons/Button';
 import { newsData, NewsItem } from '../../staticResource';
 
 const LatestNewsArticle: React.FC = () => {
@@ -181,10 +182,16 @@ const LatestNewsArticle: React.FC = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
         >
           <Link href="/newslist">
-            <button className="bg-[#ffc107] text-black px-8 py-4 rounded-full font-bold text-lg flex items-center gap-2 hover:bg-[var(--green)] hover:text-white transition-colors shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300">
-              View All
-              <FaArrowUp className="text-black hover:text-white transition-colors" />
-            </button>
+            <Button 
+              text="View All"
+              bgColor="bg-[#ffc107]"
+              textColor="text-black"
+              hoverTextColor="group-hover:text-white"
+              hoverBg="before:bg-[var(--green)]"
+              icon="mdi:arrow-up"
+              paddingx="px-8"
+              paddingy="py-4"
+            />
           </Link>
         </motion.div>
 

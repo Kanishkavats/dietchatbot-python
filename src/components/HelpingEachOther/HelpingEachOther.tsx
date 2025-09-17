@@ -52,8 +52,8 @@ export default function HelpingEachOther() {
         </div>
       )}
       <section className="help relative py-2 lg:py-3 xl:py-20 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-8 xl:px-24">
-          <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-16 items-center">
+        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-8 xl:px-16 2xl:px-24">
+          <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-16 2xl:gap-20 items-center">
             
             <div className="relative opacity-0 anim-fade-in-left">
              
@@ -87,7 +87,7 @@ export default function HelpingEachOther() {
              
  
               
-              <div className="relative ml-0 md:ml-16 lg:ml-0 xl:ml-28">
+              <div className="relative ml-0 md:ml-16 lg:ml-0 xl:ml-16 2xl:ml-28">
                
                 <div
                   className="hidden xl:block absolute -top-16 left-70 z-30 opacity-0 anim-fade-in-left"
@@ -202,24 +202,7 @@ export default function HelpingEachOther() {
                 </div>
               </div>
 
-              {/* L-shaped yellow line connecting the images */}
-              <div className="absolute -bottom-20 right-70 w-50 h-27 pointer-events-none lg:rounded-2xl">
-                <svg
-                  width="125%"
-                  height="100%"
-                  viewBox="0 0 128 128"
-                  className="absolute"
-                >
-                  <path
-                    d="M 20 20 L 20 110 L 130 110"
-                    stroke="#FFC107"
-                    strokeWidth="1"
-                    fill="none"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </div>
+            
              
               <div className="absolute -left-25 top-2 transform -translate-y-1/2 opacity-60 hover:opacity-50 transition-opacity duration-300">
                 <Image
@@ -261,7 +244,7 @@ export default function HelpingEachOther() {
              
             </div>
            
-            <div className="relative opacity-0 anim-fade-in-right pl-0 md:pl-4 lg:pl-4 xl:pl-8" style={{ animationDelay: '0.2s' }}>
+            <div className="relative opacity-0 anim-fade-in-right pl-0 md:pl-4 lg:pl-4 xl:pl-4 2xl:pl-8" style={{ animationDelay: '0.2s' }}>
               
               <div className="flex items-center gap-3 mb-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>

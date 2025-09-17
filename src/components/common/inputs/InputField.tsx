@@ -1,11 +1,12 @@
 "use client";
+
 import { FieldHookConfig, useField } from "formik";
 import { Icon } from "@iconify/react";
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 interface InputFieldProps {
   label?: string;
-  icon?: string; // left-side icon
+  icon?: string | ReactNode; // icon can be a string or JSX
   type?: string;
   as?: "input" | "textarea";
   placeholder?: string;
@@ -24,6 +25,22 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
 
   const isTextarea = as === "textarea";
   const isPassword = type === "password";
+
+  // 🔍 Check if the icon is a string (Iconify) or JSX (React Icon or custom)
+  const renderIcon = () => {
+    if (!icon) return null;
+
+    if (typeof icon === "string") {
+      return (
+        <Icon
+          icon={icon}
+          className="text-gray-500/60 text-lg font-bold size-5 mt-[2px]"
+        />
+      );
+    }
+
+    return <span className="text-gray-500/60 text-lg">{icon}</span>;
+  };
 
   return (
     <div className="w-full">
@@ -51,15 +68,10 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
           />
         )}
 
-        {/* Left Icon (if provided) */}
-        {icon && !isPassword && (
-          <Icon
-            icon={icon}
-            className="text-gray-500/60 text-lg font-bold size-5 mt-[2px]"
-          />
-        )}
+        {/* Icon on the right (optional) */}
+        {!isPassword && icon && renderIcon()}
 
-        {/* Password Toggle (right side) */}
+        {/* Password Toggle Icon (right side) */}
         {isPassword && (
           <button
             type="button"
@@ -74,7 +86,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
         )}
       </div>
 
-      {/* Error */}
+      {/* Error message */}
       {meta.touched && meta.error && (
         <p className="text-[10px] text-red mt-1">{meta.error}</p>
       )}

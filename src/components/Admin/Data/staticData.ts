@@ -28,6 +28,7 @@ export const CategorySearchOptions = [
 
 export interface Blog {
   id: number;
+  creator:string;
   title: string;
   description: string;
   summary: string;
@@ -56,3 +57,7 @@ export const BlogSearchOptions = [
 ] as const;
 
 
+export const CommentSearchOptions = [
+  { label: "Name", value: "name" },
+  { label: "Comment", value: "comment" },
+]

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useState, useMemo, useCallback } from "react";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import Dropdown from "../Common/Dropdown";
 import CustomInput from "../Common/CustomInput";
 import Button from "../../common/Buttons/Button";
@@ -9,34 +8,13 @@ import Drawer from "../Common/Drawer";
 import DataTableWrapper from "../Common/DataTableWrapper";
 import { CategorySearchOptions } from "../Data/staticData";
 import CategoryForm from "./CategoryForm";
-import TableRowActions from "../Campaign/CampaignActions";
 import { useFetchCategory, useDeleteCategory } from "@/src/hooks/useCategory";
-import { CategoryColumnCallbacks } from "@/src/types/campaign";
 import { Category } from "@/src/types/category";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
+import { getCategoryColumns } from "./categoryColumns";
 
 // Column generator similar to getCampaignColumns
-export const getCategoryColumns = ({
-  onEdit,
-  onDelete,
-  onView,
-}: CategoryColumnCallbacks) => [
-    { name: "SNo", cell: (_row: Category, index: number) => index + 1, width: "80px" },
-    { name: "Name", selector: (row: Category) => row.name, sortable: true },
-    {
-      name: "Actions",
-      cell: (row: Category) => (
-        <TableRowActions
-          row={row}
-          actions={[
-            { label: "View Category", icon: <FaEye />, onClick: onView, colorClass: "text-blue-500 hover:text-blue-700" },
-            { label: "Edit Category", icon: <FaEdit />, onClick: onEdit, colorClass: "text-green-500 hover:text-green-700" },
-            { label: "Delete Category", icon: <FaTrash />, onClick: onDelete, colorClass: "text-red-500 hover:text-red-700" },
-          ]}
-        />
-      ),
-    },
-  ];
+
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");
