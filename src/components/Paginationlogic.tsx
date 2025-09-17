@@ -254,7 +254,9 @@
 
 import React, { useState } from "react";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
-import LatestNewsContent from "./Latestnews";
+import LatestNewsContent from "./Latestnews/index";
+
+
 import Newslist from "./Newslist";
 
 const Paginationlogic: React.FC = () => {
