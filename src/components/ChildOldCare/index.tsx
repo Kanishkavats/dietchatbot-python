@@ -13,7 +13,7 @@ const ScrollBanner: React.FC = () => {
   const settings = childOldCareSliderSettings;
 
   return (
-    <div className="relative w-full h-[550px] md:h-[600px] lg:h-[500px] gap-10 mt-15 overflow-hidden">
+    <div className="relative w-full h-[550px] md:h-[600px] lg:h-[550px] gap-10 mt-15 overflow-hidden">
       {/* Custom CSS for responsive design */}
       <style dangerouslySetInnerHTML={{
         __html: `
