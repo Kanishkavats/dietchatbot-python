@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import AnimatedProgressBar from '../AnimatedProgressBar';
+import Button from '../Buttons/Button';
 
 interface DonationCardProps {
   card: {
@@ -37,13 +38,13 @@ const DonationCard: React.FC<DonationCardProps> = ({
   return (
     <div 
       key={card.id}
-      className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
+      className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative cursor-pointer"
       style={{
-        transition: 'all 0.3s ease',
         position: 'relative',
         overflow: 'hidden',
         fontFamily: 'var(--font-nunito), Nunito, sans-serif', 
-        fontWeight: '800'
+        fontWeight: '800',
+        minWidth: '280px'
       }}
       onMouseEnter={() => onMouseEnter(card.id)}
       onMouseLeave={onMouseLeave}
@@ -113,33 +114,50 @@ const DonationCard: React.FC<DonationCardProps> = ({
         </h3>
 
         {/* Description */}
-        <p className="text-gray-600 text-sm leading-relaxed mb-4">{card.description}</p>
+        <p className="text-gray-600 font-nunito font-extralight text-sm leading-relaxed mb-4">{card.description}</p>
 
-        {/* Progress Bar */}
-        <AnimatedProgressBar progress={card.progress} isInView={isInView} />
+        {/* Gray background box for progress bar, amounts, and donation button */}
+        <div className="bg-gray-100 p-2 rounded-lg">
+          {/* Progress Bar */}
+          <AnimatedProgressBar progress={card.progress} isInView={isInView} />
 
-        {/* Amounts */}
-        <div className="flex justify-between text-sm text-gray-500 mb-4">
-          <span>Raised: {card.raised}</span>
-          <span>Goal: {card.goal}</span>
+          {/* Amounts */}
+          <div className="flex justify-between text-sm text-gray-500 mb-4">
+            <span>Raised: {card.raised}</span>
+            <span>Goal: {card.goal}</span>
+          </div>
+
+          {/* Donate Button */}
+          <div 
+            className="transition-all duration-300"
+            style={{
+              transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
+              boxShadow: hoveredCard === card.id 
+                ? '0 4px 12px rgba(34, 197, 89, 0.3)'
+                : 'none',
+            }}
+          >
+            <div 
+              className="border-2 rounded-full w-fit"
+              style={{
+                borderColor: hoveredCard === card.id ? '#000000' : '#122F2A',
+                backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
+              }}
+            >
+              <Button 
+                text="Donate Now"
+                bgColor="bg-transparent"
+                textColor={hoveredCard === card.id ? "text-white" : "text-[#122F2A]"}
+                hoverTextColor="group-hover:text-white"
+                hoverBg={hoveredCard === card.id ? "before:bg-transparent" : "before:bg-black"}
+                rounded="rounded-full"
+                paddingx="px-4"
+                paddingy="py-3"
+                icon=""
+              />
+            </div>
+          </div>
         </div>
-
-        {/* Donate Button */}
-        <button 
-          className=" py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300"
-          style={{
-            backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
-            borderColor: hoveredCard === card.id ? '#000000' : '#122F2A',
-            color: hoveredCard === card.id ? 'white' : '#122F2A',
-            transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
-            boxShadow: hoveredCard === card.id 
-              ? '0 4px 12px rgba(34, 197, 89, 0.3)'
-              : 'none',
-            transition: 'all 0.3s ease'
-          }}
-        >
-          Donate Now
-        </button>
       </div>
     </div>
   );

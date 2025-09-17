@@ -1,4 +1,4 @@
-import Event from "@/src/components/Event";
+import Event from "@/src/components/Event/index";
 
 
 

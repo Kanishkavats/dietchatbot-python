@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
 import { teamMembers } from "@/src/staticResource";
@@ -13,6 +14,7 @@ import { VolunteerCard } from "../common/card/VolunteerCard";
 
 
 const VolunteerTeam = () => {
+  const router = useRouter();
   const itemsPerPage = 4;
   const totalPages = Math.ceil(teamMembers.length / itemsPerPage);
   const [visibleCount, setVisibleCount] = useState(itemsPerPage);
@@ -20,9 +22,7 @@ const VolunteerTeam = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleViewAll = () => {
-    setVisibleCount(teamMembers.length);
-    setShowPagination(true);
-    setCurrentPage(1);
+    router.push('/team');
   };
 
   const membersToShow = showPagination
