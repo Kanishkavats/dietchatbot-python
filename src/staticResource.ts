@@ -802,6 +802,88 @@ export const donationCards: DonationCardData[] = [
     goal: "$1,0000"
   }
 ];
+export const donationCardsBig:DonationCardData[] = [
+  {
+    id: 1,
+    image: "/assets/section3/childenweworkfor.png",
+    category: "Health",
+    title: "Children We Work ",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 85,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 2,
+    image: "/assets/section3/helpforeducation.png",
+    category: "Food",
+    title: "Help For Education",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 70,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 3,
+    image: "/assets/section3/helpforfood.png",
+    category: "Health",
+    title: "Help For Food",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 65,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 4,
+    image: "/assets/section3/givehealthsupport.png",
+    category: "Food",
+    title: "Give Health Support",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 90,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 5,
+    image: "/assets/section3/childenweworkfor.png",
+    category: "Health",
+    title: "Children We Work ",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 75,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 6,
+    image: "/assets/section3/helpforeducation.png",
+    category: "Food",
+    title: "Help For Education",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 65,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 7,
+    image: "/assets/section3/helpforfood.png",
+    category: "Health",
+    title: "Help For Food",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 90,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 8,
+    image: "/assets/section3/givehealthsupport.png",
+    category: "Food",
+    title: "Give Health Support",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 55,
+    raised: "$8500",
+    goal: "$1,0000"
+  }
+];
 
 // Create 8 cards by repeating the original 4
 export const allDonationCards = [...donationCards, ...donationCards];

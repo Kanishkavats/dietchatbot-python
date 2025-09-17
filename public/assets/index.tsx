@@ -57,7 +57,7 @@ import childrenweworkfor from './section3/childenweworkfor.png';
 import givehealthsupport from './section3/givehealthsupport.png';
 import helpforeducation from './section3/helpforeducation.png';
 import helpforfood from './section3/helpforfood.png';
-
+import imageBottomTear from './shape-two.png'
 
 
 
@@ -120,6 +120,6 @@ export {
   childrenweworkfor,
   givehealthsupport,
   helpforeducation,
-  helpforfood
- 
+  helpforfood,
+ imageBottomTear,
 };
