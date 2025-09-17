@@ -71,26 +71,7 @@ const Newslist = () => {
 
                 
                 
-                <motion.div
-                        className="flex justify-center items-center space-x-4 my-6"
-                        
-                      >
-                        <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#046B59] text-[#ffffff] hover:bg-[#FFC107] transition">
-                          <FaAngleDoubleLeft />
-                        </button>
-                        <button className="w-10 h-10 flex items-center justify-center rounded-full border border-[#9ca3af] text-[#000000] hover:bg-[#FFC107] hover:text-[#ffffff] transition">
-                          1
-                        </button>
-                        <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#FFC107] text-[#000000] font-semibold">
-                          2
-                        </button>
-                        <button className="w-10 h-10 flex items-center justify-center rounded-full border border-[#9ca3af] text-[#000000] hover:bg-[#FFC107] hover:text-[#ffffff] transition">
-                          3
-                        </button>
-                        <button className="w-10 h-10 flex items-center justify-center rounded-full bg-[#046B59] text-[#ffffff] hover:bg-[#FFC107] transition">
-                          <FaAngleDoubleRight />
-                        </button>
-                      </motion.div>
+                
             </section>
         </div>
     );
@@ -101,7 +82,7 @@ const sidebarData = [
     () => (
         <div className="bg-[#EBEBEB] p-6 rounded-lg shadow-md text-center">
             <img
-                src="https://placehold.co/120x120/E2E8F0/1A202C?text=Rosalina"
+                src="/assets/charity_with_difference/author-two.png"
                 alt="Rosalina Willaim profile"
                 className="rounded-full mx-auto mt-6 w-32 h-32 object-cover"
             />

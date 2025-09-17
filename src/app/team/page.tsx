@@ -1,5 +1,7 @@
 
 import Ourteam from "@/src/components/Ourteam";
+import PageBanner from '../../components/common/PageBanner'
+import { bannerBg } from "@/public/assets";
 
 
 
@@ -8,8 +10,11 @@ import Ourteam from "@/src/components/Ourteam";
 
 const OurteamPage = () => {
   return (
-    
-          <Ourteam />
+    <>
+      <PageBanner bgImage={bannerBg} title="Our Team" />
+      <Ourteam />
+    </>
+          
 
           
      

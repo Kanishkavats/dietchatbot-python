@@ -14,10 +14,12 @@ import {
   FaPinterest,
   FaLinkedinIn,
   FaTumblr,
-  FaComment,
+
+  FaRegCommentDots,
   FaUser,
-  FaEnvelope,
+  FaRegEnvelope,
 } from "react-icons/fa";
+import { Icon } from '@iconify/react'
 import { comments, recentPosts, tags } from "@/src/staticResource";
 import { ppOne, ppTwo } from '@/public/assets';
 export default function BlogPage() {
@@ -171,41 +173,55 @@ export default function BlogPage() {
               </div>
             </div>
 
-            <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
-              <h2 className="text-xl sm:text-2xl font-bold text-[#000000] mb-6">Leave A Comment</h2>
-              <form className="space-y-4">
-                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-                  <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-                    <FaUser className="text-[#667471]" size={18} />
+            
+            <div className="w-full max-w-[896px] mx-auto mt-10 p-4 sm:p-6 bg-white rounded-lg lg:mt-20 lg:p-15 shadow-md">
+              <h2 className="text-2xl sm:text-3xl font-bold text-[#122F2A] mb-8 lg:mb-12">
+                Leave a Comment
+              </h2>
+              <form className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  {/* Name Input */}
+                  <div className="flex items-center bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF]">
+                    <FaUser className="text-[#6B7280] mr-4" size={20} />
                     <input
                       type="text"
                       placeholder="Your Name"
-                      className="w-full bg-transparent focus:outline-none ml-2"
+                      className="w-full bg-transparent text-[#6B7280] placeholder-[#ADB5BD] focus:outline-none"
                     />
                   </div>
-                  <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-                    <FaEnvelope className="text-xl mt-1 text-[#667471]" />
+                  {/* Email Input */}
+                  <div className="flex items-center bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF]">
+                    {/* <FaEnvelope className="text-[#6B7280] mr-4" size={20} /> */}
+                    <FaRegEnvelope className="text-[#6B7280] mr-4" size={20} />
                     <input
                       type="email"
-                      placeholder="Enter Email"
-                      className="w-full bg-transparent focus:outline-none ml-2"
+                      placeholder="Your Email"
+                      className="w-full bg-transparent text-[#6B7280] placeholder-[#ADB5BD] focus:outline-none"
                     />
                   </div>
-                </div> 
-               
+                </div>
 
-
-                <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[656px] lg:h-[184px] lg:px-5 lg:py-3">
-                  <FaComment className="text-[#6B7280]" size={18} />
+                {/* Comments Textarea */}
+                <div className="flex items-start bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF]">
+                  
+                  
+                  <Icon
+                    icon="fa6-solid:comments"
+                    width={24}
+                    height={24}
+                    className="text-[#6B7280] hover:text-[#ffffff]"
+                  />
                   <textarea
                     placeholder="Type Your Comments..."
-                    className="w-full bg-transparent focus:outline-none resize-none ml-2"
-                    rows={4}
+                    className="w-full bg-transparent text-[#6B7280] placeholder-[#ADB5BD] focus:outline-none resize-none"
+                    rows={6}
                   ></textarea>
                 </div>
+
+                {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full sm:w-auto bg-[#122F2A] text-[#ffffff] text-[16px] px-6 py-3 rounded-md hover:opacity-90 transition"
+                  className="w-full md:w-auto bg-[#122F2A] text-white text-[16px] font-semibold px-10 py-4 rounded-md hover:bg-[#0E2521] transition-colors duration-300"
                 >
                   Submit Comment
                 </button>

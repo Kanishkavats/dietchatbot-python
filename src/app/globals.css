@@ -784,3 +784,12 @@ a, button, input, textarea, select, [role="button"] {
 .animate-ripple {
   animation: ripple 2s infinite;
 }
+
+
+
+.icon-user::before {
+  content: "\f007"; /* fa-user ka unicode */
+  font-family: "FontAwesome";
+  font-weight: 900; /* solid style */
+  display: inline-block;
+}

@@ -1,15 +1,18 @@
 import Newsdetails from "@/src/components/Newsdetail";
-import { ChildrenNeed } from "@/src/components/About";
+
+import PageBanner from '../../components/common/PageBanner'
+import { bannerBg } from "@/public/assets";
+
 
 
 
 export default function Newsdetail() {
   return (
     <>
-        <ChildrenNeed/>
+      <PageBanner bgImage={bannerBg} title="Blog Details" />
       <Newsdetails />
-      
-      
+
+
     </>
   );
 }
