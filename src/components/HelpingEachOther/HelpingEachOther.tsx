@@ -5,6 +5,7 @@ import { useState, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { FiPhoneCall } from "react-icons/fi";
 import { motion, useInView } from 'framer-motion';
+import Button from "../common/Buttons/Button";
 export default function HelpingEachOther() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const router = useRouter();
@@ -50,13 +51,13 @@ export default function HelpingEachOther() {
           </div>
         </div>
       )}
-      <section className="help relative py-12 lg:py-8 xl:py-20 bg-white overflow-hidden">
+      <section className="help relative py-2 lg:py-3 xl:py-20 bg-white overflow-hidden">
         <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-8 xl:px-24">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-4 xl:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-16 items-center">
             
             <div className="relative opacity-0 anim-fade-in-left">
              
-              <div className="hidden lg:block absolute left-0 top-50 -bottom-15 w-16 lg:w-16 xl:w-25 bg-[#046b59] rounded-3xl border-t-4 border-b-4 border-yellow-500 flex items-center justify-center z-20 transition-all duration-300">
+              <div className="hidden xl:block absolute left-6 top-54 -bottom-15 w-16 lg:w-16 xl:w-25 bg-[#046b59] rounded-3xl border-t-4 border-b-4 border-yellow-500 flex items-center justify-center z-20 transition-all duration-300">
                 <div
                   className="transform -rotate-90 text-white font-extrabold text-xl  whitespace-nowrap mt-80 px-2"
                   style={{
@@ -70,7 +71,7 @@ export default function HelpingEachOther() {
                 </div>
               </div>
               
-              <div className="hidden lg:block absolute -left-6 lg:-left-6 xl:-left-10 top-95 -bottom-4 z-10">
+              <div className="hidden xl:block absolute -left-6 lg:-left-6 xl:-left-10 top-95 -bottom-4 z-10">
                 <Image
                   src="/assets/section2/grid.png"
                   alt="Grid pattern"
@@ -86,10 +87,10 @@ export default function HelpingEachOther() {
              
  
               
-              <div className="relative ml-0 md:ml-16 lg:ml-8 xl:ml-28">
+              <div className="relative ml-0 md:ml-16 lg:ml-0 xl:ml-28">
                
                 <div
-                  className="hidden lg:block absolute -top-16 left-70 z-30 opacity-0 anim-fade-in-left"
+                  className="hidden xl:block absolute -top-16 left-70 z-30 opacity-0 anim-fade-in-left"
                   style={{ animationDelay: '0.3s' }}
                 >
                   <Image
@@ -102,13 +103,62 @@ export default function HelpingEachOther() {
                   />
                 </div>
                 
+                {/* 1024px breakpoint: All images in a row */}
+                <div className="hidden lg:flex xl:hidden items-center justify-center gap-4 mb-8">
+                  {/* Left image - now same size as middle */}
+                  <div className="w-[280px] h-[320px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white bg-white">
+                    <Image src="/assets/section2/thumb-top 2section.png" alt="Community meal" width={280} height={320} className="object-cover w-full h-full" />
+                  </div>
+                  
+                  {/* Main video image */}
+                  <motion.div 
+                    ref={thumbRef}
+                    className="relative w-[280px] h-[320px] rounded-3xl border-8 border-white overflow-hidden shadow-2xl"
+                    initial={{ opacity: 0, transform: "translateZ(0)" }}
+                    animate={isThumbInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
+                    transition={{ duration: 1 }}
+                  >
+                    <Image
+                      src="/assets/section2/thumb-lg.png"
+                      alt="Children in need"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                    <div className="absolute inset-0 bg-emerald-900/60 mix-blend-multiply"></div>
+                    <button
+                      aria-label="Play video"
+                      className="absolute inset-0 flex items-center justify-center group"
+                      onClick={handleVideoOpen}
+                    >
+                      <span className="relative flex items-center justify-center">
+                        <span className="absolute w-24 h-24 rounded-full bg-black/30 group-hover:bg-black/40 transition-colors"></span>
+                        <span
+                          className="absolute w-20 h-20 rounded-full border-2 border-dashed border-yellow animate-spin"
+                          style={{ animationDuration: '8s' }}
+                        />
+                        <span className="relative w-16 h-16 rounded-full bg-yellow shadow-lg flex items-center justify-center">
+                          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" className="ml-1 text-black">
+                            <path d="M8 5v14l11-7L8 5z" />
+                          </svg>
+                        </span>
+                      </span>
+                    </button>
+                  </motion.div>
+                  
+                  {/* Right image - now same size as middle */}
+                  <div className="w-[280px] h-[320px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white bg-white">
+                    <Image src="/assets/section2/thumb-bottom.png" alt="Smiling child" width={280} height={320} className="object-cover w-full h-full" />
+                  </div>
+                </div>
+
+                {/* Original layout for other breakpoints */}
                 <motion.div 
                   ref={thumbRef}
-                  className="hidden md:block relative 
+                  className="hidden md:block lg:hidden xl:block relative 
              w-[300px] h-[350px] 
              sm:w-[350px] sm:h-[400px] 
              md:w-[380px] md:h-[450px] 
-             lg:w-[280px] lg:h-[340px]   /* more compact for 1024px */
              xl:w-[500px] xl:h-[555px]  /* bigger only on desktop */
              mx-auto rounded-3xl border-8 md:border-12 border-white overflow-hidden shadow-2xl"
                   initial={{ opacity: 0, transform: "translateZ(0)" }}
@@ -143,11 +193,11 @@ export default function HelpingEachOther() {
                   </button>
                 </motion.div>
    
-                <div className="hidden md:block absolute -top-6 -left-12 lg:-left-8 xl:-left-24 w-44 h-44 lg:w-36 lg:h-36 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
+                <div className="hidden md:block lg:hidden xl:block absolute -top-6 -left-12 xl:-left-24 w-44 h-44 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-top 2section.png" alt="Community meal" fill className="object-cover" />
                 </div>
                 
-                <div className="hidden md:block absolute -bottom-16 -right-4 lg:-right-2 left-70 xl:-right-10 w-44 h-40 lg:w-36 lg:h-32 xl:w-56 xl:h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
+                <div className="hidden md:block lg:hidden xl:block absolute -bottom-16 -right-4 left-70 xl:-right-10 w-44 h-40 xl:w-56 xl:h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-bottom.png" alt="Smiling child" fill className="object-cover" />
                 </div>
               </div>
@@ -161,7 +211,7 @@ export default function HelpingEachOther() {
                   className="absolute"
                 >
                   <path
-                    d="M 20 20 L 20 100 L 120 100"
+                    d="M 20 20 L 20 110 L 130 110"
                     stroke="#FFC107"
                     strokeWidth="1"
                     fill="none"
@@ -194,7 +244,7 @@ export default function HelpingEachOther() {
                 repeatType: "loop"
               }}
               style={{
-                insetInlineStart: '8%',
+                insetInlineStart: '2%',
                 zIndex: -1
               }}
             >
@@ -211,7 +261,7 @@ export default function HelpingEachOther() {
              
             </div>
            
-            <div className="relative opacity-0 anim-fade-in-right pl-0 md:pl-4 lg:pl-0 xl:pl-8" style={{ animationDelay: '0.2s' }}>
+            <div className="relative opacity-0 anim-fade-in-right pl-0 md:pl-4 lg:pl-4 xl:pl-8" style={{ animationDelay: '0.2s' }}>
               
               <div className="flex items-center gap-3 mb-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
@@ -221,7 +271,7 @@ export default function HelpingEachOther() {
               </div>
              
               <h2
-                className="text-3xl sm:text-4xl lg:text-3xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up"
+                className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold text-gray-900 mb-6 leading-tight opacity-0 anim-fade-in-up"
                 style={{ fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800' }}
               >
                 Helping Each Other Can Make <span className="text-yellow">World</span> Better
@@ -235,7 +285,7 @@ export default function HelpingEachOther() {
                 Leadership, Communication, Project Management, And Teamwork Skills.
               </p>
              
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-4 mb-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-6 mb-8">
                 
                 <div className="flex items-center gap-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.2s' }}>
                   <div className="w-24 h-24 rounded-lg flex items-center justify-center shadow-md">
@@ -302,23 +352,20 @@ export default function HelpingEachOther() {
                 </div>
               </div>
             
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-3 lg:gap-2 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.8s' }}>
-               
-                <button
-                  onClick={handleMoreAboutUs}
-                  className="bg-yellow hover:bg-[#046b59] hover:text-white text-black font-bold rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105 transform px-8 sm:px-12 py-4 sm:py-5 text-sm sm:text-base font-nunito w-full sm:w-auto"
-                  style={{
-                    width: "100%",
-                    maxWidth: "210px",
-                    height: "60px",
-                    fontSize: "14px",
-                    fontFamily: "Nunito, sans-serif",
-                  }}
-                >
-                  More About Us
-                </button>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-3 lg:gap-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.8s' }}>
+               <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
+            <Button
+              text="More About Us"
+              bgColor="bg-[#FFC107]"
+              textColor="text-black"
+              hoverTextColor="group-hover:text-white"
+              hoverBg="before:bg-[#046b59]"
+              onClick={handleMoreAboutUs}
+            />
+          </div>
                 
-                <div className="flex items-center gap-3 sm:ml-6 lg:ml-2 hover:scale-105 transition-transform duration-300">
+                
+                <div className="flex items-center gap-3 sm:ml-6 lg:ml-4 hover:scale-105 transition-transform duration-300">
                   <FiPhoneCall className="w-6 h-6 sm:w-7 sm:h-7 text-[#122F2A]" />
                   <div>
                     <p className="text-[#828A8D] text-[12px] sm:text-[14px] font-nunito leading-none mb-1">
