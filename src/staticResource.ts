@@ -814,3 +814,52 @@ export const allDonationCards = [...donationCards, ...donationCards];
 
 
 
+
+
+
+export const newsCards = [
+  { img: "/article1.png", category: "Food", title: "Our New Campaign to Support Displaced Families" },
+  { img: "/artical2.png", category: "Health", title: "Health Camp Provides Medical Aid to Remote Villages" },
+  { img: "/artical3.png", category: "Education", title: "Building New Schools for a Brighter Future" },
+  { img: "/artical4.png", category: "Education", title: "Scholarships for Underprivileged Students" },
+  { img: "/artical5.png", category: "Food", title: "Community Kitchens Feed Thousands" },
+  { img: "/artical6.png", category: "Health", title: "Vaccination Drive Protects Children" },
+  { img: "/artical7.png", category: "Education", title: "Digital Literacy Program Launched" },
+  { img: "/artical8.png", category: "Food", title: "Food Packages Distributed in Flood-Hit Areas" },
+];
+
+export const authorInfo = {
+  img: "/assets/charity_with_difference/author-two.png",
+  name: "Rosalina Willaim",
+  role: "Front End Developer",
+  bio: "He Whimsically Named Egg Canvas Is The Design Director And Photographer In New York.",
+  socials: [
+    { icon: "facebook", url: "https://www.facebook.com/" },
+    { icon: "vimeo", url: "https://vimeo.com/" },
+    { icon: "twitter", url: "https://twitter.com/" },
+    { icon: "linkedin", url: "https://www.linkedin.com/" },
+  ],
+};
+
+// export const recentPosts = [
+//   { img: "/recentpost1.png", date: "November 19, 2024", title: "Where Innovation Meets Foundation" },
+//   { img: "/recentpost2.png", date: "November 19, 2024", title: "Charity That Brings Smiles" },
+//   { img: "/artical3.png", date: "November 22, 2024", title: "Structures That Stand, Dreams That Soar" },
+// ];
+
+export const categories = [
+  { name: "Donation", count: "05" },
+  { name: "Charity", count: "02" },
+  { name: "Volunteer", count: "09" },
+  { name: "Health", count: "07" },
+  { name: "Education", count: "04" },
+];
+
+export const popularTags = [
+  "T-Shirt", "Banner Design", "Brochures", "Landing", "Print", "Business Card"
+];
+
+
+
+
+
