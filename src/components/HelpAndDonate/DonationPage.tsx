@@ -13,6 +13,7 @@ import Button from '../common/Buttons/Button';
 import SendMsg from '../About/SendMsg';
 import ChildrenNeed from '../About/ChildrenNeed'
 import { motion } from "framer-motion";
+import { useFetchAllCampaigns } from '@/src/hooks/useCampaigns';
 
 const donationCards = [
   {
@@ -135,6 +136,9 @@ const DonationPage: React.FC = () => {
     setRightButtonColor(newColor);
   };
 
+  const {data} = useFetchAllCampaigns(1,1);
+  console.log(data)
+
   return (
     <>
       <Banner 
@@ -143,7 +147,7 @@ const DonationPage: React.FC = () => {
       />
 
       {/* Donation Causes Section */}
-      <section className="relative py-20 min-h-[500px] overflow-hidden">
+      <section className="relative py-20 min-h-[500px] overflow-hidden border-4 border-red-600">
 
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl">

@@ -15,8 +15,12 @@ import {
   FaAngleDoubleRight,
 } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
+import { useFetchAllBlogs } from "../hooks/useBlog";
 
 const LatestNews = () => {
+     const {data} = useFetchAllBlogs(1, 1);
+     console.log(data)
+
   return (
     <div className="bg-gray-50 font-sans antialiased text-gray-800">
 
