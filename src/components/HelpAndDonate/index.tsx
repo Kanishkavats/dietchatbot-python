@@ -9,148 +9,12 @@ import "swiper/css/navigation";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
+import Button from "../common/Buttons/Button";
+import DonationCard from "../common/card/DonationCard";
+import { allDonationCards } from "../../staticResource";
 
 
-const donationCards = [
-  {
-    id: 1,
-    image: "/assets/section3/helpforeducation.png",
-    category: "Food",
-    title: "Help For Education",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
-    progress: 90,
-    raised: "$8500",
-    goal: "$1,0000"
-  },
-  {
-    id: 2,
-    image: "/assets/section3/helpforfood.png",
-    category: "Health",
-    title: "Help For Food",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
-    progress: 75,
-    raised: "$8500",
-    goal: "$1,0000"
-  },
-  {
-    id: 3,
-    image: "/assets/section3/givehealthsupport.png",
-    category: "Food",
-    title: "Give Health Support",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
-    progress: 65,
-    raised: "$8500",
-    goal: "$1,0000"
-  },
-  {
-    id: 4,
-    image: "/assets/section3/childenweworkfor.png",
-    category: "Health",
-    title: "Children We Work ",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
-    progress: 85,
-    raised: "$8500",
-    goal: "$1,0000"
-  }
-];
 
-// Create 8 cards by repeating the original 4
-const allDonationCards = [...donationCards, ...donationCards];
-
-// Animated Progress Bar Component
-const AnimatedProgressBar: React.FC<{ progress: number; isInView: boolean }> = ({ progress, isInView }) => {
-  const [displayProgress, setDisplayProgress] = React.useState(0);
-
-  React.useEffect(() => {
-    if (isInView) {
-      // Animate the percentage counter from 0 to target value
-      const duration = 1500; // Same duration as progress bar
-      const startTime = Date.now();
-      const startValue = 0;
-      const endValue = progress;
-
-      const animateCounter = () => {
-        const elapsed = Date.now() - startTime;
-        const progressRatio = Math.min(elapsed / duration, 1);
-        
-        // Use easeOut easing to match the progress bar animation
-        const easeOut = 1 - Math.pow(1 - progressRatio, 3);
-        const currentValue = Math.round(startValue + (endValue - startValue) * easeOut);
-        
-        setDisplayProgress(currentValue);
-
-        if (progressRatio < 1) {
-          requestAnimationFrame(animateCounter);
-        }
-      };
-
-      // Start animation after a small delay to match progress bar
-      const timer = setTimeout(() => {
-        requestAnimationFrame(animateCounter);
-      }, 200);
-      
-      return () => clearTimeout(timer);
-    } else {
-      setDisplayProgress(0);
-    }
-  }, [isInView, progress]);
-
-  return (
-    <div className="bg-gray-100 rounded-lg p-2 md:p-2 mb-2 md:mb-3">
-      <div className="flex justify-between text-xs md:text-sm text-gray-500 mb-2">
-        <span>Donation</span>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isInView ? 1 : 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          {displayProgress}%
-        </motion.span>
-      </div>
-      <div className="w-full bg-gray-200 rounded-full h-1.5 md:h-2">
-        <motion.div 
-          className="bg-yellow-400 h-1.5 md:h-2 rounded-full relative overflow-hidden"
-          initial={{ width: 0 }}
-          animate={{ width: isInView ? `${progress}%` : 0 }}
-          transition={{ 
-            duration: 1.5, 
-            ease: "easeOut",
-            delay: 0.2
-          }}
-          style={{
-            background: 'linear-gradient(90deg, #FBBF24 0%, #F59E0B 50%, #FBBF24 100%)',
-            backgroundSize: '200% 100%'
-          }}
-        >
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30"
-            animate={{
-              x: isInView ? ['0%', '100%'] : '0%',
-            }}
-            transition={{
-              duration: 1,
-              repeat: Infinity,
-              ease: "linear",
-              delay: 0.5
-            }}
-            style={{
-              width: '100%',
-              height: '100%',
-              background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent)',
-              transform: 'translateX(-100%)'
-            }}
-          />
-        </motion.div>
-      </div>
-      
-      {/* Amounts */}
-      <div className="flex justify-between text-xs md:text-sm text-gray-500 mb-2 md:mb-3 mt-2 md:mt-3">
-        <span>Raised: {progress === 90 ? "$8500" : progress === 75 ? "$7500" : progress === 65 ? "$6500" : "$8500"}</span>
-        <span>Goal: <span className="text-brown">{progress === 90 ? "$1,0000" : progress === 75 ? "$1,0000" : progress === 65 ? "$1,0000" : "$1,0000"}</span></span>
-      </div>
-    </div>
-  );
-};
 
 const HelpAndDonate: React.FC = () => {
   const router = useRouter();
@@ -320,108 +184,14 @@ const HelpAndDonate: React.FC = () => {
           >
             {allDonationCards.map((card, index) => (
               <SwiperSlide key={`${card.id}-${index}`} className="h-auto">
-                <div 
-                  className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl cursor-pointer"
-                  style={{
-                    transition: 'all 0.3s ease',
-                    position: 'relative',
-                    overflow: 'hidden',
-                    fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'
-                  }}
-                  onMouseEnter={() => setHoveredCard(card.id)}
+                <DonationCard
+                  card={card}
+                  isInView={isInView}
+                  hoveredCard={hoveredCard}
+                  onMouseEnter={setHoveredCard}
                   onMouseLeave={() => setHoveredCard(null)}
-                  onClick={() => handleCardClick(card.category)}
-                >
-                  {/* Shimmer effect overlay */}
-                  <div 
-                    className="absolute inset-0 pointer-events-none opacity-0 hover:opacity-100 transition-all duration-500"
-                    style={{
-                      background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
-                      left: '-100%',
-                      width: '100%',
-                      height: '100%'
-                    }}
-                  />
-                  
-                  {/* Card Image */}
-                  <div className="relative h-40 sm:h-44 md:h-48 rounded-lg overflow-hidden">
-                    <motion.div
-                      animate={hoveredCard === card.id ? { scale: 1.1, rotate: -3 } : { scale: 1, rotate: 0 }}
-                      transition={{ duration: 0.4 }}
-                      className="w-full h-full"
-                    >
-                      <Image
-                        src={card.image}
-                        alt={card.title}
-                        fill
-                        className="object-cover"
-                       
-                      />
-                    </motion.div>
-                    {/* Category Tag */}
-                    <div 
-                      className="absolute top-3 left-3 md:top-4 md:left-4 px-5 py-3 md:px-5 md:py-2 rounded-full text-black text-xs md:text-sm font-medium transition-all duration-300"
-                      style={{
-                        background: hoveredCard === card.id 
-                          ? 'linear-gradient(135deg, #151414d6 0%, #000000 100%)'
-                          : 'linear-gradient(135deg, #FFC107 0%, #FFD54F 100%)',
-                        color: hoveredCard === card.id ? 'white' : 'black',
-                        boxShadow: hoveredCard === card.id 
-                          ? '0 2px 8px rgba(34, 197, 94, 0.4)'
-                          : '0 2px 8px rgba(255, 193, 7, 0.3)',
-                        transform: hoveredCard === card.id ? 'scale(1.05)' : 'scale(1)',
-                        transition: 'all 0.3s ease'
-                      }}
-                    >
-                      {card.category}
-                    </div>
-                  </div>
-
-                  {/* Card Content */}
-                  <div className="p-3 md:p-4">
-                    {/* Title */}
-                    <h3 
-                      className="text-lg md:text-xl font-bold mb-2 md:mb-3 transition-colors duration-300 cursor-pointer"
-                      style={{
-                        color: hoveredCard === card.id ? '#6b5103' : '#122F2A', // Yellow mustard on hover, dark green default
-                        transition: 'color 0.3s ease'
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        router.push('/child-education');
-                      }}
-                    >
-                      {card.title}
-                    </h3>
-                    
-                    {/* Description */}
-                    <p className="text-gray-600 text-xs md:text-sm leading-relaxed mb-2 md:mb-3">{card.description}</p>
-                    
-                    {/* Progress Bar */}
-                    <AnimatedProgressBar progress={card.progress} isInView={isInView} />
-                    
-                    {/* Donate Button */}
-                    <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        router.push('/donate-us');
-                      }}
-                      className="w-1/2 py-2 px-2 border-2 font-semibold rounded-full transition-all duration-300 text-sm md:text-base"
-                      style={{
-                        backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
-                        borderColor: hoveredCard === card.id ? '#000000' : '#1a2d29ff',
-                        color: hoveredCard === card.id ? 'white' : '#122F2A',
-                        transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
-                        boxShadow: hoveredCard === card.id 
-                          ? '0 4px 12px rgba(34, 197, 94, 0.3)'
-                          : 'none',
-                        transition: 'all 0.3s ease'
-                      }}
-                    >
-                      Donate Now
-                    </button>
-                  </div>
-                </div>
+                  onCardClick={handleCardClick}
+                />
               </SwiperSlide>
             ))}
           </Swiper>

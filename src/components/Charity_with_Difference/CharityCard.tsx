@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 
 interface CharityCardProps {
   id: number;
@@ -86,11 +87,14 @@ const CharityCard: React.FC<CharityCardProps> = ({
   const iconClass = getIconClass(id);
 
   return (
-    <div
+    <motion.div
       onClick={handleCardClick}
-      className={`relative group rounded-[30px] p-8 transform transition-all duration-500 ease-out min-w-[320px] max-w-[380px] min-h-[400px] flex items-center justify-center cursor-pointer hover:scale-105
+      className={`relative group rounded-[30px] p-8 min-w-[320px] max-w-[380px] min-h-[400px] flex items-center justify-center cursor-pointer
         ${id % 3 === 0 ? "bg-image-1" : id % 3 === 1 ? "bg-image-2" : "bg-image-3"} 
-        `}>
+        `}
+     
+      transition={{ duration: 0.3, ease: "easeOut" }}
+    >
 
       {/* Card Content */}
       <div className="relative z-10 text-center ">
@@ -117,7 +121,7 @@ const CharityCard: React.FC<CharityCardProps> = ({
           {description}
         </p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

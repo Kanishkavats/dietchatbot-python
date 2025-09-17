@@ -465,21 +465,21 @@ export const recentPosts: RecentPost[] = [
     id: 1,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: phOne,
+    image: phOne.src,
     alt: "Family with woman holding child",
   },
   {
     id: 2,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: phTwo,
+    image: phTwo.src,
     alt: "Group of hands stacked together",
   },
   {
     id: 3,
     title: "Structures That Stand, Dreams That Soar",
     date: "November 22, 2024",
-    image: phTree,
+    image: phTree.src,
     alt: "Two young children looking at camera",
   },
 ]
@@ -604,21 +604,21 @@ export const charityRecentPosts: CharityRecentPost[] = [
     id: 1,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: phOne,
+    image: phOne.src,
     alt: "Family with woman holding child"
   },
   {
     id: 2,
     title: "Where Innovation Meets Foundation",
     date: "November 19, 2024",
-    image: phTwo,
+    image: phTwo.src,
     alt: "Group of hands stacked together"
   },
   {
     id: 3,
     title: "Structures That Stand, Dreams That Soar",
     date: "November 22, 2024",
-    image: phTree,
+    image: phTree.src,
     alt: "Two young children looking at camera"
   }
 ];
@@ -752,6 +752,64 @@ export const newsData: NewsItem[] = [
     comments: "13"
   }
 ];
+
+// HelpAndDonate component data
+export interface DonationCardData {
+  id: number;
+  image: string;
+  category: string;
+  title: string;
+  description: string;
+  progress: number;
+  raised: string;
+  goal: string;
+}
+
+export const donationCards: DonationCardData[] = [
+  {
+    id: 1,
+    image: "/assets/section3/helpforeducation.png",
+    category: "Food",
+    title: "Help For Education",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 90,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 2,
+    image: "/assets/section3/helpforfood.png",
+    category: "Health",
+    title: "Help For Food",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 75,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 3,
+    image: "/assets/section3/givehealthsupport.png",
+    category: "Food",
+    title: "Give Health Support",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 65,
+    raised: "$8500",
+    goal: "$1,0000"
+  },
+  {
+    id: 4,
+    image: "/assets/section3/childenweworkfor.png",
+    category: "Health",
+    title: "Children We Work ",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    progress: 85,
+    raised: "$8500",
+    goal: "$1,0000"
+  }
+];
+
+// Create 8 cards by repeating the original 4
+export const allDonationCards = [...donationCards, ...donationCards];
 
 
 
