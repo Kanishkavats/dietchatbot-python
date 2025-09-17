@@ -17,6 +17,7 @@ import { motion, useInView } from "framer-motion";
 import DonationCard from "../common/card/DonationCard";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import { donationCardsBig } from "@/src/staticResource";
+import { BiLeftArrow } from "react-icons/bi";
 
 const DonationPage: React.FC = () => {
   const router = useRouter();
@@ -67,7 +68,6 @@ const DonationPage: React.FC = () => {
     setRightButtonColor(newColor);
   };
 
-
   return (
     <>
       <PageBanner
@@ -108,7 +108,7 @@ const DonationPage: React.FC = () => {
                   Be The Reason Of Someone{" "}
                 </span>
                 <br />
-                
+
                 <span className="text-yellow-400 font-extrabold ">Smiles </span>
                 <span className="text-gray-800  font-extrabold">Causes</span>
               </h2>
@@ -140,39 +140,39 @@ const DonationPage: React.FC = () => {
           </div>
 
           {/* Pagination Section */}
-          <FadeUpCard delay={0.3} >
-          <div className="flex justify-center items-center mt-12">
-            <div className="flex items-center space-x-3">
-              {/* Previous Page Button */}
-              <button className="w-12 h-12 rounded-full bg-green flex items-center justify-center text-white hover:bg-yellow transition-colors duration-300">
-                <span className="text-lg font-bold">«</span>
-              </button>
+          <FadeUpCard delay={0.3}>
+            <div className="flex justify-center items-center mt-12">
+              <div className="flex items-center space-x-3">
+                {/* Previous Page Button */}
+                <button className="w-12 h-12 rounded-full bg-green flex items-center justify-center text-white hover:bg-yellow transition-colors duration-300">
+                  <span className="text-lg font-bold">«</span>
+                </button>
 
-              {/* Page Numbers */}
-              <button
-                className="w-12 h-12 rounded-full bg-gray  border-gray flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300"
-                onClick={() => router.push("/latestnews")}
-              >
-                1
-              </button>
+                {/* Page Numbers */}
+                <button
+                  className="w-12 h-12 rounded-full bg-gray  border-gray flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300"
+                  onClick={() => router.push("/latestnews")}
+                >
+                  1
+                </button>
 
-              <button className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300">
-                2
-              </button>
+                <button className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300">
+                  2
+                </button>
 
-              <button
-                className="w-12 h-12 rounded-full bg-gray flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300"
-                onClick={() => router.push("/latestnews")}
-              >
-                3
-              </button>
+                <button
+                  className="w-12 h-12 rounded-full bg-gray flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300"
+                  onClick={() => router.push("/latestnews")}
+                >
+                  3
+                </button>
 
-              {/* Next Page Button */}
-              <button className="w-12 h-12 rounded-full bg-green flex items-center justify-center text-white hover:bg-yellow transition-colors duration-300">
-                <span className="text-lg font-bold">»</span>
-              </button>
+                {/* Next Page Button */}
+                <button className="w-12 h-12 rounded-full bg-green flex items-center justify-center text-white hover:bg-yellow transition-colors duration-300">
+                  <span className="text-lg font-bold">»</span>
+                </button>
+              </div>
             </div>
-          </div>
           </FadeUpCard>
         </div>
       </section>
@@ -187,13 +187,15 @@ const DonationPage: React.FC = () => {
       >
         {/* Background Image */}
         <div className="absolute inset-0">
-            <div className="h-1/2 bg-white"></div>
-        <div
-          className="h-1/2 bg-cover bg-center bg-no-repeat relative"
-          style={{ backgroundImage: "url('/assets/section3/bgsection3.png')" }}
-        >
-          <div className="absolute inset-0 bg-black/4"></div>
-        </div>
+          <div className="h-1/2 bg-white"></div>
+          <div
+            className="h-1/2 bg-cover bg-center bg-no-repeat relative"
+            style={{
+              backgroundImage: "url('/assets/section3/bgsection3.png')",
+            }}
+          >
+            <div className="absolute inset-0 bg-black/4"></div>
+          </div>
         </div>
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl">
@@ -234,7 +236,7 @@ const DonationPage: React.FC = () => {
                 onClick={handlePrev}
                 onMouseEnter={() => setHoveredLeft(true)}
                 onMouseLeave={() => setHoveredLeft(false)}
-                className="w-15 h-15 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
+                className="w-15 h-15 rounded-full flex items-center justify-center  cursor-pointer"
                 style={{
                   backgroundColor: hoveredLeft
                     ? "#FBBF24"
@@ -246,24 +248,19 @@ const DonationPage: React.FC = () => {
                 }}
               >
                 <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
+                  className={`h-12 w-8 ${hoveredLeft ? "text-gray-900" : "text-white"}`}
                   viewBox="0 0 24 24"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
+                  <path d="M7.82843 11L13.1924 5.63604L11.7782 4.22183L4 12L11.7782 19.7782L13.1924 18.364L7.82843 13H20V11H7.82843Z" />
                 </svg>
               </button>
               <button
                 onClick={handleNext}
                 onMouseEnter={() => setHoveredRight(true)}
                 onMouseLeave={() => setHoveredRight(false)}
-                className="w-16 h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
+                className="w-16 h-16 rounded-full flex items-center justify-center  cursor-pointer"
                 style={{
                   backgroundColor: hoveredRight
                     ? "#07110eff"
@@ -275,17 +272,12 @@ const DonationPage: React.FC = () => {
                 }}
               >
                 <svg
-                  className="w-6 h-6 text-white"
-                  fill="none"
-                  stroke="currentColor"
+                  className={`h-12 w-8 ${hoveredRight ? "text-white" : "text-gray-900"}`}
                   viewBox="0 0 24 24"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
+                  <path d="M16.172 11L10.808 5.63604L12.222 4.22183L20 12L12.222 19.7782L10.808 18.364L16.172 13H4V11H16.172Z" />
                 </svg>
               </button>
             </div>
@@ -302,14 +294,14 @@ const DonationPage: React.FC = () => {
           </div>
 
           {/* Carousel Section */}
-          
+
           <div className="relative">
             <Swiper
-              modules={[Navigation,Autoplay]}
+              modules={[Navigation, Autoplay]}
               slidesPerView={1}
               spaceBetween={26}
               loop={true}
-              autoplay={{delay:15000,disableOnInteraction:false}}
+              autoplay={{ delay: 15000, disableOnInteraction: false }}
               onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
               onSwiper={(swiper) => (swiperRef.current = swiper)}
               breakpoints={{

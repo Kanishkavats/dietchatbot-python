@@ -14,7 +14,6 @@ const FadeUpCard: React.FC<FadeUpCardProps> = ({ children, delay = 0 ,className=
   return (
     <motion.div
       initial={{ opacity: 0, y: initialYExis}}     
-    //   animate={{ opacity: 1, y: 0 }} 
     whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.2 }}      
       className={className}
