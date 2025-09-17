@@ -7,40 +7,19 @@ import { FaRegCheckCircle } from "react-icons/fa";
 import { ppOne, ppTwo } from "@/public/assets";
 import { useFetchAllBlogs } from "@/src/hooks/useBlog";
 
-const metadata = {
-  date: "02 Apr 2021",
-  location: "684 West College St. Sun City, USA",
-};
 
-const mainTitle = "Give African Childrens A Good Education";
-
-const paragraphs = [
-  `Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social`,
-  `Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social`,
-];
-
-const summaryTitle = "Summary";
-
-const checklistItems = [
-  "Empower Through Charity",
-  "Giving Hope, Changing Lives",
-  "Healing Communities",
-  "Together We Can",
-  "Compassion In Action",
-  "Every Act Counts",
-];
 
 export default function BlogPost() {
   const { data } = useFetchAllBlogs(1, 1);
   console.log(data?.blogs[0])
   const blog = data?.blogs[0];
-  const BannerImageUrl = blog.images[0];
-  const title = blog.title;
-  const summary = blog.summary;
-  const description = blog.description;
-  const keyPoints = blog.keyPoints;
-  const location = blog.location;
-  const createdDate = blog.createdAt.split("T")[0];
+  const BannerImageUrl = blog?.images[0];
+  const title = blog?.title;
+  const summary = blog?.summary;
+  const description = blog?.description;
+  const keyPoints = blog?.keyPoints;
+  const location = blog?.location;
+  const createdDate = blog?.createdAt.split("T")[0];
 
   return (
     <div>
@@ -79,7 +58,7 @@ export default function BlogPost() {
         <p className="text-gray-600 mb-8 font-nunito">{summary}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-foreground font-bold mb-8">
-          {keyPoints.map((item, index) => (
+          {keyPoints?.map((item:any, index:number) => (
             <div key={index} className="flex items-start gap-2 font-nunito">
               <FaRegCheckCircle className="text-green text-xl" /> {item}
             </div>

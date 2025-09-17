@@ -15,6 +15,7 @@ import SendMsg from '../About/SendMsg';
 import ChildrenNeed from '../About/ChildrenNeed'
 import { motion, useInView } from "framer-motion";
 import DonationCard from '../common/card/DonationCard';
+import { useFetchAllCampaigns } from '@/src/hooks/useCampaigns';
 
 const donationCards = [
   {
@@ -113,6 +114,8 @@ const DonationPage: React.FC = () => {
   const carouselSectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
   const isCarouselInView = useInView(carouselSectionRef, { once: true, margin: "-100px" });
+
+
 
   const handleCardClick = (category: string) => {
     if (category === 'Food') {
@@ -256,7 +259,7 @@ const DonationPage: React.FC = () => {
 
                {/* Main Heading */}
               <h2 className="text-5xl md:text-6xl font-bold leading-tight mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>
-                <div className="w-[761px]">
+                <div className="w-[761px] ">
                   <span className="text-gray-800">Help & </span>
                   <span className="text-yellow-400">Donate </span>
                   <span className="text-gray-800">Them when</span>

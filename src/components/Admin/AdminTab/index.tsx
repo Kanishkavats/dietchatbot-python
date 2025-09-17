@@ -10,6 +10,7 @@ import Settings from "../Settings";
 import Campaign from "../Campaign";
 import Category from "../Category";
 import Blog from "../Blog";
+import Comments from "../comments";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -23,7 +24,8 @@ const AdminTab = () => {
     settings: <Settings />,
     campaign: <Campaign />,
     category: <Category />,
-    blog:<Blog />
+    blog:<Blog />,
+    comments: <Comments />
   };
   return (
     <div>

@@ -1,14 +1,10 @@
-
-
-import Volunteer from '@/src/components/Volunteer'
-
-
+import Comments from '@/src/components/Admin/comments'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <Volunteer />
+      <Comments />
     </div>
   )
 }

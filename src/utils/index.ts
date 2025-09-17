@@ -1,5 +1,5 @@
 import { MdOutlineDashboardCustomize, MdNotificationsActive, MdIntegrationInstructions, MdCampaign, MdCategory } from "react-icons/md";
-import { FaBloggerB, FaHandsHelping } from "react-icons/fa";
+import { FaBloggerB, FaComments, FaHandsHelping } from "react-icons/fa";
 import { IoSettings } from "react-icons/io5";
 import { HiUsers } from "react-icons/hi";
 import { IconType } from "react-icons";
@@ -35,6 +35,12 @@ export const sidebarAd = [
     lable: "Blog",
     nav: "blog",
     link: "/admin/blog",
+  },
+{
+    icon: FaComments ,
+    lable: "Comments",
+    nav: "comments",
+    link: "/admin/comments",
   },
 {
     icon: MdNotificationsActive,

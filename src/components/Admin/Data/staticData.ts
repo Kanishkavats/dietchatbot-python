@@ -57,3 +57,7 @@ export const BlogSearchOptions = [
 ] as const;
 
 
+export const CommentSearchOptions = [
+  { label: "Name", value: "name" },
+  { label: "Comment", value: "comment" },
+]
