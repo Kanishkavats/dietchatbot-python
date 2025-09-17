@@ -22,7 +22,7 @@ const donationCards = [
     image: "/assets/section3/childenweworkfor.png",
     category: "Health",
     title: "Children We Work ",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 85,
     raised: "$8500",
     goal: "$1,0000"
@@ -32,7 +32,7 @@ const donationCards = [
     image: "/assets/section3/helpforeducation.png",
     category: "Food",
     title: "Help For Education",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 70,
     raised: "$8500",
     goal: "$1,0000"
@@ -42,7 +42,7 @@ const donationCards = [
     image: "/assets/section3/helpforfood.png",
     category: "Health",
     title: "Help For Food",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 65,
     raised: "$8500",
     goal: "$1,0000"
@@ -52,7 +52,7 @@ const donationCards = [
     image: "/assets/section3/givehealthsupport.png",
     category: "Food",
     title: "Give Health Support",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 90,
     raised: "$8500",
     goal: "$1,0000"
@@ -62,7 +62,7 @@ const donationCards = [
     image: "/assets/section3/childenweworkfor.png",
     category: "Health",
     title: "Children We Work ",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 75,
     raised: "$8500",
     goal: "$1,0000"
@@ -72,7 +72,7 @@ const donationCards = [
     image: "/assets/section3/helpforeducation.png",
     category: "Food",
     title: "Help For Education",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 65,
     raised: "$8500",
     goal: "$1,0000"
@@ -82,7 +82,7 @@ const donationCards = [
     image: "/assets/section3/helpforfood.png",
     category: "Health",
     title: "Help For Food",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 90,
     raised: "$8500",
     goal: "$1,0000"
@@ -92,7 +92,7 @@ const donationCards = [
     image: "/assets/section3/givehealthsupport.png",
     category: "Food",
     title: "Give Health Support",
-    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
+    description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr",
     progress: 55,
     raised: "$8500",
     goal: "$1,0000"
