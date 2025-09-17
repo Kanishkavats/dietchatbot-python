@@ -77,6 +77,7 @@ export type CategoryFormValues = Yup.InferType<typeof categorySchema>;
 
 export const blogSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
+  creator: Yup.string().required("creator is required"),
   description: Yup.string().required("Description is required"),
   summary: Yup.string().required("Summary is required"),
   quote: Yup.string().required("Quote is required"),

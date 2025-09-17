@@ -21,6 +21,7 @@ const BlogForm = ({ initialData, onClose, mode }: BlogFormProps) => {
     //  Initial values
     const initialValues: BlogFormValues = {
         title: initialData?.title ?? "",
+        creator: initialData?.creator ?? "",
         description: initialData?.description ?? "",
         summary: initialData?.summary ?? "",
         quote: initialData?.quote ?? "",
@@ -97,6 +98,16 @@ const BlogForm = ({ initialData, onClose, mode }: BlogFormProps) => {
                     return (
                         <Form className="flex flex-col gap-3">
                             {/* Title */}
+                            <CustomInput
+                                label="Creator*"
+                                placeholder="Creator name"
+                                value={values.creator}
+                                name="creator"
+                                onChange={handleChange}
+                                error={touched.creator ? errors.creator : ""}
+                                disabled={isView}
+                            />
+
                             <CustomInput
                                 label="Title*"
                                 placeholder="Title of the blog"

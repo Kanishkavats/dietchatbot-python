@@ -1,9 +1,9 @@
 import React from 'react'
 import FAQSection from './FAQSection'
-import { VolunteerTeam } from '../About'
 import PageBanner from '../common/PageBanner'
 import { bannerBg } from '@/public/assets'
 import BecomeVolunteer from '../BecomeVolunteer'
+import VolunteerTeam from '../About/VolunteerTeam'
 
 const FAQ = () => {
   return (
