@@ -28,6 +28,7 @@ export const CategorySearchOptions = [
 
 export interface Blog {
   id: number;
+  creator:string;
   title: string;
   description: string;
   summary: string;

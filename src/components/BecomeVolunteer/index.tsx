@@ -4,6 +4,7 @@ import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import Button from "../common/Buttons/Button";
 
 const BecomeVolunteer: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -74,50 +75,72 @@ const BecomeVolunteer: React.FC = () => {
               Become A Volunteer?
             </motion.h3>
 
-            <motion.button
-              className="bg-green hover:bg-yellow hover:text-black text-white px-6 md:px-8 lg:px-9 py-3 md:py-4 rounded-full text-sm md:text-base font-medium transition-colors"
+            <motion.div
               initial={{ opacity: 0 }}
               animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
-              onClick={handleContactNow}
             >
-              Contact Now
-            </motion.button>
+              <Button
+                text="Contact Now"
+                bgColor="bg-green"
+                hoverBg="before:bg-yellow"
+                textColor="text-white"
+                hoverTextColor="group-hover:text-black"
+                paddingx="px-6 md:px-8 lg:px-9"
+                paddingy="py-3 md:py-4"
+                onClick={handleContactNow}
+              />
+            </motion.div>
           </div>
         </div>
 
         {/* Middle Panel */}
         <div className="flex-1 relative lg:h-full md:h-[400px] h-[300px] min-h-[200px]">
-          <div
-            className="bg-[url('/assets/becomevolunter/yellow_image.png')] bg-center bg-no-repeat w-full h-full absolute lg:!w-[120%] lg:translate-x-[-10%] inset-0 z-10"
-            style={{ backgroundSize: "100% 100%" }}
-          >
+          {/* Desktop version with mask */}
+          <div className="hidden lg:block">
             <div
-              className="absolute inset-0"
-              style={{
-                inset: "0px 5px 0px 5px",
-                WebkitMaskImage:
-                  "url('/assets/becomevolunter/yellow_image.png')",
-                maskImage: "url('/assets/becomevolunter/yellow_image.png')",
-                WebkitMaskRepeat: "no-repeat",
-                maskRepeat: "no-repeat",
-                WebkitMaskPosition: "center",
-                maskPosition: "center",
-                WebkitMaskSize: "99% 100%",
-                maskSize: "99% 100%",
-              }}
+              className="bg-[url('/assets/becomevolunter/yellow_image.png')] bg-center bg-no-repeat w-full h-full absolute lg:!w-[120%] lg:translate-x-[-10%] inset-0 z-10"
+              style={{ backgroundSize: "100% 100%" }}
             >
               <div
-                className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                className="absolute inset-0"
                 style={{
-                  backgroundImage: "url('/assets/becomevolunter/videobg.png')",
+                  inset: "0px 5px 0px 5px",
+                  WebkitMaskImage:
+                    "url('/assets/becomevolunter/yellow_image.png')",
+                  maskImage: "url('/assets/becomevolunter/yellow_image.png')",
+                  WebkitMaskRepeat: "no-repeat",
+                  maskRepeat: "no-repeat",
+                  WebkitMaskPosition: "center",
+                  maskPosition: "center",
+                  WebkitMaskSize: "99% 100%",
+                  maskSize: "99% 100%",
                 }}
-              ></div>
+              >
+                <div
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: "url('/assets/becomevolunter/videobg.png')",
+                  }}
+                ></div>
+              </div>
+            </div>
+          </div>
+          
+          {/* Mobile/Tablet version without mask */}
+          <div className="lg:hidden">
+            <div
+              className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+              style={{
+                backgroundImage: "url('/assets/becomevolunter/videobg.png')",
+              }}
+            >
+              <div className="absolute inset-0 bg-black/55"></div>
             </div>
           </div>
 
-          <div className="relative z-10 h-full flex flex-col items-center justify-center md:bg-center">
-            <div className="relative">
+          <div className="relative z-10 h-full flex flex-col items-center justify-center md:bg-center absolute inset-0">
+            <div className="relative flex items-center justify-center w-full h-full">
               <motion.div
                 className="w-16 h-16 md:w-20 md:h-20 bg-yellow rounded-full flex items-center justify-center relative cursor-pointer"
                 style={{
@@ -125,9 +148,9 @@ const BecomeVolunteer: React.FC = () => {
                 }}
                 animate={{
                   boxShadow: [
-                    "0 0 0 0 rgba(6, 6, 4, 0.7)",
-                    "0 0 0 20px rgba(255, 193, 7, 0)",
-                    "0 0 0 0 rgba(255, 193, 7, 0)",
+                    "0 0 0 0 rgba(0, 0, 0, 0.7)",
+                    "0 0 0 20px rgba(0, 0, 0, 0)",
+                    "0 0 0 0 rgba(0, 0, 0, 0)",
                   ],
                 }}
                 transition={{
@@ -193,15 +216,22 @@ const BecomeVolunteer: React.FC = () => {
               Make Donation To Us?
             </motion.h3>
 
-            <motion.button
-              className="bg-yellow hover:bg-green hover:text-white text-black px-6 md:px-8 lg:px-9 py-3 md:py-4 rounded-full text-sm md:text-base font-medium transition-colors"
+            <motion.div
               initial={{ opacity: 0 }}
               animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.6 }}
-              onClick={handleDonateNow}
             >
-              Donate Now
-            </motion.button>
+              <Button
+                text="Donate Now"
+                bgColor="bg-yellow"
+                hoverBg="before:bg-green"
+                textColor="text-black"
+                hoverTextColor="group-hover:text-white"
+                paddingx="px-6 md:px-8 lg:px-9"
+                paddingy="py-3 md:py-4"
+                onClick={handleDonateNow}
+              />
+            </motion.div>
           </div>
         </div>
       </div>

@@ -10,7 +10,8 @@ export const getBlogColumns = ({
   onView,
 }: BlogColumnCallbacks) => [
   { name: "SNo", cell: (_row: Blog, index: number) => index + 1, width: "80px" },
-  { name: "Title", selector: (row: Blog) => row.title, sortable: true },
+  { name: "Creator", selector: (row: Blog) => row.creator },
+  { name: "Title", selector: (row: Blog) => row.title },
   { name: "Category", selector: (row: Blog) => row.category },
   { name: "Location", selector: (row: Blog) => row.location },  
   {

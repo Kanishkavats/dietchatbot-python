@@ -322,6 +322,15 @@ a, button, input, textarea, select, [role="button"] {
   }
 }
 
+@keyframes moveUpDown {
+  0% {
+    transform: translateY(0px);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
 @keyframes float-delay {
 
   0%,

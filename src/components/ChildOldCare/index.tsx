@@ -13,7 +13,7 @@ const ScrollBanner: React.FC = () => {
   const settings = childOldCareSliderSettings;
 
   return (
-    <div className="relative w-full h-[500px] md:h-[600px] lg:h-[500px] gap-10 mt-15 overflow-hidden">
+    <div className="relative w-full h-[550px] md:h-[600px] lg:h-[500px] gap-10 mt-15 overflow-hidden">
       {/* Custom CSS for responsive design */}
       <style dangerouslySetInnerHTML={{
         __html: `
@@ -106,10 +106,10 @@ const ScrollBanner: React.FC = () => {
           
           {/* Text overlay on bottom curve */}
           <div className="absolute bottom-2 md:bottom-4 lg:bottom-0 left-1/2 transform -translate-x-1/2 text-center px-4">
-            <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-dark-green mb-1 leading-tight">
+            <h2 className="text-lg md:text-xl lg:text-2xl font-nunito font-extrabold  text-dark-green mb-1 leading-tight">
               Old People & Child Trouble
             </h2>
-            <p className='text-sm md:text-lg lg:text-xl font-small text-gray-400'>
+            <p className='text-sm md:text-lg lg:text-xl font-small font-nunito text-gray-400'>
               Child & Old Care
             </p>
           </div>

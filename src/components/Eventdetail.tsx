@@ -1,4 +1,8 @@
 "use client";
+
+
+
+
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { FiSearch, FiHeart, FiCornerUpLeft } from "react-icons/fi";
@@ -15,14 +19,15 @@ import {
   FaEnvelope,
 } from "react-icons/fa";
 import { comments, recentPosts, tags } from "@/src/staticResource";
+import { ppOne, ppTwo } from '@/public/assets';
 export default function BlogPage() {
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      
-       className="bg-gray-50 font-sans text-gray-800"
+
+      className="bg-[#f3f4f6] font-sans text-[#667471];"
     >
       <div className="container mx-auto p-4 md:p-8">
         <div className="flex flex-col lg:flex-row gap-8">
@@ -36,7 +41,7 @@ export default function BlogPage() {
                 className="object-cover object-center"
               />
             </div>
-            <div className="flex items-center space-x-4 text-black mb-6">
+            <div className="flex items-center space-x-4 text-[#000000] mb-6">
               <span className="flex items-center gap-1">
                 <IoCalendarSharp className="text-[#FFC107]" /> 02 Apr 2021
               </span>
@@ -44,18 +49,18 @@ export default function BlogPage() {
                 <IoLocationSharp className="text-[#FFC107]" /> 684 West College St. Sun City, USA
               </span>
             </div>
-            <h1 className="text-4xl font-bold text-gray-900 mb-6 leading-tight font-nunito">
+            <h1 className="text-4xl font-bold text-[#000000] mb-6 leading-tight font-nunito">
               Give African Childrens A Good Education
             </h1>
-            <p className="text-gray-600 mb-8 font-nunito">
+            <p className="text-[#667471]  mb-8 font-nunito">
               Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social
             </p>
-            <h2 className="text-3xl font-bold text-gray-900 mb-4 font-nunito">Summary</h2>
-            <p className="text-gray-600 mb-8 font-nunito">
+            <h2 className="text-3xl font-bold text-[#000000] mb-4 font-nunito">Summary</h2>
+            <p className="text-[#667471] mb-8 font-nunito">
               Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-black font-bold mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#000000] font-bold mb-8">
               <div className="flex items-center gap-2 font-nunito">
                 <FaRegCheckCircle className="text-[#046B59] text-xl" /> Empower Through Charity
               </div>
@@ -80,7 +85,7 @@ export default function BlogPage() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                 <Image
-                  src="/assets/pp-one.png"
+                  src={ppOne}
                   alt="Young child smiling"
                   fill
                   className="object-cover"
@@ -88,7 +93,7 @@ export default function BlogPage() {
               </div>
               <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                 <Image
-                  src="/assets/pp-two.png"
+                  src={ppTwo}
                   alt="Group of children laughing"
                   fill
                   className="object-cover"
@@ -115,7 +120,7 @@ export default function BlogPage() {
                   </a>
                 ))}
               </div>
-               <div className="relative w-full h-[250px] sm:h-[350px] lg:h-[450px] rounded-lg overflow-hidden border">
+              <div className="relative w-full h-[250px] sm:h-[350px] lg:h-[450px] rounded-lg overflow-hidden border">
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976378252907!3d40.69766374874312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2588f046ee661%3A0xa0b3281fcecc08c!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1716298418080!5m2!1sen!2sin"
                   width="100%"
@@ -136,8 +141,8 @@ export default function BlogPage() {
                     key={comment.id}
                     className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
                   >
-                    <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400  p-1 bg-white">
-                     
+                    <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed text-[#FFC107]  p-1 bg-[#ffffff]">
+
                       <Image
                         src={comment.avatar}
                         alt={comment.name}
@@ -151,7 +156,7 @@ export default function BlogPage() {
                       <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug whitespace-pre-line">
                         {comment.content}
                       </p>
-                      <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
+                      <div className="mt-3 flex flex-wrap items-center gap-4 font-bold text-xs sm:text-sm text-[#667471]">
                         <button className="flex items-center gap-1 hover:text-[#3b82f6]">
                           <FiHeart /> Like
                         </button>
@@ -166,12 +171,12 @@ export default function BlogPage() {
               </div>
             </div>
 
-             <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
-              <h2 className="text-xl sm:text-2xl font-bold text-black mb-6">Leave A Comment</h2>
+            <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
+              <h2 className="text-xl sm:text-2xl font-bold text-[#000000] mb-6">Leave A Comment</h2>
               <form className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                   <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-                    <FaUser className="text-[#6B7280]" size={18} />
+                    <FaUser className="text-[#667471]" size={18} />
                     <input
                       type="text"
                       placeholder="Your Name"
@@ -179,14 +184,16 @@ export default function BlogPage() {
                     />
                   </div>
                   <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[316px] lg:h-[96px] lg:px-5 lg:py-3">
-                    <FaEnvelope className="text-xl mt-1 text-[#6B7280]" />
+                    <FaEnvelope className="text-xl mt-1 text-[#667471]" />
                     <input
                       type="email"
                       placeholder="Enter Email"
                       className="w-full bg-transparent focus:outline-none ml-2"
                     />
                   </div>
-                </div>
+                </div> 
+               
+
 
                 <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 h-auto w-full lg:w-[656px] lg:h-[184px] lg:px-5 lg:py-3">
                   <FaComment className="text-[#6B7280]" size={18} />
@@ -204,12 +211,14 @@ export default function BlogPage() {
                 </button>
               </form>
             </div>
+
+
           </main>
 
 
           <aside className="lg:w-1/3 space-y-8">
             <div className="bg-[#ffffff] p-4 sm:p-6 rounded-lg shadow-md">
-              <h3 className="text-lg sm:text-2xl font-bold text-gray-800 mb-4">Search Here</h3>
+              <h3 className="text-lg sm:text-2xl font-bold text-[#000000] mb-4">Search Here</h3>
               <div className="flex">
                 <input
                   type="text"
@@ -223,7 +232,7 @@ export default function BlogPage() {
             </div>
 
             <div className="bg-[#ffffff] rounded-lg shadow-md p-4 sm:p-6">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Recent Posts</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#000000] mb-4">Recent Posts</h3>
               <div className="space-y-4">
                 {recentPosts.map((post) => (
                   <div key={post.id} className="flex items-start gap-3">
@@ -236,11 +245,11 @@ export default function BlogPage() {
                       />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-xs sm:text-sm text-[#6B7280] mb-1">
+                      <p className="text-xs sm:text-sm text-[#667471] mb-1">
                         <IoCalendarSharp className="inline-block mr-1" />
                         {post.date}
                       </p>
-                      <h4 className="text-sm sm:text-base font-medium text-gray-900 leading-tight">
+                      <h4 className="text-sm sm:text-base font-medium text-[#000000] leading-tight">
                         {post.title}
                       </h4>
                     </div>
@@ -250,12 +259,12 @@ export default function BlogPage() {
             </div>
 
             <div className="bg-[#ffffff] rounded-lg shadow-md p-4 sm:p-6">
-              <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-4">Tags</h3>
+              <h3 className="text-lg sm:text-xl font-bold text-[#000000] mb-4">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag, index) => (
                   <button
                     key={index}
-                    className="px-3 py-2 bg-[#F3F4F6] text-gray-700 rounded-lg text-xs sm:text-sm hover:bg-[#e5e7eb] transition-colors"
+                    className="px-3 py-2 bg-[#F3F4F6] text-[#667471] rounded-lg text-xs sm:text-sm hover:bg-[#e5e7eb] transition-colors"
                   >
                     {tag}
                   </button>
@@ -290,19 +299,35 @@ export default function BlogPage() {
     </motion.div>
   );
 }
-              
 
 
-        
-        
-                 
-          
-     
-           
-                 
-         
-             
-      
-          
-       
-           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -11,7 +11,9 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CharityCard from './CharityCard';
 import { charityCards } from '../../staticResource';
-
+import { hand } from '@/public/assets';
+import { FaArrowLeft } from "react-icons/fa";
+import { FaArrowRight } from "react-icons/fa";
 
 export default function CharityWithDifference() {
   // Animation refs
@@ -20,10 +22,10 @@ export default function CharityWithDifference() {
   const swiperRef = useRef<SwiperType | null>(null);
 
   return (
-    <div className="min-h-screen bg-white py-16 px-4 relative overflow-hidden">
+    <div className="bg-white py-4 lg:py-4 px-4 relative overflow-hidden">
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
-        <div ref={headerRef} className="text-center mb-16 relative z-10">
+        <div ref={headerRef} className="text-center mb-4 lg:mb-6 relative z-10">
           <motion.div 
             className="flex items-center justify-center mb-4"
             initial={{ opacity: 0, transform: 'translateZ(0)' }}
@@ -54,10 +56,27 @@ export default function CharityWithDifference() {
         </div>
 
         {/* Decorative Hand */}
-        <div className="absolute top-2 left-1 opacity-60 z-0 animate-float">
+        <motion.div 
+          className="absolute top-4 left-1 opacity-60 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: 1,
+            y: [0, -20, 0]
+          }}
+          transition={{
+            opacity: { duration: 0.3, delay: 0.3,  },
+            y: {
+              duration: 10,
+              ease: "easeInOut",
+              repeat: Infinity,
+              repeatType: "reverse"
+            }
+          }}
+          style={{ transform: "translateZ(0)" }}
+        >
           <div className="relative">
             <Image 
-              src="/assets/charity_with_difference/hand.png" 
+              src={hand} 
               alt="Hand with heart" 
               width={160} 
               height={160}
@@ -65,18 +84,30 @@ export default function CharityWithDifference() {
             />
             
           </div>
-        </div>
+        </motion.div>
 
 
 
         {/* Swiper Section */}
-        <div className="relative z-10">
+        <div 
+          className="relative z-10"
+          onMouseEnter={() => {
+            if (swiperRef.current && swiperRef.current.autoplay) {
+              swiperRef.current.autoplay.stop();
+            }
+          }}
+          onMouseLeave={() => {
+            if (swiperRef.current && swiperRef.current.autoplay) {
+              swiperRef.current.autoplay.start();
+            }
+          }}
+        >
           <Swiper
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
             }}
             modules={[Navigation, Pagination, Autoplay]}
-            spaceBetween={30}
+            spaceBetween={20}
             slidesPerView={3}
             navigation={{
               nextEl: '.swiper-button-next-custom',
@@ -87,7 +118,7 @@ export default function CharityWithDifference() {
               el: '.swiper-pagination-custom',
             }}
             autoplay={{
-              delay: 4000,
+              delay: 3000,
               disableOnInteraction: false,
             }}
             loop={true}
@@ -98,11 +129,11 @@ export default function CharityWithDifference() {
               },
               768: {
                 slidesPerView: 2,
-                spaceBetween: 30,
+                spaceBetween: 20,
               },
               1024: {
                 slidesPerView: 3,
-                spaceBetween: 30,
+                spaceBetween: 20,
               },
             }}
             className="font-nunito font-semibold"
@@ -124,20 +155,23 @@ export default function CharityWithDifference() {
           </Swiper>
 
           {/* Custom Navigation Buttons */}
-          <div className="flex justify-center items-center mt-6 space-x-4">
+          <div className="flex justify-center items-center mt-2 lg:mt-3 space-x-4">
             <button 
-              className="swiper-button-prev-custom bg-dark-green text-white rounded-full w-15 h-15 flex items-center justify-center hover:bg-yellow-500  transition-all duration-300 shadow-lg"
+              className="swiper-button-prev-custom group bg-dark-green rounded-full w-15 h-15 flex items-center justify-center hover:bg-yellow-500 transition-all duration-300 shadow-lg"
               onMouseEnter={() => swiperRef.current?.autoplay?.start()}
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
-              <i className="text-3xl">←</i>
+              
+               <FaArrowLeft className="text-white group-hover:text-black transition-colors duration-300" />
             </button>
             <button 
-              className="swiper-button-next-custom bg-yellow-500 text-white rounded-full w-15 h-15 flex items-center justify-center hover:bg-dark-green transition-all duration-300 shadow-lg"
+              className="swiper-button-next-custom group bg-yellow-500 rounded-full w-15 h-15 flex items-center justify-center hover:bg-dark-green transition-all duration-300 shadow-lg"
               onMouseEnter={() => swiperRef.current?.autoplay?.start()}
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
-              <i className="text-3xl">→</i>
+            
+              <FaArrowRight className="text-black group-hover:text-white transition-colors duration-300" />
+              
             </button>
           </div>
 

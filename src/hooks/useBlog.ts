@@ -10,13 +10,12 @@ const buildFormData = (values: BlogFormValues) => {
   const formData = new FormData();
 
   formData.append("title", values.title);
+  formData.append("creator", values.creator);
+  formData.append("category", values.category);
   formData.append("description", values.description);
   formData.append("summary", values.summary);
   formData.append("quote", values.quote);
   formData.append("quoteAuthor", values.quoteAuthor);
-  formData.append("category", values.category);
-  formData.append("content", values.content);
-  formData.append("author", values.author);
   formData.append("location", values.location);
 
   // Tags

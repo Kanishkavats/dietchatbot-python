@@ -32,6 +32,8 @@ const BlogTable = () => {
   const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(editBlog || undefined);
   const { mutate: deleteBlog } = useDeleteSingleBlog();
 
+  console.log(blogData)
+
   // ✅ handlers
   const handleEdit = useCallback((b: Blog) => {
     setEditBlog(b.id.toString());

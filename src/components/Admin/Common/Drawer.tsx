@@ -30,7 +30,7 @@ const Drawer: React.FC<DrawerProps> = ({
           {/* Overlay */}
           <motion.div
             key="overlay"
-            className="fixed inset-0 bg-black bg-opacity-40 z-40"
+            className="fixed inset-0 bg-black bg-opacity-40 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
