@@ -50,14 +50,14 @@ const DonationCard: React.FC<DonationCardProps> = ({
       onMouseLeave={onMouseLeave}
       onClick={() => onCardClick(card.category)}
     >
-      <div className="relative mb-4 rounded-xl overflow-hidden w-full h-48">
+      <div className="relative mb-4 rounded-xl overflow-hidden w-full h-55">
         <motion.img
           src={card.image}
           alt="News"
           className="absolute top-0 left-0 w-full h-full object-cover"
           animate={{
-            scale: hoveredCard === card.id ? 1.1 : 1,
-            rotate: hoveredCard === card.id ? -3 : 0,
+            scale: hoveredCard === card.id ? 1.2 : 1,
+            rotate: hoveredCard === card.id ? 10 : 0,
           }}
           transition={{
             duration: 0.5,
@@ -65,7 +65,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
           }}
         />
         <span 
-          className="absolute top-3 left-3 text-sm font-semibold px-5 py-3 rounded-full transition-all duration-300"
+          className="absolute top-3 left-3 text-lg font-semibold px-7 py-2 rounded-full transition-all duration-300"
           style={{
             backgroundColor: hoveredCard === card.id ? '#064E3B' : '#FBBF24',
             color: hoveredCard === card.id ? '#FFFFFF' : '#000000'

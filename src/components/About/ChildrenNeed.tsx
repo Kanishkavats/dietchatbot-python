@@ -4,6 +4,7 @@ import Button from "../common/Buttons/Button";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { imageBottomTear } from "@/public/assets";
 
 const ChildrenNeed = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const ChildrenNeed = () => {
     <div>
       <section className="relative overflow-hidden min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] lg:min-h-[90vh] ">
         <div className="relative flex items-center justify-center bg-cover bg-center bg-[url('/assets/banner-bg.png')] min-h-[60vh] sm:min-h-[70vh] md:min-h-[80vh] lg:min-h-[90vh] w-full ">
-          <div className="absolute inset-0 bg-gradient-to-r from-black/100 to-black/50 to-transparent w-full transparent overflow-hidden"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-black/100 to-black/50  w-full transparent overflow-hidden"></div>
           <motion.div
             className="absolute left-0 top-[-20] bottom-0 h-180 w-80 md:w-140 overflow-hidden"
             animate={{ y: [20, -60, 20] }} 
@@ -60,7 +61,7 @@ const ChildrenNeed = () => {
                     textColor="text-white"
                     hoverTextColor="group-hover:text-black"
                     hoverBg="before:bg-[#FFC107]"
-                    className="w-[100px] h-[60px]"
+                    // className="w-[100px] h-[60px]"
                   />
                 </div>
 
@@ -71,7 +72,7 @@ const ChildrenNeed = () => {
                     textColor="text-black"
                     hoverTextColor="group-hover:text-white"
                     hoverBg="before:bg-[#046b59]"
-                    className="w-[100px] h-[60px]"
+                    // className="w-[100px] h-[60px]"
                     onClick={() => router.push("/contact")}
                   />
                 </div>
@@ -79,14 +80,14 @@ const ChildrenNeed = () => {
             </div>
           </div>
 
-          {/* <div className="absolute w-full h-19 pointer-events-none select-none">
+          <div className="absolute bottom-[-43] left-0 w-full h-19 pointer-events-none select-none">
             <Image
-              src="/assets/bottomsection.png"
+              src={imageBottomTear}
               alt="bottom shape"
               fill
               className="object-cover"
             />
-          </div> */}
+          </div>
         </div>
       </section>
     </div>
