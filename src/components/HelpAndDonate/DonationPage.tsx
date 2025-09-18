@@ -52,20 +52,12 @@ const DonationPage: React.FC = () => {
     if (swiperRef.current) {
       swiperRef.current.slidePrev();
     }
-    // Set both buttons to the hovered color of left button
-    const newColor = hoveredLeft ? "yellow" : "green";
-    setLeftButtonColor(newColor);
-    setRightButtonColor(newColor);
   };
 
   const handleNext = () => {
     if (swiperRef.current) {
       swiperRef.current.slideNext();
     }
-    // Set both buttons to the hovered color of right button
-    const newColor = hoveredRight ? "green" : "yellow";
-    setLeftButtonColor(newColor);
-    setRightButtonColor(newColor);
   };
 
   return (
@@ -122,7 +114,7 @@ const DonationPage: React.FC = () => {
               return (
                 <FadeUpCard
                   key={index}
-                  delay={index * 0.3}
+                  delay={index * 0.2}
                   onAnimationComplete={() => setFadeDone(true)}
                 >
                   <DonationCard
@@ -200,11 +192,11 @@ const DonationPage: React.FC = () => {
 
         <div className="relative z-10 container mx-auto px-4 max-w-7xl">
           {/* Header Section */}
-          <div className="flex items-start justify-between mb-16">
+          <div className="flex flex-col md:flex-row items-center md:items-start justify-between mb-12 md:mb-16">
             {/* Left Side - Main Content */}
-            <div className="flex-1 max-w-2xl">
+            <div className="flex-1 w-full max-w-2xl">
               {/* Top Left Text */}
-              <div className="flex items-center mb-6">
+              <div className="flex items-center mn-4 md:mb-6">
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
                 <span className="text-[var(--green)] font-caveat text-2xl font-bold">
                   Start Donating Poor People
@@ -213,25 +205,25 @@ const DonationPage: React.FC = () => {
 
               {/* Main Heading */}
               <h2
-                className="text-5xl md:text-6xl font-bold leading-tight mb-8"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-800"
                 style={{
                   fontFamily: "var(--font-nunito), Nunito, sans-serif",
                   fontWeight: "700",
                 }}
               >
-                <div className="w-[761px]">
-                  <span className="text-gray-800">Help & </span>
-                  <span className="text-yellow-400">Donate </span>
-                  <span className="text-gray-800">Them when</span>
+                <div className="w-[779px] ">
+                  <span className="text-gray-800 font-extrabold">Help & </span>
+                  <span className="text-yellow-400 font-extrabold">Donate </span>
+                  <span className="text-gray-800 font-extrabold">Them when</span>
                 </div>
                 <div className="block">
-                  <span className="text-gray-800">They are In Need</span>
+                  <span className="text-gray-800 font-extrabold">They are In Need</span>
                 </div>
               </h2>
             </div>
 
             {/* Right Side - Navigation Arrows */}
-            <div className="flex items-center gap-4 ml-12 mt-12">
+            <div className="flex items-center gap-4 mt-6 md:mt-12 ml-0 md:ml-12">
               <button
                 onClick={handlePrev}
                 onMouseEnter={() => setHoveredLeft(true)}
@@ -309,7 +301,8 @@ const DonationPage: React.FC = () => {
                 1024: { slidesPerView: 3, spaceBetween: 30 },
                 1280: { slidesPerView: 4, spaceBetween: 30 },
               }}
-              className="h-auto"
+              className="h-auto swiper-wrapper"
+              speed={850}
               navigation={{
                 prevEl: null,
                 nextEl: null,
