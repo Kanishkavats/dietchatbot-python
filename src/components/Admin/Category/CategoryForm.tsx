@@ -10,6 +10,7 @@ import { toast } from "react-hot-toast";
 import { CategoryFormProps } from "@/src/types/campaign";
 import { CategoryFormValues, categorySchema } from "@/src/utils/validations/FormValidation";
 import { createCategory, updateCategory } from "@/src/services/categoryApi";
+import CancelButton from "../../common/Buttons/CancelButton";
 
 const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
   const isView = mode === "view";
@@ -118,18 +119,10 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
                     "Create"
                   )}
                 </Button>
-                <Button
-                  type="button"
-                  text="Cancel"
-                  onClick={onClose}
-                  bgColor="bg-red"
-                  hoverBg="before:bg-red-50"
-                  textColor="text-white"
-                  paddingx="px-4"
-                  paddingy="py-2"
-                  rounded="rounded-[5px] "
-                  icon=""
-                />
+                 <CancelButton
+                    text="Canceld"
+                    onClose={onClose}
+                  />
               </div>
             )}
           </Form>

@@ -6,6 +6,7 @@ export interface BlogFormProps {
   onClose: () => void;
   readOnly?: boolean;
   mode?: "add" | "edit" | "view";
+   onPreview?: (data: BlogFormValues) => void;
 }
 
 

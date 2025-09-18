@@ -58,6 +58,6 @@ export const BlogSearchOptions = [
 
 
 export const CommentSearchOptions = [
-  { label: "Name", value: "name" },
-  { label: "Comment", value: "comment" },
+  { label: "Status", value: "status" },
+
 ]

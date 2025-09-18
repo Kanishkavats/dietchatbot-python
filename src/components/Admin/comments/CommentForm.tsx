@@ -10,6 +10,8 @@ import { toast } from "react-hot-toast";
 import { Comment } from "@/src/types/comments";
 import { commentSchema, CommentFormValues } from "@/src/utils/validations/FormValidation";
 import { updateComment } from "@/src/services/commentsApi";
+import CancelButton from "../../common/Buttons/CancelButton";
+import Dropdown from "../Common/Dropdown";
 
 interface CommentFormProps {
   initialData?: Comment;
@@ -21,6 +23,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
   const isView = mode === "view";
   const isEdit = mode === "edit";
   const queryClient = useQueryClient();
+  console.log("initialData", initialData);
 
   const updateMutation = useMutation({
     mutationFn: ({ id, values }: { id: string; values: { approved: boolean } }) =>
@@ -30,20 +33,35 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
     },
   });
 
-  // Utility: Convert approved boolean to status string
-  const getStatusFromApproved = (approved?: boolean): "pending" | "approved" | "rejected" => {
-    if (approved === true) return "approved";
-    if (approved === false) return "rejected";
-    return "pending";
+  // Map backend status to form status (lowercase)
+  const mapBackendStatusToFormStatus = (status?: string): "pending" | "approved" | "rejected" => {
+    if (!status) return "pending";
+    switch (status.toUpperCase()) {
+      case "APPROVED":
+        return "approved";
+      case "REJECTED":
+        return "rejected";
+      case "PENDING":
+      default:
+        return "pending";
+    }
   };
 
   const initialValues: CommentFormValues = {
     name: initialData?.name ?? "",
     comment: initialData?.comment ?? "",
-    status: getStatusFromApproved(initialData?.approved),
+    status: mapBackendStatusToFormStatus(initialData?.status),
+    email: initialData?.email ?? "",
   };
 
-  const hasBeenReviewed = initialData?.approved !== undefined && initialData?.approved !== null;
+  const hasBeenReviewed = initialData?.status && initialData.status.toUpperCase() !== "PENDING";
+
+  const options = [
+    ...(hasBeenReviewed ? [] : [{ label: "Pending", value: "pending" as const }]),
+    { label: "Approved", value: "approved" },
+    { label: "Rejected", value: "rejected" },
+  ];
+
 
   const handleSubmit = (
     values: CommentFormValues,
@@ -121,29 +139,28 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
               error={touched.comment ? errors.comment : ""}
               disabled
             />
+            {mode === "view" &&(
+            <CustomInput
+              label="Email"
+              placeholder="email"
+              value={values.email ?? ""}
+              name="email"
+              onChange={handleChange}
+              error={touched.comment ? errors.comment : ""}
+              disabled
+            />
+            )}
 
-            <div className="flex flex-col gap-1">
-              <label htmlFor="status" className="text-sm font-medium text-gray-700">
-                Status
-              </label>
-              <select
-                id="status"
-                name="status"
-                value={values.status}
-                onChange={handleChange}
-                disabled={isView}
-                className={`border px-3 py-2 rounded-md outline-none focus:ring-2 ${
-                  touched.status && errors.status ? "border-red-500" : "border-gray-300"
-                }`}
-              >
-                {!hasBeenReviewed && <option value="pending">Pending</option>}
-                <option value="approved">Approved</option>
-                <option value="rejected">Rejected</option>
-              </select>
-              {touched.status && errors.status && (
-                <span className="text-sm text-red-500">{errors.status}</span>
-              )}
-            </div>
+            <Dropdown
+              label="Status"
+              value={values.status}
+              onChange={(val) => handleChange({ target: { name: "status", value: val } })}
+              options={options}
+              error={touched.status && errors.status ? errors.status : ""}
+              disabled={isView}
+            />
+
+
 
             {!isView && (
               <div className="flex gap-2 mt-2">
@@ -157,16 +174,9 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
                 >
                   {isSubmitting || updateMutation.isPending ? <ButtonLoader /> : "Update"}
                 </Button>
-                <Button
-                  type="button"
-                  text="Cancel"
-                  onClick={onClose}
-                  bgColor="bg-gray-500"
-                  hoverBg="before:bg-gray-700"
-                  textColor="text-white"
-                  paddingx="px-4"
-                  paddingy="py-2"
-                  rounded="rounded-[5px]"
+                <CancelButton
+                  text="Canceld"
+                  onClose={onClose}
                 />
               </div>
             )}

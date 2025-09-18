@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 import CampaignForm from "./CampaignForm";
 import { Campaign, CampaignSearchOptions } from "../Data/staticData";
 import DataTableWrapper from "../Common/DataTableWrapper";
@@ -24,6 +24,8 @@ const CampaignTable = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
 
   // ✅ pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -32,6 +34,8 @@ const CampaignTable = () => {
   const { data: campaignData, isLoading, isError } = useFetchAllCampaigns(currentPage, itemsPerPage);
   const { data: singleCampaignData, isLoading: isLoadingCampaign } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
+
+
 
   const handleEdit = useCallback((c: Campaign) => {
     setEditCampaign(c.id.toString());
@@ -76,6 +80,12 @@ const CampaignTable = () => {
 
   const totalPages = campaignData?.totalPages || 1;
 
+  const filteredData = useMemo(() => {
+    return paginatedData.filter((campaign: Campaign) =>
+      campaign[searchField]?.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [paginatedData, search, searchField]);
+
   return (
     <div>
       {/* Top controls */}
@@ -85,9 +95,15 @@ const CampaignTable = () => {
             <Dropdown
               options={CampaignSearchOptions}
               value={searchField}
-              onChange={setSearchField}
+               onChange={(value) => {
+                setSearchField(value);
+                setTimeout(() => {
+                  searchInputRef.current?.focus();
+                }, 0);
+              }}
             />
             <CustomInput
+              ref={searchInputRef}
               placeholder={`Search by ${searchField}...`}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -118,7 +134,7 @@ const CampaignTable = () => {
       {/* Table */}
       <DataTableWrapper
         columns={columns}
-        data={paginatedData}
+        data={filteredData}
       />
 
       {/* Pagination */}
@@ -147,7 +163,6 @@ const CampaignTable = () => {
               ? "View Campaign"
               : "Add Campaign"
         }
-       width="1220px"
       >
         {isLoadingCampaign ? (
           <p>Loading...</p>

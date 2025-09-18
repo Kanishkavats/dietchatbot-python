@@ -97,11 +97,10 @@ export type BlogFormValues = Yup.InferType<typeof blogSchema>;
 // ======================= Comment =======================
 
 export const commentSchema = Yup.object().shape({
-  // approved: Yup.boolean().required("Comment is required"),
   name: Yup.string().notRequired(),
   comment: Yup.string().notRequired(),
   email: Yup.string().notRequired(),
-   status: Yup.string()
+  status: Yup.string()
     .oneOf(["pending", "approved", "rejected"], "Invalid status")
     .required("Status is required"),
 });

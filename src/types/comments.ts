@@ -5,6 +5,7 @@ export interface Comment {
   createdAt?: string;
   status:string;
   approved?: boolean;
+  email?: string | undefined;
 }
 
 export interface CommentColumnCallbacks {

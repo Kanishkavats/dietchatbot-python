@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent } from "react";
+import { ChangeEvent, KeyboardEvent, RefObject } from "react";
 
 
 export interface DropdownOption<T> {
@@ -34,4 +34,5 @@ export interface AdminCustomInputProps {
   className?: string,
   disabled?: boolean;
   readOnly?: boolean; 
+  ref?:RefObject<HTMLInputElement | null>
 }

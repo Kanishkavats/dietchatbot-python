@@ -7,6 +7,14 @@ export const fetchComments = async () => {
   return data;
 };
 
+// ✅ Fetch comments by blog ID
+export const fetchCommentsById = async (id: string) => {
+  console.log("id => ", id);
+
+  const { data } = await api.get(`/api/V1/comment/getCommentById/${id}`);
+  return data;
+};
+
 // ✅ Create a new comment
 export const createComment = async (comment: { author: string; content: string }) => {
   console.log("Creating comment", comment);
@@ -19,7 +27,7 @@ export const updateComment = async (
   id: string,
   comment: { approved: boolean; }
 ) => {
-  const { data } = await api.put(`/api/V1/comment/update-comment/${id}`, comment);
+  const { data } = await api.put(`/api/V1/comment/moderate-comment/${id}`, comment);
   return data;
 };
 
