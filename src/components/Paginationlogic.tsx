@@ -254,8 +254,8 @@
 
 import React, { useState } from "react";
 import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
-import LatestNewsContent from "./Latestnews/index";
 
+import LatestNewsContent from "./Latestnews/index"
 
 import Newslist from "./Newslist";
 

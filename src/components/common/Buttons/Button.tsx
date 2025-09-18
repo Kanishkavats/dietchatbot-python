@@ -12,7 +12,7 @@ interface DynamicButtonProps {
   hoverBg?: string;
   textColor?: string;
   hoverTextColor?: string;
-  onClick?: () => void;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
   bgColor?: string;
   disabled?: boolean;
   children?: React.ReactNode;
