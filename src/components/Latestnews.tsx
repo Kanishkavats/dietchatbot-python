@@ -1,6 +1,4 @@
 "use client";
-<<<<<<< Updated upstream
-=======
 // import { useState } from "react";
 // import { FaAngleDoubleLeft, FaAngleDoubleRight } from "react-icons/fa";
 // import Newslist from "./Newslist"; 

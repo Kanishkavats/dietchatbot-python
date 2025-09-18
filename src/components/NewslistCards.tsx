@@ -1,5 +1,7 @@
 "use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { FaRegCommentDots } from "react-icons/fa";
 import { FaUser } from "react-icons/fa";
 
@@ -21,8 +23,14 @@ export default function NewslistCard({
   description,
 }: BlogCardProps) {
   return (
-    <div className="mb-12">
-     
+    <motion.div
+      className="mb-12"
+      initial={{ y: 100, opacity: 0 }} 
+      animate={{ y: 0, opacity: 1 }}   
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      whileHover={{ scale: 1.02 }}     
+    >
+
       <div className="relative">
         <Image
           src={image}
@@ -48,16 +56,19 @@ export default function NewslistCard({
         </div>
       </div>
 
-     
+      
       <h2 className="text-2xl font-bold text-[#000000] mt-2">{title}</h2>
 
-   
-      <p className=" text-[#667471] mt-2 leading-relaxed">{description}</p>
+      
+      <p className="text-[#667471] mt-2 leading-relaxed">{description}</p>
 
       
-      <button className="mt-4 flex items-center gap-2 text-[#000000] font-semibold hover:gap-3 transition-all duration-300">
+      <motion.button
+        className="mt-4 flex items-center gap-2 text-[#000000] font-semibold hover:gap-3 transition-all duration-300"
+        whileHover={{ x: 5 }} 
+      >
         READ MORE →
-      </button>
-    </div>
+      </motion.button>
+    </motion.div>
   );
 }

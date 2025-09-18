@@ -10,11 +10,11 @@ import { newsCards } from "@/src/staticResource";
 
 const LatestNews = () => {
   return (
-    <div className="bg-[#f3f4f6] font-sans antialiased text-[#667471]">
+    <div className="bg-[#ffffff] font-sans antialiased text-[#667471]">
       <section className="py-20 px-4">
-        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-1">
           {/* Left: News Cards */}
-          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="lg:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8 pl-6 lg:pl-10">
             {newsCards.map((card, i) => (
               <NewsCard key={i} {...card} />
             ))}
