@@ -17,7 +17,7 @@ export const createComment = async (comment: { author: string; content: string }
 // ✅ Update a comment
 export const updateComment = async (
   id: string,
-  comment: { author?: string; content: string }
+  comment: { approved: boolean; }
 ) => {
   const { data } = await api.put(`/api/V1/comment/update-comment/${id}`, comment);
   return data;

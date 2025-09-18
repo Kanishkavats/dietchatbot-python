@@ -13,17 +13,22 @@ export const getCommentColumns = ({
     cell: (_row: Comment, index: number) => index + 1,
     width: "80px",
   },
+   {
+    name: "Name",
+    selector: (row: Comment) => row.name,
+    sortable: true,
+  },
   {
     name: "Comment",
     selector: (row: Comment) => row.comment,
     sortable: true,
   },
-  {
-    name: "Name",
-    selector: (row: Comment) => row.name,
+   {
+    name: "Status",
+    selector: (row: Comment) => row.status,
     sortable: true,
-    grow: 2,
   },
+ 
   {
     name: "Actions",
     cell: (row: Comment) => (

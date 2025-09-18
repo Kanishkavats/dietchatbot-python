@@ -4,13 +4,12 @@ import AdminSideBarTab from "./AdminSidebarTab";
 import Dashboard from "../Dashboard";
 import Notifications from "../Notifications";
 import Members from "../Members";
-import Help from "../Help";
-import Guide from "../Guide";
 import Settings from "../Settings";
 import Campaign from "../Campaign";
 import Category from "../Category";
 import Blog from "../Blog";
 import Comments from "../comments";
+import Banner from "../Banner";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -19,13 +18,12 @@ const AdminTab = () => {
     dashboard: <Dashboard />,
     notifications: <Notifications />,
     members: <Members />,
-    help: <Help />,
-    guide: <Guide />,
     settings: <Settings />,
     campaign: <Campaign />,
     category: <Category />,
     blog:<Blog />,
-    comments: <Comments />
+    comments: <Comments />,
+    banner:<Banner />
   };
   return (
     <div>

@@ -9,6 +9,8 @@ import { useDeleteComment, useFetchComments } from "@/src/hooks/useComments";
 import { CommentSearchOptions } from "../Data/staticData";
 import { getCommentColumns } from "./getCommentColumns";
 import { Comment } from "@/src/types/comments";
+import Drawer from "../Common/Drawer";
+import CommentForm from "./CommentForm";
 
 const CommentTable = () => {
     const [search, setSearch] = useState("");
@@ -19,30 +21,35 @@ const CommentTable = () => {
 
     const { data: commentData } = useFetchComments();
     const { mutate: deleteComment } = useDeleteComment();
-    console.log("comments", commentData);
 
-    const handleEdit = useCallback((c: Comment) => {
-        setEditComment(c.id);
+    const handleEdit = useCallback((comment: Comment) => {
+        setEditComment(comment.id);
         setMode("edit");
         setDrawerOpen(true);
     }, []);
 
-    const handleView = useCallback((c: Comment) => {
-        setEditComment(c.id);
+    const handleView = useCallback((comment: Comment) => {
+        setEditComment(comment.id);
         setMode("view");
         setDrawerOpen(true);
     }, []);
 
     const handleDelete = useCallback(
-        (c: Comment) => {
-            if (confirm(`Are you sure you want to delete this comment by "${c.name}"?`)) {
-                deleteComment(c.id);
+        (comment: Comment) => {
+            if (confirm(`Are you sure you want to delete this comment by "${comment.name}"?`)) {
+                deleteComment(comment.id);
             }
         },
         [deleteComment]
     );
 
     const tableData = commentData?.comments || [];
+
+    const filteredData = useMemo(() => {
+        return tableData.filter((c: Comment) =>
+            c[searchField].toLowerCase().includes(search.toLowerCase())
+        );
+    }, [tableData, search, searchField]);
 
     const columns = useMemo(
         () =>
@@ -56,7 +63,7 @@ const CommentTable = () => {
 
     return (
         <div>
-            {/* Top controls (UI same, no filtering logic applied) */}
+            {/* Top controls */}
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
                 <AnimatedReveal direction="left" delay={0.1}>
                     <div className="w-fit flex flex-col sm:flex-row gap-2">
@@ -76,7 +83,25 @@ const CommentTable = () => {
             </div>
 
             {/* Data table */}
-            <DataTableWrapper columns={columns} data={tableData} />
+            <DataTableWrapper columns={columns} data={filteredData} />
+
+            {/* Drawer */}
+            <Drawer
+                isOpen={drawerOpen}
+                onClose={() => {
+                    setDrawerOpen(false);
+                    setEditComment(null);
+                    setMode("view");
+                }}
+                title={mode === "edit" ? "Edit Comment" : "View Comment"}
+                width="500px"
+            >
+                <CommentForm
+                    initialData={tableData.find((c: Comment) => c.id === editComment)}
+                    onClose={() => setDrawerOpen(false)}
+                    mode={mode}
+                />
+            </Drawer>
         </div>
     );
 };

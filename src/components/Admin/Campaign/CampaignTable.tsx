@@ -147,7 +147,7 @@ const CampaignTable = () => {
               ? "View Campaign"
               : "Add Campaign"
         }
-        width="450px"
+       width="1220px"
       >
         {isLoadingCampaign ? (
           <p>Loading...</p>

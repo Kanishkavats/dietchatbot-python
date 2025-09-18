@@ -258,12 +258,13 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                     type="button"
                     text="Cancel"
                     onClick={onClose}
-                    bgColor="bg-gray-500"
-                    hoverBg="before:bg-gray-700"
+                    bgColor="bg-red"
+                    hoverBg="before:bg-red-50"
                     textColor="text-white"
                     paddingx="px-4"
                     paddingy="py-2"
-                    rounded="rounded-[5px] "
+                    rounded="rounded-[5px]"
+                    icon=""
                   />
                 </div>
               )}
