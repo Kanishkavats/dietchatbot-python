@@ -10,8 +10,8 @@ export default function NewsPage() {
     return (
         <>
             <PageBanner bgImage={bannerBg} title="Latest news" />
-            {/* <LatestNews /> */}
-            <Paginationlogic/>
+            <LatestNews />
+            {/* <Paginationlogic/> */}
 
         </>
     );

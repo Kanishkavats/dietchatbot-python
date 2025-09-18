@@ -11,6 +11,7 @@ export const createBlog = async (blog: BlogFormValues) => {
 // ✅ Get all blogs with pagination
 export const fetchAllBlogs = async (page: number = 1, limit: number = 10) => {
   const { data } = await api.get(`/api/V1/blog/getAllBlogs?page=${page}&limit=${limit}`);
+  console.log(data);
   return data;
 };
 
