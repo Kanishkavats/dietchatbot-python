@@ -29,7 +29,7 @@ export default function BlogPage() {
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
 
-      className="bg-[#f3f4f6] font-sans text-[#667471];"
+      className="bg-[#ffffff] font-sans text-[#667471];"
     >
       <div className="container mx-auto p-4 md:p-8">
         <div className="flex flex-col lg:flex-row gap-8">
@@ -174,14 +174,14 @@ export default function BlogPage() {
             </div>
 
             
-            <div className="w-full max-w-[896px] mx-auto mt-10 p-4 sm:p-6 bg-white rounded-lg lg:mt-20 lg:p-15 shadow-md">
+            <div className="w-full max-w-[896px] mx-auto mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:mt-20 lg:p-15 shadow-xl border border-[#edefe9]">
               <h2 className="text-2xl sm:text-3xl font-bold text-[#122F2A] mb-8 lg:mb-12">
                 Leave a Comment
               </h2>
               <form className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {/* Name Input */}
-                  <div className="flex items-center bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF]">
+                  <div className="flex items-center bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF] lg:h-[96px] lg:px-5 lg:py-3">
                     <FaUser className="text-[#6B7280] mr-4" size={20} />
                     <input
                       type="text"
@@ -191,7 +191,7 @@ export default function BlogPage() {
                   </div>
                   {/* Email Input */}
                   <div className="flex items-center bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF]">
-                    {/* <FaEnvelope className="text-[#6B7280] mr-4" size={20} /> */}
+                    
                     <FaRegEnvelope className="text-[#6B7280] mr-4" size={20} />
                     <input
                       type="email"
@@ -221,7 +221,7 @@ export default function BlogPage() {
                 {/* Submit Button */}
                 <button
                   type="submit"
-                  className="w-full md:w-auto bg-[#122F2A] text-white text-[16px] font-semibold px-10 py-4 rounded-md hover:bg-[#0E2521] transition-colors duration-300"
+                  className="w-full md:w-auto bg-[#122F2A] text-white text-[16px] font-semibold px-10 py-4 rounded-full hover:bg-[#0E2521] transition-colors duration-300"
                 >
                   Submit Comment
                 </button>
@@ -233,7 +233,7 @@ export default function BlogPage() {
 
 
           <aside className="lg:w-1/3 space-y-8">
-            <div className="bg-[#ffffff] p-4 sm:p-6 rounded-lg shadow-md">
+            <div className="bg-[#ffffff] p-4 sm:p-6 rounded-lg shadow-xl border border-[#edefe9]">
               <h3 className="text-lg sm:text-2xl font-bold text-[#000000] mb-4">Search Here</h3>
               <div className="flex">
                 <input
@@ -280,7 +280,7 @@ export default function BlogPage() {
                 {tags.map((tag, index) => (
                   <button
                     key={index}
-                    className="px-3 py-2 bg-[#F3F4F6] text-[#667471] rounded-lg text-xs sm:text-sm hover:bg-[#e5e7eb] transition-colors"
+                    className="px-3 py-2 bg-[#F3F4F6] text-[#000000] font-nunito rounded-lg text-xs sm:text-sm hover:bg-[#FFC107] transition-colors"
                   >
                     {tag}
                   </button>
@@ -290,21 +290,21 @@ export default function BlogPage() {
             <div className="relative w-full h-[300px] sm:h-[440px] p-6 sm:p-8 rounded-lg shadow-md overflow-hidden text-center text-[#ffffff] bg-cover bg-center bg-[url('/assets/charity_with_difference/overview.png')]">
               <div className="relative z-10 mt-6 sm:mt-10">
                 <div className="flex justify-center mb-4">
-                  <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full flex items-center justify-center overflow-hidden">
+                  <div className="w-[140px] h-[140px] sm:w-16 sm:h-16 rounded-full flex items-center justify-center overflow-hidden">
                     <img
                       src="/assets/heartLogoIcon.png"
                       alt="Heart Logo"
-                      className="w-8 h-8 sm:w-10 sm:h-10 object-contain"
+                      className="w-[140px] h-[140px] sm:w-10 sm:h-10 object-contain"
                     />
                   </div>
                 </div>
-                <p className="text-xs sm:text-sm font-light mb-2 sm:mb-4">
+                <p className="font-nunito text-xs sm:text-sm font-bold mb-2 sm:mb-4">
                   Small Donations Bigger Impact
                 </p>
-                <h3 className="text-lg sm:text-2xl font-bold mb-4 sm:mb-6 leading-tight">
+                <h3 className="font-nunito text-lg sm:text-2xl font-bold mb-4 sm:mb-6 leading-tight">
                   Education Health For Every Child
                 </h3>
-                <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#FFC107] text-black-800 font-semibold rounded-lg hover:bg-[#122F2A] transition-colors">
+                <button className="px-4 sm:px-6 py-2 sm:py-3 bg-[#FFC107] text-[#000000] font-semibold rounded-full hover:bg-[#046B59] hover:text-[#ffffff] transition-colors">
                   Get A Quote →
                 </button>
               </div>

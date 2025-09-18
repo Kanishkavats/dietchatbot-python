@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { events, Event } from "@/src/staticResource";
 import Eventdetail from "./Eventdetail";
 
+
 interface EventListProps {
   currentPage: number;
 }
