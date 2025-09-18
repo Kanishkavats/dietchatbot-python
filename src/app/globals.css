@@ -107,7 +107,11 @@ body {
   position: fixed;
   transition: opacity 0.1s ease;
 }
-
+@layer components {
+  .swiper-wrapper {
+    transition-timing-function: ease-in-out !important;
+  }
+}
 /* Hide cursor on interactive elements */
 a, button, input, textarea, select, [role="button"] {
   cursor: none !important;
