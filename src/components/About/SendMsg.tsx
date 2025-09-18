@@ -7,6 +7,7 @@ import { FaEnvelope } from "react-icons/fa";
 import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import Button from "../common/Buttons/Button";
 import { useInView } from "react-intersection-observer";
+import FadeInUp from "@/src/animations/FadeInUp";
 
 const SendMsg: React.FC = () => {
   const { ref, inView } = useInView({
@@ -14,15 +15,16 @@ const SendMsg: React.FC = () => {
     threshold: 0.2,
   });
   return (
-    <section
-      className="relative flex items-center justify-center min-h-screen w-full bg-[url('/assets/contactbg.png')]  bg-[length:250%] bg:
-    bg-center 
-    bg-no-repeat
-    overflow-hidden
-    bg-gradient-to-r from-black/90 to-transparent  before:absolute before:inset-0 before:bg-gradient-to-r before:from-black/60 before:to-transparent before:z-10 "
-    >
+    <section className="relative flex items-center justify-center min-h-screen w-full overflow-hidden">
+      {/* Container for the zoomed-in background image and its gradient overlay */}
+      <div 
+        className="absolute inset-0 bg-[url('/assets/contactbg.png')]  bg-center bg-no-repeat 
+                   transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"></div>
+        <div className="absolute inset-0  bg-gradient-to-r from-dark-green to-black/10"></div>
+
+     <FadeInUp initialYExis={-60} delay={0.2} className="absolute top-[-40] left-0 w-1/3 md:w-1/4 h-1/2 md:h-2/3 overflow-hidden z-20"> 
       <motion.div
-        className="absolute top-[-40] left-0 w-1/3 md:w-1/4 h-1/2 md:h-2/3 overflow-hidden z-20"
+        className="h-full w-full relative"
         animate={{ y: [0, -20, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
@@ -34,6 +36,7 @@ const SendMsg: React.FC = () => {
           className="object-cover"
         />
       </motion.div>
+      </FadeInUp>
 
       <div className="relative ml-[0%] md:ml-[35%] z-10 w-[50%] min-w-[400px] min-h-screen  bg-[#00715d] p-6 sm:p-8 md:p-10 shadow-lg  overflow-y-auto py-8 ">
         <motion.div
@@ -45,18 +48,18 @@ const SendMsg: React.FC = () => {
         >
           <div className="flex gap-2">
             <i className="text-2xl text-[#FFC107] hand-icon"></i>
-            <span className=" text-[#FFC107] font-caveat font-semibold block text-2xl ">
+            <span className=" text-[#FFC107] font-caveat font-extrabold block text-2xl ">
               Start Donating Poor People
             </span>
           </div>
-          <h2 className="text-2xl sm:text-3xl md:text-3xl lg:text-5xl font-bold text-white mt-2 font-nunito leading-tight whitespace-nowrap">
-            Send Us <span className="text-yellow-400">Message</span>For <br />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-white mt-2 font-nunito leading-tight ">
+            Send Us <span className="text-yellow-400">Message</span> For <br />
             Donation!
           </h2>
         </motion.div>
 
-        <form className="space-y-4 px-6">
-          <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
+        <form className="space-y-10 px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="relative">
               <input
                 type="email"
@@ -101,7 +104,7 @@ const SendMsg: React.FC = () => {
               textColor="text-black"
               hoverTextColor="group-hover:text-white"
               hoverBg="before:bg-black"
-              className="h-16"
+              
             />
           </div>
         </form>
