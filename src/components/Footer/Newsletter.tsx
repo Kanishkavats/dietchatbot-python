@@ -2,6 +2,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { motion } from "framer-motion";
 import Button from "../common/Buttons/Button";
+import SlideinFromLeft from "@/src/animations/SlideInFromLeft";
 
 const Newsletter = () => {
 
@@ -12,18 +13,14 @@ const Newsletter = () => {
   return (
     <section className="text-white font-nunito">
       <div className="max-w-7xl mx-auto flex flex-col lg:flex-row lg:items-center justify-between gap-6 border-b-[1px] border-white/10 py-20">
-        <motion.div
-          initial={{ opacity: 0, x: -30 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="text-left"
-        >
+        <SlideinFromLeft>
           <h2 className="text-[27px] xl:text-[40px] font-bold">
             Subscribe To Our Newsletter
           </h2>
           <p className="text-white/50 text-[18px] leading-8 mt-0 ">
             Regular Inspections And Feedback Mechanisms
           </p>
-        </motion.div>
+        </SlideinFromLeft>
 
         <form className="flex xl:justify-end xl:w-1/2 gap-5 xl:ps-18 mt-2 xl:mt-10">
           <input
