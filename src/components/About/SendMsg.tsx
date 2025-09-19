@@ -53,7 +53,7 @@ const SendMsg: React.FC = () => {
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-white mt-2 font-nunito leading-tight ">
-            Send Us <span className="text-yellow-400">Message</span> For <br />
+            Send Us <span className="text-yellow">Message</span> For <br />
             Donation!
           </h2>
         </motion.div>
@@ -64,18 +64,18 @@ const SendMsg: React.FC = () => {
               <input
                 type="email"
                 placeholder="your email..."
-                className="w-full rounded-md border border-gray-400/50 bg-black/18 px-4 py-4 
+                className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4 
                  text-white  focus:outline-none "
               />
-              <Send className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow-400 w-5 h-5" />
+              <Send className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow w-5 h-5" />
             </div>
             <div className="relative">
               <input
                 type="text"
                 placeholder="your phone..."
-                className="w-full rounded-md border border-gray-400/50 bg-black/18 px-4 py-4 text-white  focus:outline-none"
+                className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4 text-white  focus:outline-none"
               />
-              <FaPhone className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow-400 w-5 h-5" />
+              <FaPhone className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow w-5 h-5" />
             </div>
           </div>
 
@@ -83,18 +83,18 @@ const SendMsg: React.FC = () => {
             <input
               type="text"
               placeholder="your address..."
-              className="w-full rounded-md border border-gray-400/50 bg-black/18 px-4 py-4 text-white  focus:outline-none"
+              className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4 text-white  focus:outline-none"
             />
-            <FaLocationDot className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow-400 w-5 h-5" />
+            <FaLocationDot className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow w-5 h-5" />
           </div>
 
           <div className="relative text-white">
             <textarea
               rows={4}
               placeholder="your message..."
-              className="w-full rounded-md border border-gray-400/50  bg-black/18 px-4 py-4  focus:outline-none resize-none"
+              className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4  focus:outline-none resize-none"
             />
-            <FaEnvelope className="absolute right-3 top-3 text-yellow-400 w-5 h-5" />
+            <FaEnvelope className="absolute right-3 top-3 text-yellow w-5 h-5" />
           </div>
 
           <div className="w-55  text-black">

@@ -97,7 +97,6 @@
 body {
   font-family: "Charifund", Arial, Helvetica, sans-serif;
   background-color: var(--color-white);
-  cursor: none; /* Hide default cursor */
 }
 
 /* Custom cursor styles */
@@ -111,10 +110,6 @@ body {
   .swiper-wrapper {
     transition-timing-function: ease-in-out !important;
   }
-}
-/* Hide cursor on interactive elements */
-a, button, input, textarea, select, [role="button"] {
-  cursor: none !important;
 }
 
 /* Custom styles for charity component */
