@@ -11,8 +11,8 @@ import {
   FaArrowUp,
 } from 'react-icons/fa';
 import Button from '../common/Buttons/Button';
-import NewsCard from '../Latestnews/NewsCard';
 import { newsData, NewsItem } from '../../staticResource';
+import NewsGrid from '../Latestnews/NewsGrid';
 
 const LatestNewsArticle: React.FC = () => {
 
@@ -78,21 +78,13 @@ const LatestNewsArticle: React.FC = () => {
         </div>
 
         {/* News Cards Grid */}
-        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12'>
-          {newsData.map((card, index) => (
-            <NewsCard 
-              key={index} 
-              img={card.img}
-              category={card.category}
-              title={card.title}
-              alt={`${card.category} news article`}
-            />
-          ))}
+        <div className='grid grid-cols-3 gap-8' >
+          <NewsGrid/>
         </div>
 
         {/* View All Button */}
         <motion.div 
-          className="flex justify-center"
+          className="flex justify-center mt-5"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
