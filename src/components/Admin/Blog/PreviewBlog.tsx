@@ -1,13 +1,13 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Button from "../../common/Buttons/Button";
 import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import { FaCalendarAlt, FaTags } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { FaCircleArrowRight } from "react-icons/fa6";
 import { MdLocationPin } from "react-icons/md";
 import { LucideCircleCheckBig } from "lucide-react";
+import Button from "../../common/Buttons/Button";
 
 interface BlogPreviewProps {
   data: BlogFormValues & { images?: (File | string)[] }; // File or URL
@@ -21,9 +21,12 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
   useEffect(() => {
     if (!data.images) return;
 
-    const previews = data.images.map((img) =>
-      typeof img === "string" ? img : URL.createObjectURL(img)
-    );
+    const previews = data.images
+      .filter((img): img is File | string => img !== undefined)
+      .map((img) =>
+        typeof img === "string" ? img : URL.createObjectURL(img)
+      );
+
 
     setImagePreviews(previews);
 
@@ -95,8 +98,9 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
             Tags:
           </p>
           <div className="ml-6 space-y-1 grid grid-cols-2">
-            {data.tags.length > 0 ? (
-              data.tags.map((tag, idx) => (
+            {(data.tags ?? []).length > 0 ? (
+              (data.tags ?? []).map((tag, idx) => (
+
                 <p key={idx} className="flex items-center gap-2 text-gray-700">
                   <LucideCircleCheckBig className="text-yellow size-5" />
                   {tag}
@@ -114,10 +118,10 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
             Key Points:
           </p>
           <div className="ml-6 space-y-1 grid grid-cols-2">
-            {data.keyPoints.length > 0 ? (
-              data.keyPoints.map((point, idx) => (
+            {(data.keyPoints ?? []).length > 0 ? (
+              (data.keyPoints ?? []).map((point, idx) => (
                 <p key={idx} className="flex items-center gap-2 text-gray-700">
-                                    <LucideCircleCheckBig className="text-yellow size-5" />
+                  <LucideCircleCheckBig className="text-yellow size-5" />
 
                   {point}
                 </p>
@@ -151,24 +155,21 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
       {/* Buttons */}
       <div className="mt-12 flex gap-6 justify-end">
         <Button
-          bgColor="bg-red-600"
-          paddingx="px-6"
-          paddingy="py-3"
+          bgColor="bg-red"
           rounded="rounded-lg"
+          hoverBg="before:bg-red-50"
           onClick={onBack}
         >
           Back to Edit
         </Button>
 
         <Button
-          bgColor="bg-green-600"
-          paddingx="px-6"
-          paddingy="py-3"
           rounded="rounded-lg"
           onClick={onSubmit}
         >
           Submit <FaCircleArrowRight className="text-lg ml-2" />
         </Button>
+
       </div>
     </motion.div>
   );
