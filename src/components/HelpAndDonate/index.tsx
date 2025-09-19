@@ -68,7 +68,7 @@ const HelpAndDonate: React.FC = () => {
         <div className="absolute inset-0 bg-black/4"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-3 sm:px-4 max-w-7xl border-3">
+      <div className="relative z-10 container mx-auto px-3 sm:px-4 max-w-7xl">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-8 md:mb-12 lg:mb-16">
           {/* Left Side - Main Content */}

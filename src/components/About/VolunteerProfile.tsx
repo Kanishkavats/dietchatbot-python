@@ -147,7 +147,7 @@ const VolunteerProfile = ({ member }) => {
                 hoverTextColor="group-hover:text-white"
                 hoverBg="before:bg-[#046b59]"
                 onClick={() => router.push("/donate-us")}
-                className="font-[Nunito] text-[16px] px-[40px] py-[22px]"
+               
               />
             </div>
            

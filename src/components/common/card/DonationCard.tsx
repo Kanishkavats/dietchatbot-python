@@ -54,7 +54,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
         <motion.img
           src={card.image}
           alt="News"
-          className="absolute top-0 left-0 w-full h-full object-cover"
+          className="absolute top-0 left-0 w-full h-full object-cover cursor-pointer"
           animate={{
             scale: hoveredCard === card.id ? 1.2 : 1,
             rotate: hoveredCard === card.id ? 10 : 0,
@@ -62,6 +62,10 @@ const DonationCard: React.FC<DonationCardProps> = ({
           transition={{
             duration: 0.5,
             ease: "easeInOut",
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            router.push('/child-education');
           }}
         />
         <span 
@@ -128,33 +132,29 @@ const DonationCard: React.FC<DonationCardProps> = ({
           </div>
 
           {/* Donate Button */}
-          <div 
-            className="transition-all duration-300"
-            style={{
-              transform: hoveredCard === card.id ? 'scale(1.02)' : 'scale(1)',
-              boxShadow: hoveredCard === card.id 
-                ? '0 4px 12px rgba(34, 197, 89, 0.3)'
-                : 'none',
-            }}
-          >
-            <div 
-              className="border-2 rounded-full w-fit"
-              style={{
-                borderColor: hoveredCard === card.id ? '#000000' : '#122F2A',
-                backgroundColor: hoveredCard === card.id ? '#000000' : 'transparent',
-              }}
-            >
-              <Button 
-                text="Donate Now"
-                bgColor="bg-transparent"
-                textColor={hoveredCard === card.id ? "text-white" : "text-[#122F2A]"}
-                hoverTextColor="group-hover:text-white"
-                hoverBg={hoveredCard === card.id ? "before:bg-transparent" : "before:bg-black"}
-                rounded="rounded-full"
-                paddingx="px-4"
-                paddingy="py-3"
-                icon=""
-              />
+          <div className="transition-all duration-300 flex justify-start">
+            <div className="border-2 border-black rounded-full w-fit">
+              <div 
+                className={`relative overflow-hidden rounded-full transition-all duration-500 ${
+                  hoveredCard === card.id ? 'before:scale-x-100' : 'before:scale-x-0'
+                } before:content-[''] before:absolute before:inset-0 before:bg-dark-green before:transition-transform before:duration-500 before:origin-center before:z-0`}
+              >
+                <Button 
+                  text="Donate Now"
+                  bgColor="bg-transparent"
+                  textColor={hoveredCard === card.id ? "text-white" : "text-black"}
+                  hoverTextColor="group-hover:text-white"
+                  hoverBg="before:bg-dark-green"
+                  rounded="rounded-full"
+                  paddingx="px-6"
+                  paddingy="py-3"
+                  icon=""
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    router.push('/donate-us');
+                  }}
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -13,6 +13,9 @@ export default function NewsPage() {
             {/* <LatestNews /> */}
             <Paginationlogic/>
 
+
+
+
         </>
     );
 }

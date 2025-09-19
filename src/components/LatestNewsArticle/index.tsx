@@ -11,101 +11,11 @@ import {
   FaArrowUp,
 } from 'react-icons/fa';
 import Button from '../common/Buttons/Button';
+import NewsCard from '../Latestnews/NewsCard';
 import { newsData, NewsItem } from '../../staticResource';
 
 const LatestNewsArticle: React.FC = () => {
 
-  const cardVariants = {
-    hidden: { y: 50, opacity: 0 },
-    visible: {
-      y: 0,
-      opacity: 1,
-      transition: { duration: 0.6, ease: "easeOut" as const },
-    },
-  };
-
-  interface NewsCardProps extends NewsItem {
-    index: number;
-  }
-
-  const NewsCard: React.FC<NewsCardProps> = ({ img, category, categoryIcon, title, author, comments, index }) => (
-    <motion.div
-      className="bg-white hover:bg-green rounded-2xl shadow-lg overflow-hidden group relative p-5 flex flex-col h-full"
-      variants={cardVariants}
-      initial="hidden"
-      animate="visible"
-      transition={{ delay: index * 0.2 }}
-      {...(index === 0 && {
-        initial: { opacity: 0, transform: "translateZ(0)" },
-        whileInView: { opacity: 1, transform: "translateZ(0)" },
-        viewport: { once: true, amount: 0.3 },
-        transition: { duration: 1 }
-      })}
-      {...(index === 1 && {
-        initial: { opacity: 0, transform: "translateZ(0)" },
-        whileInView: { opacity: 1, transform: "translateZ(0)" },
-        viewport: { once: true, amount: 0.3 },
-        transition: { duration: 1, delay: 0.3 }
-      })}
-      {...(index === 2 && {
-        initial: { opacity: 0, transform: "translateZ(0)" },
-        whileInView: { opacity: 1, transform: "translateZ(0)" },
-        viewport: { once: true, amount: 0.3 },
-        transition: { duration: 1, delay: 0.6 }
-      })}
-    >
-      <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
-        <motion.img
-          src={img}
-          alt="News"
-          className="absolute top-0 left-0 w-full h-full object-cover"
-          whileHover={{ scale: 1.1, rotate: -3 }}
-          transition={{ duration: 0.4 }}
-        />
-        <Link href="/newslist">
-          <span className="absolute top-3 left-3 bg-[#064E3B] text-white text-xs font-semibold px-3 py-1 rounded-full flex items-center gap-1 cursor-pointer hover:bg-[#046b59] transition-colors">
-            <span className="text-xs">{categoryIcon}</span>
-            {category}
-          </span>
-        </Link>
-      </div>
-
-      <div className="flex-1">
-        <div className="flex items-center gap-6 text-sm mb-3 text-gray-600 group-hover:text-white transition-colors">
-          <span className="flex items-center gap-2">
-            <FaUser size={18} className="text-yellow" />
-            {author}
-          </span>
-          <span className="flex items-center gap-2">
-            <FaComment size={18} className="text-yellow" />
-            Comments ({comments})
-          </span>
-        </div>
-        <Link href="/newsdetails">
-          <h3 className="text-lg font-bold leading-snug mb-3 text-gray-800 group-hover:text-white transition-colors cursor-pointer hover:text-[#064E3B] group-hover:hover:text-white">{title}</h3>
-        </Link>
-      </div>
-
-      <div className="flex items-center gap-2 relative">
-        <a
-          href="#"
-          className="font-[Nunito,sans-serif] text-[14px] text-[#064E3B] font-bold hover:text-yellow transition-colors flex items-center gap-2"
-        >
-          Read More
-          <FaArrowRight className="text-[#064E3B]" />
-        </a>
-
-        <motion.div
-          className="absolute top-1/2 right-4 -translate-y-1/2 opacity-0 group-hover:opacity-100"
-          initial={{ scale: 0.8 }}
-          whileHover={{ scale: [1, 1.2, 1] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
-        >
-          <img src="/heart.png" alt="heart-bg" className="w-16 h-16 opacity-90" />
-        </motion.div>
-      </div>
-    </motion.div>
-  );
 
   return (
     <div 
@@ -146,7 +56,7 @@ const LatestNewsArticle: React.FC = () => {
 
           {/* Animated Heart */}
           <motion.div
-            className="absolute top-0 right-0 lg:left-8"
+            className="absolute top-14 right-0 lg:left-8"
             animate={{
               scale: [1, 1.1, 1],
               opacity: [0.8, 1, 0.8]
@@ -162,7 +72,7 @@ const LatestNewsArticle: React.FC = () => {
               alt="heart"
               width={120}
               height={120}
-              className="w-20 h-20 lg:w-32 lg:h-32"
+              className="w-20 h-20 lg:w-50 lg:h-50"
             />
           </motion.div>
         </div>
@@ -170,7 +80,13 @@ const LatestNewsArticle: React.FC = () => {
         {/* News Cards Grid */}
         <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12'>
           {newsData.map((card, index) => (
-            <NewsCard key={index} {...card} index={index} />
+            <NewsCard 
+              key={index} 
+              img={card.img}
+              category={card.category}
+              title={card.title}
+              alt={`${card.category} news article`}
+            />
           ))}
         </div>
 
