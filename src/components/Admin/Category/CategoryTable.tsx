@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 import Dropdown from "../Common/Dropdown";
 import CustomInput from "../Common/CustomInput";
 import Button from "../../common/Buttons/Button";
@@ -22,6 +22,8 @@ const CategoryTable = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editCategory, setEditCategory] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
 
   const { data: categoryData } = useFetchCategory();
   const { mutate: deleteCategory } = useDeleteCategory();
@@ -66,8 +68,14 @@ const CategoryTable = () => {
         <AnimatedReveal direction="left" delay={0.1}>
 
           <div className="w-fit flex flex-col sm:flex-row gap-2">
-            <Dropdown options={CategorySearchOptions} value={searchField} onChange={setSearchField} />
+            <Dropdown options={CategorySearchOptions} value={searchField} onChange={(value) => {
+              setSearchField(value);
+              setTimeout(() => {
+                searchInputRef.current?.focus();
+              }, 0);
+            }} />
             <CustomInput
+              ref={searchInputRef}
               placeholder={`Search by ${searchField}...`}
               value={search}
               onChange={(e) => setSearch(e.target.value)}

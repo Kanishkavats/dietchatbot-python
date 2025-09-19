@@ -3,6 +3,9 @@ export interface Comment {
   name: string;
   comment: string;
   createdAt?: string;
+  status:string;
+  approved?: boolean;
+  email?: string | undefined;
 }
 
 export interface CommentColumnCallbacks {

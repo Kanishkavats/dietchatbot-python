@@ -19,7 +19,7 @@ const Drawer: React.FC<DrawerProps> = ({
   onClose,
   children,
   title,
-  width = "400px",
+  width = "1400px",
   className = "",
   mobileFullScreen = true,
 }) => {
@@ -42,8 +42,8 @@ const Drawer: React.FC<DrawerProps> = ({
             key="drawer"
             className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50 overflow-auto
               ${className}
-              w-full sm:w-[${width}] ${mobileFullScreen ? "sm:w-[400px]" : ""}`}
-            style={{ maxWidth: width }}
+              // w-full sm:w-[${width}] ${mobileFullScreen ? "sm:w-[400px]" : ""}`}
+            style={{ width: width }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

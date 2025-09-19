@@ -6,15 +6,30 @@ import {
   createComment,
   updateComment,
   deleteComment,
+  fetchCommentsById,
 } from "../services/commentsApi";
 
-// ======================= Fetch Comments ======================= //
+// ======================= Fetch all Comments ======================= //
 export const useFetchComments = () => {
   return useQuery({
     queryKey: ["comments"],
     queryFn: fetchComments,
   });
 };
+
+// ======================= Fetch single Comment ======================= //
+
+export const useFetchCommentById = (id: string, enabled: boolean = true) => {
+  
+  return useQuery({
+    queryKey: ["comment", id],
+    queryFn: () => fetchCommentsById(id),
+    retry:0,
+    // enabled:  enabled, 
+  });
+};
+
+
 
 // ======================= Create Comment ======================= //
 export const useCreateComment = () => {

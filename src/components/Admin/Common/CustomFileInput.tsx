@@ -26,12 +26,6 @@ const CustomFileInput: React.FC<CustomFileInputProps> = ({
   const [newPreviews, setNewPreviews] = useState<string[]>([]);
   const [existingPreviews, setExistingPreviews] = useState<string[]>(initialUrls);
 
-
-  // Sync existing images if props change
-  // useEffect(() => {
-  //   setExistingPreviews(initialUrls);
-  // }, [initialUrls]);
-
   // Handle new file selection
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.currentTarget.files || []);

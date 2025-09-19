@@ -1,5 +1,5 @@
 'use client'
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useRef } from "react";
 import Breadcrumb from "../Breadcrumb";
 import { Blog, BlogSearchOptions } from "../Data/staticData";
 import DataTableWrapper from "../Common/DataTableWrapper";
@@ -13,6 +13,8 @@ import BlogForm from "./BlogForm";
 import { getBlogColumns } from "./BlogColumns";
 import { useDeleteSingleBlog, useFetchAllBlogs, useFetchSingleBlog } from "@/src/hooks/useBlog";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
+import { BlogFormValues } from "@/src/utils/validations/FormValidation";
+import BlogPreview from "./PreviewBlog";
 
 const BlogTable = () => {
 
@@ -22,6 +24,10 @@ const BlogTable = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editBlog, setEditBlog] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const searchInputRef = useRef<HTMLInputElement>(null);
+  const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
+
+
 
   // ✅ pagination states
   const [currentPage, setCurrentPage] = useState(1);
@@ -77,6 +83,14 @@ const BlogTable = () => {
   }, [blogData]);
 
   const totalPages = blogData?.totalPages || 1;
+
+  const filteredData = useMemo(() => {
+    return paginatedData.filter((blog: Blog) => {
+      const value = blog[searchField];
+      return value?.toString().toLowerCase().includes(search.toLowerCase());
+    });
+  }, [paginatedData, search, searchField]);
+
   return (
     <section>
       {/* Top controls */}
@@ -87,9 +101,16 @@ const BlogTable = () => {
             <Dropdown
               options={BlogSearchOptions}
               value={searchField}
-              onChange={setSearchField}
+              onChange={(value) => {
+                setSearchField(value);
+                setTimeout(() => {
+                  searchInputRef.current?.focus();
+                }, 0);
+              }}
+
             />
             <CustomInput
+              ref={searchInputRef}
               placeholder={`Search by ${searchField}...`}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
@@ -122,7 +143,7 @@ const BlogTable = () => {
       {/* Table */}
       <DataTableWrapper
         columns={columns}
-        data={paginatedData}
+        data={filteredData}
       />
 
       {/* Pagination */}
@@ -151,18 +172,38 @@ const BlogTable = () => {
               ? "View Blog"
               : "Add Blog"
         }
-        width="450px"
+        width={previewData ? "850px" :"500px" }
       >
-        {isLoadingBlog ? (
+        {previewData ? (
+          <BlogPreview
+            data={previewData}
+            onBack={() => setPreviewData(null)}
+            onSubmit={() => {
+              submitBlogForm(
+                { ...previewData, keyPoints: previewData.keyPoints },
+                singleBlogData,
+                createMutation,
+                updateMutation,
+                () => {
+                  setPreviewData(null);
+                  setDrawerOpen(false);
+                },
+                () => { },
+                () => setDrawerOpen(false)
+              );
+            }}
+          />
+        ) : isLoadingBlog ? (
           <p>Loading...</p>
         ) : (
           <BlogForm
             initialData={singleBlogData ?? undefined}
             onClose={() => setDrawerOpen(false)}
-            readOnly={mode === "view"}
             mode={mode}
+            onPreview={(data) => setPreviewData(data)}
           />
         )}
+
       </Drawer>
     </section>
   )

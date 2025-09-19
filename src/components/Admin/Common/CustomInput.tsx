@@ -19,6 +19,7 @@ const CustomInput: React.FC<AdminCustomInputProps> = ({
   className,
   disabled,
   readOnly,
+  ref
 }) => {
   const [showPassword, setShowPassword] = useState(false);
   const isTextarea = as === "textarea";
@@ -38,6 +39,7 @@ const CustomInput: React.FC<AdminCustomInputProps> = ({
         {/* Input / Textarea */}
         {isTextarea ? (
           <textarea
+          ref={ref as React.Ref<HTMLTextAreaElement>}
             id={name}
             name={name}
             value={value}
@@ -50,6 +52,7 @@ const CustomInput: React.FC<AdminCustomInputProps> = ({
           />
         ) : (
           <input
+          ref={ref as React.Ref<HTMLInputElement>}
             id={name}
             name={name}
             type={isPassword && showPassword ? "text" : type}

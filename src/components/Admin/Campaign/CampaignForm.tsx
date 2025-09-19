@@ -16,6 +16,7 @@ import { CampaignFormProps } from "@/src/types/campaign";
 import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
 import { submitCampaignForm } from "@/src/hooks/useCampaigns";
 import { useFetchCategory } from "@/src/hooks/useCategory";
+import CancelButton from "../../common/Buttons/CancelButton";
 
 const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
 
@@ -254,16 +255,9 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                       "Create"
                     )}
                   </Button>
-                  <Button
-                    type="button"
+                  <CancelButton
                     text="Cancel"
-                    onClick={onClose}
-                    bgColor="bg-gray-500"
-                    hoverBg="before:bg-gray-700"
-                    textColor="text-white"
-                    paddingx="px-4"
-                    paddingy="py-2"
-                    rounded="rounded-[5px] "
+                    onClose={onClose}
                   />
                 </div>
               )}

@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent } from "react";
+import { ChangeEvent, KeyboardEvent, RefObject } from "react";
 
 
 export interface DropdownOption<T> {
@@ -26,7 +26,7 @@ export interface AdminCustomInputProps {
   type?: string;
   as?: "input" | "textarea";
   placeholder?: string;
-  value: string | number;
+  value: string | number | undefined ;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   error?: string;
   name?: string;
@@ -34,4 +34,5 @@ export interface AdminCustomInputProps {
   className?: string,
   disabled?: boolean;
   readOnly?: boolean; 
+  ref?:RefObject<HTMLInputElement | null>
 }
