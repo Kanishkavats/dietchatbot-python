@@ -1,6 +1,7 @@
 "use client";
 import { Icon } from "@iconify/react";
 import Button from "../common/Buttons/Button";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 interface Props {
   setSearchOpen: (v: boolean) => void;
@@ -11,11 +12,9 @@ interface Props {
 const NavbarActions = ({ setSearchOpen, setMobileMenuOpen, mobileMenuOpen }: Props) => (
   <div className="flex items-center gap-4">
     {/* Search Icon */}
-    <div className="font-bold">
-      <button onClick={() => setSearchOpen(true)} className="cursor-pointer">
-        <Icon icon="mdi:magnify" width={32} height={32} />
-      </button>
-    </div>
+    {/* <div className="font-bold">
+     <LanguageSwitcher />
+    </div> */}
 
     {/* Donate Button */}
     <div className="hidden md:block">

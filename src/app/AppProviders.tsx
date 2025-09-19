@@ -14,7 +14,7 @@ import { Toaster } from "react-hot-toast";
 import CustomCursor from "../components/CustomCursor/CustomCursor";
 // import CustomCursor from "../../components/CustomCursor"
 
-export default function Providers({ children }: { children: ReactNode }) {
+export default function AppProviders({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
   const router = useRouter();
   const pathname = usePathname();
@@ -35,7 +35,7 @@ export default function Providers({ children }: { children: ReactNode }) {
       if (pathname.startsWith("/admin")) router.replace("/");
     }
 
-    setAuthChecking(false); // ✅ done checking
+    setAuthChecking(false); 
   }, [pathname, router]);
 
   // 🔹 Show loader on route change
@@ -60,8 +60,6 @@ export default function Providers({ children }: { children: ReactNode }) {
     <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <ThemeApplier />
-        <CustomCursor />
-
         {loading ? <Loader /> :<>
           {showLayout ? (
             <>

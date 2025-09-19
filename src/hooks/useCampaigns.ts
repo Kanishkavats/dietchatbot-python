@@ -43,7 +43,6 @@ const handleCreateCampaign = (
 ) => {
   toast.dismiss();
   toast.loading("Creating campaign...");
-  console.log("values", values);
   const formData = buildFormData(values);
 
   createMutation.mutate(formData, {
@@ -73,8 +72,6 @@ const handleUpdateCampaign = (
 ) => {
   toast.dismiss();
   toast.loading("Updating campaign...");
-  console.log("values", values);
-  console.log("values", values.existingImages);
   const formData = buildFormData(values);
 
   updateMutation.mutate(

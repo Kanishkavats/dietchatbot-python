@@ -11,7 +11,6 @@ import { useFetchAllBlogs } from "@/src/hooks/useBlog";
 
 export default function BlogPost() {
   const { data } = useFetchAllBlogs(1, 1);
-  console.log(data?.blogs[0])
   const blog = data?.blogs[0];
   const BannerImageUrl = blog?.images[0];
   const title = blog?.title;

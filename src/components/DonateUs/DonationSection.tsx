@@ -4,7 +4,7 @@ import Image from "next/image";
 import { posterTwo } from "@/public/assets";
 import Donation from "./Donation";
 
-const HeroCause = () => (
+const DonationSection = () => (
   <div className="relative w-full rounded-md xl:rounded-2xl">
     <div className="relative w-full h-[350px] md:h-[450px] bg-white rounded-xl xl:rounded-4xl overflow-hidden">
       <Image src={posterTwo.src} alt="Hero Cause" fill className="object-cover" />
@@ -27,4 +27,4 @@ const HeroCause = () => (
   </div>
 );
 
-export default HeroCause;
+export default DonationSection;

@@ -428,7 +428,7 @@ import { Icon } from '@iconify/react'
 
 
 
-const LatestNews = () => {
+const LatestNews1 = () => {
   return (
     <div className="bg-[#f3f4f6] font-sans antialiased text-[#667471]">
       <section className="py-20 px-4">
@@ -747,5 +747,5 @@ const sidebarData = [
   ),
 ];
 
-export default LatestNews;
+export default LatestNews1;
 

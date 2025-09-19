@@ -11,9 +11,7 @@ export const fetchCategory = async () => {
 
 // ✅ Create a new category
 export const createCategory = async (category: { name: string }) => {
-  console.log("check", category);
   const { data } = await api.post("/api/V1/category/create-category", category);
-  console.log("error", data);
   return data;
 };
 
