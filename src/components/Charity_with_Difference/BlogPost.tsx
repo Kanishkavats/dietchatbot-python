@@ -19,7 +19,7 @@ export default function BlogPost() {
   const description = blog?.description;
   const keyPoints = blog?.keyPoints;
   const location = blog?.location;
-  const createdDate = blog?.createdAt.split("T")[0];
+  const createdDate = blog?.createdAt?.split("T")[0];
 
   return (
     <div>
@@ -58,7 +58,7 @@ export default function BlogPost() {
         <p className="text-gray-600 mb-8 font-nunito">{summary}</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-foreground font-bold mb-8">
-          {keyPoints?.map((item:any, index:number) => (
+          {keyPoints?.map((item: string, index: number) => (
             <div key={index} className="flex items-start gap-2 font-nunito">
               <FaRegCheckCircle className="text-green text-xl" /> {item}
             </div>

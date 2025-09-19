@@ -1,7 +1,5 @@
 "use client";
-import React from "react";
 
-import { motion } from "framer-motion";
 import {
     FaFacebookF,
     FaVimeoV,
@@ -15,8 +13,15 @@ import {
 } from "react-icons/fa";
 import { FiSearch } from "react-icons/fi";
 
-import NewslistCard from "./NewslistCards";
 
+
+
+
+
+
+import React from "react";
+import { motion } from "framer-motion";
+import NewslistCard from "./NewslistCards";
 
 const Newslist = () => {
     const blogs = [
@@ -49,29 +54,52 @@ const Newslist = () => {
         },
     ];
 
+
+    const containerVariants = {
+        hidden: { opacity: 0 },
+        show: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.3,
+            },
+        },
+    };
+
     return (
-        <div className="bg-[#f3f4f6] font-sans antialiased text-[#667471]">
+        <div className="bg-[#ffffff] font-sans antialiased text-[#667471]">
             <section className="py-20 px-4">
-                <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-12">
-                    <div className="lg:col-span-2 flex flex-col gap-8">
+                
+                <div className="container mx-auto grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-1">
+    
+
+
+                   
+                    <motion.div
+                        className="lg:col-span-2 flex flex-col gap-8 pl-6 lg:pl-10"
+                        variants={containerVariants}
+                        initial="hidden"
+                        animate="show"
+                    >
                         {blogs.map((blog, index) => (
                             <NewslistCard key={index} {...blog} />
                         ))}
-                    </div>
+                    </motion.div>
 
-                    
+
+
                     <div className="lg:col-span-1 space-y-8 mx-auto w-full max-w-sm">
                         {sidebarData.map((Box, i) => (
-                            <motion.div key={i}>
+                            <motion.div
+                                key={i}
+                                initial={{ y: 50, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                transition={{ duration: 0.6, delay: i * 0.3 }}
+                            >
                                 <Box />
                             </motion.div>
                         ))}
                     </div>
                 </div>
-
-                
-                
-                
             </section>
         </div>
     );
@@ -127,7 +155,7 @@ const sidebarData = [
     ),
 
 
-    
+
     () => (
         <div className="bg-[#EBEBEB] p-6 rounded-lg shadow-md">
             <h3 className="text-2xl font-bold text-[#000000] mb-4">Search</h3>
@@ -242,10 +270,6 @@ const sidebarData = [
 ];
 
 export default Newslist;
-
-
-
-
 
 
 

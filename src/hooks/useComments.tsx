@@ -36,7 +36,8 @@ export const useCreateComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: createComment,
+    mutationFn:  ({ id, data }: { id: string; data: { content: string; author: string; email: string } }) =>
+      createComment(id, data), 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
       toast.success("Comment created successfully");
@@ -58,6 +59,7 @@ export const useUpdateComment = () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
       toast.success("Comment updated successfully");
     },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Failed to update comment");
     },

@@ -16,9 +16,12 @@ export const fetchCommentsById = async (id: string) => {
 };
 
 // ✅ Create a new comment
-export const createComment = async (comment: { author: string; content: string }) => {
+export const createComment = async (   id: string,
+  comment: { author: string; content: string; email: string  }) => {
   console.log("Creating comment", comment);
-  const { data } = await api.post("/api/V1/comment/create-comment", comment);
+  
+   const { data } = await api.post(`/api/V1/comment/add-comment/${id}`, comment);
+  console.log("data");
   return data;
 };
 
