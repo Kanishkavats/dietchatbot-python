@@ -15,9 +15,9 @@ export default function LeaveComment() {
   const queryClient = useQueryClient();
 
   // Local state for form inputs
-  const [author, setAuthor] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [content, setContent] = useState("");
+  const [comment, setComment] = useState("");
   const mutation=useCreateComment();
 
 
@@ -26,7 +26,7 @@ export default function LeaveComment() {
  const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
 
-  if (!author || !email || !content) {
+  if (!name || !email || !comment) {
     alert("Please fill out all fields");
     return;
   }
@@ -34,14 +34,14 @@ export default function LeaveComment() {
   const targetId = "52511bdd-a3f7-48e3-94da-de8667170871"; 
 
   mutation.mutate(
-    { id: targetId, data: { author, content, email } },
+    { id: targetId, data: { name, comment, email } },
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries({ queryKey: ["comments"] });
-        toast.success("Comment added");
-        setAuthor("");
+        toast.success("Comment successfully");
+        setName("");
         setEmail("");
-        setContent("");
+        setComment("");
       },
     }
   );
@@ -61,8 +61,8 @@ export default function LeaveComment() {
             <input
               type="text"
               placeholder="Your Name"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full bg-transparent focus:outline-none ml-2"
             />
           </div>
@@ -85,8 +85,8 @@ export default function LeaveComment() {
           <FaRegComments className="text-[#6B7280]" size={18} />
           <textarea
             placeholder="Type Your Comments..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             className="w-full bg-transparent focus:outline-none resize-none ml-2"
             rows={4}
           />

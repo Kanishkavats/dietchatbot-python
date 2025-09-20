@@ -63,16 +63,16 @@ const ValueableCustomer = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="flex items-center gap-2 justify-center text-[#046b59]">
+          <div className="flex items-center gap-2 justify-center text-green">
             <i className="text-2xl hand-icon"></i>
-            <span className="text-[#046b59] text-2xl font-caveat font-semibold">
+            <span className="text-green text-2xl font-caveat font-semibold">
               Start Donating Poor People
             </span>
           </div>
           <div>
             <h2 className="text-center text-4xl md:text-5xl font-bold font-nunito">
               Our Valueable
-              <span className="text-yellow-400"> Customer</span>
+              <span className="text-yellow"> Customer</span>
             </h2>
             <h2 className="text-center text-4xl md:text-5xl font-bold font-nunito ">
               Awesome Feedback
@@ -97,7 +97,7 @@ const ValueableCustomer = () => {
                   className="px-3"
                   style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <div className="relative bg-white border border-yellow-400 rounded-2xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
+                  <div className="relative bg-white border border-yellow rounded-2xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
                     <Image
                       src="/assets/99.png"
                       alt="green spade"
@@ -111,7 +111,7 @@ const ValueableCustomer = () => {
                           <IoMdStar
                             key={i}
                             size={20}
-                            className="fill-yellow-400 text-yellow-400"
+                            className="fill-yellow text-yellow"
                           />
                         ))}
                       </div>
@@ -128,7 +128,7 @@ const ValueableCustomer = () => {
                         className="rounded-full object-cover"
                       />
                       <div className="ml-3">
-                        <h4 className="font-semibold text-gray-900">
+                        <h4 className="font-semibold text-foreground">
                           {item.name}
                         </h4>
                         <p className="text-gray-500 text-sm">{item.role}</p>
@@ -142,13 +142,13 @@ const ValueableCustomer = () => {
           <div className="flex justify-center gap-4 mt-8">
             <button
               onClick={handlePrev}
-              className="w-14 h-14 rounded-full bg-gray-800 hover:bg-[#FFC107] hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="w-14 h-14 rounded-full bg-foreground hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
               <ArrowLeft size={28} />
             </button>
             <button
               onClick={handleNext}
-              className="w-14 h-14 rounded-full bg-[#FFC107] hover:bg-gray-800 text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="w-14 h-14 rounded-full bg-yellow hover:bg-foreground text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
               <ArrowRight size={28} />
             </button>

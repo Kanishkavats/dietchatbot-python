@@ -36,7 +36,7 @@ export const useCreateComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn:  ({ id, data }: { id: string; data: { content: string; author: string; email: string } }) =>
+    mutationFn:  ({ id, data }: { id: string; data: { comment: string; name: string; email: string } }) =>
       createComment(id, data), 
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });

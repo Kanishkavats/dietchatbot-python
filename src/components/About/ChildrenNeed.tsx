@@ -45,7 +45,7 @@ const ChildrenNeed = () => {
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
               <i className="text-xl mr-2 text-[#ffc107] hand-icon"></i>
-              <span className="text-yellow-400 font-caveat text-xl md:text-2xl font-semibold">
+              <span className="text-yellow font-caveat text-xl md:text-2xl font-semibold">
                 Start Donating Poor People
               </span>
               <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-nunito leading-snug">
