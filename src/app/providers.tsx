@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 import Loader from "../components/common/Loader";
 import { Toaster } from "react-hot-toast";
 import CustomCursor from "../components/CustomCursor/CustomCursor";
-// import CustomCursor from "../../components/CustomCursor"
+
 
 export default function Providers({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());

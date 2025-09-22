@@ -85,10 +85,10 @@ export default function ScrollImgSection() {
                         scale: 1,
                         opacity: 1,
                         backgroundColor:
-                          iconHover === idx ? "#ffffff" : "#facc15",
+                          iconHover === idx ? "#ffffff" : "#ffc107",
                         color: iconHover === idx ? "#000000" : "#000000",
                       }
-                    : { scale: 0, opacity: 0, backgroundColor: "#facc15", color: "#000000" }
+                    : { scale: 0, opacity: 0, backgroundColor: "#ffc107", color: "#000000" }
                 }
                 transition={{ duration: 0.3, ease: "easeOut" }}
                 className="p-3 rounded-full text-3xl shadow-lg flex items-center justify-center pointer-events-auto"

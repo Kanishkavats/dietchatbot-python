@@ -53,8 +53,8 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             <input
               type="text"
               placeholder="Your Name"
-              value={author}
-              onChange={(e) => setAuthor(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               className="w-full bg-transparent focus:outline-none ml-2"
             />
           </div>
@@ -74,8 +74,8 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
           <FaRegComments className="text-[#6B7280]" size={18} />
           <textarea
             placeholder="Type Your Comments..."
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
             className="w-full bg-transparent focus:outline-none resize-none ml-2"
             rows={4}
           />

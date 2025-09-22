@@ -57,7 +57,22 @@ import childrenweworkfor from './section3/childenweworkfor.png';
 import givehealthsupport from './section3/givehealthsupport.png';
 import helpforeducation from './section3/helpforeducation.png';
 import helpforfood from './section3/helpforfood.png';
-import imageBottomTear from './shape-two.png'
+import imageBottomTear from './shape-two.png';
+import logocoming from './aboutsection/logocoming.png';
+import photo1 from './aboutsection/photo1.png';
+import photo2 from './aboutsection/photo2.png';
+import photo3 from './aboutsection/photo3.png';
+import photo4 from './aboutsection/photo4.png';
+import photo5 from './aboutsection/photo5.png';
+import photo6 from './aboutsection/photo6.png';
+import photo7 from './aboutsection/photo7.png';
+import photo8 from './aboutsection/photo8.png';
+import photo9 from './aboutsection/photo9.png';
+import voluntear5 from './aboutsection/voluntear5.png';
+import voluntear6 from './aboutsection/voluntear6.png';
+import voluntear7 from './aboutsection/voluntear7.png';
+import voluntear8 from './aboutsection/voluntear8.png';
+
 
 
 
@@ -122,4 +137,18 @@ export {
   helpforeducation,
   helpforfood,
  imageBottomTear,
+ logocoming,
+ photo1,
+ photo2,
+ photo3,
+ photo4,
+ photo5,
+ photo6,
+ photo7,
+ photo8,
+ photo9,
+ voluntear5,
+ voluntear6,
+ voluntear7,
+ voluntear8,
 };

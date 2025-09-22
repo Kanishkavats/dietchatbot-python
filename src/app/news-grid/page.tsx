@@ -1,8 +1,8 @@
 
-import LatestNews from "@/src/components/Latestnews";
 import PageBanner from '../../components/common/PageBanner'
 import { bannerBg } from "@/public/assets";
 import Paginationlogic from '../../components/Paginationlogic'
+import LatestNews from '../../components/Latestnews';
 
 
 
