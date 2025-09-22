@@ -1,24 +1,44 @@
-import Image from 'next/image';
-import { charityComments } from '../../staticResource';
+"use client";
+
+import Image from "next/image";
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
+import { useFetchCommentById } from "@/src/hooks/useComments";
 
-export default function Comments() {
+interface CommentsProps {
+  blogId: string;
+}
+
+interface CommentType {
+  id: string;
+  name: string;
+  comment: string;
+  image?: string; // optional if user has no avatar
+  timeAgo?: string;
+}
+
+export default function Comments({ blogId }: CommentsProps) {
+  const { data, isLoading, isError } = useFetchCommentById(blogId);
+
+  if (isLoading) return <p>Loading comments...</p>;
+  if (isError) return <p>Failed to load comments.</p>;
+
+  // Ensure data is an array
+  const comments: CommentType[] = data?.comments || [];
+
   return (
-
-    <div>
+    <div className="mt-10">
       <h2 className="text-2xl font-bold mb-6">
-        {charityComments.length.toString().padStart(2, "0")} Comments
+        {comments.length.toString().padStart(2, "0")} Comments
       </h2>
       <div className="space-y-10 mb-8">
-        {charityComments.map((comment) => (
+        {comments.map((comment) => (
           <div
             key={comment.id}
             className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
           >
-            <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400  p-1 bg-white">
-
+            <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white">
               <Image
-                src={comment.image}
+                src={comment.image || "/default-avatar.jpg"} // fallback image
                 alt={comment.name}
                 width={98.4}
                 height={98.4}
@@ -37,7 +57,7 @@ export default function Comments() {
                 <button className="flex items-center gap-1 hover:text-[#3b82f6]">
                   <FiCornerUpLeft /> Reply
                 </button>
-                <span className="text-gray-600">{comment.timeAgo}</span>
+                {comment.timeAgo && <span className="text-gray-600">{comment.timeAgo}</span>}
               </div>
             </div>
           </div>
@@ -46,7 +66,5 @@ export default function Comments() {
     </div>
   );
 }
-
-
 
 
