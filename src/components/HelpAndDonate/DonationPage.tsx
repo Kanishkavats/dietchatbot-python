@@ -63,7 +63,6 @@ const DonationPage: React.FC = () => {
   if (isLoading) return <p>Loading campaigns...</p>;
   if (isError) return <p>Failed to load campaigns.</p>;
 
-  // ⚠️ Dummy placeholder for donationCardsBig (replace with real data)
   const donationCardsBig = campaignsToDisplay;
 
   return (
