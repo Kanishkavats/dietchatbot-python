@@ -1,35 +1,37 @@
-'use client';
+"use client";
+
 import Image from "next/image";
 import Comments from "./Comments";
 import LeaveComment from "./LeaveComment";
 import { IoLocationSharp, IoCalendarSharp } from "react-icons/io5";
 import { FaRegCheckCircle } from "react-icons/fa";
-import { ppOne, ppTwo } from "@/public/assets";
-import { useFetchAllBlogs } from "@/src/hooks/useBlog";
-
-
+import { useFetchSingleBlog } from "@/src/hooks/useBlog";
+import { useParams } from "next/navigation";
 
 export default function BlogPost() {
-  const { data } = useFetchAllBlogs(1, 1);
-  const blog = data?.blogs[0];
-  const BannerImageUrl = blog?.images[0];
-  const title = blog?.title;
-  const summary = blog?.summary;
-  const description = blog?.description;
-  const keyPoints = blog?.keyPoints;
-  const location = blog?.location;
-  const createdDate = blog?.createdAt?.split("T")[0];
+  const params = useParams();
+  const id = Array.isArray(params?.id) ? params.id[0] : params?.id; // ensure id is a string
+
+  const { data, isLoading, isError } = useFetchSingleBlog(id);
+
+  if (isLoading) return <p>Loading blog...</p>;
+  if (isError) return <p>Failed to load blog.</p>;
+  if (!data) return <p>Blog not found</p>;
+
+  const blog = data;
+  const BannerImageUrl = blog.images?.[0] || "/default-image.jpg";
+  const title = blog.title;
+  const summary = blog.summary;
+  const description = blog.description;
+  const keyPoints = blog.keyPoints || [];
+  const location = blog.location;
+  const createdDate = blog.createdAt?.split("T")[0];
 
   return (
     <div>
       {/* Featured Image */}
       <div className="relative rounded-lg overflow-hidden h-96 w-full">
-        <Image
-          src={BannerImageUrl}
-          alt="African children running outdoors"
-          fill
-          className="object-cover"
-        />
+        <Image src={BannerImageUrl} alt={title} fill className="object-cover" />
       </div>
 
       {/* Content */}
@@ -56,40 +58,22 @@ export default function BlogPost() {
 
         <p className="text-gray-600 mb-8 font-nunito">{summary}</p>
 
+        {/* Key Points */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-foreground font-bold mb-8">
-          {keyPoints?.map((item: string, index: number) => (
+          {keyPoints.map((item: string, index: number) => (
             <div key={index} className="flex items-start gap-2 font-nunito">
               <FaRegCheckCircle className="text-green text-xl" /> {item}
             </div>
           ))}
         </div>
-
-        {/* Images */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-          <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
-            <Image
-              src={ppOne}
-              alt="Young child smiling"
-              fill
-              className="object-cover"
-            />
-          </div>
-          <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
-            <Image
-              src={ppTwo}
-              alt="Group of children laughing"
-              fill
-              className="object-cover"
-            />
-          </div>
-        </div>
       </div>
 
       {/* Comments Section */}
-      <Comments />
+      {id && <Comments blogId={id} />}
 
       {/* Leave Comment Section */}
-      <LeaveComment />
+      {id && <LeaveComment blogId={id} />}
     </div>
   );
 }
+
