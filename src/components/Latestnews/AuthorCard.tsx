@@ -4,7 +4,7 @@ import { authorInfo } from "@/src/staticResource";
 
 const AuthorCard = () => (
   <div className="bg-[#EBEBEB] p-6 rounded-lg shadow-md text-center">
-    <img src={authorInfo.img} alt={authorInfo.name} className="rounded-full mx-auto mt-6 w-32 h-32 object-cover" />
+    <img src={authorInfo.img} alt={authorInfo.name} className="rounded-full mx-auto mt-6 w-30 h-30 object-cover" />
     <h3 className="text-xl font-bold text-black mt-4">{authorInfo.name}</h3>
     <p className="text-sm text-[#667471]">{authorInfo.role}</p>
     <p className="text-sm text-[#667471] mt-4 px-4">{authorInfo.bio}</p>

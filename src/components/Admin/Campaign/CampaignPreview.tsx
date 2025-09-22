@@ -8,13 +8,14 @@ import { LucideCircleCheckBig } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "../../common/Buttons/Button";
 
-interface CampaignPreviewProps {
-  data: CampaignFormValues & { createdAt?: string; existingImages?: string[] };
+export interface CampaignPreviewProps {
+  data: CampaignFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
   onSubmit: () => void;
   onBack: () => void;
+  mode?: "add" | "edit" | "view";
 }
 
-const CampaignPreview = ({ data, onSubmit, onBack }: CampaignPreviewProps) => {
+const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   useEffect(() => {
@@ -22,15 +23,13 @@ const CampaignPreview = ({ data, onSubmit, onBack }: CampaignPreviewProps) => {
 
     const previews: string[] = [];
 
-    // Add existingImages directly (already strings)
-    if (data.existingImages && data.existingImages.length > 0) {
+    if (data.existingImages?.length) {
       previews.push(...data.existingImages);
     }
 
-    // Convert File objects to object URLs
-    if (data.images && data.images.length > 0) {
+    if (data.images?.length) {
       data.images.forEach((img) => {
-        if (img && typeof img !== "string") {
+        if (img && typeof img === "object" && img instanceof Blob) {
           const objectUrl = URL.createObjectURL(img);
           previews.push(objectUrl);
         } else if (typeof img === "string") {
@@ -53,7 +52,7 @@ const CampaignPreview = ({ data, onSubmit, onBack }: CampaignPreviewProps) => {
 
   return (
     <motion.div
-      className="bg-white p-8 max-w-5xl mx-auto font-sans text-black"
+      className="bg-white lg:px-4 py-8 max-w-5xl mx-auto font-sans text-black"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -69,8 +68,8 @@ const CampaignPreview = ({ data, onSubmit, onBack }: CampaignPreviewProps) => {
         </div>
       )}
 
-      {/* Metadata */}
-      <div className="flex flex-col sm:flex-row justify-baseline gap-10 mb-6 text-foreground font-medium">
+      {/* Date & Location */}
+      <div className="flex flex-row justify-baseline gap-x-10 mb-6 text-foreground font-medium">
         {data.createdAt && (
           <p className="flex items-center text-[16px] gap-2">
             <FaCalendarAlt className="text-yellow" />
@@ -86,69 +85,34 @@ const CampaignPreview = ({ data, onSubmit, onBack }: CampaignPreviewProps) => {
       </div>
 
       {/* Title */}
-      <h2 className="text-4xl font-bold mb-4 font-nunito text-foreground">
+      <h2 className="text-2xl lg:text-4xl font-bold mb-4 font-nunito text-foreground">
         {data.title}
       </h2>
 
       {/* Description / Summary / Goal */}
-      <div className="space-y-4 text-foreground/60 font-[400] text-lg leading-relaxed">
+      <div className="space-y-4 text-foreground/60 font-[400] text-md lg:text-lg leading-relaxed">
         <p>{data.description}</p>
         <p>{data.summary}</p>
 
         <p>
+          <span className="font-semibold text-foreground">Organizer
+            : </span>
+          {data.organizer}
+        </p>
+        <p>
           <span className="font-semibold text-foreground">Goal Amount: </span>
           ₹ {data.goalAmount.toLocaleString()}
         </p>
+        <p>
+          <span className="font-semibold text-foreground">Raised Amount: </span>
+          ₹ {data.raisedAmount && data.raisedAmount.toLocaleString()}
+        </p>
 
-        {data.quote && (
-          <div className="bg-gray-100 p-4 rounded-md mt-12 italic text-foreground border-l-4 border-lime-green">
-            {data.quote}
-            {data.quoteAuthor && (
-              <span className="block text-right font-bold text-lime-green mt-2">
-                — {data.quoteAuthor}
-              </span>
-            )}
-          </div>
-        )}
       </div>
 
-      {/* Tags */}
-      {data.tags && data.tags.length > 0 && (
-        <div className="mt-12">
-          <p className="font-bold text-lime-green mb-1 flex items-center gap-2">
-            Tags:
-          </p>
-          <div className="ml-6 space-y-1 grid grid-cols-2">
-            {data.tags.map((tag, idx) => (
-              <p key={idx} className="flex items-center gap-2 text-gray-700">
-                <LucideCircleCheckBig className="text-yellow size-5" />
-                {tag}
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Key Points */}
-      {data.keyPoints && data.keyPoints.length > 0 && (
-        <div className="mt-4">
-          <p className="font-bold text-lime-green mb-1 flex items-center gap-2">
-            Key Points:
-          </p>
-          <div className="ml-6 space-y-1 grid grid-cols-2 gap-2">
-            {data.keyPoints.map((point, idx) => (
-              <p key={idx} className="flex items-start gap-2 text-gray-700">
-                <LucideCircleCheckBig className="text-yellow size-5" />
-                <span>{point}</span>
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Extra Images */}
+      {/* Image Grid */}
       {gridImages.length > 0 && (
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="mt-10 grid md:grid-cols-2 gap-4">
           {gridImages.map((img, idx) => (
             <div
               key={idx}
@@ -165,24 +129,27 @@ const CampaignPreview = ({ data, onSubmit, onBack }: CampaignPreviewProps) => {
       )}
 
       {/* Buttons */}
-      <div className="mt-12 flex gap-6 justify-end w-fit">
-        <Button
-          bgColor="bg-red"
-          rounded="rounded-lg"
-          hoverBg="before:bg-red-50"
-          onClick={onBack}
-        >
-          Back to Edit
-        </Button>
+      {mode === "add" || mode === "edit" && (
 
-        <Button
-          rounded="rounded-lg"
-          onClick={onSubmit}
-          text="Submit"
-          bgColor="bg-lime-green"
-          hoverBg="before:bg-green"
-        />
-      </div>
+        <div className="mt-12 flex gap-6 justify-end md:w-fit">
+          <Button
+            bgColor="bg-red"
+            rounded="rounded-lg"
+            hoverBg="before:bg-red-50"
+            onClick={onBack}
+          >
+            Back to Edit
+          </Button>
+
+          <Button
+            rounded="rounded-lg"
+            onClick={onSubmit}
+            text="Submit"
+            bgColor="bg-lime-green"
+            hoverBg="before:bg-green"
+          />
+        </div>
+      )}
     </motion.div>
   );
 };

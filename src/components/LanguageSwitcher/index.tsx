@@ -1,28 +1,110 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+'use client';
 
-const LanguageSwitcher = () => {
+import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Icon } from '@iconify/react';
+
+const dropdownVariants = {
+  hidden: { opacity: 0, y: -10 },
+  visible: { opacity: 1, y: 0 },
+  exit: { opacity: 0, y: -10 },
+};
+
+const languages = [
+  { code: 'en', label: 'English', icon: 'twemoji:flag-united-kingdom' },
+  { code: 'hi', label: 'हिंदी', icon: 'twemoji:flag-india' },
+];
+
+interface LanguageSwitcherProps {
+  rounded?: string;
+  paddingx?: string;
+  paddingy?: string;
+}
+
+const LanguageSwitcher = ({
+  rounded = 'rounded-full',
+  paddingx = 'px-4',
+  paddingy = 'py-4',
+}: LanguageSwitcherProps) => {
   const { i18n } = useTranslation();
+  const [open, setOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [selectedLang, setSelectedLang] = useState(
+    languages.find((lang) => lang.code === i18n.language) || languages[0]
+  );
 
-  const changeLanguage = (lng: "en" | "hi") => {
+  // Load language from localStorage on mount
+  useEffect(() => {
+    const storedLang = localStorage.getItem('lang');
+    if (storedLang && storedLang !== i18n.language) {
+      i18n.changeLanguage(storedLang);
+      document.documentElement.dir = 'ltr';
+      const lang = languages.find((l) => l.code === storedLang);
+      if (lang) setSelectedLang(lang);
+    }
+  }, []);
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const changeLanguage = (lng: 'en' | 'hi') => {
     i18n.changeLanguage(lng);
-    document.documentElement.dir = "ltr"; 
+    document.documentElement.dir = 'ltr';
+    localStorage.setItem('lang', lng);
+    setSelectedLang(languages.find((lang) => lang.code === lng)!);
+    setOpen(false);
   };
 
   return (
-    <div className="language-switcher px-2 py-2 cursor-pointer border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:border-blue-500 text-sm">
-      <select
-        value={i18n.language}
-        onChange={(e) => changeLanguage(e.target.value as "en" | "hi")}
-        className="text-black px-3 outline-none cursor-pointer "
+    <div className="relative inline-block z-40" ref={dropdownRef}>
+      {/* Trigger Button */}
+      <button
+        onClick={() => setOpen((prev) => !prev)}
+        className={`flex items-center gap-2 cursor-pointer bg-yellow text-foreground text-sm shadow-md hover:shadow-lg transition-all ${rounded} ${paddingx} ${paddingy}`}
       >
-        <option value="en" className="cursor-pointer ">
-          EN
-        </option>
-        <option value="hi" className="cursor-pointer ">
-          HN
-        </option>
-      </select>
+        <span className="flex items-center gap-2">
+          <Icon icon={selectedLang.icon} className="w-5 h-5" />
+          {selectedLang.label}
+        </span>
+        <Icon icon={open ? 'mdi:chevron-up' : 'mdi:chevron-down'} className="text-base" />
+      </button>
+
+      {/* Dropdown List */}
+      <AnimatePresence>
+        {open && (
+          <motion.ul
+            variants={dropdownVariants}
+            initial="hidden"
+            animate="visible"
+            exit="exit"
+            transition={{ duration: 0.2 }}
+            className="absolute bg-white rounded-md shadow-lg overflow-hidden text-gray-800 mt-2"
+          >
+            {languages.map((lang) => (
+              <li key={lang.code}>
+                <button
+                  onClick={() => changeLanguage(lang.code as 'en' | 'hi')}
+                  className={`w-full px-4 py-3 flex items-center gap-2 text-left text-sm hover:bg-gray-200 transition-colors ${
+                    i18n.language === lang.code ? 'font-bold bg-yellow/40' : ''
+                  }`}
+                >
+                  <Icon icon={lang.icon} className="w-5 h-5" />
+                  {lang.label}
+                </button>
+              </li>
+            ))}
+          </motion.ul>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

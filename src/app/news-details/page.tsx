@@ -10,7 +10,7 @@ export default function Newsdetail() {
   return (
     <>
       <PageBanner bgImage={bannerBg} title="Blog Details" />
-      <Newsdetails />
+      <Newsdetails id='' />
 
 
     </>

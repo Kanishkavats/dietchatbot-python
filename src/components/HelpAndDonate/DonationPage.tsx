@@ -97,13 +97,13 @@ const DonationPage: React.FC = () => {
                   fontWeight: "700",
                 }}
               >
-                <span className="text-gray-800  font-extrabold">
+                <span className="text-dark-green  font-extrabold">
                   Be The Reason Of Someone{" "}
                 </span>
                 <br />
 
-                <span className="text-yellow-400 font-extrabold ">Smiles </span>
-                <span className="text-gray-800  font-extrabold">Causes</span>
+                <span className="text-yellow font-extrabold ">Smiles </span>
+                <span className="text-foreground  font-extrabold">Causes</span>
               </h2>
             </div>
           </FadeUpCard>
@@ -148,7 +148,7 @@ const DonationPage: React.FC = () => {
                   1
                 </button>
 
-                <button className="w-12 h-12 rounded-full bg-yellow-400 flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300">
+                <button className="w-12 h-12 rounded-full bg-yellow flex items-center justify-center text-black font-bold hover:bg-yellow transition-colors duration-300">
                   2
                 </button>
 
@@ -205,19 +205,19 @@ const DonationPage: React.FC = () => {
 
               {/* Main Heading */}
               <h2
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-gray-800"
+                className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight text-foreground"
                 style={{
                   fontFamily: "var(--font-nunito), Nunito, sans-serif",
                   fontWeight: "700",
                 }}
               >
                 <div className="w-[779px] ">
-                  <span className="text-gray-800 font-extrabold">Help & </span>
-                  <span className="text-yellow-400 font-extrabold">Donate </span>
-                  <span className="text-gray-800 font-extrabold">Them when</span>
+                  <span className="text-foreground font-extrabold">Help & </span>
+                  <span className="text-yellow font-extrabold">Donate </span>
+                  <span className="text-foreground font-extrabold">Them when</span>
                 </div>
                 <div className="block">
-                  <span className="text-gray-800 font-extrabold">They are In Need</span>
+                  <span className="text-foreground font-extrabold">They are In Need</span>
                 </div>
               </h2>
             </div>
@@ -264,7 +264,7 @@ const DonationPage: React.FC = () => {
                 }}
               >
                 <svg
-                  className={`h-12 w-8 ${hoveredRight ? "text-white" : "text-gray-900"}`}
+                  className={`h-12 w-8 ${hoveredRight ? "text-white" : "text-foreground"}`}
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"

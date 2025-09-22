@@ -28,9 +28,6 @@ const BlogTable = () => {
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
-
-
-
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 

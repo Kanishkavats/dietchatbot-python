@@ -35,7 +35,7 @@ const VolunteerProfile = ({ member }) => {
           </div>
 
           <div className="text-center md:text-left">
-            <h2 className="text-3xl font-bold text-gray-800 font-nunito">
+            <h2 className="text-3xl font-bold text-foreground font-nunito">
               {member.name}
             </h2>
             <p className="text-sm text-gray-500 mb-6">{member.role}</p>
@@ -78,7 +78,7 @@ const VolunteerProfile = ({ member }) => {
               </motion.a>
             </div>
 
-            <p className="text-gray-600 mb-6 text-sm font-nunito ">
+            <p className="text-gray-500 mb-6 text-sm font-nunito ">
               Lorem ipsum dolor sit amet, con adipiscing elit. Etiam convallis
               elit id imperdiet. Quisq commodo simply free ornare tortor.
             </p>
@@ -129,16 +129,7 @@ const VolunteerProfile = ({ member }) => {
                 Support
               </p>
             </div>
-            {/* <div className="w-58 round-full">
-              <Button
-                text="Donate With Me"
-                bgColor="bg-[#FFC107]"
-                textColor="text-black"
-                hoverTextColor="group-hover:text-white"
-                hoverBg="before:bg-[#046b59]"
-                onClick={() => router.push("/donate-us")}
-              />
-            </div> */}
+    
             <div className="w-58 round full">
               <Button
                 text="Donate With Me"
@@ -160,7 +151,7 @@ const VolunteerProfile = ({ member }) => {
 
         <div className="mt-10 text-center md:text-left font-nunito">
           <h3 className="text-3xl font-extrabold mb-3 font-nunito">About Me</h3>
-          <p className="text-[#747474] font-nunito text-lg leading-relaxed">
+          <p className="text-gray-green font-nunito text-lg leading-relaxed">
             This category focuses on the design construction of buildings and
             the This a category focuses on the design and construction of
             buildings This category a focuses on the design construction of

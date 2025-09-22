@@ -5,7 +5,6 @@ import { NAV_ITEMS } from "@/src/staticResource";
 import { useRouter } from "next/navigation";
 import { logo } from "../../../public/assets";
 import NavbarMenu from "./NavbarMenu";
-import NavbarSearch from "./NavbarSearch";
 import NavbarActions from "./NavbarActions";
 import NavbarMobile from "./NavbarMobile";
 import Image from "next/image";
@@ -16,7 +15,6 @@ const Navbar = () => {
   const [backdropDone, setBackdropDone] = useState(false);
   const [drawerDelay, setDrawerDelay] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const DRAWER_ANIMATION_DELAY = 0;
   const route = useRouter()
 
@@ -51,11 +49,9 @@ const Navbar = () => {
         route={route}
       />
       <NavbarActions
-        setSearchOpen={setSearchOpen}
         setMobileMenuOpen={setMobileMenuOpen}
         mobileMenuOpen={mobileMenuOpen}
       />
-      <NavbarSearch searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
 
       {/* Mobile Menu */}
       <AnimatePresence>

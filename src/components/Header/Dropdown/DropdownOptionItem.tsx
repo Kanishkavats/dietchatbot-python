@@ -4,6 +4,7 @@ import { DropdownOption } from "./NavbarDropdown";
 import { DropdownSubmenu } from "./DropdownSubmenu";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   opt: DropdownOption;
@@ -25,6 +26,7 @@ export const DropdownOptionItem = ({
   const displayLabel = opt.label || opt.name || "Item";
   const isActive = pathname === opt.href; 
   const isHovered = hovered === displayLabel || isActive; 
+  const {t} = useTranslation();
 
   return (
     <div
@@ -56,7 +58,6 @@ export const DropdownOptionItem = ({
           <Icon icon="mdi:minus" width="16" height="16" />
         </AnimatedReveal>
 
-        {/* Label text animation */}
         <AnimatedReveal
           direction="right"
           distance={10}
@@ -64,7 +65,7 @@ export const DropdownOptionItem = ({
           className="flex-1"
           animate={isHovered ? { x: 10 } : { x: 0 }}
         >
-          {displayLabel}
+          {t(displayLabel)}
         </AnimatedReveal>
 
         {hasChildren && (

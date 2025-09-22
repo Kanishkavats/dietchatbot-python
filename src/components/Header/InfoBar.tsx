@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { InfoBarDropdown } from "./InfoBarDropdown";
 import { currencies, languages, socialIcons } from "@/src/staticResource";
+import LanguageSwitcher from "../LanguageSwitcher";
 
 const InfoBar = () => {
 
@@ -32,7 +33,7 @@ const InfoBar = () => {
         {/* Right: Dropdowns & Social Icons */}
         <div className="flex items-center space-x-6 font-nunito">
           <InfoBarDropdown options={currencies} label="Currency" />
-          <InfoBarDropdown options={languages} label="Menu" />
+          <LanguageSwitcher paddingy="py-2" />
 
           {/* Social Icons */}
           <div className="flex items-center space-x-4 text-gray-200">

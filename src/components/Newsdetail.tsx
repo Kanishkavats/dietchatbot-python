@@ -18,81 +18,88 @@ import {
 } from "react-icons/fa";
 import { comments, recentPosts, tags } from "@/src/staticResource";
 import { ppOne, ppTwo } from '@/public/assets';
-export default function Newsdetail() {
+import { useFetchSingleBlog } from "../hooks/useBlog";
+interface props{
+    id:string;
+}
+export default function Newsdetail({id}:props) {
+    const{data,isLoading,isError}=useFetchSingleBlog(id);
+    if (isLoading) {
+    return <p className="text-center">Loading blogs...</p>;
+  }
+
+  if (isError) {
+    return <p className="text-center text-red-500">Failed to fetch blogs.</p>;
+  }
+  const formattedDate = data?.createdAt
+        ? new Intl.DateTimeFormat('en-US', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+          }).format(new Date(data.createdAt))
+        : '';
+
     return (
         <motion.div
             initial={{ y: 100, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
 
-            className="bg-[#f3f4f6] font-sans text-[#667471]"
+            className="bg-white font-sans p-20 pl-40 pr-40 text-gray-green"
         >
             <div className="container mx-auto p-4 md:p-8">
                 <div className="flex flex-col lg:flex-row gap-8">
-                    <main className="lg:w-2/3 p-4 sm:p-6">
+                    <main className="lg:w-2/3 p-2 sm:p-2">
                         <div className="relative w-full h-[220px] sm:h-[300px] lg:h-[450px] mb-6 rounded-lg overflow-hidden">
                             <Image
-                                src="/assets/poster 2.png"
+                                src={data?.images[0]}
                                 alt="Smiling African children running"
                                 fill
                                 priority
-                                className="object-cover object-center"
+                                className="object-cover object-center "
                             />
                         </div>
-                        <div className="flex items-center space-x-4 text-[#000000] mb-6">
+                        <div className="flex items-center space-x-4 text-dark-green mb-6">
                             <span className="flex items-center gap-1">
-                                <IoCalendarSharp className="text-[#FFC107]" /> 02 Apr 2021
+                                <IoCalendarSharp className="text-yellow" />{formattedDate}
                             </span>
                             <span className="flex items-center gap-1">
-                                <IoLocationSharp className="text-[#FFC107]" /> 684 West College St. Sun City, USA
+                                <IoLocationSharp className="text-yellow" /> {data?.location||"New York"}
                             </span>
                         </div>
-                        <h1 className="text-4xl font-bold text-[#000000] mb-6 leading-tight font-nunito">
-                            Give African Childrens A Good Education
+                        <h1 className="text-5xl font-extrabold mt-15 text-dark-green mb-6 leading-tight font-nunito">
+                            {data?.title||'Give African Childrens A Good Education'}
                         </h1>
-                        <p className="text-[#667471] mb-8 font-nunito">
-                            Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social
+                        <p className="text-gray-green text-lg mb-8 font-nunito">
+                            {data?.description}
                         </p>
-                        <div className="bg-[#EBEBEB] p-6 border-l-4 border-[#046B59]">
-                            <p className="italic text-[#000000]">
-                                Enim Ad Minim Veniam, Quis Nostrud Exercitation Ullamco Laboris Nisi Ut Aliquip Ex Ea Commodo
-                                Consequat Duis Aute Irure Dolor In Reprehenderit In Voluptate Velit Esse.
+                        <div className="bg-[#EBEBEB] p-6 mt-14 border-l-4 border-green">
+                            <p className="italic text-lg font-medium text-dark-green">
+                                {`"${data?.quote}"`}
                             </p>
                             <div className="mt-4 flex justify-end">
-                                <span className="text-[#046B59] font-semibold">― Christian Bale</span>
+                                <span className="text-green font-semibold">― {data?.quoteAuthor}</span>
                             </div>
                         </div>
-                        <h2 className="text-3xl font-bold text-[#000000] mb-4 font-nunito">Summary</h2>
-                        <p className="text-[#667471] mb-8 font-nunito">
-                            Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social
+                        <h2 className="text-5xl font-extrabold mt-10  text-dark-green mb-4 font-nunito">Summary</h2>
+                        <p className="text-gray-green mt-8 text-lg  mb-8 font-nunito">
+                        {data?.summary}
                         </p>
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#000000] font-bold mb-8">
-                            <div className="flex items-center gap-2 font-nunito">
-                                <FaRegCheckCircle className="text-[#046B59] text-xl" /> Empower Through Charity
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-dark-green font-bold mb-8">
+                            {data && data.keyPoints?.map((point: string, index: number) => (
+                                <div key={index} className="flex items-center gap-2 text-lg  font-nunito">
+                                <FaRegCheckCircle className="text-green text-xl" />
+                                {point}
                             </div>
-                            <div className="flex items-center gap-2 font-nunito">
-                                <FaRegCheckCircle className="text-[#046B59] text-xl" /> Giving Hope, Changing Lives
-                            </div>
-                            <div className="flex items-center gap-2 font-nunito">
-                                <FaRegCheckCircle className="text-[#046B59] text-xl" /> Healing Communities
-                            </div>
-                            <div className="flex items-center gap-2 font-nunito">
-                                <FaRegCheckCircle className="text-[#046B59] text-xl" /> Together We Can
-                            </div>
-                            <div className="flex items-center gap-2 font-nunito">
-                                <FaRegCheckCircle className="text-[#046B59] text-xl" /> Compassion In Action
-                            </div>
-                            <div className="flex items-center gap-2 font-nunito">
-                                <FaRegCheckCircle className="text-[#046B59] text-xl" /> Every Act Counts
-                            </div>
-                        </div>
+                            ))}
+                         </div>
 
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 mt-15  mb-8">
                             <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                                 <Image
-                                    src={ppOne}
+                                    src={data?.images[1]}
                                     alt="Young child smiling"
                                     fill
                                     className="object-cover"
@@ -100,7 +107,7 @@ export default function Newsdetail() {
                             </div>
                             <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                                 <Image
-                                    src={ppTwo}
+                                    src={data?.images[2]}
                                     alt="Group of children laughing"
                                     fill
                                     className="object-cover"
@@ -109,40 +116,41 @@ export default function Newsdetail() {
                         </div>
 
 
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-6 gap-4">
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-14 mb-20 gap-4">
                             {/* Tags */}
                             <div className="flex items-center flex-wrap gap-2">
-                                <span className="font-medium text-[#000000]">Tags:</span>
-                                <button className="border px-3 py-1 rounded text-sm hover:bg-[#FFC107]">
-                                    Donation
+                                <span className="font-medium text-xl text-dark-green">Tags:</span>
+                                
+                                {data&&data?.tags?.map((tag:string,index:number)=>(
+                                    <button key={index} className="border px-4 py-1 transition-all duration-100  text-sm hover:border-none hover:bg-yellow">
+                                    {tag}
                                 </button>
-                                <button className="border px-3 py-1 rounded text-sm hover:bg-[#FFC107]">
-                                    Charity
-                                </button>
+                                ))}
+                                
                             </div>
 
                             {/* Share */}
                             <div className="flex items-center flex-wrap gap-3">
-                                <span className="font-medium text-[#000000]">Share:</span>
-                                <div className="flex space-x-2">
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
-                                        <FaFacebookF className="text-[#000000]" />
+                                <span className="font-medium text-xl text-dark-green">Share:</span>
+                                <div className="flex space-x-2 gap-4">
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
+                                        <FaFacebookF className="text-dark-green" />
                                     </a>
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
-                                        <FaVimeoV className="text-[#000000]" />
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
+                                        <FaVimeoV className="text-dark-green" />
                                     </a>
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
-                                        <FaTwitter className="text-[#000000]" />
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
+                                        <FaTwitter className="text-dark-green" />
                                     </a>
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-[#FFC107] rounded">
-                                        <FaLinkedinIn className="text-[#000000]" />
+                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
+                                        <FaLinkedinIn className="text-dark-green" />
                                     </a>
                                 </div>
                             </div>
                         </div>
 
                         <div>
-                            <h2 className="text-2xl font-bold mb-6 text-[#000000]">
+                            <h2 className="text-2xl font-bold mb-6 text-dark-green">
                                 {comments.length.toString().padStart(2, "0")} Comments
                             </h2>
                             <div className="space-y-10 mb-8">
@@ -151,7 +159,7 @@ export default function Newsdetail() {
                                         key={comment.id}
                                         className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
                                     >
-                                        <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-[hsl(55,90%,52%)]">
+                                        <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-yellow">
                                             <Image
                                                 src={comment.avatar}
                                                 alt={comment.name}
@@ -161,18 +169,18 @@ export default function Newsdetail() {
                                             />
                                         </div>
                                         <div className="flex-1">
-                                            <h5 className="text-lg sm:text-xl font-bold font-nunito text-[#000000]">{comment.name}</h5>
-                                            <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug">
+                                            <h5 className="text-lg sm:text-xl font-bold font-nunito text-dark-green">{comment.name}</h5>
+                                            <p className="text-sm sm:text-base text-gray-green font-nunito leading-snug">
                                                 {comment.content}
                                             </p>
-                                            <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
-                                                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
+                                            <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-gray-green">
+                                                <button className="flex items-center gap-1 hover:text-blue">
                                                     <FiHeart /> Like
                                                 </button>
-                                                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
+                                                <button className="flex items-center gap-1 hover:text-blue">
                                                     <FiCornerUpLeft /> Reply
                                                 </button>
-                                                <span className="text-gray-600">{comment.time}</span>
+                                                <span className="text-gray-green">{comment.time}</span>
                                             </div>
                                         </div>
                                     </div>

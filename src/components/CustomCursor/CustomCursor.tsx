@@ -53,13 +53,14 @@ const CustomCursor = () => {
     <div className="mouse fixed top-0 left-0 w-[100vw] h-[100dvh] z-[99999999] pointer-events-none">
         <div 
           ref={mouse1Ref}
-          className="mouse-1 h-[10px] aspect-square opacity-70 bg-green rounded-full absolute top-0 left-0"
+          className="mouse-1 h-[10px] aspect-square opacity-70 bg-green rounded-full absolute top-1 left-1"
         ></div>
         <div 
           ref={mouse2Ref}
           className="mouse-2 h-[30px] aspect-square opacity-15 bg-green rounded-full absolute top-0 left-0"
         ></div>
-    </div>
+    </div> 
   );
 }
 export default CustomCursor;
+

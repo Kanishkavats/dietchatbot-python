@@ -17,6 +17,7 @@ export const fetchAllBlogs = async (page: number = 1, limit: number = 10) => {
 // ✅ Get single blog by ID
 export const fetchBlogById = async (id: string) => {  
   const { data } = await api.get(`/api/V1/blog/getBlogById/${id}`);
+  console.log(data)
   return data;
 };
 

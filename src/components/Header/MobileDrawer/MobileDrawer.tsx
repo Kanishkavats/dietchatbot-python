@@ -1,10 +1,11 @@
 'use client';
-import { motion} from "framer-motion";
+import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { NAV_ITEMS, socialIcons } from "@/src/staticResource";
 import MobileDropdownItem from "./MobileDropdownItem";
 import { logo } from "../../../../public/assets";
 import Button from "../../common/Buttons/Button";
+import LanguageSwitcher from "../../LanguageSwitcher";
 
 interface MobileDrawerProps {
   drawerDelay: number; // <-- Change from boolean to number
@@ -30,7 +31,7 @@ export const MobileDrawer = ({
       exit={{ x: '-100%' }}
       transition={{
         duration: 0.6,
-        delay: !isClosing ? drawerDelay : 0, 
+        delay: !isClosing ? drawerDelay : 0,
         ease: 'easeInOut',
       }}
       className="fixed top-0 left-0 h-full w-full md:w-104 bg-white shadow-lg z-50 pt-6 pb-20 xl:hidden overflow-y-auto"
@@ -55,14 +56,17 @@ export const MobileDrawer = ({
             item={item}
             open={open}
             setOpen={setOpen}
-             setMobileMenuOpen={setMobileMenuOpen} 
+            setMobileMenuOpen={setMobileMenuOpen}
           />
         ))}
       </ul>
 
-      {/* Social Icons */}
-      <div className="px-8 mt-5">
-        <Button text="Donate Now" />
+      <div className="px-8 mt-5 flex justify-between items-center gap-5 ">
+        <div className="w-fit">
+
+        <Button text="Donate Now" rounded="rounded-md" />
+        </ div>
+        <LanguageSwitcher rounded="rounded-md" />
       </div>
       <div className="flex  items-center justify-center space-x-4 mt-10 ">
 

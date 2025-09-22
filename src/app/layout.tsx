@@ -2,8 +2,7 @@ import type { Metadata } from "next";
 import { Caveat, Nunito } from "next/font/google";
 import "./globals.css";
 import "./curosal.css";
-import LanguageProviders from "./languageProvider";
-import AppProviders from "./AppProviders";
+import AppProviders from "../providers/AppProviders";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -30,11 +29,9 @@ export default function RootLayout({
       <body
         className={`${caveat.variable} ${nunito.variable} antialiased min-h-screen flex flex-col`}
       >
-        <LanguageProviders>
           <AppProviders>
             {children}
           </AppProviders>
-        </LanguageProviders>
       </body>
     </html>
   );

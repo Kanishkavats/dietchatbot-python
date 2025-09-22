@@ -143,7 +143,7 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
       }
 
       {/* Buttons */}
-      <div className="mt-12 flex gap-6 justify-end w-fit">
+      <div className="mt-12 flex gap-6 justify-end md:w-fit">
         <Button
           bgColor="bg-red"
           rounded="rounded-lg"
