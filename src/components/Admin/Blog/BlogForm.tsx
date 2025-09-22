@@ -9,18 +9,14 @@ import ButtonLoader from "../../common/Loader/ButtonLoader";
 import CustomInput from "../../Admin/Common/CustomInput";
 import CustomFileInput from "../../Admin/Common/CustomFileInput";
 import Dropdown from "../Common/Dropdown";
-
 import { useFetchCategory } from "@/src/hooks/useCategory";
 import { BlogFormValues, blogSchema } from "@/src/utils/validations/FormValidation";
 import { BlogFormProps } from "@/src/types/blog";
-import { createBlog, updateBlog } from "@/src/services/blogApi";
 import MultiInputList from "../Common/MultiInputList";
-import { submitBlogForm } from "@/src/hooks/useBlog";
 import CancelButton from "../../common/Buttons/CancelButton";
-import BlogPreview from "./PreviewBlog";
 
 
-const BlogForm = ({ initialData, onClose, mode, onPreview }: BlogFormProps) => {
+const BlogForm = ({ initialData, onClose, mode, onPreview, createMutation, updateMutation }: BlogFormProps) => {
   //  Initial values
   const initialValues: BlogFormValues = {
     title: initialData?.title ?? "",
@@ -40,7 +36,6 @@ const BlogForm = ({ initialData, onClose, mode, onPreview }: BlogFormProps) => {
 
   const [tagsList, setTagsList] = useState<string[]>(initialData?.tags ?? []);
   const [keyPointsList, setKeyPointsList] = useState<string[]>(initialData?.keyPoints ?? []);
-  const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
 
   const { data: categoryData } = useFetchCategory();
   const categoryOptions =
@@ -49,23 +44,7 @@ const BlogForm = ({ initialData, onClose, mode, onPreview }: BlogFormProps) => {
       value: c.name,
     })) || [];
 
-  // Mutations
-  const queryClient = useQueryClient();
-
-  const createMutation = useMutation({
-    mutationFn: createBlog,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blogs"] });
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: (data: { id: string; values: BlogFormValues }) =>
-      updateBlog(data.id, data.values),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blogs"] });
-    },
-  });
+ 
 
   // Mode helpers
   const isView = mode === "view";
@@ -220,7 +199,7 @@ const BlogForm = ({ initialData, onClose, mode, onPreview }: BlogFormProps) => {
 
               {/* Action Buttons */}
               {!isView && (
-                <div className="flex gap-2 mt-2">
+                <div className="flex gap-2 mt-2 w-fit">
                   <Button
                     type="submit"
                     disabled={isSubmitting || createMutation.isPending || updateMutation.isPending}

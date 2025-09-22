@@ -1,4 +1,4 @@
-import { bannerOne, bannerTwo, charityLife, galleryImageOne, galleryImageThree, galleryImageTwo, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, phOne, phTree, phTwo, theBird, treeLife, womenWithOneChild, womenWithOneChildDark } from "../public/assets";
+import { bannerOne, bannerTwo, charityLife, galleryImageOne, galleryImageThree, galleryImageTwo, heartCare, homeCommunity, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, phOne, phTree, phTwo, theBird, treeLife, womenWithOneChild, womenWithOneChildDark } from "../public/assets";
 import { Cause } from "./types/donateUs";
 import { FAQItem } from "./types/faq";
 import { NavItem } from "./types/header";
@@ -703,7 +703,7 @@ export interface NewsItem {
 
 export const newsData: NewsItem[] = [
   {
-    img: "/article1.png",
+    img:homeCommunity.src,
     category: "Health",
     categoryIcon: "🏥",
     title: "IT Service Case Studies Accelerate Business Fly Success Tech",

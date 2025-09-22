@@ -57,7 +57,6 @@ export const useDeleteCategory = () => {
       toast.success("Category deleted successfully");
     },
     onError: (err: any) => {
-      console.log(err)
       toast.error(err?.response.data.message || "Failed to delete category");
     },
   });

@@ -2,11 +2,12 @@
 import React from "react";
 import { motion, useAnimationControls } from "framer-motion";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { useTranslation } from "react-i18next";
 // import { string } from "zod";
 
 
 interface DynamicButtonProps {
-  type?: "button" | "submit" | "reset"; 
+  type?: "button" | "submit" | "reset";
   text?: string;
   icon?: string;
   hoverBg?: string;
@@ -38,6 +39,7 @@ const Button: React.FC<DynamicButtonProps> = ({
   paddingy = "py-4",
 }) => {
   const iconControls = useAnimationControls();
+  const { t } = useTranslation();
 
   return (
     <motion.button
@@ -72,7 +74,7 @@ const Button: React.FC<DynamicButtonProps> = ({
           children
         ) : (
           <>
-            <span className="leading-none">{text}</span>
+            <span className="leading-none">{text ? t(text) : ""}</span>
             {icon && (
               <motion.div
                 className="flex items-center justify-center leading-none"

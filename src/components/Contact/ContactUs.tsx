@@ -6,8 +6,11 @@ import { FaHandHoldingHeart } from "react-icons/fa";
 import ContactForm from "./ContactForm";
 import ContactInfoBlock, { contactInfo } from "./ContactInfoBlock";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
+import { useTranslation } from "react-i18next";
 
 const ContactUs = () => {
+
+  const {t} = useTranslation();
   return (
     <div className="bg-white py-22  flex justify-center">
       <div className="w-11/12 xl:w-10/12 flex flex-wrap gap-30 justify-between ">
@@ -15,7 +18,7 @@ const ContactUs = () => {
         <AnimatedReveal className="flex-1 ">
           <p className="inline-flex items-center justify-center gap-2 text-green font-caveat font-bold text-2xl mb-2">
             <FaHandHoldingHeart size={20} />
-            Get In Touch
+            {t("Get In Touch")}
           </p>
           <h1 className="text-[55px] font-nunito font-extrabold text-dark-green mb-1">Contact Us</h1>
           <p className="text-gray-500 font-nunito text-[16px] capitalize  leading-7 mb-12">

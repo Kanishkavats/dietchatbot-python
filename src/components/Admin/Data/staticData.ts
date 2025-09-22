@@ -5,7 +5,7 @@ export interface Campaign {
   description: string;
   goalAmount: number;
   summary: string;
-  keyPoints: string;
+  // keyPoints: string;
   organizer: string;
   raisedAmount: number;
   status: string;

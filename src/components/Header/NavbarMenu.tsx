@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import FadeInUp from "@/src/animations/FadeInUp";
 import { NavbarDropdown } from "./Dropdown/NavbarDropdown";
 import { usePathname } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 interface Props {
   navItems: any[];
@@ -14,6 +15,7 @@ interface Props {
 
 const NavbarMenu = ({ navItems, open, setOpen, route }: Props) => {
   const pathname = usePathname();
+  const {t} = useTranslation();
 
   return (
     <ul className="hidden xl:flex items-center gap-x-6 px-10 rounded-full font-medium text-black relative bg-yellow">
@@ -33,7 +35,7 @@ const NavbarMenu = ({ navItems, open, setOpen, route }: Props) => {
                 if (item?.href) route.push(item?.href);
               }}
             >
-              {item.label}
+              {t(item.label)}
               {item.dropdown && (
                 <motion.span
                   animate={{ rotate: open === item.label ? 180 : 0 }}

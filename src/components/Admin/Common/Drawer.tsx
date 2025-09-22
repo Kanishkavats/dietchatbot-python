@@ -9,9 +9,10 @@ interface DrawerProps {
   onClose: () => void;
   children: ReactNode;
   title?: string;
-  width?: string; // max width for large screens
+  width?: string; 
   className?: string;
-  mobileFullScreen?: boolean; // optional: make full width on mobile
+  mobileFullScreen?: boolean; 
+  mode?: string
 }
 
 const Drawer: React.FC<DrawerProps> = ({
@@ -19,10 +20,12 @@ const Drawer: React.FC<DrawerProps> = ({
   onClose,
   children,
   title,
-  width = "1400px",
+  width = "50%",
   className = "",
   mobileFullScreen = true,
+  mode
 }) => {
+  console.log("mode", mode)
   return (
     <AnimatePresence>
       {isOpen && (
@@ -42,8 +45,8 @@ const Drawer: React.FC<DrawerProps> = ({
             key="drawer"
             className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50 overflow-auto
               ${className}
-              // w-full sm:w-[${width}] ${mobileFullScreen ? "sm:w-[400px]" : ""}`}
-            style={{ width: width }}
+              // w-full sm:w-[${width}] ${mobileFullScreen ? `sm:w-[400px] md:w-[60%] ${mode === "view" ? 'lg:w-[60%]' : 'lg:w-[35%]'} ` : ""}`}
+            // style={{ width: width }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}
