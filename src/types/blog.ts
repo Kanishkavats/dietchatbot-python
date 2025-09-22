@@ -1,6 +1,28 @@
 import { UseMutationResult } from "@tanstack/react-query";
-import { Blog } from "../components/Admin/Data/staticData";
 import { BlogFormValues } from "../utils/validations/FormValidation";
+
+
+export interface Blog {
+  id: number;
+  creator:string;
+  title: string;
+  description: string;
+  summary: string;
+  quote: string;               
+  quoteAuthor: string;         
+  category: string;            
+  content: string;
+  author: string;
+  tags?: string[];             
+  keyPoints?: string[];        
+  location: string;
+  status: "draft" | "published" | "archived";
+  createdAt: string;
+  updatedAt?: string;
+  images?: (string | File)[];  
+  imageUrl?: string[];         
+}
+
 
 export interface BlogFormProps {
   initialData?: Partial<BlogFormValues> & Partial<Blog>;

@@ -26,7 +26,7 @@ export interface AdminCustomInputProps {
   type?: string;
   as?: "input" | "textarea";
   placeholder?: string;
-  value: string | number | undefined ;
+  value: string | number | undefined;
   onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   error?: string;
   name?: string;

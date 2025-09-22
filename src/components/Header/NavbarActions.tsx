@@ -4,6 +4,7 @@ import Button from "../common/Buttons/Button";
 import LanguageSwitcher from "../LanguageSwitcher";
 import { RootState } from "@/src/store";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 interface Props {
   setMobileMenuOpen: (v: boolean) => void;
@@ -23,9 +24,9 @@ const NavbarActions = ({  setMobileMenuOpen, mobileMenuOpen }: Props) => {
       )}
 
       {/* Donate Button */}
-      <div className="hidden md:block">
+      <Link href="/donate-us" className="hidden md:block">
         <Button text="Donate Now" paddingx="md:px-3  lg:px-8" paddingy="md:py-[10px] lg:py-4" />
-      </div>
+      </Link>
 
       {/* Menu Icon (Mobile) */}
       <div className="xl:hidden block">

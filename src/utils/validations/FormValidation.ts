@@ -106,3 +106,55 @@ export const commentSchema = Yup.object().shape({
 });
 
 export type CommentFormValues = Yup.InferType<typeof commentSchema>;
+
+// ======================= Banner ======================
+
+export const bannerSchema = Yup.object().shape({
+  title: Yup.string().required("Title is required"),
+  subtitle: Yup.string().required("Subtitle is required"),
+  bannerImage: Yup.mixed()
+    .test(
+      "fileOrString",
+      "Banner image is required",
+      value => {
+        if (typeof value === "string" && value.trim() !== "") return true;
+        if (value instanceof File) return true;
+        return false;
+      }
+    )
+    .required("Banner image is required"),
+  link: Yup.string().url("Must be a valid URL").required("Link is required"),
+});
+
+//  Inferred type from the schema
+export type BannerFormValues = Yup.InferType<typeof bannerSchema>;
+
+
+// ======================= Member ======================
+
+export const memberSchema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+  position: Yup.string().required("Position is required"),
+  title: Yup.string().optional(),
+  description: Yup.string().required("Description is required"),
+  about: Yup.string().optional(),
+  keyPoints: Yup.array().of(Yup.string().required("Key point cannot be empty")),
+  image: Yup.mixed()
+    .test(
+      "fileOrString",
+      "Image is required",
+      (value) => {
+        if (typeof value === "string" && value.trim() !== "") return true;
+        if (value instanceof File) return true;
+        return false;
+      }
+    )
+    .required("Image is required"),
+  facebookUrl: Yup.string().url("Must be a valid URL").optional().nullable(),
+  twitterUrl: Yup.string().url("Must be a valid URL").optional().nullable(),
+  instagramUrl: Yup.string().url("Must be a valid URL").optional().nullable(),
+  linkedInUrl: Yup.string().url("Must be a valid URL").optional().nullable(),
+  existingImages: Yup.array().of(Yup.string()),
+});
+
+export type MemberFormValues = Yup.InferType<typeof memberSchema>;

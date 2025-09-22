@@ -9,7 +9,7 @@ import { useFetchSingleCampaign } from "@/src/hooks/useCampaigns";
 import AnimatedProgressBar from "@/src/components/common/AnimatedProgressBar";
 import Button from "@/src/components/common/Buttons/Button";
 
-import BlogPost from "@/src/components/charity_with_difference/BlogPost";
+
 
 const CampaignDetails: React.FC = () => {
   const { id } = useParams();
@@ -18,6 +18,7 @@ const CampaignDetails: React.FC = () => {
   if (!id) return <p>No campaign ID provided.</p>;
 
   const { data, isLoading, isError } = useFetchSingleCampaign(id);
+  console.log("check", data )
 
   if (isLoading) return <p>Loading campaign details...</p>;
   if (isError) return <p>Failed to load campaign details.</p>;
@@ -25,9 +26,7 @@ const CampaignDetails: React.FC = () => {
 
   return (
     <div className="container mx-auto py-10 px-4">
-      {/* BlogPost for this campaign (if related) */}
-      <BlogPost blogId={id} />
-
+  
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
 
       <img

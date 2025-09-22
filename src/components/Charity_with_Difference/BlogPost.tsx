@@ -13,6 +13,7 @@ export default function BlogPost() {
   const id = Array.isArray(params?.id) ? params.id[0] : params?.id; // ensure id is a string
 
   const { data, isLoading, isError } = useFetchSingleBlog(id);
+  console.log("check", data)
 
   if (isLoading) return <p>Loading blog...</p>;
   if (isError) return <p>Failed to load blog.</p>;

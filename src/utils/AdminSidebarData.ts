@@ -42,17 +42,17 @@ export const sidebarAd = [
     link: "/admin/banner",
   },
   {
+      icon: HiUsers,
+      lable: "Members",
+      nav: "members",
+      link: "/admin/members",
+  },
+  {
       icon: MdNotificationsActive,
       lable: "Notifications",
       nav: "notifications",
       link: "/admin/notifications",
   },
-{
-    icon: HiUsers,
-    lable: "Members",
-    nav: "members",
-    link: "/admin/members",
-},
 {
     icon: IoSettings,
     lable: "Settings",

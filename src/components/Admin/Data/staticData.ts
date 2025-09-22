@@ -1,20 +1,6 @@
-export interface Campaign {
-  id: number;
-  title: string;
-  category: string;
-  description: string;
-  goalAmount: number;
-  summary: string;
-  // keyPoints: string;
-  organizer: string;
-  raisedAmount: number;
-  status: string;
-  startDate: string;
-  endDate: string;
-  images?: (string | File)[];
-  imageUrl?: string[]; 
-  location: string;
-}
+import { DropdownOption } from "@/src/types/adminCommon";
+import { BannerSearchField } from "@/src/types/banner";
+
 
 export const CampaignSearchOptions = [
   { label: "Title", value: "title" },
@@ -25,27 +11,6 @@ export const CampaignSearchOptions = [
 export const CategorySearchOptions = [
   { label: "Name", value: "name" },
 ] as const;
-
-export interface Blog {
-  id: number;
-  creator:string;
-  title: string;
-  description: string;
-  summary: string;
-  quote: string;               
-  quoteAuthor: string;         
-  category: string;            
-  content: string;
-  author: string;
-  tags?: string[];             
-  keyPoints?: string[];        
-  location: string;
-  status: "draft" | "published" | "archived";
-  createdAt: string;
-  updatedAt?: string;
-  images?: (string | File)[];  
-  imageUrl?: string[];         
-}
 
 
 export const BlogSearchOptions = [
@@ -61,3 +26,15 @@ export const CommentSearchOptions = [
   { label: "Status", value: "status" },
 
 ]
+
+export const BannerSearchOptions = [
+  { label: "Title", value: "title" },
+  { label: "Subtitle", value: "subtitle" },
+] as const satisfies readonly DropdownOption<BannerSearchField>[];
+
+
+export const memberSearchOptions = [
+  { label: "Name", value: "name" },
+  { label: "Position", value: "position" },
+  { label: "Status", value: "status" },
+] as const;
