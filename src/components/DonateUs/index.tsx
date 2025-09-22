@@ -1,5 +1,5 @@
 "use client";
-import HeroCause from "./HeroCause";
+import HeroCause from "./DonationSection";
 import SearchBox from "./SearchBox";
 import RecentCauses from "./RecentCauses";
 import DonationCard from "./DonationCard";
@@ -11,6 +11,7 @@ import { useState } from "react";
 import Gallery from "./Gallery";
 import FadeInUp from "@/src/animations/FadeInUp";
 import PageBanner from "../common/PageBanner";
+import DonationSection from "./DonationSection";
 
 const DonateUs = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -29,7 +30,7 @@ const DonateUs = () => {
         <div className="w-11/12 xl:w-10/12">
           <div className=" grid grid-cols-1 xl:grid-cols-3 gap-10">
             <div className="xl:col-span-2 relative">
-              <HeroCause />
+              <DonationSection />
               <div className="col-span-2 space-y-6 ">
                 <Gallery />
                 <FadeInUp

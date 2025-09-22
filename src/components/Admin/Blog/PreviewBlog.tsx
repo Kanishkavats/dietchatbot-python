@@ -4,13 +4,12 @@ import React, { useEffect, useState } from "react";
 import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import { FaCalendarAlt, FaTags } from "react-icons/fa";
 import { motion } from "framer-motion";
-import { FaCircleArrowRight } from "react-icons/fa6";
 import { MdLocationPin } from "react-icons/md";
 import { LucideCircleCheckBig } from "lucide-react";
 import Button from "../../common/Buttons/Button";
 
 interface BlogPreviewProps {
-  data: BlogFormValues & { images?: (File | string)[] }; // File or URL
+  data: BlogFormValues & { createdAt?: string };
   onSubmit: () => void;
   onBack: () => void;
 }
@@ -42,7 +41,7 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
 
   return (
     <motion.div
-      className="bg-white  p-8 max-w-5xl mx-auto font-sans text-black"
+      className="bg-white lg:px-4 py-8 max-w-5xl mx-auto font-sans text-black"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -58,26 +57,24 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
         </div>
       )}
       {/* Author & Location */}
-      <div className="flex flex-col sm:flex-row justify-baseline gap-10 mb-6 text-gray-600 font-medium">
-        <p className="flex items-center text-[16px] justify-baseline gap-3">
-          <FaCalendarAlt />
-          {data.creator}
+      <div className="flex flex-col sm:flex-row justify-baseline gap-10 mb-6 text-foreground font-medium">
+        <p className="flex items-center text-[16px] justify-baseline gap-2">
+          <FaCalendarAlt className="text-yellow" />
+          {data.createdAt?.split("T")[0]}
         </p>
-        <p className="flex items-center text-[16px] justify-baseline gap-3">
-          <MdLocationPin />
+        <p className="flex items-center text-[16px] justify-baseline gap-2">
+          <MdLocationPin className="text-yellow" />
           {data.location}
         </p>
       </div>
 
       {/* Title */}
-      <h2 className="text-4xl font-bold mb-4 font-nunito text-black">
+      <h2 className="text-2xl lg:text-4xl font-bold mb-4 font-nunito text-foreground">
         {data.title}
       </h2>
 
-
-
       {/* Content Section */}
-      <div className="space-y-4 text-foreground/60 font-[500] text-lg leading-relaxed">
+      <div className="space-y-4 text-foreground/60 font-[400] text-md lg:text-lg leading-relaxed">
         <p>
           {data.description}
         </p>
@@ -85,75 +82,68 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
           {data.summary}
         </p>
 
-        <div className="bg-gray-100 p-4 rounded-md mt-12 italic text-gray-800 border-l-4 border-green-600">
+        <div className="bg-gray-100 p-4 rounded-md mt-12 italic text-foreground border-l-4 border-lime-green">
           {data.quote}
-          <span className="block text-right font-bold text-green-700 mt-2">
+          <span className="block text-right font-bold text-lime-green mt-2">
             — {data.quoteAuthor}
           </span>
         </div>
 
         {/* Tags List */}
         <div className="mt-12">
-          <p className="font-bold text-green-600 mb-1 flex items-center gap-2">
+          <p className="font-bold text-lime-green mb-1 flex items-center gap-2">
             Tags:
           </p>
-          <div className="ml-6 space-y-1 grid grid-cols-2">
-            {(data.tags ?? []).length > 0 ? (
-              (data.tags ?? []).map((tag, idx) => (
-
-                <p key={idx} className="flex items-center gap-2 text-gray-700">
-                  <LucideCircleCheckBig className="text-yellow size-5" />
-                  {tag}
-                </p>
-              ))
-            ) : (
-              <p className="text-gray-500">None</p>
-            )}
+          <div className="ml-2 space-y-1 grid lg:grid-cols-2">
+            {(data.tags ?? []).map((tag, idx) => (
+              <p key={idx} className="flex items-center gap-2 text-foreground">
+                <LucideCircleCheckBig className="text-yellow h-5 w-5" />
+                 <span  className="text-[16px]">{tag}</span>
+              </p>
+            ))}
           </div>
         </div>
 
         {/* Key Points List */}
         <div className="mt-4">
-          <p className="font-bold text-green-600 mb-1 flex items-center gap-2">
+          <p className="font-bold text-lime-green mb-1 flex items-center gap-2">
             Key Points:
           </p>
-          <div className="ml-6 space-y-1 grid grid-cols-2">
-            {(data.keyPoints ?? []).length > 0 ? (
-              (data.keyPoints ?? []).map((point, idx) => (
-                <p key={idx} className="flex items-center gap-2 text-gray-700">
-                  <LucideCircleCheckBig className="text-yellow size-5" />
+          <div className="ml-2 space-y-1 grid lg:grid-cols-2 gap-2">
 
-                  {point}
-                </p>
-              ))
-            ) : (
-              <p className="text-gray-500">None</p>
-            )}
+            {(data.keyPoints ?? []).map((point, idx) => (
+              <p key={idx} className="flex items-start gap-2 text-foreground  ">
+                <LucideCircleCheckBig className="text-yellow  h-5 w-5" />
+                <span className="text-[16px]">{point}</span>
+              </p>
+            ))}
           </div>
         </div>
 
       </div>
 
       {/* Image Grid Section */}
-      {gridImages.length > 0 && (
-        <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-4">
-          {gridImages.map((img, idx) => (
-            <div
-              key={idx}
-              className="w-full h-40 rounded-lg overflow-hidden "
-            >
-              <img
-                src={img}
-                alt={`Blog image ${idx + 2}`}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          ))}
-        </div>
-      )}
+      {
+        gridImages.length > 0 && (
+          <div className="mt-10 grid md:grid-cols-2 gap-4">
+            {gridImages.map((img, idx) => (
+              <div
+                key={idx}
+                className="w-full h-40 rounded-lg overflow-hidden "
+              >
+                <img
+                  src={img}
+                  alt={`Blog image ${idx + 2}`}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+            ))}
+          </div>
+        )
+      }
 
       {/* Buttons */}
-      <div className="mt-12 flex gap-6 justify-end">
+      <div className="mt-12 flex gap-6 justify-end md:w-fit">
         <Button
           bgColor="bg-red"
           rounded="rounded-lg"
@@ -166,12 +156,14 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
         <Button
           rounded="rounded-lg"
           onClick={onSubmit}
+          text="Submit"
+          bgColor="bg-lime-green"
+          hoverBg="before:bg-green"
         >
-          Submit <FaCircleArrowRight className="text-lg ml-2" />
         </Button>
 
       </div>
-    </motion.div>
+    </motion.div >
   );
 };
 

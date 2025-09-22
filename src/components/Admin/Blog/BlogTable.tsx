@@ -11,10 +11,12 @@ import EventPagination from "../../Eventpaginations";
 
 import BlogForm from "./BlogForm";
 import { getBlogColumns } from "./BlogColumns";
-import { useDeleteSingleBlog, useFetchAllBlogs, useFetchSingleBlog } from "@/src/hooks/useBlog";
+import { submitBlogForm, useDeleteSingleBlog, useFetchAllBlogs, useFetchSingleBlog } from "@/src/hooks/useBlog";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import BlogPreview from "./PreviewBlog";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createBlog, updateBlog } from "@/src/services/blogApi";
 
 const BlogTable = () => {
 
@@ -26,32 +28,27 @@ const BlogTable = () => {
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
-
-
-
-  // ✅ pagination states
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
 
-  // ✅ API hooks
   const { data: blogData } = useFetchAllBlogs(currentPage, itemsPerPage);
   const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(editBlog || undefined);
   const { mutate: deleteBlog } = useDeleteSingleBlog();
-
   console.log(blogData)
 
-  // ✅ handlers
+
   const handleEdit = useCallback((b: Blog) => {
     setEditBlog(b.id.toString());
     setMode("edit");
     setDrawerOpen(true);
   }, []);
-
-  const handleView = useCallback((b: Blog) => {
-    setEditBlog(b.id.toString());
+  const handleView = useCallback((blog: Blog) => {
+    setEditBlog(blog.id.toString());
     setMode("view");
+    setPreviewData(blog);
     setDrawerOpen(true);
   }, []);
+
 
   const handleDelete = useCallback(
     (b: Blog) => {
@@ -62,7 +59,6 @@ const BlogTable = () => {
     [deleteBlog]
   );
 
-  // ✅ columns for table
   const columns = useMemo(
     () =>
       getBlogColumns({
@@ -90,6 +86,24 @@ const BlogTable = () => {
       return value?.toString().toLowerCase().includes(search.toLowerCase());
     });
   }, [paginatedData, search, searchField]);
+
+  // Mutations
+  const queryClient = useQueryClient();
+
+  const createMutation = useMutation({
+    mutationFn: createBlog,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+    },
+  });
+
+  const updateMutation = useMutation({
+    mutationFn: (data: { id: string; values: BlogFormValues }) =>
+      updateBlog(data.id, data.values),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+    },
+  });
 
   return (
     <section>
@@ -172,7 +186,8 @@ const BlogTable = () => {
               ? "View Blog"
               : "Add Blog"
         }
-        width={previewData ? "850px" :"500px" }
+        mode={mode}
+
       >
         {previewData ? (
           <BlogPreview
@@ -201,6 +216,8 @@ const BlogTable = () => {
             onClose={() => setDrawerOpen(false)}
             mode={mode}
             onPreview={(data) => setPreviewData(data)}
+            createMutation={createMutation}
+            updateMutation={updateMutation}
           />
         )}
 

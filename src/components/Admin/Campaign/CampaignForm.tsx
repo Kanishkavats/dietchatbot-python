@@ -1,26 +1,20 @@
 "use client";
 
 import { Formik, Form } from "formik";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
+import { useFetchCategory } from "@/src/hooks/useCategory";
+import { CampaignFormValues, campaignSchema } from "@/src/utils/validations/FormValidation";
+import { CampaignFormProps } from "@/src/types/campaign";
 
 import Button from "../../common/Buttons/Button";
 import ButtonLoader from "../../common/Loader/ButtonLoader";
 import CustomInput from "../../Admin/Common/CustomInput";
 import CustomFileInput from "../../Admin/Common/CustomFileInput";
 import Dropdown from "../Common/Dropdown";
-
-import { CampaignFormValues, campaignSchema } from "@/src/utils/validations/FormValidation";
-import { CampaignFormProps } from "@/src/types/campaign";
-import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
-import { submitCampaignForm } from "@/src/hooks/useCampaigns";
-import { useFetchCategory } from "@/src/hooks/useCategory";
 import CancelButton from "../../common/Buttons/CancelButton";
 
-const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
-
-  // ✅ Initial values
+const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
   const initialValues: CampaignFormValues = {
     title: initialData?.title ?? "",
     category: initialData?.category ?? "",
@@ -37,35 +31,13 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
   const [keyPointInput, setKeyPointInput] = useState("");
 
   const { data: categoryData } = useFetchCategory();
-  const cateogryOptions = categoryData?.category?.map((c: { id: string; name: string }) => ({
+  const categoryOptions = categoryData?.category?.map((c) => ({
     label: c.name,
     value: c.name,
-  })) || []
+  })) ?? [];
 
-
-  // ✅ Mutations
-  const queryClient = useQueryClient();
-
-  const createMutation = useMutation({
-    mutationFn: createCampaign,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
-    },
-  });
-
-  const updateMutation = useMutation({
-    mutationFn: (data: { id: string; values: CampaignFormValues }) =>
-      updateCampaign(data.id, data.values),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
-    },
-  });
-
-
-  // ✅ Mode helpers
   const isView = mode === "view";
   const isEdit = mode === "edit";
-  const isAdd = mode === "add";
 
   return (
     <div className="w-full pb-10">
@@ -73,26 +45,17 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
         enableReinitialize
         initialValues={initialValues}
         validationSchema={campaignSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          submitCampaignForm(
-            { ...values, keyPoints: keyPointsList },
-            initialData,
-            createMutation,
-            updateMutation,
-            resetForm,
-            setSubmitting,
-            onClose
-          );
+        onSubmit={(values) => {
+          onPreview?.({ ...values, keyPoints: keyPointsList });
         }}
       >
         {({ values, handleChange, setFieldValue, errors, touched, isSubmitting }) => {
-          React.useEffect(() => {
+          useEffect(() => {
             setFieldValue("keyPoints", keyPointsList, true);
           }, [keyPointsList, setFieldValue]);
 
           return (
             <Form className="flex flex-col gap-3">
-              {/* Title */}
               <CustomInput
                 label="Title*"
                 placeholder="Title of the campaign"
@@ -103,10 +66,9 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                 disabled={isView}
               />
 
-              {/* Category */}
               <Dropdown
                 label="Category*"
-                options={cateogryOptions}
+                options={categoryOptions}
                 value={values.category}
                 onChange={(val) => setFieldValue("category", val)}
                 placeholder="Select category"
@@ -114,10 +76,9 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                 disabled={isView}
               />
 
-              {/* Location */}
               <CustomInput
                 label="Location*"
-                placeholder="Location of the campaign"
+                placeholder="Location"
                 value={values.location}
                 name="location"
                 onChange={handleChange}
@@ -125,11 +86,10 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                 disabled={isView}
               />
 
-              {/* Goal Amount */}
               <CustomInput
                 label="Goal Amount*"
                 type="number"
-                placeholder="Goal amount for the campaign"
+                placeholder="Enter goal amount"
                 value={values.goalAmount}
                 name="goalAmount"
                 onChange={handleChange}
@@ -137,11 +97,9 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                 disabled={isView}
               />
 
-              {/* Description */}
               <CustomInput
                 label="Description*"
                 as="textarea"
-                placeholder="Description of the campaign"
                 value={values.description}
                 name="description"
                 onChange={handleChange}
@@ -149,11 +107,9 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                 disabled={isView}
               />
 
-              {/* Summary */}
               <CustomInput
                 label="Summary*"
                 as="textarea"
-                placeholder="Summary of the campaign"
                 value={values.summary}
                 name="summary"
                 onChange={handleChange}
@@ -161,7 +117,7 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                 disabled={isView}
               />
 
-              {/* ✅ Key Points */}
+              {/* Key Points */}
               <div className="flex flex-col gap-2">
                 <label className="font-medium">Key Points</label>
                 {!isView && (
@@ -200,14 +156,18 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                   {keyPointsList.map((point) => (
                     <span
                       key={point}
-                      className={`flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isView ? "bg-gray-100 text-gray-600" : "bg-lime-200 text-lime-800"
+                      className={`flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isView
+                        ? "bg-gray-100 text-gray-600"
+                        : "bg-lime-200 text-lime-800"
                         }`}
                     >
                       {point}
                       {!isView && (
                         <button
                           type="button"
-                          onClick={() => setKeyPointsList(keyPointsList.filter((p) => p !== point))}
+                          onClick={() =>
+                            setKeyPointsList(keyPointsList.filter((p) => p !== point))
+                          }
                           className="text-red font-bold ml-1"
                         >
                           <IoMdClose />
@@ -218,47 +178,40 @@ const CampaignForm = ({ initialData, onClose, mode }: CampaignFormProps) => {
                 </div>
               </div>
 
+              {/* Images */}
               <CustomFileInput
                 label="Campaign Images"
                 name="images"
                 error={touched.images && errors.images ? errors.images : ""}
                 onChange={(files, existingUrls) => {
-                  setFieldValue("images", files); // new files only
-                  setFieldValue("existingImages", existingUrls); // existing images
+                  setFieldValue("images", files);
+                  setFieldValue("existingImages", existingUrls);
                 }}
                 disabled={isView}
                 mode={mode}
                 initialUrls={
                   Array.isArray(initialData?.images)
-                    ? initialData.images.filter((img): img is string => typeof img === "string")
+                    ? initialData.images.filter(
+                      (img): img is string => typeof img === "string"
+                    )
                     : []
                 }
               />
-
 
               {/* Buttons */}
               {!isView && (
                 <div className="flex gap-2 mt-2">
                   <Button
                     type="submit"
-                    disabled={isSubmitting || createMutation.isPending || updateMutation.isPending}
+                    disabled={isSubmitting}
                     paddingx="px-4"
                     paddingy="py-2"
-                    rounded="rounded-[5px] "
+                    rounded="rounded-[5px]"
                     bgColor="bg-lime-green"
                   >
-                    {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
-                      <ButtonLoader />
-                    ) : isEdit ? (
-                      "Update"
-                    ) : (
-                      "Create"
-                    )}
+                    {isSubmitting ? <ButtonLoader /> : "Preview"}
                   </Button>
-                  <CancelButton
-                    text="Cancel"
-                    onClose={onClose}
-                  />
+                  <CancelButton text="Cancel" onClose={onClose} />
                 </div>
               )}
             </Form>

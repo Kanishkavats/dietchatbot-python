@@ -17,6 +17,7 @@ import NewsGrid from '../Latestnews/NewsGrid';
 const LatestNewsArticle: React.FC = () => {
 
 
+
   return (
     <div 
       className='w-full py-20 px-4 mt-20 relative'

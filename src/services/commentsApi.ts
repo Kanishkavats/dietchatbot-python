@@ -9,7 +9,6 @@ export const fetchComments = async () => {
 
 // ✅ Fetch comments by blog ID
 export const fetchCommentsById = async (id: string) => {
-  console.log("id => ", id);
 
   const { data } = await api.get(`/api/V1/comment/getcommentsById/${id}`);
   console.log(data);

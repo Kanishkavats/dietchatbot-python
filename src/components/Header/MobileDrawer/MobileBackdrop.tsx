@@ -7,7 +7,6 @@ interface MobileBackdropProps {
 }
 
 export const MobileBackdrop = ({ isClosing, drawerDelay}: MobileBackdropProps) => {
-  console.log("isClosing:", isClosing, "drawerDelay:", drawerDelay);
   return (
     <motion.div
       key="backdrop"

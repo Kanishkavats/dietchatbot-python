@@ -1,4 +1,6 @@
-"use client";
+
+
+'use client';
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import CampaignForm from "./CampaignForm";
@@ -9,14 +11,19 @@ import Dropdown from "../Common/Dropdown";
 import { getCampaignColumns } from "./campaignColumns";
 import Button from "../../common/Buttons/Button";
 import Drawer from "../Common/Drawer";
-import { useDeleteSignleCampaign, useFetchAllCampaigns, useFetchSingleCampaign } from "@/src/hooks/useCampaigns";
+import {
+  useDeleteSignleCampaign,
+  useFetchAllCampaigns,
+  useFetchSingleCampaign,
+  submitCampaignForm
+} from "@/src/hooks/useCampaigns";
+import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
 import EventPagination from "../../Eventpaginations";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
-type CampaignDataprops = {
-  campaigns?: Campaign[]; // Assuming Campaign is the type for each campaign object
-  totalPages?: number;
-};
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
+import CampaignPreview from "./CampaignPreview";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
@@ -25,18 +32,34 @@ const CampaignTable = () => {
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [previewData, setPreviewData] = useState<CampaignFormValues | null>(null);
 
-
-  // ✅ pagination states
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2);
+  const [itemsPerPage] = useState(5);
 
-  const { data: campaignData, isLoading, isError } = useFetchAllCampaigns(currentPage, itemsPerPage);
+  const { data: campaignData } = useFetchAllCampaigns(currentPage, itemsPerPage);
   const { data: singleCampaignData, isLoading: isLoadingCampaign } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
 
+  const queryClient = useQueryClient();
 
+  // ✅ Mutations
+  const createMutation = useMutation({
+    mutationFn: createCampaign,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+    },
+  });
 
+  const updateMutation = useMutation({
+    mutationFn: (data: { id: string; values: CampaignFormValues }) =>
+      updateCampaign(data.id, data.values),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+    },
+  });
+
+  // ✅ Handlers
   const handleEdit = useCallback((c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("edit");
@@ -46,6 +69,7 @@ const CampaignTable = () => {
   const handleView = useCallback((c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("view");
+    setPreviewData(c);
     setDrawerOpen(true);
   }, []);
 
@@ -68,13 +92,11 @@ const CampaignTable = () => {
     [handleEdit, handleDelete, handleView]
   );
 
-  // ✅ directly use API campaigns (backend handles pagination)
   const paginatedData = useMemo(() => {
-
     if (!campaignData?.campaigns) return [];
     return campaignData.campaigns.map((c: any) => ({
       ...c,
-      organizer: "Admin",
+      organizer: c.organizer || "Admin",
     }));
   }, [campaignData]);
 
@@ -88,14 +110,14 @@ const CampaignTable = () => {
 
   return (
     <div>
-      {/* Top controls */}
+      {/* Top Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
           <div className="w-fit flex flex-col sm:flex-row gap-2">
             <Dropdown
               options={CampaignSearchOptions}
               value={searchField}
-               onChange={(value) => {
+              onChange={(value) => {
                 setSearchField(value);
                 setTimeout(() => {
                   searchInputRef.current?.focus();
@@ -118,6 +140,7 @@ const CampaignTable = () => {
               onClick={() => {
                 setDrawerOpen(true);
                 setEditCampaign(null);
+                setMode("add");
               }}
               bgColor="bg-lime-green"
               hoverBg="before:bg-primaryColor"
@@ -155,6 +178,7 @@ const CampaignTable = () => {
           setDrawerOpen(false);
           setEditCampaign(null);
           setMode("add");
+          setPreviewData(null);
         }}
         title={
           mode === "edit"
@@ -163,15 +187,42 @@ const CampaignTable = () => {
               ? "View Campaign"
               : "Add Campaign"
         }
+        mode={mode}
+
       >
-        {isLoadingCampaign ? (
+        {previewData ? (
+          <CampaignPreview
+            mode={mode}
+            data={previewData}
+            onBack={() => setPreviewData(null)}
+            onSubmit={() => {
+              submitCampaignForm(
+                { ...previewData, keyPoints: previewData.keyPoints },
+                singleCampaignData,
+                createMutation,
+                updateMutation,
+                () => {
+                  setPreviewData(null);
+                  setDrawerOpen(false);
+                },
+                () => { },
+                () => setDrawerOpen(false)
+              );
+            }}
+          />
+        ) : isLoadingCampaign ? (
           <p>Loading...</p>
         ) : (
           <CampaignForm
             initialData={singleCampaignData ?? undefined}
-            onClose={() => setDrawerOpen(false)}
-            readOnly={mode === "view"}
+            onClose={() => {
+              setDrawerOpen(false);
+              setPreviewData(null);
+            }}
             mode={mode}
+            onPreview={(data) => setPreviewData(data)}
+            createMutation={createMutation}
+            updateMutation={updateMutation}
           />
         )}
       </Drawer>
@@ -180,3 +231,4 @@ const CampaignTable = () => {
 };
 
 export default CampaignTable;
+
