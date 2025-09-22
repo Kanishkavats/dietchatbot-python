@@ -1,7 +1,6 @@
 
 
 
-
 "use client";
 
 import { useState } from "react";
@@ -11,41 +10,43 @@ import Button from "../common/Buttons/Button";
 import { useCreateComment } from "@/src/hooks/useComments";
 import toast from "react-hot-toast";
 
-export default function LeaveComment() {
+export default function LeaveComment({ blogId }: { blogId: string }) {
   const queryClient = useQueryClient();
 
   // Local state for form inputs
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [comment, setComment] = useState("");
-  const mutation=useCreateComment();
-
-
+  const mutation = useCreateComment();
 
   // Submit handler
- const handleSubmit = (e: React.FormEvent) => {
-  e.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
 
-  if (!name || !email || !comment) {
-    alert("Please fill out all fields");
-    return;
-  }
-
-  const targetId = "52511bdd-a3f7-48e3-94da-de8667170871"; 
-
-  mutation.mutate(
-    { id: targetId, data: { name, comment, email } },
-    {
-      onSuccess: (data) => {
-        queryClient.invalidateQueries({ queryKey: ["comments"] });
-        toast.success("Comment successfully");
-        setName("");
-        setEmail("");
-        setComment("");
-      },
+    if (!name || !email || !comment) {
+      alert("Please fill out all fields");
+      return;
     }
-  );
-};
+
+    if (!blogId) {
+      alert("Blog ID is missing");
+      return;
+    }
+
+    mutation.mutate(
+      { id: blogId, data: { name, comment, email } },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
+          console.log("id =",blogId)
+          toast.success("Comment submitted successfully");
+          setName("");
+          setEmail("");
+          setComment("");
+        },
+      }
+    );
+  };
 
   return (
     <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
@@ -113,3 +114,4 @@ export default function LeaveComment() {
     </div>
   );
 }
+

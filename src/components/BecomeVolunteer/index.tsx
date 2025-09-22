@@ -6,6 +6,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 
+// Import images directly from public/assets
+import becomeVolunteerBg from "../../../public/assets/becomevolunter/becomevolunter.png";
+import volunteerIcon from "../../../public/assets/becomevolunter/icon.png";
+import yellowImage from "../../../public/assets/becomevolunter/yellow_image.png";
+import videoBg from "../../../public/assets/becomevolunter/videobg.png";
+import thumbLg from "../../../public/assets/section2/thumb-lg.png";
+
 const BecomeVolunteer: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
   const leftPanelRef = useRef(null);
@@ -28,8 +35,7 @@ const BecomeVolunteer: React.FC = () => {
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage:
-                "url('/assets/becomevolunter/becomevolunter.png')",
+              backgroundImage: `url(${becomeVolunteerBg.src})`,
             }}
           >
             <div className="absolute inset-0 bg-black/55"></div>
@@ -37,7 +43,7 @@ const BecomeVolunteer: React.FC = () => {
 
           <div
             ref={leftPanelRef}
-            className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 md:px-6 lg:px-8"
+            className="relative z-10 h-full flex flex-col items-center justify-center text-center py-6 px-4 md:px-6 lg:px-8"
           >
             <motion.div
               className="mb-3 md:mb-4"
@@ -46,7 +52,7 @@ const BecomeVolunteer: React.FC = () => {
               transition={{ duration: 1, ease: "easeOut" }}
             >
               <Image
-                src="/assets/becomevolunter/icon.png"
+                src={volunteerIcon}
                 alt="Hand Heart Icon"
                 width={60}
                 height={60}
@@ -95,20 +101,22 @@ const BecomeVolunteer: React.FC = () => {
         </div>
 
         {/* Middle Panel */}
-        <div className="flex-1 relative lg:h-full md:h-[400px] h-[300px] min-h-[200px]">
+        <div className="flex-1 flex items-center justify-center relative lg:h-full md:h-[400px] h-[300px] min-h-[200px]">
           {/* Desktop version with mask */}
           <div className="hidden lg:block">
             <div
-              className="bg-[url('/assets/becomevolunter/yellow_image.png')] bg-center bg-no-repeat w-full h-full absolute lg:!w-[120%] lg:translate-x-[-10%] inset-0 z-10"
-              style={{ backgroundSize: "100% 100%" }}
+              className="bg-center bg-no-repeat w-full h-full absolute lg:!w-[120%] lg:translate-x-[-10%] inset-0 z-10"
+              style={{ 
+                backgroundImage: `url(${yellowImage.src})`,
+                backgroundSize: "100% 100%" 
+              }}
             >
               <div
                 className="absolute inset-0"
                 style={{
                   inset: "0px 5px 0px 5px",
-                  WebkitMaskImage:
-                    "url('/assets/becomevolunter/yellow_image.png')",
-                  maskImage: "url('/assets/becomevolunter/yellow_image.png')",
+                  WebkitMaskImage: `url(${yellowImage.src})`,
+                  maskImage: `url(${yellowImage.src})`,
                   WebkitMaskRepeat: "no-repeat",
                   maskRepeat: "no-repeat",
                   WebkitMaskPosition: "center",
@@ -120,7 +128,7 @@ const BecomeVolunteer: React.FC = () => {
                 <div
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: "url('/assets/becomevolunter/videobg.png')",
+                    backgroundImage: `url(${videoBg.src})`,
                   }}
                 ></div>
               </div>
@@ -132,7 +140,7 @@ const BecomeVolunteer: React.FC = () => {
             <div
               className="absolute inset-0 bg-cover bg-center bg-no-repeat"
               style={{
-                backgroundImage: "url('/assets/becomevolunter/videobg.png')",
+                backgroundImage: `url(${videoBg.src})`,
               }}
             >
               <div className="absolute inset-0 bg-black/55"></div>
@@ -171,14 +179,14 @@ const BecomeVolunteer: React.FC = () => {
         <div className="flex-1 relative lg:h-full md:h-[400px] h-[300px]">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{ backgroundImage: "url('/assets/section2/thumb-lg.png')" }}
+            style={{ backgroundImage: `url(${thumbLg.src})` }}
           >
             <div className="absolute inset-0 bg-gradient-to-r from-teal-600 to-transparent"></div>
           </div>
 
           <div
             ref={rightPanelRef}
-            className="relative z-10 h-full flex flex-col items-center justify-center text-center px-4 md:px-6 lg:px-8"
+            className="relative z-10 h-full flex flex-col items-center justify-center text-center py-6 px-4 md:px-6 lg:px-8"
           >
             <motion.div
               className="mb-3 md:mb-4"
@@ -187,7 +195,7 @@ const BecomeVolunteer: React.FC = () => {
               transition={{ duration: 1, ease: "easeOut" }}
             >
               <Image
-                src="/assets/becomevolunter/icon.png"
+                src={volunteerIcon}
                 alt="Hand Heart Icon"
                 width={60}
                 height={60}

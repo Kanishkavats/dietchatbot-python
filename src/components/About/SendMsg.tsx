@@ -8,6 +8,7 @@ import { FaLocationDot, FaPhone } from "react-icons/fa6";
 import Button from "../common/Buttons/Button";
 import { useInView } from "react-intersection-observer";
 import FadeInUp from "@/src/animations/FadeInUp";
+import { contactbg, shapeleft } from "../../../public/assets";
 
 const SendMsg: React.FC = () => {
   const { ref, inView } = useInView({
@@ -18,8 +19,9 @@ const SendMsg: React.FC = () => {
     <section className="relative flex items-center justify-center min-h-screen w-full overflow-hidden">
       {/* Container for the zoomed-in background image and its gradient overlay */}
       <div 
-        className="absolute inset-0 bg-[url('/assets/contactbg.png')]  bg-center bg-no-repeat 
-                   transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"></div>
+        className="absolute inset-0 bg-center bg-no-repeat 
+                   transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"
+        style={{ backgroundImage: `url(${contactbg.src})` }}></div>
         <div className="absolute inset-0  bg-gradient-to-r from-dark-green to-black/10"></div>
 
      <FadeInUp initialYExis={-60} delay={0.2} className="absolute top-[-40] left-0 w-1/3 md:w-1/4 h-1/2 md:h-2/3 overflow-hidden z-20"> 
@@ -29,7 +31,7 @@ const SendMsg: React.FC = () => {
         transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
       >
         <Image
-          src="/assets/section2/shapeleft.png"
+          src={shapeleft}
           alt="Decorative shape"
           fill
           priority

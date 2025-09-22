@@ -7,6 +7,7 @@ import Image from "next/image";
 import { teamMembers } from "@/src/staticResource";
 import Pagination from "../common/Pagination";
 import { VolunteerCard } from "../common/card/VolunteerCard";
+import { bgOneVolunteer, greenspade } from "../../../public/assets";
 
 
 
@@ -30,7 +31,7 @@ const VolunteerTeam = () => {
     : teamMembers.slice(0, visibleCount);
 
   return (
-    <section className="relative bg-cover py-16 bg-center w-full bg-[url('/assets/bg-one-volunteer.png')]">
+    <section className="relative bg-cover py-16 bg-center w-full" style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}>
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
         <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
           <i className="text-2xl hand-icon"></i>
@@ -78,7 +79,7 @@ const VolunteerTeam = () => {
 
       <div className="top absolute top-[10%] right-[6%] z-[-1] font-bold">
         <Image
-          src="/assets/greenspade.png"
+          src={greenspade}
           alt="green spade"
           width={70}
           height={70}

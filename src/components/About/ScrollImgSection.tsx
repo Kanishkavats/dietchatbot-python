@@ -4,24 +4,25 @@ import { useState, useEffect } from "react";
 import Image from "next/image";
 import { FaInstagram } from "react-icons/fa";
 import { motion, useAnimation } from "framer-motion";
+import { photo1, photo2, photo3, photo4, photo5, photo6, photo7, photo8 } from "../../../public/assets";
 
 const images = [
-  "/assets/aboutsection/photo1.png",
-  "/assets/aboutsection/photo2.png",
-  "/assets/aboutsection/photo3.png",
-  "/assets/aboutsection/photo4.png",
-  "/assets/aboutsection/photo5.png",
-  "/assets/aboutsection/photo6.png",
-  "/assets/aboutsection/photo7.png",
-  "/assets/aboutsection/photo8.png",
-  "/assets/aboutsection/photo1.png",
-  "/assets/aboutsection/photo2.png",
-  "/assets/aboutsection/photo3.png",
-  "/assets/aboutsection/photo4.png",
-  "/assets/aboutsection/photo5.png",
-  "/assets/aboutsection/photo6.png",
-  "/assets/aboutsection/photo7.png",
-  "/assets/aboutsection/photo8.png",
+  photo1,
+  photo2,
+  photo3,
+  photo4,
+  photo5,
+  photo6,
+  photo7,
+  photo8,
+  photo1,
+  photo2,
+  photo3,
+  photo4,
+  photo5,
+  photo6,
+  photo7,
+  photo8,
 ];
 
 export default function ScrollImgSection() {

@@ -13,6 +13,9 @@ export default function BlogPost() {
   const { data } = useFetchAllBlogs(1, 1);
   console.log(data?.blogs[0])
   const blog = data?.blogs[0];
+
+  if (!blog) return <p>No blog found</p>;
+  
   const BannerImageUrl = blog?.images[0];
   const title = blog?.title;
   const summary = blog?.summary;
@@ -86,11 +89,16 @@ export default function BlogPost() {
         </div>
       </div>
 
+     
       {/* Comments Section */}
-      <Comments />
+<div className="mt-12">
+  <Comments campaignId={blog.id} />
+</div>
+
 
       {/* Leave Comment Section */}
-      <LeaveComment />
+      <LeaveComment blogId={blog.id} />
+    
     </div>
   );
 }

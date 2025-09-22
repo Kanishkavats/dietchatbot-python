@@ -7,9 +7,11 @@ import {
   updateComment,
   deleteComment,
   fetchCommentsById,
+  fetchgetcomments
 } from "../services/commentsApi";
 
 // ======================= Fetch all Comments ======================= //
+
 export const useFetchComments = () => {
   return useQuery({
     queryKey: ["comments"],
@@ -17,17 +19,33 @@ export const useFetchComments = () => {
   });
 };
 
+
 // ======================= Fetch single Comment ======================= //
 
+
 export const useFetchCommentById = (id: string, enabled: boolean = true) => {
-  
   return useQuery({
     queryKey: ["comment", id],
     queryFn: () => fetchCommentsById(id),
-    retry:0,
-    // enabled:  enabled, 
+    retry: 0,
+    enabled,
+    select: (data) => data.comments || [], // return only comments array
   });
 };
+
+
+//fetch by id 
+export const useFetchgetcomments  = (id: string, enabled: boolean = true) => {
+  return useQuery({
+    queryKey: ["comment", id],
+    queryFn: () => fetchCommentsById(id),
+    retry: 0,
+    enabled,
+    select: (data) => data.comments || [], // return only comments array
+  });
+};
+
+
 
 
 
