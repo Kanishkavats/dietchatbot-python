@@ -26,7 +26,7 @@ export default function Comments({ campaignId }: CommentsProps) {
   const { data, isLoading,isError } = useQuery({
     queryKey: ["comments", campaignId],
     queryFn: () => fetchgetcomments(campaignId),
-    // select: (data) => data.comments || [],
+    select: (data) => data || [],
   });
 
   if (isLoading) {

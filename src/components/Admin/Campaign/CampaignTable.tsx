@@ -25,6 +25,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
 import CampaignPreview from "./CampaignPreview";
 import { Campaign } from "@/src/types/campaign";
+import CustomPagination from "../../common/CustomPaginatioin";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
@@ -36,15 +37,17 @@ const CampaignTable = () => {
   const [previewData, setPreviewData] = useState<CampaignFormValues | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(10);
 
   const { data: campaignData } = useFetchAllCampaigns(currentPage, itemsPerPage);
   const { data: singleCampaignData, isLoading: isLoadingCampaign } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
+  const totalPages = campaignData?.totalPages || 1;
+
 
   const queryClient = useQueryClient();
 
-  // ✅ Mutations
+  //  Mutations
   const createMutation = useMutation({
     mutationFn: createCampaign,
     onSuccess: () => {
@@ -101,7 +104,6 @@ const CampaignTable = () => {
     }));
   }, [campaignData]);
 
-  const totalPages = campaignData?.totalPages || 1;
 
   const filteredData = useMemo(() => {
     return paginatedData.filter((campaign: Campaign) =>
@@ -164,7 +166,7 @@ const CampaignTable = () => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <EventPagination
+          <CustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}

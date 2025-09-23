@@ -18,32 +18,32 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createBlog, updateBlog } from "@/src/services/blogApi";
 import { Blog } from "@/src/types/blog";
 import CustomPagination from "../../common/CustomPaginatioin";
+import CustomLoader from "../../common/Loader/CustomLoader";
 
 const BlogTable = () => {
 
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"title" | "location" | "category" | "createdAt" | "updatedAt">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [editBlog, setEditBlog] = useState<string | null>(null);
+  const [blogId, setBlogId] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(2);
+  const [itemsPerPage] = useState(10);
 
-  const { data: blogData } = useFetchAllBlogs(currentPage, itemsPerPage);
-  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(editBlog || undefined);
+  const { data: blogData, isLoading: isAllBlogLoading } = useFetchAllBlogs(currentPage, itemsPerPage);
+  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(blogId|| undefined);
   const { mutate: deleteBlog } = useDeleteSingleBlog();
-
-  console.log("blogdata", blogData);
+  const totalPages = blogData?.totalPages || 1;
 
   const handleEdit = useCallback((b: Blog) => {
-    setEditBlog(b.id.toString());
+    setBlogId(b.id.toString());
     setMode("edit");
     setDrawerOpen(true);
   }, []);
   const handleView = useCallback((blog: Blog) => {
-    setEditBlog(blog.id.toString());
+    setBlogId(blog.id.toString());
     setMode("view");
     setPreviewData(blog);
     setDrawerOpen(true);
@@ -78,7 +78,6 @@ const BlogTable = () => {
     }));
   }, [blogData]);
 
-  const totalPages = blogData?.TotalPages || 1;
 
   const filteredData = useMemo(() => {
     return paginatedData.filter((blog: Blog) => {
@@ -139,7 +138,7 @@ const BlogTable = () => {
               text="Add Blog"
               onClick={() => {
                 setDrawerOpen(true);
-                setEditBlog(null);
+                setBlogId(null);
               }}
               bgColor="bg-lime-green"
               hoverBg="before:bg-primaryColor"
@@ -155,10 +154,13 @@ const BlogTable = () => {
 
 
       {/* Table */}
+      {isAllBlogLoading ? <CustomLoader  /> : ( 
+
       <DataTableWrapper
         columns={columns}
         data={filteredData}
       />
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (
@@ -177,7 +179,7 @@ const BlogTable = () => {
           isOpen={drawerOpen}
           onClose={() => {
             setDrawerOpen(false);
-            setEditBlog(null);
+            setBlogId(null);
             setMode("add");
           }}
           title={
@@ -210,7 +212,7 @@ const BlogTable = () => {
               }}
             />
           ) : isLoadingBlog ? (
-            <p>Loading...</p>
+           <CustomLoader />
           ) : (
             <BlogForm
               initialData={singleBlogData ?? undefined}

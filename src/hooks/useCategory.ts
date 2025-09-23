@@ -5,10 +5,10 @@ import { createCategory, deleteCategory, fetchCategory, updateCategory } from ".
 
 
 // ======================= Fetch Categories ======================= //
-export const useFetchCategory = () => {
+export const useFetchCategory = (page: number, limit: number) => {
   return useQuery({
-    queryKey: ["categories"],
-    queryFn: fetchCategory,
+    queryKey: ["categories",page, limit],
+    queryFn: ()=> fetchCategory(page, limit),
   });
 };
 

@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import Dropdown from "../Common/Dropdown";
 import CustomInput from "../Common/CustomInput";
@@ -12,9 +11,7 @@ import { useFetchCategory, useDeleteCategory } from "@/src/hooks/useCategory";
 import { Category } from "@/src/types/category";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { getCategoryColumns } from "./categoryColumns";
-
-// Column generator similar to getCampaignColumns
-
+import CustomPagination from "../../common/CustomPaginatioin"; 
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");
@@ -23,9 +20,10 @@ const CategoryTable = () => {
   const [editCategory, setEditCategory] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10); 
 
-
-  const { data: categoryData } = useFetchCategory();
+  const { data: categoryData } = useFetchCategory(currentPage, itemsPerPage);
   const { mutate: deleteCategory } = useDeleteCategory();
 
 
@@ -61,19 +59,24 @@ const CategoryTable = () => {
     [handleEdit, handleDelete, handleView]
   );
 
+  const totalPages = categoryData?.TotalPages || 1;
+
   return (
     <div>
       {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-
           <div className="w-fit flex flex-col sm:flex-row gap-2">
-            <Dropdown options={CategorySearchOptions} value={searchField} onChange={(value) => {
-              setSearchField(value);
-              setTimeout(() => {
-                searchInputRef.current?.focus();
-              }, 0);
-            }} />
+            <Dropdown
+              options={CategorySearchOptions}
+              value={searchField}
+              onChange={(value) => {
+                setSearchField(value);
+                setTimeout(() => {
+                  searchInputRef.current?.focus();
+                }, 0);
+              }}
+            />
             <CustomInput
               ref={searchInputRef}
               placeholder={`Search by ${searchField}...`}
@@ -82,6 +85,7 @@ const CategoryTable = () => {
             />
           </div>
         </AnimatedReveal>
+
         <AnimatedReveal direction="left" delay={0.3}>
           <div className="w-fit">
             <Button
@@ -103,27 +107,38 @@ const CategoryTable = () => {
         </AnimatedReveal>
       </div>
 
-      {/* Data table */}
+      {/* Table */}
       <DataTableWrapper columns={columns} data={filteredData} />
 
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <div className="flex justify-end mt-4">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      )}
+
       {/* Drawer */}
-       {drawerOpen && (
-      <Drawer
-        isOpen={drawerOpen}
-        onClose={() => {
-          setDrawerOpen(false);
-          setEditCategory(null);
-          setMode("add");
-        }}
-        title={mode === "edit" ? "Edit Category" : mode === "view" ? "View Category" : "Add Category"}
-        width="400px"
-      >
-        <CategoryForm
-          initialData={categoryData?.category?.find((c: Category) => c.id === editCategory)}
-          onClose={() => setDrawerOpen(false)}
-          mode={mode}
-        />
-      </Drawer>
+      {drawerOpen && (
+        <Drawer
+          isOpen={drawerOpen}
+          onClose={() => {
+            setDrawerOpen(false);
+            setEditCategory(null);
+            setMode("add");
+          }}
+          title={mode === "edit" ? "Edit Category" : mode === "view" ? "View Category" : "Add Category"}
+          width="400px"
+        >
+          <CategoryForm
+            initialData={categoryData?.categories?.find((c: Category) => c.id === editCategory)}
+            onClose={() => setDrawerOpen(false)}
+            mode={mode}
+          />
+        </Drawer>
       )}
     </div>
   );
