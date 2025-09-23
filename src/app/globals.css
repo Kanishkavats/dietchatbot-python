@@ -64,6 +64,9 @@
   --red: #ef4444;
   --red-50: #c12d2d;
   --brown: #6b5103;
+  --card-gray:#EBEBEB;
+  --box-border:#e9d1d1;
+  --color-gray-light:#f2f2f2;
 }
 
 @theme {
@@ -92,6 +95,9 @@
   --color-red: #ef4444;
   --color-red-50: #c12d2d;
   --color-brown: #6b5103;
+  --color-card-gray:#EBEBEB;
+  --color-box-border:#e9d1d1;
+  --color-gray-light:#f2f2f2;
 }
 
 body {

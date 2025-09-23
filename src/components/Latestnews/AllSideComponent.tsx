@@ -6,12 +6,12 @@ import SearchBox from "./SearchBox";
 
 export default function SideAllCom() {
     return(
-        <div className="gap-6  ">
-        <AuthorCard />
-            <SearchBox  />
-            <RecentPosts />
-            <Categories />
-            <PopularTags />
+        <div className=" w-full">
+         <AuthorCard />
+        <SearchBox  />
+        <RecentPosts />
+        <Categories />
+        <PopularTags />
         </div>
     )
 }

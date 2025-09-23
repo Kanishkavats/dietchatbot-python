@@ -1,6 +1,7 @@
 // components/contact/ContactInfoBlock.tsx
-
+'use client'
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   FaMapMarkerAlt,
   FaPhoneAlt,
@@ -36,7 +37,7 @@ export const contactInfo: InfoItem[] = [
   {
     icon: FaMapMarkerAlt,
     title: "Location",
-    lines: ["55 main street, 2nd block,", "Melbourne, Australia"],
+    lines: ['55 main street, 2nd block,', 'Melbourne, Australia'],
   },
   {
     icon: FaPhoneAlt,
@@ -88,11 +89,12 @@ interface Props {
 }
 
 const ContactInfoBlock: React.FC<Props> = ({ icon: Icon, title, lines, isSocial }) => {
+  const{t}=useTranslation();
   return (
     <div className="flex gap-4  items-start">
       <Icon className="text-brown text-xl mt-1" />
       <div>
-        <h4 className="font-nunito font-extrabold text-lg mb-2">{title}</h4>
+        <h4 className="font-nunito font-extrabold text-lg mb-2">{t(title)}</h4>
 
         {isSocial ? (
           <div className="flex gap-2 mt-1">
@@ -115,7 +117,7 @@ const ContactInfoBlock: React.FC<Props> = ({ icon: Icon, title, lines, isSocial 
               key={i}
               className="font-nunito text-base text-gray-600 leading-relaxed"
             >
-              {line}
+              {t(line)}
             </p>
           ))
         )}
