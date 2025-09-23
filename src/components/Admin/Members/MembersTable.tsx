@@ -165,6 +165,7 @@ const MemberTable = () => {
       )}
 
       {/* Drawer */}
+       {drawerOpen && (
       <Drawer
         isOpen={drawerOpen}
         onClose={() => {
@@ -231,6 +232,7 @@ const MemberTable = () => {
           />
         )}
       </Drawer>
+      )}
     </section>
   );
 };

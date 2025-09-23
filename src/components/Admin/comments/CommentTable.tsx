@@ -105,26 +105,28 @@ const CommentTable = () => {
       <DataTableWrapper columns={columns} data={filteredData} />
 
       {/* Drawer */}
-      <Drawer
-        isOpen={drawerOpen}
-        onClose={() => {
-          setDrawerOpen(false);
-          setEditCommentId(null);
-          setMode("view");
-        }}
-        title={mode === "edit" ? "Edit Comment" : "View Comment"}
-        width="500px"
-      >
-        {loadingComment || !singleCommentData ? (
-          <div className="p-4 text-sm text-gray-500">Loading comment...</div>
-        ) : (
-          <CommentForm
-            initialData={singleCommentData}
-            onClose={() => setDrawerOpen(false)}
-            mode={mode}
-          />
-        )}
-      </Drawer>
+      {drawerOpen && (
+        <Drawer
+          isOpen={drawerOpen}
+          onClose={() => {
+            setDrawerOpen(false);
+            setEditCommentId(null);
+            setMode("view");
+          }}
+          title={mode === "edit" ? "Edit Comment" : "View Comment"}
+          width="500px"
+        >
+          {loadingComment || !singleCommentData ? (
+            <div className="p-4 text-sm text-gray-500">Loading comment...</div>
+          ) : (
+            <CommentForm
+              initialData={singleCommentData}
+              onClose={() => setDrawerOpen(false)}
+              mode={mode}
+            />
+          )}
+        </Drawer>
+      )}
     </div>
   );
 };

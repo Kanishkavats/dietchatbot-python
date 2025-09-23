@@ -4,7 +4,7 @@
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import CampaignForm from "./CampaignForm";
-import { Campaign, CampaignSearchOptions } from "../Data/staticData";
+import {  CampaignSearchOptions } from "../Data/staticData";
 import DataTableWrapper from "../Common/DataTableWrapper";
 import CustomInput from "../Common/CustomInput";
 import Dropdown from "../Common/Dropdown";
@@ -24,6 +24,7 @@ import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
 import CampaignPreview from "./CampaignPreview";
+import { Campaign } from "@/src/types/campaign";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
@@ -172,6 +173,7 @@ const CampaignTable = () => {
       )}
 
       {/* Drawer */}
+      {drawerOpen && (
       <Drawer
         isOpen={drawerOpen}
         onClose={() => {
@@ -226,6 +228,7 @@ const CampaignTable = () => {
           />
         )}
       </Drawer>
+      )}
     </div>
   );
 };
