@@ -1,0 +1,37 @@
+import { UseMutationResult } from "@tanstack/react-query";
+import { MemberFormValues } from "../utils/validations/FormValidation";
+
+// 🧩 Member model interface
+export interface Member {
+  id: string;
+  name: string;
+  position: string;
+  title?: string;
+  description: string;
+  about?: string;
+  keyPoints: string[];
+  image: string;
+  facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  linkedInUrl?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+// 🧩 Props for MemberForm component
+export interface MemberFormProps {
+  initialData?: Partial<MemberFormValues> & Partial<Member>;
+  onClose: () => void;
+  mode?: "add" | "edit" | "view";
+  onPreview?: (data: MemberFormValues) => void;
+  createMutation: UseMutationResult<any, Error, MemberFormValues, unknown>;
+  updateMutation: UseMutationResult<any, Error, { id: string; values: MemberFormValues }, unknown>;
+}
+
+// 🧩 Callbacks for table column actions (edit/delete)
+export interface MemberColumnCallbacks {
+  onEdit: (member: Member) => void;
+  onDelete: (member: Member) => void;
+  onView?: (member: Member) => void; // optional if you don’t support view mode
+}

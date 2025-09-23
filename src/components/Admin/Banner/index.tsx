@@ -1,11 +1,12 @@
 import React from 'react'
 import Breadcrumb from '../Breadcrumb'
+import BannerTable from './BannerTable'
 
 const Banner = () => {
   return (
     <div>
       <Breadcrumb lable="Banner" />
-      
+      <BannerTable />
     </div>
   )
 }

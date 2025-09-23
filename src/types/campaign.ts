@@ -1,6 +1,22 @@
-import { Campaign } from "../components/Admin/Data/staticData";
 import { CampaignFormValues, CategoryFormValues } from "../utils/validations/FormValidation";
 import { Category } from "./category";
+
+export interface Campaign {
+  id: number;
+  title: string;
+  category: string;
+  description: string;
+  goalAmount: number;
+  summary: string;
+  organizer: string;
+  raisedAmount: number;
+  status: string;
+  startDate: string;
+  endDate: string;
+  images?: (string | File)[];
+  imageUrl?: string[]; 
+  location: string;
+}
 
 export interface CampaignFormProps {
   initialData?: Partial<CampaignFormValues> & Partial<Campaign>;

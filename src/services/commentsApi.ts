@@ -9,18 +9,15 @@ export const fetchComments = async () => {
 
 // ✅ Fetch comments by blog ID
 export const fetchCommentsById = async (id: string) => {
-
   const { data } = await api.get(`/api/V1/comment/getCommentById/${id}`);
   return data;
 };
 
 // ✅ Create a new comment
-export const createComment = async (   id: string,
-  comment: { name: string; comment: string; email: string  }) => {
-  console.log("Creating comment", comment);
-  
-   const { data } = await api.post(`/api/V1/comment/add-comment/${id}`, comment);
-  console.log("comment successfully");
+export const createComment = async (id: string,
+  comment: { name: string; comment: string; email: string }) => {
+
+  const { data } = await api.post(`/api/V1/comment/add-comment/${id}`, comment);
   return data;
 };
 

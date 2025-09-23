@@ -58,17 +58,13 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        label: "Team",
-        children: [
-          { label: "Our Teams", href: "/team" },
-          { label: "Team Details", href: "/team" },
-        ],
+        label: "Team",href: "/team"
       },
 
     ],
   },
   { label: "News", href: "/news-grid", dropdown: null },
-  { label: "Contact Us", dropdown: null, href: "contact" },
+  { label: "Contact Us", dropdown: null, href: "/contact" },
 ];
 
 
@@ -85,18 +81,15 @@ export const footerData = {
     ],
   },
   quickLinks: [
-    { label: "About Us", href: "#" },
-    { label: "Our News", href: "#" },
-    { label: "Our Campaign", href: "#" },
-    { label: "FAQ", href: "#" },
-    { label: "Get A Quote", href: "#" },
+    { label: "About Us", href: "/about" },
+
+    { label: "FAQ", href: "/faq" },
+    { label: "Get A Quote", href: "/contact" },
   ],
   services: [
-    { label: "Our Causes", href: "#" },
-    { label: "Education Support", href: "#" },
-    { label: "Our Campaign", href: "#" },
-    { label: "Food Support", href: "#" },
-    { label: "Health Support", href: "#" },
+    { label: "Our News", href: "/news-grid" },
+    { label: "Our Campaign", href: "/causes" },
+    { label: "Education Support", href: "/events" },
   ],
   contact: {
     address: "455 west orchard street kings mountain, nc 280867",
@@ -336,25 +329,25 @@ export const testimonials = [
 
 
 
-  
 
 
 
 
-  
 
 
 
-   
-   
 
 
-    
-      
-   
-  
-  
-   
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -703,7 +696,7 @@ export interface NewsItem {
 
 export const newsData: NewsItem[] = [
   {
-    img:homeCommunity.src,
+    img: homeCommunity.src,
     category: "Health",
     categoryIcon: "🏥",
     title: "IT Service Case Studies Accelerate Business Fly Success Tech",
@@ -782,7 +775,7 @@ export const donationCards: DonationCardData[] = [
     goal: "$1,0000"
   }
 ];
-export const donationCardsBig:DonationCardData[] = [
+export const donationCardsBig: DonationCardData[] = [
   {
     id: 1,
     image: "/assets/section3/childenweworkfor.png",
