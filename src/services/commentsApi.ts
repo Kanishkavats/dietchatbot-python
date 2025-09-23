@@ -9,9 +9,21 @@ export const fetchComments = async () => {
 
 // ✅ Fetch comments by blog ID
 export const fetchCommentsById = async (id: string) => {
-  const { data } = await api.get(`/api/V1/comment/getCommentById/${id}`);
+
+  const { data } = await api.get(`/api/V1/comment/getcommentsById/${id}`);
+  console.log(data);
   return data;
 };
+
+//fetch get-comment by id 
+export const fetchgetcomments = async (id: string) => {
+  console.log("id => ", id);
+
+  const { data } = await api.get(`/api/V1/comment/get-comments/${id}`);
+  console.log(data);
+  return data;
+};
+
 
 // ✅ Create a new comment
 export const createComment = async (id: string,

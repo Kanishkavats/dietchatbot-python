@@ -1,53 +1,56 @@
+
+
+
 "use client";
 
-import Image from "next/image";
+import Image from 'next/image';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
-import { useFetchCommentById } from "@/src/hooks/useComments";
+import { useQuery } from "@tanstack/react-query";
+import { fetchgetcomments } from '@/src/services/commentsApi';// make sure path is correct
 
-interface CommentsProps {
-  blogId: string;
-}
-
-interface CommentType {
+interface Comment {
   id: string;
   name: string;
   comment: string;
-  image?: string; // optional if user has no avatar
+  image?: string; // optional if you want to display a placeholder
   timeAgo?: string;
+  likeCount?: number;
+  replies?: Comment[];
 }
 
-export default function Comments({ blogId }: CommentsProps) {
-  const { data, isLoading, isError } = useFetchCommentById(blogId);
-  console.log(blogId);
-  
-  
+interface CommentsProps {
+  campaignId: string; // or blogId depending on usage
+}
 
+export default function Comments({ campaignId }: CommentsProps) {
+  const { data, isLoading,isError } = useQuery({
+    queryKey: ["comments", campaignId],
+    queryFn: () => fetchgetcomments(campaignId),
+    // select: (data) => data.comments || [],
+  });
 
-  if (isLoading) return <p>Loading comments...</p>;
-  if (isError) return <p>Failed to load comments.</p>;
-
-  // Ensure data is an array
-  const comments: CommentType[] = data?.comments || [];
-
+  if (isLoading) {
+    return <p>Loading comments...</p>;
+  }
+if(isError){
+  return <p>No comments comments</p>
+}
   return (
-    <div className="mt-10">
+    <div>
       <h2 className="text-2xl font-bold mb-6">
-        {comments.length.toString().padStart(2, "0")} Comments
+        {data?.comments.length.toString().padStart(2, "0")} Comments
       </h2>
       <div className="space-y-10 mb-8">
-        {comments.map((comment) => (
+        {data?.comments.map((comment: Comment) => (
           <div
             key={comment.id}
             className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
           >
-            <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white">
-              <Image
-                src={comment.image || "/default-avatar.jpg"} // fallback image
-                alt={comment.name}
-                width={98.4}
-                height={98.4}
-                className="object-cover w-full h-full"
-              />
+            <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
+             
+              <span className="text-2xl font-bold text-gray-700">
+                {comment.name.charAt(0).toUpperCase()}
+              </span>
             </div>
             <div className="flex-1">
               <h5 className="text-lg sm:text-xl font-bold font-nunito">{comment.name}</h5>
@@ -56,12 +59,12 @@ export default function Comments({ blogId }: CommentsProps) {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
                 <button className="flex items-center gap-1 hover:text-[#3b82f6]">
-                  <FiHeart /> Like
+                  <FiHeart /> Like {comment.likeCount || 0}
                 </button>
                 <button className="flex items-center gap-1 hover:text-[#3b82f6]">
                   <FiCornerUpLeft /> Reply
                 </button>
-                {comment.timeAgo && <span className="text-gray-600">{comment.timeAgo}</span>}
+                <span className="text-gray-600">{comment.timeAgo || "Just now"}</span>
               </div>
             </div>
           </div>

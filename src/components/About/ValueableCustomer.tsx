@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
  import { testimonials } from "@/src/staticResource";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { bgOneVolunteer, valueableshape, image99 } from "../../../public/assets";
 
 const ValueableCustomer = () => {
   const { ref, inView } = useInView({
@@ -53,8 +54,8 @@ const ValueableCustomer = () => {
   }, [index, slides.length, visibleCards]);
 
   return (
-    <section className="relative w-full min-h-screen bg-[url('/assets/bg-one-volunteer.png')] bg-cover bg-center py-16">
-      <div className="absolute top-0 left-0 w-[60%] h-[40%] bg-[url('/assets/valueableshape.png')] bg-no-repeat bg-contain"></div>
+    <section className="relative w-full min-h-screen bg-cover bg-center py-16" style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}>
+      <div className="absolute top-0 left-0 w-[60%] h-[40%] bg-no-repeat bg-contain" style={{ backgroundImage: `url(${valueableshape.src})` }}></div>
       <div className="mt-20">
         <motion.div
           className="py-16"
@@ -99,7 +100,7 @@ const ValueableCustomer = () => {
                 >
                   <div className="relative bg-white border border-yellow rounded-2xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
                     <Image
-                      src="/assets/99.png"
+                      src={image99}
                       alt="green spade"
                       width={70}
                       height={70}

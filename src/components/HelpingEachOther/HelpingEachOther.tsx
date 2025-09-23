@@ -52,11 +52,24 @@ export default function HelpingEachOther() {
         </div>
       )}
       <section className="help relative py-2 lg:py-3 xl:py-20 bg-white overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-8 md:px-12 lg:px-8 xl:px-16 2xl:px-24">
+        <div className="absolute left-0 top-[250px] transform -translate-y-1/2 opacity-60 hover:opacity-50 transition-opacity duration-300">
+                <Image
+                  src="/assets/section2/hand (1) section2.png"
+                  alt="Hand outline"
+                  width={90}
+                  height={90}
+                  className="animate-[float_3s_ease-in-out_infinite]"
+                />
+        </div>
+        <div className="container mx-auto px-4 sm:pr-8 md:pr-12 lg:pr-8 xl:pr-16 2xl:px-24">
           <div className="grid grid-cols-1 lg:grid-cols-1 xl:grid-cols-2 gap-8 md:gap-12 lg:gap-8 xl:gap-16 2xl:gap-20 items-center">
             
             <div className="relative opacity-0 anim-fade-in-left">
              
+                           
+
+ 
+
               <div className="hidden xl:block absolute left-6 top-54 -bottom-15 w-16 lg:w-16 xl:w-25 bg-[#046b59] rounded-3xl border-t-4 border-b-4 border-yellow-500 flex items-center justify-center z-20 transition-all duration-300">
                 <div
                   className="transform -rotate-90 text-white font-extrabold text-xl  whitespace-nowrap mt-80 px-2"
@@ -84,8 +97,7 @@ export default function HelpingEachOther() {
                   }}
                 />
               </div>
-             
- 
+
               
               <div className="relative ml-0 md:ml-16 lg:ml-0 xl:ml-16 2xl:ml-28">
                
@@ -104,7 +116,7 @@ export default function HelpingEachOther() {
                 </div>
                 
                 {/* 700-1000px breakpoint: Same layout as 1024px */}
-                <div className="hidden sm:flex md:hidden items-center justify-center gap-4 mb-8">
+                <div className="hidden bg-green sm:hidden md:hidden items-center justify-center gap-4 mb-8">
                   {/* Left image - same size as middle */}
                   <div className="w-[280px] h-[320px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white bg-white">
                     <Image src="/assets/section2/thumb-top 2section.png" alt="Community meal" width={280} height={320} className="object-cover w-full h-full" />
@@ -165,7 +177,7 @@ export default function HelpingEachOther() {
                 </div>
 
                 {/* 1024px breakpoint: All images in a row */}
-                <div className="hidden lg:flex xl:hidden items-center justify-center gap-4 mb-8">
+                <div className="flex lg:flex xl:hidden items-center justify-center gap-4 mb-8">
                   {/* Left image - now same size as middle */}
                   <div className="w-[280px] h-[320px] rounded-3xl overflow-hidden shadow-2xl border-8 border-white bg-white">
                     <Image src="/assets/section2/thumb-top 2section.png" alt="Community meal" width={280} height={320} className="object-cover w-full h-full" />
@@ -228,12 +240,12 @@ export default function HelpingEachOther() {
                 {/* Original layout for other breakpoints */}
                 <motion.div 
                   ref={thumbRef}
-                  className="hidden md:block lg:hidden xl:block relative 
+                  className="hidden md:hidden lg:hidden xl:block relative 
              w-[300px] h-[350px] 
              sm:w-[350px] sm:h-[400px] 
              md:w-[380px] md:h-[450px] 
              xl:w-[500px] xl:h-[555px]  /* bigger only on desktop */
-             mx-auto rounded-3xl border-8 md:border-12 border-white overflow-hidden shadow-2xl"
+             mx-auto rounded-3xl border-8 md:border-12 overflow-hidden shadow-2xl"
                   initial={{ opacity: 0, transform: "translateZ(0)" }}
                   animate={isThumbInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
                   transition={{ duration: 1 }}
@@ -280,26 +292,18 @@ export default function HelpingEachOther() {
                   </button>
                 </motion.div>
    
-                <div className="hidden md:block lg:hidden xl:block absolute -top-6 -left-12 xl:-left-24 w-44 h-44 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
+                <div className="hidden md:hidden lg:hidden xl:block absolute -top-6 -left-12 xl:-left-24 w-44 h-44 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-top 2section.png" alt="Community meal" fill className="object-cover" />
                 </div>
                 
-                <div className="hidden md:block lg:hidden xl:block absolute -bottom-16 -right-4 left-70 xl:-right-10 w-44 h-40 xl:w-56 xl:h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
+                <div className="hidden md:hidden lg:hidden xl:block absolute -bottom-16 -right-4 left-70 xl:-right-10 w-44 h-40 xl:w-56 xl:h-50 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                   <Image src="/assets/section2/thumb-bottom.png" alt="Smiling child" fill className="object-cover" />
                 </div>
               </div>
 
             
              
-              <div className="absolute -left-25 top-2 transform -translate-y-1/2 opacity-60 hover:opacity-50 transition-opacity duration-300">
-                <Image
-                  src="/assets/section2/hand (1) section2.png"
-                  alt="Hand outline"
-                  width={90}
-                  height={90}
-                  className="animate-[float_3s_ease-in-out_infinite]"
-                />
-              </div>
+
               
               {/* White box with yellow border - bottom left */}
               <div className="hidden xl:block absolute -bottom-15 left-60 w-40 h-24 bg-white border-1 border-yellow rounded-lg overflow-hidden -z-10"></div>
@@ -470,7 +474,7 @@ export default function HelpingEachOther() {
         <div className="fixed bottom-8 right-8 z-50">
           <button
             aria-label="Scroll to top"
-            className="w-12 h-12 bg-teal-500 hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 transform"
+            className="w-12 h-12 bg-green hover:bg-teal-600 text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 transform"
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">

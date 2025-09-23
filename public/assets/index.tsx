@@ -72,6 +72,10 @@ import voluntear5 from './aboutsection/voluntear5.png';
 import voluntear6 from './aboutsection/voluntear6.png';
 import voluntear7 from './aboutsection/voluntear7.png';
 import voluntear8 from './aboutsection/voluntear8.png';
+import contactbg from './contactbg.png';
+import bgOneVolunteer from './bg-one-volunteer.png';
+import image99 from './99.png';
+import greenspade from './greenspade.png';
 
 
 
@@ -151,4 +155,8 @@ export {
  voluntear6,
  voluntear7,
  voluntear8,
+ contactbg,
+ bgOneVolunteer,
+ image99,
+ greenspade,
 };
