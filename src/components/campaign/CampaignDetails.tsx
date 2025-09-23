@@ -1,15 +1,17 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+
+
 "use client";
 
 import React, { useMemo, useRef, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
-import { useFetchSingleCampaign, useFetchAllCampaigns } from "@/src/hooks/useCampaigns";
+import {
+  useFetchSingleCampaign,
+  useFetchAllCampaigns,
+} from "@/src/hooks/useCampaigns";
 import { useInView } from "framer-motion";
 
 import CampaignInfo from "./CampaignInfo";
-import CampaignStats from "./CampaignStats";
-import CampaignKeyPoints from "./CampaignKeyPoints";
-import CampaignOtherList from "./CampaignOtherList";
 import CampaignSidebar from "./CampaignSidebar";
 
 const CampaignDetails: React.FC = () => {
@@ -53,26 +55,25 @@ const CampaignDetails: React.FC = () => {
 
   return (
     <div className="container mx-auto py-10 px-4">
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-        <div className="md:col-span-2 space-y-6">
+      
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left/Main content */}
+        <div className="lg:col-span-2 space-y-6">
           <CampaignInfo data={data} />
-          <CampaignStats data={data} />
-          <CampaignKeyPoints points={data.keyPoints} />
         </div>
 
-        <div className="md:col-span-1">
+        {/* Sidebar */}
+        <div className="md:col-span-1 mt-6 md:mt-0">
           <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} />
         </div>
       </div>
 
-      <CampaignOtherList
-        sectionRef={sectionRef}
-        campaigns={campaignsToDisplay}
-        isInView={isInView}
-        onCardClick={handleCardClick}
-      />
+      
     </div>
   );
 };
 
 export default CampaignDetails;
+
+
+
