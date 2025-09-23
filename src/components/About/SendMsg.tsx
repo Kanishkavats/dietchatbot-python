@@ -9,12 +9,26 @@ import Button from "../common/Buttons/Button";
 import { useInView } from "react-intersection-observer";
 import FadeInUp from "@/src/animations/FadeInUp";
 import { contactbg, shapeleft } from "../../../public/assets";
+import { Form, Formik } from "formik";import { Trans, useTranslation } from "react-i18next";
+import { FormValues, SendMsgformSchema, SendMsgFormValues } from "@/src/utils/validations/FormValidation";
+import InputField from "../common/inputs/InputField";
 
+const initialValues: SendMsgFormValues = {
+    email: "",
+    phone: "",
+    address: "",
+    message: "",
+};
 const SendMsg: React.FC = () => {
   const { ref, inView } = useInView({
     triggerOnce: true,
     threshold: 0.2,
   });
+  const{t}=useTranslation();
+  const handleSubmit = (values: SendMsgFormValues, { resetForm }: { resetForm: () => void }) => {
+      console.log("Form Submitted:", values);
+      resetForm(); 
+    };
   return (
     <section className="relative flex items-center justify-center min-h-screen w-full overflow-hidden">
       {/* Container for the zoomed-in background image and its gradient overlay */}
@@ -49,59 +63,77 @@ const SendMsg: React.FC = () => {
           className="mb-6 sm:mt-6 md:mt-0 lg:md-8 xl:md-10 text-start px-6"
         >
           <div className="flex gap-2">
-            <i className="text-2xl text-[#FFC107] hand-icon"></i>
-            <span className=" text-[#FFC107] font-caveat font-extrabold block text-2xl ">
-              Start Donating Poor People
+            <i className="text-2xl text-yellow hand-icon"></i>
+            <span className=" text-yellow font-caveat font-extrabold block text-2xl ">
+              {t("Start Donating Poor People")}
             </span>
           </div>
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold text-white mt-2 font-nunito leading-tight ">
-            Send Us <span className="text-yellow">Message</span> For <br />
-            Donation!
+            {/* {t("Send Us")} <span className="text-yellow">{t("Message")}</span> {t("For")} <br />
+            {t("Donation!")} */}
+            <Trans
+    i18nKey="sendMessageForDonation_title"
+    components={{
+      1: <span className="text-yellow" />, // This maps to <1>संदेश</1>
+      2: <br />, // This maps to <2></2>
+    }}
+  />
           </h2>
         </motion.div>
-
-        <form className="space-y-10 px-6">
+       <Formik
+           initialValues={initialValues}
+            validationSchema={SendMsgformSchema}   
+            onSubmit={handleSubmit}
+                  >
+                      {() => (
+        <Form className="space-y-10 px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
             <div className="relative">
-              <input
-                type="email"
-                placeholder="your email..."
-                className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4 
+              <InputField
+                name='email'
+                placeholder={t("your email...")}
+                icon={"mdi:send"}
+                iconClassName="text-yellow text-lg font-bold size-5 mt-[2px]"
+                className="w-full rounded-md flex border border-gray-green bg-black/18 px-4 py-4 
                  text-white  focus:outline-none "
               />
-              <Send className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow w-5 h-5" />
+              {/* <Send className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow w-5 h-5" /> */}
             </div>
             <div className="relative">
-              <input
-                type="text"
-                placeholder="your phone..."
-                className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4 text-white  focus:outline-none"
+              <InputField
+                name="phone"
+                placeholder={t("your phone...")}
+                icon="mdi:phone"
+                iconClassName="text-yellow text-lg font-bold size-5 mt-[2px]"
+                className="w-full rounded-md border flex border-gray-green bg-black/18 px-4 py-4 text-white  focus:outline-none"
               />
-              <FaPhone className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow w-5 h-5" />
             </div>
           </div>
 
           <div className="relative">
-            <input
-              type="text"
-              placeholder="your address..."
-              className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4 text-white  focus:outline-none"
+            <InputField
+              name="address"
+              placeholder={t("your address...")}
+              icon={"mdi:location"}
+              iconClassName="text-yellow text-lg font-bold size-5 mt-[2px]"
+              className="w-full rounded-md border border-gray-green flex bg-black/18 px-4 py-4 text-white  focus:outline-none"
             />
-            <FaLocationDot className="absolute right-3 top-1/2 -translate-y-1/2 text-yellow w-5 h-5" />
           </div>
 
           <div className="relative text-white">
-            <textarea
-              rows={4}
-              placeholder="your message..."
-              className="w-full rounded-md border border-gray-green bg-black/18 px-4 py-4  focus:outline-none resize-none"
+            <InputField
+            as="textarea"
+            name="message"
+              placeholder={t("your message...")}
+              icon={"mdi:envelope"}
+              iconClassName="text-yellow text-lg font-bold size-5 mt-[2px]"
+              className="w-full rounded-md border border-gray-green flex bg-black/18 px-4 py-4  focus:outline-none resize-none"
             />
-            <FaEnvelope className="absolute right-3 top-3 text-yellow w-5 h-5" />
           </div>
 
           <div className="w-55  text-black">
             <Button
-              text="Get A Quote"
+              text={t("Get A Quote")}
               bgColor="bg-[#FFC107]"
               textColor="text-black"
               hoverTextColor="group-hover:text-white"
@@ -109,7 +141,9 @@ const SendMsg: React.FC = () => {
               
             />
           </div>
-        </form>
+        </Form>
+        )}
+        </Formik>
       </div>
     </section>
   );
