@@ -43,19 +43,17 @@ const HelpAndDonate: React.FC = () => {
       swiperRef.current.slidePrev();
     }
     // Set both buttons to the hovered color of left button
-    const newColor = hoveredLeft ? 'yellow' : 'green';
-    setLeftButtonColor(newColor);
-    setRightButtonColor(newColor);
+    setLeftButtonColor("green");
+    setRightButtonColor("green");
   };
 
   const handleNext = () => {
     if (swiperRef.current) {
       swiperRef.current.slideNext();
     }
-    // Set both buttons to the hovered color of right button
-    const newColor = hoveredRight ? 'green' : 'yellow';
-    setLeftButtonColor(newColor);
-    setRightButtonColor(newColor);
+
+    setLeftButtonColor("yellow");
+    setRightButtonColor("yellow");
   };
 
   return (
@@ -92,39 +90,50 @@ const HelpAndDonate: React.FC = () => {
             </h2>
           </div>
 
-          {/* Right Side - Navigation Arrows */}
-          <div className="flex items-center justify-center lg:justify-end gap-3 md:gap-4 lg:ml-12 lg:mt-12">
-            <button
-              onClick={handlePrev}
-              onMouseEnter={() => setHoveredLeft(true)}
-              onMouseLeave={() => setHoveredLeft(false)}
-              className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
-              style={{
-                backgroundColor: hoveredLeft ? '#FBBF24' : (leftButtonColor === 'yellow' ? '#FBBF24' : '#07110eff'),
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
-              }}
-            >
-              <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-              </svg>
-            </button>
-            <button
-              onClick={handleNext}
-              onMouseEnter={() => setHoveredRight(true)}
-              onMouseLeave={() => setHoveredRight(false)}
-              className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 hover:shadow-lg cursor-pointer"
-              style={{
-                backgroundColor: hoveredRight ? '#07110eff' : (rightButtonColor === 'yellow' ? '#FBBF24' : '#07110eff'),
-                transition: 'all 0.3s ease',
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)'
-              }}
-            >
-              <svg className="w-4 h-4 md:w-5 md:h-5 lg:w-6 lg:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
-          </div>
+            <div className="flex items-center gap-4 mt-6 md:mt-12 ml-0 md:ml-12">
+              <button
+                onClick={handlePrev}
+                className="w-15 h-15 rounded-full flex items-center justify-center  cursor-pointer"
+                style={{
+                  backgroundColor:
+                  leftButtonColor === "yellow"
+                    ? "#FBBF24"
+                    : "#07110eff",
+                  transition: "all 0.3s ease",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <svg
+                  className={`h-12 w-8 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M7.82843 11L13.1924 5.63604L11.7782 4.22183L4 12L11.7782 19.7782L13.1924 18.364L7.82843 13H20V11H7.82843Z" />
+                </svg>
+              </button>
+              <button
+                onClick={handleNext}
+                className="w-16 h-16 rounded-full flex items-center justify-center  cursor-pointer"
+                style={{
+                  backgroundColor: rightButtonColor === "yellow"
+                    ? "#FBBF24"
+                    : "#07110eff",
+                  transition: "all 0.3s ease",
+                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                }}
+              >
+                <svg
+                  className={`h-12 w-8 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M16.172 11L10.808 5.63604L12.222 4.22183L20 12L12.222 19.7782L10.808 18.364L16.172 13H4V11H16.172Z" />
+                </svg>
+              </button>
+            </div>
+
         </div>
   
 

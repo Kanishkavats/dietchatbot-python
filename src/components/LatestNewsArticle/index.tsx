@@ -104,19 +104,7 @@ const LatestNewsArticle: React.FC = () => {
           </Link>
         </motion.div>
 
-        {/* Decorative dot */}
-        <motion.div 
-          className="absolute top-1/2 right-8 w-3 h-3 bg-[#3AB19B] rounded-full"
-          animate={{ 
-            scale: [1, 1.2, 1],
-            opacity: [0.7, 1, 0.7]
-          }}
-          transition={{ 
-            duration: 2,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-        />
+        
       </div>
     </div>
   );

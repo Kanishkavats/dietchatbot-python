@@ -18,7 +18,7 @@ export default function ChildEducationPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content Area - Takes 2/3 of the space */}
             <div className="lg:col-span-2">
-              <BlogPost />
+              <BlogPost blogId='52511bdd-a3f7-48e3-94da-de8667170871'/>
             </div>
             
             {/* Sidebar - Takes 1/3 of the space */}
