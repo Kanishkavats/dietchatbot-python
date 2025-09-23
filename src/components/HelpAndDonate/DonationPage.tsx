@@ -63,7 +63,6 @@ const DonationPage: React.FC = () => {
   if (isLoading) return <p>Loading campaigns...</p>;
   if (isError) return <p>Failed to load campaigns.</p>;
 
-  // ⚠️ Dummy placeholder for donationCardsBig (replace with real data)
   const donationCardsBig = campaignsToDisplay;
 
   return (
@@ -98,7 +97,7 @@ const DonationPage: React.FC = () => {
           </FadeUpCard>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {campaignsToDisplay.map((card, index) => (
+            {campaignsToDisplay.map((card:any, index:number) => (
               <FadeUpCard key={card.id || index} delay={index * 0.2}>
                 <DonationCard
                   card={card}
@@ -189,7 +188,7 @@ const DonationPage: React.FC = () => {
             className="h-auto"
             speed={850}
           >
-            {donationCardsBig.map((card, index) => (
+            {donationCardsBig.map((card:any, index:number) => (
               <SwiperSlide key={`${card.id}-${index}`} className="h-auto">
                 <DonationCard
                   card={card}

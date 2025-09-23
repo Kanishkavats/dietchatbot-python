@@ -5,6 +5,7 @@ import { motion, useInView } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
+import { useTranslation } from "react-i18next";
 
 // Import images directly from public/assets
 import becomeVolunteerBg from "../../../public/assets/becomevolunter/becomevolunter.png";
@@ -20,7 +21,7 @@ const BecomeVolunteer: React.FC = () => {
   const leftPanelInView = useInView(leftPanelRef, { once: true });
   const rightPanelInView = useInView(rightPanelRef, { once: true });
   const router = useRouter();
-
+  const{t}=useTranslation();
   const openVideoModal = () => setIsVideoModalOpen(true);
   const closeVideoModal = () => setIsVideoModalOpen(false);
   const handleDonateNow = () => router.push("/donate-us");
@@ -66,7 +67,7 @@ const BecomeVolunteer: React.FC = () => {
               animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             >
-              We Give Child A Gift Of A Education
+              {t("We Give Child A Gift Of A Education")}
             </motion.p>
             <motion.h3
               className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-6 md:mb-8"
@@ -78,7 +79,7 @@ const BecomeVolunteer: React.FC = () => {
               animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
             >
-              Become A Volunteer?
+              {t("Become A Volunteer?")}
             </motion.h3>
 
             <motion.div
@@ -209,7 +210,7 @@ const BecomeVolunteer: React.FC = () => {
               animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
             >
-              We Give Child A Gift Of A Education
+              {t("We Give Child A Gift Of A Education")}
             </motion.p>
             <motion.h3
               className="text-white text-xl md:text-2xl lg:text-3xl font-bold mb-6 md:mb-8"
@@ -221,7 +222,7 @@ const BecomeVolunteer: React.FC = () => {
               animate={rightPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
             >
-              Make Donation To Us?
+              {t("Make Donation To Us?")}
             </motion.h3>
 
             <motion.div

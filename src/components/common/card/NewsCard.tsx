@@ -39,7 +39,7 @@ const NewsCard = ({ card }: cardProps) => {
   const router=useRouter();
   return(
   <motion.div
-    className="bg-white hover:bg-green rounded-2xl shadow-lg text-black hover:text-white overflow-hidden group relative transition-colors duration-500 p-5 flex flex-col"
+    className="bg-white cursor-pointer hover:bg-green rounded-2xl min-w-[180px] min-h-[300px] h-full shadow-lg text-black hover:text-white overflow-hidden group relative transition-colors duration-500 p-5 flex flex-col"
     initial={{ y: 50, opacity: 0 }}
     animate={{
       y: 0,
@@ -52,7 +52,7 @@ const NewsCard = ({ card }: cardProps) => {
     onClick={()=>router.push(`/news-details/${card?.id}`)}
   >
     {/* Image */}
-    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-72">
+    <div className="relative mb-4 rounded-xl overflow-hidden w-full aspect-4/3 ">
       <motion.img
         src={card?.images[0]}
         alt={card?.title || "news-card"}
@@ -69,9 +69,9 @@ const NewsCard = ({ card }: cardProps) => {
 
     {/* Content */}
     <div className=" flex-1 p-2 mt-3">
-      <div className="flex items-center gap-6 text-sm mb-3 font-medium text-gray-600 group-hover:text-white">
-        <span className="flex items-center gap-2 text-lg">
-          <FaRegUserCircle className="text-[#FFC107] text-lg" /> {card?.creator}
+      <div className="flex  items-center gap-3 xl:gap-1 md:gap-4 lg:gap-6 text-lg sm:text-sm md:text-base lg:text-lg mb-3 font-medium text-gray-600 group-hover:text-white">
+        <span className="flex items-center gap-2 text-lg ">
+          <FaRegUserCircle className="text-[#FFC107] text-lg " /> {card?.creator}
         </span>
         <span className="flex items-center gap-2">
           <Icon
@@ -79,11 +79,11 @@ const NewsCard = ({ card }: cardProps) => {
             width={20}
             className="text-[#FFC107]"
           />
-          <span className="text-lg">comments {card?.commentCount}</span>
+          <span className="text-lg ">comments ({card?.commentCount})</span>
           
         </span>
       </div>
-      <h3 className="text-2xl font-medium text-gray-900 group-hover:text-white leading-snug mb-3 hover:text-white">
+      <h3 className="text-2xl sm:text-lg md:text-base lg:text-2xl font-semibold text-gray-900 group-hover:text-white leading-snug mb-3 hover:text-white">
         {card?.title}
       </h3>
     </div>
@@ -99,7 +99,7 @@ const NewsCard = ({ card }: cardProps) => {
       </Link>
 
       <motion.div
-          className="absolute top-1/2 right-4 -translate-y-1/2 pointer-events-none z-20"
+          className="sm:static sm:translate-y-0 sm:ml-auto top-0 right-0 relative pointer-events-none z-20"
           variants={heartVariants}
           initial="idle"
           animate={heartControls}

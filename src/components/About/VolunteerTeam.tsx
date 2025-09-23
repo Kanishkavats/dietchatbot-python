@@ -8,6 +8,7 @@ import { teamMembers } from "@/src/staticResource";
 import Pagination from "../common/Pagination";
 import { VolunteerCard } from "../common/card/VolunteerCard";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -16,6 +17,7 @@ import { bgOneVolunteer, greenspade } from "../../../public/assets";
 
 const VolunteerTeam = () => {
   const router = useRouter();
+  const{t}=useTranslation();
   const itemsPerPage = 4;
   const totalPages = Math.ceil(teamMembers.length / itemsPerPage);
   const [visibleCount, setVisibleCount] = useState(itemsPerPage);
@@ -36,12 +38,12 @@ const VolunteerTeam = () => {
         <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
           <i className="text-2xl hand-icon"></i>
           <span className="font-caveat text-2xl font-semibold">
-            Start Donating Poor People
+            {t("Start Donating Poor People")}
           </span>
         </div>
         <h2 className="text-4xl md:text-5xl font-bold mb-8">
-          Meet Our Volunteer <br />
-          <span className="text-yellow">Team</span> Members
+          {t("Meet Our Volunteer")} <br />
+          <span className="text-yellow">{t("Team")}</span> {t("Members")}
         </h2>
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">

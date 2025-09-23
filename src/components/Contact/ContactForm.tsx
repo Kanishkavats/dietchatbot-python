@@ -7,6 +7,7 @@ import Button from "../common/Buttons/Button";
 
 import { FaUser, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
+import { useTranslation } from "react-i18next";
 
 export interface ContactFormValues {
     name: string;
@@ -22,14 +23,14 @@ const initialValues: ContactFormValues = {
     message: "",
 };
 
-const ContactFormSchema = Yup.object({
-    name: Yup.string().required("Name is required"),
-    email: Yup.string().email("Invalid email").required("Email is required"),
-    phone: Yup.string().required("Phone number is required"),
-    message: Yup.string().required("Message is required"),
-});
-
 const ContactForm = () => {
+    const{t}=useTranslation();
+    const ContactFormSchema = Yup.object({
+    name: Yup.string().required(t("Name is required")),
+    email: Yup.string().email(t("Invalid email")).required(t("Email is required")),
+    phone: Yup.string().required(t("Phone number is required")),
+    message: Yup.string().required(t("Message is required")),
+});
     const handleSubmit = (
         values: ContactFormValues,
         { resetForm }: { resetForm: () => void }
@@ -50,7 +51,7 @@ const ContactForm = () => {
                         {/* Name */}
                         <InputField
                             name="name"
-                            placeholder="Enter Name"
+                            placeholder={t("Enter Name")}
                             icon={<FaUser className="text-gray-500 ml-3" />}
                             wrapperClass="flex items-center bg-gray-200 rounded-lg mb-6 p-3"
                             inputClass="flex-1 bg-transparent border-none outline-none px-2 text-sm"
@@ -59,7 +60,7 @@ const ContactForm = () => {
                         {/* Email */}
                         <InputField
                             name="email"
-                            placeholder="Enter Email"
+                            placeholder={t("Enter Email")}
                             icon={<FiMail className="text-gray-500 ml-3" />}
                             wrapperClass="flex items-center bg-gray-200 rounded-lg mb-6 p-3"
                             inputClass="flex-1 bg-transparent border-none outline-none px-2 text-sm"
@@ -68,7 +69,7 @@ const ContactForm = () => {
                         {/* Phone */}
                         <InputField
                             name="phone"
-                            placeholder="Phone Number"
+                            placeholder={t("Phone Number")}
                             icon={<FaPhoneAlt className="text-gray-500 ml-3" />}
                             wrapperClass="flex items-center bg-gray-200 rounded-lg mb-6 p-3"
                             inputClass="flex-1 bg-transparent border-none outline-none px-2 text-sm"
@@ -79,7 +80,7 @@ const ContactForm = () => {
                             name="message"
                             as="textarea"
                             rows={4}
-                            placeholder="Your Message..."
+                            placeholder={t("Your Message...")}
                             icon="fa6-solid:comments"
                             wrapperClass="flex items-start bg-gray-200 rounded-lg mb-6 p-3"
                             inputClass="flex-1 bg-transparent border-none outline-none px-2 text-sm resize-none"
@@ -87,7 +88,7 @@ const ContactForm = () => {
 
                         {/* Submit Button */}
                         <Button
-                            text="Get A Quote"
+                            text={t("Get A Quote")}
                             hoverBg="before:bg-foreground"
                         />
                     </Form>

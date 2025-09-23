@@ -8,6 +8,7 @@ import Button from "../../common/Buttons/Button";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import Image from "next/image";
 import { pageBannerBackgourndColor } from "../../common/PageBanner";
+import Link from "next/link";
 
 const images = [bannerOne.src, bannerTwo.src];
 
@@ -49,11 +50,11 @@ export default function HeroStaticSlider() {
       </section>
       <section className="relative h-screen  w-20 md:w-30 z-21 ">
         <motion.div
-          animate={{ y: [0, -20, 0, 20, 0] }} 
+          animate={{ y: [0, -20, 0, 20, 0] }}
           transition={{
-            duration: 6, 
-            repeat: Infinity, 
-            ease: "easeInOut", 
+            duration: 6,
+            repeat: Infinity,
+            ease: "easeInOut",
           }}
           className="h-full w-full relative"
         >
@@ -95,7 +96,9 @@ export default function HeroStaticSlider() {
               hoverBg="before:bg-yellow"
               hoverTextColor="group-hover:text-foreground"
             />
-            <Button text="Get A Quote" />
+            <Link href="/contact" >
+              <Button text="Get A Quote" />
+            </Link>
           </div>
         </AnimatedReveal>
 

@@ -23,23 +23,25 @@ interface CommentsProps {
 }
 
 export default function Comments({ campaignId }: CommentsProps) {
-  const { data: comments = [], isLoading } = useQuery({
+  const { data, isLoading,isError } = useQuery({
     queryKey: ["comments", campaignId],
     queryFn: () => fetchgetcomments(campaignId),
-    select: (data) => data.comments || [],
+    // select: (data) => data.comments || [],
   });
 
   if (isLoading) {
     return <p>Loading comments...</p>;
   }
-
+if(isError){
+  return <p>No comments comments</p>
+}
   return (
     <div>
       <h2 className="text-2xl font-bold mb-6">
-        {comments.length.toString().padStart(2, "0")} Comments
+        {data?.comments.length.toString().padStart(2, "0")} Comments
       </h2>
       <div className="space-y-10 mb-8">
-        {comments.map((comment: Comment) => (
+        {data?.comments.map((comment: Comment) => (
           <div
             key={comment.id}
             className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"

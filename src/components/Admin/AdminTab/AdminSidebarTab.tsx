@@ -1,6 +1,6 @@
 "use client";
 import { logo } from "@/public/assets";
-import { sidebarAd } from "@/src/utils";
+import { sidebarAd } from "@/src/utils/AdminSidebarData";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";

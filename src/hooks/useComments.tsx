@@ -38,7 +38,7 @@ export const useFetchCommentById = (id: string, enabled: boolean = true) => {
 export const useFetchgetcomments  = (id: string, enabled: boolean = true) => {
   return useQuery({
     queryKey: ["comment", id],
-    queryFn: () => fetchCommentsById(id),
+    queryFn: () => fetchgetcomments(id),
     retry: 0,
     enabled,
     select: (data) => data.comments || [], // return only comments array
