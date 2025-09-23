@@ -4,27 +4,29 @@ import { motion } from "framer-motion";
 import { FiSearch, FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { IoLocationSharp, IoCalendarSharp } from "react-icons/io5";
 import { FaVimeoV } from "react-icons/fa";
-import { Icon } from '@iconify/react'
+import { Icon } from "@iconify/react";
 import {
-    FaRegCheckCircle,
-    FaFacebookF,
-    FaTwitter,
-    FaPinterest,
-    FaLinkedinIn,
-    FaTumblr,
-    FaComment,
-    FaUser,
-    FaRegEnvelope
+  FaRegCheckCircle,
+  FaFacebookF,
+  FaTwitter,
+  FaPinterest,
+  FaLinkedinIn,
+  FaTumblr,
+  FaComment,
+  FaUser,
+  FaRegEnvelope,
 } from "react-icons/fa";
 import { comments, recentPosts, tags } from "@/src/staticResource";
-import { ppOne, ppTwo } from '@/public/assets';
+import { ppOne, ppTwo } from "@/public/assets";
 import { useFetchSingleBlog } from "../hooks/useBlog";
-interface props{
-    id:string;
+import FadeUpCard from "../animations/FadeButtomUp";
+import { Comments, LeaveComment } from "./Charity_with_Difference";
+interface props {
+  id: string;
 }
-export default function Newsdetail({id}:props) {
-    const{data,isLoading,isError}=useFetchSingleBlog(id);
-    if (isLoading) {
+export default function Newsdetail({ id }: props) {
+  const { data, isLoading, isError } = useFetchSingleBlog(id);
+  if (isLoading) {
     return <p className="text-center">Loading blogs...</p>;
   }
 
@@ -32,346 +34,157 @@ export default function Newsdetail({id}:props) {
     return <p className="text-center text-red-500">Failed to fetch blogs.</p>;
   }
   const formattedDate = data?.createdAt
-        ? new Intl.DateTimeFormat('en-US', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric',
-          }).format(new Date(data.createdAt))
-        : '';
+    ? new Intl.DateTimeFormat("en-US", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      }).format(new Date(data.createdAt))
+    : "";
 
-    return (
-        <motion.div
-            initial={{ y: 100, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-
-            className="bg-white font-sans p-20 pl-40 pr-40 text-gray-green"
-        >
-            <div className="container mx-auto p-4 md:p-8">
-                <div className="flex flex-col lg:flex-row gap-8">
-                    <main className="lg:w-2/3 p-2 sm:p-2">
-                        <div className="relative w-full h-[220px] sm:h-[300px] lg:h-[450px] mb-6 rounded-lg overflow-hidden">
-                            <Image
-                                src={data?.images[0]}
-                                alt="Smiling African children running"
-                                fill
-                                priority
-                                className="object-cover object-center "
-                            />
-                        </div>
-                        <div className="flex items-center space-x-4 text-dark-green mb-6">
-                            <span className="flex items-center gap-1">
-                                <IoCalendarSharp className="text-yellow" />{formattedDate}
-                            </span>
-                            <span className="flex items-center gap-1">
-                                <IoLocationSharp className="text-yellow" /> {data?.location||"New York"}
-                            </span>
-                        </div>
-                        <h1 className="text-5xl font-extrabold mt-15 text-dark-green mb-6 leading-tight font-nunito">
-                            {data?.title||'Give African Childrens A Good Education'}
-                        </h1>
-                        <p className="text-gray-green text-lg mb-8 font-nunito">
-                            {data?.description}
-                        </p>
-                        <div className="bg-[#EBEBEB] p-6 mt-14 border-l-4 border-green">
-                            <p className="italic text-lg font-medium text-dark-green">
-                                {`"${data?.quote}"`}
-                            </p>
-                            <div className="mt-4 flex justify-end">
-                                <span className="text-green font-semibold">― {data?.quoteAuthor}</span>
-                            </div>
-                        </div>
-                        <h2 className="text-5xl font-extrabold mt-10  text-dark-green mb-4 font-nunito">Summary</h2>
-                        <p className="text-gray-green mt-8 text-lg  mb-8 font-nunito">
-                        {data?.summary}
-                        </p>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-dark-green font-bold mb-8">
-                            {data && data.keyPoints?.map((point: string, index: number) => (
-                                <div key={index} className="flex items-center gap-2 text-lg  font-nunito">
-                                <FaRegCheckCircle className="text-green text-xl" />
-                                {point}
-                            </div>
-                            ))}
-                         </div>
-
-
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 mt-15  mb-8">
-                            <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
-                                <Image
-                                    src={data?.images[1]}
-                                    alt="Young child smiling"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                            <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
-                                <Image
-                                    src={data?.images[2]}
-                                    alt="Group of children laughing"
-                                    fill
-                                    className="object-cover"
-                                />
-                            </div>
-                        </div>
-
-
-                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-14 mb-20 gap-4">
-                            {/* Tags */}
-                            <div className="flex items-center flex-wrap gap-2">
-                                <span className="font-medium text-xl text-dark-green">Tags:</span>
-                                
-                                {data&&data?.tags?.map((tag:string,index:number)=>(
-                                    <button key={index} className="border px-4 py-1 transition-all duration-100  text-sm hover:border-none hover:bg-yellow">
-                                    {tag}
-                                </button>
-                                ))}
-                                
-                            </div>
-
-                            {/* Share */}
-                            <div className="flex items-center flex-wrap gap-3">
-                                <span className="font-medium text-xl text-dark-green">Share:</span>
-                                <div className="flex space-x-2 gap-4">
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
-                                        <FaFacebookF className="text-dark-green" />
-                                    </a>
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
-                                        <FaVimeoV className="text-dark-green" />
-                                    </a>
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
-                                        <FaTwitter className="text-dark-green" />
-                                    </a>
-                                    <a href="#" className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded">
-                                        <FaLinkedinIn className="text-dark-green" />
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <h2 className="text-2xl font-bold mb-6 text-dark-green">
-                                {comments.length.toString().padStart(2, "0")} Comments
-                            </h2>
-                            <div className="space-y-10 mb-8">
-                                {comments.map((comment) => (
-                                    <div
-                                        key={comment.id}
-                                        className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
-                                    >
-                                        <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-yellow">
-                                            <Image
-                                                src={comment.avatar}
-                                                alt={comment.name}
-                                                width={98.4}
-                                                height={98.4}
-                                                className="object-cover w-full h-full"
-                                            />
-                                        </div>
-                                        <div className="flex-1">
-                                            <h5 className="text-lg sm:text-xl font-bold font-nunito text-dark-green">{comment.name}</h5>
-                                            <p className="text-sm sm:text-base text-gray-green font-nunito leading-snug">
-                                                {comment.content}
-                                            </p>
-                                            <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-gray-green">
-                                                <button className="flex items-center gap-1 hover:text-blue">
-                                                    <FiHeart /> Like
-                                                </button>
-                                                <button className="flex items-center gap-1 hover:text-blue">
-                                                    <FiCornerUpLeft /> Reply
-                                                </button>
-                                                <span className="text-gray-green">{comment.time}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        
-                        <div className="w-full max-w-[896px] mx-auto mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:mt-20 lg:p-15 shadow-xl border border-[#edefe9]">
-                            <h2 className="text-2xl sm:text-3xl font-bold text-[#122F2A] mb-8 lg:mb-12">
-                                Leave a Comment
-                            </h2>
-                            <form className="space-y-6">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                    {/* Name Input */}
-                                    <div className="flex items-center bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF] lg:h-[96px] lg:px-5 lg:py-3">
-                                        <FaUser className="text-[#6B7280] mr-4" size={20} />
-                                        <input
-                                            type="text"
-                                            placeholder="Your Name"
-                                            className="w-full bg-transparent text-[#6B7280] placeholder-[#ADB5BD] focus:outline-none"
-                                        />
-                                    </div>
-                                    {/* Email Input */}
-                                    <div className="flex items-center bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF]">
-                                        
-                                        <FaRegEnvelope className="text-[#6B7280] mr-4" size={20} />
-                                        <input
-                                            type="email"
-                                            placeholder="Your Email"
-                                            className="w-full bg-transparent text-[#6B7280] placeholder-[#ADB5BD] focus:outline-none"
-                                        />
-                                    </div>
-                                </div>
-
-                                {/* Comments Textarea */}
-                                <div className="flex items-start bg-[#F8F9FA] rounded-md px-6 py-4 border border-[#E9ECEF]">
-
-
-                                    <Icon
-                                        icon="fa6-solid:comments"
-                                        width={24}
-                                        height={24}
-                                        className="text-[#6B7280] hover:text-[#ffffff]"
-                                    />
-                                    <textarea
-                                        placeholder="Type Your Comments..."
-                                        className="w-full bg-transparent text-[#6B7280] placeholder-[#ADB5BD] focus:outline-none resize-none"
-                                        rows={6}
-                                    ></textarea>
-                                </div>
-
-                                {/* Submit Button */}
-                                <button
-                                    type="submit"
-                                    className="w-full md:w-auto bg-[#122F2A] text-white text-[16px] font-semibold px-10 py-4 rounded-full hover:bg-[#0E2521] transition-colors duration-300"
-                                >
-                                    Submit Comment
-                                </button>
-                            </form>
-                        </div>
-                    </main>
-
-
-
-
-
-
-
-
-
-                    <aside className="lg:w-1/3 space-y-8">
-                        <div className="bg-[#EBEBEB] p-6 rounded-lg shadow-md text-center">
-                            <img
-                                src="https://placehold.co/120x120/E2E8F0/1A202C?text=Rosalina"
-                                alt="Rosalina Willaim profile"
-                                className="rounded-full mx-auto mt-6 w-32 h-32 object-cover"
-                            />
-                            <h3 className="text-xl font-bold text-[#000000] mt-4">Rosalina Willaim</h3>
-                            <p className="text-gray-500 text-sm">Front End Developer</p>
-                            <p className="text-gray-600 mt-4 text-sm px-4">
-                                He Whimsically Named Egg Canvas Is The Design Director And Photographer
-                                In New York.
-                            </p>
-
-                            <div className="flex justify-center space-x-4 mt-12">
-                                <a
-                                    href="https://www.facebook.com/"
-                                    target="_blank"
-                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
-                                >
-                                    <FaFacebookF />
-                                </a>
-                                <a
-                                    href="https://vimeo.com/"
-                                    target="_blank"
-                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
-                                >
-                                    <FaVimeoV />
-                                </a>
-                                <a
-                                    href="https://twitter.com/"
-                                    target="_blank"
-                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
-                                >
-                                    <FaTwitter />
-                                </a>
-                                <a
-                                    href="https://www.linkedin.com/"
-                                    target="_blank"
-                                    className="text-[#667471]  hover:text-[#FFC107] hover:bg-[#000000] p-3 rounded-lg border border-[#667471] transition-colors"
-
-                                >
-                                    <FaLinkedinIn />
-                                </a>
-                            </div>
-                        </div>
-                        <div className="bg-[#EBEBEB] p-4 sm:p-6 rounded-lg shadow-md">
-                            <h3 className="text-lg sm:text-2xl font-bold text-[#000000] mb-4">Search Here</h3>
-                            <div className="flex">
-                                <input
-                                    type="text"
-                                    placeholder="Search here"
-                                    className="w-full p-2 sm:p-3 border border-[#667471] rounded-l-lg focus:outline-none focus:ring-2 focus:ring-[#FFC107]"
-                                />
-                                <button className="p-2 sm:p-3 rounded-r-lg border border-[#667471] text-[#667471] hover:text-[#FFC107] transition-colors flex items-center justify-center">
-                                    <FiSearch size={20} />
-                                </button>
-                            </div>
-                        </div>
-
-                        <div className="bg-[#EBEBEB] rounded-lg shadow-md p-4 sm:p-6">
-                            <h3 className="text-lg sm:text-xl font-bold text-[#000000] mb-4">Recent Posts</h3>
-                            <div className="space-y-4">
-                                {recentPosts.map((post) => (
-                                    <div key={post.id} className="flex items-start gap-3">
-                                        <div className="relative w-14 h-14 sm:w-16 sm:h-16 flex-shrink-0">
-                                            <Image
-                                                src={post.image}
-                                                alt={post.alt}
-                                                fill
-                                                className="object-cover rounded-lg"
-                                            />
-                                        </div>
-                                        <div className="flex-1 min-w-0">
-                                            <p className="text-xs sm:text-sm text-[#6B7280] mb-1">
-                                                <IoCalendarSharp className="inline-block mr-1" />
-                                                {post.date}
-                                            </p>
-                                            <h4 className="text-sm sm:text-base font-medium text-[#000000] leading-tight">
-                                                {post.title}
-                                            </h4>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="bg-[#EBEBEB] rounded-lg shadow-md p-4 sm:p-6">
-                            <h3 className="text-lg sm:text-xl font-bold text-[#000000] mb-4">Tags</h3>
-                            <div className="flex flex-wrap gap-2">
-                                {tags.map((tag, index) => (
-                                    <button
-                                        key={index}
-                                        className="px-3 py-2 bg-[#F3F4F6] text-[#000000] rounded-lg text-xs sm:text-sm hover:bg-[#FFC107] transition-colors"
-                                    >
-                                        {tag}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                    </aside>
-                </div>
+  return (
+    <motion.div
+      initial={{ y: 100, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className="bg-white font-sans  text-gray-green"
+    >
+      <div className="lg:w-full p-2 sm:p-2">
+        <FadeUpCard delay={0.3}>
+          <div className="relative w-full  h-[250px] sm:h-[300px] lg:h-[500px] xl:h-[550px] mb-6 rounded-3xl overflow-hidden">
+            <Image
+              src={data?.images[0]}
+              alt="Smiling African children running"
+              fill
+              priority
+              className="object-cover object-center "
+            />
+          </div>
+          <div className="flex flex-col md:flex-row  space-x-4 text-sm lg:text-lg mt-2 gap-3 md:gap-5 text-foreground mb-6">
+            <span className="flex items-center gap-1 ">
+              <IoCalendarSharp className="text-yellow" size={20} />
+              {formattedDate}
+            </span>
+            <span className="flex items-center gap-1">
+              <IoLocationSharp className="text-yellow" size={20} />{" "}
+              {data?.location || "New York"}
+            </span>
+          </div>
+          <h1 className=" text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold mt-8 lg:mt-12 text-dark-green mb-4 lg:mb-6 leading-tight font-nunito">
+            {data?.title || "Give African Childrens A Good Education"}
+          </h1>
+          <p className="text-gray-green text-sm tracking-wide leading-6 md:leading-7 lg:text-lg lg:leading-10 xl:text-xl mb-8 font-nunito">
+            {data?.description}
+          </p>
+          <div className="bg-[#EBEBEB] p-6 xl:p-10 mt-10 lg:mt-14 border-l-4 border-green">
+            <p className="italic text-sm xl:text-xl font-medium text-foreground">
+              {`"${data?.quote}"`}
+            </p>
+            <div className="mt-4 text-sm lg:text-lg flex justify-end">
+              <span className="text-green font-semibold">
+                ― {data?.quoteAuthor}
+              </span>
             </div>
-        </motion.div>
-    );
+          </div>
+          <h2 className="text-xl md:text-3xl xl:text-4xl font-extrabold mt-6 md:mt-10  text-foreground mb-4 font-nunito">
+            Summary
+          </h2>
+          <p className="text-gray-green mt-5 lg:mt-8 text-sm tracking-wide leading-6 md:leading-7 lg:text-lg lg:leading-10 xl:text-xl   mb-8 font-nunito">
+            {data?.summary}
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 lg:gap-4 text-foreground font-bold mb-8">
+            {data &&
+              data.keyPoints?.map((point: string, index: number) => (
+                <div
+                  key={index}
+                  className="flex items-center gap-2 text-sm md:text-lg  font-nunito"
+                >
+                  <FaRegCheckCircle className="text-green text-xl" />
+                  {point}
+                </div>
+              ))}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 mt-15  mb-8">
+            <div className="relative w-full h-[200px]  lg:h-[300px] rounded-lg overflow-hidden">
+              <Image
+                src={data?.images[1]}
+                alt="Young child smiling"
+                fill
+                className="object-cover"
+              />
+            </div>
+            <div className="relative w-full h-[200px]  lg:h-[300px] rounded-lg overflow-hidden">
+              <Image
+                src={data?.images[2]}
+                alt="Group of children laughing"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-14 mb-20 gap-4">
+            {/* Tags */}
+            <div className="flex items-center flex-wrap gap-2">
+              <span className="font-medium text-lg lg:text-xl text-dark-green">
+                Tags:
+              </span>
+
+              {data &&
+                data?.tags?.map((tag: string, index: number) => (
+                  <button
+                    key={index}
+                    className="border px-3 lg:px-4 py-1 transition-all duration-100  text-xs hover:border-none hover:bg-yellow"
+                  >
+                    {tag}
+                  </button>
+                ))}
+            </div>
+
+            {/* Share */}
+            <div className="flex items-center  gap-3">
+              <span className="font-medium text-lg lg:text-xl text-dark-green">
+                Share:
+              </span>
+              <div className="flex space-x-2 gap-4">
+                <a
+                  href="#"
+                  className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded"
+                >
+                  <FaFacebookF className="text-dark-green" />
+                </a>
+                <a
+                  href="#"
+                  className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded"
+                >
+                  <FaVimeoV className="text-dark-green" />
+                </a>
+                <a
+                  href="#"
+                  className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded"
+                >
+                  <FaTwitter className="text-dark-green" />
+                </a>
+                <a
+                  href="#"
+                  className="p-2 bg-[#EBEBEB] hover:bg-yellow rounded"
+                >
+                  <FaLinkedinIn className="text-dark-green" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </FadeUpCard>
+        <FadeUpCard delay={0.3}>
+          <div>
+            <Comments campaignId={id} />
+          </div>
+        </FadeUpCard>
+        <FadeUpCard delay={0.3}>
+          <LeaveComment blogId={id} />
+        </FadeUpCard>
+      </div>
+    </motion.div>
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

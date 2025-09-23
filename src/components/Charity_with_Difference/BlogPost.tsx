@@ -36,40 +36,43 @@ export default function BlogPost({ blogId }: BlogPostProps) {
      
 
       {/* Banner Image */}
-      <div className="relative rounded-lg overflow-hidden h-96 w-full">
+      <div className="relative rounded-lg overflow-hidden h-64 sm:h-80 md:h-96 w-full">
         <Image src={BannerImageUrl} alt={title} fill className="object-cover" />
       </div>
 
       {/* Blog Content */}
-      <div className="p-6">
-        <div className="flex items-center space-x-4 text-foreground mb-6">
-          <span className="flex items-center gap-1">
+      <div className="p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-foreground mb-4 sm:mb-6">
+          <span className="flex items-center gap-1 text-sm sm:text-base">
             <IoCalendarSharp className="text-yellow" /> {createdDate}
             
           </span>
-          <span className="flex items-center gap-1">
+          <span className="flex items-center gap-1 text-sm sm:text-base">
             <IoLocationSharp className="text-yellow" /> {location}
           </span>
         </div>
-        <h1 className="text-4xl font-bold text-foreground mb-6 leading-tight font-nunito">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 leading-tight font-nunito">
           {title}
         </h1>
-        <p className="text-gray-600 mb-8 font-nunito">{description}</p>
-        <h2 className="text-3xl font-bold text-foreground mb-4 font-nunito">
+        <p className="text-gray-600 mb-6 sm:mb-8 font-nunito text-sm sm:text-base">{description}</p>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3 sm:mb-4 font-nunito">
           Summary
         </h2>
-        <p className="text-gray-600 mb-8 font-nunito">{summary}</p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-foreground font-bold mb-8">
+        <p className="text-gray-600 mb-6 sm:mb-8 font-nunito text-sm sm:text-base">{summary}</p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-foreground font-bold mb-6 sm:mb-8">
           {keyPoints.map((item: string, index: number) => (
-            <div key={index} className="flex items-start gap-2 font-nunito">
-              <FaRegCheckCircle className="text-green text-xl" /> {item}
+            <div key={index} className="flex items-start gap-2 font-nunito text-sm sm:text-base">
+              <FaRegCheckCircle className="text-green text-lg sm:text-xl flex-shrink-0 mt-0.5" /> 
+              <span>{item}</span>
             </div>
           ))}
         </div>
       </div>
-      <div className="mt-12">
-  <Comments campaignId={blog.id} />
-</div>
+
+      
+      <div className="mt-8 sm:mt-12">
+    <Comments campaignId={blog.id} />
+       </div>
 
 
       {/* Leave Comment Section */}

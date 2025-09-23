@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
@@ -13,10 +13,19 @@ import {
 import Button from '../common/Buttons/Button';
 import { newsData, NewsItem } from '../../staticResource';
 import NewsGrid from '../Latestnews/NewsGrid';
-
+import { useFetchAllBlogs } from '@/src/hooks/useBlog';
+const PageLimit=3;
 const LatestNewsArticle: React.FC = () => {
 
-
+ const [currentPage,setCurrentPage]=useState(1);
+    const { data, isLoading, isError } = useFetchAllBlogs(currentPage, PageLimit);
+    if (isLoading) {
+      return <p className="text-center">Loading blogs...</p>;
+    }
+  
+    if (isError) {
+      return <p className="text-center text-red">Failed to fetch blogs.</p>;
+    }
 
   return (
     <div 
@@ -79,8 +88,8 @@ const LatestNewsArticle: React.FC = () => {
         </div>
 
         {/* News Cards Grid */}
-        <div className='grid grid-cols-3 gap-8' >
-          <NewsGrid/>
+        <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8' >
+          <NewsGrid cards={data?.blogs}/>
         </div>
 
         {/* View All Button */}

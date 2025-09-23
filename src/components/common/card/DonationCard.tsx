@@ -2,9 +2,8 @@
 
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
 import AnimatedProgressBar from "../AnimatedProgressBar";
 import Button from "../Buttons/Button";
 
@@ -34,8 +33,6 @@ const DonationCard: React.FC<DonationCardProps> = ({
   onMouseLeave,
   onCardClick,
 }) => {
-  const [expanded, setExpanded] = useState(false);
-
   // If card is undefined, render fallback
   if (!card) {
     return (
@@ -45,11 +42,11 @@ const DonationCard: React.FC<DonationCardProps> = ({
     );
   }
 
-  // Truncate description safely
+  // Truncate description with "..."
   const maxLength = 120;
   const desc = card.description || "No description available";
-  const isLong = desc.length > maxLength;
-  const displayText = expanded ? desc : desc.slice(0, maxLength) + (isLong ? "..." : "");
+  const displayText =
+    desc.length > maxLength ? desc.slice(0, maxLength).concat("...") : desc;
 
   return (
     <div
@@ -76,7 +73,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
         )}
         <span
           className={`absolute top-3 left-3 text-lg font-semibold px-4 py-1 rounded-full ${
-            hoveredCard === card.id ? "bg-green-700 text-white" : "bg-yellow-400 text-black"
+            hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow-400 text-black"
           }`}
         >
           {card.category || "No Category"}
@@ -87,17 +84,6 @@ const DonationCard: React.FC<DonationCardProps> = ({
       <div className="p-4 flex flex-col flex-grow">
         <h3 className="text-xl font-bold mb-2">{card.title || "No Title"}</h3>
         <p className="text-gray-600 text-sm mb-2">{displayText}</p>
-        {isLong && (
-          <button
-            className="text-xs text-yellow-600 underline mb-2 self-start"
-            onClick={(e) => {
-              e.stopPropagation();
-              setExpanded(!expanded);
-            }}
-          >
-            {expanded ? "Show Less" : "Read More"}
-          </button>
-        )}
 
         {/* Bottom Section */}
         <div className="bg-gray-100 p-2 rounded-lg mt-auto">
@@ -114,4 +100,3 @@ const DonationCard: React.FC<DonationCardProps> = ({
 };
 
 export default DonationCard;
-

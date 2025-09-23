@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 
-import EventList from "@/src/components/EventList";
-import EventPagination from "@/src/components/Eventpaginations";
+import EventList from "./EventList";
+import EventPagination from "./Eventpagination";
 
 const Event = () => {
   const [currentPage, setCurrentPage] = useState(1);

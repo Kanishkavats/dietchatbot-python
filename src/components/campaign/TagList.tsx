@@ -12,17 +12,18 @@ const TagList = ({
   selectedTag?: string;
 }) => {
   return (
-    <div className="bg-white p-6">
+    <div className="bg-white p-6 rounded-2xl shadow-md">
+    
       <h3 className="text-xl font-semibold mb-3">Tags</h3>
       <div className="flex flex-wrap gap-5">
         {tags.map((tag) => (
           <button
             key={tag}
             onClick={() => onClick(tag)}
-            className={`px-5 py-2 text-md font-medium rounded-full ${
+            className={`px-5 py-2 text-md font-medium  ${
               selectedTag === tag
-                ? "bg-yellow text-white"
-                : "bg-gray-100 text-foreground hover:bg-yellow transition"
+                ? "bg-yellow text-[#ffffff]"
+                : "bg-gray-100 text-[#000000] hover:bg-yellow transition"
             }`}
           >
             {tag}

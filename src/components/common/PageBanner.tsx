@@ -48,17 +48,17 @@ const PageBanner: React.FC<PageBannerProps> = ({
 
 
       {/* Content */}
-      <div className="relative z-3 text-center px-6">
+      <div className="relative z-3 text-center px-4 sm:px-6">
         <div
-          className="font-caveat text-2xl flex items-center justify-center gap-2 text-yellow mb-4"
+          className="font-caveat text-lg sm:text-xl md:text-2xl flex items-center justify-center gap-2 text-yellow mb-3 sm:mb-4"
         >
-          <Icon icon={smallIcon} width={20} height={20} />
+          <Icon icon={smallIcon} width={16} height={16} className="sm:w-5 sm:h-5" />
           <span className="font-semibold">{t(tagline)}</span>
         </div>
 
         {/* Title */}
         <h1
-          className="text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-white font-nunito"
+          className="text-2xl sm:text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-white font-nunito"
         >
           {t(title)}
         </h1>
