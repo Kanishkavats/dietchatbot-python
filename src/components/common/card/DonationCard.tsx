@@ -76,7 +76,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
         )}
         <span
           className={`absolute top-3 left-3 text-lg font-semibold px-4 py-1 rounded-full ${
-            hoveredCard === card.id ? "bg-green-700 text-white" : "bg-yellow-400 text-black"
+            hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow-400 text-black"
           }`}
         >
           {card.category || "No Category"}

@@ -28,7 +28,7 @@ const CharityCard: React.FC<CharityCardProps> = ({
   const router = useRouter();
 
   const handleCardClick = () => {
-    router.push('/child-education');
+    router.push(`/charity/${id}`);
   };
   // Map color classes to CSS variables
   const getColorClass = (colorClass: string) => {
