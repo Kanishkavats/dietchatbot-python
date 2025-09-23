@@ -10,6 +10,8 @@ interface InputFieldProps {
   type?: string;
   as?: "input" | "textarea";
   placeholder?: string;
+  className?:string;
+  iconClassName?:string;
 }
 
 const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
@@ -18,6 +20,8 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
   type = "text",
   as = "input",
   placeholder,
+  className='flex gap-2 bg-gray-200/60 px-3 py-4 rounded-md border relative',
+  iconClassName="text-gray-500/60 text-lg font-bold size-5 mt-[2px]",
   ...props
 }) => {
   const [field, meta] = useField(props);
@@ -34,7 +38,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
       return (
         <Icon
           icon={icon}
-          className="text-gray-500/60 text-lg font-bold size-5 mt-[2px]"
+          className={iconClassName}
         />
       );
     }
@@ -47,7 +51,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
       {label && <label className="block mb-1 font-medium">{label}</label>}
 
       <div
-        className={`flex gap-2 bg-gray-200/60 px-3 py-4 rounded-md border relative
+        className={`${className}
           ${meta.touched && meta.error ? "border-red" : "border-transparent"}
           ${isTextarea ? "items-start" : "items-center"}`}
       >

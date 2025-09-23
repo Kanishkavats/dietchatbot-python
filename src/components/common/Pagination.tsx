@@ -36,8 +36,8 @@ const Pagination: React.FC<PaginationProps> = ({
       <button
         onClick={() => onPageChange(Math.max(1, currentPage - 1))}
         disabled={currentPage === 1}
-        className={`w-14 h-14 flex items-center justify-center rounded-full text-white 
-        ${currentPage === 1 ? "bg-gray-300" : "bg-[#046b59] hover:opacity-80"}`}
+        className={`w-14 h-14 flex items-center  justify-center rounded-full text-white 
+        ${currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-[#046b59] hover:opacity-80 cursor-pointer"}`}
       >
         <div className="bg-[#046b59] hover:bg-[#FFC107] transition-colors duration-500 ease-in-out w-14 h-14 rounded-full flex items-center justify-center">
             <HiChevronDoubleLeft size={24} />
@@ -48,7 +48,7 @@ const Pagination: React.FC<PaginationProps> = ({
         <button
           key={num}
           onClick={() => onPageChange(num)}
-          className={`w-14 h-14 rounded-full flex items-center justify-center font-semibold border transition-colors
+          className={`w-14 h-14 rounded-full cursor-pointer flex items-center justify-center font-semibold border transition-colors
           ${
             currentPage === num
               ? "bg-[#FFC107] text-black font-bold border-[#FFC107]"
@@ -63,7 +63,7 @@ const Pagination: React.FC<PaginationProps> = ({
         onClick={() => onPageChange(Math.min(totalPages, currentPage + 1))}
         disabled={currentPage === totalPages}
         className={`w-14 h-14 flex items-center justify-center rounded-full  text-white 
-        ${currentPage === totalPages ? "bg-gray-300" : "bg-[#046b59] hover:bg-[#FFC107] transition-colors duration-500 hover:opacity-80"}`}
+        ${currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "cursor-pointer bg-[#046b59] hover:bg-[#FFC107] transition-colors duration-500 hover:opacity-80"}`}
       >
        <div className="bg-[#046b59] hover:bg-[#FFC107]  transition-colors duration-500 ease-in-out w-14 h-14 rounded-full flex items-center justify-center">
             <HiChevronDoubleRight size={24} />

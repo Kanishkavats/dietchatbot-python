@@ -52,5 +52,11 @@
     "Make Donation To Us?":"Make Donation To Us?",
     "Contact Now":"Contact Now",
     "Meet Our Volunteer":"Meet Our Volunteer",
-    "Members":"Members"
+    "Members":"Members",
+    "View All":"View All",
+    "Message":"Message",
+    "For":"For",
+    "Donation!":"Donation!",
+    "Send Us":"Send Us",
+    "sendMessageForDonation_title": "Send Us <1>Message</1> For <2></2>Donation!"
 }
