@@ -34,7 +34,7 @@ const DonateDifferentWay: React.FC = () => {
             
             {/* Grid background pattern */}
             <motion.div 
-              className='absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 z-0 -mt-12 sm:-mt-16 lg:-mt-20 -ml-8 sm:-ml-12 lg:-ml-15'
+              className='hidden sm:block absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 z-0 -mt-12 sm:-mt-16 lg:-mt-20 -ml-8 sm:-ml-12 lg:-ml-15'
               animate={{
                 y: [0, -10, 0]
               }}
@@ -55,7 +55,7 @@ const DonateDifferentWay: React.FC = () => {
             {/* Video player with actual image */}
             <motion.div 
               ref={mainImageRef}
-              className='relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 h-64 sm:h-80 lg:h-5/6 -mt-8 sm:-mt-12 lg:-mt-15 bg-gray-200 z-10 mx-auto lg:mx-0'
+              className='hidden sm:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 h-64 sm:h-80 lg:h-5/6 -mt-8 sm:-mt-12 lg:-mt-15 bg-gray-200 z-10 mx-auto lg:mx-0'
               initial={{ opacity: 0, transform: 'translateZ(0)' }}
               animate={isInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
               transition={{ duration: 1 }}
@@ -103,7 +103,7 @@ const DonateDifferentWay: React.FC = () => {
             {/* Small overlapping image */}
             <motion.div 
               ref={bottomImageRef}
-              className='relative rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-70 lg:h-58 ml-auto -mt-20 sm:-mt-28 lg:-mt-35 z-10 -mr-4 sm:-mr-6 lg:-mr-10'
+              className='hidden sm:block relative rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-70 lg:h-58 ml-auto -mt-20 sm:-mt-28 lg:-mt-35 z-10 -mr-4 sm:-mr-6 lg:-mr-10'
               initial={{ opacity: 0, transform: 'translateZ(0)' }}
               animate={isBottomImageInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -260,7 +260,7 @@ const DonateDifferentWay: React.FC = () => {
                 </div>
 
                 {/* Right side - Donation Cards */}
-                <div className='flex flex-col sm:flex-row lg:flex-col gap-4 lg:max-w-xs lg:ml-10 lg:-mt-20'>
+                <div className='flex flex-row sm:flex-row lg:flex-col gap-4 lg:max-w-xs lg:ml-10 lg:-mt-20'>
                   {/* Donate Now Card */}
                   <div className='bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow flex-1 sm:flex-none'>
                     <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 sm:mb-4'>

@@ -1,18 +1,15 @@
-
-
-
 "use client";
 
 import Image from 'next/image';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
-import { fetchgetcomments } from '@/src/services/commentsApi';// make sure path is correct
+import { fetchgetcomments } from '@/src/services/commentsApi';
 
 interface Comment {
   id: string;
   name: string;
   comment: string;
-  image?: string; // optional if you want to display a placeholder
+  image?: string;
   timeAgo?: string;
   likeCount?: number;
   replies?: Comment[];
@@ -26,7 +23,7 @@ export default function Comments({ campaignId }: CommentsProps) {
   const { data, isLoading,isError } = useQuery({
     queryKey: ["comments", campaignId],
     queryFn: () => fetchgetcomments(campaignId),
-    // select: (data) => data.comments || [],
+
   });
 
   if (isLoading) {
@@ -48,7 +45,7 @@ if(isError){
           >
             <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
              
-              <span className="text-2xl font-bold text-gray-700">
+              <span className="text-6xl font-bold text-gray-500">
                 {comment.name.charAt(0).toUpperCase()}
               </span>
             </div>
@@ -58,10 +55,10 @@ if(isError){
                 {comment.comment}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
-                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
+                <button className="flex items-center gap-1 hover:text-blue">
                   <FiHeart /> Like {comment.likeCount || 0}
                 </button>
-                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
+                <button className="flex items-center gap-1 hover:text-blue">
                   <FiCornerUpLeft /> Reply
                 </button>
                 <span className="text-gray-600">{comment.timeAgo || "Just now"}</span>

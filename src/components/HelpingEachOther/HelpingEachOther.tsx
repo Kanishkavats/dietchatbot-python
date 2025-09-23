@@ -84,7 +84,7 @@ export default function HelpingEachOther() {
                 </div>
               </div>
               
-              <div className="hidden xl:block absolute -left- lg:-left-6 xl:-left-5 top-95 -bottom-4 z-10">
+              <div className="hidden sm:hidden xl:block absolute -left- lg:-left-6 xl:-left-5 top-95 -bottom-4 z-10">
                 <Image
                   src="/assets/section2/grid.png"
                   alt="Grid pattern"
