@@ -25,7 +25,6 @@ const Drawer: React.FC<DrawerProps> = ({
   mobileFullScreen = true,
   mode
 }) => {
-  console.log("mode", mode)
   return (
     <AnimatePresence>
       {isOpen && (

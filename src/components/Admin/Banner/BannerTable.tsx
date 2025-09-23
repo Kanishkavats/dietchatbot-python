@@ -15,6 +15,7 @@ import { BannerFormValues } from "@/src/utils/validations/FormValidation";
 import { useDeleteBanner, useFetchAllBanners } from "@/src/hooks/useBanner";
 import { createBanner, updateBanner } from "@/src/services/bannerApi";
 import { BannerSearchOptions } from "../Data/staticData";
+import CustomPagination from "../../common/CustomPaginatioin";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");
@@ -23,10 +24,14 @@ const BannerTable = () => {
   const [editBannerId, setEditBannerId] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [currentPage, setCurrentPage] = useState(1)
+  const [itemsPerPage] = useState(2)
 
   const queryClient = useQueryClient();
-  const { data: bannerData } = useFetchAllBanners(1, 1);
+  const { data: bannerData } = useFetchAllBanners(currentPage, itemsPerPage);
   const { mutate: deleteBanner } = useDeleteBanner();
+  const totalPages = bannerData?.totalPages || 1;
+
 
   // Mutations
   const createMutation = useMutation({
@@ -86,6 +91,7 @@ const BannerTable = () => {
     [bannerData, editBannerId]
   );
 
+
   return (
     <section>
       {/* Top controls */}
@@ -134,6 +140,16 @@ const BannerTable = () => {
 
       {/* Table */}
       <DataTableWrapper columns={columns} data={filteredData} />
+
+      {totalPages > 1 && (
+        <div className="flex justify-center mt-4">
+          <CustomPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={(page) => setCurrentPage(page)}
+          />
+        </div>
+      )}
 
       {/* Drawer for Add/Edit */}
       {drawerOpen && (

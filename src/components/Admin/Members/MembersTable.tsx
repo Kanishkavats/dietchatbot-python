@@ -6,7 +6,6 @@ import CustomInput from "../Common/CustomInput";
 import Dropdown from "../Common/Dropdown";
 import Button from "../../common/Buttons/Button";
 import Drawer from "../Common/Drawer";
-import EventPagination from "../../Eventpaginations";
 
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { MemberFormValues } from "@/src/utils/validations/FormValidation";
@@ -18,6 +17,7 @@ import { useDeleteSingleMember, useFetchAllMembers, useFetchSingleMember } from 
 import { createMember, updateMember } from "@/src/services/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
+import CustomPagination from "../../common/CustomPaginatioin";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");
@@ -156,7 +156,7 @@ const MemberTable = () => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <EventPagination
+          <CustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
