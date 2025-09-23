@@ -52,5 +52,12 @@
   "Make Donation To Us?":"हमें दान करें?",
   "Contact Now":"अभी संपर्क करें",
   "Meet Our Volunteer":"हमारे स्वयंसेवक से मिलें",
-  "Members":"सदस्यों"
+  "Members":"सदस्यों",
+  "View All":"सभी को देखें",
+  "Message":"संदेश",
+  "For":"के लिए",
+  "Donation!":"दान!",
+  "Send Us":"हमें भेजें",
+  "sendMessageForDonation_title": "दान के लिए हमें <1>संदेश</1> <2></2>भेजें!"
+
 }
