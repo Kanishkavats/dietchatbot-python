@@ -18,6 +18,10 @@ interface CommentType {
 
 export default function Comments({ blogId }: CommentsProps) {
   const { data, isLoading, isError } = useFetchCommentById(blogId);
+  console.log(blogId);
+  
+  
+
 
   if (isLoading) return <p>Loading comments...</p>;
   if (isError) return <p>Failed to load comments.</p>;

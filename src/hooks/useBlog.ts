@@ -131,7 +131,7 @@ export const useFetchAllBlogs = (page: number, limit: number = 10) => {
   });
 };
 
-// ✅ Fetch single blog
+ // Fetch single blog
 export const useFetchSingleBlog = (id?: string) => {
   return useQuery({
     queryKey: ["blog", id],
