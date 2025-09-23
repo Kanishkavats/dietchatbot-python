@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import { PageBannerProps } from "@/src/types/hero";
 import { horizontalWhiteShape, spradeBase } from "@/public/assets";
 import PulsingImage from "./PulsingImage";
+import { useTranslation } from "react-i18next";
 
 export const pageBannerBackgourndColor = {
   background: `
@@ -23,6 +24,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
   tagline = "Start Donating Poor People",
   title
 }) => {
+  const{t}=useTranslation();
   return (
     <section
 
@@ -51,14 +53,14 @@ const PageBanner: React.FC<PageBannerProps> = ({
           className="font-caveat text-2xl flex items-center justify-center gap-2 text-yellow mb-4"
         >
           <Icon icon={smallIcon} width={20} height={20} />
-          <span className="font-semibold">{tagline}</span>
+          <span className="font-semibold">{t(tagline)}</span>
         </div>
 
         {/* Title */}
         <h1
           className="text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-white font-nunito"
         >
-          {title}
+          {t(title)}
         </h1>
       </div>
 

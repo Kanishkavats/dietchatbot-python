@@ -1,8 +1,11 @@
+'use client'
 import { FAQAccordionItemProps } from "@/src/types/faq";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
+  const{t}=useTranslation();
   return (
     <motion.div
       layout
@@ -19,7 +22,7 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
             : "bg-white text-gray-green rounded-3xl"
         }`}
       >
-        <span className="font-medium">{item.question}</span>
+        <span className="font-medium">{t(item.question)}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -37,7 +40,7 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
           exit={{ opacity: 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          {item.answer}
+          {t(item.answer)}
         </motion.div>
       )}
     </motion.div>

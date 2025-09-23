@@ -58,17 +58,13 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        label: "Team",
-        children: [
-          { label: "Our Teams", href: "/team" },
-          { label: "Team Details", href: "/team" },
-        ],
+        label: "Team",href: "/team"
       },
 
     ],
   },
   { label: "News", href: "/news-grid", dropdown: null },
-  { label: "Contact Us", dropdown: null, href: "contact" },
+  { label: "Contact Us", dropdown: null, href: "/contact" },
 ];
 
 

@@ -30,20 +30,26 @@ const LanguageSwitcher = ({
   const { i18n } = useTranslation();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  // Initial selectedLang (still fine as fallback)
   const [selectedLang, setSelectedLang] = useState(
     languages.find((lang) => lang.code === i18n.language) || languages[0]
   );
 
-  // Load language from localStorage on mount
+  // Update selectedLang if i18n.language changes
+  useEffect(() => {
+    const lang = languages.find((l) => l.code === i18n.language);
+    if (lang) setSelectedLang(lang);
+  }, [i18n.language]);
+
+  // Optionally load from localStorage on mount
   useEffect(() => {
     const storedLang = localStorage.getItem('lang');
     if (storedLang && storedLang !== i18n.language) {
       i18n.changeLanguage(storedLang);
       document.documentElement.dir = 'ltr';
-      const lang = languages.find((l) => l.code === storedLang);
-      if (lang) setSelectedLang(lang);
     }
   }, []);
+
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -93,9 +99,8 @@ const LanguageSwitcher = ({
               <li key={lang.code}>
                 <button
                   onClick={() => changeLanguage(lang.code as 'en' | 'hi')}
-                  className={`w-full px-4 py-3 flex items-center gap-2 text-left text-sm hover:bg-gray-200 transition-colors ${
-                    i18n.language === lang.code ? 'font-bold bg-yellow/40' : ''
-                  }`}
+                  className={`w-full cursor-pointer px-4 py-3 flex items-center gap-2 text-left text-sm hover:bg-gray-200 transition-colors ${i18n.language === lang.code ? 'font-bold bg-yellow/40' : ''
+                    }`}
                 >
                   <Icon icon={lang.icon} className="w-5 h-5" />
                   {lang.label}

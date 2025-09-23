@@ -20,9 +20,9 @@ const ContactUs = () => {
             <FaHandHoldingHeart size={20} />
             {t("Get In Touch")}
           </p>
-          <h1 className="text-[55px] font-nunito font-extrabold text-dark-green mb-1">Contact Us</h1>
+          <h1 className="text-[55px] font-nunito font-extrabold text-dark-green mb-1">{t("Contact Us")}</h1>
           <p className="text-gray-500 font-nunito text-[16px] capitalize  leading-7 mb-12">
-          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque inventore
+          {t("Your support makes a difference. If you would like to learn more about our work, make a donation, or find out how you can volunteer, you can contact us using the information below.")}
           </p>
 
           <div className="grid grid-cols-2 gap-8 mb-12 max-w-[700px]">
@@ -52,9 +52,9 @@ const ContactUs = () => {
         {/* Right Section - Form */}
 
         <AnimatedReveal className="flex-1 bg-white p-10 rounded-xl border border-gray-200 shadow-md">
-          <h2 className="text-4xl font-bold mb-3">Fill Up The Form</h2>
+          <h2 className="text-4xl font-bold mb-3">{t("Fill Up The Form")}</h2>
           <p className="font-nunito text-base text-gray-500 mb-15">
-            Your email address will not be published. Required fields are marked *
+            {t("Your email address will not be published. Required fields are marked *")}
           </p>
           <ContactForm />
         </AnimatedReveal>
