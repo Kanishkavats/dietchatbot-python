@@ -107,6 +107,7 @@ const CategoryTable = () => {
       <DataTableWrapper columns={columns} data={filteredData} />
 
       {/* Drawer */}
+       {drawerOpen && (
       <Drawer
         isOpen={drawerOpen}
         onClose={() => {
@@ -123,6 +124,7 @@ const CategoryTable = () => {
           mode={mode}
         />
       </Drawer>
+      )}
     </div>
   );
 };

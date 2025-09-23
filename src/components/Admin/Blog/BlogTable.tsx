@@ -1,13 +1,12 @@
 'use client'
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import Breadcrumb from "../Breadcrumb";
-import { Blog, BlogSearchOptions } from "../Data/staticData";
+import { BlogSearchOptions } from "../Data/staticData";
 import DataTableWrapper from "../Common/DataTableWrapper";
 import CustomInput from "../Common/CustomInput";
 import Dropdown from "../Common/Dropdown";
 import Button from "../../common/Buttons/Button";
 import Drawer from "../Common/Drawer";
-import EventPagination from "../../Eventpaginations";
 
 import BlogForm from "./BlogForm";
 import { getBlogColumns } from "./BlogColumns";
@@ -17,10 +16,11 @@ import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import BlogPreview from "./PreviewBlog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createBlog, updateBlog } from "@/src/services/blogApi";
+import { Blog } from "@/src/types/blog";
+import CustomPagination from "../../common/CustomPaginatioin";
 
 const BlogTable = () => {
 
-  // ✅ states
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"title" | "location" | "category" | "createdAt" | "updatedAt">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -29,13 +29,13 @@ const BlogTable = () => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5);
+  const [itemsPerPage] = useState(2);
 
   const { data: blogData } = useFetchAllBlogs(currentPage, itemsPerPage);
   const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(editBlog || undefined);
   const { mutate: deleteBlog } = useDeleteSingleBlog();
-  console.log(blogData)
 
+  console.log("blogdata", blogData);
 
   const handleEdit = useCallback((b: Blog) => {
     setEditBlog(b.id.toString());
@@ -69,7 +69,7 @@ const BlogTable = () => {
     [handleEdit, handleDelete, handleView]
   );
 
-  // ✅ prepare paginated data
+  //  prepare paginated data
   const paginatedData = useMemo(() => {
     if (!blogData?.blogs) return [];
     return blogData.blogs.map((b: any) => ({
@@ -78,7 +78,7 @@ const BlogTable = () => {
     }));
   }, [blogData]);
 
-  const totalPages = blogData?.totalPages || 1;
+  const totalPages = blogData?.TotalPages || 1;
 
   const filteredData = useMemo(() => {
     return paginatedData.filter((blog: Blog) => {
@@ -163,7 +163,7 @@ const BlogTable = () => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <EventPagination
+          <CustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
@@ -172,56 +172,58 @@ const BlogTable = () => {
       )}
 
       {/* Drawer */}
-      <Drawer
-        isOpen={drawerOpen}
-        onClose={() => {
-          setDrawerOpen(false);
-          setEditBlog(null);
-          setMode("add");
-        }}
-        title={
-          mode === "edit"
-            ? "Edit Blog"
-            : mode === "view"
-              ? "View Blog"
-              : "Add Blog"
-        }
-        mode={mode}
+      {drawerOpen && (
+        <Drawer
+          isOpen={drawerOpen}
+          onClose={() => {
+            setDrawerOpen(false);
+            setEditBlog(null);
+            setMode("add");
+          }}
+          title={
+            mode === "edit"
+              ? "Edit Blog"
+              : mode === "view"
+                ? "View Blog"
+                : "Add Blog"
+          }
+          mode={mode}
 
-      >
-        {previewData ? (
-          <BlogPreview
-            data={previewData}
-            onBack={() => setPreviewData(null)}
-            onSubmit={() => {
-              submitBlogForm(
-                { ...previewData, keyPoints: previewData.keyPoints },
-                singleBlogData,
-                createMutation,
-                updateMutation,
-                () => {
-                  setPreviewData(null);
-                  setDrawerOpen(false);
-                },
-                () => { },
-                () => setDrawerOpen(false)
-              );
-            }}
-          />
-        ) : isLoadingBlog ? (
-          <p>Loading...</p>
-        ) : (
-          <BlogForm
-            initialData={singleBlogData ?? undefined}
-            onClose={() => setDrawerOpen(false)}
-            mode={mode}
-            onPreview={(data) => setPreviewData(data)}
-            createMutation={createMutation}
-            updateMutation={updateMutation}
-          />
-        )}
+        >
+          {previewData ? (
+            <BlogPreview
+              data={previewData}
+              onBack={() => setPreviewData(null)}
+              onSubmit={() => {
+                submitBlogForm(
+                  { ...previewData, keyPoints: previewData.keyPoints },
+                  singleBlogData,
+                  createMutation,
+                  updateMutation,
+                  () => {
+                    setPreviewData(null);
+                    setDrawerOpen(false);
+                  },
+                  () => { },
+                  () => setDrawerOpen(false)
+                );
+              }}
+            />
+          ) : isLoadingBlog ? (
+            <p>Loading...</p>
+          ) : (
+            <BlogForm
+              initialData={singleBlogData ?? undefined}
+              onClose={() => setDrawerOpen(false)}
+              mode={mode}
+              onPreview={(data) => setPreviewData(data)}
+              createMutation={createMutation}
+              updateMutation={updateMutation}
+            />
+          )}
 
-      </Drawer>
+        </Drawer>
+      )}
     </section>
   )
 }

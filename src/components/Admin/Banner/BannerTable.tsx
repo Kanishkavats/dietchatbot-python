@@ -136,24 +136,26 @@ const BannerTable = () => {
       <DataTableWrapper columns={columns} data={filteredData} />
 
       {/* Drawer for Add/Edit */}
-      <Drawer
-        isOpen={drawerOpen}
-        onClose={() => {
-          setDrawerOpen(false);
-          setEditBannerId(null);
-          setMode("add");
-        }}
-        title={mode === "edit" ? "Edit Banner" : "Add Banner"}
-        width="400px"
-      >
-        <BannerForm
-          initialData={selectedBanner}
-          onClose={() => setDrawerOpen(false)}
-          mode={mode}
-          createMutation={createMutation}
-          updateMutation={updateMutation}
-        />
-      </Drawer>
+      {drawerOpen && (
+        <Drawer
+          isOpen={drawerOpen}
+          onClose={() => {
+            setDrawerOpen(false);
+            setEditBannerId(null);
+            setMode("add");
+          }}
+          title={mode === "edit" ? "Edit Banner" : "Add Banner"}
+          width="400px"
+        >
+          <BannerForm
+            initialData={selectedBanner}
+            onClose={() => setDrawerOpen(false)}
+            mode={mode}
+            createMutation={createMutation}
+            updateMutation={updateMutation}
+          />
+        </Drawer>
+      )}
     </section>
   );
 };
