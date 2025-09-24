@@ -1,5 +1,8 @@
 import { MemberFormValues } from "../utils/validations/FormValidation";
 import api from "./api";
+import { makeApiPath } from "./apiConfig";
+
+const BASE = makeApiPath("member");
 
 // Create a member
 export const createMember = async (member: MemberFormValues) => {
@@ -12,6 +15,8 @@ export const fetchAllMembers = async (page: number = 1, limit: number = 10) => {
   const { data } = await api.get(`/api/V1/member/getAllMembers?page=${page}&limit=${limit}`);
   return data;
 };
+
+
 
 // Get single member by ID
 export const fetchMemberById = async (id: string) => {

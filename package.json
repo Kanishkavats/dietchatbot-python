@@ -19,7 +19,7 @@
     "axios": "^1.11.0",
     "flag-icons": "^7.5.0",
     "formik": "^2.4.6",
-    "framer-motion": "^12.23.12",
+    "framer-motion": "^12.23.19",
     "gsap": "^3.13.0",
     "i18next": "^25.5.2",
     "js-cookie": "^3.0.5",
