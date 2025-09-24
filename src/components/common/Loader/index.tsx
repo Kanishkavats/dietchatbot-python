@@ -1,9 +1,9 @@
 import React from 'react';
 import './loader.css'
 
-const Loader = () => {
+const Loader = ({backgroundColor='foreground'}:{backgroundColor?:string}) => {
   return (
-    <div className='h-screen bg-black flex justify-center items-center'>
+    <div className={`h-screen  flex justify-center items-center bg-${backgroundColor}`}>
       <span className="loader"></span>
     </div>
   )

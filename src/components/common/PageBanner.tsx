@@ -20,7 +20,7 @@ export const pageBannerBackgourndColor = {
 
 const PageBanner: React.FC<PageBannerProps> = ({
   bgImage,
-  smallIcon = "mdi:gift-outline",
+  smallIcon = "mdi:hand-heart-outline",
   tagline = "Start Donating Poor People",
   title
 }) => {

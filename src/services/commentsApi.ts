@@ -2,24 +2,21 @@
 import api from "./api";
 
 // ✅ Fetch all comments
-export const fetchComments = async () => {
-  const { data } = await api.get("/api/V1/comment/getAllComments");
+export const fetchComments = async (page: number, limit: number) => {
+  const { data } = await api.get(`/comment/getAllComments?page=${page}&limit=${limit}`);
   return data;
 };
 
 // ✅ Fetch comments by blog ID
 export const fetchCommentsById = async (id: string) => {
-
-  const { data } = await api.get(`/api/V1/comment/getcommentsById/${id}`);
-  console.log(data);
+  const { data } = await api.get(`/comment/getCommentById/${id}`);
   return data;
 };
 
 //fetch get-comment by id 
 export const fetchgetcomments = async (id: string) => {
   console.log("id => ", id);
-
-  const { data } = await api.get(`/api/V1/comment/get-comments/${id}`);
+  const { data } = await api.get(`/comment/get-comments/${id}`);
   console.log(data);
   return data;
 };
@@ -29,7 +26,7 @@ export const fetchgetcomments = async (id: string) => {
 export const createComment = async (id: string,
   comment: { name: string; comment: string; email: string }) => {
 
-  const { data } = await api.post(`/api/V1/comment/add-comment/${id}`, comment);
+  const { data } = await api.post(`/comment/add-comment/${id}`, comment);
   return data;
 };
 
@@ -38,12 +35,12 @@ export const updateComment = async (
   id: string,
   comment: { approved: boolean; }
 ) => {
-  const { data } = await api.put(`/api/V1/comment/moderate-comment/${id}`, comment);
+  const { data } = await api.put(`/comment/moderate-comment/${id}`, comment);
   return data;
 };
 
 // ✅ Delete a comment
 export const deleteComment = async (id: string) => {
-  const { data } = await api.delete(`/api/V1/comment/delete-comment/${id}`);
+  const { data } = await api.delete(`/comment/delete-comment/${id}`);
   return data;
 };

@@ -12,10 +12,10 @@ import {
 
 // ======================= Fetch all Comments ======================= //
 
-export const useFetchComments = () => {
+export const useFetchComments = (page: number, limit: number) => {
   return useQuery({
-    queryKey: ["comments"],
-    queryFn: fetchComments,
+    queryKey: ["comments", page, limit],
+    queryFn: () => fetchComments(page, limit),
   });
 };
 
@@ -23,19 +23,19 @@ export const useFetchComments = () => {
 // ======================= Fetch single Comment ======================= //
 
 
-export const useFetchCommentById = (id: string, enabled: boolean = true) => {
+export const useFetchCommentById = (id: string) => {
+
   return useQuery({
     queryKey: ["comment", id],
     queryFn: () => fetchCommentsById(id),
     retry: 0,
-    enabled,
-    select: (data) => data.comments || [], // return only comments array
+    select: (data) => data || [], 
   });
 };
 
 
 //fetch by id 
-export const useFetchgetcomments  = (id: string, enabled: boolean = true) => {
+export const useFetchgetcomments = (id: string, enabled: boolean = true) => {
   return useQuery({
     queryKey: ["comment", id],
     queryFn: () => fetchgetcomments(id),
@@ -54,8 +54,8 @@ export const useCreateComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn:  ({ id, data }: { id: string; data: { comment: string; name: string; email: string } }) =>
-      createComment(id, data), 
+    mutationFn: ({ id, data }: { id: string; data: { comment: string; name: string; email: string } }) =>
+      createComment(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
       toast.success("Comment created successfully");
@@ -71,13 +71,12 @@ export const useUpdateComment = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: { content: string; author?: string } }) =>
+    mutationFn: ({ id, data }: { id: string; data: { content: string; author?: string, approved: boolean } }) =>
       updateComment(id, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
       toast.success("Comment updated successfully");
     },
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Failed to update comment");
     },

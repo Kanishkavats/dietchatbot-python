@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 
-interface EventPaginationProps {
+interface CustomPaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
 }
 
-const CustomPagination: React.FC<EventPaginationProps> = ({
+const CustomPagination: React.FC<CustomPaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
