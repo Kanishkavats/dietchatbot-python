@@ -8,6 +8,7 @@ import ValueableCustomer from './ValueableCustomer'
 import SendMsg from './SendMsg'
 import ScrollImgSection from './ScrollImgSection'
 import { bannerBg } from '@/public/assets'
+import DonateDifferentWay from '../DonateDifferentWay'
 
 const About = () => {
   return (
@@ -19,6 +20,7 @@ const About = () => {
       <FAQSection />
       <ValueableCustomer />
       <SendMsg />
+      <DonateDifferentWay />
       <ScrollImgSection />
     </div>
   )

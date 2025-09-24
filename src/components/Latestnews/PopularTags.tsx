@@ -2,7 +2,7 @@
 import { popularTags } from "@/src/staticResource";
 
 const PopularTags = () => (
-  <div className="bg-card-gray p-5 lg:p-8 xl:p-10 mb-5  rounded-2xl ">
+  <div className="bg-light-gray p-5 lg:p-8 xl:p-10 mb-5  rounded-2xl ">
     <h3 className="text-xl lg:text-xl xl:text-3xl font-bold text-black mb-4">Popular Tags</h3>
     <div className="flex flex-wrap mt-4 lg:mt-6 xl:mt-8 gap-3">
       {popularTags.map((tag, i) => (

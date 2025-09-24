@@ -6,10 +6,12 @@ import { useRouter } from 'next/navigation';
 import { FiPhoneCall } from "react-icons/fi";
 import { motion, useInView } from 'framer-motion';
 import Button from "../common/Buttons/Button";
+import { useTranslation } from "react-i18next";
 export default function HelpingEachOther() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const router = useRouter();
   const thumbRef = useRef(null);
+  const{t}=useTranslation();
   const isThumbInView = useInView(thumbRef, { once: true, amount: 0.3 });
   const handleVideoOpen = useCallback(() => {
     setIsVideoOpen(true);
@@ -78,9 +80,9 @@ export default function HelpingEachOther() {
                     fontWeight: '800',
                   }}
                 >
-                  <span className="text-white">we give </span>
-                  <span className="text-yellow">donations</span>
-                  <span className="text-white"> to poor people</span>
+                  <span className="text-white">{t("We give")} </span>
+                  <span className="text-yellow">{t("donations")}</span>
+                  <span className="text-white"> {t("to poor people")}</span>
                 </div>
               </div>
               
@@ -343,7 +345,7 @@ export default function HelpingEachOther() {
               <div className="flex items-center gap-3 mb-4 opacity-0 anim-fade-in-up" style={{ animationDelay: '0.6s' }}>
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
                 <span className="text-[var(--green)] font-caveat text-xl md:text-2xl font-bold">
-                  Start Donating Poor People
+                  {t("Start Donating Poor People")}
                 </span>
               </div>
              
@@ -351,15 +353,14 @@ export default function HelpingEachOther() {
                 className="text-3xl sm:text-4xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-6 leading-tight opacity-0 anim-fade-in-up"
                 style={{ fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800' }}
               >
-                Helping Each Other Can Make <span className="text-yellow">World</span> Better
+                {t("Helping Each Other Can Make")} <span className="text-yellow">{t("World")}</span>{t(" Better")}
               </h2>
               
               <p
                 className="text-[#667471] text-base md:text-lg font-nunito font-s leading-relaxed mb-8 opacity-0 anim-fade-in-up"
                 style={{ animationDelay: '1s' }}
               >
-                Volunteering Offers Opportunities To Develop New Skills And Gain Valuable Experience. This Can Include
-                Leadership, Communication, Project Management, And Teamwork Skills.
+                {t("Volunteering Offers Opportunities To Develop New Skills And Gain Valuable Experience. This Can Include Leadership, Communication, Project Management, And Teamwork Skills.")}
               </p>
              
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 lg:gap-6 mb-8">
@@ -379,10 +380,10 @@ export default function HelpingEachOther() {
                       className="text-lg font-bold text-foreground font-nunito"
                       style={{ fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800' }}
                     >
-                      Start Helping Them
+                      {t("Start Helping Them")}
                     </h3>
                     <p className="text-[#667471] font-nunito">
-                      Raising Awareness About The Charity Mission And Cause.
+                      {t("Raising Awareness About The Charity Mission And Cause.")}
                     </p>
                   </div>
                 </div>
@@ -403,10 +404,10 @@ export default function HelpingEachOther() {
                       className="text-lg font-bold text-foreground font-nunito"
                       style={{ fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800' }}
                     >
-                      Make Donations
+                      {t("Make Donations")}
                     </h3>
                     <p className="text-[#667471] font-nunito">
-                      Raising Awareness About The Charity Mission And Cause.
+                      {t("Raising Awareness About The Charity Mission And Cause.")}
                     </p>
                   </div>
                 </div>
@@ -415,16 +416,16 @@ export default function HelpingEachOther() {
               <div className="space-y-3 mb-15 opacity-0 anim-fade-in-up" style={{ animationDelay: '1.6s' }}>
                 <div className="flex items-center gap-3 ">
                   <FaCheckCircle className="text-[#122F2A] w-5 h-5" />
-                  <span className="text-[#122F2A]">Helped Fund 3,265 Project Powerful Corporate Poor.</span>
+                  <span className="text-[#122F2A]">{t("Helped Fund 3,265 Project Powerful Corporate Poor.")}</span>
                 </div>
                 <div className="flex items-center gap-3 ">
                   <FaCheckCircle className="text-[#122F2A] w-5 h-5" />
-                  <span className="text-[#122F2A]">We Give Child A Gift Of A Education</span>
+                  <span className="text-[#122F2A]">{t("We Give Child A Gift Of A Education")}</span>
                 </div>
                 <div className="flex items-center gap-3 ">
                   <FaCheckCircle className="text-[#122F2A] w-5 h-5" />
                   <span className="text-[#122F2A]">
-                    We Help Companies Develop Powerful Corporate Social Responsibility.
+                    {t("We Help Companies Develop Powerful Corporate Social Responsibility.")}
                   </span>
                 </div>
               </div>
@@ -446,7 +447,7 @@ export default function HelpingEachOther() {
                   <FiPhoneCall className="w-6 h-6 sm:w-7 sm:h-7 text-[#122F2A]" />
                   <div>
                     <p className="text-[#828A8D] text-[12px] sm:text-[14px] font-nunito leading-none mb-1">
-                      Phone
+                      {t("Phone")}
                     </p>
                     <a
                       href="tel:+23645689622"
