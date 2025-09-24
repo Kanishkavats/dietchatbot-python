@@ -17,9 +17,10 @@ interface CampaignInfoProps {
   data: any;
   allCampaigns: any[]; 
   formattedDate?: string;
+  id:string;
 }
 
-const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, allCampaigns, formattedDate }) => {
+const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, allCampaigns, formattedDate ,id}) => {
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
@@ -108,7 +109,7 @@ const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, allCampaigns, formatt
                     fill
                     className="object-cover" />
                 </div>
-              </div><Comment /><LeaveComment /></>
+              </div><Comment campaignId={id} /><LeaveComment campaignId={id} /></>
             )}
           </main>
 
