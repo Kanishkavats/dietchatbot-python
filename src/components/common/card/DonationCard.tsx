@@ -1,5 +1,7 @@
 
 
+
+
 "use client";
 
 import React from "react";
@@ -15,8 +17,8 @@ interface DonationCardProps {
     title?: string;
     description?: string;
     progress?: number;
-    raised?: string;
-    goal?: string;
+    raised?: string | number;
+    goal?: string | number;
   };
   isInView: boolean;
   hoveredCard: string | null;
@@ -33,7 +35,6 @@ const DonationCard: React.FC<DonationCardProps> = ({
   onMouseLeave,
   onCardClick,
 }) => {
-  // If card is undefined, render fallback
   if (!card) {
     return (
       <div className="bg-gray-100 rounded-2xl shadow-lg p-6 flex flex-col h-full">
@@ -42,57 +43,93 @@ const DonationCard: React.FC<DonationCardProps> = ({
     );
   }
 
-  // Truncate description with "..."
-  const maxLength = 120;
+  // ✅ Parse string or number amounts safely
+  const parseAmount = (amount?: string | number) => {
+    if (typeof amount === "number") return amount;
+    if (typeof amount === "string") {
+      return Number(amount.replace(/[^0-9.-]+/g, "")) || 0; // Remove $ or commas
+    }
+    return 0;
+  };
+
+  const raisedAmount = parseAmount(card.raised);
+  const goalAmount = parseAmount(card.goal);
+  const progress = card.progress || Math.min((raisedAmount / goalAmount) * 100, 100);
+
+  // Truncate description
   const desc = card.description || "No description available";
-  const displayText =
-    desc.length > maxLength ? desc.slice(0, maxLength).concat("...") : desc;
+  const displayText = desc.length > 80 ? desc.slice(0, 80).concat("...") : desc;
 
   return (
     <div
       key={card.id}
-      className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative cursor-pointer flex flex-col h-full"
+      className="w-[312px] rounded-[16px] bg-white shadow-md overflow-hidden cursor-pointer flex flex-col transition-all hover:shadow-lg gap-6"
       onMouseEnter={() => card.id && onMouseEnter(card.id)}
       onMouseLeave={onMouseLeave}
       onClick={() => onCardClick(card.id)}
     >
-      {/* Image */}
-      <div className="relative mb-4 rounded-xl overflow-hidden w-full h-55">
+      {/* Image with White Border */}
+      <div className="relative w-full h-[200px] rounded-t-[20px] rounded-b-[20px] overflow-hidden border-t-[12px] border-x-[12px] border-white">
         {card.image ? (
           <motion.img
             src={card.image}
             alt={card.title || "Campaign Image"}
             className="absolute top-0 left-0 w-full h-full object-cover"
-            animate={{ scale: hoveredCard === card.id ? 1.1 : 1 }}
-            transition={{ duration: 0.5 }}
+            animate={{ scale: hoveredCard === card.id ? 1.05 : 1 }}
+            transition={{ duration: 0.4 }}
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
             <span className="text-gray-400">No Image</span>
           </div>
         )}
+
+        {/* Category Pill */}
         <span
-          className={`absolute top-3 left-3 text-lg font-semibold px-4 py-1 rounded-full ${
-            hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow-400 text-black"
-          }`}
+          className={`absolute top-3 left-3 text-lg px-4 py-1 rounded-full 
+            ${hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow-400 text-black"}
+          `}
         >
           {card.category || "No Category"}
         </span>
       </div>
 
-      {/* Content */}
-      <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-xl font-bold mb-2">{card.title || "No Title"}</h3>
-        <p className="text-gray-600 text-sm mb-2">{displayText}</p>
+      {/* Content Section */}
+      <div className="p-5 bg-[#ffffff] flex flex-col flex-grow">
+        <h3 className="text-[18px] font-bold text-[#222] mb-2 leading-[28px]">
+          {card.title || "No Title"}
+        </h3>
 
-        {/* Bottom Section */}
-        <div className="bg-gray-100 p-2 rounded-lg mt-auto">
-          <AnimatedProgressBar progress={card.progress || 0} isInView={isInView} />
-          <div className="flex justify-between text-sm text-gray-500 mt-2">
-            <span>Raised: {card.raised || "0"}</span>
-            <span>Goal: {card.goal || "0"}</span>
+        <p className="text-[14px] text-[#667471] leading-[20px] mb-4">
+          {displayText}
+        </p>
+
+        {/* Donation Progress */}
+        <div className="bg-[#9D998B1A] rounded-[12px] p-4 mt-auto">
+          <div className="flex justify-between text-[14px] font-semibold text-[#222] mb-2">
+            <span>Donation</span>
+            <span>{progress.toFixed(0)}%</span>
           </div>
-          <Button text="Donate Now" onClick={() => onCardClick(card.id)} />
+
+          <AnimatedProgressBar progress={progress} isInView={isInView} />
+
+          <div className="flex justify-between text-[14px] mt-3">
+            <span className="text-[#222] font-medium">
+              Raised: ${raisedAmount.toLocaleString()}
+            </span>
+            <span className="text-[#222] font-bold">
+              Goal: ${goalAmount.toLocaleString()}
+            </span>
+          </div>
+
+          <div className="mt-4 flex">
+            <button
+              onClick={() => onCardClick(card.id)}
+              className="py-[13px] px-[30px] text-[15px] font-medium text-black border border-black rounded-full transition-all duration-300 hover:bg-green hover:text-white"
+            >
+              Donate Now
+            </button>
+          </div>
         </div>
       </div>
     </div>
