@@ -49,7 +49,7 @@ export default async function DynamicCharityPage({ params }: Props) {
      
       {/* Main Content */}
       <div className="py-8">
-        <div className="container mx-auto pr-4 pl-32 ml-8">
+        <div className="container mx-auto pr-4 pl-0 lg:pl-30 ml-8">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content Area - Takes 2/3 of the space */}
             <div className="lg:col-span-2">
