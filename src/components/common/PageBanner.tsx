@@ -28,7 +28,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
   return (
     <section
 
-      className="relative w-full h-[50vh] md:h-[80vh] flex items-center justify-center overflow-hidden">
+      className="relative w-full h-[50vh] md:h-[80vh] md:w-full flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
         src={bgImage}
