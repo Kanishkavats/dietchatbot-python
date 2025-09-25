@@ -19,23 +19,23 @@ const DonateDifferentWay: React.FC = () => {
   const missionItems = donateDifferentWayMissionItems;
 
   return (
-    <div className='w-full py-4 sm:py-6 lg:py-8 px-4 mt-25 bg-white'>
-      <div className='max-w-7xl mx-auto'>
+    <div className='w-full py-4 sm:py-6 lg:py-8 lg:px-0 px-4 xl:px-4 mt-20 lg:mt-25 bg-white'>
+      <div className='max-w-7xl md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto overflow-hidden'>
         {/* Header Section - Centered at top */}
-        <div className='flex items-center justify-center mb-6 sm:mb-8 ml-0 sm:ml-8 lg:ml-15'>
+        <div className='flex items-center justify-start lg:justify-center lg:mb-6  ml-0  lg:ml-15'>
           <div className='flex items-center space-x-2 sm:space-x-4'>
             <i className="text-lg sm:text-xl text-[var(--green)] hand-icon"></i>
             <span className="text-[#046b59] text-lg sm:text-xl lg:text-2xl font-caveat font-semibold">{t("Start Donating Poor People")}</span>
           </div>
         </div>
 
-        <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
+        <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
           {/* Left side - Video and image section */}
-          <div className='lg:col-span-5 space-y-3 sm:space-y-4 h-full relative'>
+          <div className='lg:col-span-3 space-y-3 sm:space-y-4 h-full relative'>
             
             {/* Grid background pattern */}
             <motion.div 
-              className='hidden sm:block absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 z-0 -mt-12 sm:-mt-16 lg:-mt-20 -ml-8 sm:-ml-12 lg:-ml-15'
+              className='hidden lg:block absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-32 lg:h-32 z-0 -mt-12 sm:-mt-16 lg:-mt-20 -ml-8 sm:-ml-12 lg:-ml-15'
               animate={{
                 y: [0, -10, 0]
               }}
@@ -56,7 +56,7 @@ const DonateDifferentWay: React.FC = () => {
             {/* Video player with actual image */}
             <motion.div 
               ref={mainImageRef}
-              className='hidden sm:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 h-64 sm:h-80 lg:h-5/6 -mt-8 sm:-mt-12 lg:-mt-15 bg-gray-200 z-10 mx-auto lg:mx-0'
+              className='hidden lg:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 lg:-ml-40 h-64 sm:h-80 lg:h-5/6 -mt-8 sm:-mt-12 lg:-mt-15 bg-gray-200 z-10 mx-auto lg:mx-0'
               initial={{ opacity: 0, transform: 'translateZ(0)' }}
               animate={isInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
               transition={{ duration: 1 }}
@@ -104,7 +104,7 @@ const DonateDifferentWay: React.FC = () => {
             {/* Small overlapping image */}
             <motion.div 
               ref={bottomImageRef}
-              className='hidden sm:block relative rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-70 lg:h-58 ml-auto -mt-20 sm:-mt-28 lg:-mt-35 z-10 -mr-4 sm:-mr-6 lg:-mr-10'
+              className='hidden lg:block relative rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-75 lg:h-65 ml-auto -mt-20 sm:-mt-28 lg:-mt-60 z-10 -mr-4 sm:-mr-6 lg:ml-15 lg:-mr-10'
               initial={{ opacity: 0, transform: 'translateZ(0)' }}
               animate={isBottomImageInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
               transition={{ duration: 1, delay: 0.3 }}
@@ -119,22 +119,21 @@ const DonateDifferentWay: React.FC = () => {
           </div>
 
           {/* Right side - Content section */}
-          <div className='lg:col-span-7 flex flex-col lg:flex-row gap-4 sm:gap-6'>
+          <div className='lg:col-span-9 flex flex-col lg:pl-20 lg:p-5 lg:flex-row gap-4 sm:gap-6'>
             {/* Main content area */}
             <div className='space-y-4 sm:space-y-6 flex-1'>
               {/* Main Title */}
               <div className='font-nunito font-extrabold relative'>
-                <div className='flex items-start justify-between'>
-                  <h2 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-extrabold text-dark-green leading-tight'>
+                <div className='flex flex-col lg:flex-row items-start justify-between '>
+                  <h2 className='text-2xl font-nunito sm:text-3xl md:text-4xl xl:text-5xl font-extrabold text-dark-green tracking-wide leading-8 lg:leading-tight'>
                     <span className='text-dark-green'>{t("Donate")} <span className='text-yellow'>{t("Support")}</span> {t("To Make")}</span>
-                    <br />
-                    <span className='text-dark-green'>{t("Difference Way")}</span>
+                    <span className='text-dark-green'> {t("Difference Way")}</span>
                   </h2>
                   {/* Heart Image positioned to the right */}
                   <motion.div 
-                    className='flex-shrink-0 ml-2 sm:ml-4 mt-1 sm:mt-2'
+                    className='flex-shrink-0 absolute top-[35] right-[4]  ml-2 sm:ml-4 mt-1 sm:mt-2'
                     animate={{
-                      scale: [1, 1.1, 1]
+                      scale: [0.5, 1.2,0.5]
                     }}
                     transition={{
                       duration: 4,
@@ -145,8 +144,8 @@ const DonateDifferentWay: React.FC = () => {
                     <Image
                       src='/assets/childoldcare/spade-green-heart.png'
                       alt='Green heart'
-                      width={90}
-                      height={90}
+                      width={100}
+                      height={100}
                       className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain'
                     />
                   </motion.div>
@@ -154,20 +153,21 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Introductory text */}
-              <p className='text-gray-green text-sm sm:text-base leading-relaxed font-nunito font-normal'>
+              <p className='text-gray-green text-sm sm:text-base leading-7 lg:leading-relaxed font-nunito font-normal'>
                 {t("Charity Is The Voluntary Act Of Giving Help, Typically In The Form Of Money, Time, Or Resources, To Those In Need. Charitable Organizations Aim To Solve Social, Environmental, And Economic Challenges By Addressing Issues Like Poverty,")}
               </p>
-
+              <div className='flex flex-col md:flex-row gap-4 lg:pr-15'>
+                <div>
               {/* Tabbed Navigation */}
-              <div className='flex flex-wrap gap-2 sm:gap-4 p-2 rounded-full max-w-full sm:max-w-md'>
+              <div className='flex flex-wrap gap-5 justify-center border-b border-gray-200 sm:gap-4 mt-10 pb-4 max-w-full sm:max-w-md'>
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-4 py-2 sm:px-6 sm:py-3 rounded-full text-xs sm:text-sm font-medium transition-colors ${
+                    className={`px-7 py-3 xs:px-14  sm:px-6 sm:py-3 rounded-full font-nunito text-sm sm:text-sm font-semibold transition-colors ${
                       activeTab === tab.id
                         ? 'bg-green text-white'
-                        : 'text-gray-green hover:bg-green hover:text-white'
+                        : 'text-foreground hover:bg-green hover:text-white'
                     }`}
                   >
                     {t(tab.label)}
@@ -176,7 +176,7 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Tab Content with Donation Cards */}
-              <div className='flex flex-col lg:flex-row gap-4 sm:gap-6'>
+              <div className='flex flex-col md:flex-row gap-4 mt-2 md:p-10'>
                 {/* Mission/Vision/Excellence Content */}
                 <div className='flex-1'>
                   {(activeTab === 'mission' || activeTab === 'vision' || activeTab === 'excellence') && (
@@ -197,8 +197,8 @@ const DonateDifferentWay: React.FC = () => {
                       {/* Circular Progress Indicators */}
                       <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3 sm:pt-4'>
                         <div className='flex items-center space-x-2 sm:space-x-3'>
-                          <div className='relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0'>
-                            <svg className='w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90' viewBox='0 0 100 100'>
+                          <div className='relative w-16 h-16 xs:w-23 xs:h-23 sm:w-23 sm:h-23 flex-shrink-0'>
+                            <svg className='w-16 xs:w-23 h-16 xs:h-23 sm:w-23 sm:h-23 transform -rotate-90' viewBox='0 0 100 100'>
                               <circle
                                 cx='50'
                                 cy='50'
@@ -220,15 +220,15 @@ const DonateDifferentWay: React.FC = () => {
                               />
                             </svg>
                             <div className='absolute inset-0 flex items-center justify-center'>
-                              <span className='text-xs sm:text-sm font-bold text-dark-green'>55%</span>
+                              <span className='text-xs xs:text-sm sm:text-sm font-bold text-dark-green'>55%</span>
                             </div>
                           </div>
-                          <p className='text-base sm:text-lg lg:text-xl text-dark-green font-bold font-nunito'>{t("Treatment Helping")}</p>
+                          <p className='text-base sm:text-lg xl:text-xl text-dark-green font-bold font-nunito'>{t("Treatment Helping")}</p>
                         </div>
 
                         <div className='flex items-center space-x-2 sm:space-x-3'>
-                          <div className='relative w-16 h-16 sm:w-20 sm:h-20 flex-shrink-0'>
-                            <svg className='w-16 h-16 sm:w-20 sm:h-20 transform -rotate-90' viewBox='0 0 100 100'>
+                          <div className='relative w-16 h-16 xs:w-23 xs:h-23 sm:w-23 sm:h-23 flex-shrink-0'>
+                            <svg className='w-16 xs:w-23 h-16 xs:h-23 sm:w-23 sm:h-23 transform -rotate-90' viewBox='0 0 100 100'>
                               <circle
                                 cx='50'
                                 cy='50'
@@ -250,21 +250,22 @@ const DonateDifferentWay: React.FC = () => {
                               />
                             </svg>
                             <div className='absolute inset-0 flex items-center justify-center'>
-                              <span className='text-xs sm:text-sm font-bold text-dark-green'>85%</span>
+                              <span className='text-xs xs:text-sm sm:text-sm font-bold text-dark-green'>85%</span>
                             </div>
                           </div>
-                          <p className='text-base sm:text-lg lg:text-xl text-dark-green font-bold font-nunito'>{t("Highest Fund Raised")}</p>
+                          <p className='text-base sm:text-lg xl:text-xl text-dark-green font-bold font-nunito'>{t("Highest Fund Raised")}</p>
                         </div>
                       </div>
                     </div>
                   )}
                 </div>
-
-                {/* Right side - Donation Cards */}
-                <div className='flex flex-row sm:flex-row lg:flex-col gap-4 lg:max-w-xs lg:ml-10 lg:-mt-20'>
+              </div>
+              </div>
+              {/* Right side - Donation Cards */}
+                <div className='flex flex-wrap xs:flex-row sm:flex-row md:flex-col gap-4 rounded-xl md:w-1/2 lg:w-2/3 md:mt-20 lg:mt-10 bg-gray-50 border border-gray-200 '>
                   {/* Donate Now Card */}
-                  <div className='bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow flex-1 sm:flex-none'>
-                    <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 sm:mb-4'>
+                  <div className=' p-3 sm:p-4  transition-shadow flex-1 flex flex-col items-center justify-center sm:flex-none'>
+                    <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center  mb-3 sm:mb-4'>
                       <Image
                         src='/assets/childoldcare/icon2.png'
                         alt='Donate icon'
@@ -273,12 +274,12 @@ const DonateDifferentWay: React.FC = () => {
                         className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain'
                       />
                     </div>
-                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm sm:text-base'>{t("Donate Now")}</h3>
-                    <p className='text-lg sm:text-xl lg:text-2xl font-bold text-yellow italic'>{t("$")}40,456</p>
+                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm'>{t("Donate Now")}</h3>
+                    <p className='text-sm sm:text-lg lg:text-xl font-bold text-yellow italic'>{t("$")}40,456</p>
                   </div>
 
                   {/* Total Fundraised Card */}
-                  <div className='bg-white rounded-lg sm:rounded-xl p-3 sm:p-4 shadow-lg border border-gray-200 hover:shadow-xl transition-shadow flex-1 sm:flex-none'>
+                  <div className='  p-3 sm:p-4  transition-shadow flex-1 flex flex-col items-center justify-center sm:flex-none '>
                     <div className='w-10 h-10 sm:w-12 sm:h-12 rounded-lg flex items-center justify-center mb-3 sm:mb-4'>
                       <Image
                         src='/assets/childoldcare/icon1.png'
@@ -288,8 +289,8 @@ const DonateDifferentWay: React.FC = () => {
                         className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain'
                       />
                     </div>
-                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm sm:text-base'>{t("Total Fundraised")}</h3>
-                    <p className='text-lg sm:text-xl lg:text-2xl font-bold text-green italic'>{t("$")}1,540,456</p>
+                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm '>{t("Total Fundraised")}</h3>
+                    <p className='text-sm sm:text-lg lg:text-xl font-bold text-green italic'>{t("$")}1,540,456</p>
                   </div>
                 </div>
               </div>
