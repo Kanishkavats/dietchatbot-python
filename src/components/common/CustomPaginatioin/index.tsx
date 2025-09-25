@@ -1,13 +1,13 @@
 "use client";
 import React from "react";
 
-interface EventPaginationProps {
+interface CustomPaginationProps {
   currentPage: number;
   totalPages: number;
   onPageChange: (page: number) => void;
 }
 
-const CustomPagination: React.FC<EventPaginationProps> = ({
+const CustomPagination: React.FC<CustomPaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
@@ -15,30 +15,25 @@ const CustomPagination: React.FC<EventPaginationProps> = ({
   const generatePageNumbers = () => {
     const pages: (number | string)[] = [];
 
-    const delta = 2; // Number of pages to show before/after currentPage
+    const delta = 1;
 
     const rangeStart = Math.max(2, currentPage - delta);
     const rangeEnd = Math.min(totalPages - 1, currentPage + delta);
 
-    // Always show first page
     pages.push(1);
 
-    // Show ellipsis if start range is far from 2
     if (rangeStart > 2) {
       pages.push("...");
     }
 
-    // Add the range of pages around the current page
     for (let i = rangeStart; i <= rangeEnd; i++) {
       pages.push(i);
     }
 
-    // Show ellipsis if end range is far from last page
     if (rangeEnd < totalPages - 1) {
       pages.push("...");
     }
 
-    // Always show last page (if more than 1)
     if (totalPages > 1) {
       pages.push(totalPages);
     }
@@ -49,8 +44,7 @@ const CustomPagination: React.FC<EventPaginationProps> = ({
   const pages = generatePageNumbers();
 
   return (
-    <div className="flex items-center justify-center gap-4 mb-6 flex-wrap">
-      {/* Prev Button */}
+    <div className="flex  items-center justify-center gap-4 mb-6 flex-wrap">
       <button
         onClick={() => onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
@@ -64,7 +58,6 @@ const CustomPagination: React.FC<EventPaginationProps> = ({
         «
       </button>
 
-      {/* Page Buttons */}
       {pages.map((page, index) =>
         page === "..." ? (
           <span key={`ellipsis-${index}`} className="px-2 text-[#667471]">
@@ -86,7 +79,6 @@ const CustomPagination: React.FC<EventPaginationProps> = ({
         )
       )}
 
-      {/* Next Button */}
       <button
         onClick={() => onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}

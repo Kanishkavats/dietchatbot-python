@@ -15,34 +15,40 @@ import { getCommentColumns } from "./getCommentColumns";
 import { Comment } from "@/src/types/comments";
 import Drawer from "../Common/Drawer";
 import CommentForm from "./CommentForm";
+import CustomPagination from "../../common/CustomPaginatioin";
 
 const CommentTable = () => {
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"name" | "comment">("name");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [editCommentId, setEditCommentId] = useState<string | null>(null);
+  const [CommentId, setCommentId] = useState<string | null>(null);
   const [mode, setMode] = useState<"edit" | "view">("view");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(1);
 
 
-  const { data: commentData } = useFetchComments();
+  const { data: commentData } = useFetchComments(currentPage, itemsPerPage);
+
   const { mutate: deleteComment } = useDeleteComment();
+  const totalPages = commentData?.totalPages || 1;
 
   const {
     data: singleCommentData,
     isLoading: loadingComment,
     refetch: refetchSingleComment,
-  } = useFetchCommentById(editCommentId!, false);
+  } = useFetchCommentById(CommentId || "");
+
 
   const handleEdit = useCallback((comment: Comment) => {
-    setEditCommentId(comment.id);
+    setCommentId(comment.id);
     setMode("edit");
     setDrawerOpen(true);
     refetchSingleComment();
   }, [refetchSingleComment]);
 
   const handleView = useCallback((comment: Comment) => {
-    setEditCommentId(comment.id);
+    setCommentId(comment.id);
     setMode("view");
     setDrawerOpen(true);
     refetchSingleComment();
@@ -104,13 +110,23 @@ const CommentTable = () => {
       {/* Data table */}
       <DataTableWrapper columns={columns} data={filteredData} />
 
+      {totalPages > 1 && (
+        <div className="flex items-center justify-end mt-4">
+          <CustomPagination
+            totalPages={totalPages}
+            currentPage={currentPage}
+            onPageChange={setCurrentPage}
+          />
+        </div>
+      )}
+
       {/* Drawer */}
       {drawerOpen && (
         <Drawer
           isOpen={drawerOpen}
           onClose={() => {
             setDrawerOpen(false);
-            setEditCommentId(null);
+            setCommentId(null);
             setMode("view");
           }}
           title={mode === "edit" ? "Edit Comment" : "View Comment"}

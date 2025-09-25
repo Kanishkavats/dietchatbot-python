@@ -54,7 +54,7 @@ const DonateUs = () => {
                 tags={tags}
                 onClick={(tag: string) => console.log("Clicked tag:", tag)}
               />
-              <DonationCard
+               <DonationCard
                 icon={heartLogoIcon.src}
                 backgroundImage={overView.src}
                 subtitle="Small Donations Bigger Impact"
@@ -62,8 +62,8 @@ const DonateUs = () => {
                 buttonText="Get A Quote"
                 onButtonClick={() => console.log("Button Clicked!")}
               />
-            </div>
-          </div>
+              </div>
+              </div>
         </div>
       </section>
     </section>

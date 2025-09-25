@@ -12,6 +12,15 @@ export const DetailsformSchema = Yup.object().shape({
 
 export type FormValues = Yup.InferType<typeof DetailsformSchema>;
 
+export const SendMsgformSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required(),
+  phone: Yup.string().min(10, "Phone must be at least 10 digits").required(),
+  address: Yup.string().min(5, "Address is required").required(),
+  message: Yup.string().min(20,"Message must be of 20 Words").required("Message is required"),
+});
+
+export type SendMsgFormValues = Yup.InferType<typeof SendMsgformSchema>;
+
 export const volunteerSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),

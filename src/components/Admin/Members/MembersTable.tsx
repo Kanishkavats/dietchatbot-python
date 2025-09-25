@@ -6,7 +6,6 @@ import CustomInput from "../Common/CustomInput";
 import Dropdown from "../Common/Dropdown";
 import Button from "../../common/Buttons/Button";
 import Drawer from "../Common/Drawer";
-import EventPagination from "../../Eventpaginations";
 
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { MemberFormValues } from "@/src/utils/validations/FormValidation";
@@ -14,14 +13,16 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import MemberForm from "./MemberForm";
 import { Member } from "@/src/types/members";
 import { getMemberColumns } from "./getMemberColumns";
-import { useDeleteSingleMember, useFetchAllMembers, useFetchSingleMember } from "@/src/hooks/useMembers";
+import { submitMemberForm, useDeleteSingleMember, useFetchAllMembers, useFetchSingleMember } from "@/src/hooks/useMembers";
 import { createMember, updateMember } from "@/src/services/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
+import CustomPagination from "../../common/CustomPaginatioin";
+import CustomLoader from "../../common/Loader/CustomLoader";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"name" | "position" | "status">("name");
+  const [searchField, setSearchField] = useState<"name" | "position" | "title">("name");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editMember, setEditMember] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
@@ -156,7 +157,7 @@ const MemberTable = () => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <EventPagination
+          <CustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
@@ -165,73 +166,65 @@ const MemberTable = () => {
       )}
 
       {/* Drawer */}
-       {drawerOpen && (
-      <Drawer
-        isOpen={drawerOpen}
-        onClose={() => {
-          setDrawerOpen(false);
-          setEditMember(null);
-          setMode("add");
-        }}
-        title={
-          mode === "edit"
-            ? "Edit Member"
-            : mode === "view"
-              ? "View Member"
-              : "Add Member"
-        }
-        mode={mode}
-      >
-        {previewData ? (
-          <MemberPreview
-            data={previewData}
-            onBack={() => {
-              setSingleMemberFallback(previewData);
-              setPreviewData(null);
-            }}
-            onSubmit={() => {
-              const isEdit = !!singleMemberData?.id;
-              const submitFn = isEdit ? updateMutation : createMutation;
-              if (!previewData) return;
+      {drawerOpen && (
+        <Drawer
+          isOpen={drawerOpen}
+          onClose={() => {
+            setDrawerOpen(false);
+            setEditMember(null);
+            setMode("add");
+          }}
+          title={
+            mode === "edit"
+              ? "Edit Member"
+              : mode === "view"
+                ? "View Member"
+                : "Add Member"
+          }
+          mode={mode}
+        >
+          {previewData ? (
+            <MemberPreview
+              data={previewData}
+              mode={mode}
+              onBack={() => {
+                setSingleMemberFallback(previewData);
+                setPreviewData(null);
+              }}
+              onSubmit={() => {
+                submitMemberForm(
+                  { ...previewData, keyPoints: previewData.keyPoints },
+                  singleMemberData,
+                  createMutation,
+                  updateMutation,
+                  () => {
+                    setPreviewData(null);
+                    setDrawerOpen(false);
+                    setSingleMemberFallback(null);
+                  },
+                  () => { },
+                  () => setDrawerOpen(false)
+                );
+              }}
+            />
+          ) : isLoadingMember ? (
+            <CustomLoader />
+          ) : (
+            <MemberForm
+              initialData={singleMemberFallback || singleMemberData || undefined}
+              onClose={() => setDrawerOpen(false)}
+              mode={mode}
+              onPreview={(data) => {
+                setPreviewData(data);
+                setSingleMemberFallback(null);
+              }}
+              createMutation={createMutation}
+              updateMutation={updateMutation}
+            />
+          )}
 
-              const payload: MemberFormValues = {
-                name: previewData.name ?? "",
-                position: previewData.position ?? "",
-                description: previewData.description ?? "",
-                title: previewData.title ?? "",
-                about: previewData.about ?? "",
-                keyPoints: previewData.keyPoints ?? [],
-                image: previewData.image ?? "",
-                facebookUrl: previewData.facebookUrl ?? null,
-                twitterUrl: previewData.twitterUrl ?? null,
-                instagramUrl: previewData.instagramUrl ?? null,
-                linkedInUrl: previewData.linkedInUrl ?? null,
-                existingImages: previewData.existingImages ?? [],
-              };
 
-              submitFn.mutate({
-                id: singleMemberData?.id ?? "",
-                values: payload,
-              });
-
-
-              setPreviewData(null);
-              setDrawerOpen(false);
-            }}
-          />
-        ) : isLoadingMember ? (
-          <p>Loading...</p>
-        ) : (
-          <MemberForm
-            initialData={singleMemberFallback || singleMemberData || undefined}
-            onClose={() => setDrawerOpen(false)}
-            mode={mode}
-            onPreview={(data) => setPreviewData(data)}
-            createMutation={createMutation}
-            updateMutation={updateMutation}
-          />
-        )}
-      </Drawer>
+        </Drawer>
       )}
     </section>
   );

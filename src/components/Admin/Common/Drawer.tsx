@@ -3,19 +3,10 @@
 import React, { ReactNode } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { IoClose } from "react-icons/io5";
+import { AdminDrawerProps } from "@/src/types/adminCommon";
 
-interface DrawerProps {
-  isOpen: boolean;
-  onClose: () => void;
-  children: ReactNode;
-  title?: string;
-  width?: string; 
-  className?: string;
-  mobileFullScreen?: boolean; 
-  mode?: string
-}
 
-const Drawer: React.FC<DrawerProps> = ({
+const Drawer: React.FC<AdminDrawerProps> = ({
   isOpen,
   onClose,
   children,
@@ -25,7 +16,6 @@ const Drawer: React.FC<DrawerProps> = ({
   mobileFullScreen = true,
   mode
 }) => {
-  console.log("mode", mode)
   return (
     <AnimatePresence>
       {isOpen && (

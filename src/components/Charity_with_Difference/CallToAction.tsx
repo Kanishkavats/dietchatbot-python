@@ -1,12 +1,23 @@
+"use client";
+
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import Button from '../common/Buttons/Button';
+import { overView } from '../../../public/assets/index';
 
 export default function CallToAction() {
+  const router = useRouter();
+
+  const handleGetQuoteClick = () => {
+    router.push('/contact');
+  };
+
   return (
-    <div className="relative h-[400px]  rounded-lg shadow-md overflow-hidden">
+    <div className="relative h-[400px] sm:h-[450px] md:h-[500px] rounded-lg shadow-md overflow-hidden">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image
-          src="/assets/charity_with_difference/overview.png"
+          src={overView}
           alt="Children in need"
           fill
           className="object-cover"
@@ -15,46 +26,43 @@ export default function CallToAction() {
         <div className="absolute inset-0 "></div>
       </div>
 
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center p-6">
+      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center p-4 sm:p-6">
         {/* Heart logo */}
-        <div className="w-16 h-16 flex items-center justify-center shadow-lg mb-6">
+        <div className="w-12 h-12 sm:w-16 sm:h-16 flex items-center justify-center shadow-lg mb-4 sm:mb-6">
           <Image
             src="/assets/charity_with_difference/logo heart bottom banner.png"
             alt="Heart logo"
             width={64}
             height={64}
-            className="object-contain"
+            className="object-contain w-full h-full"
           />
         </div>
 
         {/* Subtitle */}
-        <p className="text-white text-lg font-medium mb-4">
+        <p className="text-white text-base sm:text-lg font-medium font-nunito mb-3 sm:mb-4">
           Small Donations Bigger Impact
         </p>
 
         {/* Main Title */}
-        <h3 className="text-white text-2xl font-bold mb-8 drop-shadow-lg leading-tight">
+        <h3 className="text-white text-lg sm:text-xl md:text-2xl font-nunito font-bold mb-6 sm:mb-8 drop-shadow-lg leading-tight">
           Education Health<br />For Every Child
         </h3>
 
         {/* Get A Quote Button */}
-        <button className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-8 rounded-lg flex items-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl">
-          <span>Get A Quote</span>
-          <svg 
-            width="16" 
-            height="16" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor" 
-            strokeWidth="2" 
-            strokeLinecap="round" 
-            strokeLinejoin="round"
-            className="transform rotate-45"
-          >
-            <path d="M7 17L17 7"></path>
-            <path d="M7 7h10v10"></path>
-          </svg>
-        </button>
+          <div className="w-fit">
+        <Button 
+          text="Get A Quote"
+          icon="mdi:arrow-top-right"
+          bgColor="bg-yellow"
+          hoverBg="before:bg-green"
+          textColor="text-black"
+          hoverTextColor="group-hover:text-white"
+          rounded="rounded-full"
+          paddingx="px-6 sm:px-8"
+          paddingy="py-3 sm:py-5"
+          onClick={handleGetQuoteClick}
+        />
+        </div>
       </div>
     </div>
   );

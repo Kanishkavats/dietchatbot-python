@@ -36,5 +36,5 @@ export const BannerSearchOptions = [
 export const memberSearchOptions = [
   { label: "Name", value: "name" },
   { label: "Position", value: "position" },
-  { label: "Status", value: "status" },
+  { label: "Title", value: "title" },
 ] as const;

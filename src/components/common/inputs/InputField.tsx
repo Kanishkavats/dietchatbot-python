@@ -3,6 +3,7 @@
 import { FieldHookConfig, useField } from "formik";
 import { Icon } from "@iconify/react";
 import { ReactNode, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 interface InputFieldProps {
   label?: string;
@@ -10,6 +11,11 @@ interface InputFieldProps {
   type?: string;
   as?: "input" | "textarea";
   placeholder?: string;
+  className?:string;
+  iconClassName?:string;
+  placeholderClassName?:string;
+  textSize?:string;
+  errorTextSize?:string;
 }
 
 const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
@@ -18,11 +24,16 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
   type = "text",
   as = "input",
   placeholder,
+  className='flex gap-2 bg-gray-200/60 px-3 py-4 rounded-md border relative',
+  iconClassName="text-gray-500/60 text-lg font-bold size-5 mt-[2px]",
+  placeholderClassName='',
+  textSize="text-[14px]",
+  errorTextSize="text-[10px]",
   ...props
 }) => {
   const [field, meta] = useField(props);
   const [showPassword, setShowPassword] = useState(false);
-
+  const{t}=useTranslation();
   const isTextarea = as === "textarea";
   const isPassword = type === "password";
 
@@ -34,7 +45,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
       return (
         <Icon
           icon={icon}
-          className="text-gray-500/60 text-lg font-bold size-5 mt-[2px]"
+          className={iconClassName}
         />
       );
     }
@@ -47,7 +58,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
       {label && <label className="block mb-1 font-medium">{label}</label>}
 
       <div
-        className={`flex gap-2 bg-gray-200/60 px-3 py-4 rounded-md border relative
+        className={`${className}
           ${meta.touched && meta.error ? "border-red" : "border-transparent"}
           ${isTextarea ? "items-start" : "items-center"}`}
       >
@@ -56,7 +67,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
           <textarea
             {...field}
             placeholder={placeholder}
-            className="w-full bg-transparent outline-none resize-none text-[14px]"
+            className={`w-full bg-transparent outline-none resize-none ${textSize} ${placeholderClassName}`}
             rows={4}
           />
         ) : (
@@ -64,7 +75,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
             {...field}
             type={isPassword && showPassword ? "text" : type}
             placeholder={placeholder}
-            className="w-full bg-transparent outline-none text-[14px]"
+            className={`w-full bg-transparent outline-none ${textSize} ${placeholderClassName}`}
           />
         )}
 
@@ -88,7 +99,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
 
       {/* Error message */}
       {meta.touched && meta.error && (
-        <p className="text-[10px] text-red mt-1">{meta.error}</p>
+        <p className={`${errorTextSize} text-red mt-1`}>{t(meta.error)}</p>
       )}
     </div>
   );

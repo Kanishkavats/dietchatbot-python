@@ -12,6 +12,7 @@ export interface DonationCardProps {
   buttonText: string;
   onButtonClick?: () => void;
   backgroundImage: string;
+   onCardClick: (id: string) => void;
 }
 
 export interface TagListProps {

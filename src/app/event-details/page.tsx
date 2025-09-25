@@ -1,4 +1,5 @@
-import Eventdetail from "@/src/components/Eventdetail";
+
+import Eventdetail from "@/src/components/Event/Eventdetail";
 
 
 

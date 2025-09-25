@@ -188,25 +188,12 @@ const MemberForm = ({
                             <div className="flex gap-2 mt-4">
                                 <Button
                                     type="submit"
-                                    disabled={
-                                        isSubmitting ||
-                                        createMutation.isPending ||
-                                        updateMutation.isPending
-                                    }
                                     bgColor="bg-lime-green"
                                     paddingx="px-4"
                                     paddingy="py-2"
                                     rounded="rounded-[5px]"
+                                    text="Preview"
                                 >
-                                    {isSubmitting ||
-                                        createMutation.isPending ||
-                                        updateMutation.isPending ? (
-                                        <ButtonLoader />
-                                    ) : isEdit ? (
-                                        "Update"
-                                    ) : (
-                                        "Preview"
-                                    )}
                                 </Button>
                                 <CancelButton text="Cancel" onClose={onClose} />
                             </div>
