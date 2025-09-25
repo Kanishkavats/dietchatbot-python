@@ -167,3 +167,12 @@ export const memberSchema = Yup.object().shape({
 });
 
 export type MemberFormValues = Yup.InferType<typeof memberSchema>;
+
+
+// ======================= Member ======================
+
+export const QueryFormSchema = Yup.object().shape({
+  isViewed: Yup.boolean().required("Status is required"),
+});
+
+export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;

@@ -2,8 +2,8 @@
 import api from "./api";
 
 // ✅ Fetch all comments
-export const fetchComments = async (page: number, limit: number) => {
-  const { data } = await api.get(`/comment/getAllComments?page=${page}&limit=${limit}`);
+export const fetchComments = async (page: number, limit: number, status: string | null) => {
+  const { data } = await api.get(`/comment/getAllComments?page=${page}&limit=${limit}&status=${status}`);
   return data;
 };
 

@@ -8,14 +8,11 @@ interface BannerPreviewProps {
   data: BannerFormValues;
 }
 
-const BannerPreview: React.FC<BannerPreviewProps> = ({ data}) => {
+const BannerPreview: React.FC<BannerPreviewProps> = ({ data }) => {
   return (
     <div className="space-y-4">
       {/* Header */}
-      <div className="text-center">
-        <h2 className="text-2xl font-bold text-primaryColor">{data.title}</h2>
-        <p className="text-gray-600 mt-1">{data.subtitle}</p>
-      </div>
+
 
       {/* Image */}
       {data.image ? (
@@ -31,13 +28,14 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({ data}) => {
       )}
 
       {/* Info section */}
-      <div className="text-sm space-y-2">
-        <div>
-          <strong>Priority:</strong> {data.priority || "Not set"}
-        </div>
+      <div className="text-md space-y-2 ">
+        <h2 className="text-2xl font-bold text-dark-green">{data.title}</h2>
+        <p>  <strong className="text-xl  text-dark-green">Priority:</strong> {data.priority || "Not set"}</p>
+      
+        <p className="text- mt-1"> <strong className="text-xl  text-dark-green">SubTitle:</strong>{data.subtitle}</p>
+
       </div>
 
-    
     </div>
   );
 };

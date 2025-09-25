@@ -10,6 +10,7 @@ import Category from "../Category";
 import Blog from "../Blog";
 import Comments from "../comments";
 import Banner from "../Banner";
+import Queries from "../Queries";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -23,7 +24,8 @@ const AdminTab = () => {
     category: <Category />,
     blog:<Blog />,
     comments: <Comments />,
-    banner:<Banner />
+    banner:<Banner />,
+    queries:<Queries />
   };
   return (
     <div>

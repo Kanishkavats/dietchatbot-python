@@ -3,6 +3,8 @@ import { FaBloggerB, FaComments } from "react-icons/fa";
 import { PiFlagBannerFill } from "react-icons/pi";
 import { IoSettings } from "react-icons/io5";
 import { HiUsers } from "react-icons/hi";
+import { TbBrandGoogleBigQuery } from "react-icons/tb";
+
 
 export const sidebarAd = [
   {
@@ -10,31 +12,38 @@ export const sidebarAd = [
     lable: "Dashboard",
     nav: "dashboard",
     link: "/admin/dashboard",
-},
-{
+  },
+  {
     icon: FaBloggerB,
     lable: "Blog",
     nav: "blog",
     link: "/admin/blog",
   },
-{
-    icon: MdCampaign ,
+  {
+    icon: MdCampaign,
     lable: "Campaign",
     nav: "campaign",
     link: "/admin/campaign",
   },
   {
-      icon: MdCategory  ,
-      lable: "Category",
-      nav: "category",
-      link: "/admin/category",
-    },
-{
-    icon: FaComments ,
+    icon: TbBrandGoogleBigQuery,
+    lable: "Queries",
+    nav: "queries",
+    link: "/admin/queries",
+  },
+  {
+    icon: FaComments,
     lable: "Comments",
     nav: "comments",
     link: "/admin/comments",
   },
+  {
+    icon: MdCategory,
+    lable: "Category",
+    nav: "category",
+    link: "/admin/category",
+  },
+
   {
     icon: PiFlagBannerFill,
     lable: "Banner",
@@ -42,18 +51,18 @@ export const sidebarAd = [
     link: "/admin/banner",
   },
   {
-      icon: HiUsers,
-      lable: "Members",
-      nav: "members",
-      link: "/admin/members",
+    icon: HiUsers,
+    lable: "Members",
+    nav: "members",
+    link: "/admin/members",
   },
   {
-      icon: MdNotificationsActive,
-      lable: "Notifications",
-      nav: "notifications",
-      link: "/admin/notifications",
+    icon: MdNotificationsActive,
+    lable: "Notifications",
+    nav: "notifications",
+    link: "/admin/notifications",
   },
-{
+  {
     icon: IoSettings,
     lable: "Settings",
     nav: "settings",
