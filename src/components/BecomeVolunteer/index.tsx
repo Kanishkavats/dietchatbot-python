@@ -89,6 +89,7 @@ const BecomeVolunteer: React.FC = () => {
             >
               <Button
                 text="Contact Now"
+                icon=""
                 bgColor="bg-green"
                 hoverBg="before:bg-yellow"
                 textColor="text-white"
@@ -232,6 +233,7 @@ const BecomeVolunteer: React.FC = () => {
             >
               <Button
                 text="Donate Now"
+                icon=""
                 bgColor="bg-yellow"
                 hoverBg="before:bg-green"
                 textColor="text-black"

@@ -12,6 +12,18 @@ import { motion, useInView } from 'framer-motion';
 import Button from "../common/Buttons/Button";
 import DonationCard from "../common/card/DonationCard";
 import { allDonationCards } from "../../staticResource";
+import { useFetchAllCampaigns } from "../../hooks/useCampaigns";
+
+interface CampaignCard {
+  id: string;
+  image: string;
+  category: string;
+  title: string;
+  description: string;
+  progress: number;
+  raised: string;
+  goal: string;
+}
 
 
 
@@ -19,7 +31,7 @@ import { allDonationCards } from "../../staticResource";
 const HelpAndDonate: React.FC = () => {
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [leftButtonColor, setLeftButtonColor] = useState<'yellow' | 'green'>('green');
   const [rightButtonColor, setRightButtonColor] = useState<'yellow' | 'green'>('yellow');
   const [hoveredLeft, setHoveredLeft] = useState(false);
@@ -30,11 +42,36 @@ const HelpAndDonate: React.FC = () => {
   const isSpadeInView = useInView(spadeRef, { once: true, amount: 0.3 });
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const handleCardClick = (category: string) => {
-    if (category === 'Food') {
-      router.push('/donation?type=food');
-    } else if (category === 'Health') {
-      router.push('/donation?type=health');
+  // Fetch campaigns from API
+  const { data: campaignsData, isLoading, error } = useFetchAllCampaigns(1, 8);
+
+  // Map API data to match the component structure
+  const mapCampaignData = (campaign: any) => {
+    const progress = campaign.goalAmount > 0 ? Math.round((campaign.raisedAmount / campaign.goalAmount) * 100) : 0;
+    return {
+      id: campaign.id?.toString() || Math.random().toString(),
+      image: campaign.images && campaign.images.length > 0 ? campaign.images[0] : "/assets/section3/helpforeducation.png",
+      category: campaign.category || "General",
+      title: campaign.title || "Campaign Title",
+      description: campaign.description || "No description available",
+      progress: Math.min(progress, 100), // Cap at 100%
+      raised: `$${campaign.raisedAmount || 0}`,
+      goal: `$${campaign.goalAmount || 0}`
+    };
+  };
+
+  // Use API data if available, otherwise fallback to static data
+  const campaignsToDisplay = campaignsData?.campaigns 
+    ? campaignsData.campaigns.map(mapCampaignData)
+    : allDonationCards;
+
+  const handleCardClick = (id?: string) => {
+    // Navigate to donation page with campaign ID if available
+    if (id) {
+      // router.push(`/donation?id=${id}`);
+       router.push(`/campaign/${id}`);
+    } else {
+      router.push('/donation');
     }
   };
 
@@ -66,9 +103,9 @@ const HelpAndDonate: React.FC = () => {
         <div className="absolute inset-0 bg-black/4"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-3 sm:px-4 max-w-7xl">
+      <div className="relative z-10 container mx-auto px-0 sm:px-1 lg:px-0 xl:px-0 max-w-7xl">
         {/* Header Section */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-8 md:mb-12 lg:mb-16">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-8 md:mb-12 lg:mb-6">
           {/* Left Side - Main Content */}
           <div className="flex-1 max-w-2xl mb-6 lg:mb-0">
             {/* Top Left Text */}
@@ -93,7 +130,7 @@ const HelpAndDonate: React.FC = () => {
             <div className="flex items-center gap-4 mt-6 md:mt-12 ml-0 md:ml-12">
               <button
                 onClick={handlePrev}
-                className="w-15 h-15 rounded-full flex items-center justify-center  cursor-pointer"
+                className="w-15 h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"
                 style={{
                   backgroundColor:
                   leftButtonColor === "yellow"
@@ -102,9 +139,11 @@ const HelpAndDonate: React.FC = () => {
                   transition: "all 0.3s ease",
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
                 }}
+                onMouseEnter={() => setLeftButtonColor("yellow")}
+                onMouseLeave={() => setLeftButtonColor("green")}
               >
                 <svg
-                  className={`h-12 w-8 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
+                  className={`h-12 w-8 transition-colors duration-300 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
@@ -114,7 +153,7 @@ const HelpAndDonate: React.FC = () => {
               </button>
               <button
                 onClick={handleNext}
-                className="w-16 h-16 rounded-full flex items-center justify-center  cursor-pointer"
+                className="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#07110eff] transition-all duration-300"
                 style={{
                   backgroundColor: rightButtonColor === "yellow"
                     ? "#FBBF24"
@@ -122,9 +161,11 @@ const HelpAndDonate: React.FC = () => {
                   transition: "all 0.3s ease",
                   boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
                 }}
+                onMouseEnter={() => setRightButtonColor("green")}
+                onMouseLeave={() => setRightButtonColor("yellow")}
               >
                 <svg
-                  className={`h-12 w-8 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
+                  className={`h-12 w-8 transition-colors duration-300 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,7 +180,7 @@ const HelpAndDonate: React.FC = () => {
 
        <motion.div 
          ref={spadeRef}
-         className="absolute -left-8 md:-left-12 lg:-left-15 top-32 md:top-40 lg:top-180 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300 hidden sm:block"
+         className="absolute -left-8 md:-left-12 lg:-left-20 top-32 md:top-40 lg:top-180 transform -translate-y-1/2 opacity-40 hover:opacity-50 transition-opacity duration-300 hidden sm:block"
          initial={{ opacity: 0, transform: "translateZ(0)" }}
          animate={isSpadeInView ? { opacity: 1, transform: "translateZ(0)" } : { opacity: 0, transform: "translateZ(0)" }}
          transition={{ duration: 1 }}
@@ -182,7 +223,7 @@ const HelpAndDonate: React.FC = () => {
               1024: { slidesPerView: 3, spaceBetween: 22 },
               1280: { slidesPerView: 4, spaceBetween: 24 }
             }}
-            className="h-auto"
+            className="h-full"
             navigation={{
               prevEl: null,
               nextEl: null
@@ -191,8 +232,9 @@ const HelpAndDonate: React.FC = () => {
               '--swiper-navigation-size': '0px'
             } as React.CSSProperties}
           >
-            {allDonationCards.map((card, index) => (
-              <SwiperSlide key={`${card.id}-${index}`} className="h-auto">
+            {campaignsToDisplay.map((card: CampaignCard, index: number) => (
+              <SwiperSlide key={`${card.id}-${index}`} className="h-full">
+                <div className="h-full flex">
                 <DonationCard
                   card={card}
                   isInView={isInView}
@@ -200,14 +242,16 @@ const HelpAndDonate: React.FC = () => {
                   onMouseEnter={setHoveredCard}
                   onMouseLeave={() => setHoveredCard(null)}
                   onCardClick={handleCardClick}
+                
                 />
+                </div>
               </SwiperSlide>
             ))}
           </Swiper>
 
-          {/* Carousel Indicators - 8 dots */}
+          {/* Carousel Indicators - dynamic dots */}
           <div className="flex justify-center mt-6 md:mt-8 space-x-1.5 md:space-x-2">
-            {Array.from({ length: 8 }, (_, index) => (
+            {Array.from({ length: Math.min(campaignsToDisplay.length, 8) }, (_, index) => (
               <button
                 key={index}
                 onClick={() => {
