@@ -1,25 +1,22 @@
-
-
-
 "use client";
 
 import Image from 'next/image';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
-import { fetchgetcomments } from '@/src/services/commentsApi';// make sure path is correct
+import { fetchgetcomments } from '@/src/services/commentsApi';
 
 interface Comment {
   id: string;
   name: string;
   comment: string;
-  image?: string; // optional if you want to display a placeholder
+  image?: string; 
   timeAgo?: string;
   likeCount?: number;
   replies?: Comment[];
 }
 
 interface CommentsProps {
-  campaignId: string; // or blogId depending on usage
+  campaignId: string; 
 }
 
 export default function Comments({ campaignId }: CommentsProps) {
@@ -37,7 +34,7 @@ if(isError){
 }
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">
+      <h2 className="text-2xl font-bold mb-6 text-[#000000]">
         {data?.comments.length.toString().padStart(2, "0")} Comments
       </h2>
       <div className="space-y-10 mb-8">
@@ -48,12 +45,12 @@ if(isError){
           >
             <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
              
-              <span className="text-2xl font-bold text-gray-700">
+              <span className="text-2xl font-bold text-[#000000]">
                 {comment.name.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex-1">
-              <h5 className="text-lg sm:text-xl font-bold font-nunito">{comment.name}</h5>
+              <h5 className="text-lg sm:text-xl font-bold font-nunito text-[#000000]">{comment.name}</h5>
               <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug whitespace-pre-line">
                 {comment.comment}
               </p>
@@ -73,4 +70,3 @@ if(isError){
     </div>
   );
 }
-
