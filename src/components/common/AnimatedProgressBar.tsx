@@ -42,7 +42,7 @@ const AnimatedProgressBar: React.FC<AnimatedProgressBarProps> = ({ progress, isI
   return (
     <div className="mb-4">
       <div className="flex justify-between text-sm text-gray-500 mb-2">
-        <span>Donation</span>
+        <span className="text-dark-green font-medium">Donation</span>
         <motion.span
           initial={{ opacity: 0 }}
           animate={{ opacity: isInView ? 1 : 0 }}
@@ -55,6 +55,7 @@ const AnimatedProgressBar: React.FC<AnimatedProgressBarProps> = ({ progress, isI
               scale: isInView ? 1 : 0.8
             }}
             transition={{ duration: 1.5, delay: 0.2 }}
+            className="text-dark-green font-medium"
           >
             {displayProgress}%
           </motion.span>

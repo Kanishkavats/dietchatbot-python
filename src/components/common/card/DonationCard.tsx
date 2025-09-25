@@ -58,12 +58,19 @@ const DonationCard: React.FC<DonationCardProps> = ({
 
   // Truncate description
   const desc = card.description || "No description available";
-  const displayText = desc.length > 80 ? desc.slice(0, 80).concat("...") : desc;
+  const displayText =
+    desc.length > maxLength ? desc.slice(0, maxLength).concat("...") : desc;
+
+  // Truncate title with "..."
+  const titleMaxLength = 20;
+  const title = card.title || "No Title";
+  const displayTitle =
+    title.length > titleMaxLength ? title.slice(0, titleMaxLength).concat("...") : title;
 
   return (
     <div
       key={card.id}
-      className="w-[312px] rounded-[16px] bg-white shadow-md overflow-hidden cursor-pointer flex flex-col transition-all hover:shadow-lg gap-6"
+      className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative cursor-pointer flex flex-col h-full min-h-[400px] min-w-[280px]"
       onMouseEnter={() => card.id && onMouseEnter(card.id)}
       onMouseLeave={onMouseLeave}
       onClick={() => onCardClick(card.id)}
@@ -75,8 +82,11 @@ const DonationCard: React.FC<DonationCardProps> = ({
             src={card.image}
             alt={card.title || "Campaign Image"}
             className="absolute top-0 left-0 w-full h-full object-cover"
-            animate={{ scale: hoveredCard === card.id ? 1.05 : 1 }}
-            transition={{ duration: 0.4 }}
+            animate={{ 
+              scale: hoveredCard === card.id ? 1.1 : 1,
+              rotate: hoveredCard === card.id ? 3 : 0
+            }}
+            transition={{ duration: 0.5 }}
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
@@ -86,48 +96,41 @@ const DonationCard: React.FC<DonationCardProps> = ({
 
         {/* Category Pill */}
         <span
-          className={`absolute top-3 left-3 text-lg px-4 py-1 rounded-full 
-            ${hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow-400 text-black"}
-          `}
+          className={`absolute top-3 left-3 text-lg font-semibold px-4 py-1 rounded-full font-nunito ${
+            hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow text-black"
+          }`}
         >
           {card.category || "No Category"}
         </span>
       </div>
 
-      {/* Content Section */}
-      <div className="p-5 bg-[#ffffff] flex flex-col flex-grow">
-        <h3 className="text-[18px] font-bold text-[#222] mb-2 leading-[28px]">
-          {card.title || "No Title"}
-        </h3>
+      {/* Content */}
+      <div className="p-4 flex flex-col flex-grow">
+        <h3 className="text-xl font-extrabold mb-2 font-nunito transition-colors duration-300 text-gray-900 hover:text-[#6b5103]">{displayTitle}</h3>
+        <p className="text-gray-600 text-sm mb-6 font-nunito  flex-grow">{displayText}</p>
 
-        <p className="text-[14px] text-[#667471] leading-[20px] mb-4">
-          {displayText}
-        </p>
-
-        {/* Donation Progress */}
-        <div className="bg-[#9D998B1A] rounded-[12px] p-4 mt-auto">
-          <div className="flex justify-between text-[14px] font-semibold text-[#222] mb-2">
-            <span>Donation</span>
-            <span>{progress.toFixed(0)}%</span>
-          </div>
-
-          <AnimatedProgressBar progress={progress} isInView={isInView} />
-
-          <div className="flex justify-between text-[14px] mt-3">
-            <span className="text-[#222] font-medium">
-              Raised: ${raisedAmount.toLocaleString()}
-            </span>
-            <span className="text-[#222] font-bold">
-              Goal: ${goalAmount.toLocaleString()}
-            </span>
-          </div>
-
-          <div className="mt-4 flex">
+        {/* Bottom Section */}
+        <div className="bg-gray-100 p-2 rounded-lg mt-auto">
+          <AnimatedProgressBar progress={card.progress || 0} isInView={isInView} />
+            <div className="flex justify-between text-sm text-gray-500 mt-2 font-nunito">
+              <span className="text-dark-green">Raised: {card.raised || "0"}</span>
+              <span className="text-dark-green">Goal: <span className="text-[#6b5103] font-bold">{card.goal || "0"}</span></span>
+            </div>
+          <div className={`transition-all duration-300 mt-4 ${hoveredCard === card.id ? 'group' : ''}`}>
             <button
+              className={`w-fit relative cursor-pointer font-semibold font-nunito
+                bg-transparent border-2 border-dark-green rounded-full px-6 py-3 
+                overflow-hidden group
+                before:content-[''] before:absolute before:inset-0 before:bg-dark-green 
+                before:transition-transform before:duration-500 
+                before:origin-center before:scale-x-0 ${hoveredCard === card.id ? 'before:scale-x-100' : 'hover:before:scale-x-100'} before:z-0`}
               onClick={() => onCardClick(card.id)}
-              className="py-[13px] px-[30px] text-[15px] font-medium text-black border border-black rounded-full transition-all duration-300 hover:bg-green hover:text-white"
             >
-              Donate Now
+              <div className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 whitespace-nowrap font-nunito ${
+                hoveredCard === card.id ? 'text-white' : 'text-dark-green group-hover:text-white'
+              }`}>
+                <span className="leading-none">Donate Now</span>
+              </div>
             </button>
           </div>
         </div>
