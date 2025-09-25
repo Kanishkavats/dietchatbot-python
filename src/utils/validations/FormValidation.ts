@@ -121,7 +121,7 @@ export type CommentFormValues = Yup.InferType<typeof commentSchema>;
 export const bannerSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   subtitle: Yup.string().required("Subtitle is required"),
-  bannerImage: Yup.mixed()
+  image: Yup.mixed()
     .test(
       "fileOrString",
       "Banner image is required",
@@ -132,7 +132,7 @@ export const bannerSchema = Yup.object().shape({
       }
     )
     .required("Banner image is required"),
-  link: Yup.string().url("Must be a valid URL").required("Link is required"),
+  priority: Yup.number().required("priority is required"),
 });
 
 //  Inferred type from the schema

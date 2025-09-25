@@ -36,7 +36,6 @@ const Drawer: React.FC<AdminDrawerProps> = ({
             className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50 overflow-auto
               ${className}
               // w-full sm:w-[${width}] ${mobileFullScreen ? `sm:w-[400px] md:w-[60%] ${mode === "view" ? 'lg:w-[60%]' : 'lg:w-[35%]'} ` : ""}`}
-            // style={{ width: width }}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

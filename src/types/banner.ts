@@ -8,10 +8,8 @@ export interface Banner {
     id?: string;
     title: string;
     subtitle: string;
-    BannerImage: string;
-    link: string;
-    createdAt: string;
-    updatedAt: string;
+    image: string;
+    priority: number;
 }
 // Banner Form Props - used in <BannerForm />
 export interface BannerFormProps {

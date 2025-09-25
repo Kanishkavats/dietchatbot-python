@@ -10,18 +10,18 @@ import {
 import { BannerFormValues } from "../utils/validations/FormValidation";
 import toast from "react-hot-toast";
 
-// ✅ Convert BannerFormValues to FormData (handle bannerImage file or string)
+// ✅ Convert BannerFormValues to FormData (handle image file or string)
 const buildFormData = (values: BannerFormValues) => {
     const formData = new FormData();
 
     formData.append("title", values.title);
     formData.append("subtitle", values.subtitle);
-    formData.append("link", values.link);
+    formData.append("priority", values.priority.toString());
 
-    if (values.bannerImage instanceof File) {
-        formData.append("bannerImage", values.bannerImage);
-    } else if (typeof values.bannerImage === "string" && values.bannerImage !== "") {
-        formData.append("bannerImage", values.bannerImage);
+    if (values.image instanceof File) {
+        formData.append("image", values.image);
+    } else if (typeof values.image === "string" && values.image !== "") {
+        formData.append("image", values.image);
     }
 
     return formData;

@@ -9,6 +9,7 @@ import CustomInput from "../../Admin/Common/CustomInput";
 import CustomFileInput from "../../Admin/Common/CustomFileInput";
 import { BannerFormValues, bannerSchema } from "@/src/utils/validations/FormValidation";
 import { BannerFormProps } from "@/src/types/banner";
+import { submitBannerForm } from "@/src/hooks/useBanner";
 
 const BannerForm = ({
   initialData,
@@ -19,40 +20,29 @@ const BannerForm = ({
 }: BannerFormProps) => {
   const isEdit = mode === "edit";
 
+  console.log("check", initialData);
+
   // Initial form values setup
   const initialValues: BannerFormValues & { existingImage?: string } = {
     title: initialData?.title ?? "",
     subtitle: initialData?.subtitle ?? "",
-    bannerImage: typeof initialData?.bannerImage === "string" ? initialData.bannerImage : "",
-    link: initialData?.link ?? "",
-    existingImage: typeof initialData?.bannerImage === "string" ? initialData.bannerImage : undefined,
+    image: typeof initialData?.image === "string" ? initialData.image : "",
+    existingImage: typeof initialData?.image === "string" ? initialData.image : undefined,
+    priority: initialData?.priority ?? 0,
   };
 
-  const handleSubmit = async (
-    values: BannerFormValues,
-    { setSubmitting, resetForm }: { setSubmitting: (v: boolean) => void; resetForm: () => void }
-  ) => {
-    if (isEdit && initialData?.id) {
-      updateMutation.mutate(
-        { id: initialData.id, values },
-        {
-          onSuccess: () => {
-            resetForm();
-            onClose();
-          },
-          onSettled: () => setSubmitting(false),
-        }
-      );
-    } else {
-      createMutation.mutate(values, {
-        onSuccess: () => {
-          resetForm();
-          onClose();
-        },
-        onSettled: () => setSubmitting(false),
-      });
-    }
-  };
+ const handleSubmit = (
+  values: BannerFormValues,
+  {
+    setSubmitting,
+    resetForm,
+  }: {
+    setSubmitting: (isSubmitting: boolean) => void;
+    resetForm: () => void;
+  }
+) => {
+  submitBannerForm(values, initialData, createMutation, updateMutation, resetForm, setSubmitting, onClose);
+};
 
   return (
     <div className="w-full pb-10">
@@ -67,7 +57,7 @@ const BannerForm = ({
 
             {/* Title */}
             <CustomInput
-              label="Banner Title*"
+              label="Title*"
               name="title"
               placeholder="Enter banner title"
               value={values.title}
@@ -77,38 +67,36 @@ const BannerForm = ({
 
             {/* Subtitle */}
             <CustomInput
-              label="Banner Subtitle*"
+              label="Subtitle*"
               name="subtitle"
               placeholder="Enter banner subtitle"
               value={values.subtitle}
               onChange={handleChange}
               error={touched.subtitle ? errors.subtitle : ""}
             />
-
-            {/* Link */}
             <CustomInput
-              label="Banner Link*"
-              name="link"
-              placeholder="Enter banner link"
-              value={values.link}
+              label="Priority*"
+              name="priority"
+              placeholder="Enter banner priority"
+              value={values.priority}
               onChange={handleChange}
-              error={touched.link ? errors.link : ""}
+              error={touched.priority ? errors.priority : ""}
             />
 
             {/* Banner Image */}
             <CustomFileInput
-              label="Banner Image*"
-              name="bannerImage"
+              label=" Image*"
+              name="image"
               mode={mode}
               initialUrls={values.existingImage ? [values.existingImage] : []}
-              error={touched.bannerImage && typeof errors.bannerImage === "string" ? errors.bannerImage : ""}
+              error={touched.image && typeof errors.image === "string" ? errors.image : ""}
               onChange={(files, existingUrls) => {
                 if (files.length > 0) {
-                  setFieldValue("bannerImage", files[0]);
+                  setFieldValue("image", files[0]);
                 } else if (existingUrls && existingUrls.length > 0) {
-                  setFieldValue("bannerImage", existingUrls[0]);
+                  setFieldValue("image", existingUrls[0]);
                 } else {
-                  setFieldValue("bannerImage", "");
+                  setFieldValue("image", "");
                 }
               }}
             />
