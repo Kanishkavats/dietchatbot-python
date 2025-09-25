@@ -2,17 +2,11 @@
 import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import CustomInput from "../../Admin/Common/CustomInput";
+import { AdminMultiInputListProps } from "@/src/types/adminCommon";
 
-interface MultiInputListProps {
-  label: string;
-  values: string[];
-  onChange: (items: string[]) => void;
-  placeholder?: string;
-  isView?: boolean;
-  colorClass?: { normal: string; view: string }; // optional styling
-}
 
-const MultiInputList: React.FC<MultiInputListProps> = ({
+
+const MultiInputList: React.FC<AdminMultiInputListProps> = ({
   label,
   values,
   onChange,

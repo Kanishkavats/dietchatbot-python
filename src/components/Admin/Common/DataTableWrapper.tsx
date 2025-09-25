@@ -1,20 +1,17 @@
 "use client";
 
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
+import { AdminDataTableWrapperProps } from "@/src/types/adminCommon";
 import React from "react";
 import DataTable, { TableColumn } from "react-data-table-component";
 
-interface DataTableWrapperProps<T> {
-  columns: TableColumn<T>[];
-  data: T[];
-  loading?: boolean;
-}
+
 
 const DataTableWrapper = <T,>({
   columns,
   data,
   loading = false,
-}: DataTableWrapperProps<T>) => {
+}: AdminDataTableWrapperProps<T>) => {
   return (
     <AnimatedReveal>
       <DataTable

@@ -1,4 +1,4 @@
-import { ChangeEvent, KeyboardEvent, RefObject } from "react";
+import { ChangeEvent, KeyboardEvent, ReactNode, RefObject } from "react";
 
 
 export interface DropdownOption<T> {
@@ -35,4 +35,48 @@ export interface AdminCustomInputProps {
   disabled?: boolean;
   readOnly?: boolean; 
   ref?:RefObject<HTMLInputElement | null>
+}
+
+export interface AdminFileItem {
+  file?: File;
+  url: string;
+  status: "processing" | "success" | "error";
+  progress: number;
+}
+
+export interface AdminCustomFileInputProps {
+  label?: string;
+  name: string;
+  onChange: (files: File[], updatedImageUrls?: string[]) => void;
+  error?: string;
+  disabled?: boolean;
+  mode?: "add" | "edit" | "view";
+  initialUrls?: string[];
+  uploadType?: "single" | "multiple";
+}
+
+export interface AdminMultiInputListProps {
+  label: string;
+  values: string[];
+  onChange: (items: string[]) => void;
+  placeholder?: string;
+  isView?: boolean;
+  colorClass?: { normal: string; view: string }; // optional styling
+}
+
+export interface AdminDrawerProps {
+  isOpen: boolean;
+  onClose: () => void;
+  children: ReactNode;
+  title?: string;
+  width?: string; 
+  className?: string;
+  mobileFullScreen?: boolean; 
+  mode?: string
+}
+
+export interface AdminDataTableWrapperProps<T> {
+  columns: TableColumn<T>[];
+  data: T[];
+  loading?: boolean;
 }
