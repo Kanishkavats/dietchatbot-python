@@ -106,6 +106,7 @@ const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
     </motion.div>
   );
 };
+
 export default CampaignInfo;
 
  
