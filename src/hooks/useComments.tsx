@@ -56,7 +56,19 @@ export const useCreateComment = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: { comment: string; name: string; email: string } }) =>
       createComment(id, data),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log(" comment", data)
+
+            // 1. Get existing comments
+      const existingComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
+
+      // 2. Add new comment
+      const updatedComments = [
+        ...existingComments,
+        data.comment || {}
+      ];
+      localStorage.setItem("LocalComments", JSON.stringify(updatedComments));
+
       queryClient.invalidateQueries({ queryKey: ["comments"] });
       toast.success("Comment created successfully");
     },
