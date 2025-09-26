@@ -49,6 +49,8 @@ const CampaignDetails: React.FC = () => {
     router.push(`/campaign/${cardId}`);
   };
 
+
+
   if (isLoading) return <p>Loading campaign details...</p>;
   if (isError) return <p>Failed to load campaign details.</p>;
   if (!data) return <p>No campaign found.</p>;
@@ -59,7 +61,7 @@ const CampaignDetails: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Left/Main content */}
         <div className="lg:col-span-2 space-y-6">
-          <CampaignInfo data={data} />
+          <CampaignInfo data={data} allCampaigns={allCampaigns?.campaigns || []}  id={id}/>
         </div>
 
         {/* Sidebar */}

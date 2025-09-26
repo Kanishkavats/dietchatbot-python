@@ -1,5 +1,7 @@
 
 
+
+
 "use client";
 
 import React from "react";
@@ -15,8 +17,8 @@ interface DonationCardProps {
     title?: string;
     description?: string;
     progress?: number;
-    raised?: string;
-    goal?: string;
+    raised?: string | number;
+    goal?: string | number;
   };
   isInView: boolean;
   hoveredCard: string | null;
@@ -33,7 +35,6 @@ const DonationCard: React.FC<DonationCardProps> = ({
   onMouseLeave,
   onCardClick,
 }) => {
-  // If card is undefined, render fallback
   if (!card) {
     return (
       <div className="bg-gray-100 rounded-2xl shadow-lg p-6 flex flex-col h-full">
@@ -42,8 +43,21 @@ const DonationCard: React.FC<DonationCardProps> = ({
     );
   }
 
-  // Truncate description with "..."
-  const maxLength = 120;
+  // ✅ Parse string or number amounts safely
+  const parseAmount = (amount?: string | number) => {
+    if (typeof amount === "number") return amount;
+    if (typeof amount === "string") {
+      return Number(amount.replace(/[^0-9.-]+/g, "")) || 0; // Remove $ or commas
+    }
+    return 0;
+  };
+
+  const raisedAmount = parseAmount(card.raised);
+  const goalAmount = parseAmount(card.goal);
+  const progress = card.progress || Math.min((raisedAmount / goalAmount) * 100, 100);
+
+  // Truncate description
+  const maxLength=20;
   const desc = card.description || "No description available";
   const displayText =
     desc.length > maxLength ? desc.slice(0, maxLength).concat("...") : desc;
@@ -62,8 +76,8 @@ const DonationCard: React.FC<DonationCardProps> = ({
       onMouseLeave={onMouseLeave}
       onClick={() => onCardClick(card.id)}
     >
-      {/* Image */}
-      <div className="relative mb-4 rounded-xl overflow-hidden w-full h-55">
+      {/* Image with White Border */}
+      <div className="relative w-full h-[200px] rounded-t-[20px] rounded-b-[20px] overflow-hidden border-t-[12px] border-x-[12px] border-white">
         {card.image ? (
           <motion.img
             src={card.image}
@@ -80,6 +94,8 @@ const DonationCard: React.FC<DonationCardProps> = ({
             <span className="text-gray-400">No Image</span>
           </div>
         )}
+
+        {/* Category Pill */}
         <span
           className={`absolute top-3 left-3 text-lg font-semibold px-4 py-1 rounded-full font-nunito ${
             hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow text-black"

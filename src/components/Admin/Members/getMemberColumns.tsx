@@ -34,16 +34,6 @@ export const getMemberColumns = ({
     selector: (row: Member) => row.title || "-",
   },
   {
-    name: "Created",
-    selector: (row: Member) =>
-      row.createdAt ? new Date(row.createdAt).toLocaleDateString() : "-",
-  },
-  {
-    name: "Updated",
-    selector: (row: Member) =>
-      row.updatedAt ? new Date(row.updatedAt).toLocaleDateString() : "-",
-  },
-  {
     name: "Actions",
     cell: (row: Member) => (
       <TableRowActions

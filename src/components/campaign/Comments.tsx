@@ -1,9 +1,6 @@
-
-
-
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
 import { fetchgetcomments } from '@/src/services/commentsApi';
@@ -12,77 +9,59 @@ interface Comment {
   id: string;
   name: string;
   comment: string;
-  image?: string;
+  image?: string; 
   timeAgo?: string;
   likeCount?: number;
   replies?: Comment[];
-  isPending?: boolean;
 }
 
 interface CommentsProps {
-  campaignId: string; // blogId
+  campaignId: string; 
 }
 
 export default function Comments({ campaignId }: CommentsProps) {
-  const [allComments, setAllComments] = useState<Comment[]>([]);
-
-  const { data, isLoading, isError } = useQuery({
+  const { data, isLoading,isError } = useQuery({
     queryKey: ["comments", campaignId],
     queryFn: () => fetchgetcomments(campaignId),
+    // select: (data) => data.comments || [],
   });
-
-  // Update allComments when data changes
-  useEffect(() => {
-    if (data?.comments) {
-      setAllComments(data.comments);
-    }
-  }, [data]);
 
   if (isLoading) {
     return <p>Loading comments...</p>;
   }
-  if(isError){
-    return <p>No comments available</p>
-  }
+if(isError){
+  return <p>No comments comments</p>
+}
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">
-        {allComments.length.toString().padStart(2, "0")} Comments
+      <h2 className="text-2xl font-bold mb-6 text-[#000000]">
+        {data?.comments?.length?.toString().padStart(2, "0") || "00"} Comments
       </h2>
       <div className="space-y-10 mb-8">
-        {allComments.map((comment) => (
+        {data?.comments?.map((comment: Comment) => (
           <div
-            key={comment.id} // ID is now guaranteed to be unique across both sources
+            key={comment.id}
             className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
           >
             <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
              
-              <span className="text-6xl font-bold text-gray-500">
+              <span className="text-2xl font-bold text-[#000000]">
                 {comment.name.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex-1">
-              <h5 className="text-lg sm:text-xl font-bold font-nunito">
-                {comment.name}
-              </h5>
-              {comment.isPending && (
-                <span className="ml-2 bg-yellow-200 text-brown px-2 py-1 rounded text-xs font-medium">
-                  Pending Approval
-                </span>
-              )}
+              <h5 className="text-lg sm:text-xl font-bold font-nunito text-[#000000]">{comment.name}</h5>
               <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug whitespace-pre-line">
                 {comment.comment}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
-                <button className="flex items-center gap-1 hover:text-brown">
+                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
                   <FiHeart /> Like {comment.likeCount || 0}
                 </button>
-                <button className="flex items-center gap-1 hover:text-brown">
+                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
                   <FiCornerUpLeft /> Reply
                 </button>
-                <span className="text-gray-500">
-                  {comment.timeAgo || "Just now"}
-                </span>
+                <span className="text-gray-600">{comment.timeAgo || "Just now"}</span>
               </div>
             </div>
           </div>
@@ -91,5 +70,3 @@ export default function Comments({ campaignId }: CommentsProps) {
     </div>
   );
 }
-
-
