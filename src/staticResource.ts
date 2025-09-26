@@ -60,6 +60,9 @@ export const NAV_ITEMS: NavItem[] = [
       {
         label: "Team",href: "/team"
       },
+      {
+        label:"Shop",href: "/shop"
+      }
 
     ],
   },
