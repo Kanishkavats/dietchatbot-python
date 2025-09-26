@@ -52,7 +52,7 @@ const NewsCard = ({ card }: cardProps) => {
     onClick={()=>router.push(`/news-details/${card?.id}`)}
   >
     {/* Image */}
-    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-[250px] md:h-[350px] lg:h-[250px] xl:aspect-4/3 ">
+    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-[250px] md:h-[350px] lg:h-[250px] xl:h-[320px] ">
       <motion.img
         src={card?.images[0]}
         alt={card?.title || "news-card"}
