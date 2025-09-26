@@ -57,7 +57,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
   const progress = card.progress || Math.min((raisedAmount / goalAmount) * 100, 100);
 
   // Truncate description
-  const maxLength= 120;
+  const maxLength=20;
   const desc = card.description || "No description available";
   const displayText =
     desc.length > maxLength ? desc.slice(0, maxLength).concat("...") : desc;
