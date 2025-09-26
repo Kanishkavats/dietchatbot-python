@@ -1,9 +1,8 @@
 "use client";
 import React from "react";
 import { motion, useAnimationControls } from "framer-motion";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { useTranslation } from "react-i18next";
-
 
 interface DynamicButtonProps {
   type?: "button" | "submit" | "reset";
@@ -21,9 +20,8 @@ interface DynamicButtonProps {
   paddingy?: string;
 }
 
-
 const Button: React.FC<DynamicButtonProps> = ({
-  type,
+  type = "button",
   text,
   icon = "mdi:arrow-top-right",
   hoverBg = "before:bg-green",
@@ -40,52 +38,48 @@ const Button: React.FC<DynamicButtonProps> = ({
   const iconControls = useAnimationControls();
   const { t } = useTranslation();
 
+  // Unified content block
+  const buttonContent = (
+    <div
+      className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${textColor} ${hoverTextColor} whitespace-nowrap`}
+    >
+      <span className="leading-none">{children ? children : text ? t(text) : ""}</span>
+      {icon && (
+        <motion.div
+          className="flex items-center justify-center leading-none"
+          animate={iconControls}
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        >
+          <Icon icon={icon} width={18} height={18} />
+        </motion.div>
+      )}
+    </div>
+  );
+
   return (
     <motion.button
-      type={type || "button"}
-      {...(onClick ? { onClick } : {})}
+      type={type}
+      onClick={onClick}
       disabled={disabled}
       onHoverStart={() => iconControls.start({ rotate: 45 })}
       onHoverEnd={() => iconControls.start({ rotate: 0 })}
-      initial="rest"
       whileHover="hover"
-      animate="rest"
       variants={{
-        rest: { backgroundSize: "0% 100%", backgroundPosition: "center" },
         hover: {
           backgroundSize: "100% 100%",
           transition: { duration: 0.4, ease: "easeInOut" },
         },
       }}
-      className={`w-full relative  cursor-pointer font-semibold font-nunito
-        ${bgColor}   ${rounded} ${paddingx} ${paddingy} 
+      className={`w-full relative cursor-pointer font-semibold font-nunito
+        ${bgColor} ${rounded} ${paddingx} ${paddingy}
         overflow-hidden group
-        before:content-[''] before:absolute before:inset-0 ${hoverBg} 
+        before:content-[''] before:absolute before:inset-0 ${hoverBg}
         before:transition-transform before:duration-500 
         before:origin-center before:scale-x-0 hover:before:scale-x-100 before:z-0
-        ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
+        ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+      `}
     >
-      <div
-        className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${textColor} ${hoverTextColor} 
-        whitespace-nowrap`}
-      >
-        {children ? (
-          children
-        ) : (
-          <>
-            <span className="leading-none">{text ? t(text) : ""}</span>
-            {icon && (
-              <motion.div
-                className="flex items-center justify-center leading-none"
-                animate={iconControls}
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-              >
-                <Icon icon={icon} width={18} height={18} />
-              </motion.div>
-            )}
-          </>
-        )}
-      </div>
+      {buttonContent}
     </motion.button>
   );
 };
