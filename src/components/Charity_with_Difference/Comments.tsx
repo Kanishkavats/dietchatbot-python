@@ -7,14 +7,15 @@ import React, { useState, useEffect } from 'react';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
 import { fetchgetcomments } from '@/src/services/commentsApi';
+import { mergeComments, CommentType } from '@/src/utils/mergedComment';
 
 interface Comment {
   id: string;
   name: string;
   comment: string;
   image?: string;
-  timeAgo?: string;
   likeCount?: number;
+  timeAgo?: string;
   replies?: Comment[];
   isPending?: boolean;
 }
@@ -31,12 +32,46 @@ export default function Comments({ campaignId }: CommentsProps) {
     queryFn: () => fetchgetcomments(campaignId),
   });
 
-  // Update allComments when data changes
   useEffect(() => {
+    // Update allComments when data changes
+    console.log("Supriya data is updating")
     if (data?.comments) {
-      setAllComments(data.comments);
+      console.log("Supriya Comments is updating")
+      // Merge API comments with localStorage comments
+      const mergedComments = mergeComments(data.comments, campaignId);
+      setAllComments(mergedComments);
+    } else {
+      // If no API comments, still show localStorage comments
+      const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
+      const filteredLocalComments = localComments.filter((comment: any) => comment.blogId === campaignId);
+      setAllComments(filteredLocalComments);
     }
-  }, [data]);
+  }, [data, campaignId, isLoading]);
+
+  // Listen for localStorage changes
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
+      const filteredLocalComments = localComments.filter((comment: any) => comment.blogId === campaignId);
+      
+      if (data?.comments) {
+        const mergedComments = mergeComments(data.comments, campaignId);
+        setAllComments(mergedComments);
+      } else {
+        setAllComments(filteredLocalComments);
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    // Also listen for custom events (for same-tab updates)
+    window.addEventListener('commentAdded', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      window.removeEventListener('commentAdded', handleStorageChange);
+    };
+  }, [data, campaignId]);
 
   if (isLoading) {
     return <p>Loading comments...</p>;
