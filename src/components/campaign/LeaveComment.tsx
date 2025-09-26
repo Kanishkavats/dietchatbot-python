@@ -52,7 +52,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
   };
 
   return (
-    <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15 shadow-xl border border-[#edefe9]">
+    <div className="  w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15 shadow-xl border border-[#edefe9]">
       <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
         Leave A Comment
       </h2>
@@ -93,7 +93,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
           />
         </div>
 
-        <div className="flex justify-start mt-8">
+        <div className="flex items-center justify-start  mt-8">
           <div className="w-fit">
           <Button
             text={mutation.isPending ? "Submitting..." : "Submit Comment"}
@@ -104,7 +104,9 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             hoverBg="before:bg-yellow"
             paddingx="px-6"
             paddingy="py-4"
-            onClick={handleSubmit}
+            
+
+            
           />
           </div>
         </div>
