@@ -7,7 +7,7 @@ import React, { useState } from "react";
 import SearchBox from "./SearchBox";
 import RecentCauses from "./RecentCauses";
 import TagList from "./TagList";
-import DynamicDonationCards from "./DynamicDonationCards"; // ✅ import new component
+import DynamicDonationCards from "./DynamicDonationCards"; // import new component
 
 import {  heartLogoIcon, overView } from "@/public/assets";
 
@@ -30,7 +30,7 @@ const CampaignSidebar = ({ allCampaigns = [] }: { allCampaigns?: any[] }) => {
       <RecentCauses causes={filteredCampaigns.slice(0, 5)} />
       <TagList tags={tags} onClick={handleTagClick} selectedTag={selectedTag} />
 
-      {/* ✅ Dynamic Donation Cards Component */}
+      {/* Dynamic Donation Cards Component */}
       
        <DynamicDonationCards
                 icon={heartLogoIcon.src}

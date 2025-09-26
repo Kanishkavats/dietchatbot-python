@@ -1,0 +1,62 @@
+
+
+import { json } from "stream/consumers";
+
+export interface CommentType {
+  id: string;
+  name: string;
+  comment: string;
+  blogId?: string;
+  isPending?: boolean;
+  createdAt?: string;
+  timeAgo?: string;
+  likeCount?: number;
+  replies?: CommentType[];
+}
+
+// Get pending comments for a specific blog
+export function getLocalComments(blogId: string): CommentType[] {
+  if (typeof window === "undefined") return [];
+  const stored = localStorage.getItem("LocalComments");
+  if (!stored) return [];
+
+  try {
+    const parsed: CommentType[] = JSON.parse(stored);
+    return parsed
+      .filter(c => c.blogId === blogId)
+      .map(c => ({ ...c, isPending: true }));
+  } catch (error) {
+    console.error("❌ Failed to parse local comments:", error);
+    return [];
+  }
+}
+
+// Remove a list of comments from local storage
+export function removeLocalComments(idsToRemove: string[]) {
+  if (typeof window === "undefined" || !idsToRemove.length) return;
+  const idsToRemoveSet = new Set(idsToRemove);
+  
+  const existing: CommentType[] = JSON.parse(localStorage.getItem("LocalComments") || "[]");
+  console.log("ex",existing)
+  // Filter out the comments whose IDs are in the set
+  const updated = existing.filter(c => !idsToRemoveSet.has(c.id));
+  console.log("up",updated)
+  localStorage.setItem("LocalComments", JSON.stringify(updated));
+
+}
+
+export function mergeAndCleanComments(apiComments: CommentType[], blogId: string): CommentType[] {
+  const localComments = getLocalComments(blogId);
+
+  const apiCommentSet = new Set(apiComments.map(c => c.id));
+
+const filteredLocalComments = localComments.filter(
+  lc => !apiCommentSet.has(lc.id)
+);
+       localStorage.setItem("LocalComments", JSON.stringify(filteredLocalComments));
+
+
+  // Merge API comments + pending local comments
+  return [...apiComments, ...filteredLocalComments];
+}
+
