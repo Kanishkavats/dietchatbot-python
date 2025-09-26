@@ -20,11 +20,22 @@ interface CommentsProps {
 }
 
 export default function Comments({ campaignId }: CommentsProps) {
+  const [allComments, setAllComments] = useState<Comment[]>([]);
+  
   const { data, isLoading,isError } = useQuery({
     queryKey: ["comments", campaignId],
     queryFn: () => fetchgetcomments(campaignId),
     // select: (data) => data.comments || [],
   });
+
+  // Update allComments when data changes
+  useEffect(() => {
+    if (data?.comments) {
+      // Merge API comments with localStorage comments
+      const mergedComments = mergeComments(data.comments, campaignId);
+      setAllComments(mergedComments);
+    }
+  }, [data, campaignId]);
 
   if (isLoading) {
     return <p>Loading comments...</p>;
@@ -38,7 +49,7 @@ if(isError){
         {data?.comments.length.toString().padStart(2, "0")} Comments
       </h2>
       <div className="space-y-10 mb-8">
-        {data?.comments.map((comment: Comment) => (
+        {data?.comments?.map((comment: Comment) => (
           <div
             key={comment.id}
             className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"

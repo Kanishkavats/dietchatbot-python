@@ -96,6 +96,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
         <div className="flex items-center justify-start  mt-8">
           <div className="w-fit">
           <Button
+            type="submit"
             text={mutation.isPending ? "Submitting..." : "Submit Comment"}
             bgColor="bg-[#122F2A]"
             textColor="text-white"
@@ -104,9 +105,6 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             hoverBg="before:bg-yellow"
             paddingx="px-6"
             paddingy="py-4"
-            
-
-            
           />
           </div>
         </div>
