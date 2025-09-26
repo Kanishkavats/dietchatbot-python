@@ -34,7 +34,7 @@ if(isError){
 }
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6 text-[#000000]">
+      <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold mt-10 mb-4 text-dark-green font-nunito">
         {data?.comments.length.toString().padStart(2, "0")} Comments
       </h2>
       <div className="space-y-10 mb-8">
@@ -45,7 +45,7 @@ if(isError){
           >
             <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
              
-              <span className="text-2xl font-bold text-[#000000]">
+              <span className="text-2xl font-bold text-[#000000] font-nunito">
                 {comment.name.charAt(0).toUpperCase()}
               </span>
             </div>
@@ -55,13 +55,13 @@ if(isError){
                 {comment.comment}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
-                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
+                <button className="flex items-center gap-1 font-bold font-nunito hover:text-[#3b82f6]">
                   <FiHeart /> Like {comment.likeCount || 0}
                 </button>
-                <button className="flex items-center gap-1 hover:text-[#3b82f6]">
+                <button className="flex items-center gap-1 font-bold font-nunito hover:text-[#3b82f6]">
                   <FiCornerUpLeft /> Reply
                 </button>
-                <span className="text-gray-600">{comment.timeAgo || "Just now"}</span>
+                <span className="text-gray-600 font-nunito font-bold">{comment.timeAgo || "Just now"}</span>
               </div>
             </div>
           </div>
