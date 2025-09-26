@@ -1,106 +1,111 @@
 
 
 
-
 "use client";
-
 import Image from "next/image";
-import { IoCalendarSharp, IoLocationSharp } from "react-icons/io5";
-import { FaRegCheckCircle } from "react-icons/fa";
+import { IoLocationSharp } from "react-icons/io5";
+import { FaRegCalendarAlt } from "react-icons/fa";
+import { LuCircleCheckBig } from "react-icons/lu";
 import { motion } from "framer-motion";
 import Comments from "./Comments";
 import LeaveComment from "./LeaveComment";
-
-import { FaRegCalendarAlt } from "react-icons/fa";
-
 interface CampaignInfoProps {
   data: any;
-  allCampaigns: any[];
+  allCampaigns: any[]; 
+  id: string; 
   formattedDate?: string;
-  
 }
-
-const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, allCampaigns, formattedDate }) => {
+const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="bg-white font-sans p-8 md:p-20 text-gray-green"
+      className="bg-[#ffffff] font-sans text-[#667471]"
     >
-      <div className="container mx-auto">
-        <main className="lg:w-3/3 p-2 sm:p-4">
-          {/* Main Image */}
-          <div className="relative w-full h-[220px] sm:h-[300px] lg:h-[450px] mb-6 rounded-lg overflow-hidden shadow-md">
-            <Image
-              src={data?.images?.[0] || "/default-image.jpg"}
-              alt={data?.title}
-              fill
-              priority
-              className="object-cover object-center"
-            />
-          </div>
-
-          {/* Date & Location */}
-          <div className="flex items-center space-x-4 text-dark-green mb-6">
-            
-            
-            <p className="flex items-center font-nunito text-sm text-[#667471]">
-              <FaRegCalendarAlt className="mr-2" />
-
-              {data?.createdAt
-                ? new Date(data.createdAt).toLocaleDateString()
-                : "No date"}
+      {/* Inner padding: Responsive, but reduced since parent main has padding */}
+      <div className="w-full p-2 sm:p-4 lg:p-8"> 
+        {/* Main Image: Responsive height */}
+        <div className="relative w-full h-[220px] sm:h-[300px] lg:h-[450px] mb-4 sm:mb-6 rounded-lg overflow-hidden shadow-md">
+          <Image
+            src={data?.images?.[0] || "/default-image.jpg"}
+            alt={data?.title || "Campaign"}
+            fill
+            priority
+            className="object-cover object-center"
+          />
+        </div>
+        {/* Date & Location: Stack on mobile, row on sm+ */}
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-[#000000] mb-4 sm:mb-6">
+          <p className="flex items-center font-nunito text-[14px] sm:text-sm lg:text-base">
+            <FaRegCalendarAlt className="mr-2 text-yellow w-[15px] sm:w-[18px] lg:w-[22px] h-[18px] sm:h-[20px] lg:h-[24px]" />
+            {data?.createdAt
+              ? new Date(data.createdAt).toLocaleDateString()
+              : formattedDate || "No date"}
+          </p>
+          <span className="flex items-center gap-1 font-nunito text-[14px] sm:text-sm lg:text-base">
+            <IoLocationSharp className="w-[15px] sm:w-[18px] lg:w-[22px] h-[18px] sm:h-[20px] lg:h-[24px] text-yellow" />
+            {data?.location || "New York"}
+          </span>
+        </div>
+        {/* Title: Responsive sizing, left-aligned */}
+        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-dark-green mb-4 sm:mb-6 leading-tight font-nunito text-left">
+          {data?.title || "Campaign Title Here"}
+        </h1>
+        {/* Description: Responsive text */}
+        <p className="text-gray-green mb-6 sm:mb-8 text-[14px] sm:text-[16px] lg:text-[18px] font-nunito">
+          {data?.description}
+        </p>
+        {/* Summary: Conditional, responsive */}
+        {data?.summary && (
+          <>
+            <h2 className="text-xl sm:text-2xl lg:text-4xl font-extrabold mt-6 sm:mt-8 mb-2 sm:mb-4 text-dark-green font-nunito">
+              Summary
+            </h2>
+            <p className="text-gray-green mb-6 sm:mb-8 text-[14px] sm:text-[16px] lg:text-[18px] font-nunito">
+              {data?.summary}
             </p>
-            <span className="flex items-center gap-1">
-              <IoLocationSharp className="text-yellow" /> {data?.location || "New York"}
-            </span>
+          </>
+        )}
+        {/* Key Points: Grid stacks on mobile, responsive text */}
+        {data?.keyPoints?.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-dark-green font-bold text-sm sm:text-base md:text-[16px] lg:text-[18px] mb-6 sm:mb-8">
+            {data.keyPoints.map((point: string, index: number) => (
+              <div key={index} className="flex items-start gap-2 font-nunito">
+                <LuCircleCheckBig className="text-green text-lg sm:text-xl mt-1 flex-shrink-0" />
+                <span className="text-sm sm:text-base lg:text-lg">{point}</span>
+              </div>
+            ))}
           </div>
-
-          {/* Title */}
-          <h1 className="lg:text-5xl font-extrabold text-dark-green mb-6 leading-tight font-nunito md:text-[30px]">
-            {data?.title || "Campaign Title Here"}
-          </h1>
-
-          {/* Description */}
-          <p className="text-gray-green lg:text-lg mb-8 font-nunito md:text-[18px]">{data?.description}</p>
-
-          {/* Summary */}
-          {data?.summary && (
-            <>
-              <h2 className="lg:text-5xl font-extrabold mt-10 mb-4 text-dark-green font-nunito">
-                Summary
-              </h2>
-              <p className="text-gray-green mt-4 lg:text-lg mb-8 font-nunito">{data?.summary}</p>
-            </>
-          )}
-
-
-
-          {/* Key Points */}
-
-          {data?.keyPoints?.length > 0 && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-dark-green font-bold md:text-[18px] mb-8">
-              {data.keyPoints.map((point: string, index: number) => (
-                <div
-                  key={index}
-                  className="flex items-start gap-2 lg:text-lg font-nunito"
-                >
-                  <FaRegCheckCircle className="text-green text-xl mt-1" />
-                  <span>{point}</span>
-                </div>
-              ))}
+        )}
+        {/* Additional Images: Responsive grid/heights */}
+        {data?.images?.length > 2 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 mt-6 sm:mt-8 mb-6 sm:mb-8">
+            <div className="relative w-full h-[180px] sm:h-[220px] lg:h-[300px] rounded-lg overflow-hidden">
+              <Image
+                src={data.images[1]}
+                alt="Additional Image 1"
+                fill
+                className="object-cover"
+              />
             </div>
-          )}
-
-
-          {/* Comments */}
-          <Comments campaignId={data.id} />
-          <LeaveComment blogId={data.id} />
-        </main>
+            <div className="relative w-full h-[180px] sm:h-[220px] lg:h-[300px] rounded-lg overflow-hidden">
+              <Image
+                src={data.images[2]}
+                alt="Additional Image 2"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        )}
+        {/* Comments Section */}
+        <Comments campaignId={data.id} />
+        <LeaveComment blogId={data.id} />
       </div>
     </motion.div>
   );
 };
-
 export default CampaignInfo;
+
+ 
