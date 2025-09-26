@@ -6,7 +6,8 @@ import { motion, useInView } from 'framer-motion';
 import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
-import { gridDot } from '@/public/assets';
+import { gridDot, thumbSmChild } from '@/public/assets';
+import FadeUpCard from '@/src/animations/FadeButtomUp';
 
 const DonateDifferentWay: React.FC = () => {
   const [activeTab, setActiveTab] = useState('mission');
@@ -21,7 +22,7 @@ const DonateDifferentWay: React.FC = () => {
   const missionItems = donateDifferentWayMissionItems;
 
   return (
-    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 mt-20 lg:mt-25 bg-white '>
+    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 mt-20 mb-10 xl:mb-20 lg:mt-25 bg-white '>
       <div className='max-w-7xl md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto'>
 
         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
@@ -52,13 +53,14 @@ const DonateDifferentWay: React.FC = () => {
             {/* Video player with actual image */}
             <motion.div 
               ref={mainImageRef}
-              className='hidden lg:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 xl:w-[480px] lg:-ml-40 xl:-ml-0 h-64 sm:h-80 lg:h-5/7  lg:-mt-15  bg-gray-200 z-10'
-              initial={{ opacity: 0, transform: 'translateZ(0)' }}
-              animate={isInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
-              transition={{ duration: 1 }}
+              className='hidden lg:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 xl:w-[480px] lg:-ml-40 xl:-ml-0 h-64 sm:h-80 lg:h-5/7 xl:h-5/6  lg:-mt-15  bg-gray-200 z-10'
+              initial={{ opacity: 0,x:-100 }}
+              animate={isInView ? { opacity: 1, x:0 } : {  }}
+              transition={{ duration: 1 ,ease: "easeOut",delay:0.2
+              }}
             >
               <Image
-                src='/assets/section3/givehealthsupport.png' 
+                src={thumbSmChild} 
                 alt='Children in need' 
                 fill={true}
                 className='w-full h-full object-cover'
@@ -66,8 +68,9 @@ const DonateDifferentWay: React.FC = () => {
                   e.currentTarget.style.display = 'none';
                 }}
               />
-              {/* Green highlight overlay with grainy texture */}
-              <div className='absolute inset-0 bg-gradient-to-l from-green via-green/30 to-green/70  mix-blend-multiply'></div>
+              <div className="absolute inset-0 
+               bg-[linear-gradient(104deg,rgba(12,26,23,0)_1.9%,rgba(0,113,93,.08)_18.93%,rgba(0,113,93,.17)_29.72%,rgba(0,113,93,.37)_83.58%,rgba(0,113,93,.67)_109.85%,#00715d_133.89%,#00715d_133.91%,rgba(0,113,93,.91)_149.32%)]"
+                    />
               <div className='absolute inset-0 opacity-30' style={{
                 backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`,
                 mixBlendMode: 'overlay'
@@ -100,9 +103,9 @@ const DonateDifferentWay: React.FC = () => {
             {/* Small overlapping image */}
             <motion.div 
               ref={bottomImageRef}
-              className='hidden lg:block absolute rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-75 lg:h-65 xl:w-80 xl:h-80 z-10  bottom-[-100] lg:bottom-[90] lg:transform lg:-translate-y-1/2 lg:right-[-90%] xl:right-[-10%] '
-              initial={{ opacity: 0, transform: 'translateZ(0)' }}
-              animate={isBottomImageInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
+              className='hidden lg:block absolute rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-75 lg:h-65 xl:w-75 xl:h-70 z-10  bottom-[-100] lg:bottom-[90] xl:bottom-0 lg:transform lg:-translate-y-1/2 lg:right-[-90%] xl:right-[-10%] '
+              initial={{ opacity: 0, y:100 }}
+              animate={isBottomImageInView ? { opacity: 1, y:0 } : { }}
               transition={{ duration: 1, delay: 0.3 }}
             >
               <Image
@@ -115,7 +118,7 @@ const DonateDifferentWay: React.FC = () => {
           </div>
 
           {/* Right side - Content section */}
-          <div className='lg:col-span-9 xl:col-span-7 flex flex-col lg:p-5 lg:flex-row gap-4 sm:gap-6'>
+          <div className='lg:col-span-9 xl:col-span-7 flex flex-col lg:p-5 xl:p-0 lg:flex-row gap-4 sm:gap-6'>
             {/* Main content area */}
             <div className='space-y-4 sm:space-y-6 flex-1 '>
               {/* Main Title */}
@@ -124,17 +127,17 @@ const DonateDifferentWay: React.FC = () => {
         <div className='flex items-center justify-start lg:pl-15 xl:pl-0 lg:mb-6 xl:mb-0 ml-0'>
           <div className='flex items-center space-x-2 sm:space-x-4'>
             <Icon icon={'mdi:hand-heart'} className="text-lg xs:text-xl md:text-2xl xl:text-3xl text-green" />
-            <span className="text-[#046b59] text-lg sm:text-xl lg:text-2xl font-caveat font-semibold">{t("Start Donating Poor People")}</span>
+            <span className="text-green text-lg sm:text-xl lg:text-2xl font-caveat font-semibold">{t("Start Donating Poor People")}</span>
           </div>
         </div>
                 <div className='flex flex-col w-full lg:flex-row items-start justify-between '>
-                  <h2 className='text-2xl w-full lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl font-nunito font-extrabold  text-dark-green leading-8 lg:leading-tight'>
+                  <h2 className='text-2xl w-full lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl font-nunito font-extrabold  text-dark-green leading-8 md:leading-10 lg:leading-tight'>
                     <span className='text-dark-green'>{t("Donate")} <span className='text-yellow'>{t("Support")}</span> {t("To Make")}</span>
                     <span className='text-dark-green'> {t("Difference Way")}</span>
                   </h2>
                   {/* Heart Image positioned to the right */}
                   <motion.div 
-                    className='flex-shrink-0 absolute top-[35] xl:top-[0] right-[20] xl:right-[-101]  ml-2 sm:ml-4 xl:ml-0 mt-1 sm:mt-2'
+                    className='flex-shrink-0 absolute top-[35] xl:top-[-20] right-[20] xl:right-[-60]  ml-2 sm:ml-4 xl:ml-0 mt-1 sm:mt-2'
                     animate={{
                       scale: [0.5, 1.2,0.5]
                     }}
@@ -156,7 +159,7 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Introductory text */}
-              <p className='text-gray-green text-xs sm:text-sm  lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-6  lg:leading-relaxed xl:leading-7 lg:tracking-tight xl:tracking-wide  font-nunito font-normal'>
+              <p className='text-gray-green text-xs sm:text-sm xl:text-[16px]  lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-6  lg:leading-relaxed xl:leading-7 lg:tracking-tight xl:tracking-wide  font-nunito font-normal'>
                 {t("Charity Is The Voluntary Act Of Giving Help, Typically In The Form Of Money, Time, Or Resources, To Those In Need. Charitable Organizations Aim To Solve Social, Environmental, And Economic Challenges By Addressing Issues Like Poverty,")}
               </p>
               <div className='flex flex-col md:flex-row lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 '>
@@ -265,7 +268,7 @@ const DonateDifferentWay: React.FC = () => {
               </div>
               </div>
               {/* Right side - Donation Cards */}
-                <div className='flex flex-wrap xs:flex-row sm:flex-row md:flex-col gap-4 rounded-xl md:w-1/2 lg:w-1/2 xl:w-[250px]  md:mt-10  bg-gray-50 border border-gray-300 '>
+                <div className='flex flex-wrap xs:flex-row sm:flex-row md:flex-col gap-4 xl:gap-2 rounded-xl md:w-1/2 lg:w-1/2 xl:w-[250px]  md:mt-10  bg-gray-50 border border-gray-300 '>
                   {/* Donate Now Card */}
                   <div className=' p-3 sm:p-4  transition-shadow flex-1 flex flex-col items-center justify-center sm:flex-none'>
                     <div className='w-10 h-10 sm:w-12 sm:h-12 xl:w-20 xl:h-18 rounded-lg flex items-center justify-center  mb-3 sm:mb-4'>
@@ -304,8 +307,8 @@ const DonateDifferentWay: React.FC = () => {
 
       {/* YouTube Video Modal */}
       {isVideoModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 p-2 sm:p-4">
-          <div className="relative w-full max-w-4xl bg-black rounded-lg overflow-hidden">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground bg-opacity-75 p-2 sm:p-4">
+          <div className="relative w-full max-w-4xl bg-foreground rounded-lg overflow-hidden">
             {/* Modal Header */}
             <div className="flex items-center justify-between p-3 sm:p-4 bg-gray-900">
               <div className="flex items-center space-x-2 sm:space-x-3">
