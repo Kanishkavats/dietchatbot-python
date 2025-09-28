@@ -107,7 +107,7 @@ export default function HelpingEachOther() {
           />
         </motion.div>
 
-        <div className=" w-full mt-10 lg:mt-20 max-w-[1440px]">
+        <div className=" w-full mx-auto xl:px-2 2xl:px-0 mt-10 lg:mt-20 max-w-[1440px]">
           <div className="grid grid-cols-1 lg:grid-cols-7 xl:pl-30  xl:gap-15">
             
             <div className="relative  col-span-3  opacity-0 anim-fade-in-left hidden lg:block">
@@ -247,7 +247,7 @@ export default function HelpingEachOther() {
                 </div>
                 <motion.div
                 ref={thumbRef}
-                 className="hidden lg:block absolute -bottom-28 xl:-bottom-20 md:right-40 xl:left-30 w-50 h-60  bg-white border-1 border-yellow rounded-lg overflow-hidden -z-10"
+                 className="hidden lg:block absolute -bottom-28 xl:-bottom-20 md:right-40 xl:left-20 w-50 h-60  bg-white border-1 border-yellow rounded-lg overflow-hidden -z-10"
                  initial={{ opacity: 0, x:100 }}
                     animate={
                       isThumbInView?{opacity:1,x:0}:{}
@@ -264,7 +264,7 @@ export default function HelpingEachOther() {
 
               {/* Animated parachute */}
               <motion.div
-                className="absolute top-0 -left-40 bottom-20 hover:scale-110 transition-transform duration-300"
+                className="absolute hidden lg:block top-0 -left-40 w-10 h-10 lg:w-50 lg:h-50 bottom-20 hover:scale-110 transition-transform duration-300"
                 animate={{
                   top: [-300,1200],
                   x: [0, -53.371, 0],
@@ -286,6 +286,7 @@ export default function HelpingEachOther() {
                   alt="Hot air balloon"
                   width={100}
                   height={100}
+                  className="w-full h-full object-contain"
                 />
               </motion.div>
             </div>
@@ -295,6 +296,31 @@ export default function HelpingEachOther() {
               className="relative opacity-0 anim-fade-in-right pl-3  md:pl-20 md:pt-15 lg:pt-0 md:pr-15 lg:w-full md:px-0 lg:pl-7 lg:pr-20 xl:pr-10  col-span-4"
               style={{ animationDelay: "0.2s" }}
             >
+              <motion.div
+                className="absolute lg:hidden top-0 left-0 w-10 h-10 md:w-16 md:h-16 transition-transform duration-300"
+                animate={{
+                  top: [-60,1200],
+                   x: [0, -50, 0],
+                  rotate: [0, -23.4842, 0],
+                }}
+                transition={{
+                  duration: 10,
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+                style={{
+                  insetInlineStart: "2%",
+                  zIndex: 0,
+                }}
+              >
+                <Image
+                  src="/assets/section2/parasuit.png"
+                  alt="Hot air balloon"
+                  width={100}
+                  height={100}
+                />
+              </motion.div>
               <div
                 className="flex items-center mb-2  opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "0.6s" }}
@@ -305,8 +331,8 @@ export default function HelpingEachOther() {
                 </span>
               </div>
 
-              <div className=" mb-4 md:mb-3 lg:mb-3 pr-10 md:pr-15 lg:pr-10 xs:pr-1 xl:pr-0">
-                <h2 className="text-3xl font-nunito  md:text-4xl lg:text-4xl xl:text-6xl  font-extrabold text-dark-green leading-tight tracking-tight opacity-0 anim-fade-in-up">
+              <div className=" mb-3 md:mb-3 lg:mb-3 pr-10 md:pr-15 lg:pr-10 xs:pr-1 xl:pr-0">
+                <h2 className="text-3xl font-nunito  md:text-4xl lg:text-4xl xl:text-6xl md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking-tighter opacity-0 anim-fade-in-up">
                   {t("Helping Each Other Can Make")}{" "}
                   <span className="text-yellow">{t("World")}</span>
                   {t(" Better")}
@@ -314,7 +340,7 @@ export default function HelpingEachOther() {
               </div>
 
               <p
-                className="text-gray-green pl-2  xs:pl-1 pr-2 md:pr-15 lg:pr-2 md:pl-0 xs:pr-5 text-sm md:text-[14px] md:font-normal tracking-wide lg:font-normal leading-7  lg:text-[14px] xl:text-lg lg:leading-7 font-nunito xl:pr-5    opacity-0 anim-fade-in-up"
+                className="text-gray-green   xs:pl-1 pr-2 md:pr-15 lg:pr-2 md:pl-0 xs:pr-5 text-[14px] md:text-[14px] md:tracking-wide md:font-normal tracking-wide xs:-tracking-normal xs:leading-7 lg:font-normal leading-6  lg:text-[14px] xl:text-[16px] xl:tracking-wide lg:leading-7 lg:tracking-normal font-nunito xl:pr-5  opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "1s" }}
               >
                 {t(
@@ -322,14 +348,13 @@ export default function HelpingEachOther() {
                 )}
               </p>
 
-              <div className="grid grid-cols-1 mt-7  md:mt-8 lg:mt-7  md:grid-cols-2 gap-6 md:gap-8 lg:p-2 lg:gap-6 mb-8">
+              <div className="grid grid-cols-1 mt-5  md:mt-8 lg:mt-2 xl:mt-7  md:grid-cols-2 gap-6 md:gap-8 lg:p-2 lg:gap-6 mb-8">
                 <div
                   className="flex items-center gap-4 opacity-0 anim-fade-in-up"
                   style={{ animationDelay: "1.2s" }}
                 >
-                  <div className="w-13 h-13 xs:w-15 xs:h-15  xl:w-20 xl:h-20 rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
+                  <div className="w-13 h-13 xs:w-14 xs:h-14 lg:w-15 lg:h-15   rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
                     <Image
-                      // src="/assets/section2/football_hands.jpg"
                       src={footballhandbg}
                       alt="Football hands icon"
                       width={100}
@@ -339,7 +364,7 @@ export default function HelpingEachOther() {
                   </div>
                   <div>
                     <h3
-                      className="text-[16px] md:text-lg lg:whitespace-nowrap lg:text-[16px] mb-1 font-bold text-dark-green font-nunito"
+                      className="text-[16px] md:text-lg lg:whitespace-nowrap lg:text-[16px] xl:text-xl mb-1 font-bold text-dark-green font-nunito"
                       style={{
                         fontFamily: "var(--font-nunito), Nunito, sans-serif",
                         fontWeight: "800",
@@ -347,7 +372,7 @@ export default function HelpingEachOther() {
                     >
                       {t("Start Helping Them")}
                     </h3>
-                    <p className="text-gray-green pr-5 xs:pr-5 font-nunito text-sm lg:text-sm">
+                    <p className="text-gray-green pr-5 xs:pr-5 font-nunito text-sm lg:text-sm  xl:leading-6">
                       {t(
                         "Raising Awareness About The Charity Mission And Cause."
                       )}
@@ -359,9 +384,8 @@ export default function HelpingEachOther() {
                   className="flex items-center  gap-4 opacity-0 anim-fade-in-up"
                   style={{ animationDelay: "1.4s" }}
                 >
-                  <div className="w-13 h-13 xs:w-15 xs:h-15  xl:w-20 xl:h-20 rounded-lg bg-white flex items-center justify-center shadow-md flex-shrink-0">
+                  <div className="w-13 h-13 xs:w-14 xs:h-14 lg:w-15 lg:h-15   rounded-lg bg-white flex items-center justify-center shadow-md flex-shrink-0">
                     <Image
-                      // src="/assets/section2/heart_hands.jpg"
                       src={heartHandbg}
                       alt="hearthand"
                       width={120}
@@ -371,7 +395,7 @@ export default function HelpingEachOther() {
                   </div>
                   <div>
                     <h3
-                      className="text-[16px] md:text-lg lg:text-[16px] mb-1 font-bold text-dark-green font-nunito"
+                      className="text-[16px] md:text-lg lg:text-[16px] xl:text-xl mb-1 font-bold text-dark-green font-nunito"
                       style={{
                         fontFamily: "var(--font-nunito), Nunito, sans-serif",
                         fontWeight: "800",
@@ -379,7 +403,7 @@ export default function HelpingEachOther() {
                     >
                       {t("Make Donations")}
                     </h3>
-                    <p className="text-gray-green pr-5 xs:pr-5 font-nunito text-sm md:text-sm">
+                    <p className="text-gray-green pr-5 xs:pr-5 font-nunito text-sm lg:text-sm xl:leading-6">
                       {t(
                         "Raising Awareness About The Charity Mission And Cause."
                       )}
@@ -389,24 +413,24 @@ export default function HelpingEachOther() {
               </div>
 
               <div
-                className="space-y-2 md:space-y-3 mb-5 md:mb-8 lg:mb-6 opacity-0 anim-fade-in-up"
+                className="space-y-2 md:space-y-3 xl:space-y-5 mb-5 md:mb-8 lg:mb-6 opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "1.6s" }}
               >
                 <div className="flex items-start  gap-2 md:gap-3">
                   <FaCheckCircle className="text-dark-green  md:w-5 md:h-5 mt-2 md:mt-0.5 flex-shrink-0" />
-                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm ">
+                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm xl:text-[16px]">
                     {t("Helped Fund 3,265 Project Powerful Corporate Poor.")}
                   </span>
                 </div>
                 <div className="flex items-start gap-2 md:gap-3">
                   <FaCheckCircle className="text-dark-green md:w-5 md:h-5 mt-2 md:mt-0.5 flex-shrink-0" />
-                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm  ">
+                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm xl:text-[16px] ">
                     {t("We Give Child A Gift Of A Education")}
                   </span>
                 </div>
                 <div className="flex items-start gap-2 md:gap-3">
                   <FaCheckCircle className="text-dark-green md:w-5 md:h-5 mt-2 md:mt-0.5 flex-shrink-0" />
-                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm ">
+                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm xl:text-[16px] ">
                     {t(
                       "We Help Companies Develop Powerful Corporate Social Responsibility."
                     )}
@@ -415,32 +439,32 @@ export default function HelpingEachOther() {
               </div>
 
               <div
-                className="flex flex-col md:flex-row mt-4 mb-17 lg:mb-0 lg:mt-10 items-start sm:items-center gap-8 sm:gap-3 lg:gap-5 opacity-0 anim-fade-in-up"
+                className="flex flex-col md:flex-row mt-4 xs:mt-8 mb-20 lg:mb-25 xl:mb-15 lg:mt-10 items-start sm:items-center gap-8 sm:gap-3 lg:gap-5 opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "1.8s" }}
               >
                 <div className="flex items-center justify-center   ">
                   <Button
                     text="More About Us"
                     bgColor="bg-yellow"
-                    textColor="text-foreground text-sm  lg:text-sm font-extrabold"
+                    textColor="text-foreground text-sm  lg:text-sm xl:text-[16px] font-extrabold"
                     fontWeight=""
                     hoverTextColor="group-hover:text-white"
                     hoverBg="before:bg-green"
-                    paddingx=" px-8 xs:px-7 md:px-6 lg:px-6"
-                    paddingy="py-6 xs:py-5 md:py-6 lg:py-6"
+                    paddingx=" px-8 xs:px-7 md:px-6 lg:px-7 xl:px-8"
+                    paddingy="py-6 xs:py-6 md:py-6 lg:py-6 xl:py-7"
                     onClick={handleMoreAboutUs}
                   />
                 </div>
 
                 <div className="flex items-center justify-center gap-3 lg:gap-5  sm:ml-6 lg:ml-4 hover:scale-105 transition-transform duration-300">
-                  <FiPhoneCall className="w-6 h-6 sm:w-7 sm:h-7  text-dark-green" />
+                  <FiPhoneCall className="w-7 h-7 sm:w-7 sm:h-7 font-light text-dark-green" />
                   <div>
-                    <p className="text-gray-green text-[12px] xs:text-sm font-medium lg:font-semibold sm:text-[14px] font-nunito leading-none ">
+                    <p className="text-gray-green text-[12px] xs:text-sm font-bold lg:font-semibold sm:text-[14px] font-nunito leading-none ">
                       {t("Phone")}
                     </p>
                     <a
                       href="tel:+23645689622"
-                      className="text-[14px] font-semibold xs:text-[18px] lg:text-lg lg:font-bold font-nunito text-dark-green"
+                      className="text-[16px] font-bold xs:text-[18px] lg:text-lg lg:font-bold font-nunito text-dark-green"
                     >
                       +236 (456) 896 22
                     </a>
@@ -449,7 +473,7 @@ export default function HelpingEachOther() {
               </div>
 
               <motion.div
-                className="hidden md:block fixed right-8 top-2/3 transform -translate-y-1/2 pointer-events-none z-50"
+                className="fixed right-8 top-2/3 transform -translate-y-1/2 pointer-events-none z-50"
                 animate={{
                   scale: [0.9, 1.1, 0.9],
                   opacity: [0.5, 1, 0.5],
@@ -467,7 +491,7 @@ export default function HelpingEachOther() {
                   alt="Heart Outline"
                   width={60}
                   height={60}
-                  className="w-12 h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 object-contain"
+                  className="w-10 h-10 md:w-16 md:h-16 lg:w-18 lg:h-18 object-contain"
                 />
               </motion.div>
             </div>
