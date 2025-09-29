@@ -56,8 +56,8 @@ const DonationCard: React.FC<DonationCardProps> = ({
   const goalAmount = parseAmount(card.goal);
   const progress = card.progress || Math.min((raisedAmount / goalAmount) * 100, 100);
 
-  const maxLength = 100;
-
+  // Truncate description
+  const maxLength=120;
   const desc = card.description || "No description available";
   const displayText =
     desc.length > maxLength ? desc.slice(0, maxLength).concat("...") : desc;
@@ -71,13 +71,13 @@ const DonationCard: React.FC<DonationCardProps> = ({
   return (
     <div
       key={card.id}
-      className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative cursor-pointer flex flex-col h-full min-h-[400px] min-w-[280px]"
+      className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative cursor-pointer flex flex-col h-full min-h-[400px] w-full max-w-[320px] mx-auto"
       onMouseEnter={() => card.id && onMouseEnter(card.id)}
       onMouseLeave={onMouseLeave}
       onClick={() => onCardClick(card.id)}
     >
       {/* Image with White Border */}
-      <div className="relative w-full h-[200px] rounded-t-[20px] rounded-b-[20px] overflow-hidden border-t-[12px] border-x-[12px] border-white">
+      <div className="relative w-full h-[200px] rounded-t-[20px] rounded-b-[20px] overflow-hidden border-t-[4px] border-x-[4px] border-white">
         {card.image ? (
           <motion.img
             src={card.image}

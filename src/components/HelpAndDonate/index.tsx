@@ -103,9 +103,9 @@ const HelpAndDonate: React.FC = () => {
         <div className="absolute inset-0 bg-black/4"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-0 sm:px-1 lg:px-0 xl:px-0 max-w-7xl">
+      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-0 xl:px-0 max-w-7xl">
         {/* Header Section */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-8 md:mb-12 lg:mb-6">
+        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6 md:mb-12 lg:mb-6">
           {/* Left Side - Main Content */}
           <div className="flex-1 max-w-2xl mb-6 lg:mb-0">
             {/* Top Left Text */}
@@ -127,10 +127,10 @@ const HelpAndDonate: React.FC = () => {
             </h2>
           </div>
 
-            <div className="flex items-center gap-4 mt-6 md:mt-12 ml-0 md:ml-12">
+            <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-12 ml-auto md:ml-12">
               <button
                 onClick={handlePrev}
-                className="w-15 h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"
+                className="w-12 h-12 md:w-15 md:h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"
                 style={{
                   backgroundColor:
                   leftButtonColor === "yellow"
@@ -143,7 +143,7 @@ const HelpAndDonate: React.FC = () => {
                 onMouseLeave={() => setLeftButtonColor("green")}
               >
                 <svg
-                  className={`h-12 w-8 transition-colors duration-300 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
+                  className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
@@ -153,7 +153,7 @@ const HelpAndDonate: React.FC = () => {
               </button>
               <button
                 onClick={handleNext}
-                className="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#07110eff] transition-all duration-300"
+                className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#07110eff] transition-all duration-300"
                 style={{
                   backgroundColor: rightButtonColor === "yellow"
                     ? "#FBBF24"
@@ -165,7 +165,7 @@ const HelpAndDonate: React.FC = () => {
                 onMouseLeave={() => setRightButtonColor("yellow")}
               >
                 <svg
-                  className={`h-12 w-8 transition-colors duration-300 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
+                  className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
                   viewBox="0 0 24 24"
                   fill="currentColor"
                   xmlns="http://www.w3.org/2000/svg"
@@ -213,15 +213,41 @@ const HelpAndDonate: React.FC = () => {
             slidesPerView={1}
             spaceBetween={15}
             loop={true}
+            centeredSlides={true}
             autoplay={{ delay: 2000, disableOnInteraction: false }}
             onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
             onSwiper={(swiper) => (swiperRef.current = swiper)}
             breakpoints={{
-              480: { slidesPerView: 1, spaceBetween: 15 },
-              640: { slidesPerView: 2, spaceBetween: 18 },
-              768: { slidesPerView: 2, spaceBetween: 20 },
-              1024: { slidesPerView: 3, spaceBetween: 22 },
-              1280: { slidesPerView: 4, spaceBetween: 24 }
+              320: { 
+                slidesPerView: 1, 
+                spaceBetween: 15,
+                centeredSlides: true
+              },
+              480: { 
+                slidesPerView: 1, 
+                spaceBetween: 15,
+                centeredSlides: true
+              },
+              640: { 
+                slidesPerView: 1.5, 
+                spaceBetween: 18,
+                centeredSlides: true
+              },
+              768: { 
+                slidesPerView: 2, 
+                spaceBetween: 20,
+                centeredSlides: false
+              },
+              1024: { 
+                slidesPerView: 3, 
+                spaceBetween: 22,
+                centeredSlides: false
+              },
+              1280: { 
+                slidesPerView: 4, 
+                spaceBetween: 24,
+                centeredSlides: false
+              }
             }}
             className="h-full"
             navigation={{
@@ -233,8 +259,8 @@ const HelpAndDonate: React.FC = () => {
             } as React.CSSProperties}
           >
             {campaignsToDisplay.map((card: CampaignCard, index: number) => (
-              <SwiperSlide key={`${card.id}-${index}`} className="h-full">
-                <div className="h-full flex">
+              <SwiperSlide key={`${card.id}-${index}`} className="h-full flex justify-center">
+                <div className="h-full flex justify-center w-full">
                 <DonationCard
                   card={card}
                   isInView={isInView}

@@ -10,6 +10,12 @@ export interface Query {
   email: string;
   phone: string;
   message: string;
+  title: string;
+  address: string;  
+  createdAt?: string;
+  firstName: string;
+  lastName: string;
+  occupation: string;
 }
 export interface QueryFormProps {
   initialData?: Partial<QueryFormValues> & Partial<Query>;
@@ -22,4 +28,12 @@ export interface QueryColumnCallbacks {
   onEdit: (Query: Query) => void;
   onDelete: (Query: Query) => void;
   onView?: (Query: Query) => void; 
+}
+
+export interface QueryPreviewRowProps { label: string ; value: string | boolean | null; isLast?: boolean; isBool?: boolean}
+
+
+export interface QueryFilters {
+  isViewed?: string;
+  formType?: string; 
 }

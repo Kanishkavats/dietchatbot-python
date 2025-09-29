@@ -11,6 +11,7 @@ import Blog from "../Blog";
 import Comments from "../comments";
 import Banner from "../Banner";
 import Queries from "../Queries";
+import Feedback from "../Feedback";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -25,7 +26,8 @@ const AdminTab = () => {
     blog:<Blog />,
     comments: <Comments />,
     banner:<Banner />,
-    queries:<Queries />
+    queries:<Queries />,
+    feedback:<Feedback />
   };
   return (
     <div>

@@ -179,3 +179,20 @@ export const QueryFormSchema = Yup.object().shape({
 });
 
 export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;
+
+
+// ======================= Feedback ======================
+
+export const feedbackSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  designation: Yup.string().required("Designation is required"),
+  imageUrl: Yup.string(),
+  feedback: Yup.string().required("Feedback is required"),
+  rating: Yup.number()
+    .min(1, "Minimum rating is 1")
+    .max(5, "Maximum rating is 5")
+    .required("Rating is required"),
+  status: Yup.mixed().oneOf(["PENDING", "APPROVED", "REJECTED"]).required("Status is required"),
+});
+
+export type FeedbackFormValues = Yup.InferType<typeof feedbackSchema>;

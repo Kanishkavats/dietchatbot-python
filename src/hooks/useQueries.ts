@@ -1,21 +1,22 @@
 // src/hooks/useQueries.ts
-import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, keepPreviousData, UseMutationOptions } from "@tanstack/react-query";
 
 import toast from "react-hot-toast";
 import { QueryFormValues } from "../utils/validations/FormValidation";
 import { deleteQuery, fetchAllQueries, fetchQueryById, updateQuery } from "../services/queryApi";
+import { QueryFilters } from "../types/query";
 
 // ✅ Fetch all queries (paginated)
-export const useFetchAllQueries = (page: number, limit: number = 10) => {
+export const useFetchAllQueries = (page: number, limit: number = 10, filters?: QueryFilters) => {
   return useQuery({
-    queryKey: ["queries", page, limit],
-    queryFn: () => fetchAllQueries(page, limit),
+    queryKey: ["queries", page, limit, filters],
+    queryFn: () => fetchAllQueries(page, limit, filters),
     placeholderData: keepPreviousData,
   });
 };
 
 // ✅ Fetch a single query by ID
-export const useFetchSingleQuery = (id?: string) => {
+export const useFetchSingleQuery = (id?: string | null) => {
   return useQuery({
     queryKey: ["query", id],
     queryFn: () => fetchQueryById(id!),
@@ -54,15 +55,24 @@ export const useUpdateQuery = () => {
 };
 
 // ✅ Only update `isViewed` once
+// ✅ Modified to expose loading state
 export const useMarkQueryAsViewed = () => {
   const updateMutation = useUpdateQuery();
-  return (query: { id: string; isViewed: boolean }) => {
+
+  const markQueryAsViewed = (query: { id: string; isViewed: boolean },options?: UseMutationOptions<any, any, any>) => {
     if (!query.isViewed) {
       updateMutation.mutate({
         id: query.id,
         values: { isViewed: true },
-      });
+      },
+    options
+  );
     }
+  };
+
+  return {
+    markQueryAsViewed,
+    isPending: updateMutation.isPending, // ✅ Expose pending state
   };
 };
 
@@ -81,7 +91,7 @@ export const submitQueryForm = (
     {
       onSuccess: () => {
         toast.dismiss();
-        toast.success("Query updated successfully");
+        toast.success("Query Maked as viewed");
         setSubmitting(false);
         onClose();
       },

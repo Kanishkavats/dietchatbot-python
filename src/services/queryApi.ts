@@ -1,16 +1,33 @@
+import { QueryFilters } from "../types/query";
 import { QueryFormValues } from "../utils/validations/FormValidation";
 import api from "./api";
 
 // ✅ Fetch all queries with pagination
-export const fetchAllQueries = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/form/getAllForms?page=${page}&limit=${limit}`);
+export const fetchAllQueries = async (page: number = 1, limit: number = 10, filters?: QueryFilters) => {
+
+  const params: Record<string, string> = {
+    page: String(page),
+    limit: String(limit),
+  };
+
+  if (filters?.formType && filters.formType !== "all") {
+    params.formType = filters.formType;
+  }
+
+  if (filters?.isViewed && filters.isViewed !== "all") {
+    params.isViewed = filters.isViewed;
+  }
+
+  const queryString = new URLSearchParams(params).toString();
+
+  const { data } = await api.get(`/form/getAllForms?${queryString}`);
   return data;
 };
 
 // ✅ Fetch a single query by ID
 export const fetchQueryById = async (id: string) => {
   console.log("api check", id)
-  const { data } = await api.get(`/form/getFormById/cac4819b-61ca-45c3-9545-cd331430272c`);
+  const { data } = await api.get(`/form/getFormById/${id}`);
   return data;
 };
 
@@ -19,7 +36,7 @@ export const updateQuery = async (
   id: string,
   values: Partial<QueryFormValues>
 ) => {
-  const { data } = await api.put(`/form/update-query/${id}`, values);
+  const { data } = await api.put(`/form/moderate-form/${id}`, values);
   return data;
 };
 

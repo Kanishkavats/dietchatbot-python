@@ -1,9 +1,10 @@
 import { MdOutlineDashboardCustomize, MdNotificationsActive, MdCampaign, MdCategory } from "react-icons/md";
 import { FaBloggerB, FaComments } from "react-icons/fa";
+import { TbBrandGoogleBigQuery } from "react-icons/tb";
 import { PiFlagBannerFill } from "react-icons/pi";
+import { VscFeedback } from "react-icons/vsc";
 import { IoSettings } from "react-icons/io5";
 import { HiUsers } from "react-icons/hi";
-import { TbBrandGoogleBigQuery } from "react-icons/tb";
 
 
 export const sidebarAd = [
@@ -57,6 +58,12 @@ export const sidebarAd = [
     link: "/admin/members",
   },
   {
+    icon: VscFeedback,
+    lable: "Feedback",
+    nav: "feedback",
+    link: "/admin/feedback",
+  },
+  {
     icon: MdNotificationsActive,
     lable: "Notifications",
     nav: "notifications",
@@ -68,5 +75,6 @@ export const sidebarAd = [
     nav: "settings",
     link: "/admin/settings",
   },
+  
 
 ];

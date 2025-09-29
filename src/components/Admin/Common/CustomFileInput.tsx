@@ -113,7 +113,7 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
         </label>
       )}
 
-      {isEditable && (
+      {!disabled && isEditable && (
         <div
           onDrop={handleDrop}
           onDragOver={handleDragOver}

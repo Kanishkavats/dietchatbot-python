@@ -21,24 +21,25 @@ const LatestNews = () => {
     }
   
   return (
-    <div className="container mt-0 max-[719px]:mt-20 md:p-15 lg:p-20 p-2 sm:p-4 mx-auto">
-      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-1 md:gap-6">
-        <div className="col-span-2">
-          <div className="grid grid-cols-1 lg:grid-cols-2  gap-8">
+    <div className="w-full mx-auto xl:max-w-[1440px]">
+    <div className=" mt-0 max-[719px]:mt-20 md:mt-15 lg:mt-10 md:pl-7 md:pr-7 lg:p-10  p-2 sm:p-4 xl:p-23 ">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6   ">
+        <div className="col-span-1 md:col-span-2">
+          <div className="grid grid-cols-1 lg:grid-cols-2 justify-center gap-6 xl:gap-8">
             <NewsGrid cards={data?.blogs}/>
           </div>
-           <div className="flex justify-center mt-8">
+           <div className="flex justify-center mt-12">
           <FadeUpCard delay={0.3}>
           <CustomPagination currentPage={currentPage} onPageChange={handlePageChange} totalPages={data.totalPages}/>
           </FadeUpCard>
           </div>
         </div>
-        <div className="xl:col-span-1  lg:col-span-2 md:col-span-2 col-span-1 w-full  p-1 mt-5 md:mt-0 flex items-center justify-center ">
+        <div className="xl:col-span-1  md:col-span-2 col-span-1 w-full mt-5 md:mt-0  ">
           <SideAllCom />
         </div>
       </div>
     </div>
-
+</div>
   );
 };
 

@@ -58,10 +58,10 @@ export const NAV_ITEMS: NavItem[] = [
         ],
       },
       {
-        label: "Team",href: "/team"
+        label: "Team", href: "/team"
       },
       {
-        label:"Shop",href: "/shop"
+        label: "Shop", href: "/shop"
       }
 
     ],
@@ -308,25 +308,44 @@ export const teamMembers = [
 
 export const testimonials = [
   {
-    name: "Michel Smith",
-    role: "Cloth Store Inc.",
+    name: "name_1",
+    role: "role_1",
     avatar: "/assets/author.png",
-    review:
-      "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+    review: "testimonials_1"
   },
   {
-    name: "Ruby Klara",
-    role: "Cloth Store Inc.",
+    name: "name_2",
+    role: "role_2",
     avatar: "/assets/author.png",
     review:
-      "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+      "testimonials_2",
   },
   {
-    name: "Bishu Kiev",
-    role: "Cloth Store Inc.",
+    name: "name_3",
+    role: "role_3",
     avatar: "/assets/author.png",
     review:
-      "Charity is the voluntary act of giving help, typically in the form of money, time, or resources, to those in need. Charitable organizations aim to solve social, environmental, and economic challenges by addressing issues like poverty.",
+      "testimonials_3",
+  },
+  {
+    name: "name_1",
+    role: "role_1",
+    avatar: "/assets/author.png",
+    review: "testimonials_1"
+  },
+  {
+    name: "name_2",
+    role: "role_2",
+    avatar: "/assets/author.png",
+    review:
+      "testimonials_2",
+  },
+  {
+    name: "name_3",
+    role: "role_3",
+    avatar: "/assets/author.png",
+    review:
+      "testimonials_3",
   },
 ];
 
@@ -914,5 +933,29 @@ export const popularTags = [
 
 
 
+export const filterFields = [
+  { label: "Select filter", value: "none" },
+  { label: "Viewed Status", value: "isViewed" },
+  { label: "Form Type", value: "formType" },
+];
 
+export const isViewedOptions = [
+  { label: "All", value: "all" },
+  { label: "Viewed", value: "true" },
+  { label: "Not Viewed", value: "false" },
+];
 
+export const formTypeOptions = [
+  { label: "All", value: "all" },
+  { label: "Contact", value: "contact" },
+  { label: "Detail", value: "detail" },
+  { label: "Donation", value: "donation" },
+  { label: "Volunteer", value: "volunteer" },
+];
+
+export const filterOptions = [
+  { label: "All", value: "all" },
+  { label: "Approved", value: "approved" },
+  { label: "Rejected", value: "rejected" },
+  { label: "Pending", value: "pending" },
+]

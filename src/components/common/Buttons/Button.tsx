@@ -18,6 +18,7 @@ interface DynamicButtonProps {
   rounded?: string;
   paddingx?: string;
   paddingy?: string;
+  fontWeight?:string;
 }
 
 const Button: React.FC<DynamicButtonProps> = ({
@@ -34,6 +35,7 @@ const Button: React.FC<DynamicButtonProps> = ({
   rounded = "rounded-full",
   paddingx = "px-10",
   paddingy = "py-4",
+  fontWeight='font-semibold',
 }) => {
   const iconControls = useAnimationControls();
   const { t } = useTranslation();
@@ -70,8 +72,8 @@ const Button: React.FC<DynamicButtonProps> = ({
           transition: { duration: 0.4, ease: "easeInOut" },
         },
       }}
-      className={`w-full relative cursor-pointer font-semibold font-nunito
-        ${bgColor} ${rounded} ${paddingx} ${paddingy}
+      className={`w-full relative  cursor-pointer ${fontWeight} font-nunito
+        ${bgColor}   ${rounded} ${paddingx} ${paddingy} 
         overflow-hidden group
         before:content-[''] before:absolute before:inset-0 ${hoverBg}
         before:transition-transform before:duration-500 

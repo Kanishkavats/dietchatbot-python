@@ -1,10 +1,11 @@
 import React from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import axios from "axios";
-import CustomLoader from "../../common/Loader/CustomLoader";
+import { useMarkQueryAsViewed } from "@/src/hooks/useQueries";
 import Button from "../../common/Buttons/Button";
+import ButtonLoader from "../../common/Loader/ButtonLoader";
+import { useFetchAllMembers } from "@/src/hooks/useMembers";
+import { Query, QueryPreviewRowProps } from "@/src/types/query";
 
-const FieldRow = ({ label, value, isLast = false, isBool = false }) => {
+const FieldRow = ({ label, value, isLast = false, isBool = false } :QueryPreviewRowProps) => {
   if (
     value === null ||
     value === undefined ||
@@ -15,9 +16,8 @@ const FieldRow = ({ label, value, isLast = false, isBool = false }) => {
 
   return (
     <div
-      className={`grid grid-cols-3 gap-x-4 gap-y-3 text-gray-800 ${
-        isLast ? "" : "border-b border-gray-200"
-      } py-2`}
+      className={`grid grid-cols-3 gap-x-4 gap-y-3 text-gray-800 ${isLast ? "" : "border-b border-gray-200"
+        } py-2`}
     >
       <div className="font-semibold text-gray-700">{label}:</div>
       <div className="col-span-2 break-words">
@@ -27,8 +27,8 @@ const FieldRow = ({ label, value, isLast = false, isBool = false }) => {
   );
 };
 
-const QueryPreview = ({ data }) => {
-  const queryClient = useQueryClient();
+const QueryPreview = ({ data, onClose } : {data:Query, onClose?: () => void}) => {
+  const { markQueryAsViewed, isPending } = useMarkQueryAsViewed();
 
   const {
     id,
@@ -44,19 +44,19 @@ const QueryPreview = ({ data }) => {
     phone,
   } = data || {};
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: async () => {
-      await axios.patch(`/api/queries/${id}/mark-viewed`);
-    },
-    onSuccess: () => {
-      // Refetch or manually update query data
-      queryClient.invalidateQueries({ queryKey: ["queries"] });
-    },
-  });
-
   const handleMarkAsViewed = () => {
-    if (id) mutate();
+    if (id) {
+      markQueryAsViewed({ id, isViewed },
+
+        {
+          onSuccess: () => {
+            onClose?.();
+          },
+        }
+      );
+    }
   };
+
 
   if (!data)
     return <div className="text-center text-gray-500 py-6">No data to preview.</div>;
@@ -80,18 +80,12 @@ const QueryPreview = ({ data }) => {
       {/* Mark as Viewed Button */}
       {!isViewed && (
         <div className="pt-4 flex justify-center w-fit">
-          <Button 
+          <Button
             onClick={handleMarkAsViewed}
-            text="Mark as Viewed"
-            icon=""
-          />
-          <button
-            onClick={handleMarkAsViewed}
-            disabled={isPending}
-            className="px-4 py-2 text-sm font-medium text-white bg-lime-green hover:bg-green rounded disabled:opacity-50"
+            icon="game-icons:check-mark"
           >
-            {isPending ? "Marking..." : "Mark as Viewed"}
-          </button>
+            {isPending ? <ButtonLoader /> : "Mark as Viewed"}
+          </Button>
         </div>
       )}
     </div>
