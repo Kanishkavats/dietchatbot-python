@@ -1,10 +1,18 @@
-"use client";
-import { DetailsformSchema, FormValues } from "@/src/utils/validations/FormValidation";
+ "use client";
 import { Formik, Form } from "formik";
+import { useMutation } from "@tanstack/react-query";
+
+
+
+
+
+import { DetailsformSchema, DetailsFormValues } from "@/src/utils/validations/FormValidation";
+import { DetailsInformationForm } from "@/src/services/webForms";
+import toast from "react-hot-toast";
 import InputField from "../common/inputs/InputField";
 import Button from "../common/Buttons/Button";
-
-const initialValues: FormValues = {
+import ButtonLoader from "../common/Loader/ButtonLoader";
+const initialValues: DetailsFormValues = {
     firstName: "",
     lastName: "",
     email: "",
@@ -12,22 +20,36 @@ const initialValues: FormValues = {
     address: "",
     message: "",
 };
-
 const DetailsForm = () => {
-   const handleSubmit = (values: FormValues, { resetForm }: { resetForm: () => void }) => {
-    console.log("Form Submitted:", values);
-    resetForm(); 
-  };
-
+    const mutation = useMutation({
+        mutationFn: DetailsInformationForm,
+        onSuccess: () => {
+            toast.success("Form submitted successfully!");
+        },
+        onError: (error: any) => {
+            toast.error("Something went wrong. Try again.");
+            console.error("Submission error:", error);
+        },
+    });
+    const handleSubmit = (
+        values: DetailsFormValues,
+        { resetForm }: { resetForm: () => void }
+    ) => {
+        mutation.mutate(values, {
+            onSuccess: () => {
+                resetForm();
+            },
+        });
+    };
     return (
-        <div className="w-full mx-auto bg-white ">
+        <div className="w-full mx-auto bg-white">
             <h2 className="text-2xl font-bold mb-6">Details Information</h2>
             <Formik
                 initialValues={initialValues}
-                validationSchema={DetailsformSchema}   
+                validationSchema={DetailsformSchema}
                 onSubmit={handleSubmit}
             >
-                {() => (
+                {({ isSubmitting }) => (
                     <Form className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <InputField name="firstName" placeholder="First Name" icon="mdi:account" />
@@ -44,12 +66,17 @@ const DetailsForm = () => {
                             icon="mdi:email-outline"
                             as="textarea"
                         />
-                        <Button  text="Save Information" hoverBg='before:bg-foreground' />
+                        <Button
+                            type="submit"
+                            disabled={mutation.isPending}
+                            hoverBg="before:bg-foreground"
+                        >
+                            {isSubmitting || mutation.isPending ? <ButtonLoader /> : "Save Information"}
+                        </Button>
                     </Form>
                 )}
             </Formik>
         </div>
     );
 };
-
-export default DetailsForm;
+export default DetailsForm; 
