@@ -53,14 +53,14 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
   };
 
   return (
-    <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
+    <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg shadow-lg border border-gray-100 lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
       <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
         Leave A Comment
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:flex gap-4 lg:flex gap-15">
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[316px] lg:h-[96px]">
+        <div className="grid grid-cols-1 md:flex gap-4 lg:flex gap-5">
+          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
             <FaUser className="text-[#6B7280]" size={18} />
             <input
               type="text"
@@ -71,7 +71,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             />
           </div>
 
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[316px] lg:h-[96px]">
+          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
             <FaRegEnvelope className="text-xl mt-1 text-[#6B7280]" />
             <input
               type="email"
@@ -83,7 +83,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
           </div>
         </div>
 
-        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[700px] lg:h-[184px]">
+        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[820px] lg:h-[184px]">
           <FaRegComments className="text-[#6B7280]" size={18} />
           <textarea
             placeholder="Type Your Comments..."
@@ -104,7 +104,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             hoverTextColor="group-hover:text-black"
             hoverBg="before:bg-yellow"
             paddingx="px-6"
-            paddingy="py-4"
+            paddingy="py-5"
             onClick={handleSubmit}
           />
           </div>
