@@ -168,7 +168,7 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
               {isEditable && (
                 <button
                   onClick={() => removeFile(idx)}
-                  className="text-red hover:text-red-50 p-1"
+                  className="text-red hover:text-red-50 p-1 cursor-pointer"
                 >
                   <IoMdClose size={18} />
                 </button>

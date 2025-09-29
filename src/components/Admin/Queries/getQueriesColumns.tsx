@@ -60,12 +60,6 @@ export const getQueryColumns = ({
               ]
             : []),
           {
-            label: "Edit Query",
-            icon: <FaEdit />,
-            onClick: onEdit,
-            colorClass: "text-green-500 hover:text-green-700",
-          },
-          {
             label: "Delete Query",
             icon: <FaTrash />,
             onClick: onDelete,

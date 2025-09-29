@@ -165,7 +165,6 @@ const BlogForm = ({ initialData, onClose, mode, onPreview, createMutation, updat
                 onChange={setKeyPointsList}
                 placeholder="Add a key point"
                 isView={isView}
-                colorClass={{ normal: "bg-blue-200 text-blue-800", view: "bg-gray-100 text-gray-600" }}
               />
 
               {/* Location */}
@@ -188,6 +187,7 @@ const BlogForm = ({ initialData, onClose, mode, onPreview, createMutation, updat
                   setFieldValue("images", files);
                   setFieldValue("existingImages", existingUrls);
                 }}
+                uploadType="multiple"
                 disabled={isView}
                 mode={mode}
                 initialUrls={

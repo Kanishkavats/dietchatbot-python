@@ -43,6 +43,7 @@ const BlogTable = () => {
     setMode("edit");
     setDrawerOpen(true);
   }, []);
+
   const handleView = useCallback((blog: Blog) => {
     setBlogId(blog.id.toString());
     setMode("view");
@@ -196,7 +197,7 @@ const BlogTable = () => {
           mode={mode}
 
         >
-          {previewData ? (
+          {mode === "view" && previewData ? (
             <BlogPreview
               data={previewData}
               onBack={() => setPreviewData(null)}
@@ -214,6 +215,7 @@ const BlogTable = () => {
                   () => setDrawerOpen(false)
                 );
               }}
+              mode={mode}
             />
           ) : isLoadingBlog ? (
             <CustomLoader />

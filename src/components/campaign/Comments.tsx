@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
 import { fetchgetcomments } from '@/src/services/commentsApi';
+import { useEffect, useState } from 'react';
+import { mergeComments } from '@/src/utils/mergedComment';
 
 interface Comment {
   id: string;

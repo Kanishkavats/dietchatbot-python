@@ -6,6 +6,10 @@ export type QuerySearchField = "title" | "subtitle";
 export interface Query {
     id?: string;
   isViewed: boolean;
+  formType: string;
+  email: string;
+  phone: string;
+  message: string;
 }
 export interface QueryFormProps {
   initialData?: Partial<QueryFormValues> & Partial<Query>;
