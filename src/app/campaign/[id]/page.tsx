@@ -9,7 +9,7 @@ import PageBanner from "@/src/components/common/PageBanner";
 
 const CampaignPage = () => {
    return (
-    <><PageBanner bgImage={bannerBg} title="Help Campaign" /><CampaignDetails />
+    <><PageBanner bgImage={bannerBg} title="Cause Details" /><CampaignDetails />
        
        </>
   

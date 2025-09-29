@@ -1,6 +1,5 @@
 
 
-
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -187,5 +186,4 @@ export default function Comments({ campaignId }: CommentsProps) {
     </div>
   );
 }
-
 
