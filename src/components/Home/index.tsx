@@ -10,6 +10,7 @@ import BecomeVolunteer from '../BecomeVolunteer';
 import VolunteerTeam from '../About/VolunteerTeam';
 import Community from './Community';
 import ValueableCustomer from '../About/ValueableCustomer';
+import FeedbackForm from '../FeedbackForm';
 import DonateDifferentWay from '../DonateDifferentWay';
 import LatestNewsArticle from '../LatestNewsArticle';
 import ChildOldCare from '../ChildOldCare';
@@ -26,6 +27,7 @@ const Home = () => {
       <VolunteerTeam/>
       <Community/>
       <ValueableCustomer/>
+      <FeedbackForm />
       <ChildOldCare />
       <DonateDifferentWay />
       <LatestNewsArticle />
