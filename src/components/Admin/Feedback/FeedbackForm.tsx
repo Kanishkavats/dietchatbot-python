@@ -13,7 +13,6 @@ import { toast } from "react-hot-toast";
 import { feedbackSchema, FeedbackFormValues } from "@/src/utils/validations/FormValidation";
 import { Feedback } from "@/src/types/feedback";
 import { updateFeedback } from "@/src/services/feedbackApi";
-import CustomFileInput from "../Common/CustomFileInput";
 
 interface FeedbackFormProps {
   initialData?: Feedback;
@@ -45,7 +44,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
   const initialValues: FeedbackFormValues = {
     name: initialData?.name ?? "",
     designation: initialData?.designation ?? "",
-    imageUrl: initialData?.imageUrl as string | undefined,
+    image: initialData?.image as string | undefined,
     feedback: initialData?.feedback ?? "",
     rating: initialData?.rating ?? 0,
     status: mapBackendStatusToFormStatus(initialData?.status),
@@ -150,23 +149,10 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
               disabled
             />
 
-            <CustomFileInput
-              label="Profile image"
-              name="imageUrl"
-              error={touched.imageUrl && errors.imageUrl ? errors.imageUrl : ""}
-              onChange={(files, existingUrls) => {
-                setFieldValue("imageUrl", files);
-                setFieldValue("existingimageUrl", existingUrls);
-              }}
-              uploadType="multiple"
-              disabled
-              mode={mode}
-              initialUrls={
-                Array.isArray(initialData?.imageUrl)
-                  ? initialData.imageUrl.filter((img: string | File): img is string => typeof img === "string")
-                  : []
-              }
-            />
+            <img
+              src={values.image} alt="fdsjlk"
+              className="w-[200px] h-[200px] object-cover object-center rounded-lg"
+              />
 
 
             <CustomInput
@@ -210,7 +196,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
                   paddingy="py-2"
                   rounded="rounded-[5px]"
                 >
-                  {isSubmitting  ? <ButtonLoader /> : "Update"}
+                  {isSubmitting ? <ButtonLoader /> : "Update"}
                 </Button>
                 <CancelButton text="Cancel" onClose={onClose} />
               </div>

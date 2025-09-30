@@ -2,7 +2,7 @@ export interface Feedback {
   id: string;
   name: string;
   designation: string;
-  imageUrl?: Record<string, any> | null; 
+  image?: Record<string, any> | null; 
   feedback: string;
   rating: number;
   status: "PENDING" | "APPROVED" | "REJECTED" | string;

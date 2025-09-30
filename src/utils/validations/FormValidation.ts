@@ -186,7 +186,7 @@ export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;
 export const feedbackSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   designation: Yup.string().required("Designation is required"),
-  imageUrl: Yup.string(),
+  image: Yup.string(),
   feedback: Yup.string().required("Feedback is required"),
   rating: Yup.number()
     .min(1, "Minimum rating is 1")

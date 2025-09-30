@@ -39,6 +39,6 @@ export const updateFeedback = async (
 
 // Delete feedback
 export const deleteFeedback = async (id: string) => {
-  const { data } = await api.delete(`/feedback/deleteFeedback/${id}`);
+  const { data } = await api.delete(`/feedback/delete-feedback/${id}`);
   return data;
 };
