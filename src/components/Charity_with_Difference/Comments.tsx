@@ -6,8 +6,12 @@ import { FaHeart } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { fetchgetcomments, likeComment } from '@/src/services/commentsApi';
 import { mergeComments, CommentType } from '@/src/utils/mergedComment';
-import Button from '@/src/components/common/Buttons/Button';
 import ReplyComment from '../comments/Reply';
+import FadeUpCard from '@/src/animations/FadeButtomUp';
+import { useGetReplies } from '@/src/hooks/useComments';
+import ButtonLoader from '../common/Loader/ButtonLoader';
+import CustomLoader from '../common/Loader/CustomLoader';
+import ShowReply from '../comments/ShowReplies';
 
 interface Comment {
   id: string;
@@ -17,7 +21,7 @@ interface Comment {
   likeCount?: number;
   timeAgo?: string;
   createdAt?: string;
-  replies?: Comment[];
+  totalReplies?: number;
   isPending?: boolean;
   isLiked?: boolean;
 }
@@ -31,6 +35,19 @@ export default function Comments({ campaignId }: CommentsProps) {
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(5);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isOpenReply,setIsOpenReply]=useState<boolean>(false);
+  const [replyCommentId,setReplyCommentId]=useState<string|null>(null);
+  const [showReplies, setShowReplies] = useState<Record<string, boolean>>({});
+  useEffect(() => {
+  if (isOpenReply) {
+    document.body.classList.add("overflow-hidden");
+  } else {
+    document.body.classList.remove("overflow-hidden");
+  }
+
+  return () => {
+    document.body.classList.remove("overflow-hidden");
+  };
+}, [isOpenReply]);
 
   // Load liked state from localStorage
   const getLikedComments = () =>
@@ -40,7 +57,7 @@ export default function Comments({ campaignId }: CommentsProps) {
     queryKey: ["comments", campaignId],
     queryFn: () => fetchgetcomments(campaignId),
   });
-
+  
   useEffect(() => {
     // Update allComments when data changes
     console.log("Supriya data is updating")
@@ -48,7 +65,7 @@ export default function Comments({ campaignId }: CommentsProps) {
       console.log("Supriya Comments is updating")
       // Merge API comments with localStorage comments
       const mergedComments = mergeComments(data.comments, campaignId);
-      
+      console.log(data.comments);
       // Mark liked comments
       const liked = getLikedComments();
       const updated = mergedComments.map((c: Comment) => ({
@@ -98,7 +115,6 @@ export default function Comments({ campaignId }: CommentsProps) {
 
     window.addEventListener('storage', handleStorageChange);
     
-    // Also listen for custom events (for same-tab updates)
     window.addEventListener('commentAdded', handleStorageChange);
 
     return () => {
@@ -107,7 +123,7 @@ export default function Comments({ campaignId }: CommentsProps) {
     };
   }, [data, campaignId]);
 
-  // Function to calculate time difference
+  
   const getTimeAgo = (commentTime: string) => {
     const commentDate = new Date(commentTime);
     const now = currentTime;
@@ -168,12 +184,20 @@ export default function Comments({ campaignId }: CommentsProps) {
 
     setAllComments(updatedComments);
   };
-
+    const handleReplyModel=(value:boolean)=>{
+      setIsOpenReply(value);
+    }
   // Function to handle load more
   const handleLoadMore = () => {
     setVisibleCommentsCount(prev => prev + 5);
   };
 
+  const toggleReplies = (commentId: string) => {
+  setShowReplies((prev) => ({
+    ...prev,
+    [commentId]: !prev[commentId],
+  }));
+};
   // Get visible comments
   const visibleComments = allComments.slice(0, visibleCommentsCount);
   const hasMoreComments = allComments.length > visibleCommentsCount;
@@ -192,7 +216,7 @@ export default function Comments({ campaignId }: CommentsProps) {
       <div className="space-y-10 mb-8">
         {visibleComments.map((comment) => (
           <div
-            key={comment.id} // ID is now guaranteed to be unique across both sources
+            key={comment.id} 
             className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
           >
             <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
@@ -211,13 +235,13 @@ export default function Comments({ campaignId }: CommentsProps) {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
                 <button 
-                  className={`flex items-center gap-1 hover:text-brown ${
+                  className={`flex items-center gap-1 hover:text-olive-brown ${
                     comment.isLiked ? "text-red" : ""
                   }`}
                   onClick={() => handleLike(comment.id)}
                 >
                   <div className="w-[15px] h-[15px]">
-{comment.isLiked ? (
+                  {comment.isLiked ? (
                     <FaHeart />
                   ) : (
                     <FiHeart />
@@ -226,43 +250,54 @@ export default function Comments({ campaignId }: CommentsProps) {
                   
                   Like {comment.likeCount || 0}
                 </button>
-                <button onClick={()=>setIsOpenReply(true)} className="flex items-center gap-1 hover:text-brown">
+                <button onClick={()=>{
+                  setReplyCommentId(comment.id);
+                  setIsOpenReply(true)}} className="flex items-center gap-1 cursor-pointer hover:text-olive-brown">
                   <FiCornerUpLeft /> Reply
                 </button>
                 <span className="text-gray-500">
                   {comment.createdAt ? getTimeAgo(comment.createdAt) : (comment.timeAgo || "Just now")}
                 </span>
               </div>
+              {(comment?.totalReplies||0)>0&&(
+                <>
+                <div className='flex items-center mt-5 space-x-3 justify-start'>
+                  <div className='border border-gray-300 w-[4vh]'></div>
+                <div>{(comment?.totalReplies||0)>0&&(
+                  <div onClick={()=>{
+                    setReplyCommentId(comment.id)
+                    toggleReplies(comment.id)}} className='cursor-pointer font-bold text-xs md:text-sm text-gray-green'>
+                    {showReplies[comment.id] 
+                       ? "Hide replies" 
+                      : `View ${comment?.totalReplies || 0} more replies`}</div>
+                )}</div>
+              </div>
+              {showReplies[comment.id] && (
+              <ShowReply commentId={comment.id} />
+              )}
+              </>
+              )}
             </div>
           </div>
         ))}
       </div>
-      {isOpenReply&&(
-        <div className='fixed x-50 flex items-center justify-center inset-0 bg-black/20'>
-          <ReplyComment id=''/>
-        </div>
-      )}
+      {isOpenReply && (
+  <div
+    className="fixed z-50 flex items-center justify-center inset-0 bg-black/80 md:bg-black/40"
+    onClick={() => setIsOpenReply(false)} 
+  >
+    <FadeUpCard delay={0.3}>
+      <div
+        onClick={(e) => e.stopPropagation()} 
+      >
+        <ReplyComment id={replyCommentId} handleReplyModel={handleReplyModel} />
+      </div>
+    </FadeUpCard>
+  </div>
+)}
+
       {/* Load More Button */}
-      {hasMoreComments && (
-        <div className="flex justify-start mt-8">
-          <button
-            onClick={handleLoadMore}
-            className="relative flex items-center justify-center px-28 py-4 bg-transparent border-0 transition-all duration-300 group min-w-[55rem]"
-          >
-            {/* Left gray line */}
-            <div className="absolute left-12 top-1/2 transform -translate-y-1/2 w-80 h-0.5 bg-gray-300"></div>
-            
-            {/* Yellow text in center with arrow */}
-            <span className="text-black font-bold font-nunito text-lg px-3 py-3 z-8 bg-white flex items-center gap-3 rounded-full hover:shadow-sm hover:px-3 hover:bg-yellow hover:text-black hover:cursor-pointer duration-300">
-              Load More comments
-               <span className="text-black text-1xl group-hover:text-black">↓</span>
-            </span>
-            
-            {/* Right gray line */}
-            <div className="absolute right-12 top-1/2 transform -translate-y-1/2 w-80 h-0.5 bg-gray-300"></div>
-          </button>
-        </div>
-      )}
+   
     </div>
   );
 }

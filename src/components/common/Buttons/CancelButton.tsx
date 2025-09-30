@@ -8,9 +8,13 @@ interface CancelButtonProps {
   text: string;
   onClose: () => void;
   icon?: string;
+  rounded?:string;
+  paddingX?:string;
+  paddingY?:string;
+  textSize?:string;
 }
 
-const CancelButton: React.FC<CancelButtonProps> = ({ text, onClose, icon }) => {
+const CancelButton: React.FC<CancelButtonProps> = ({ text, onClose, icon,paddingX="px-4",paddingY="py-2",rounded="rounded-md",textSize='' }) => {
   const iconControls = useAnimationControls();
 
   return (
@@ -33,7 +37,7 @@ const CancelButton: React.FC<CancelButtonProps> = ({ text, onClose, icon }) => {
       className={`
         w-full  relative cursor-pointer font-semibold font-nunito
         bg-red text-white overflow-hidden group
-        px-4 py-2 rounded-md
+        ${paddingX} ${paddingY} ${rounded}
         before:content-[''] before:absolute before:inset-0 before:bg-red-50
         before:transition-transform before:duration-500
         before:origin-center before:scale-x-0 hover:before:scale-x-100 before:z-0
@@ -54,7 +58,7 @@ const CancelButton: React.FC<CancelButtonProps> = ({ text, onClose, icon }) => {
             <Icon icon={icon} width={18} height={18} />
           </motion.div>
         )}
-        <span>{text}</span>
+        <span className={` ${textSize}`}>{text}</span>
       </div>
     </motion.button>
   );
