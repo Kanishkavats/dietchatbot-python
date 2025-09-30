@@ -10,27 +10,11 @@ import Button from "../common/Buttons/Button";
 import { useTranslation } from "react-i18next";
 import { footballhandbg, heartHandbg } from "@/public/assets";
 
-const heartVariants = {
-  idle: {
-    opacity: 0,
-    scale: 0.8,
-  },
-  pulse: {
-    opacity: [0.3, 1, 0.3], // fades out and in
-    scale: [0.8, 1.3, 0.8], // grows and shrinks
-    transition: {
-      duration: 3, // total cycle time
-      repeat: Infinity, // loop forever
-      ease: "easeInOut", // smooth easing
-    },
-  },
-};
 export default function HelpingEachOther() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const router = useRouter();
   const thumbRef = useRef(null);
   const { t } = useTranslation();
-  const heartControls = useAnimation();
   const isThumbInView = useInView(thumbRef, { once: true, amount: 0.3 });
 
   const handleVideoOpen = useCallback(() => {
@@ -264,7 +248,7 @@ export default function HelpingEachOther() {
 
               {/* Animated parachute */}
               <motion.div
-                className="absolute hidden lg:block top-0 -left-40 w-10 h-10 lg:w-50 lg:h-50 bottom-20 hover:scale-110 transition-transform duration-300"
+                className="absolute hidden lg:block top-0 -left-40 w-10 h-10 lg:h-40 lg:w-40 xl:w-50 xl:h-50 bottom-20 hover:scale-110 transition-transform duration-300"
                 animate={{
                   top: [-300,1200],
                   x: [0, -53.371, 0],
@@ -322,7 +306,7 @@ export default function HelpingEachOther() {
                 />
               </motion.div>
               <div
-                className="flex items-center mb-2  opacity-0 anim-fade-in-up"
+                className="flex items-center mb-5  opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "0.6s" }}
               >
                 <i className="text-lg md:text-xl mr-2 text-green hand-icon"></i>
@@ -331,8 +315,8 @@ export default function HelpingEachOther() {
                 </span>
               </div>
 
-              <div className=" mb-3 md:mb-3 lg:mb-3 pr-10 md:pr-15 lg:pr-10 xs:pr-1 xl:pr-0">
-                <h2 className="text-3xl font-nunito  md:text-4xl lg:text-4xl xl:text-6xl md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking-tighter opacity-0 anim-fade-in-up">
+              <div className=" mb-3 md:mb-3 lg:mb-3 md:pr-15 lg:pr-10 xs:pr-1 xl:pr-0">
+                <h2 className="text-[28px] font-nunito  md:text-4xl lg:text-4xl xl:text-6xl md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking opacity-0 anim-fade-in-up">
                   {t("Helping Each Other Can Make")}{" "}
                   <span className="text-yellow">{t("World")}</span>
                   {t(" Better")}
@@ -340,7 +324,7 @@ export default function HelpingEachOther() {
               </div>
 
               <p
-                className="text-gray-green   xs:pl-1 pr-2 md:pr-15 lg:pr-2 md:pl-0 xs:pr-5 text-[14px] md:text-[14px] md:tracking-wide md:font-normal tracking-wide xs:-tracking-normal xs:leading-7 lg:font-normal leading-6  lg:text-[14px] xl:text-[16px] xl:tracking-wide lg:leading-7 lg:tracking-normal font-nunito xl:pr-5  opacity-0 anim-fade-in-up"
+                className="text-gray-green   xs:pl-1 pr-2 md:pr-15 lg:pr-2 md:pl-0 xs:pr-5 text-[14px] md:text-[14px] md:tracking-wide md:font-normal tracking-wide xs:-tracking-normal xs:leading-7 lg:font-normal leading-7  lg:text-[14px] xl:text-[16px] xl:tracking-wide lg:leading-7 lg:tracking-normal font-nunito xl:pr-5  opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "1s" }}
               >
                 {t(
@@ -353,7 +337,7 @@ export default function HelpingEachOther() {
                   className="flex items-center gap-4 opacity-0 anim-fade-in-up"
                   style={{ animationDelay: "1.2s" }}
                 >
-                  <div className="w-13 h-13 xs:w-14 xs:h-14 lg:w-15 lg:h-15   rounded-lg flex items-center justify-center shadow-md flex-shrink-0">
+                  <div className="w-13 h-13 xs:w-14 xs:h-14 lg:w-15 lg:h-15   rounded-lg flex items-center justify-center  flex-shrink-0">
                     <Image
                       src={footballhandbg}
                       alt="Football hands icon"
@@ -384,7 +368,7 @@ export default function HelpingEachOther() {
                   className="flex items-center  gap-4 opacity-0 anim-fade-in-up"
                   style={{ animationDelay: "1.4s" }}
                 >
-                  <div className="w-13 h-13 xs:w-14 xs:h-14 lg:w-15 lg:h-15   rounded-lg bg-white flex items-center justify-center shadow-md flex-shrink-0">
+                  <div className="w-13 h-13 xs:w-14 xs:h-14 lg:w-15 lg:h-15   rounded-lg bg-white flex items-center justify-center  flex-shrink-0">
                     <Image
                       src={heartHandbg}
                       alt="hearthand"

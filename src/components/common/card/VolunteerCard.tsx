@@ -47,14 +47,14 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.8, delay: idx * 0.2, ease: "easeOut" }}
-            className="relative bg-[#f1f0ee] shadow rounded-2xl overflow-hidden group"
+            className="relative  shadow rounded-2xl overflow-hidden group"
             whileHover="hover"
         >
             <Link href={`/volunteer/${member.id}`} className="block">
                 <div className="relative w-full aspect-[4/5] cursor-pointer overflow-hidden">
                     <Image
-                        src={member.img}
-                        alt={member.name}
+                        src={member.img  || "/assets/default-avatar.png"}
+                        alt={member.name || "Member"}
                         fill
                         className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
                     />
@@ -69,9 +69,9 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
                             },
                         }}
                         className="absolute bottom-0 left-[20%] transform -translate-x-1/2 w-64 h-64 rounded-full pointer-events-none"
-                        style={{
-                            background: `radial-gradient(circle, var(--color-green) 0%, rgba(255,255,255,0.1) 70%, transparent 100%)`,
-                        }}
+                        //style={{
+                           // background: `radial-gradient(circle, var(--color-green) 0%, rgba(255,255,255,0.1) 70%, transparent 100%)`,
+                       // }}
                     />
 
 

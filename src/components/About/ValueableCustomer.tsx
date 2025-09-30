@@ -1,7 +1,3 @@
-
-
-
-
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
@@ -79,14 +75,14 @@ const ValueableCustomer = () => {
                         <i className="text-2xl hand-icon text-[#00715D]"></i>
             <span 
               className="text-[#00715D] text-[24px] font-caveat font-cursive font-semibold leading-[34px] -mt-[8px]"
-              style={{ width: '262.71px', height: '34px' }}
+              style={{ width: '362.71px', height: '34px' }}
             >
               {t("Start Donating Poor People")}
             </span>
           </div>
           <div className="mt-[15px] px-[12px]">
             <h2 className="text-center text-[45px] font-extrabold font-nunito text-[#122F2A] mb-0">
-              {t("Our Valuable")}
+              {t("Our Valueable")}
               <span className="text-yellow"> {t("Customer")}</span>
             </h2>
             <h2 className="text-center text-[45px] font-extrabold font-nunito text-[#122F2A] mt-0">
@@ -95,7 +91,7 @@ const ValueableCustomer = () => {
           </div>
         </motion.div>
         {/* Carousel */}
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-25">
           <div
             className="relative overflow-hidden w-full"
             onMouseEnter={() => setHovered(true)}
@@ -114,7 +110,7 @@ const ValueableCustomer = () => {
                   className="px-3"
                   style={{ width: `${100 / visibleCards}%` }}
                 >
-                  <div className="relative bg-white border border-yellow rounded-3xl p-8 flex flex-col justify-between shadow-sm overflow-hidden">
+                  <div className="relative bg-white border border-yellow rounded-3xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
                     <Image
                       src={image99}
                       alt="green spade"
@@ -147,7 +143,7 @@ const ValueableCustomer = () => {
                       
                       />
                       <div className="ml-3">
-                        <h4 className="font-semibold font-nunito fond-bold text-foreground">
+                        <h4 className="font-bold font-nunito  text-foreground">
                           {t(item.name)}
                         </h4>
                         <p className="text-gray-500 font-nunito text-sm">{t(item.role)}</p>

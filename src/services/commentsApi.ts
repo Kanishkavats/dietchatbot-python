@@ -44,3 +44,9 @@ export const deleteComment = async (id: string) => {
   const { data } = await api.delete(`/comment/delete-comment/${id}`);
   return data;
 };
+
+// ✅ Like/Unlike a comment
+export const likeComment = async (commentId: string, change: number) => {
+  const { data } = await api.post(`/comment/like-comment/${commentId}`, { change });
+  return data;
+};

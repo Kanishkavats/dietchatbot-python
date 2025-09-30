@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 
 
 "use client";
@@ -12,6 +13,8 @@ import { useInView } from "framer-motion";
 
 import CampaignInfo from "./CampaignInfo";
 import CampaignSidebar from "./CampaignSidebar";
+import CustomLoader from "../common/Loader/CustomLoader";
+
 
 const CampaignDetails: React.FC = () => {
   const params = useParams();
@@ -23,7 +26,8 @@ const CampaignDetails: React.FC = () => {
   const { data, isLoading, isError } = useFetchSingleCampaign(id);
 
   const [page] = useState(1);
-  const { data: allCampaigns } = useFetchAllCampaigns(page, 10);
+  // const { data: allCampaigns } = useFetchAllCampaigns(page, 10);
+  const { data: allCampaigns, isLoading: allCampaignsLoading } = useFetchAllCampaigns(page, 10);
 
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -48,16 +52,18 @@ const CampaignDetails: React.FC = () => {
     router.push(`/campaign/${cardId}`);
   };
 
-  if (isLoading) return <p>Loading campaign details...</p>;
+  // if (isLoading) return <p>Loading campaign details...</p>;
+  if (isLoading) return <CustomLoader />;
+
   if (isError) return <p>Failed to load campaign details.</p>;
   if (!data) return <p>No campaign found.</p>;
 
   return (
     <div className="bg-[#ffffff] font-sans text-[#667471] w-full">
       <div className="container mx-auto px-0.5 sm:px-1 md:px-8 py-4 md:py-8">
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8">
+        <div className="flex flex-col xl:flex-row gap-6 xl:gap-8">
           {/* Left/Main content */}
-          <main className="w-full lg:w-2/3 p-1 sm:p-1 bg-white">
+          <main className="w-full  p-1 sm:p-1 bg-white">
             <CampaignInfo
               data={data}
               allCampaigns={allCampaigns?.campaigns || []}
@@ -66,8 +72,14 @@ const CampaignDetails: React.FC = () => {
           </main>
 
           {/* Sidebar */}
-          <aside className="w-full lg:w-1/3 space-y-6 lg:space-y-8">
-            <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} />
+          <aside className="w-full  space-y-6 lg:space-y-8">
+            {/* <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} /> */}
+            {allCampaignsLoading ? (
+  <CustomLoader />
+) : (
+  <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} />
+)}
+
           </aside>
         </div>
       </div>

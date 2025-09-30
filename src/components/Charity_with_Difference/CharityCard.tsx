@@ -88,8 +88,7 @@ const CharityCard: React.FC<CharityCardProps> = ({
 
   return (
     <motion.div
-      onClick={handleCardClick}
-      className={`relative group rounded-[30px] p-8 min-w-[320px] max-w-[380px] min-h-[400px] flex items-center justify-center cursor-pointer
+      className={`relative group rounded-[30px] p-8 min-w-[270px] max-w-[400px] min-h-[400px] xl:min-h-[450px] flex items-center justify-center
         ${id % 3 === 0 ? "bg-image-1" : id % 3 === 1 ? "bg-image-2" : "bg-image-3"} 
         `}
      
@@ -97,7 +96,8 @@ const CharityCard: React.FC<CharityCardProps> = ({
     >
 
       {/* Card Content */}
-      <div className="relative z-10 text-center ">
+      <div className="relative z-10 text-center "
+      >
         {/* Icon */}
                  <div
            className="w-20 h-20 transition-all duration-300 mx-auto mb-6 rounded-full flex items-center justify-center group-hover:scale-x-[-1]"
@@ -112,12 +112,16 @@ const CharityCard: React.FC<CharityCardProps> = ({
         </div>
 
         {/* Title */}
-        <h3 className="text-2xl font-bold text-gray-800 mb-4 transition-all duration-300 hover:text-gray-600">
+        <div className='cursor-pointer mt-2'
+        onClick={handleCardClick}
+        >
+        <h3 className="text-lg xl:text-2xl font-extrabold text-dark-green mb-4 hover:text-olive-brown transition-all duration-300 ">
           {title}
         </h3>
+        </div>
 
         {/* Description */}
-        <p className="text-gray-700 text-sm leading-relaxed transition-all duration-300">
+        <p className="text-gray-green text-[15px] leading-7 tracking xs:max-w-[250px] md:max-w-[300px] lg:max-w-[260px]">
           {description}
         </p>
       </div>
