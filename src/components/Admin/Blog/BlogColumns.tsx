@@ -1,7 +1,6 @@
 import React from "react";
-import { BlogColumnCallbacks } from "@/src/types/blog";
+import { Blog, BlogColumnCallbacks } from "@/src/types/blog";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
-import { Blog } from "../Data/staticData";
 import TableRowActions from "../Campaign/CampaignActions";
 
 export const getBlogColumns = ({
