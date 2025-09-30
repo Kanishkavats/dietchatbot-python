@@ -12,10 +12,10 @@ import {
 
 // ======================= Fetch all Comments ======================= //
 
-export const useFetchComments = (page: number, limit: number) => {
+export const useFetchComments = (page: number, limit: number, status: string | null) => {
   return useQuery({
-    queryKey: ["comments", page, limit],
-    queryFn: () => fetchComments(page, limit),
+    queryKey: ["comments", page, limit, status],
+    queryFn: () => fetchComments(page, limit, status),
   });
 };
 

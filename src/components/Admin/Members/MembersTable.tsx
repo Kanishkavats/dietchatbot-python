@@ -32,7 +32,7 @@ const MemberTable = () => {
   const [itemsPerPage] = useState(5);
   const [singleMemberFallback, setSingleMemberFallback] = useState<MemberFormValues | null>(null);
 
-  const { data: memberData } = useFetchAllMembers(currentPage, itemsPerPage);
+  const { data: memberData, isLoading } = useFetchAllMembers(currentPage, itemsPerPage);
   const { data: singleMemberData, isLoading: isLoadingMember } = useFetchSingleMember(editMember || undefined);
   const { mutate: deleteMember } = useDeleteSingleMember();
 
@@ -148,11 +148,17 @@ const MemberTable = () => {
         </AnimatedReveal>
       </div>
 
-      {/* Table */}
-      <DataTableWrapper
-        columns={columns}
-        data={filteredData}
-      />
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+        <DataTableWrapper
+          columns={columns}
+          data={filteredData}
+        />
+      )}
+
 
       {/* Pagination */}
       {totalPages > 1 && (

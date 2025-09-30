@@ -9,4 +9,5 @@ export interface TeamMember {
 export interface VolunteerCardProps {
   member: TeamMember;
   idx: number;
+  
 }

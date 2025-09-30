@@ -7,36 +7,24 @@ import { Icon } from '@iconify/react'
 import Button from '../common/Buttons/Button'
 import InputField from "../common/inputs/InputField";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
-import * as Yup from 'yup'
+import { feedbackSchema, FeedbackFormValues } from '@/src/utils/validations/FormValidation';
+import { useCreateFeedback, submitFeedbackForm } from '@/src/hooks/useFeedback';
 
-interface FeedbackFormData {
-  name: string
-  designation: string
-  feedback: string
-  rating: number
-  image: File | null
-}
-
-const initialValues: FeedbackFormData = {
+const initialValues: FeedbackFormValues = {
   name: '',
   designation: '',
   feedback: '',
   rating: 0,
-  image: null
+  image: '' as any
 }
-
-const FeedbackFormSchema = Yup.object().shape({
-  name: Yup.string().required('Name is required'),
-  designation: Yup.string().required('Designation is required'),
-  feedback: Yup.string().required('Feedback is required').max(275, 'Feedback must be 275 characters or less'),
-  rating: Yup.number().min(1, 'Please select a rating').required('Rating is required'),
-  image: Yup.mixed().required('Profile image is required')
-})
 
 const FormComponent = ({ onClose }: { onClose: () => void }) => {
   const [imagePreview, setImagePreview] = React.useState<string | null>(null)
   const [imageName, setImageName] = React.useState<string>('')
   const [toast, setToast] = React.useState<{ type: 'success' | 'error', message: string } | null>(null)
+  
+  // Initialize the mutation hook
+  const createFeedbackMutation = useCreateFeedback()
 
   // Lock body scroll when form is open
   React.useEffect(() => {
@@ -56,18 +44,22 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
     }
   }, [toast])
 
-  const handleSubmit = async (values: FeedbackFormData) => {
-    try {
-      console.log('Form submitted:', values)
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      setToast({ type: 'success', message: 'Feedback submitted successfully!' })
-      setTimeout(() => {
-        onClose()
-      }, 1500)
-    } catch (error) {
-      setToast({ type: 'error', message: 'Failed to submit feedback. Please try again.' })
-    }
+  const handleSubmit = async (values: FeedbackFormValues, { resetForm, setSubmitting }: any) => {
+    console.log('🚀 Feedback Form Submitted!');
+    console.log('📝 Form Values:', values);
+    console.log('🖼️ Image File:', values.image);
+    console.log('⭐ Rating:', values.rating);
+    console.log('👤 Name:', values.name);
+    console.log('💼 Designation:', values.designation);
+    console.log('💬 Feedback:', values.feedback);
+    
+    submitFeedbackForm(
+      values,
+      createFeedbackMutation,
+      resetForm,
+      setSubmitting,
+      onClose
+    )
   }
 
   const modalContent = (
@@ -141,7 +133,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
 
 
           <FadeUpCard>
-            <Formik initialValues={initialValues} validationSchema={FeedbackFormSchema} onSubmit={handleSubmit}>
+            <Formik initialValues={initialValues} validationSchema={feedbackSchema} onSubmit={handleSubmit}>
               {({ isSubmitting, setFieldValue, values, errors, touched }) => (
                 <Form className="space-y-4 sm:space-y-5 px-2 sm:px-3 py-2 sm:py-3">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
@@ -278,7 +270,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                     </div>
                     {errors.image && touched.image && (
                       <div className="text-red-400 text-xs mt-1">
-                        {errors.image}
+                        {typeof errors.image === 'string' ? errors.image : 'Image is required'}
                       </div>
                     )}
                   </div>

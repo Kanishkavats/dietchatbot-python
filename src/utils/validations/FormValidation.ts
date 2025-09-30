@@ -124,7 +124,7 @@ export type CommentFormValues = Yup.InferType<typeof commentSchema>;
 export const bannerSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   subtitle: Yup.string().required("Subtitle is required"),
-  bannerImage: Yup.mixed()
+  image: Yup.mixed()
     .test(
       "fileOrString",
       "Banner image is required",
@@ -135,7 +135,7 @@ export const bannerSchema = Yup.object().shape({
       }
     )
     .required("Banner image is required"),
-  link: Yup.string().url("Must be a valid URL").required("Link is required"),
+  priority: Yup.number().required("priority is required"),
 });
 
 //  Inferred type from the schema
@@ -170,3 +170,38 @@ export const memberSchema = Yup.object().shape({
 });
 
 export type MemberFormValues = Yup.InferType<typeof memberSchema>;
+
+
+// ======================= Member ======================
+
+export const QueryFormSchema = Yup.object().shape({
+  isViewed: Yup.boolean().required("Status is required"),
+});
+
+export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;
+
+
+// ======================= Feedback ======================
+
+export const feedbackSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  designation: Yup.string().required("Designation is required"),
+  image: Yup.mixed()
+    .test(
+      "fileOrString",
+      "Image is required",
+      (value) => {
+        if (typeof value === "string" && value.trim() !== "") return true;
+        if (value instanceof File) return true;
+        return false;
+      }
+    )
+    .required("Image is required"),
+  feedback: Yup.string().required("Feedback is required"),
+  rating: Yup.number()
+    .min(1, "Minimum rating is 1")
+    .max(5, "Maximum rating is 5")
+    .required("Rating is required"),
+});
+
+export type FeedbackFormValues = Yup.InferType<typeof feedbackSchema>;

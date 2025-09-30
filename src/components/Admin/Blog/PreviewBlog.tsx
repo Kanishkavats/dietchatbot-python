@@ -12,9 +12,10 @@ interface BlogPreviewProps {
   data: BlogFormValues & { createdAt?: string };
   onSubmit: () => void;
   onBack: () => void;
+  mode:string;
 }
 
-const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
+const BlogPreview = ({ data, onSubmit, onBack, mode }: BlogPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
   useEffect(() => {
@@ -38,6 +39,7 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
 
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);
+  console.log("mode", mode)
 
   return (
     <motion.div
@@ -143,6 +145,8 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
       }
 
       {/* Buttons */}
+      {mode !== "view" && (
+
       <div className="mt-12 flex gap-6 justify-end md:w-fit">
         <Button
           bgColor="bg-red"
@@ -163,6 +167,7 @@ const BlogPreview = ({ data, onSubmit, onBack }: BlogPreviewProps) => {
         </Button>
 
       </div>
+      )}
     </motion.div >
   );
 };
