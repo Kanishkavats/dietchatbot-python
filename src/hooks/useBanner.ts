@@ -3,8 +3,6 @@ import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tansta
 import {
     fetchAllBanners,
     fetchBannerById,
-    createBanner,
-    updateBanner,
     deleteBanner,
 } from "../services/bannerApi";
 import { BannerFormValues } from "../utils/validations/FormValidation";

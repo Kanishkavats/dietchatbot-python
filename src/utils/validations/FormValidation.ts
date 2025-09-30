@@ -170,3 +170,29 @@ export const memberSchema = Yup.object().shape({
 });
 
 export type MemberFormValues = Yup.InferType<typeof memberSchema>;
+
+
+// ======================= Member ======================
+
+export const QueryFormSchema = Yup.object().shape({
+  isViewed: Yup.boolean().required("Status is required"),
+});
+
+export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;
+
+
+// ======================= Feedback ======================
+
+export const feedbackSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  designation: Yup.string().required("Designation is required"),
+  image: Yup.string(),
+  feedback: Yup.string().required("Feedback is required"),
+  rating: Yup.number()
+    .min(1, "Minimum rating is 1")
+    .max(5, "Maximum rating is 5")
+    .required("Rating is required"),
+  status: Yup.string().required("Status is required"),
+});
+
+export type FeedbackFormValues = Yup.InferType<typeof feedbackSchema>;

@@ -56,7 +56,6 @@ const DonationCard: React.FC<DonationCardProps> = ({
   const goalAmount = parseAmount(card.goal);
   const progress = card.progress || Math.min((raisedAmount / goalAmount) * 100, 100);
 
-  const maxLength = 100;
   // Truncate description
   //const maxLength=120;
   const descMaxLength = 100;

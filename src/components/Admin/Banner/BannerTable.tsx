@@ -15,9 +15,9 @@ import { BannerFormValues } from "@/src/utils/validations/FormValidation";
 import { useDeleteBanner, useFetchAllBanners, useFetchSingleBanner } from "@/src/hooks/useBanner";
 import { createBanner, updateBanner } from "@/src/services/bannerApi";
 import { BannerSearchOptions } from "../Data/staticData";
-import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import BannerPreview from "./BannerPreview";
+import AdminCustomPagination from "../Common/CustomePagination";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");
@@ -27,10 +27,10 @@ const BannerTable = () => {
   const [mode, setMode] = useState<"add" | "edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage] = useState(2)
+  const [itemsPerPage] = useState(10)
 
   const queryClient = useQueryClient();
-  const { data: bannerData } = useFetchAllBanners(currentPage, itemsPerPage);
+  const { data: bannerData, isLoading } = useFetchAllBanners(currentPage, itemsPerPage);
   const { mutate: deleteBanner } = useDeleteBanner();
   const totalPages = bannerData?.totalPages || 1;
 
@@ -38,15 +38,10 @@ const BannerTable = () => {
   const [previewDrawerOpen, setPreviewDrawerOpen] = useState(false);
   const { data: singleBannerData, isLoading: isPreviewLoading } = useFetchSingleBanner(bannerId || undefined);
 
-
-  console.log("banner", bannerData);
-
-
-  // Mutations
   const createMutation = useMutation({
     mutationFn: createBanner,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["banners"] });
+      queryClient.invalidateQueries({ queryKey: ["banner"] });
     },
   });
 
@@ -54,7 +49,7 @@ const BannerTable = () => {
     mutationFn: (data: { id: string; values: BannerFormValues }) =>
       updateBanner(data.id, data.values),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["banners"] });
+      queryClient.invalidateQueries({ queryKey: ["banner"] });
     },
   });
 
@@ -80,12 +75,12 @@ const BannerTable = () => {
     setPreviewDrawerOpen(true);
   }, []);
 
-    // Handlers
-const handleEdit = useCallback((b: Banner) => {
-  setbannerId(b.id ?? null);
-  setMode("edit");
-  setDrawerOpen(true);
-}, []);
+  // Handlers
+  const handleEdit = useCallback((b: Banner) => {
+    setbannerId(b.id ?? null);
+    setMode("edit");
+    setDrawerOpen(true);
+  }, []);
 
 
 
@@ -152,12 +147,18 @@ const handleEdit = useCallback((b: Banner) => {
         </AnimatedReveal>
       </div>
 
-      {/* Table */}
-      <DataTableWrapper columns={columns} data={filteredData} />
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+        <DataTableWrapper columns={columns} data={filteredData} />
+      )}
+
 
       {totalPages > 1 && (
-        <div className="flex justify-center mt-4">
-          <CustomPagination
+        <div className="flex justify-end   mt-4">
+          <AdminCustomPagination
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={(page) => setCurrentPage(page)}
@@ -188,7 +189,7 @@ const handleEdit = useCallback((b: Banner) => {
             isPreviewLoading ? (
               <CustomLoader />
             ) : singleBannerData ? (
-             <BannerPreview data={singleBannerData} />
+              <BannerPreview data={singleBannerData} />
             ) : (
               <p>No data to preview</p>
             )
