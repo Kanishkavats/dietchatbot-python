@@ -66,7 +66,8 @@
   --brown: #6b5103;
   --light-gray:#EBEBEB;
   --dusty-rose:#e9d1d1;
-  --color-gray-light:#f2f2f2;
+  --gray-light:#f2f2f2;
+  --olive-brown:#6b5103;
 }
 
 @theme {
@@ -99,6 +100,7 @@
   --color-light-gray:#EBEBEB;
   --color-dusty-rose:#e9d1d1;
   --color-gray-light:#f2f2f2;
+  --color-olive-brown:#6b5103;
 }
 @theme{
   --breakpoint-xs: 25rem;

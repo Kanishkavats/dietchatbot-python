@@ -8,11 +8,11 @@ import Button from "../common/Buttons/Button";
 import { FaUser, FaRegEnvelope, FaRegComments } from "react-icons/fa";
 import toast from "react-hot-toast";
 
-interface LeaveCommentProps {
-  blogId: string;
+interface ReplyCommentProps {
+  id: string;
 }
 
-export default function LeaveComment({ blogId }: LeaveCommentProps) {
+export default function ReplyComment({ id }: ReplyCommentProps) {
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -29,17 +29,17 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
       return;
     }
 
-    if (!blogId) {
+    if (!id) {
       alert("Blog ID is missing");
       return;
     }
 
    mutation.mutate(
-  { id: blogId, data: { name, comment, email } },
+  { id: id, data: { name, comment, email } },
   {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
-      console.log("✅ Comment submitted for blogId:", blogId);
+      queryClient.invalidateQueries({ queryKey: ["comments", id] });
+      console.log("✅ Comment submitted for blogId:", id);
       console.log("📝 Comment details:", { name, email, comment });
 
       toast.success("Comment submitted successfully");
@@ -53,9 +53,9 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
   };
 
   return (
-    <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg shadow-lg border border-gray-100 lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
-      <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
-        Leave A Comment
+    <div className="w-full mt-10 p-4 sm:p-6 max-h-[65vh] max-w-[80vh] bg-white rounded-lg shadow-lg border border-gray-100 lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
+      <h2 className="text-xl sm:text-2xl lg:text-3xl font-nunito font-extrabold text-black mb-6">
+        Reply
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -83,10 +83,10 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
           </div>
         </div>
 
-        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[820px] lg:h-[184px]">
+        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full ">
           <FaRegComments className="text-[#6B7280]" size={18} />
           <textarea
-            placeholder="Type Your Comments..."
+            placeholder="Type Your Reply..."
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="w-full bg-transparent focus:outline-none resize-none ml-2"
@@ -97,7 +97,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
         <div className="flex justify-start mt-8">
           <div className="w-fit">
           <Button
-            text={mutation.isPending ? "Submitting..." : "Submit Comment"}
+            text={mutation.isPending ? "Submitting..." : "Add Reply"}
             bgColor="bg-[#122F2A]"
             textColor="text-white"
             rounded="rounded-full"
