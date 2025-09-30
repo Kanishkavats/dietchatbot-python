@@ -13,6 +13,8 @@ import { useInView } from "framer-motion";
 
 import CampaignInfo from "./CampaignInfo";
 import CampaignSidebar from "./CampaignSidebar";
+import CustomLoader from "../common/Loader/CustomLoader";
+
 
 const CampaignDetails: React.FC = () => {
   const params = useParams();
@@ -24,7 +26,8 @@ const CampaignDetails: React.FC = () => {
   const { data, isLoading, isError } = useFetchSingleCampaign(id);
 
   const [page] = useState(1);
-  const { data: allCampaigns } = useFetchAllCampaigns(page, 10);
+  // const { data: allCampaigns } = useFetchAllCampaigns(page, 10);
+  const { data: allCampaigns, isLoading: allCampaignsLoading } = useFetchAllCampaigns(page, 10);
 
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -49,33 +52,39 @@ const CampaignDetails: React.FC = () => {
     router.push(`/campaign/${cardId}`);
   };
 
+  // if (isLoading) return <p>Loading campaign details...</p>;
+  if (isLoading) return <CustomLoader />;
 
-
-  if (isLoading) return <p>Loading campaign details...</p>;
   if (isError) return <p>Failed to load campaign details.</p>;
   if (!data) return <p>No campaign found.</p>;
 
   return (
-    <div className="container mx-auto py-10 px-4">
-      
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left/Main content */}
-        <div className="lg:col-span-2 space-y-6">
-          <CampaignInfo data={data} allCampaigns={allCampaigns?.campaigns || []}  id={id}/>
-        </div>
+    <div className="bg-[#ffffff] font-sans text-[#667471] w-full">
+      <div className="container mx-auto px-0.5 sm:px-1 md:px-8 py-4 md:py-8">
+        <div className="flex flex-col xl:flex-row gap-6 xl:gap-8">
+          {/* Left/Main content */}
+          <main className="w-full  p-1 sm:p-1 bg-white">
+            <CampaignInfo
+              data={data}
+              allCampaigns={allCampaigns?.campaigns || []}
+              id={id}
+            />
+          </main>
 
-        {/* Sidebar */}
-        <div className="md:col-span-1 mt-6 md:mt-0">
-          <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} />
+          {/* Sidebar */}
+          <aside className="w-full  space-y-6 lg:space-y-8">
+            {/* <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} /> */}
+            {allCampaignsLoading ? (
+  <CustomLoader />
+) : (
+  <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} />
+)}
+
+          </aside>
         </div>
       </div>
-
-      
     </div>
   );
 };
 
 export default CampaignDetails;
-
-
-

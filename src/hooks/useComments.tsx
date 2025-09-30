@@ -56,8 +56,38 @@ export const useCreateComment = () => {
   return useMutation({
     mutationFn: ({ id, data }: { id: string; data: { comment: string; name: string; email: string } }) =>
       createComment(id, data),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments"] });
+    onSuccess: (data, variables) => {
+      console.log(" comment", data)
+
+      // 1. Get existing comments
+      const existingComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
+
+      // 2. Create new comment with proper structure
+      const newComment = {
+        id: data.comment?.id || `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+        name: variables.data.name,
+        comment: variables.data.comment,
+        email: variables.data.email,
+        blogId: variables.id, // Add the blogId
+        isPending: true,
+        createdAt: new Date().toISOString(),
+        timeAgo: "Just now",
+        likeCount: 0
+      };
+
+      // 3. Add new comment to localStorage
+      const updatedComments = [...existingComments, newComment];
+      localStorage.setItem("LocalComments", JSON.stringify(updatedComments));
+
+      // 4. Invalidate the specific query for this blog
+      queryClient.invalidateQueries({ queryKey: ["comments", variables.id] });
+      queryClient.invalidateQueries({ queryKey: ["comment", variables.id] });
+      
+      // 5. Dispatch custom event to notify components
+      window.dispatchEvent(new CustomEvent('commentAdded', { 
+        detail: { blogId: variables.id, comment: newComment } 
+      }));
+      
       toast.success("Comment created successfully");
     },
     onError: (err: any) => {

@@ -14,7 +14,7 @@ const TagList = ({
   return (
     <div className="bg-white p-6 rounded-2xl shadow-md">
     
-      <h3 className="text-xl font-semibold mb-3">Tags</h3>
+      <h3 className="lg:text-[20px] xl:text-[24px] text-[20px] font-bold font-nunito mb-3 text-[#000000]">Tags</h3>
       <div className="flex flex-wrap gap-5">
         {tags.map((tag) => (
           <button

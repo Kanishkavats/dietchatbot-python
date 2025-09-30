@@ -76,7 +76,12 @@ import contactbg from './contactbg.png';
 import bgOneVolunteer from './bg-one-volunteer.png';
 import image99 from './99.png';
 import greenspade from './greenspade.png';
-
+import spreadLight from './sprade-light.png';
+import gridDot from './gridDot.png';
+import footballhandbg from "./football_hands-removebg-preview.png";
+import heartHandbg from "./heart_hands-removebg-preview.png";
+import thumbSmChild from "./thumb-sm.png";
+import blurTransparentBg from "./latestNewsArticalbg.png"
 
 
 
@@ -159,4 +164,10 @@ export {
  bgOneVolunteer,
  image99,
  greenspade,
+ spreadLight,
+ gridDot,
+ footballhandbg,
+ heartHandbg,
+ thumbSmChild,
+ blurTransparentBg,
 };
