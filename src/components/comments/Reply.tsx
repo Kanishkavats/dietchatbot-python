@@ -2,17 +2,15 @@
 "use client";
 
 import { useState } from "react";
-import { useQueryClient } from "@tanstack/react-query";
 import Button from "../common/Buttons/Button";
-import { FaUser, FaRegEnvelope, FaRegComments, FaCross } from "react-icons/fa";
 import toast from "react-hot-toast";
-import { useAddReply } from "@/src/hooks/useReply";
 import { Form, Formik } from "formik";
 import { CommentReplyFormValues, CommentReplySchema } from "@/src/utils/validations/FormValidation";
 import InputField from "../common/inputs/InputField";
-import CustomLoader from "../common/Loader/CustomLoader";
 import { FaX } from "react-icons/fa6";
 import ButtonLoader from "../common/Loader/ButtonLoader";
+import { useAddReply } from "@/src/hooks/useComments";
+import CancelButton from "../common/Buttons/CancelButton";
 
 const initialValues: CommentReplyFormValues = {
   email: "",
@@ -70,7 +68,6 @@ export default function ReplyComment({ id,handleReplyModel}: ReplyCommentProps) 
           </div>
 
           <div className="flex-1">
-            {/* <FaRegEnvelope className="text-xl mt-1 text-gray-green" /> */}
             <InputField
               type="email"
               icon={'mdi:envelope'}
@@ -95,8 +92,7 @@ export default function ReplyComment({ id,handleReplyModel}: ReplyCommentProps) 
           <div className="w-fit">
           <Button
             text={ "Add Reply"}
-            isPending={mutation.isPending}
-            bgColor="bg-dark-green"
+            bgColor="bg-green"
             textColor="text-white text-sm lg:text-lg"
             rounded="rounded-full"
             hoverTextColor="group-hover:text-black"
@@ -104,21 +100,20 @@ export default function ReplyComment({ id,handleReplyModel}: ReplyCommentProps) 
             paddingx="px-4 md:px-5 "
             paddingy="py-3 md:py-4 "
             type="submit"
-          ><ButtonLoader/></Button>
+          >
+            { mutation.isPending? (
+               <ButtonLoader />) : (
+                  "Add Reply"
+            )}
+          </Button>
           </div>
           <div className="w-fit">
-          <Button
-            text={"Cancel"}
-            bgColor="bg-foreground"
-            textColor="text-white text-sm lg:text-lg"
-            rounded="rounded-full"
-            hoverTextColor=""
-            hoverBg=""
-            icon={''}
-            paddingx="px-4 md:px-5 "
-            paddingy="py-3 md:py-4 "
-            onClick={()=>handleReplyModel(false)}
-          />
+            <CancelButton rounded="rounded-full"
+             paddingX="px-4 md:px-6" 
+             paddingY="py-3" 
+             text="Cancel"
+             textSize="text-sm lg:text-lg"
+             onClose={()=>handleReplyModel(false)} />
           </div>
         </div>
       </Form>

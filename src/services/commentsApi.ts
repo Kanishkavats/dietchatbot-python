@@ -1,9 +1,10 @@
 // src/services/commentApi.ts
+import { RepliesResponse } from "../types/comments";
 import api from "./api";
 
 // ✅ Fetch all comments
-export const fetchComments = async (page: number, limit: number) => {
-  const { data } = await api.get(`/comment/getAllComments?page=${page}&limit=${limit}`);
+export const fetchComments = async (page: number, limit: number, status: string | null) => {
+  const { data } = await api.get(`/comment/getAllComments?page=${page}&limit=${limit}&status=${status}`);
   return data;
 };
 
@@ -50,3 +51,19 @@ export const likeComment = async (commentId: string, change: number) => {
   const { data } = await api.post(`/comment/like-comment/${commentId}`, { change });
   return data;
 };
+
+// Add reply
+export const addReply = async (id: string|null,
+  reply: { name: string; comment: string; email: string }) => {
+
+  const { data } = await api.post(`/comment/reply-comment/${id}`, reply);
+  return data;
+};
+
+//get replies by comment id
+export const getRepliesByCommentId=async(id:string|null,page:number,limit:number)=>{
+
+  const {data} =await api.get<RepliesResponse>(`/comment/get-replies/${id}?page=${page}&limit=${limit}`);
+  console.log(data);
+  return data;
+}

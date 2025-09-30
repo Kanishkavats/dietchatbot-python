@@ -12,7 +12,7 @@ const MultiInputList: React.FC<AdminMultiInputListProps> = ({
   onChange,
   placeholder,
   isView = false,
-  colorClass = { normal: "bg-lime-200 text-lime-800", view: "bg-gray-100 text-gray-600" },
+  colorClass = { normal: "bg-yellow/30 text-gray-500", view: "bg-gray-100 text-gray-600" },
 }) => {
   const [inputValue, setInputValue] = useState("");
 

@@ -18,6 +18,8 @@ export interface CampaignPreviewProps {
 const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
+  console.log("mode", mode)
+
   useEffect(() => {
     if (!data.images && !data.existingImages) return;
 
@@ -129,8 +131,6 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
       )}
 
       {/* Buttons */}
-      {mode === "add" || mode === "edit" && (
-
         <div className="mt-12 flex gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
@@ -149,7 +149,6 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
             hoverBg="before:bg-green"
           />
         </div>
-      )}
     </motion.div>
   );
 };

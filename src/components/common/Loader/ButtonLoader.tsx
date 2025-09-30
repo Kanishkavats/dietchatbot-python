@@ -4,7 +4,7 @@ import './loader.css'
 const ButtonLoader = () => {
   return (
     <div>
-      <span className="buttonLoader"></span>
+      <span className={`buttonLoader`}></span>
     </div>
   )
 }

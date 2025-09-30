@@ -12,6 +12,8 @@ import { Category } from "@/src/types/category";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { getCategoryColumns } from "./categoryColumns";
 import CustomPagination from "../../common/CustomPaginatioin"; 
+import AdminCustomPagination from "../Common/CustomePagination";
+import CustomLoader from "../../common/Loader/CustomLoader";
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");
@@ -23,7 +25,7 @@ const CategoryTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); 
 
-  const { data: categoryData } = useFetchCategory(currentPage, itemsPerPage);
+  const { data: categoryData, isLoading } = useFetchCategory(currentPage, itemsPerPage);
   const { mutate: deleteCategory } = useDeleteCategory();
 
 
@@ -108,12 +110,19 @@ const CategoryTable = () => {
       </div>
 
       {/* Table */}
-      <DataTableWrapper columns={columns} data={filteredData} />
+       {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+              <DataTableWrapper columns={columns} data={filteredData} />
+
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
