@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 
@@ -37,32 +38,32 @@ const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
         </div>
         {/* Date & Location: Stack on mobile, row on sm+ */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 text-[#000000] mb-4 sm:mb-6">
-          <p className="flex items-center font-nunito text-[14px] sm:text-sm lg:text-base">
+          <p className="flex items-center font-nunito  text-[14px] sm:text-sm sm:text-[#000000] lg:text-base lg:text-[#000000]">
             <FaRegCalendarAlt className="mr-2 text-yellow w-[15px] sm:w-[18px] lg:w-[22px] h-[18px] sm:h-[20px] lg:h-[24px]" />
             {data?.createdAt
               ? new Date(data.createdAt).toLocaleDateString()
               : formattedDate || "No date"}
           </p>
-          <span className="flex items-center gap-1 font-nunito text-[14px] sm:text-sm lg:text-base">
+          <span className="flex items-center gap-1 font-nunito text-[14px] sm:text-sm sm:text-[#000000] lg:text-base lg: text-[#000000]">
             <IoLocationSharp className="w-[15px] sm:w-[18px] lg:w-[22px] h-[18px] sm:h-[20px] lg:h-[24px] text-yellow" />
             {data?.location || "New York"}
           </span>
         </div>
         {/* Title: Responsive sizing, left-aligned */}
-        <h1 className="text-2xl sm:text-3xl lg:text-5xl font-extrabold text-dark-green mb-4 sm:mb-6 leading-tight font-nunito text-left">
+        <h1 className="xl:text-[36px] text-[24px] lg:text-[30px] font-extrabold text-dark-green mb-4 sm:mb-6 leading-tight font-nunito text-left">
           {data?.title || "Campaign Title Here"}
         </h1>
         {/* Description: Responsive text */}
-        <p className="text-gray-green mb-6 sm:mb-8 text-[14px] sm:text-[16px] lg:text-[18px] font-nunito">
+        <p className="text-gray-green mb-6 sm:mb-8 text-[18px]  lg:text-[18px] font-nunito">
           {data?.description}
         </p>
         {/* Summary: Conditional, responsive */}
         {data?.summary && (
           <>
-            <h2 className="text-xl sm:text-2xl lg:text-4xl font-extrabold mt-6 sm:mt-8 mb-2 sm:mb-4 text-dark-green font-nunito">
+            <h2 className="xl:text-[36px] text-[24px] lg:text-[30px] font-extrabold mt-6 sm:mt-8 mb-2 sm:mb-4 text-dark-green font-nunito">
               Summary
             </h2>
-            <p className="text-gray-green mb-6 sm:mb-8 text-[14px] sm:text-[16px] lg:text-[18px] font-nunito">
+            <p className="text-gray-green mb-6 sm:mb-8 text-[18px]  lg:text-[18px] font-nunito">
               {data?.summary}
             </p>
           </>
@@ -73,7 +74,7 @@ const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
             {data.keyPoints.map((point: string, index: number) => (
               <div key={index} className="flex items-start gap-2 font-nunito">
                 <LuCircleCheckBig className="text-green text-lg sm:text-xl mt-1 flex-shrink-0" />
-                <span className="text-sm sm:text-base lg:text-lg">{point}</span>
+                <span className="xl:text-[18px] text-[18px] lg:text-[18px]">{point}</span>
               </div>
             ))}
           </div>
@@ -106,6 +107,7 @@ const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
     </motion.div>
   );
 };
+
 export default CampaignInfo;
 
  

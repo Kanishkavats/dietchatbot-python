@@ -4,36 +4,43 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
-import { teamMembers } from "@/src/staticResource";
 import Pagination from "../common/Pagination";
 import { VolunteerCard } from "../common/card/VolunteerCard";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
 import { useTranslation } from "react-i18next";
-
-
-
-
-
+import { useFetchAllMembers } from "@/src/hooks/useMembers";
 
 const VolunteerTeam = () => {
   const router = useRouter();
-  const{t}=useTranslation();
-  const itemsPerPage = 4;
-  const totalPages = Math.ceil(teamMembers.length / itemsPerPage);
-  const [visibleCount, setVisibleCount] = useState(itemsPerPage);
+  const { t } = useTranslation();
+
+  // pagination setup
+
   const [showPagination, setShowPagination] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const itemsPerPage = currentPage === 1 && !showPagination ? 4 : 8;
+
+  //  fetch members from API
+  const { data, isLoading, isError } = useFetchAllMembers(
+    currentPage,
+    itemsPerPage
+  );
+
+  // safely extract members
+  const members = data?.members || [];
+  const totalPages = data?.totalPages || 1;
+
   const handleViewAll = () => {
-    router.push('/team');
+    setShowPagination(true);
+    setCurrentPage(1);
   };
 
-  const membersToShow = showPagination
-    ? teamMembers.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
-    : teamMembers.slice(0, visibleCount);
-
   return (
-    <section className="relative bg-cover py-16 bg-center w-full" style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}>
+    <section
+      className="relative bg-cover py-16 bg-center w-full"
+      style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
+    >
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
         <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
           <i className="text-2xl hand-icon"></i>
@@ -45,15 +52,25 @@ const VolunteerTeam = () => {
           {t("Meet Our Volunteer")} <br />
           <span className="text-yellow">{t("Team")}</span> {t("Members")}
         </h2>
+
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {membersToShow.map((member, idx) => (
-              <VolunteerCard key={idx} member={member} idx={idx} />
-            ))}
-          </div>
+          {isLoading && <p>Loading members...</p>}
+          {isError && <p>Failed to load members.</p>}
+          {!isLoading && !isError && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {members.map((member: any, idx: number) => (
+                <VolunteerCard
+                  key={member.id || idx}
+                  member={member}
+                  idx={idx}
+                />
+              ))}
+            </div>
+          )}
         </div>
 
-        {!showPagination && visibleCount < teamMembers.length && (
+        {/* View All button (switches to pagination mode) */}
+        {!showPagination && members.length > 0 && (
           <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
             <Button
               text="View All"
@@ -66,6 +83,7 @@ const VolunteerTeam = () => {
           </div>
         )}
 
+        {/* Pagination controls */}
         {showPagination && (
           <Pagination
             currentPage={currentPage}

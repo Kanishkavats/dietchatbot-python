@@ -1,4 +1,5 @@
 
+
 "use client";
 
 import { useState } from "react";
@@ -21,8 +22,8 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
 
   const mutation = useCreateComment();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (e?: React.FormEvent) => {
+    e?.preventDefault();
 
     if (!name || !email || !comment) {
       alert("Please fill out all fields");
@@ -31,35 +32,62 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
 
     if (!blogId) {
       alert("Blog ID is missing");
-       return;
+      return;
     }
+
+    const newComment = {
+      id: Date.now().toString(),
+      name,
+      email,
+      comment,
+      timeAgo: "Just now",
+      likeCount: 0,
+      isPending: true,
+      blogId,
+    };
+
+    // Prevent duplicate in localStorage
+    const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
+    const isDuplicate = localComments.some(
+      (c: any) =>
+        c.blogId === blogId &&
+        c.name === name &&
+        c.comment === comment
+    );
+
+    if (!isDuplicate) {
+      localComments.push(newComment);
+      localStorage.setItem("LocalComments", JSON.stringify(localComments));
+    }
+
+    window.dispatchEvent(new Event("commentAdded"));
 
     mutation.mutate(
       { id: blogId, data: { name, comment, email } },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
-          console.log("✅ Comment submitted for blogId:", blogId);
-          console.log("📝 Comment details:", { name, email, comment });
           toast.success("Comment submitted successfully");
-         
           setName("");
           setEmail("");
           setComment("");
+        },
+        onError: () => {
+          toast.error("Failed to submit comment");
         },
       }
     );
   };
 
   return (
-    <div className="  w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15 shadow-xl border border-[#edefe9]">
+    <div className="w-full mt-10 p-4 sm:p-6 bg-[#ffffff] rounded-lg lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15 shadow-xl border border-[#edefe9]">
       <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
         Leave A Comment
       </h2>
-
+      
       <form onSubmit={handleSubmit} className="space-y-4">
-        <div className="grid grid-cols-1 md:flex gap-4 lg:flex gap-15">
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[316px] lg:h-[96px]">
+        <div className="grid grid-cols-1 md:flex gap-4 lg:flex gap-6">
+          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full h-[96px]">
             <FaUser className="text-[#6B7280]" size={18} />
             <input
               type="text"
@@ -70,7 +98,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             />
           </div>
 
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[316px] lg:h-[96px]">
+          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full h-[96px]">
             <FaRegEnvelope className="text-xl mt-1 text-[#6B7280]" />
             <input
               type="email"
@@ -82,7 +110,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
           </div>
         </div>
 
-        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[700px] lg:h-[184px]">
+        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[850px] lg:h-[184px]">
           <FaRegComments className="text-[#6B7280]" size={18} />
           <textarea
             placeholder="Type Your Comments..."
@@ -93,29 +121,22 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
           />
         </div>
 
-        <div className="flex items-center justify-start  mt-8">
+        <div className="flex justify-start mt-8">
           <div className="w-fit">
-          <Button
-            text={mutation.isPending ? "Submitting..." : "Submit Comment"}
-            bgColor="bg-[#122F2A]"
-            textColor="text-white"
-            rounded="rounded-full"
-            hoverTextColor="group-hover:text-black"
-            hoverBg="before:bg-yellow"
-            paddingx="px-6"
-            paddingy="py-4"
-            
-
-            
-          />
+            <Button
+              text={mutation.isPending ? "Submitting..." : "Submit Comment"}
+              bgColor="bg-[#122F2A]"
+              textColor="text-white"
+              rounded="rounded-full"
+              hoverTextColor="group-hover:text-black"
+              hoverBg="before:bg-yellow"
+              paddingx="px-6"
+              paddingy="py-4"
+              onClick={handleSubmit}
+            />
           </div>
         </div>
       </form>
     </div>
   );
 }
-
-
-
-
-
