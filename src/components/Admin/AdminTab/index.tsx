@@ -31,7 +31,7 @@ const AdminTab = () => {
   };
   return (
     <div>
-      <div className="relative md:flex gap-2 h-screen">
+      <div className="relative md:flex gap-2 h-screen ">
         <AdminSideBarTab
           isOpen={isOpen}
           setIsOpen={setIsOpen}

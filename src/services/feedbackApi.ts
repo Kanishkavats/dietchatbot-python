@@ -30,7 +30,7 @@ export const updateFeedback = async (
   id: string,
   updateData: {
     approved?: boolean;
-    status?: "approved" | "rejected";
+    status?: string;
   }
 ) => {
   const { data } = await api.put(`/feedback/moderate-feedback/${id}`, updateData);

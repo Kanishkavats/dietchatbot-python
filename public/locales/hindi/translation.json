@@ -68,6 +68,7 @@
   "Message must be of 20 Words":"संदेश 20 शब्दों का होना चाहिए",
   "email is a required field":"ईमेल आवश्यक  है",
   "phone is a required field":"फ़ोन आवश्यक है",
+  "Phone number must be 10 digits":"फ़ोन नंबर 10 अंकों का होना चाहिए।",
   "address is a required field":"पता आवश्यक है",
   "Support":"सहायता",
   "Difference Way":"बदलाव",

@@ -97,14 +97,14 @@ const ContactInfoBlock: React.FC<Props> = ({ icon: Icon, title, lines, isSocial 
         <h4 className="font-nunito font-extrabold text-lg mb-2">{t(title)}</h4>
 
         {isSocial ? (
-          <div className="flex gap-2 mt-1">
+          <div className="flex gap-2 mt-2">
             {socialLinks.map((item, index) => {
               const SocialIcon = item.icon;
               return (
                 <a
                   key={index}
                   href={item.href}
-                  className="w-8 h-8 border border-gray-400 rounded-full flex items-center justify-center text-gray-500 hover:bg-yellow hover:text-white hover:border-yellow transition"
+                  className="w-9 h-9 border border-gray-400 rounded-full flex items-center justify-center text-muted-gray hover:bg-yellow hover:text-white hover:border-yellow transition"
                 >
                   <SocialIcon  className="text-sm"/>
                 </a>
@@ -115,7 +115,7 @@ const ContactInfoBlock: React.FC<Props> = ({ icon: Icon, title, lines, isSocial 
           lines?.map((line, i) => (
             <p
               key={i}
-              className="font-nunito text-base text-gray-600 leading-relaxed"
+              className="font-nunito text-base text-muted-gray leading-relaxed"
             >
               {t(line)}
             </p>

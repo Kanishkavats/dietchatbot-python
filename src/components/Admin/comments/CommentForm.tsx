@@ -34,7 +34,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
   });
 
   // Map backend status to form status (lowercase)
-  const mapBackendStatusToFormStatus = (status?: string): "pending" | "approved" | "rejected" => {
+  const mapBackendStatusToFormStatus = (status?: string): string => {
     if (!status) return "pending";
     switch (status.toUpperCase()) {
       case "APPROVED":

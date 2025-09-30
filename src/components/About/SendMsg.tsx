@@ -67,7 +67,7 @@ const SendMsg: React.FC = () => {
         </motion.div>
       </FadeInUp>
 
-      <div className="relative ml-[0%] md:ml-[25%] xl:ml-[35%] md:mr-[10%] xl:mr-[0%] z-10 w-[50%] min-w-[400px] xs:w-[450px] md:w-[550px] lg:w-[650%] xl:w-[50%] font-nunito bg-green p-6 xs:p-4 sm:p-8 md:p-8 xl:p-15 shadow-lg  overflow-y-auto py-8 ">
+      <div className="relative ml-[0%] md:ml-[25%] xl:ml-[35%] md:mr-[10%] xl:mr-[0%] z-10 w-[50%] min-w-[400px] xs:w-[450px] md:w-[550px] lg:w-[650%] xl:w-[50%] font-nunito bg-green p-8 xs:p-4 sm:p-8 md:p-8 xl:p-15 shadow-lg  overflow-y-auto py-8 ">
         <motion.div
           ref={ref}
           initial={{ opacity: 0, y: 50 }}
@@ -77,12 +77,12 @@ const SendMsg: React.FC = () => {
         >
           <FadeUpCard delay={0.3}>
             <div className="flex gap-2 mt-10 xs:mt-15 p-1 xl:mt-20 ">
-              <Icon icon={"mdi:hand-heart"} className="text-lg xs:text-xl md:text-2xl xl:text-3xl text-yellow" />
-              <span className=" text-yellow font-caveat font-extrabold block text-xl md:text-2xl xl:text-3xl ">
+              <Icon icon={"mdi:hand-heart"} className="text-[20px]  md:text-[24px] text-yellow" />
+              <span className=" text-yellow font-caveat font-extrabold block text-[18px]  md:text-[22px] ">
                 {t("Start Donating Poor People")}
               </span>
             </div>
-            <h2 className="text-2xl p-2 xl:p-0 xs:p-0 font-nunito sm:text-3xl md:text-4xl xl:text-6xl font-extrabold text-white lg:mt-4 leading-8 md:leading-12 xl:leading-16 tracking-wide ">
+            <h2 className="text-[30px]  md:text-[40px] font-extrabold text-white lg:mt-4   p-0 xl:p-0 xs:p-0 font-nunito leading-10 md:leading-12 xl:leading-19 tracking-[1px] mt-5">
               <Trans i18nKey="sendMessageForDonation_title" components={{ 1: <span className="text-yellow ml-1" /> }} />
             </h2>
           </FadeUpCard>
@@ -93,34 +93,28 @@ const SendMsg: React.FC = () => {
             {({ isSubmitting }) => (
               <Form className="space-y-10 px-8 xs:px-2 xs:py-2 xl:px-6 xl:py-2 xl:mt-13 ">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-8 lg:gap-4">
-                  <div className="relative">
-                    <InputField
-                      name="email"
-                      placeholder={t("your email...")}
-                      icon={"mdi:send"}
-                      placeholderClassName="xl:placeholder:text-lg"
-                      textSize="text-lg"
-                      errorTextSize="text-lg"
-                      iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                      className="w-full  rounded-md flex border border-gray-green text-lg bg-foreground/18 xs:h-[50px] xl:h-[60px] px-4 py-4 
-                 text-white  focus:outline-none "
-                    />
-                  </div>
-                  <div className="relative">
-                    <InputField
-                      name="phone"
-                      textSize="text-lg"
-                      errorTextSize="text-lg"
-                      placeholder={t("your phone...")}
-                      icon="mdi:phone"
-                      placeholderClassName="xl:placeholder:text-lg"
-                      iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                      className="w-full rounded-md border flex border-gray-green xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
-                    />
-                  </div>
+                  <InputField
+                    name="email"
+                    placeholder={t("your email...")}
+                    icon={"mdi:send"}
+                    placeholderClassName="xl:placeholder:text-lg"
+                    textSize="text-lg"
+                    errorTextSize="text-lg"
+                    iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
+                    className="w-full  rounded-md flex border-2 border-white/20 text-lg  bg-foreground/18 xs:h-[50px] xl:h-[60px] px-4 py-4 text-white "
+                  />
+                  <InputField
+                    name="phone"
+                    textSize="text-lg"
+                    errorTextSize="text-lg"
+                    placeholder={t("your phone...")}
+                    icon="mdi:phone"
+                    placeholderClassName="xl:placeholder:text-lg"
+                    iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
+                    className="w-full rounded-md  flex border-2 border-white/20 xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
+                  />
                 </div>
 
-                <div className="relative">
                   <InputField
                     name="address"
                     textSize="text-lg"
@@ -129,11 +123,9 @@ const SendMsg: React.FC = () => {
                     icon={"mdi:location"}
                     placeholderClassName="xl:placeholder:text-lg"
                     iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                    className="w-full rounded-md border border-gray-green flex xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
+                    className="w-full rounded-md border-2 border-white/20 flex xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
                   />
-                </div>
 
-                <div className="relative text-white">
                   <InputField
                     as="textarea"
                     name="message"
@@ -143,11 +135,11 @@ const SendMsg: React.FC = () => {
                     placeholder={t("your message...")}
                     icon={"mdi:envelope"}
                     iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                    className="w-full rounded-md border border-gray-green flex xs:h-[150px] xl:h-[160px] bg-foreground/18 px-4 py-4  focus:outline-none resize-none"
+                    className="w-full rounded-md border-2 border-white/20 flex xs:h-[150px] xl:h-[160px] bg-foreground/18 px-4 py-4  focus:outline-none resize-none text-white"
                   />
-                </div>
+            
 
-                <div className="w-50 xl:w-55 mb-7 xl:mb-10 py-3 px-2 text-foreground">
+                <div className="w-fit">
                   <Button
                     type="submit"
                     bgColor="bg-yellow"

@@ -58,9 +58,9 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
       {label && <label className="block mb-1 font-medium">{label}</label>}
 
       <div
-        className={`${className}
-          ${meta.touched && meta.error ? "border-red" : "border-transparent"}
-          ${isTextarea ? "items-start" : "items-center"}`}
+        className={`
+          ${meta.touched && meta.error ? "border-red" : ""}
+          ${isTextarea ? "items-start" : "items-center"} ${className}`}
       >
         {/* Input / Textarea */}
         {isTextarea ? (
@@ -75,7 +75,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
             {...field}
             type={isPassword && showPassword ? "text" : type}
             placeholder={placeholder}
-            className={`w-full bg-transparent outline-none ${textSize} ${placeholderClassName}`}
+            className={`w-full bg-transparent outline-none  ${textSize} ${placeholderClassName}`}
           />
         )}
 
