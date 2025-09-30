@@ -39,7 +39,7 @@ const NewsCard = ({ card }: cardProps) => {
   const router=useRouter();
   return(
   <motion.div
-    className="bg-white cursor-pointer hover:bg-green rounded-2xl h-full shadow-lg text-black hover:text-white overflow-hidden group relative transition-colors duration-500 p-6 flex flex-col"
+    className="bg-white cursor-pointer hover:bg-green rounded-2xl h-full shadow-xl text-black hover:text-white overflow-hidden group relative transition-colors duration-500 p-5 flex flex-col"
     initial={{ y: 50, opacity: 0 }}
     animate={{
       y: 0,
@@ -52,7 +52,7 @@ const NewsCard = ({ card }: cardProps) => {
     onClick={()=>router.push(`/news-details/${card?.id}`)}
   >
     {/* Image */}
-    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-[250px] md:h-[400px] lg:h-[220px] xl:h-[260px] ">
+    <div className="relative mb-4 rounded-xl overflow-hidden w-full h-[230px] md:h-[400px] lg:h-[250px] xl:h-[260px] ">
       <motion.img
         src={card?.images[0]}
         alt={card?.title || "news-card"}
@@ -69,7 +69,7 @@ const NewsCard = ({ card }: cardProps) => {
 
     {/* Content */}
     <div className=" flex-1 mt-3 ">
-      <div className="flex flex-wrap sm:flex-nowrap md:whitespace-nowrap items-center gap-3 xl:gap-2 md:gap-4 lg:gap-2  text-xs xl:text-lg mb-3 font-medium text-gray-600 group-hover:text-white">
+      <div className="flex flex-wrap sm:flex-nowrap md:whitespace-nowrap items-center gap-3 xl:gap-2 md:gap-4 lg:gap-2  text-[14px] xl:text-[16px] mb-3 font-medium text-gray-600 group-hover:text-white">
         <span className="flex items-center justify-center gap-2  ">
           <FaRegUserCircle className="text-yellow  " size={15} /> {card?.creator}
         </span>

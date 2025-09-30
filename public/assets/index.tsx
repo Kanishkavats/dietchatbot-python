@@ -81,7 +81,7 @@ import gridDot from './gridDot.png';
 import footballhandbg from "./football_hands-removebg-preview.png";
 import heartHandbg from "./heart_hands-removebg-preview.png";
 import thumbSmChild from "./thumb-sm.png";
-
+import blurTransparentBg from "./latestNewsArticalbg.png"
 
 
 
@@ -169,4 +169,5 @@ export {
  footballhandbg,
  heartHandbg,
  thumbSmChild,
+ blurTransparentBg,
 };
