@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchgetcomments } from '@/src/services/commentsApi';
 import { mergeComments, CommentType } from '@/src/utils/mergedComment';
 import Button from '@/src/components/common/Buttons/Button';
+import ReplyComment from '../comments/Reply';
 
 interface Comment {
   id: string;
@@ -27,6 +28,7 @@ export default function Comments({ campaignId }: CommentsProps) {
   const [allComments, setAllComments] = useState<Comment[]>([]);
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(5);
   const [currentTime, setCurrentTime] = useState(new Date());
+  const [isOpenReply,setIsOpenReply]=useState<boolean>(false);
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["comments", campaignId],
@@ -147,7 +149,7 @@ export default function Comments({ campaignId }: CommentsProps) {
                 <button className="flex items-center gap-1 hover:text-brown">
                   <FiHeart /> Like {comment.likeCount || 0}
                 </button>
-                <button className="flex items-center gap-1 hover:text-brown">
+                <button onClick={()=>setIsOpenReply(true)} className="flex items-center gap-1 hover:text-brown">
                   <FiCornerUpLeft /> Reply
                 </button>
                 <span className="text-gray-500">
@@ -158,7 +160,11 @@ export default function Comments({ campaignId }: CommentsProps) {
           </div>
         ))}
       </div>
-      
+      {isOpenReply&&(
+        <div className='fixed x-50 flex items-center justify-center inset-0 bg-black/20'>
+          <ReplyComment id=''/>
+        </div>
+      )}
       {/* Load More Button */}
       {hasMoreComments && (
         <div className="flex justify-start mt-8">
