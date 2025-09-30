@@ -1,5 +1,5 @@
 // // src/hooks/useComment.ts
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, useInfiniteQuery, QueryFunctionContext } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
   fetchComments,
@@ -7,9 +7,20 @@ import {
   updateComment,
   deleteComment,
   fetchCommentsById,
-  fetchgetcomments
+  fetchgetcomments,
+  addReply,
+  getRepliesByCommentId
 } from "../services/commentsApi";
-
+import { RepliesResponse } from "../types/comments";
+interface addReplyprops{
+    id:string|null;
+    data:{
+    comment: string;
+    name: string;
+    email: string
+    }
+}
+const Replylimit=3;
 // ======================= Fetch all Comments ======================= //
 
 export const useFetchComments = (page: number, limit: number, status: string | null) => {
@@ -129,5 +140,34 @@ export const useDeleteComment = () => {
   });
 };
 
+// ======================= Add Reply ======================= //
+export const useAddReply=()=>{
+      const queryClient = useQueryClient();
 
+      return useMutation({
+        mutationFn:({id,data}:addReplyprops)=>addReply(id,data),
+        onSuccess:(data)=>{
+            console.log("Reply Added",data)
+        },
+        onError:()=>{
+            console.log("data not added");
+        }
+      })
+}
 
+// ======================= Get Replies for specify comment ======================= //
+
+export const useGetReplies=(id:string|null)=>{
+  return useInfiniteQuery<RepliesResponse>({
+    queryKey: ["replies", id],
+    queryFn: ({ pageParam = 1 }: QueryFunctionContext) =>
+      getRepliesByCommentId(id, pageParam as number, Replylimit),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.totalPages) {
+        return lastPage.page + 1; 
+      }
+      return undefined; 
+    },
+    initialPageParam: 1,
+  });
+}
