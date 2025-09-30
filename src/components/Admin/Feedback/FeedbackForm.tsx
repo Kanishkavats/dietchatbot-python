@@ -45,7 +45,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
   const initialValues: FeedbackFormValues = {
     name: initialData?.name ?? "",
     designation: initialData?.designation ?? "",
-    imageUrl: initialData?.imageUrl ?? null,
+    imageUrl: initialData?.imageUrl as string | undefined,
     feedback: initialData?.feedback ?? "",
     rating: initialData?.rating ?? 0,
     status: mapBackendStatusToFormStatus(initialData?.status),
@@ -62,8 +62,9 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
   ];
 
   const updateMutation = useMutation({
-    mutationFn: ({ id, values }: { id: string; values: Partial<FeedbackFormValues> }) =>
+    mutationFn: ({ id, values }: { id: string; values: { approved?: boolean } }) =>
       updateFeedback(id, values),
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
     },
@@ -87,9 +88,10 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
       statusBoolean = undefined;
     }
 
-    const payload: Partial<FeedbackFormValues> = {
+    const payload: { approved?: boolean } = {
       ...(statusBoolean !== undefined ? { approved: statusBoolean } : {}),
     };
+
 
     if (isEdit && initialData?.id) {
       updateMutation.mutate(
@@ -126,7 +128,7 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
           handleSubmit(values, resetForm, setSubmitting)
         }
       >
-        {({ values, handleChange, errors, touched, isSubmitting }) => (
+        {({ values, handleChange, errors, touched, isSubmitting, setFieldValue }) => (
           <Form className="flex flex-col gap-3">
             <CustomInput
               label="Name"
@@ -149,19 +151,19 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
             />
 
             <CustomFileInput
-              label="Blog Images*"
-              name="images"
-              error={touched.images && errors.images ? errors.images : ""}
+              label="Profile image"
+              name="imageUrl"
+              error={touched.imageUrl && errors.imageUrl ? errors.imageUrl : ""}
               onChange={(files, existingUrls) => {
-                setFieldValue("images", files);
-                setFieldValue("existingImages", existingUrls);
+                setFieldValue("imageUrl", files);
+                setFieldValue("existingimageUrl", existingUrls);
               }}
               uploadType="multiple"
-              disabled={isView}
+              disabled
               mode={mode}
               initialUrls={
-                Array.isArray(initialData?.images)
-                  ? initialData.images.filter((img: string | File): img is string => typeof img === "string")
+                Array.isArray(initialData?.imageUrl)
+                  ? initialData.imageUrl.filter((img: string | File): img is string => typeof img === "string")
                   : []
               }
             />
@@ -182,8 +184,6 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
               label="Rating"
               placeholder="Enter rating (1-5)"
               type="number"
-              min={1}
-              max={5}
               value={values.rating}
               name="rating"
               onChange={handleChange}
@@ -204,13 +204,13 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
               <div className="flex gap-2 mt-2">
                 <Button
                   type="submit"
-                  disabled={isSubmitting || updateMutation.isLoading}
+                  disabled={isSubmitting}
                   bgColor="bg-lime-green"
                   paddingx="px-4"
                   paddingy="py-2"
                   rounded="rounded-[5px]"
                 >
-                  {isSubmitting || updateMutation.isLoading ? <ButtonLoader /> : "Update"}
+                  {isSubmitting  ? <ButtonLoader /> : "Update"}
                 </Button>
                 <CancelButton text="Cancel" onClose={onClose} />
               </div>

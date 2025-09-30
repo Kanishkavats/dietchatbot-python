@@ -192,7 +192,7 @@ export const feedbackSchema = Yup.object({
     .min(1, "Minimum rating is 1")
     .max(5, "Maximum rating is 5")
     .required("Rating is required"),
-  status: Yup.mixed().oneOf(["PENDING", "APPROVED", "REJECTED"]).required("Status is required"),
+  status: Yup.string().required("Status is required"),
 });
 
 export type FeedbackFormValues = Yup.InferType<typeof feedbackSchema>;
