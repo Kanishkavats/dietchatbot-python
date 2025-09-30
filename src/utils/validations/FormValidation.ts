@@ -24,6 +24,14 @@ export const SendMsgformSchema = Yup.object().shape({
 
 export type SendMsgFormValues = Yup.InferType<typeof SendMsgformSchema>;
 
+export const CommentReplySchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required(),
+  name:Yup.string().required("Name is required"),
+  comment: Yup.string().min(2,"Comment must be of atleast 2 Words").required("Comment is required"),
+});
+
+export type CommentReplyFormValues = Yup.InferType<typeof CommentReplySchema>;
+
 export const volunteerSchema = Yup.object().shape({
   firstName: Yup.string().required("First Name is required"),
   lastName: Yup.string().required("Last Name is required"),

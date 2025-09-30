@@ -20,6 +20,7 @@ interface DynamicButtonProps {
   paddingx?: string;
   paddingy?: string;
   fontWeight?:string;
+  isPending?:boolean
 }
 
 
@@ -38,6 +39,7 @@ const Button: React.FC<DynamicButtonProps> = ({
   paddingx = "px-10",
   paddingy = "py-4",
   fontWeight='font-semibold',
+  isPending=false,
 }) => {
   const iconControls = useAnimationControls();
   const { t } = useTranslation();
@@ -71,7 +73,7 @@ const Button: React.FC<DynamicButtonProps> = ({
         className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 ${textColor} ${hoverTextColor} 
         whitespace-nowrap`}
       >
-        {children ? (
+        {isPending ? (
           children
         ) : (
           <>

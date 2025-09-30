@@ -8,6 +8,7 @@ import { fetchgetcomments, likeComment } from '@/src/services/commentsApi';
 import { mergeComments, CommentType } from '@/src/utils/mergedComment';
 import Button from '@/src/components/common/Buttons/Button';
 import ReplyComment from '../comments/Reply';
+import FadeUpCard from '@/src/animations/FadeButtomUp';
 
 interface Comment {
   id: string;
@@ -31,7 +32,7 @@ export default function Comments({ campaignId }: CommentsProps) {
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(5);
   const [currentTime, setCurrentTime] = useState(new Date());
   const [isOpenReply,setIsOpenReply]=useState<boolean>(false);
-
+  const [replyCommentId,setReplyCommentId]=useState<string|null>(null);
   // Load liked state from localStorage
   const getLikedComments = () =>
     JSON.parse(localStorage.getItem("LikedComments") || "[]");
@@ -168,7 +169,9 @@ export default function Comments({ campaignId }: CommentsProps) {
 
     setAllComments(updatedComments);
   };
-
+    const handleReplyModel=(value:boolean)=>{
+      setIsOpenReply(value);
+    }
   // Function to handle load more
   const handleLoadMore = () => {
     setVisibleCommentsCount(prev => prev + 5);
@@ -211,13 +214,13 @@ export default function Comments({ campaignId }: CommentsProps) {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
                 <button 
-                  className={`flex items-center gap-1 hover:text-brown ${
+                  className={`flex items-center gap-1 hover:text-olive-brown ${
                     comment.isLiked ? "text-red" : ""
                   }`}
                   onClick={() => handleLike(comment.id)}
                 >
                   <div className="w-[15px] h-[15px]">
-{comment.isLiked ? (
+                  {comment.isLiked ? (
                     <FaHeart />
                   ) : (
                     <FiHeart />
@@ -226,7 +229,9 @@ export default function Comments({ campaignId }: CommentsProps) {
                   
                   Like {comment.likeCount || 0}
                 </button>
-                <button onClick={()=>setIsOpenReply(true)} className="flex items-center gap-1 hover:text-brown">
+                <button onClick={()=>{
+                  setReplyCommentId(comment.id);
+                  setIsOpenReply(true)}} className="flex items-center gap-1 cursor-pointer hover:text-olive-brown">
                   <FiCornerUpLeft /> Reply
                 </button>
                 <span className="text-gray-500">
@@ -238,8 +243,10 @@ export default function Comments({ campaignId }: CommentsProps) {
         ))}
       </div>
       {isOpenReply&&(
-        <div className='fixed x-50 flex items-center justify-center inset-0 bg-black/20'>
-          <ReplyComment id=''/>
+        <div className='fixed z-50 flex items-center justify-center inset-0 bg-black/80 md:bg-black/40 '>
+          <FadeUpCard delay={0.3}>
+          <ReplyComment id={replyCommentId} handleReplyModel={handleReplyModel}/>
+         </FadeUpCard>
         </div>
       )}
       {/* Load More Button */}
