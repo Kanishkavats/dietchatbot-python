@@ -2,8 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
+import { FaHeart } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import { fetchgetcomments } from '@/src/services/commentsApi';
+import { fetchgetcomments, likeComment } from '@/src/services/commentsApi';
 import { mergeComments, CommentType } from '@/src/utils/mergedComment';
 import Button from '@/src/components/common/Buttons/Button';
 
@@ -17,6 +18,7 @@ interface Comment {
   createdAt?: string;
   replies?: Comment[];
   isPending?: boolean;
+  isLiked?: boolean;
 }
 
 interface CommentsProps {
@@ -27,6 +29,10 @@ export default function Comments({ campaignId }: CommentsProps) {
   const [allComments, setAllComments] = useState<Comment[]>([]);
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(5);
   const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Load liked state from localStorage
+  const getLikedComments = () =>
+    JSON.parse(localStorage.getItem("LikedComments") || "[]");
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["comments", campaignId],
@@ -40,12 +46,27 @@ export default function Comments({ campaignId }: CommentsProps) {
       console.log("Supriya Comments is updating")
       // Merge API comments with localStorage comments
       const mergedComments = mergeComments(data.comments, campaignId);
-      setAllComments(mergedComments);
+      
+      // Mark liked comments
+      const liked = getLikedComments();
+      const updated = mergedComments.map((c: Comment) => ({
+        ...c,
+        isLiked: liked.includes(c.id),
+      }));
+      
+      setAllComments(updated);
     } else {
       // If no API comments, still show localStorage comments
       const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
       const filteredLocalComments = localComments.filter((comment: CommentType) => comment.blogId === campaignId);
-      setAllComments(filteredLocalComments);
+      
+      const liked = getLikedComments();
+      const updated = filteredLocalComments.map((c: Comment) => ({
+        ...c,
+        isLiked: liked.includes(c.id),
+      }));
+      
+      setAllComments(updated);
     }
   }, [data, campaignId, isLoading]);
 
@@ -55,11 +76,21 @@ export default function Comments({ campaignId }: CommentsProps) {
       const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
       const filteredLocalComments = localComments.filter((comment: CommentType) => comment.blogId === campaignId);
       
+      const liked = getLikedComments();
+      
       if (data?.comments) {
         const mergedComments = mergeComments(data.comments, campaignId);
-        setAllComments(mergedComments);
+        const updated = mergedComments.map((c: Comment) => ({
+          ...c,
+          isLiked: liked.includes(c.id),
+        }));
+        setAllComments(updated);
       } else {
-        setAllComments(filteredLocalComments);
+        const updated = filteredLocalComments.map((c: Comment) => ({
+          ...c,
+          isLiked: liked.includes(c.id),
+        }));
+        setAllComments(updated);
       }
     };
 
@@ -103,6 +134,39 @@ export default function Comments({ campaignId }: CommentsProps) {
     return () => clearInterval(interval);
   }, []);
 
+  // Handle like toggle
+  const handleLike = async (commentId: string) => {
+    const updatedComments = allComments.map((c) => {
+      if (c.id === commentId) {
+        const isLiked = !c.isLiked;
+        const newCount = isLiked
+          ? (c.likeCount || 0) + 1
+          : Math.max((c.likeCount || 1) - 1, 0);
+
+        // Update localStorage
+        let liked = getLikedComments();
+        if (isLiked) {
+          liked.push(commentId);
+        } else {
+          liked = liked.filter((id: string) => id !== commentId);
+        }
+        localStorage.setItem("LikedComments", JSON.stringify(liked));
+
+        // Call API
+        try {
+          likeComment(commentId, isLiked ? 1 : -1);
+        } catch (error) {
+          console.error("Error liking comment:", error);
+        }
+
+        return { ...c, isLiked, likeCount: newCount };
+      }
+      return c;
+    });
+
+    setAllComments(updatedComments);
+  };
+
   // Function to handle load more
   const handleLoadMore = () => {
     setVisibleCommentsCount(prev => prev + 5);
@@ -144,8 +208,21 @@ export default function Comments({ campaignId }: CommentsProps) {
                 {comment.comment}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
-                <button className="flex items-center gap-1 hover:text-brown">
-                  <FiHeart /> Like {comment.likeCount || 0}
+                <button 
+                  className={`flex items-center gap-1 hover:text-brown ${
+                    comment.isLiked ? "text-red" : ""
+                  }`}
+                  onClick={() => handleLike(comment.id)}
+                >
+                  <div className="w-[15px] h-[15px]">
+{comment.isLiked ? (
+                    <FaHeart />
+                  ) : (
+                    <FiHeart />
+                  )}
+                  </div>
+                  
+                  Like {comment.likeCount || 0}
                 </button>
                 <button className="flex items-center gap-1 hover:text-brown">
                   <FiCornerUpLeft /> Reply
@@ -183,5 +260,3 @@ export default function Comments({ campaignId }: CommentsProps) {
     </div>
   );
 }
-
-
