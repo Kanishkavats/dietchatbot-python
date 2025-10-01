@@ -27,6 +27,15 @@ export default function ReplyComment({ id,handleReplyModel}: ReplyCommentProps) 
 
   const handleSubmit = (values: CommentReplyFormValues, { resetForm }: { resetForm: () => void }) =>  {
 
+    const tempReply = {
+  ...values,
+  id: Date.now(),          
+  commentId: id,
+  isPending: true,         
+};
+const localReplies = JSON.parse(localStorage.getItem('LocalReplies') || '[]');
+localStorage.setItem('LocalReplies',JSON.stringify([...localReplies,tempReply]));
+window.dispatchEvent(new Event("commentAdded"));
    mutation.mutate({id:id,data:values},
   {
     onSuccess: () => {

@@ -14,6 +14,7 @@ import { useInView } from "framer-motion";
 import CampaignInfo from "./CampaignInfo";
 import CampaignSidebar from "./CampaignSidebar";
 import CustomLoader from "../common/Loader/CustomLoader";
+import Sidebar from "../common/sideBar";
 
 
 const CampaignDetails: React.FC = () => {
@@ -74,6 +75,7 @@ const CampaignDetails: React.FC = () => {
           {/* Sidebar */}
           <aside className="w-full  space-y-6 lg:space-y-8">
             {/* <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} /> */}
+            {/* <Sidebar diss="campaign"/> */}
             {allCampaignsLoading ? (
   <CustomLoader />
 ) : (

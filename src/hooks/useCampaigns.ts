@@ -120,11 +120,11 @@ export const useFetchAllCampaigns = (page: number, limit: number = 10) => {
 };
 
 
-export const useFetchSingleCampaign = (id?: string) => {
+export const useFetchSingleCampaign = (id?: string,options?: { enabled?: boolean }) => {
   return useQuery({
     queryKey: ["campaign", id],
     queryFn: () => fetchCampaignById(id!),
-    enabled: !!id,
+    enabled: options?.enabled??!!id,
   });
 };
 
