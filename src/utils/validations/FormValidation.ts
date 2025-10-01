@@ -14,6 +14,16 @@ export const DetailsformSchema = Yup.object().shape({
 });
 export type DetailsFormValues = Yup.InferType<typeof DetailsformSchema>;
 
+
+
+export const NewsletterEmailSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email format").required("Email is required"),
+});
+export type NewsletterEmailValues = Yup.InferType<typeof NewsletterEmailSchema>;
+
+
+
+
 export type FormValues = Yup.InferType<typeof DetailsformSchema>;
 
 export const SendMsgformSchema = Yup.object().shape({
@@ -204,9 +214,9 @@ export const feedbackSchema = Yup.object({
       }
     )
     .required("Image is required"),
-  feedback: Yup.string().required("Feedback is required"),
+  feedback: Yup.string().max(500, "Feedback must be 500 characters or less").required("Feedback is required"),
   rating: Yup.number()
-    .min(1, "Minimum rating is 1")
+    .min(1, "Please select a rating")
     .max(5, "Maximum rating is 5")
     .required("Rating is required"),
 });

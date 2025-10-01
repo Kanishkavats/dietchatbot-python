@@ -114,6 +114,11 @@ export const PartnersCompaniesData = [
   { src: loremIpsum.src, alt: "Lorem Ipsum" },
   { src: charityLife.src, alt: "Charity Life" },
   { src: heartCare.src, alt: "Heart Care" },
+  { src: theBird.src, alt: "The Bird" },
+  { src: treeLife.src, alt: "Tree Life" },
+  { src: loremIpsum.src, alt: "Lorem Ipsum" },
+  { src: charityLife.src, alt: "Charity Life" },
+  { src: heartCare.src, alt: "Heart Care" },
 ];
 
 
