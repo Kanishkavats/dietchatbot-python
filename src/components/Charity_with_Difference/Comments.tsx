@@ -5,7 +5,7 @@ import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { fetchgetcomments, likeComment } from '@/src/services/commentsApi';
-import { mergeComments, CommentType } from '@/src/utils/mergedComment';
+import { mergeComments, CommentType,updateLikeCount } from '@/src/utils/mergedComment';
 import ReplyComment from '../comments/Reply';
 import FadeUpCard from '@/src/animations/FadeButtomUp';
 import { useGetReplies } from '@/src/hooks/useComments';
@@ -60,9 +60,9 @@ export default function Comments({ campaignId }: CommentsProps) {
   
   useEffect(() => {
     // Update allComments when data changes
-    console.log("Supriya data is updating")
+    console.log("data is updating")
     if (data?.comments) {
-      console.log("Supriya Comments is updating")
+      console.log("Comments is updating")
       // Merge API comments with localStorage comments
       const mergedComments = mergeComments(data.comments, campaignId);
       console.log(data.comments);
@@ -161,7 +161,7 @@ export default function Comments({ campaignId }: CommentsProps) {
           ? (c.likeCount || 0) + 1
           : Math.max((c.likeCount || 1) - 1, 0);
 
-        // Update localStorage
+        // Update localStorage for liked state
         let liked = getLikedComments();
         if (isLiked) {
           liked.push(commentId);
@@ -169,6 +169,9 @@ export default function Comments({ campaignId }: CommentsProps) {
           liked = liked.filter((id: string) => id !== commentId);
         }
         localStorage.setItem("LikedComments", JSON.stringify(liked));
+
+        // Update like count in localStorage
+        updateLikeCount(commentId, newCount);
 
         // Call API
         try {

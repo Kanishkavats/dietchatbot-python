@@ -60,14 +60,49 @@ export function removeLocalComment(id: string) {
 }
 
 /**
+ * Get like counts from localStorage
+ */
+export function getLikeCounts(): Record<string, number> {
+  if (typeof window === "undefined") return {};
+  
+  try {
+    const stored = localStorage.getItem("LikeCounts");
+    return stored ? JSON.parse(stored) : {};
+  } catch (error) {
+    console.error("❌ Failed to parse like counts:", error);
+    return {};
+  }
+}
+
+/**
+ * Save like counts to localStorage
+ */
+export function saveLikeCounts(likeCounts: Record<string, number>) {
+  if (typeof window === "undefined") return;
+  
+  localStorage.setItem("LikeCounts", JSON.stringify(likeCounts));
+}
+
+/**
+ * Update like count for a specific comment
+ */
+export function updateLikeCount(commentId: string, newCount: number) {
+  const likeCounts = getLikeCounts();
+  likeCounts[commentId] = newCount;
+  saveLikeCounts(likeCounts);
+}
+
+/**
  * Merge API comments with local comments
  * - Deduplicate: remove local if API has the same ID
+ * - Preserve like counts from localStorage
  */
 export function mergeComments(
   apiComments: CommentType[],
   blogId: string
 ): CommentType[] {
   const localComments = getLocalComments(blogId);
+  const likeCounts = getLikeCounts();
 
   const filteredLocal = localComments.filter((local) => {
     const existsInApi = apiComments.some((api) => api.id === local.id);
@@ -78,7 +113,19 @@ export function mergeComments(
     return true;
   });
 
-  return [...apiComments, ...filteredLocal];
+  // Merge API comments with preserved like counts
+  const mergedApiComments = apiComments.map(comment => ({
+    ...comment,
+    likeCount: likeCounts[comment.id] !== undefined ? likeCounts[comment.id] : (comment.likeCount || 0)
+  }));
+
+  // Merge local comments with preserved like counts
+  const mergedLocalComments = filteredLocal.map(comment => ({
+    ...comment,
+    likeCount: likeCounts[comment.id] !== undefined ? likeCounts[comment.id] : (comment.likeCount || 0)
+  }));
+
+  return [...mergedApiComments, ...mergedLocalComments];
 }
 
 // ---------------- CAMPAIGNS ----------------

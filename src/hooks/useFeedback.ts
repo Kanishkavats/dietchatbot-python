@@ -37,19 +37,86 @@ export const useFetchFeedbackById = (id: string, enabled: boolean = true) => {
 
 // ======================= Create Feedback ======================= //
 
+// ✅ Convert values to FormData
+const buildFeedbackFormData = (values: FeedbackFormValues) => {
+  const formData = new FormData();
+
+  formData.append("name", values.name);
+  formData.append("designation", values.designation);
+  formData.append("feedback", values.feedback);
+  formData.append("rating", values.rating.toString());
+
+  // Handle image
+  if (values.image && values.image instanceof File) {
+    formData.append("image", values.image);
+  }
+
+  console.log(' FormData Created:');
+  console.log(' FormData entries:');
+  for (let [key, value] of formData.entries()) {
+    console.log(`  ${key}:`, value);
+  }
+
+  return formData;
+};
+
+// ✅ Handle feedback create
+const handleCreateFeedback = (
+  values: FeedbackFormValues,
+  createMutation: any,
+  resetForm: () => void,
+  setSubmitting: (isSubmitting: boolean) => void,
+  onClose: () => void
+) => {
+  console.log(' Starting feedback submission...');
+  toast.dismiss();
+  toast.loading("Submitting feedback...");
+  const formData = buildFeedbackFormData(values);
+
+  console.log(' Sending API request...');
+  createMutation.mutate(formData, {
+    onSuccess: (response: any) => {
+      console.log(' Feedback submitted successfully!');
+      toast.dismiss();
+      toast.success("Feedback submitted successfully");
+      resetForm();
+      setSubmitting(false);
+      onClose();
+    },
+    onError: (err: any) => {
+      console.log(' Feedback submission failed!');
+     
+      console.log(' Error response:', err?.response?.data);
+      toast.dismiss();
+      toast.error(err?.response?.data?.message || "Failed to submit feedback");
+      setSubmitting(false);
+    },
+  });
+};
+
 export const useCreateFeedback = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (data: FeedbackFormValues) => createFeedback(data),
+    mutationFn: (formData: FormData) => createFeedback(formData),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
-      toast.success("Feedback created successfully");
     },
     onError: (err: any) => {
-      toast.error(err?.response?.data?.message || "Failed to create feedback");
+      // Error handling is done in handleCreateFeedback
     },
   });
+};
+
+// ✅ Unified feedback form submit
+export const submitFeedbackForm = (
+  values: FeedbackFormValues,
+  createMutation: any,
+  resetForm: () => void,
+  setSubmitting: (isSubmitting: boolean) => void,
+  onClose: () => void
+) => {
+  handleCreateFeedback(values, createMutation, resetForm, setSubmitting, onClose);
 };
 
 // ======================= Update Feedback ======================= //
@@ -58,7 +125,7 @@ export const useUpdateFeedback = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, values }: { id: string; values: Partial<FeedbackFormValues> }) =>
+    mutationFn: ({ id, values }: { id: string; values: { approved?: boolean; status?: "approved" | "rejected" } }) =>
       updateFeedback(id, values),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["feedbacks"] });

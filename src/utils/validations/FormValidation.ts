@@ -195,13 +195,22 @@ export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;
 export const feedbackSchema = Yup.object({
   name: Yup.string().required("Name is required"),
   designation: Yup.string().required("Designation is required"),
-  image: Yup.string(),
+  image: Yup.mixed()
+    .test(
+      "fileOrString",
+      "Image is required",
+      (value) => {
+        if (typeof value === "string" && value.trim() !== "") return true;
+        if (value instanceof File) return true;
+        return false;
+      }
+    )
+    .required("Image is required"),
   feedback: Yup.string().required("Feedback is required"),
   rating: Yup.number()
     .min(1, "Minimum rating is 1")
     .max(5, "Maximum rating is 5")
     .required("Rating is required"),
-  status: Yup.string().required("Status is required"),
 });
 
 export type FeedbackFormValues = Yup.InferType<typeof feedbackSchema>;

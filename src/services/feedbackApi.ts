@@ -14,14 +14,20 @@ export const fetchFeedbackById = async (id: string) => {
 };
 
 // Create feedback
-export const createFeedback = async (feedback: {
-  name: string;
-  designation: string;
-  feedback: string;
-  rating: number;
-  imageUrl?: any;
-}) => {
-  const { data } = await api.post(`/feedback/addFeedback`, feedback);
+export const createFeedback = async (formData: FormData) => {
+  console.log(' Making API call to /feedback/add-feedback');
+ 
+  console.log(' Request Headers:', {
+    'Content-Type': 'multipart/form-data',
+  });
+  
+  const { data } = await api.post(`/feedback/add-feedback`, formData, {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  });
+  
+  console.log('API Response received:', data);
   return data;
 };
 
