@@ -25,6 +25,14 @@ export const SendMsgformSchema = Yup.object().shape({
 
 export type SendMsgFormValues = Yup.InferType<typeof SendMsgformSchema>;
 
+export const CommentReplySchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required(),
+  name:Yup.string().required("Name is required"),
+  comment: Yup.string().min(2,"Comment must be of atleast 2 Words").required("Reply is required"),
+});
+
+export type CommentReplyFormValues = Yup.InferType<typeof CommentReplySchema>;
+
 export const volunteerSchema = Yup.object().shape({
   firstName: Yup.string().required(i18n.t("First Name is required")),
   lastName: Yup.string().required(i18n.t("Last Name is required")),
@@ -125,7 +133,7 @@ export type CommentFormValues = Yup.InferType<typeof commentSchema>;
 export const bannerSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   subtitle: Yup.string().required("Subtitle is required"),
-  bannerImage: Yup.mixed()
+  image: Yup.mixed()
     .test(
       "fileOrString",
       "Banner image is required",
@@ -136,7 +144,7 @@ export const bannerSchema = Yup.object().shape({
       }
     )
     .required("Banner image is required"),
-  link: Yup.string().url("Must be a valid URL").required("Link is required"),
+  priority: Yup.number().required("priority is required"),
 });
 
 //  Inferred type from the schema
@@ -171,3 +179,29 @@ export const memberSchema = Yup.object().shape({
 });
 
 export type MemberFormValues = Yup.InferType<typeof memberSchema>;
+
+
+// ======================= Member ======================
+
+export const QueryFormSchema = Yup.object().shape({
+  isViewed: Yup.boolean().required("Status is required"),
+});
+
+export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;
+
+
+// ======================= Feedback ======================
+
+export const feedbackSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  designation: Yup.string().required("Designation is required"),
+  image: Yup.string(),
+  feedback: Yup.string().required("Feedback is required"),
+  rating: Yup.number()
+    .min(1, "Minimum rating is 1")
+    .max(5, "Maximum rating is 5")
+    .required("Rating is required"),
+  status: Yup.string().required("Status is required"),
+});
+
+export type FeedbackFormValues = Yup.InferType<typeof feedbackSchema>;

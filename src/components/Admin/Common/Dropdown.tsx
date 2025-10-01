@@ -37,7 +37,7 @@ const Dropdown = <T extends string | number>({
   const selectedOption = options.find((opt) => opt.value === value);
 
   return (
-    <div className="w-full relative" ref={containerRef}>
+    <div className="w-full min-w-[100px] relative" ref={containerRef}>
       {label && <label className={`block mb-1 font-medium text-blue-50 `}>{label}</label>}
 
       <div

@@ -23,7 +23,7 @@ const Drawer: React.FC<AdminDrawerProps> = ({
           {/* Overlay */}
           <motion.div
             key="overlay"
-            className="fixed inset-0 bg-black bg-opacity-40 z-50"
+            className="fixed inset-0 bg-foreground bg-opacity-40 z-50"
             initial={{ opacity: 0 }}
             animate={{ opacity: 0.5 }}
             exit={{ opacity: 0 }}
@@ -34,9 +34,9 @@ const Drawer: React.FC<AdminDrawerProps> = ({
           <motion.div
             key="drawer"
             className={`fixed top-0 right-0 h-full bg-white shadow-xl z-50 overflow-auto
+              w-full sm:w-[${width}] ${mobileFullScreen ? `sm:w-[400px] md:w-[60%] ${mode === "view" ? 'lg:w-[60%]' : 'lg:w-[35%]'} ` : ""}
               ${className}
-              // w-full sm:w-[${width}] ${mobileFullScreen ? `sm:w-[400px] md:w-[60%] ${mode === "view" ? 'lg:w-[60%]' : 'lg:w-[35%]'} ` : ""}`}
-            // style={{ width: width }}
+              `}
             initial={{ x: "100%" }}
             animate={{ x: 0 }}
             exit={{ x: "100%" }}

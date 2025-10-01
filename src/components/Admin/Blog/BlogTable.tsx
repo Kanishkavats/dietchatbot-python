@@ -19,6 +19,7 @@ import { createBlog, updateBlog } from "@/src/services/blogApi";
 import { Blog } from "@/src/types/blog";
 import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
+import AdminCustomPagination from "../Common/CustomePagination";
 
 const BlogTable = () => {
 
@@ -33,7 +34,7 @@ const BlogTable = () => {
   const [itemsPerPage] = useState(10);
 
   const { data: blogData, isLoading: isAllBlogLoading } = useFetchAllBlogs(currentPage, itemsPerPage);
-  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(blogId|| undefined);
+  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(blogId || undefined);
   const { mutate: deleteBlog } = useDeleteSingleBlog();
   const totalPages = blogData?.totalPages || 1;
 
@@ -42,6 +43,7 @@ const BlogTable = () => {
     setMode("edit");
     setDrawerOpen(true);
   }, []);
+
   const handleView = useCallback((blog: Blog) => {
     setBlogId(blog.id.toString());
     setMode("view");
@@ -154,18 +156,21 @@ const BlogTable = () => {
 
 
       {/* Table */}
-      {isAllBlogLoading ? <CustomLoader  /> : ( 
-
-      <DataTableWrapper
-        columns={columns}
-        data={filteredData}
-      />
+      {isAllBlogLoading ? 
+      <div className="flex justify-center py-8">
+        <CustomLoader />
+      </div> : (
+        <DataTableWrapper
+          columns={columns}
+          data={filteredData}
+        />
       )}
+
 
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
@@ -192,7 +197,7 @@ const BlogTable = () => {
           mode={mode}
 
         >
-          {previewData ? (
+          {mode === "view" && previewData ? (
             <BlogPreview
               data={previewData}
               onBack={() => setPreviewData(null)}
@@ -210,9 +215,10 @@ const BlogTable = () => {
                   () => setDrawerOpen(false)
                 );
               }}
+              mode={mode}
             />
           ) : isLoadingBlog ? (
-           <CustomLoader />
+            <CustomLoader />
           ) : (
             <BlogForm
               initialData={singleBlogData ?? undefined}

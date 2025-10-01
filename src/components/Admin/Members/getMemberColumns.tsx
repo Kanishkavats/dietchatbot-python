@@ -1,6 +1,6 @@
 import React from "react";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
-import TableRowActions from "../Campaign/CampaignActions"; // Adjust if your path is different
+import TableRowActions from "../Campaign/CampaignActions";
 import { Member } from "@/src/types/members";
 
 interface MemberColumnCallbacks {
