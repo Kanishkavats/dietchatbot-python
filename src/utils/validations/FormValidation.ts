@@ -18,7 +18,7 @@ export type FormValues = Yup.InferType<typeof DetailsformSchema>;
 
 export const SendMsgformSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required(),
-  phone: Yup.string().min(10, "Phone must be at least 10 digits").required(),
+  phone: Yup.string().length(10, "Phone must be at least 10 digits").required(),
   address: Yup.string().min(5, "Address is required").required(),
   message: Yup.string().min(20,"Message must be of 20 Words").required("Message is required"),
 });
@@ -121,9 +121,7 @@ export const commentSchema = Yup.object().shape({
   name: Yup.string().notRequired(),
   comment: Yup.string().notRequired(),
   email: Yup.string().notRequired(),
-  status: Yup.string()
-    .oneOf(["pending", "approved", "rejected"], "Invalid status")
-    .required("Status is required"),
+  status: Yup.string().required("Status is required"),
 });
 
 export type CommentFormValues = Yup.InferType<typeof commentSchema>;

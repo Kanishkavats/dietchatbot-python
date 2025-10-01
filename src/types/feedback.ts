@@ -5,7 +5,7 @@ export interface Feedback {
   image?: Record<string, any> | null; 
   feedback: string;
   rating: number;
-  status: "PENDING" | "APPROVED" | "REJECTED" | string;
+  status?:  string;
 }
 
 export interface FeedbackColumnCallbacks {

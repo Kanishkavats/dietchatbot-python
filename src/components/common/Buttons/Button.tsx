@@ -18,7 +18,7 @@ interface DynamicButtonProps {
   rounded?: string;
   paddingx?: string;
   paddingy?: string;
-  fontWeight?:string;
+  fontWeight?: string;
 }
 
 const Button: React.FC<DynamicButtonProps> = ({
@@ -35,7 +35,7 @@ const Button: React.FC<DynamicButtonProps> = ({
   rounded = "rounded-full",
   paddingx = "px-10",
   paddingy = "py-4",
-  fontWeight='font-semibold',
+  fontWeight = 'font-semibold',
 }) => {
   const iconControls = useAnimationControls();
   const { t } = useTranslation();

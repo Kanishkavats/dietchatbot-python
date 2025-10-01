@@ -91,6 +91,7 @@
   --color-gray-400: #9ca3af;
   --color-gray-500: #6b7280;
   --color-gray-300: #d1d5dc; 
+  --color-muted-gray: #667471;
   --color-blue: #3b82f6;
   --color-blue-50: #0b2b55;
   --color-purple-50: #4c3167;
@@ -120,6 +121,16 @@ body {
   .swiper-wrapper {
     transition-timing-function: ease-in-out !important;
   }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
 }
 
 /* Custom styles for charity component */
@@ -163,6 +174,8 @@ body {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
+
+
 
 /* Cloud-like card shape */
 .charity-card::before {
