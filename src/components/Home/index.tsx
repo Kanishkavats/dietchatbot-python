@@ -23,7 +23,7 @@ const Home = () => {
       <HelpingEachOther/>
       <HelpAndDonate />
       <BecomeVolunteer/>
-      <VolunteerTeam/>
+       <VolunteerTeam/> 
       <Community/>
       <ValueableCustomer/>
       <ChildOldCare />
