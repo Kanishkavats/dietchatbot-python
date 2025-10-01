@@ -119,5 +119,23 @@
     "role_3":"Cloth Store Inc.",
     "Our Latest ":"Our Latest ",
     "You Like":"You Like",
-    "& Articles ":"& Articles "
-}
+    "& Articles ":"& Articles ",
+    
+  "fillForm": "Fill Up The Form",
+  "formNote": "Your Email Address Will Not Be Published. Required Fields Are Marked *",
+  "firstName": "First Name",
+  "lastName": "Last Name",
+  
+  
+  "occupation": "Occupation",
+  
+  "submit": "Submit Now"
+  
+  
+  
+
+
+
+  
+
+  }

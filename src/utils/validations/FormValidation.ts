@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import i18n from "i18next"; 
 
 // Existing schemas here...
 
@@ -33,12 +34,12 @@ export const CommentReplySchema = Yup.object().shape({
 export type CommentReplyFormValues = Yup.InferType<typeof CommentReplySchema>;
 
 export const volunteerSchema = Yup.object().shape({
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.string().required("Phone Number is required"),
-  occupation: Yup.string().required("Occupation is required"),
-  message: Yup.string().required("Message is required"),
+  firstName: Yup.string().required(i18n.t("First Name is required")),
+  lastName: Yup.string().required(i18n.t("Last Name is required")),
+  email: Yup.string().email(i18n.t("Invalid email")).required(i18n.t("Email is required")),
+  phone: Yup.string().required(i18n.t("Phone Number is required")),
+  occupation: Yup.string().required(i18n.t("Occupation is required")),
+  message: Yup.string().required(i18n.t("Message is required")),
 });
 
 export type VolunteerValues = Yup.InferType<typeof volunteerSchema>;
