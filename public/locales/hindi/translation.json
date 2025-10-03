@@ -141,7 +141,15 @@
   "First Name is required": "पहला नाम आवश्यक है",
   "Last Name is required": "अंतिम नाम आवश्यक है",
   "Phone Number is required": "फ़ोन नंबर आवश्यक है",
-  "Occupation is required": "पेशा आवश्यक है"
+  "Occupation is required": "पेशा आवश्यक है",
+  "Valuable Customers":"मूल्यवान ग्राहक",
+  "Our":"हमारे",
+  "feedback": "प्रतिक्रिया",
+ "review": "समीक्षा",
+ "image": "चित्र",
+  "designation": "पदनाम",
+ "role": "भूमिका",
+ "avatar": "अवतार"
 
 
 
