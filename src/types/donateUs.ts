@@ -19,4 +19,5 @@ export interface DonationCardProps {
 export interface TagListProps {
   tags: string[];
   onClick?: (tag: string) => void;
+  bgColor?:string;
 }
