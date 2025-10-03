@@ -52,11 +52,12 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
         >
             <Link href={`/volunteer/${member.id}`} className="block">
                 <div className="relative w-full aspect-[4/5] cursor-pointer overflow-hidden">
-                    <Image
-                        src={member.img  || "/assets/default-avatar.png"}
+                   <Image
+                        src={member.image  || "/assets/default-avatar.png"}
                         alt={member.name || "Member"}
                         fill
                         className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+            
                     />
 
 
@@ -86,15 +87,16 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
                         <SocialBar />
                     </motion.div>
                 </div>
-            </Link>
+                </Link>
+            
 
 
             <div className="relative bg-[#f1f0ee] h-28 p-8 flex flex-col items-start transition-colors duration-500 group-hover:bg-[#122f2a]">
                 <h6 className="font-semibold text-md text-black transition-colors duration-300 group-hover:text-white">
                     {member.name}
                 </h6>
-                <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400">
-                    {member.role}
+                <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400 mt-2">
+                    {member.role || member.position}
                 </p>
 
                 <button className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-colors duration-300 group-hover:bg-yellow-400 overflow-visible">
@@ -103,6 +105,8 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
                     </span>
                 </button>
             </div>
+            
         </motion.div>
+    
     );
 };

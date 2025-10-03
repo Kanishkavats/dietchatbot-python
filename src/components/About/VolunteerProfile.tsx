@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import React from "react";
@@ -105,6 +107,54 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
                 {member.description}
               </p>
             )}
+
+             <h3 className="font-bold text-xl mb-6">
+              I Help My Clients Stand Out And They Help Me Grow.
+            </h3>
+
+            <div className="mb-3">
+              <div className="flex justify-between text-sm  text-black-700 font-bold ">
+                <span>Donation Collect</span>
+                <span>70%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                <div
+                  className="bg-[#046b59] h-2 rounded-full"
+                  style={{ width: "70%" }}
+                ></div>
+              </div>
+            </div>
+
+
+            <div className="mb-6">
+              <div className="flex justify-between text-sm  text-black-700 font-bold">
+                <span>Successful Events</span>
+                <span>85%</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
+                <div
+                  className="bg-[#046b59] h-2 rounded-full"
+                  style={{ width: "85%" }}
+                ></div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-3 mb-6 text-sm text-black-700">
+              <p className="flex items-center gap-2 font-bold">
+                <CircleCheckBig className="text-[#046b59]" /> Best Quality
+                Services
+              </p>
+              <p className="flex items-center gap-2 font-bold">
+                <CircleCheckBig className="text-[#046b59]" /> Time Saving
+              </p>
+              <p className="flex items-center gap-2 font-bold">
+                <CircleCheckBig className="text-[#046b59]" /> Meet The Deadlines
+              </p>
+              <p className="flex items-center gap-2 font-bold">
+                <CircleCheckBig className="text-[#046b59]" /> 24/7 Customer
+                Support
+              </p>
+            </div>
 
             <div className="w-58 round full">
               <Button

@@ -2,7 +2,8 @@ export interface Cause {
   id: number;
   title: string;
   date: string;
-  image: string;
+  images: string[];
+  createdAt?:string;
 }
 
 export interface DonationCardProps {

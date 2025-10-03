@@ -103,7 +103,7 @@ const HelpAndDonate: React.FC = () => {
         <div className="absolute inset-0 bg-black/4"></div>
       </div>
 
-      <div className="relative z-10 container mx-auto px-4 sm:px-6 lg:px-0 xl:px-0 max-w-7xl">
+      <div className="relative z-10 container mx-auto px-3 sm:px-6 lg:px-0 xl:px-0 max-w-7xl">
         {/* Header Section */}
         <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6 md:mb-12 lg:mb-6">
           {/* Left Side - Main Content */}
@@ -196,7 +196,7 @@ const HelpAndDonate: React.FC = () => {
                  
         {/* Carousel Section */}
         <div 
-          className="relative"
+          className="relative lg:px-15 xl:px-0 "
           onMouseEnter={() => {
             if (swiperRef.current && swiperRef.current.autoplay) {
               swiperRef.current.autoplay.stop();
@@ -249,6 +249,7 @@ const HelpAndDonate: React.FC = () => {
                 centeredSlides: false
               }
             }}
+            speed={990}
             className="h-full"
             navigation={{
               prevEl: null,

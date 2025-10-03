@@ -8,6 +8,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import AnimatedProgressBar from "../AnimatedProgressBar";
 import Button from "../Buttons/Button";
+import { useRouter } from "next/navigation";
 
 interface DonationCardProps {
   card?: {
@@ -35,6 +36,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
   onMouseLeave,
   onCardClick,
 }) => {
+  const router =useRouter();
   if (!card) {
     return (
       <div className="bg-gray-100 rounded-2xl shadow-lg p-6 flex flex-col h-full">
@@ -72,17 +74,17 @@ const DonationCard: React.FC<DonationCardProps> = ({
   return (
     <div
       key={card.id}
-      className="bg-white rounded-2xl shadow-lg border-15 border-white overflow-hidden relative cursor-pointer flex flex-col h-full min-h-[400px] w-full max-w-[320px] mx-auto"
+      className="bg-white rounded-2xl shadow-lg p-2.5 space-y-3 border-white overflow-hidden relative flex flex-col  min-h-[380px]  w-full  mx-auto"
       onMouseEnter={() => card.id && onMouseEnter(card.id)}
       onMouseLeave={onMouseLeave}
-      onClick={() => onCardClick(card.id)}
     >
       {/* Image with White Border */}
-      <div className="relative w-full h-[200px] rounded-t-[20px] rounded-b-[20px] overflow-hidden border-t-[4px] border-x-[4px] border-white">
+      <div className="relative w-full h-[200px] 2xl:h-[205px] rounded-2xl overflow-hidden cursor-pointer  border-white">
         {card.image ? (
           <motion.img
             src={card.image}
             alt={card.title || "Campaign Image"}
+            onClick={() => onCardClick(card.id)}
             className="absolute top-0 left-0 w-full h-full object-cover"
             animate={{ 
               scale: hoveredCard === card.id ? 1.1 : 1,
@@ -92,14 +94,14 @@ const DonationCard: React.FC<DonationCardProps> = ({
           />
         ) : (
           <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-            <span className="text-gray-400">No Image</span>
+            <span className="text-gray-green">No Image</span>
           </div>
         )}
 
         {/* Category Pill */}
         <span
-          className={`absolute top-3 left-3 text-lg font-semibold px-4 py-1 rounded-full font-nunito ${
-            hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow text-black"
+          className={`absolute top-3 left-3 text-sm xl:text-lg font-medium px-4 py-2 rounded-full font-nunito ${
+            hoveredCard === card.id ? "bg-dark-green text-white" : "bg-yellow text-foreground"
           }`}
         >
           {card.category || "No Category"}
@@ -108,35 +110,35 @@ const DonationCard: React.FC<DonationCardProps> = ({
 
       {/* Content */}
       <div className="p-4 flex flex-col flex-grow">
-        <h3 className="text-xl font-extrabold mb-2 font-nunito transition-colors duration-300 text-gray-900 hover:text-[#6b5103]">{displayTitle}</h3>
-        <p className="text-gray-600 text-sm mb-6 font-nunito  flex-grow">{displayText}</p>
+        <h3 onClick={() => onCardClick(card.id)} className="text-[17px] xl:text-xl font-extrabold cursor-pointer mb-2 font-nunito transition-colors duration-300 text-dark-green hover:text-olive-brown truncate">{title}</h3>
+        <p className="text-gray-green text-[14px] leading-5 font-nunito line-clamp-2 flex-grow">{desc}</p>
 
-        {/* Bottom Section */}
-        <div className="bg-gray-100 p-2 rounded-lg mt-auto">
+      </div>
+       {/* Bottom Section */}
+      <div className="bg-gray-light p-5 space-y-5 lg:space-y-6 rounded-lg mt-auto">
           <AnimatedProgressBar progress={card.progress || 0} isInView={isInView} />
-            <div className="flex justify-between text-sm text-gray-500 mt-2 font-nunito">
-              <span className="text-dark-green">Raised: {card.raised || "0"}</span>
-              <span className="text-dark-green">Goal: <span className="text-[#6b5103] font-bold">{card.goal || "0"}</span></span>
+            <div className="flex justify-between  text-[13px] xl:text-sm text-gray-green mt-2 font-nunito">
+              <span className="text-dark-green font-nunito font-bold">Raised: {card.raised || "0"}</span>
+              <span className="text-dark-green font-nunito font-bold">Goal: <span className="text-olive-brown font-bold">{card.goal || "0"}</span></span>
             </div>
           <div className={`transition-all duration-300 mt-4 ${hoveredCard === card.id ? 'group' : ''}`}>
             <button
               className={`w-fit relative cursor-pointer font-semibold font-nunito
-                bg-transparent border-2 border-dark-green rounded-full px-6 py-3 
+                bg-white border-2 border-dark-green rounded-full px-6  py-2.5 lg:py-3 
                 overflow-hidden group
                 before:content-[''] before:absolute before:inset-0 before:bg-dark-green 
                 before:transition-transform before:duration-500 
                 before:origin-center before:scale-x-0 ${hoveredCard === card.id ? 'before:scale-x-100' : 'hover:before:scale-x-100'} before:z-0`}
-              onClick={() => onCardClick(card.id)}
+              onClick={() =>{router.push(`/donate-us/${card.id}`)}}
             >
               <div className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 whitespace-nowrap font-nunito ${
                 hoveredCard === card.id ? 'text-white' : 'text-dark-green group-hover:text-white'
               }`}>
-                <span className="leading-none">Donate Now</span>
+                <span className="leading-none text-sm">Donate Now</span>
               </div>
             </button>
           </div>
         </div>
-      </div>
     </div>
   );
 };

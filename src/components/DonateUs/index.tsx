@@ -1,21 +1,40 @@
 "use client";
 import HeroCause from "./DonationSection";
-import SearchBox from "./SearchBox";
-import RecentCauses from "./RecentCauses";
 import DonationCard from "./DonationCard";
-import TagList from "./TagList";
 import { bannerBg, heartLogoIcon, overView } from "@/public/assets";
 import { faqData, tags } from "@/src/staticResource";
 import FAQAccordion from "../Accordians/FAQAccordion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Gallery from "./Gallery";
 import FadeInUp from "@/src/animations/FadeInUp";
 import PageBanner from "../common/PageBanner";
 import DonationSection from "./DonationSection";
-
-const DonateUs = () => {
+import { useFetchAllCampaigns, useFetchSingleCampaign } from "@/src/hooks/useCampaigns";
+import Sidebar from "../common/sideBar";
+const page=1;
+interface  donateUsProps{
+  id?:string;
+}
+const DonateUs = ({id}:donateUsProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const {
+    data: allCampaigns,
+    isLoading: allCampaignsLoading,
+    isError: allCampaignsError,
+  } = useFetchAllCampaigns(page, 10);
 
+  const {
+    data: singleCampaign,
+    isLoading: singleCampaignLoading,
+    isError: singleCampaignError,
+  } = useFetchSingleCampaign(id!, { enabled: !!id }); 
+  const isLoading = id ? singleCampaignLoading : allCampaignsLoading;
+  const isError = id ? singleCampaignError : allCampaignsError;
+  const campaigns = id ? singleCampaign : allCampaigns?.campaigns?.[0];
+      
+  
+  
+  
   return (
     <section>
       <PageBanner
@@ -30,7 +49,7 @@ const DonateUs = () => {
         <div className="w-11/12 xl:w-10/12">
           <div className=" grid grid-cols-1 xl:grid-cols-3 gap-10">
             <div className="xl:col-span-2 relative">
-              <DonationSection />
+              <DonationSection data={campaigns} isLoading={isLoading} isError={isError} />
               <div className="col-span-2 space-y-6 ">
                 <Gallery />
                 <FadeInUp
@@ -47,19 +66,15 @@ const DonateUs = () => {
                 </FadeInUp>
               </div>
             </div>
-            <div className="space-y-8 clear-both ">
-              <SearchBox />
-              <RecentCauses />
-              <TagList
-                tags={tags}
-                onClick={(tag: string) => console.log("Clicked tag:", tag)}
-              />
+            <div className="xl:col-span-1 space-y-8 clear-both ">
+              <Sidebar diss={'donate-us'} />
                <DonationCard
                 icon={heartLogoIcon.src}
                 backgroundImage={overView.src}
                 subtitle="Small Donations Bigger Impact"
                 title="Education Health For Every Child"
                 buttonText="Get A Quote"
+                onCardClick={()=>{''}}
                 onButtonClick={() => console.log("Button Clicked!")}
               />
               </div>
