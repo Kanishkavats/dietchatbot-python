@@ -21,6 +21,7 @@ const initialValues: FeedbackFormValues = {
 const FormComponent = ({ onClose }: { onClose: () => void }) => {
   const [imagePreview, setImagePreview] = React.useState<string | null>(null)
   const [imageName, setImageName] = React.useState<string>('')
+  const [imageSizeError, setImageSizeError] = React.useState<string>('')
   const [toast, setToast] = React.useState<{ type: 'success' | 'error', message: string } | null>(null)
   
   // Initialize the mutation hook
@@ -44,23 +45,34 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
     }
   }, [toast])
 
+  // Debug: Monitor imageSizeError changes
+  React.useEffect(() => {
+    console.log('imageSizeError changed:', imageSizeError)
+  }, [imageSizeError])
+
   const handleSubmit = async (values: FeedbackFormValues, { resetForm, setSubmitting }: any) => {
-    console.log('🚀 Feedback Form Submitted!');
+    console.log('🚀 FEEDBACK FORM SUBMITTED!');
     console.log('📝 Form Values:', values);
-    console.log('🖼️ Image File:', values.image);
-    console.log('⭐ Rating:', values.rating);
-    console.log('👤 Name:', values.name);
-    console.log('💼 Designation:', values.designation);
-    console.log('💬 Feedback:', values.feedback);
     
-    submitFeedbackForm(
-      values,
-      createFeedbackMutation,
-      resetForm,
-      setSubmitting,
-      onClose
-    )
+    
+    // Show immediate toast on submit
+    setToast({ type: 'success', message: 'Submitting your feedback...' });
+    
+    
+    try {
+      await submitFeedbackForm(
+        values,
+        createFeedbackMutation,
+        resetForm,
+        setSubmitting,
+        onClose
+      );
+    } catch (error) {
+      console.log('❌ Error in feedback submission:', error);
+      setToast({ type: 'error', message: 'Failed to submit feedback' });
+    }
   }
+
 
   const modalContent = (
     <div 
@@ -101,7 +113,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
               onClick={() => setToast(null)}
               className="ml-1 sm:ml-2 hover:opacity-70 flex-shrink-0"
             >
-              <Icon icon="mdi:close" className="text-lg sm:text-xl" />
+              <Icon icon="mdi:close" className="text-lg sm:text-xl cursor-pointer" />
             </button>
           </div>
         )}
@@ -124,7 +136,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
             </div>
             <button
               onClick={onClose}
-              className="text-gray-300 hover:text-white text-xl sm:text-2xl ml-2 sm:ml-4 flex-shrink-0"
+              className="text-gray-300 hover:text-white text-xl  cursor-pointer sm:text-2xl ml-2 sm:ml-4 flex-shrink-0"
             >
               <Icon icon="mdi:close" />
             </button>
@@ -134,7 +146,10 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
 
           <FadeUpCard>
             <Formik initialValues={initialValues} validationSchema={feedbackSchema} onSubmit={handleSubmit}>
-              {({ isSubmitting, setFieldValue, values, errors, touched }) => (
+              {({ isSubmitting, setFieldValue, values, errors, touched }) => {
+                
+                
+                return (
                 <Form className="space-y-4 sm:space-y-5 px-2 sm:px-3 py-2 sm:py-3">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <div className="relative">
@@ -183,6 +198,11 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                         </button>
                       ))}
                     </div>
+                    {errors.rating && touched.rating && (
+                      <div className="text-red-400 text-xs mt-1">
+                        {errors.rating}
+                      </div>
+                    )}
                   </div>
 
                   <div className="relative text-white">
@@ -192,14 +212,14 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                       textSize="text-base"
                       errorTextSize="text-sm"
                       placeholder="Your feedback..."
-                      icon={"mdi:message-text"}
+                      icon="mdi:message-text"
                       iconClassName="text-yellow text-base font-bold size-5 mt-[2px]"
-                      className="w-full rounded-md border border-gray-green flex h-[80px] sm:h-[96px] bg-foreground/18 px-3 sm:px-4 py-2 sm:py-3 focus:outline-none resize-none"
+                      className="w-full rounded-md border border-gray-green h-[100px] sm:h-[96px] bg-foreground/18 px-3 sm:px-4 py-2 sm:py-3 focus:outline-none resize-none overflow-y-auto scrollbar-hide"
                     />
-                    <div className="absolute bottom-1 sm:bottom-2 right-1 sm:right-2 text-xs text-gray-400">
+                     <div className="absolute bottom-2 right-3 text-xs text-gray-400 pointer-events-none">
                       {values.feedback ? `${values.feedback.length}/275` : '0/275'}
                     </div>
-                  </div>
+                  </div> 
 
                   <div className="relative text-white">
                     <label className="block text-xs sm:text-sm font-medium text-white mb-2">
@@ -207,9 +227,9 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                     </label>
                     <div className="relative">
                       {imagePreview ? (
-                        <div className="w-full rounded-md border-2 border-yellow bg-foreground/18 p-3 sm:p-4">
-                          <div className="flex items-center gap-2 sm:gap-4">
-                            <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-md overflow-hidden bg-gray-200 flex-shrink-0">
+                        <div className="w-full rounded-md border-2 border-yellow bg-foreground/18 p-2 sm:p-3 md:p-4">
+                          <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
+                            <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-md overflow-hidden bg-gray-200 flex-shrink-0">
                               <img 
                                 src={imagePreview} 
                                 alt="Preview" 
@@ -229,21 +249,22 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                               onClick={() => {
                                 setImagePreview(null)
                                 setImageName('')
+                                setImageSizeError('')
                                 setFieldValue('image', null)
                               }}
-                              className="text-red-400 hover:text-red-300 text-lg sm:text-xl flex-shrink-0"
+                              className="text-red-400 hover:text-red-300 text-base sm:text-lg md:text-xl flex-shrink-0 p-1"
                             >
                               <Icon icon="mdi:close" />
                             </button>
                           </div>
                         </div>
                       ) : (
-                        <div className="w-full rounded-md border-2 border-dashed border-yellow bg-foreground/18 h-24 sm:h-32 flex flex-col items-center justify-center cursor-pointer hover:bg-foreground/25 transition-colors">
+                        <div className="w-full rounded-md border-2 border-dashed border-yellow bg-foreground/18 h-16 sm:h-20 md:h-24 flex flex-col items-center justify-center cursor-pointer hover:bg-foreground/25 transition-colors p-2 sm:p-3 md:p-4">
                           <Icon 
                             icon="mdi:image-plus" 
-                            className="text-yellow text-2xl sm:text-4xl mb-1 sm:mb-2"
+                            className="text-yellow text-xl sm:text-2xl md:text-3xl mb-1 sm:mb-2"
                           />
-                          <div className="text-center px-2">
+                          <div className="text-center px-1 sm:px-2">
                             <span className="text-gray-400 text-xs sm:text-sm font-base">Drag & Drop your images here or </span>
                             <span className="text-yellow text-xs sm:text-sm font-semibold cursor-pointer">browse files</span>
                           </div>
@@ -254,20 +275,42 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                             onChange={(e) => {
                               const file = e.target.files?.[0] || null;
                               if (file) {
+                                
+                                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                                console.log('File size:', file.size, 'Max size:', maxSize);
+                                
+                                if (file.size > maxSize) {
+                                  setImageSizeError('Image size must be less than 5MB.');
+                                  setImagePreview(null);
+                                  setImageName('');
+                                  setFieldValue('image', null);
+                                  // Reset the file input
+                                  e.target.value = '';
+                                  return;
+                                }
+                                
+                                // Clear any previous size error
+                                setImageSizeError('');
+                                
                                 const reader = new FileReader();
                                 reader.onload = (e) => {
                                   setImagePreview(e.target?.result as string);
                                 };
                                 reader.readAsDataURL(file);
                                 setImageName(file.name);
+                                setFieldValue('image', file);
                               }
-                              setFieldValue('image', file);
                             }}
                             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
                           />
                         </div>
                       )}
                     </div>
+                    {imageSizeError && (
+                      <div className="text-red-400 text-xs mt-1">
+                        {imageSizeError}
+                      </div>
+                    )}
                     {errors.image && touched.image && (
                       <div className="text-red-400 text-xs mt-1">
                         {typeof errors.image === 'string' ? errors.image : 'Image is required'}
@@ -285,13 +328,17 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                       hoverBg="before:bg-foreground"
                       paddingx="px-6 sm:px-10"
                       paddingy="py-3 sm:py-4"
+                      onClick={(e) => {
+                       
+                      }}
                     >
                       {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
                       </Button>
                     </div>
                   </div>
                 </Form>
-              )}
+                );
+              }}
             </Formik>
           </FadeUpCard>
         </div>

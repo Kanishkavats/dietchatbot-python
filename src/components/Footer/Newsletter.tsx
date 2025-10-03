@@ -6,12 +6,46 @@ import SlideinFromLeft from "@/src/animations/SlideInFromLeft";
 import { useTranslation } from "react-i18next";
 import { Form, Formik } from "formik";
 import InputField from "../common/inputs/InputField";
+import { useMutation } from "@tanstack/react-query";
+import { NewsletterEmailForm } from "@/src/services/webForms";
+import { NewsletterEmailSchema, NewsletterEmailValues } from "@/src/utils/validations/FormValidation";
+import toast from "react-hot-toast";
+import ButtonLoader from "../common/Loader/ButtonLoader";
 
 const Newsletter = () => {
    const{t}=useTranslation();
   const bgBase = `relative inline-flex items-center gap-2 before:content-[''] before:absolute before:inset-0 before:bg-quaternary-green before:scale-x-0 before:origin-center before:transition-transform before:duration-300`;
 
   const bgOnHover = `${bgBase} cursor-pointer hover:text-white hover:before:scale-x-100`;
+
+  const mutation = useMutation({
+    mutationFn: (email: string) => NewsletterEmailForm(email),
+    onSuccess: () => {
+      toast.success("Email subscribed successfully!");
+      console.log("email send succesfully");
+    },
+    onError: (error: unknown) => {
+      toast.error("Something went wrong. Try again.");
+      console.error("Newsletter subscription error:", error);
+    },
+  });
+
+  const handleSubmit = (
+    values: NewsletterEmailValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
+    console.log("Form submitted with values:", values);
+    
+    mutation.mutate(values.email, {
+      onSuccess: () => {
+        resetForm();
+      },
+      onError: () => {
+       
+        resetForm();
+      },
+    });
+  };
 
   return (
     <section className="text-white font-nunito py-16 xl:py-20">
@@ -26,11 +60,10 @@ const Newsletter = () => {
         </SlideinFromLeft>
         <Formik
           initialValues={{ email: "" }}
-          onSubmit={(values) => {
-            console.log("Form submitted:", values);
-          }}
+          validationSchema={NewsletterEmailSchema}
+          onSubmit={handleSubmit}
         >
-          {() => (
+          {({ isSubmitting }) => (
             <Form className="flex items-center gap-3 md:gap-4 lg:gap-5 w-full lg:w-2/5 ">
               <InputField
                 name="email"
@@ -41,11 +74,15 @@ const Newsletter = () => {
                 className="flex-1 px-5 py-3  xl:px-6 xl:py-5  rounded md:rounded-full  bg-white focus:outline-none text-gray-700 "
               />
               <div className="w-fit">
-                <Button rounded="rounded-[10px] md:rounded-full" paddingx="px-5 md:px-6 xl:px-8"
-                paddingy="py-3 md:py-3 xl:py-4"
->
-              <Icon icon="bitcoin-icons:share-filled" height={28} width={28} />
-            </Button>
+                <Button 
+                  type="submit"
+                  disabled={mutation.isPending}
+                  rounded="rounded-[10px] md:rounded-full" 
+                  paddingx="px-5 md:px-6 xl:px-8"
+                  paddingy="py-3 md:py-3 xl:py-4"
+                >
+                  {isSubmitting || mutation.isPending ? <ButtonLoader /> : <Icon icon="bitcoin-icons:share-filled" height={28} width={28} />}
+                </Button>
               </div>
             </Form>
           )}

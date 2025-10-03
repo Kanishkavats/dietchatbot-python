@@ -60,14 +60,28 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
       <div
         className={`
           ${meta.touched && meta.error ? "border-red" : ""}
-          ${isTextarea ? "items-start" : "items-center"} ${className}`}
+          ${isTextarea ? "items-start relative" : "items-center relative"} ${className}`}
       >
+        {/* Icon for textarea (positioned absolutely) */}
+        {isTextarea && icon && (
+          <div className="absolute right-3 top-3 z-10">
+            {renderIcon()}
+          </div>
+        )}
+
+        {/* Icon for input (positioned absolutely) */}
+        {!isPassword && !isTextarea && icon && (
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 z-10">
+            {renderIcon()}
+          </div>
+        )}
+
         {/* Input / Textarea */}
         {isTextarea ? (
           <textarea
             {...field}
             placeholder={placeholder}
-            className={`w-full bg-transparent outline-none resize-none ${textSize} ${placeholderClassName}`}
+            className={`w-full bg-transparent outline-none resize-none scrollbar-hide ${textSize} ${placeholderClassName} ${icon ? 'pr-10' : ''}`}
             rows={4}
           />
         ) : (
@@ -75,12 +89,9 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
             {...field}
             type={isPassword && showPassword ? "text" : type}
             placeholder={placeholder}
-            className={`w-full bg-transparent outline-none  ${textSize} ${placeholderClassName}`}
+            className={`w-full bg-transparent outline-none ${textSize} ${placeholderClassName} ${icon ? 'pr-10' : ''}`}
           />
         )}
-
-        {/* Icon on the right (optional) */}
-        {!isPassword && icon && renderIcon()}
 
         {/* Password Toggle Icon (right side) */}
         {isPassword && (

@@ -35,3 +35,9 @@ export const ContactUsForm = async (values:ContactFormValues) => {
   const { data } = await api.post(`/form/contact-query`, values);
   return data;
 };
+
+export const NewsletterEmailForm = async (email: string) => {
+  const { data } = await api.post(`/email/add-email`, { email });
+  console.log("API response:", data);
+  return data;
+};
