@@ -43,7 +43,7 @@ const ValueableCustomer = () => {
         {/* Heading */}
         <div className="flex items-center gap-2 justify-center">
           <i className="text-2xl hand-icon text-[#00715D] -mb-[100px]" />
-          <span className="text-[#00715D] text-[24px] font-caveat font-semibold leading-[34px] -mb-[100px]">
+          <span className="text-[#00715D] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] -mb-[100px]">
             {t("Start Donating Poor People")}
           </span>
         </div>
@@ -60,15 +60,20 @@ const ValueableCustomer = () => {
         </div>
 
         {/* Swiper Carousel */}
-        <div className="mx-auto w-full px-1 pl-3 sm:px-6 lg:px-8 xl:px-20">
+        <div className="mx-auto w-full px-2  sm:px-3 lg:px-8 xl:px-16">
           <Swiper
             spaceBetween={24}
             slidesPerView={1}
             breakpoints={{
+              320: { slidesPerView: 1 },   
+              480: { slidesPerView: 1 },   // small phones
+              640: { slidesPerView: 2 ,spaceBetween:6},   
+              728: {slidesPerView:2},
               768: { slidesPerView: 2 },
               1024: { slidesPerView: 2 },
               1027: {slidesPerView:2 },
               1280: {slidesPerView:3 },
+              1536: { slidesPerView: 3 },  // 2xl (very large screens)
             }}
             navigation={{
               prevEl: ".prev-btn",
@@ -76,14 +81,16 @@ const ValueableCustomer = () => {
             }}
             loop
             autoplay={{ delay: 3000 ,    pauseOnMouseEnter: true}}
+            speed={1000}  // smooth transition 1.2s
+
 
             modules={[Navigation, Autoplay]}
             className="pb-12"
           >
             {feedbacks.map((item, idx) => (
               <SwiperSlide key={`${item.id || item.name}-${idx}`}>
-                <div className="">
-                  <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-[20px] py-[40px] w-[298px] h-[445.6px] lg:w-[456px] lg:h-[385.6px] xl:w-[356px] xl:h-[415.6px] 2xl:h-[385.6px] 2xl:w-[415.6px] lg:p-10 xl:p-10">
+                <div className="px-3 sm:px-3 sm:pl-10">
+                  <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-[20px] py-[40px] w-[291px] h-[445.6px] lg:w-[456px] lg:h-[385.6px] xl:w-[356px] xl:h-[415.6px] 2xl:h-[385.6px] 2xl:w-[415.6px] 480:w-[451px] 480:h-[355.6px] sm:w-[246px] sm:h-[651.6px] md:w-[336px] md:h-[445.6px] h-lg:p-10 xl:p-10  ">
                     <Image
                       src={image99}
                       alt="green spade"
