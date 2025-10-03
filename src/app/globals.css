@@ -105,6 +105,7 @@
 }
 @theme{
   --breakpoint-xs: 25rem;
+  
 }
 body {
   font-family: "Charifund", Arial, Helvetica, sans-serif;
@@ -824,5 +825,40 @@ body {
   font-weight: 900; /* solid style */
   display: inline-block;
 }
+
+.volunteer-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  position:relative;
+
+}
+
+/* 2 cards per row above 768px */
+@media screen and (min-width: 768px) {
+  .volunteer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 2 cards at 1182px specifically */
+@media screen and (min-width: 1182px) and (max-width: 1279px) {
+  .volunteer-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* 4 cards per row above 1280px */
+@media screen and (min-width: 1280px) {
+  .volunteer-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+
+
 
 

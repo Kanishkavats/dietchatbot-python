@@ -4,10 +4,15 @@ export interface TeamMember {
   name: string;
   role: string;
   delay: number;
+  imageUrl?: string;
+  image?: string;
+  position: string;
+
 }
 
 export interface VolunteerCardProps {
   member: TeamMember;
   idx: number;
+
   
 }
