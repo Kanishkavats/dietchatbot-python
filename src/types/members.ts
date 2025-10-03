@@ -10,13 +10,15 @@ export interface Member {
   description: string;
   about?: string;
   keyPoints: string[];
-  image: string;
+  image?: string;
   facebookUrl?: string;
   twitterUrl?: string;
   instagramUrl?: string;
   linkedInUrl?: string;
   createdAt?: string;
   updatedAt?: string;
+  img:string;
+  role:string;
 }
 
 // 🧩 Props for MemberForm component

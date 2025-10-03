@@ -51,8 +51,7 @@ const buildFeedbackFormData = (values: FeedbackFormValues) => {
     formData.append("image", values.image);
   }
 
-  console.log(' FormData Created:');
-  console.log(' FormData entries:');
+
   for (let [key, value] of formData.entries()) {
     console.log(`  ${key}:`, value);
   }
@@ -68,15 +67,17 @@ const handleCreateFeedback = (
   setSubmitting: (isSubmitting: boolean) => void,
   onClose: () => void
 ) => {
-  console.log(' Starting feedback submission...');
+ 
+  
   toast.dismiss();
   toast.loading("Submitting feedback...");
   const formData = buildFeedbackFormData(values);
 
-  console.log(' Sending API request...');
+  console.log('🌐 Sending API request to backend...');
   createMutation.mutate(formData, {
     onSuccess: (response: any) => {
-      console.log(' Feedback submitted successfully!');
+      
+     
       toast.dismiss();
       toast.success("Feedback submitted successfully");
       resetForm();
@@ -84,9 +85,9 @@ const handleCreateFeedback = (
       onClose();
     },
     onError: (err: any) => {
-      console.log(' Feedback submission failed!');
+      console.log('❌ FEEDBACK SUBMISSION FAILED!');
      
-      console.log(' Error response:', err?.response?.data);
+     
       toast.dismiss();
       toast.error(err?.response?.data?.message || "Failed to submit feedback");
       setSubmitting(false);

@@ -72,7 +72,7 @@ export default function HeroStaticSlider() {
 
   return (
     <div
-      className="relative w-full h-[70vh] xl:h-screen overflow-hidden"
+      className="relative w-full h-[80vh] xl:h-screen overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -83,12 +83,18 @@ export default function HeroStaticSlider() {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, ease: "easeInOut" }}
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${finalImages[index]})` }}
+         style={{
+    backgroundImage: `url(${finalImages[index]})`,
+    backgroundSize: "cover",     // ensures image covers the div
+    backgroundPosition: "center", // keeps it centered
+    width: "100%",
+    height: "922.4px",
+  }}
       />
       <section className="relative h-5 w-full z-22">
         <Image src={horizontalWhiteShape.src} alt="Horizontal White Shape" fill />
       </section>
-      <section className="relative h-[70vh] xl:h-screen w-20 md:w-30 z-21 ">
+      <section className="relative h-[80vh] xl:h-screen w-20 md:w-30 z-21 ">
         <motion.div
           animate={{ y: [0, -20, 0, 20, 0] }}
           transition={{
@@ -112,6 +118,7 @@ export default function HeroStaticSlider() {
         className="absolute inset-0 flex flex-col justify-center items-start px-4 sm:px-6 md:px-16 lg:px-30 z-20 font-nunito"
         style={pageBannerBackgourndColor}
       >
+        <div className="ml-2 md:ml-4 lg:ml-6 xl:ml-8">
         <AnimatedReveal
           key={index}
           direction="left"
@@ -124,12 +131,12 @@ export default function HeroStaticSlider() {
             {bannerSubtitle}
           </p>
 
-          <h1 className="text-4xl  max-w-[17ch] sm:text-4xl  sm:max-w-[17ch] md:text-6xl md:max-w-[12ch]   lg:text-6xl xl:text-8xl font-extrabold text-white xl:max-w-[12ch] leading-tight">
+          <h1 className="text-4xl  max-w-[17ch] sm:text-4xl  sm:max-w-[17ch] md:text-6xl md:max-w-[12ch]   lg:text-6xl xl:text-7xl font-extrabold text-white xl:max-w-[12ch] leading-tight">
             {bannerTitle}
           </h1>
 
-          <div className="flex flex-col min-[450px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
-            <div className="w-auto sm:w-auto min-w-[100px] sm:min-w-[140px]">
+          <div className="flex flex-col min-[400px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
+            <div className="w-auto sm:w-auto min-w-[50px] sm:min-w-[120px]">
               <Button
                 text="Discover More"
                 textColor="text-white"
@@ -140,7 +147,7 @@ export default function HeroStaticSlider() {
                 paddingy="py-5"
               />
             </div>
-            <div className="w-auto sm:w-auto min-w-[100px] sm:min-w-[140px]">
+            <div className="sm:w-auto min-w-[50px] sm:min-w-[120px]">
               <Link href="/contact">
                 <Button 
                   text="Get A Quote"
@@ -150,6 +157,7 @@ export default function HeroStaticSlider() {
             </div>
           </div>
         </AnimatedReveal>
+        </div>
 
         {/* ✅ Navigation Arrows - Desktop */}
         <div className="absolute right-4 md:right-22 top-1/2 -translate-y-1/2 hidden min-[800px]:flex flex-col gap-4 z-30">
@@ -177,7 +185,7 @@ export default function HeroStaticSlider() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-[29%] xl:top-[82%] right-40 xl:right-38 transform -translate-y-1/2 text-yellow size-14"
+            className="absolute top-[29%] xl:top-[82%] right-38 xl:right-40 transform -translate-y-1/2 text-yellow size-20"
           >
             <img src={spradeBase.src} alt="decoration" />
           </motion.div>

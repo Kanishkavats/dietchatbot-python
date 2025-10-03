@@ -12,6 +12,8 @@ import { useGetReplies } from '@/src/hooks/useComments';
 import ButtonLoader from '../common/Loader/ButtonLoader';
 import CustomLoader from '../common/Loader/CustomLoader';
 import ShowReply from '../comments/ShowReplies';
+import Button from '@/src/components/common/Buttons/Button';
+
 
 interface Comment {
   id: string;
@@ -213,37 +215,37 @@ export default function Comments({ campaignId }: CommentsProps) {
   }
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-6">
+      <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
         {allComments.length.toString().padStart(2, "0")} Comments
       </h2>
-      <div className="space-y-10 mb-8">
+      <div className="space-y-6 sm:space-y-10 mb-6 sm:mb-8">
         {visibleComments.map((comment) => (
           <div
             key={comment.id} 
-            className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
+            className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 md:gap-6"
           >
-            <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
+            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-[98.4px] md:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
              
-              <span className="text-6xl font-bold text-gray-500">
+              <span className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-500">
                 {comment.name.charAt(0).toUpperCase()}
               </span>
             </div>
-            <div className="flex-1">
-              <h5 className="text-lg sm:text-xl font-bold font-nunito">
+            <div className="flex-1 min-w-0">
+              <h5 className="text-base sm:text-lg md:text-xl font-bold font-nunito">
                 {comment.name}
               </h5>
             
-              <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug whitespace-pre-line">
+              <p className="text-sm sm:text-base text-[#667471] font-nunito leading-relaxed sm:leading-snug whitespace-pre-line break-words">
                 {comment.comment}
               </p>
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
+              <div className="mt-3 flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#6B7280]">
                 <button 
-                  className={`flex items-center gap-1 hover:text-olive-brown ${
+                  className={`flex items-center gap-1 hover:text-olive-brown transition-colors ${
                     comment.isLiked ? "text-red" : ""
                   }`}
                   onClick={() => handleLike(comment.id)}
                 >
-                  <div className="w-[15px] h-[15px]">
+                  <div className="w-3 h-3 sm:w-[15px] sm:h-[15px]">
                   {comment.isLiked ? (
                     <FaHeart />
                   ) : (
@@ -251,25 +253,26 @@ export default function Comments({ campaignId }: CommentsProps) {
                   )}
                   </div>
                   
-                  Like {comment.likeCount || 0}
+                  <span className="hidden xs:inline">Like</span> {comment.likeCount || 0}
                 </button>
                 <button onClick={()=>{
                   setReplyCommentId(comment.id);
-                  setIsOpenReply(true)}} className="flex items-center gap-1 cursor-pointer hover:text-olive-brown">
-                  <FiCornerUpLeft /> Reply
+                  setIsOpenReply(true)}} className="flex items-center gap-1 cursor-pointer hover:text-olive-brown transition-colors">
+                  <FiCornerUpLeft className="w-3 h-3 sm:w-4 sm:h-4" /> 
+                  <span className="hidden xs:inline">Reply</span>
                 </button>
-                <span className="text-gray-500">
+                <span className="text-gray-500 text-xs sm:text-sm">
                   {comment.createdAt ? getTimeAgo(comment.createdAt) : (comment.timeAgo || "Just now")}
                 </span>
               </div>
               {(comment?.totalReplies||0)>0&&(
                 <>
-                <div className='flex items-center mt-5 space-x-3 justify-start'>
-                  <div className='border border-gray-300 w-[4vh]'></div>
+                <div className='flex items-center mt-4 sm:mt-5 space-x-2 sm:space-x-3 justify-start'>
+                  <div className='border border-gray-300 w-[2vh] sm:w-[4vh]'></div>
                 <div>{(comment?.totalReplies||0)>0&&(
                   <div onClick={()=>{
                     setReplyCommentId(comment.id)
-                    toggleReplies(comment.id)}} className='cursor-pointer font-bold text-xs md:text-sm text-gray-green'>
+                    toggleReplies(comment.id)}} className='cursor-pointer font-bold text-xs sm:text-sm text-gray-green hover:text-green-600 transition-colors'>
                     {showReplies[comment.id] 
                        ? "Hide replies" 
                       : `View ${comment?.totalReplies || 0} more replies`}</div>
@@ -286,12 +289,13 @@ export default function Comments({ campaignId }: CommentsProps) {
       </div>
       {isOpenReply && (
   <div
-    className="fixed z-50 flex items-center justify-center inset-0 bg-black/80 md:bg-black/40"
+    className="fixed z-50 flex items-center justify-center inset-0 bg-black/80 md:bg-black/40 p-4 sm:p-6"
     onClick={() => setIsOpenReply(false)} 
   >
     <FadeUpCard delay={0.3}>
       <div
         onClick={(e) => e.stopPropagation()} 
+        className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl"
       >
         <ReplyComment id={replyCommentId} handleReplyModel={handleReplyModel} />
       </div>
@@ -300,7 +304,28 @@ export default function Comments({ campaignId }: CommentsProps) {
 )}
 
       {/* Load More Button */}
-   
+         {hasMoreComments && (
+        <div className="flex justify-start mt-6 sm:mt-8">
+          <button
+            onClick={handleLoadMore}
+            className="relative flex items-center justify-center px-8 sm:px-16 md:px-28 py-3 sm:py-4 bg-transparent border-0 transition-all duration-300 group w-full sm:w-auto sm:min-w-[20rem] md:min-w-[55rem]"
+          >
+            {/* Left gray line */}
+            <div className="absolute left-4 sm:left-8 md:left-12 top-1/2 transform -translate-y-1/2 w-20 sm:w-40 md:w-80 h-0.5 bg-gray-300"></div>
+            
+            {/* Yellow text in center with arrow */}
+            <span className="text-black font-bold font-nunito text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-3 z-8 bg-white flex items-center gap-2 sm:gap-3 rounded-full hover:shadow-sm hover:px-2 sm:hover:px-3 hover:bg-yellow hover:text-black hover:cursor-pointer duration-300">
+              <span className="hidden sm:inline">Load More comments</span>
+              <span className="sm:hidden">Load More</span>
+               <span className="text-black text-lg sm:text-xl group-hover:text-black">↓</span>
+            </span>
+            
+            {/* Right gray line */}
+            <div className="absolute right-4 sm:right-8 md:right-12 top-1/2 transform -translate-y-1/2 w-20 sm:w-40 md:w-80 h-0.5 bg-gray-300"></div>
+          </button>
+        </div>
+      )}
+
     </div>
   );
 }

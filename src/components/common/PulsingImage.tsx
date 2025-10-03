@@ -27,9 +27,9 @@ const PulsingImage: React.FC<PulsingImageProps> = ({
         repeat: Infinity,
         ease: "easeInOut",
       }}
-      className={` ${className}`}
+      className={`relative ${className}`}  style={{ width, height }} 
     >
-      <Image src={src} alt={alt} fill className="object-contain" />
+      <Image src={src} alt={alt} fill   sizes={`${width}px`} className="object-contain" />
     </motion.div>
   );
 };

@@ -9,6 +9,7 @@ import Link from "next/link";
 import { motion, useAnimation, useInView } from "framer-motion";
 import { useFetchAllMembers, useFetchSingleMember } from "@/src/hooks/useMembers";
 
+
 // API member type
 interface ApiMember {
   id: string;
@@ -63,6 +64,7 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
   useEffect(() => {
     if (inView) controls.start({ opacity: 1, y: 0 });
   }, [inView, controls]);
+   console.log(`Rendering ${member} image:`, member.imageUrl);
 
   return (
     <motion.div
@@ -79,6 +81,7 @@ const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
             alt={member.name}
             fill
             className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
+             
           />
           <motion.div
             initial={{ opacity: 0 }}
@@ -123,6 +126,9 @@ const Ourteams = () => {
 
   // ✅ Fetch all members
   const { data: memberData, isLoading } = useFetchAllMembers(currentPage, itemsPerPage);
+  
+
+ 
   // ✅ Fetch single member
   const { data: singleMemberData, isLoading: isLoadingMember } = useFetchSingleMember(editMember || undefined);
 
@@ -142,7 +148,9 @@ const Ourteams = () => {
       position: m.position,
       imageUrl: m.imageUrl,
       delay: idx * 0.2,
+    
     })) || [];
+
 
   const totalPages: number = memberData?.totalPages || 1;
 
@@ -184,10 +192,11 @@ const Ourteams = () => {
             <p className="text-sm">{singleMemberData.position}</p>
             <Image
               src={singleMemberData.imageUrl || "/assets/default-avatar.png"}
-              alt={singleMemberData.name}
+              alt={singleMemberData.name }
               width={150}
               height={150}
               className="rounded-full mt-2"
+              
             />
           </div>
         )}

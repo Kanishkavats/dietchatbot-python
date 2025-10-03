@@ -59,7 +59,7 @@ const Page = () => {
       <VolunteerProfile member={member} />
 
       {/* Optional: List of all members with pagination */}
-      {/*  <div className="mt-12 px-4 max-w-7xl mx-auto">
+       {/* <div className="mt-12 px-4 max-w-7xl mx-auto">
         <h3 className="text-2xl font-bold mb-4">Other Team Members</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {membersList.map((m: any) => (
@@ -76,7 +76,7 @@ const Page = () => {
         </div>*/}
 
       {/* Pagination */}
-      {/* {totalPages > 1 && (
+     {/* {totalPages > 1 && (
           <Pagination
             currentPage={currentPage}
             totalPages={totalPages}
