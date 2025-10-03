@@ -135,7 +135,7 @@ export default function HeroStaticSlider() {
             {bannerTitle}
           </h1>
 
-          <div className="flex flex-col min-[400px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
+          <div className="flex flex-col min-[450px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
             <div className="w-auto sm:w-auto min-w-[50px] sm:min-w-[120px]">
               <Button
                 text="Discover More"
