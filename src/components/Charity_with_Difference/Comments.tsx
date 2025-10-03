@@ -61,14 +61,9 @@ export default function Comments({ campaignId }: CommentsProps) {
   });
   
   useEffect(() => {
-    // Update allComments when data changes
-    console.log("data is updating")
+
     if (data?.comments) {
-      console.log("Comments is updating")
-      // Merge API comments with localStorage comments
       const mergedComments = mergeComments(data.comments, campaignId);
-      console.log(data.comments);
-      // Mark liked comments
       const liked = getLikedComments();
       const updated = mergedComments.map((c: Comment) => ({
         ...c,
@@ -77,7 +72,6 @@ export default function Comments({ campaignId }: CommentsProps) {
       
       setAllComments(updated);
     } else {
-      // If no API comments, still show localStorage comments
       const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
       const filteredLocalComments = localComments.filter((comment: CommentType) => comment.blogId === campaignId);
       
@@ -91,7 +85,6 @@ export default function Comments({ campaignId }: CommentsProps) {
     }
   }, [data, campaignId, isLoading]);
 
-  // Listen for localStorage changes
   useEffect(() => {
     const handleStorageChange = () => {
       const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");

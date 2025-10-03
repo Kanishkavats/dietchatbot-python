@@ -110,7 +110,6 @@ const BlogTable = () => {
     <section>
       {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-        {/* Left section: Dropdown + Input */}
         <AnimatedReveal direction="left" delay={0.1}>
           <div className="w-fit flex flex-row gap-2">
             <Dropdown
@@ -133,7 +132,6 @@ const BlogTable = () => {
           </div>
         </AnimatedReveal>
 
-        {/* Right section: Button */}
         <AnimatedReveal direction="left" delay={0.3}>
           <div className="w-fit">
             <Button
@@ -155,7 +153,6 @@ const BlogTable = () => {
       </div>
 
 
-      {/* Table */}
       {isAllBlogLoading ? 
       <div className="flex justify-center py-8">
         <CustomLoader />

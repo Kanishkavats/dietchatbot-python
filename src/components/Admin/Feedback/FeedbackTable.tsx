@@ -30,7 +30,6 @@ const FeedbackTable = () => {
 
   // Fetch feedback data with filters
   const { data: feedbackData, isLoading } = useFetchFeedbacks(currentPage, itemsPerPage, status);
-  console.log("check feedback", feedbackData)
 
   const { mutate: deleteFeedback } = useDeleteFeedback();
   const totalPages = feedbackData?.totalPages || 1;

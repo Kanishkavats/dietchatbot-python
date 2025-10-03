@@ -16,9 +16,7 @@ export const fetchCommentsById = async (id: string) => {
 
 //fetch get-comment by id 
 export const fetchgetcomments = async (id: string) => {
-  console.log("id => ", id);
   const { data } = await api.get(`/comment/get-comments/${id}`);
-  console.log(data);
   return data;
 };
 
@@ -64,6 +62,5 @@ export const addReply = async (id: string|null,
 export const getRepliesByCommentId=async(id:string|null,page:number,limit:number)=>{
 
   const {data} =await api.get<RepliesResponse>(`/comment/get-replies/${id}?page=${page}&limit=${limit}`);
-  console.log(data);
   return data;
 }

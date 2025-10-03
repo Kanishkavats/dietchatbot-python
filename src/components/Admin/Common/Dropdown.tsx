@@ -55,8 +55,8 @@ const Dropdown = <T extends string | number>({
           />
         )}
 
-        <span className={`flex-1 text-[14px]`}>
-          {selectedOption ? selectedOption.label : placeholder || "Select..."}
+        <span className={`flex-1 text-[12px] md:text-[14px]`}>
+          {selectedOption ? selectedOption.label : placeholder || "Select"}
         </span>
         {!readOnly && (<motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}

@@ -6,6 +6,11 @@ export const fetchFeedbacks = async (page: number, limit: number, status: string
   const { data } = await api.get(`/feedback/getAllFeedback?page=${page}&limit=${limit}&${statusQuery}`);
   return data;
 };
+export const fetchApprovedFeedbacks = async (page: number, limit: number, status: string | null) => {
+  const statusQuery = status && status !== "all" ? `&status=${status}` : "";
+  const { data } = await api.get(`/feedback/get-feedback?page=${page}&limit=${limit}&${statusQuery}`);
+  return data;
+};
 
 // Fetch single feedback by ID
 export const fetchFeedbackById = async (id: string) => {
@@ -15,19 +20,12 @@ export const fetchFeedbackById = async (id: string) => {
 
 // Create feedback
 export const createFeedback = async (formData: FormData) => {
-  console.log(' Making API call to /feedback/add-feedback');
- 
-  console.log(' Request Headers:', {
-    'Content-Type': 'multipart/form-data',
-  });
-  
   const { data } = await api.post(`/feedback/add-feedback`, formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
   });
   
-  console.log('API Response received:', data);
   return data;
 };
 

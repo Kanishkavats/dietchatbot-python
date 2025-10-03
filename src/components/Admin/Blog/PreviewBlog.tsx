@@ -39,7 +39,6 @@ const BlogPreview = ({ data, onSubmit, onBack, mode }: BlogPreviewProps) => {
 
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);
-  console.log("mode", mode)
 
   return (
     <motion.div

@@ -21,12 +21,12 @@ const Home = () => {
       <HeroStaticSlider />
       <PartnersCompanies />
       <CharityWithDifference />
-      <HelpingEachOther/>
+      <HelpingEachOther />
       <HelpAndDonate />
-      <BecomeVolunteer/>
-       <VolunteerTeam/> 
-      <Community/>
-      <ValueableCustomer/>
+      <BecomeVolunteer />
+      <VolunteerTeam />
+      <Community />
+      <ValueableCustomer />
       <FeedbackForm />
       <ChildOldCare />
       <DonateDifferentWay />

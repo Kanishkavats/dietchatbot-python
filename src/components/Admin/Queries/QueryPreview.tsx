@@ -16,10 +16,10 @@ const FieldRow = ({ label, value, isLast = false, isBool = false } :QueryPreview
 
   return (
     <div
-      className={`grid grid-cols-3 gap-x-4 gap-y-3 text-gray-800 ${isLast ? "" : "border-b border-gray-200"
-        } py-2`}
+      className={`grid grid-cols-3 gap-x-4 md:gap-y-3 text-gray-800 text-[14px] md:text-[16px] ${isLast ? "" : "border-b border-gray-200"
+        } py-1 md:py-2`}
     >
-      <div className="font-semibold text-gray-700">{label}:</div>
+      <div className="font-semibold text-gray-700 ">{label}:</div>
       <div className="col-span-2 break-words">
         {isBool ? (value ? "Yes" : "No") : value}
       </div>
@@ -62,7 +62,7 @@ const QueryPreview = ({ data, onClose } : {data:Query, onClose?: () => void}) =>
     return <div className="text-center text-gray-500 py-6">No data to preview.</div>;
 
   return (
-    <div className="bg-white w-full mx-auto space-y-3">
+    <div className="bg-white w-full mx-auto space-y-1 md:space-y-3">
       <FieldRow label="Form Type" value={formType} />
       <FieldRow
         label="Created At"

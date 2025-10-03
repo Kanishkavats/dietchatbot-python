@@ -45,20 +45,10 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
     }
   }, [toast])
 
-  // Debug: Monitor imageSizeError changes
-  React.useEffect(() => {
-    console.log('imageSizeError changed:', imageSizeError)
-  }, [imageSizeError])
 
   const handleSubmit = async (values: FeedbackFormValues, { resetForm, setSubmitting }: any) => {
-    console.log('🚀 FEEDBACK FORM SUBMITTED!');
-    console.log('📝 Form Values:', values);
-    
-    
-    // Show immediate toast on submit
+
     setToast({ type: 'success', message: 'Submitting your feedback...' });
-    
-    
     try {
       await submitFeedbackForm(
         values,
@@ -276,20 +266,16 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                               const file = e.target.files?.[0] || null;
                               if (file) {
                                 
-                                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-                                console.log('File size:', file.size, 'Max size:', maxSize);
-                                
+                                const maxSize = 5 * 1024 * 1024; 
                                 if (file.size > maxSize) {
                                   setImageSizeError('Image size must be less than 5MB.');
                                   setImagePreview(null);
                                   setImageName('');
                                   setFieldValue('image', null);
-                                  // Reset the file input
                                   e.target.value = '';
                                   return;
                                 }
                                 
-                                // Clear any previous size error
                                 setImageSizeError('');
                                 
                                 const reader = new FileReader();
