@@ -114,7 +114,7 @@ const CampaignTable = () => {
       {/* Top Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-          <div className="w-fit flex flex-col sm:flex-row gap-2">
+          <div className="w-fit flex flex-row gap-2">
             <Dropdown
               options={CampaignSearchOptions}
               value={searchField}

@@ -22,7 +22,6 @@ const Newsletter = () => {
     mutationFn: (email: string) => NewsletterEmailForm(email),
     onSuccess: () => {
       toast.success("Email subscribed successfully!");
-      console.log("email send succesfully");
     },
     onError: (error: unknown) => {
       toast.error("Something went wrong. Try again.");
@@ -80,6 +79,7 @@ const Newsletter = () => {
                   rounded="rounded-[10px] md:rounded-full" 
                   paddingx="px-5 md:px-6 xl:px-8"
                   paddingy="py-3 md:py-3 xl:py-4"
+                  icon=""
                 >
                   {isSubmitting || mutation.isPending ? <ButtonLoader /> : <Icon icon="bitcoin-icons:share-filled" height={28} width={28} />}
                 </Button>

@@ -23,9 +23,6 @@ import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 
 const QueriesTable = () => {
-  // Search state
-  const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<keyof Query>("title");
   const [filterField, setFilterField] = useState<"none" | "isViewed" | "formType">("none");
   const [filterValue, setFilterValue] = useState<string>("all");
 
@@ -61,7 +58,6 @@ const QueriesTable = () => {
   }, [filterField, filterValue]);
 
   const { data: allData, isLoading } = useFetchAllQueries(currentPage, itemsPerPage, filters);
-  console.log(allData)
 
   const totalPages = allData?.totalPages ?? 1;
 
@@ -104,7 +100,7 @@ const QueriesTable = () => {
 
   return (
     <section>
-      <AnimatedReveal direction="left" delay={0.1} className="w-[300px] flex flex-col sm:flex-row gap-2 mb-4">
+      <AnimatedReveal direction="left" delay={0.1} className="w-full md:w-fit flex flex-row gap-2 mb-5 md:mb-0">
           <Dropdown
             options={filterFields}
             value={filterField}

@@ -14,9 +14,7 @@ interface BlogPostProps {
 }
 
 export default function BlogPost({ blogId }: BlogPostProps) {
-  console.log("blogid", blogId);
   const { data, isLoading, isError } = useFetchSingleBlog(blogId);
-  console.log(data, isLoading);
 
   if (isLoading) return <p>Loading blog...</p>;
   if (isError) return <p>Failed to load blog.</p>;

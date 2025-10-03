@@ -17,8 +17,8 @@ import { submitMemberForm, useDeleteSingleMember, useFetchAllMembers, useFetchSi
 import { createMember, updateMember } from "@/src/services/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
-import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
+import AdminCustomPagination from "../Common/CustomePagination";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");
@@ -163,7 +163,7 @@ const MemberTable = () => {
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}

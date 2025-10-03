@@ -4,8 +4,13 @@ import api from "./api";
 
 
 // ✅ Fetch all categories
+
 export const fetchCategory = async (page: number = 1, limit: number = 10) => {
   const { data } = await api.get(`/category/get-category?page=${page}&limit=${limit}`);
+  return data;
+};
+export const fetchCategoryById = async (id:string) => {
+  const { data } = await api.get(`/category/get-category/${id}`);
   return data;
 };
 

@@ -20,8 +20,6 @@ const BannerForm = ({
 }: BannerFormProps) => {
   const isEdit = mode === "edit";
 
-  console.log("check", initialData);
-
   // Initial form values setup
   const initialValues: BannerFormValues & { existingImage?: string } = {
     title: initialData?.title ?? "",

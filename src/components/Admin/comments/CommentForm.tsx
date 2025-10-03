@@ -23,7 +23,6 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
   const isView = mode === "view";
   const isEdit = mode === "edit";
   const queryClient = useQueryClient();
-  console.log("initialData", initialData);
 
   const updateMutation = useMutation({
     mutationFn: ({ id, values }: { id: string; values: { approved: boolean } }) =>
