@@ -18,8 +18,6 @@ export interface CampaignPreviewProps {
 const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
 
-  console.log("mode", mode)
-
   useEffect(() => {
     if (!data.images && !data.existingImages) return;
 

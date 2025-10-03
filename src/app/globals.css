@@ -45,10 +45,12 @@
   --white: #ffffff;
   --foreground: rgb(23, 23, 23);
   --green: #046b59;
+  --lime-green:#4ade80;
   --dark-green: #122f2a;
   --gray-green: #667471;
   --primaryColor: #ffc107;
   --yellow: #ffc107;
+  --yellow-50: hsl(55, 90%, 52%);
   --orange: #ff5528;
   --blue: #3b82f6;
   --purple: #8b5cf6;
@@ -58,7 +60,6 @@
   --gray-400: #9ca3af;
   --gray-500: #6b7280;
   --orange-50: #f16108;
-  --yellow-50: hsl(55, 90%, 52%);
   --blue-50: #0b2b55;
   --purple-50: #4c3167;
   --red: #ef4444;

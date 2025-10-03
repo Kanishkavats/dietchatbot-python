@@ -26,7 +26,6 @@ export const fetchAllQueries = async (page: number = 1, limit: number = 10, filt
 
 // ✅ Fetch a single query by ID
 export const fetchQueryById = async (id: string) => {
-  console.log("api check", id)
   const { data } = await api.get(`/form/getFormById/${id}`);
   return data;
 };

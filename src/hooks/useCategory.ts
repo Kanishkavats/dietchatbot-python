@@ -12,6 +12,13 @@ export const useFetchCategory = (page?: number, limit?: number) => {
   });
 };
 
+export const useFetchCategoryById = (id:string) => {
+  return useQuery({
+    queryKey: ["categories",id],
+    queryFn: ()=> fetchCategory(id),
+  });
+};
+
 // ======================= Create Category ======================= //
 export const useCreateCategory = () => {
   const queryClient = useQueryClient();

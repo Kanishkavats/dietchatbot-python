@@ -68,18 +68,13 @@ export const useCreateComment = () => {
     mutationFn: ({ id, data }: { id: string; data: { comment: string; name: string; email: string } }) =>
       createComment(id, data),
     onSuccess: (data, variables) => {
-      console.log(" comment", data)
-
-      // 1. Get existing comments
       const existingComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
-
-      // 2. Create new comment with proper structure
       const newComment = {
         id: data.comment?.id || `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         name: variables.data.name,
         comment: variables.data.comment,
         email: variables.data.email,
-        blogId: variables.id, // Add the blogId
+        blogId: variables.id, 
         isPending: true,
         createdAt: new Date().toISOString(),
         timeAgo: "Just now",

@@ -24,7 +24,7 @@ const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({
   type = "text",
   as = "input",
   placeholder,
-  className='flex gap-2 bg-gray-200/60 px-3 py-4 rounded-md border relative',
+  className='flex gap-2 bg-gray-200/60 px-3 py-4 rounded-md  relative',
   iconClassName="text-gray-500/60 text-lg font-bold size-5 mt-[2px]",
   placeholderClassName='',
   textSize="text-[14px]",

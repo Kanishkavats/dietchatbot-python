@@ -1,0 +1,68 @@
+// components/DonationPieChart.tsx
+import React from "react";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { FaUser } from "react-icons/fa";
+
+interface DonationPieChartProps {
+  data: { name: string; value: number }[];
+  colors?: string[];
+}
+
+const defaultColors = ["var(--primaryColor)", "var(--blue)", "var(--lime-green", "var(--purple)"]; // violet, sky, rose, purple
+
+const DonationPieChart: React.FC<DonationPieChartProps> = ({ data, colors = defaultColors }) => {
+  const total = data.reduce((sum, item) => sum + item.value, 0);
+
+  return (
+    <div className="flex flex-col-reverse sm:grid sm:grid-cols-2 w-full gap-4 ">
+      {/* Legend */}
+    <div className="flex flex-wrap gap-3 w-full">
+  {data.map((entry, index) => {
+    const percentage = total === 0 ? 0 : ((entry.value / total) * 100).toFixed(0);
+    return (
+      <div
+        key={index}
+        className="flex items-center gap-2 p-2  rounded-md min-w-[140px] sm:min-w-[160px] flex-grow"
+      >
+        <span
+          className="w-3 h-3 rounded-full"
+          style={{ backgroundColor: colors[index % colors.length] }}
+        ></span>
+        <span className="font-semibold text-sm">{entry.name}</span>
+        <span className="text-sm text-black font-semibold">{percentage}%</span>
+        <FaUser className="text-gray-500" />
+        <span className="text-sm text-gray-600">{entry.value}</span>
+      </div>
+    );
+  })}
+</div>
+
+
+      {/* Donut Chart */}
+      <div className="w-full  h-[200px] ">
+        <ResponsiveContainer width="100%" height="100%">
+          <PieChart>
+            <Pie
+              data={data}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              innerRadius={0}
+              outerRadius={80}
+              startAngle={90}
+              endAngle={450}
+              paddingAngle={0}
+            >
+              {data.map((entry, index) => (
+                <Cell key={index} fill={colors[index % colors.length]} />
+              ))}
+            </Pie>
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};
+
+export default DonationPieChart;

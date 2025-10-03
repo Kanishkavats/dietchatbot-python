@@ -7,10 +7,11 @@ import {
   createFeedback,
   updateFeedback,
   deleteFeedback,
+  fetchApprovedFeedbacks,
 } from "@/src/services/feedbackApi";
 import { FeedbackFormValues } from "../utils/validations/FormValidation";
 
-// ======================= Fetch All Feedbacks ======================= //
+// ======================= Fetch All Feedbacks (Admin) ======================= //
 
 export const useFetchFeedbacks = (
   page: number,
@@ -20,6 +21,17 @@ export const useFetchFeedbacks = (
   return useQuery({
     queryKey: ["feedbacks", page, limit, status],
     queryFn: () => fetchFeedbacks(page, limit, status),
+  });
+};
+
+export const useFetchApprovedFeedbacks = (
+  page: number,
+  limit: number,
+  status: string | null = null
+) => {
+  return useQuery({
+    queryKey: ["feedbacks", page, limit, status],
+    queryFn: () => fetchApprovedFeedbacks(page, limit, status),
   });
 };
 
