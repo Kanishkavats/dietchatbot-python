@@ -38,7 +38,7 @@ export default function CharityWithDifference() {
             <i className="text-xl md:text-2xl text-green hand-icon"></i>
             <span className="text-green font-caveat text-lg md:text-[22px] xl:text-2xl font-bold">Start Donating Poor People</span>
           </motion.div>
-          <motion.h1 
+          <motion.h2 
             className="text-[28px] leading-tight font-nunito md:text-4xl xl:text-[50px] font-bold text-dark-green mb-6 xs:mb-4" 
             style={{ fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800' }}
             initial={{ opacity: 0, transform: 'translateZ(0)' }}
@@ -46,9 +46,10 @@ export default function CharityWithDifference() {
             transition={{ duration: 1, delay: 0.2 }}
           >
             Charity With Difference
-          </motion.h1>
+          </motion.h2>
           <motion.p 
-            className="text-gray-green text-sm max-w-xl lg:max-w-2xl xl:max-w-3xl md:text-[15px] md:tracking-tight font-nunito xl:tracking-wide leading-7 mx-auto "
+            className="text-gray-green text-[16px] font-semibold max-w-[780px] font-nunito lg:max-w-2xl xl:max-w-3xl md:text-[16px] md:tracking-tight font-nunito xl:tracking-wide leading-7 mx-auto"
+            style={{ fontWeight: '400', marginTop: '20px' }}
             initial={{ opacity: 0, transform: 'translateZ(0)' }}
             animate={isHeaderInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
             transition={{ duration: 1, delay: 0.4 }}

@@ -666,7 +666,7 @@ export const childOldCareSliderSettings = {
       settings: {
         slidesToShow: 1,
         centerPadding: "0px",
-        arrows: true,
+        arrows: false,
         draggable: true,
         swipeToSlide: true,
         centerMode: false
@@ -677,7 +677,7 @@ export const childOldCareSliderSettings = {
       settings: {
         slidesToShow: 1,
         centerPadding: "0px",
-        arrows: true,
+        arrows: false,
         draggable: true,
         swipeToSlide: true,
         centerMode: false
