@@ -49,7 +49,7 @@ const NewsCard = ({ card }: cardProps) => {
     onHoverStart={() => heartControls.start("hover")}
       onHoverEnd={() => heartControls.start("idle")}
     whileHover="hover"
-    onClick={()=>router.push(`/news-details/${card?.id}`)}
+    onClick={()=>router.push(`/news-grid/${card?.id}`)}
   >
     {/* Image */}
     <div className="relative mb-4 rounded-xl overflow-hidden w-full h-[230px] md:h-[400px] lg:h-[250px] xl:h-[260px] ">
