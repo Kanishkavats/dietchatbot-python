@@ -12,8 +12,9 @@ export interface Member {
   keyPoints: string[];
   image?: string;
   facebookUrl?: string;
+  vimeoUrl?: string;
   twitterUrl?: string;
-  instagramUrl?: string;
+  //instagramUrl?: string;
   linkedInUrl?: string;
   createdAt?: string;
   updatedAt?: string;

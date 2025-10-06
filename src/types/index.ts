@@ -7,6 +7,7 @@ export interface TeamMember {
   imageUrl?: string;
   image?: string;
   position: string;
+  
 
 }
 
