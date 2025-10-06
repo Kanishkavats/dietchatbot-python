@@ -37,10 +37,7 @@ export function removeLocalComments(idsToRemove: string[]) {
   const idsToRemoveSet = new Set(idsToRemove);
   
   const existing: CommentType[] = JSON.parse(localStorage.getItem("LocalComments") || "[]");
-  console.log("ex",existing)
-  // Filter out the comments whose IDs are in the set
   const updated = existing.filter(c => !idsToRemoveSet.has(c.id));
-  console.log("up",updated)
   localStorage.setItem("LocalComments", JSON.stringify(updated));
 
 }

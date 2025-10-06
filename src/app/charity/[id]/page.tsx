@@ -1,6 +1,7 @@
 import PageBanner from '../../../components/common/PageBanner';
 import { bannerBg } from '@/public/assets';
-import { Sidebar, CharityContent } from '../../../components/Charity_with_Difference';
+import { CharityContent } from '../../../components/Charity_with_Difference';
+import Sidebar from '@/src/components/common/sideBar';
 
 interface Props {
   params: Promise<{
@@ -58,7 +59,7 @@ export default async function DynamicCharityPage({ params }: Props) {
             
             {/* Sidebar - Takes 1/3 of the space */}
             <div className="lg:col-span-1">
-              <Sidebar />
+              <Sidebar as='Recent Post' bgColor='bg-white' pathName='charity'/>
             </div>
           </div>
         </div>

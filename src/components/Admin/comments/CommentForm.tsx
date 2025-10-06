@@ -23,7 +23,6 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
   const isView = mode === "view";
   const isEdit = mode === "edit";
   const queryClient = useQueryClient();
-  console.log("initialData", initialData);
 
   const updateMutation = useMutation({
     mutationFn: ({ id, values }: { id: string; values: { approved: boolean } }) =>
@@ -34,7 +33,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
   });
 
   // Map backend status to form status (lowercase)
-  const mapBackendStatusToFormStatus = (status?: string): "pending" | "approved" | "rejected" => {
+  const mapBackendStatusToFormStatus = (status?: string): string => {
     if (!status) return "pending";
     switch (status.toUpperCase()) {
       case "APPROVED":

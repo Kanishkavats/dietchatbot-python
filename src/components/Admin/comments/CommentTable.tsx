@@ -15,20 +15,19 @@ import { getCommentColumns } from "./getCommentColumns";
 import { Comment } from "@/src/types/comments";
 import Drawer from "../Common/Drawer";
 import CommentForm from "./CommentForm";
-import CustomPagination from "../../common/CustomPaginatioin";
+import AdminCustomPagination from "../Common/CustomePagination";
+import CustomLoader from "../../common/Loader/CustomLoader";
 
 const CommentTable = () => {
-  const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"name" | "comment">("name");
+  const [status, setStatus] = useState<"all" | "approved" | "rejected" | "pending">("all");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [CommentId, setCommentId] = useState<string | null>(null);
   const [mode, setMode] = useState<"edit" | "view">("view");
-  const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(1);
+  const [itemsPerPage] = useState(10);
 
 
-  const { data: commentData } = useFetchComments(currentPage, itemsPerPage);
+  const { data: commentData, isLoading } = useFetchComments(currentPage, itemsPerPage,  status);
 
   const { mutate: deleteComment } = useDeleteComment();
   const totalPages = commentData?.totalPages || 1;
@@ -65,11 +64,7 @@ const CommentTable = () => {
 
   const tableData = commentData?.comments || [];
 
-  const filteredData = useMemo(() => {
-    return tableData.filter((c: Comment) =>
-      c[searchField].toLowerCase().includes(search.toLowerCase())
-    );
-  }, [tableData, search, searchField]);
+
 
   const columns = useMemo(
     () =>
@@ -86,33 +81,37 @@ const CommentTable = () => {
       {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-          <div className="w-fit flex flex-col sm:flex-row gap-2">
+          <div className=" flex flex-col sm:flex-row gap-2">
+          </div>
             <Dropdown
-              options={CommentSearchOptions}
-              value={searchField}
+              options={[
+                { label: "All", value: "all" },
+                { label: "Approved", value: "approved" },
+                { label: "Rejected", value: "rejected" },
+                { label: "Pending", value: "pending" },
+              ]}
+              value={status}
               onChange={(value) => {
-                setSearchField(value as "name" | "comment")
-                setTimeout(() => {
-                  searchInputRef.current?.focus();
-                }, 0);
+                setStatus(value);
+                setCurrentPage(1); // reset to first page on status change
               }}
             />
-
-            <CustomInput
-              placeholder={`Search by ${searchField}...`}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
         </AnimatedReveal>
       </div>
 
       {/* Data table */}
-      <DataTableWrapper columns={columns} data={filteredData} />
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+        <DataTableWrapper columns={columns} data={tableData} />
+      )}
+
 
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
@@ -133,7 +132,9 @@ const CommentTable = () => {
           width="500px"
         >
           {loadingComment || !singleCommentData ? (
-            <div className="p-4 text-sm text-gray-500">Loading comment...</div>
+            <div className="flex justify-center py-8">
+              <CustomLoader />
+            </div>
           ) : (
             <CommentForm
               initialData={singleCommentData}

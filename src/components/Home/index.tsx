@@ -10,9 +10,11 @@ import BecomeVolunteer from '../BecomeVolunteer';
 import VolunteerTeam from '../About/VolunteerTeam';
 import Community from './Community';
 import ValueableCustomer from '../About/ValueableCustomer';
+import FeedbackForm from '../FeedbackForm';
 import DonateDifferentWay from '../DonateDifferentWay';
 import LatestNewsArticle from '../LatestNewsArticle';
 import ChildOldCare from '../ChildOldCare';
+import ScrollToTop from '../common/ScrollToTop';
 
 const Home = () => {
   return (
@@ -20,15 +22,17 @@ const Home = () => {
       <HeroStaticSlider />
       <PartnersCompanies />
       <CharityWithDifference />
-      <HelpingEachOther/>
+      <HelpingEachOther />
       <HelpAndDonate />
-      <BecomeVolunteer/>
-       <VolunteerTeam/> 
-      <Community/>
-      <ValueableCustomer/>
+      <BecomeVolunteer />
+      <VolunteerTeam />
+      <Community />
+      <ValueableCustomer />
+      <FeedbackForm />
       <ChildOldCare />
       <DonateDifferentWay />
       <LatestNewsArticle />
+      <ScrollToTop />
     </div>
   )
 }

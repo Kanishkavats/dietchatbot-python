@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import i18n from "i18next"; 
 
 // Existing schemas here...
 
@@ -13,24 +14,42 @@ export const DetailsformSchema = Yup.object().shape({
 });
 export type DetailsFormValues = Yup.InferType<typeof DetailsformSchema>;
 
+
+
+export const NewsletterEmailSchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email format").required("Email is required"),
+});
+export type NewsletterEmailValues = Yup.InferType<typeof NewsletterEmailSchema>;
+
+
+
+
 export type FormValues = Yup.InferType<typeof DetailsformSchema>;
 
 export const SendMsgformSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required(),
-  phone: Yup.string().min(10, "Phone must be at least 10 digits").required(),
+  phone: Yup.string().length(10, "Phone must be at least 10 digits").required(),
   address: Yup.string().min(5, "Address is required").required(),
   message: Yup.string().min(20,"Message must be of 20 Words").required("Message is required"),
 });
 
 export type SendMsgFormValues = Yup.InferType<typeof SendMsgformSchema>;
 
+export const CommentReplySchema = Yup.object().shape({
+  email: Yup.string().email("Invalid email").required(),
+  name:Yup.string().required("Name is required"),
+  comment: Yup.string().min(2,"Comment must be of atleast 2 Words").required("Reply is required"),
+});
+
+export type CommentReplyFormValues = Yup.InferType<typeof CommentReplySchema>;
+
 export const volunteerSchema = Yup.object().shape({
-  firstName: Yup.string().required("First Name is required"),
-  lastName: Yup.string().required("Last Name is required"),
-  email: Yup.string().email("Invalid email").required("Email is required"),
-  phone: Yup.string().required("Phone Number is required"),
-  occupation: Yup.string().required("Occupation is required"),
-  message: Yup.string().required("Message is required"),
+  firstName: Yup.string().required(i18n.t("First Name is required")),
+  lastName: Yup.string().required(i18n.t("Last Name is required")),
+  email: Yup.string().email(i18n.t("Invalid email")).required(i18n.t("Email is required")),
+  phone: Yup.string().required(i18n.t("Phone Number is required")),
+  occupation: Yup.string().required(i18n.t("Occupation is required")),
+  message: Yup.string().required(i18n.t("Message is required")),
 });
 
 export type VolunteerValues = Yup.InferType<typeof volunteerSchema>;
@@ -112,9 +131,7 @@ export const commentSchema = Yup.object().shape({
   name: Yup.string().notRequired(),
   comment: Yup.string().notRequired(),
   email: Yup.string().notRequired(),
-  status: Yup.string()
-    .oneOf(["pending", "approved", "rejected"], "Invalid status")
-    .required("Status is required"),
+  status: Yup.string().required("Status is required"),
 });
 
 export type CommentFormValues = Yup.InferType<typeof commentSchema>;
@@ -124,7 +141,7 @@ export type CommentFormValues = Yup.InferType<typeof commentSchema>;
 export const bannerSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   subtitle: Yup.string().required("Subtitle is required"),
-  bannerImage: Yup.mixed()
+  image: Yup.mixed()
     .test(
       "fileOrString",
       "Banner image is required",
@@ -135,7 +152,7 @@ export const bannerSchema = Yup.object().shape({
       }
     )
     .required("Banner image is required"),
-  link: Yup.string().url("Must be a valid URL").required("Link is required"),
+  priority: Yup.number().required("priority is required"),
 });
 
 //  Inferred type from the schema
@@ -170,3 +187,38 @@ export const memberSchema = Yup.object().shape({
 });
 
 export type MemberFormValues = Yup.InferType<typeof memberSchema>;
+
+
+// ======================= Member ======================
+
+export const QueryFormSchema = Yup.object().shape({
+  isViewed: Yup.boolean().required("Status is required"),
+});
+
+export type QueryFormValues = Yup.InferType<typeof QueryFormSchema>;
+
+
+// ======================= Feedback ======================
+
+export const feedbackSchema = Yup.object({
+  name: Yup.string().required("Name is required"),
+  designation: Yup.string().required("Designation is required"),
+  image: Yup.mixed()
+    .test(
+      "fileOrString",
+      "Image is required",
+      (value) => {
+        if (typeof value === "string" && value.trim() !== "") return true;
+        if (value instanceof File) return true;
+        return false;
+      }
+    )
+    .required("Image is required"),
+  feedback: Yup.string().max(500, "Feedback must be 500 characters or less").required("Feedback is required"),
+  rating: Yup.number()
+    .min(1, "Please select a rating")
+    .max(5, "Maximum rating is 5")
+    .required("Rating is required"),
+});
+
+export type FeedbackFormValues = Yup.InferType<typeof feedbackSchema>;

@@ -9,30 +9,70 @@ import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import Image from "next/image";
 import { pageBannerBackgourndColor } from "../../common/PageBanner";
 import Link from "next/link";
+import { useFetchAllBanners } from "@/src/hooks/useBanner";
 
-const images = [bannerOne.src, bannerTwo.src];
+interface Banner {
+  id: string;
+  title: string;
+  subtitle: string;
+  priority: number;
+  image: string;
+  link?: string;
+}
+
+// Static fallback images
+const staticImages = [bannerOne.src, bannerTwo.src];
 
 export default function HeroStaticSlider() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
+  
+  // Fetch dynamic banner data
+  const { data: bannersData, isLoading, error } = useFetchAllBanners(1, 10);
+  const banners = bannersData?.banners || [];
+
+  // ✅ Log fetched data only when available
+  useEffect(() => {
+    if (bannersData?.banners) {
+      console.log("✅ Banners fetched:", bannersData.banners);
+    }
+  }, [bannersData]);
+  
+  // Use dynamic images if available, otherwise fallback to static
+  const images = banners.length > 0 
+    ? banners
+        .filter((banner:  Banner ) => banner.image && banner.image.trim() !== '')
+        // .map((banner: any) => banner.bannerImage)
+        .map((banner:  Banner ) => banner.image)
+
+    : staticImages;
+  
+  // If no valid dynamic images, use static fallback
+  const finalImages = images.length > 0 ? images : staticImages;
 
   // Auto image change
   useEffect(() => {
     if (paused) return;
 
     const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % images.length);
+      setIndex((prev) => (prev + 1) % finalImages.length);
     }, 5000);
 
     return () => clearInterval(interval);
   }, [paused]);
 
-  const handlePrev = () => setIndex((prev) => (prev - 1 + images.length) % images.length);
-  const handleNext = () => setIndex((prev) => (prev + 1) % images.length);
+  const handlePrev = () => setIndex((prev) => (prev - 1 + finalImages.length) % finalImages.length);
+  const handleNext = () => setIndex((prev) => (prev + 1) % finalImages.length);
+  
+  // Get current banner data
+  const currentBanner = banners[index] || {};
+  const bannerTitle = currentBanner.title || "Giving Help To Those Who Need It";
+  const bannerSubtitle = currentBanner.subtitle || "Start Donating Poor People";
+  const bannerLink = currentBanner.link || "/contact";
 
   return (
     <div
-      className="relative w-full h-screen overflow-hidden"
+      className="relative w-full h-[80vh] xl:h-screen overflow-hidden"
       onMouseEnter={() => setPaused(true)}
       onMouseLeave={() => setPaused(false)}
     >
@@ -43,12 +83,18 @@ export default function HeroStaticSlider() {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, ease: "easeInOut" }}
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: `url(${images[index]})` }}
+         style={{
+    backgroundImage: `url(${finalImages[index]})`,
+    backgroundSize: "cover",     // ensures image covers the div
+    backgroundPosition: "center", // keeps it centered
+    width: "100%",
+    height: "922.4px",
+  }}
       />
       <section className="relative h-5 w-full z-22">
         <Image src={horizontalWhiteShape.src} alt="Horizontal White Shape" fill />
       </section>
-      <section className="relative h-screen  w-20 md:w-30 z-21 ">
+      <section className="relative h-[80vh] xl:h-screen w-20 md:w-30 z-21 ">
         <motion.div
           animate={{ y: [0, -20, 0, 20, 0] }}
           transition={{
@@ -69,9 +115,10 @@ export default function HeroStaticSlider() {
 
       {/*  Text Overlay */}
       <div
-        className="absolute inset-0  flex flex-col justify-center items-start px-10 lg:px-20 z-20 font-nunito"
+        className="absolute inset-0 flex flex-col justify-center items-start px-4 sm:px-6 md:px-16 lg:px-30 z-20 font-nunito"
         style={pageBannerBackgourndColor}
       >
+        <div className="ml-2 md:ml-4 lg:ml-6 xl:ml-8">
         <AnimatedReveal
           key={index}
           direction="left"
@@ -79,42 +126,52 @@ export default function HeroStaticSlider() {
           duration={1}
           className="space-y-6"
         >
-          <p className="text-yellow font-medium flex items-center gap-2 font-caveat">
-            <Icon icon="mdi:hand-heart" className="text-2xl cursor-pointer" />
-            Start Donating Poor People
+          <p className="text-yellow text-2xl font-medium flex items-center gap-2 font-caveat">
+            <Icon icon="mdi:hand-heart" className="text-3xl  font-medium cursor-pointer" />
+            {bannerSubtitle}
           </p>
 
-          <h1 className="text-4xl md:text-7xl font-extrabold text-white leading-tight">
-            Giving Help <br /> To Those <br /> Who Need It.
+          <h1 className="text-4xl  max-w-[17ch] sm:text-4xl  sm:max-w-[17ch] md:text-6xl md:max-w-[12ch]   lg:text-6xl xl:text-7xl font-extrabold text-white xl:max-w-[12ch] leading-tight">
+            {bannerTitle}
           </h1>
 
-          <div className="flex flex-wrap md:flex-nowrap gap-4 mt-6 w-fit">
-            <Button
-              text="Discover More"
-              textColor="text-white"
-              bgColor="bg-black/30"
-              hoverBg="before:bg-yellow"
-              hoverTextColor="group-hover:text-foreground"
-            />
-            <Link href="/contact" >
-              <Button text="Get A Quote" />
-            </Link>
+          <div className="flex flex-col min-[450px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
+            <div className="w-auto sm:w-auto min-w-[50px] sm:min-w-[120px]">
+              <Button
+                text="Discover More"
+                textColor="text-white"
+                bgColor="bg-black/30"
+                hoverBg="before:bg-yellow"
+                hoverTextColor="group-hover:text-foreground"
+                onClick={() => window.open(bannerLink, '_blank')}
+                paddingy="py-5"
+              />
+            </div>
+            <div className="sm:w-auto min-w-[50px] sm:min-w-[120px]">
+              <Link href="/contact">
+                <Button 
+                  text="Get A Quote"
+                  paddingy="py-5"
+                />
+              </Link>
+            </div>
           </div>
         </AnimatedReveal>
+        </div>
 
-        {/* ✅ Navigation Arrows */}
-        <div className="absolute right-22 top-1/2 -translate-y-1/2 hidden md:flex flex-col gap-4 z-30 ">
+        {/* ✅ Navigation Arrows - Desktop */}
+        <div className="absolute right-4 md:right-22 top-1/2 -translate-y-1/2 hidden min-[800px]:flex flex-col gap-4 z-30">
           <button
             onClick={handlePrev}
-            className="w-12 h-12 cursor-pointer rounded-full bg-dark-green flex items-center justify-center text-white shadow-md hover:scale-105 hover:bg-yellow transition"
+            className="w-15 h-15 cursor-pointer rounded-full bg-dark-green flex items-center justify-center text-white shadow-md  hover:text-black hover:scale-105 hover:bg-yellow transition"
           >
-            <Icon icon="mdi:chevron-left" className="text-2xl" />
-          </button>
+            <Icon icon="mdi:arrow-left" className="text-3xl" />
+          </button> 
           <button
             onClick={handleNext}
-            className="w-12 h-12 rounded-full bg-yellow cursor-pointer flex items-center justify-center text-white shadow-md hover:scale-105 hover:bg-dark-green transition"
+            className="w-15 h-15 rounded-full bg-yellow cursor-pointer flex items-center justify-center text-black shadow-md hover:text-white hover:scale-105 hover:bg-dark-green transition"
           >
-            <Icon icon="mdi:chevron-right" className="text-2xl" />
+            <Icon icon="mdi:arrow-right" className="text-3xl" />
           </button>
 
           {/* Floating Decorative Icon */}
@@ -128,11 +185,12 @@ export default function HeroStaticSlider() {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-[29%] xl:top-[82%] right-40 xl:right-38 transform -translate-y-1/2 text-yellow size-14"
+            className="absolute top-[29%] xl:top-[82%] right-38 xl:right-40 transform -translate-y-1/2 text-yellow size-20"
           >
             <img src={spradeBase.src} alt="decoration" />
           </motion.div>
         </div>
+
       </div>
     </div>
   );

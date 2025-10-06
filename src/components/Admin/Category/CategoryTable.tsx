@@ -11,7 +11,8 @@ import { useFetchCategory, useDeleteCategory } from "@/src/hooks/useCategory";
 import { Category } from "@/src/types/category";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { getCategoryColumns } from "./categoryColumns";
-import CustomPagination from "../../common/CustomPaginatioin"; 
+import AdminCustomPagination from "../Common/CustomePagination";
+import CustomLoader from "../../common/Loader/CustomLoader";
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");
@@ -21,9 +22,9 @@ const CategoryTable = () => {
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(10); 
+  const [itemsPerPage] = useState(10);
 
-  const { data: categoryData } = useFetchCategory(currentPage, itemsPerPage);
+  const { data: categoryData, isLoading } = useFetchCategory(currentPage, itemsPerPage);
   const { mutate: deleteCategory } = useDeleteCategory();
 
 
@@ -34,6 +35,7 @@ const CategoryTable = () => {
   }, []);
 
   const handleView = useCallback((c: Category) => {
+
     setEditCategory(c.id);
     setMode("view");
     setDrawerOpen(true);
@@ -66,7 +68,7 @@ const CategoryTable = () => {
       {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-          <div className="w-fit flex flex-col sm:flex-row gap-2">
+          <div className="w-fit flex flex-row gap-2">
             <Dropdown
               options={CategorySearchOptions}
               value={searchField}
@@ -108,12 +110,19 @@ const CategoryTable = () => {
       </div>
 
       {/* Table */}
-      <DataTableWrapper columns={columns} data={filteredData} />
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+        <DataTableWrapper columns={columns} data={filteredData} />
+
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
@@ -134,7 +143,8 @@ const CategoryTable = () => {
           width="400px"
         >
           <CategoryForm
-            initialData={categoryData?.categories?.find((c: Category) => c.id === editCategory)}
+           initialData={categoryData?.category?.find((c: Category) => c.id === editCategory)}
+
             onClose={() => setDrawerOpen(false)}
             mode={mode}
           />

@@ -18,14 +18,14 @@ import {
   submitCampaignForm
 } from "@/src/hooks/useCampaigns";
 import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
-import EventPagination from "../../Eventpaginations";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
 import CampaignPreview from "./CampaignPreview";
 import { Campaign } from "@/src/types/campaign";
-import CustomPagination from "../../common/CustomPaginatioin";
+import AdminCustomPagination from "../Common/CustomePagination";
+import CustomLoader from "../../common/Loader/CustomLoader";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
@@ -39,7 +39,7 @@ const CampaignTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
-  const { data: campaignData } = useFetchAllCampaigns(currentPage, itemsPerPage);
+  const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage);
   const { data: singleCampaignData, isLoading: isLoadingCampaign } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
@@ -47,7 +47,6 @@ const CampaignTable = () => {
 
   const queryClient = useQueryClient();
 
-  //  Mutations
   const createMutation = useMutation({
     mutationFn: createCampaign,
     onSuccess: () => {
@@ -63,7 +62,6 @@ const CampaignTable = () => {
     },
   });
 
-  // ✅ Handlers
   const handleEdit = useCallback((c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("edit");
@@ -116,7 +114,7 @@ const CampaignTable = () => {
       {/* Top Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-          <div className="w-fit flex flex-col sm:flex-row gap-2">
+          <div className="w-fit flex flex-row gap-2">
             <Dropdown
               options={CampaignSearchOptions}
               value={searchField}
@@ -158,15 +156,22 @@ const CampaignTable = () => {
       </div>
 
       {/* Table */}
-      <DataTableWrapper
+     
+       {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+         <DataTableWrapper
         columns={columns}
         data={filteredData}
       />
+      )}
 
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}

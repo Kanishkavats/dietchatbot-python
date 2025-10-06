@@ -13,7 +13,6 @@ const Members = () => {
       <section className="mt-5">
         <MemberTable />
       </section>
-      
     </div>
   );
 };

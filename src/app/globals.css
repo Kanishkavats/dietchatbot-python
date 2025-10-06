@@ -45,10 +45,12 @@
   --white: #ffffff;
   --foreground: rgb(23, 23, 23);
   --green: #046b59;
+  --lime-green:#4ade80;
   --dark-green: #122f2a;
   --gray-green: #667471;
   --primaryColor: #ffc107;
   --yellow: #ffc107;
+  --yellow-50: hsl(55, 90%, 52%);
   --orange: #ff5528;
   --blue: #3b82f6;
   --purple: #8b5cf6;
@@ -58,7 +60,6 @@
   --gray-400: #9ca3af;
   --gray-500: #6b7280;
   --orange-50: #f16108;
-  --yellow-50: hsl(55, 90%, 52%);
   --blue-50: #0b2b55;
   --purple-50: #4c3167;
   --red: #ef4444;
@@ -91,6 +92,7 @@
   --color-gray-400: #9ca3af;
   --color-gray-500: #6b7280;
   --color-gray-300: #d1d5dc; 
+  --color-muted-gray: #667471;
   --color-blue: #3b82f6;
   --color-blue-50: #0b2b55;
   --color-purple-50: #4c3167;
@@ -113,8 +115,7 @@ body {
 
 /* Custom cursor styles */
 .custom-cursor {
-  /* pointer-events: none; */
-  z-index: 9999;
+  z-index: 100;
   position: fixed;
   transition: opacity 0.1s ease;
 }
@@ -122,6 +123,16 @@ body {
   .swiper-wrapper {
     transition-timing-function: ease-in-out !important;
   }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-hide {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;     
 }
 
 /* Custom styles for charity component */
@@ -165,6 +176,8 @@ body {
   transform: translateY(-5px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
+
+
 
 /* Cloud-like card shape */
 .charity-card::before {

@@ -12,10 +12,12 @@ import BannerForm from "./BannerForm";
 import { getBannerColumns } from "./getBannerColumns";
 import { Banner, BannerSearchField } from "@/src/types/banner";
 import { BannerFormValues } from "@/src/utils/validations/FormValidation";
-import { useDeleteBanner, useFetchAllBanners } from "@/src/hooks/useBanner";
+import { useDeleteBanner, useFetchAllBanners, useFetchSingleBanner } from "@/src/hooks/useBanner";
 import { createBanner, updateBanner } from "@/src/services/bannerApi";
 import { BannerSearchOptions } from "../Data/staticData";
-import CustomPagination from "../../common/CustomPaginatioin";
+import CustomLoader from "../../common/Loader/CustomLoader";
+import BannerPreview from "./BannerPreview";
+import AdminCustomPagination from "../Common/CustomePagination";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");
@@ -25,15 +27,17 @@ const BannerTable = () => {
   const [mode, setMode] = useState<"add" | "edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage] = useState(2)
+  const [itemsPerPage] = useState(10)
 
   const queryClient = useQueryClient();
-  const { data: bannerData } = useFetchAllBanners(currentPage, itemsPerPage);
+  const { data: bannerData, isLoading } = useFetchAllBanners(currentPage, itemsPerPage);
   const { mutate: deleteBanner } = useDeleteBanner();
   const totalPages = bannerData?.totalPages || 1;
 
+  const [bannerId, setbannerId] = useState<string | null>(null);
+  const [previewDrawerOpen, setPreviewDrawerOpen] = useState(false);
+  const { data: singleBannerData, isLoading: isPreviewLoading } = useFetchSingleBanner(bannerId || undefined);
 
-  // Mutations
   const createMutation = useMutation({
     mutationFn: createBanner,
     onSuccess: () => {
@@ -49,12 +53,7 @@ const BannerTable = () => {
     },
   });
 
-  // Handlers
-  const handleEdit = useCallback((b: Banner) => {
-    setEditBannerId(b.id ?? null);
-    setMode("edit");
-    setDrawerOpen(true);
-  }, []);
+
 
   const handleDelete = useCallback(
     (b: Banner) => {
@@ -70,9 +69,24 @@ const BannerTable = () => {
     [deleteBanner]
   );
 
+  const handlePreview = useCallback((banner: Banner) => {
+    if (!banner.id) return;
+    setbannerId(banner.id);
+    setPreviewDrawerOpen(true);
+  }, []);
+
+  // Handlers
+  const handleEdit = useCallback((b: Banner) => {
+    setbannerId(b.id ?? null);
+    setMode("edit");
+    setDrawerOpen(true);
+  }, []);
+
+
+
   // Filter data based on search
   const filteredData = useMemo(() => {
-    return bannerData?.banner?.filter((b: Banner) =>
+    return bannerData?.banners?.filter((b: Banner) =>
       b[searchField]?.toLowerCase().includes(search.toLowerCase())
     );
   }, [bannerData, search, searchField]);
@@ -82,15 +96,10 @@ const BannerTable = () => {
       getBannerColumns({
         onEdit: handleEdit,
         onDelete: handleDelete,
+        onView: handlePreview,
       }),
     [handleEdit, handleDelete]
   );
-
-  const selectedBanner = useMemo(
-    () => bannerData?.banner?.find((b: Banner) => b.id === editBannerId),
-    [bannerData, editBannerId]
-  );
-
 
   return (
     <section>
@@ -138,12 +147,18 @@ const BannerTable = () => {
         </AnimatedReveal>
       </div>
 
-      {/* Table */}
-      <DataTableWrapper columns={columns} data={filteredData} />
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+        <DataTableWrapper columns={columns} data={filteredData} />
+      )}
+
 
       {totalPages > 1 && (
-        <div className="flex justify-center mt-4">
-          <CustomPagination
+        <div className="flex justify-end   mt-4">
+          <AdminCustomPagination
             currentPage={currentPage}
             totalPages={totalPages}
             onPageChange={(page) => setCurrentPage(page)}
@@ -152,26 +167,45 @@ const BannerTable = () => {
       )}
 
       {/* Drawer for Add/Edit */}
-      {drawerOpen && (
+      {(drawerOpen || previewDrawerOpen) && (
         <Drawer
-          isOpen={drawerOpen}
+          isOpen={drawerOpen || previewDrawerOpen}
           onClose={() => {
             setDrawerOpen(false);
             setEditBannerId(null);
             setMode("add");
+            setPreviewDrawerOpen(false);
+            setbannerId(null);
           }}
-          title={mode === "edit" ? "Edit Banner" : "Add Banner"}
-          width="400px"
+          title={
+            previewDrawerOpen
+              ? "Banner Preview"
+              : mode === "edit"
+                ? "Edit Banner"
+                : "Add Banner"
+          }
         >
-          <BannerForm
-            initialData={selectedBanner}
-            onClose={() => setDrawerOpen(false)}
-            mode={mode}
-            createMutation={createMutation}
-            updateMutation={updateMutation}
-          />
+          {previewDrawerOpen ? (
+            isPreviewLoading ? (
+              <CustomLoader />
+            ) : singleBannerData ? (
+              <BannerPreview data={singleBannerData} />
+            ) : (
+              <p>No data to preview</p>
+            )
+          ) : (
+            <BannerForm
+              initialData={singleBannerData}
+              onClose={() => setDrawerOpen(false)}
+              mode={mode}
+              createMutation={createMutation}
+              updateMutation={updateMutation}
+            />
+          )}
         </Drawer>
       )}
+
+
     </section>
   );
 };

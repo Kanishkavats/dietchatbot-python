@@ -64,7 +64,7 @@ const AdminSideBarTab = ({
             animate={{ x: 0 }}
             exit={{ x: -300 }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-0 left-0 h-full w-64 bg-white z-50 shadow-lg rounded-r-3xl flex flex-col"
+            className="fixed top-0 left-0 h-full  bottom-0 w-64 bg-white z-50 shadow-lg rounded-r-3xl flex flex-col"
           >
             {/* Close Button */}
             <div className="flex justify-end p-4">
@@ -91,7 +91,7 @@ const AdminSideBarTab = ({
                     }}
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
-                    className={`flex items-center gap-3 py-4 px-6 cursor-pointer rounded-r-lg ${
+                    className={`flex items-center  gap-3 py-4 px-6 cursor-pointer rounded-r-lg ${
                       isActive ? "bg-primaryColor text-white" : "text-black"
                     }`}
                   >
@@ -112,7 +112,7 @@ const AdminSideBarTab = ({
           <motion.div
             animate={{ width: isOpen ? 270 : 80 }}
             transition={{ duration: 0.3, type: "tween" }}
-            className={`bg-white rounded-r-3xl shadow-md flex flex-col z-50 sticky top-0 bottom-0`}
+            className={`bg-white rounded-r-3xl shadow-md flex flex-col z-50 sticky top-0 bottom-0 `}
           >
             {/* Logo */}
             <div className="flex flex-col items-center pb-6 pt-10">
@@ -130,7 +130,7 @@ const AdminSideBarTab = ({
             </div>
 
             {/* Sidebar Items */}
-            <div className="flex flex-col w-full font-medium flex-grow border-t border-gray-200 relative">
+            <div className="flex flex-col w-full font-medium flex-grow border-t border-gray-200 relative overflow-y-scroll scrollbar-hide">
               {sidebarAd.map((item, i) => {
                 const isActive = activeTab === item.nav;
 

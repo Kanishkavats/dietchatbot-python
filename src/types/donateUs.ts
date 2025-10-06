@@ -2,7 +2,8 @@ export interface Cause {
   id: number;
   title: string;
   date: string;
-  image: string;
+  images: string[];
+  createdAt?:string;
 }
 
 export interface DonationCardProps {
@@ -18,4 +19,5 @@ export interface DonationCardProps {
 export interface TagListProps {
   tags: string[];
   onClick?: (tag: string) => void;
+  bgColor?:string;
 }

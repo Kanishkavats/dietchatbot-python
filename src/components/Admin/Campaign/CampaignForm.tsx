@@ -187,6 +187,8 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                   setFieldValue("images", files);
                   setFieldValue("existingImages", existingUrls);
                 }}
+                uploadType="multiple"
+
                 disabled={isView}
                 mode={mode}
                 initialUrls={
@@ -200,7 +202,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
 
               {/* Buttons */}
               {!isView && (
-                <div className="flex gap-2 mt-2">
+                <div className="flex gap-2 mt-2 w-fit">
                   <Button
                     type="submit"
                     disabled={isSubmitting}

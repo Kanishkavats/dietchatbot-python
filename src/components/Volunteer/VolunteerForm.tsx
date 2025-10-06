@@ -1,9 +1,19 @@
+
+
+
 "use client";
 
 import { Formik, Form } from "formik";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+
+import { volunteerSchema, VolunteerValues } from "@/src/utils/validations/FormValidation";
+import { VolunteerInformationForm } from "@/src/services/webForms";
+
 import InputField from "../common/inputs/InputField";
 import Button from "../common/Buttons/Button";
-import { volunteerSchema, VolunteerValues } from "@/src/utils/validations/FormValidation";
+import ButtonLoader from "../common/Loader/ButtonLoader";
 
 // ✅ Initial values
 const initialValues: VolunteerValues = {
@@ -16,20 +26,38 @@ const initialValues: VolunteerValues = {
 };
 
 const VolunteerForm = () => {
+  const { t } = useTranslation();
+
+  const mutation = useMutation({
+    mutationFn: VolunteerInformationForm,
+    onSuccess: () => {
+      toast.success(t("formSuccess")); // ✅ translated success msg
+    },
+    onError: (error: any) => {
+      toast.error(t("formError")); // ✅ translated error msg
+      console.error("Volunteer form submission error:", error);
+    },
+  });
+
   const handleSubmit = (
     values: VolunteerValues,
     { resetForm }: { resetForm: () => void }
   ) => {
-    console.log("Volunteer Form Submitted:", values);
-    resetForm();
+    mutation.mutate(values, {
+      onSuccess: () => {
+        resetForm();
+      },
+    });
   };
 
   return (
-    <div className="w-full mx-auto bg-white px-3 xl:px-8 py-6 xl:py-10 rounded-lg  border border-gray-200">
+    <div className="w-full mx-auto bg-white px-3 xl:px-8 py-6 xl:py-10 rounded-lg border border-gray-200">
       {/* Heading */}
-      <h2 className="text-sm xl:text-3xl font-nunito font-bold mb-2">Fill Up The Form</h2>
+      <h2 className="text-sm xl:text-3xl font-nunito font-bold mb-2">
+        {t("fillForm")}
+      </h2>
       <p className="mt-4 mb-12 text-gray-500 text-[15px] leading-5 xl:max-w-[70%]">
-        Your Email Address Will Not Be Published. Required Fields Are Marked *
+        {t("formNote")}
       </p>
 
       {/* Form */}
@@ -38,60 +66,41 @@ const VolunteerForm = () => {
         validationSchema={volunteerSchema}
         onSubmit={handleSubmit}
       >
-        {() => (
+        {({ isSubmitting }) => (
           <Form className="space-y-6">
             {/* First + Last Name */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <InputField
-                name="firstName"
-                placeholder="First Name"
-                icon="mdi:account"
-              />
-              <InputField
-                name="lastName"
-                placeholder="Last Name"
-                icon="mdi:account"
-              />
+              <InputField name="firstName" placeholder={t("firstName")} icon="mdi:account" />
+              <InputField name="lastName" placeholder={t("lastName")} icon="mdi:account" />
             </div>
 
             {/* Email */}
-            <InputField
-              name="email"
-              placeholder="Enter Email"
-              icon="mdi:email"
-              type="email"
-            />
+            <InputField name="email" placeholder={t("email")} icon="mdi:email" type="email" />
 
             {/* Phone + Occupation */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <InputField
-                name="phone"
-                placeholder="Phone Number"
-                icon="mdi:phone"
-              />
-              <InputField
-                name="occupation"
-                placeholder="Occupation"
-                icon="mdi:person-tie"
-              />
+              <InputField name="phone" placeholder={t("phone")} icon="mdi:phone" />
+              <InputField name="occupation" placeholder={t("occupation")} icon="mdi:person-tie" />
             </div>
 
             {/* Message */}
             <InputField
               name="message"
-              placeholder="Your message..."
+              placeholder={t("message")}
               icon="mdi:chat"
               as="textarea"
             />
 
             {/* Submit Button */}
             <div className="w-fit">
-
-            <Button
-              text="Submit Now"
-              hoverBg="before:bg-foreground"
-              />
-              </div>
+              <Button
+                type="submit"
+                disabled={mutation.isPending}
+                hoverBg="before:bg-foreground"
+              >
+                {isSubmitting || mutation.isPending ? <ButtonLoader /> : t("submit")}
+              </Button>
+            </div>
           </Form>
         )}
       </Formik>

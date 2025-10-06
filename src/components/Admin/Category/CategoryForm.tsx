@@ -102,7 +102,7 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
             />
 
             {!isView && (
-              <div className="flex gap-2 mt-2">
+              <div className="flex gap-2 mt-2 w-fit">
                 <Button
                   type="submit"
                   disabled={isSubmitting || createMutation.isPending || updateMutation.isPending}

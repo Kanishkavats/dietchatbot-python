@@ -68,6 +68,7 @@
   "Message must be of 20 Words":"संदेश 20 शब्दों का होना चाहिए",
   "email is a required field":"ईमेल आवश्यक  है",
   "phone is a required field":"फ़ोन आवश्यक है",
+  "Phone number must be 10 digits":"फ़ोन नंबर 10 अंकों का होना चाहिए।",
   "address is a required field":"पता आवश्यक है",
   "Support":"सहायता",
   "Difference Way":"बदलाव",
@@ -124,7 +125,37 @@
   "role_3": "क्लॉथ स्टोर इंक.",
   "Our Latest ":"हमारा नवीनतम ",
   "You Like":"जो आपको पसंद आएगा",
-  "& Articles ":"एवं लेख "
+  "& Articles ":"एवं लेख ",
+  
+  "fillForm": "फॉर्म भरें",
+  "formNote": "आपका ईमेल पता प्रकाशित नहीं किया जाएगा। आवश्यक फ़ील्ड * चिह्नित हैं",
+  "firstName": "पहला नाम",
+  "lastName": "अंतिम नाम",
+  
+  
+  "occupation": "पेशा",
+  
+  "submit": "अभी जमा करें",
+  
+  
+  "First Name is required": "पहला नाम आवश्यक है",
+  "Last Name is required": "अंतिम नाम आवश्यक है",
+  "Phone Number is required": "फ़ोन नंबर आवश्यक है",
+  "Occupation is required": "पेशा आवश्यक है",
+  "Valuable Customers":"मूल्यवान ग्राहक",
+  "Our":"हमारे",
+  "feedback": "प्रतिक्रिया",
+ "review": "समीक्षा",
+ "image": "चित्र",
+  "designation": "पदनाम",
+ "role": "भूमिका",
+ "avatar": "अवतार"
+
+
+
+
+
+
 
 }
 

@@ -39,11 +39,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
   {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
-      console.log("✅ Comment submitted for blogId:", blogId);
-      console.log("📝 Comment details:", { name, email, comment });
-
       toast.success("Comment submitted successfully");
-
       setName("");
       setEmail("");
       setComment("");

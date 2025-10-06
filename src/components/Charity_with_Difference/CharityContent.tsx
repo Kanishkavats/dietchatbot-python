@@ -82,7 +82,7 @@ export default function CharityContent({ charityId, blogId }: CharityContentProp
   return (
     <div>
       {/* Banner Image */}
-      <div className="relative rounded-lg overflow-hidden h-64 sm:h-80 md:h-96 w-full">
+      <div className="relative rounded-lg overflow-hidden h-48 sm:h-64 md:h-80 lg:h-96 w-full">
         <Image 
           src={charityData.image} 
           alt={charityData.title} 
@@ -92,49 +92,73 @@ export default function CharityContent({ charityId, blogId }: CharityContentProp
       </div>
 
       {/* Content */}
-      <div className="p-4 sm:p-6">
-        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-foreground mb-4 sm:mb-6">
-          <span className="flex items-center gap-1 text-sm sm:text-base">
-            <IoCalendarSharp className="text-yellow" /> {charityData.createdDate}
+      <div className="p-3 sm:p-4 md:p-6">
+        <div className="flex flex-col sm:flex-row sm:items-center space-y-2 sm:space-y-0 sm:space-x-4 text-foreground mb-3 sm:mb-4 md:mb-6">
+          <span className="flex items-center gap-2 text-xs sm:text-sm md:text-base">
+            <IoCalendarSharp className="text-yellow text-sm sm:text-base" /> {charityData.createdDate}
           </span>
-          <span className="flex items-center gap-1 text-sm sm:text-base">
-            <IoLocationSharp className="text-yellow" /> {charityData.location}
+          <span className="flex items-center gap-2 text-xs sm:text-sm md:text-base">
+            <IoLocationSharp className="text-yellow text-sm sm:text-base" /> {charityData.location}
           </span>
         </div>
         
-        <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-4 sm:mb-6 leading-tight font-nunito">
+        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-foreground mb-3 sm:mb-4 md:mb-6 leading-tight font-nunito">
           {charityData.title}
         </h1>
         
-        <p className="text-gray-600 mb-6 sm:mb-8 font-nunito text-sm sm:text-base">
+        <p className="text-gray-600 mb-4 sm:mb-6 md:mb-8 font-nunito  font-normal text-xl sm:text-normal leading-relaxed">
           {charityData.description}
         </p>
         
-        <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-foreground mb-3 sm:mb-4 font-nunito">
+        <h2 className="text-lg sm:text-xl md:text-2xl lg:text-3xl font-extrabold text-foreground mb-2 sm:mb-3 md:mb-4 font-nunito">
           Summary
         </h2>
         
-        <p className="text-gray-600 mb-6 sm:mb-8 font-nunito text-sm sm:text-base">
+        <p className="text-gray-600 mb-4 sm:mb-6 md:mb-8 font-nunito text-xl sm:text-normal leading-relaxed">
           {charityData.summary}
         </p>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 text-foreground font-bold mb-6 sm:mb-8">
+        
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-3 md:gap-4 text-foreground font-nunito  font-bold mb-4 sm:mb-6 md:mb-8">
           {charityData.keyPoints.map((item: string, index: number) => (
-            <div key={index} className="flex items-start gap-2 font-nunito text-sm sm:text-base">
-              <FaRegCheckCircle className="text-green text-lg sm:text-xl flex-shrink-0 mt-0.5" /> 
-              <span>{item}</span>
+            <div key={index} className="flex items-start gap-2 font-nunito text-xl sm:text-sm md:text-base">
+              <FaRegCheckCircle className="text-green text-sm sm:text-lg md:text-xl flex-shrink-0 mt-0.5" /> 
+              <span className="leading-relaxed">{item}</span>
             </div>
           ))}
+        </div>
+
+        {/* Two Images Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-4 sm:mb-6 md:mb-8">
+          <div className="relative rounded-lg overflow-hidden h-48 sm:h-64 md:h-80 w-full">
+            <Image 
+              src="/assets/charity_with_difference/pp-one.png" 
+              alt="Charity Impact Image 1" 
+              fill 
+              className="object-cover" 
+            />
+          </div>
+          <div className="relative rounded-lg overflow-hidden h-48 sm:h-64 md:h-80 w-full">
+            <Image 
+              src="/assets/charity_with_difference/pp-two.png" 
+              alt="Charity Impact Image 2" 
+              fill 
+              className="object-cover" 
+            />
+          </div>
         </div>
       </div>
 
       {/* Comments Section */}
-      <div className="mt-8 sm:mt-12">
+      <div className="mt-6 sm:mt-8 md:mt-12">
         <Comments campaignId={blogId} />
       </div>
 
       {/* Leave Comment Section */}
-      <LeaveComment blogId={blogId} />
+      <div className="mt-4 sm:mt-6 md:mt-8">
+        <LeaveComment blogId={blogId} />
+      </div>
     </div>
   );
 }

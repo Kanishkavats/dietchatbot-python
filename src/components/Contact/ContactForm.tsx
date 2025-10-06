@@ -8,6 +8,10 @@ import Button from "../common/Buttons/Button";
 import { FaUser, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
 import { FiMail } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
+import { useMutation } from "@tanstack/react-query";
+import { ContactUsForm } from "@/src/services/webForms";
+import toast from "react-hot-toast";
+import ButtonLoader from "../common/Loader/ButtonLoader";
 
 export interface ContactFormValues {
     name: string;
@@ -24,30 +28,41 @@ const initialValues: ContactFormValues = {
 };
 
 const ContactForm = () => {
-    const{t}=useTranslation();
+
+    const { t } = useTranslation();
     const ContactFormSchema = Yup.object({
-    name: Yup.string().required(t("Name is required")),
-    email: Yup.string().email(t("Invalid email")).required(t("Email is required")),
-    phone: Yup.string().required(t("Phone number is required")),
-    message: Yup.string().required(t("Message is required")),
-});
+        name: Yup.string().required(t("Name is required")),
+        email: Yup.string().email(t("Invalid email")).required(t("Email is required")),
+        phone: Yup.string().required(t("Phone number is required")).length(10, t("Phone number must be 10 digits")),
+        message: Yup.string().required(t("Message is required")),
+    });
+
+    const ContactformMutation = useMutation({
+        mutationFn: ContactUsForm,
+        onSuccess: () => {
+            toast.success("Message sent successfully!");
+        },
+        onError: (error:any)=>{
+            toast.error("Something went wrong. Try again.");
+            console.error("Submission error:", error);
+        }
+    })
     const handleSubmit = (
         values: ContactFormValues,
         { resetForm }: { resetForm: () => void }
     ) => {
-        console.log("Form submitted:", values);
-        resetForm();
+        ContactformMutation.mutate(values, {onSuccess:()=>{resetForm();}})
     };
 
     return (
-        <div className="w-full mx-auto bg-white">
+        <div className="w-full mx-auto bg-white ">
             <Formik
                 initialValues={initialValues}
                 validationSchema={ContactFormSchema}
                 onSubmit={handleSubmit}
             >
-                {() => (
-                    <Form className="space-y-6">
+                {({isSubmitting}) => (
+                    <Form className="space-y-9">
                         {/* Name */}
                         <InputField
                             name="name"
@@ -87,10 +102,17 @@ const ContactForm = () => {
                         />
 
                         {/* Submit Button */}
-                        <Button
-                            text={t("Get A Quote")}
-                            hoverBg="before:bg-foreground"
-                        />
+                        <div className="w-fit">
+
+                            <Button
+                                type="submit"
+                                text={t("Get A Quote")}
+                                hoverBg="before:bg-foreground"
+                                paddingy="py-5"
+                            > 
+                            {isSubmitting ? <ButtonLoader /> : t("Get A Quote")}
+                            </Button>
+                        </div>
                     </Form>
                 )}
             </Formik>

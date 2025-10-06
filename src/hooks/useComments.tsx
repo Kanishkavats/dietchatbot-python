@@ -1,5 +1,5 @@
-// src/hooks/useComment.ts
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+// // src/hooks/useComment.ts
+import { useQuery, useMutation, useQueryClient, useInfiniteQuery, QueryFunctionContext } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
   fetchComments,
@@ -7,15 +7,26 @@ import {
   updateComment,
   deleteComment,
   fetchCommentsById,
-  fetchgetcomments
+  fetchgetcomments,
+  addReply,
+  getRepliesByCommentId
 } from "../services/commentsApi";
-
+import { RepliesResponse } from "../types/comments";
+interface addReplyprops{
+    id:string|null;
+    data:{
+    comment: string;
+    name: string;
+    email: string
+    }
+}
+const Replylimit=3;
 // ======================= Fetch all Comments ======================= //
 
-export const useFetchComments = (page: number, limit: number) => {
+export const useFetchComments = (page: number, limit: number, status: string | null) => {
   return useQuery({
-    queryKey: ["comments", page, limit],
-    queryFn: () => fetchComments(page, limit),
+    queryKey: ["comments", page, limit, status],
+    queryFn: () => fetchComments(page, limit, status),
   });
 };
 
@@ -57,18 +68,13 @@ export const useCreateComment = () => {
     mutationFn: ({ id, data }: { id: string; data: { comment: string; name: string; email: string } }) =>
       createComment(id, data),
     onSuccess: (data, variables) => {
-      console.log(" comment", data)
-
-      // 1. Get existing comments
       const existingComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
-
-      // 2. Create new comment with proper structure
       const newComment = {
         id: data.comment?.id || `local_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
         name: variables.data.name,
         comment: variables.data.comment,
         email: variables.data.email,
-        blogId: variables.id, // Add the blogId
+        blogId: variables.id, 
         isPending: true,
         createdAt: new Date().toISOString(),
         timeAgo: "Just now",
@@ -128,3 +134,35 @@ export const useDeleteComment = () => {
     },
   });
 };
+
+// ======================= Add Reply ======================= //
+export const useAddReply=()=>{
+      const queryClient = useQueryClient();
+
+      return useMutation({
+        mutationFn:({id,data}:addReplyprops)=>addReply(id,data),
+        onSuccess:(data)=>{
+            console.log("Reply Added",data)
+        },
+        onError:()=>{
+            console.log("data not added");
+        }
+      })
+}
+
+// ======================= Get Replies for specify comment ======================= //
+
+export const useGetReplies=(id:string|null)=>{
+  return useInfiniteQuery<RepliesResponse>({
+    queryKey: ["replies", id],
+    queryFn: ({ pageParam = 1 }: QueryFunctionContext) =>
+      getRepliesByCommentId(id, pageParam as number, Replylimit),
+    getNextPageParam: (lastPage) => {
+      if (lastPage.page < lastPage.totalPages) {
+        return lastPage.page + 1; 
+      }
+      return undefined; 
+    },
+    initialPageParam: 1,
+  });
+}

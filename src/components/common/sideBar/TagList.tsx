@@ -3,10 +3,10 @@ import FadeInUp from "@/src/animations/FadeInUp";
 import { TagListProps } from "@/src/types/donateUs";
 import React from "react";
 
-const TagList: React.FC<TagListProps> = ({ tags, onClick }) => {
+const TagList: React.FC<TagListProps> = ({ tags, onClick,bgColor }) => {
   return (
     <FadeInUp
-      className="bg-white p-6">
+      className={`${bgColor} shadow-md rounded-lg p-6`}>
       <h3 className="text-xl font-semibold mb-3">Tags</h3>
       <div className="flex flex-wrap gap-5">
         {tags.map((tag) => (

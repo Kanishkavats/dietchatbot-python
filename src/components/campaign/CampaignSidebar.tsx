@@ -39,6 +39,7 @@ const CampaignSidebar = ({ allCampaigns = [] }: { allCampaigns?: any[] }) => {
                 title="Education Health For Every Child"
                 buttonText="Get A Quote"
                 onButtonClick={() => console.log("Button Clicked!")}
+                onCardClick={()=>{''}}
         />
     </div>
   );

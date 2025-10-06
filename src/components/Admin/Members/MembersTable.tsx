@@ -17,8 +17,8 @@ import { submitMemberForm, useDeleteSingleMember, useFetchAllMembers, useFetchSi
 import { createMember, updateMember } from "@/src/services/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
-import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
+import AdminCustomPagination from "../Common/CustomePagination";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");
@@ -32,7 +32,7 @@ const MemberTable = () => {
   const [itemsPerPage] = useState(5);
   const [singleMemberFallback, setSingleMemberFallback] = useState<MemberFormValues | null>(null);
 
-  const { data: memberData } = useFetchAllMembers(currentPage, itemsPerPage);
+  const { data: memberData, isLoading } = useFetchAllMembers(currentPage, itemsPerPage);
   const { data: singleMemberData, isLoading: isLoadingMember } = useFetchSingleMember(editMember || undefined);
   const { mutate: deleteMember } = useDeleteSingleMember();
 
@@ -148,16 +148,22 @@ const MemberTable = () => {
         </AnimatedReveal>
       </div>
 
-      {/* Table */}
-      <DataTableWrapper
-        columns={columns}
-        data={filteredData}
-      />
+      {isLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+        <DataTableWrapper
+          columns={columns}
+          data={filteredData}
+        />
+      )}
+
 
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}

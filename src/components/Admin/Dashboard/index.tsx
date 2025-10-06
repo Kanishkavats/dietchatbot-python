@@ -15,6 +15,8 @@ import {
   Pie,
 } from "recharts";
 import { FaMoneyBillWave, FaUsers, FaClipboardList, FaRegBell } from "react-icons/fa";
+import DonationPieChart from "./DonationPieChart";
+import RecentCampaign from "./RecentCampaign";
 
 const Dashboard = () => {
   const barData = [
@@ -35,13 +37,7 @@ const Dashboard = () => {
     { name: "Charity F", value: 7000 },
   ];
 
-  const tableData = [
-    { id: 1, name: "Charity A", raised: 12000, status: "Active" },
-    { id: 2, name: "Charity B", raised: 8000, status: "Pending" },
-    { id: 3, name: "Charity C", raised: 15000, status: "Active" },
-    { id: 4, name: "Charity D", raised: 5000, status: "Inactive" },
-    { id: 5, name: "Charity E", raised: 10000, status: "Active" },
-  ];
+  
 
   const cardVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
@@ -52,14 +48,7 @@ const Dashboard = () => {
     }),
   };
 
-  const rowVariants: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      y: 0,
-      transition: { delay: i * 0.1, type: "spring", stiffness: 80 },
-    }),
-  };
+
 
   const chartVariants: Variants = {
     hidden: { opacity: 0 },
@@ -74,7 +63,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-5 w-full">
+    <div className="md:p-5 md:pr-0 w-full">
       <Breadcrumb lable="Dashboard" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
@@ -101,51 +90,28 @@ const Dashboard = () => {
         variants={chartVariants}
         initial="hidden"
         animate="visible"
-        className="bg-white shadow-xl rounded-xl p-6 mt-8 w-full flex flex-col lg:flex-row gap-6"
+        className="bg-white lg:p-6  rounded-xl mt-8 w-full grid grid-cols-1 lg:grid-cols-5 gap-y-6 lg:gap-6"
       >
-        <div className="w-full lg:w-1/3 flex flex-col items-center justify-center">
-          <h2 className="text-gray-700 font-semibold mb-4">Campaign Distribution</h2>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={pieData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                innerRadius={70}
-                outerRadius={100}
-                paddingAngle={3}
-                startAngle={90}
-                endAngle={450}
-                label={({ name, percent }) => `${name} ${(Number(percent) * 100).toFixed(0)}%`}
-              >
-                {pieData.map((entry, index) => (
-                  <Cell
-                    key={index}
-                    fill={index % 2 === 0 ? "#FACC15" : "#22C55E"} // yellow & green
-                  />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
+        <div className=" col-span-2 ">
+          <h2 className="text-gray-500 font-semibold mb-4 ">Campaign Distribution</h2>
+          <DonationPieChart data={pieData} />
         </div>
 
-        <div className="w-full lg:w-2/3">
-          <h2 className="text-gray-700 font-semibold mb-4">Funds Raised (Monthly)</h2>
+        <div className="col-span-3 ">
+          <h2 className="text-gray-500 font-semibold mb-4">Funds Raised (Monthly)</h2>
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={barData} margin={{ top: 20, right: 30, left: 0, bottom: 0 }} barCategoryGap="50%">
-              <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
+              <CartesianGrid strokeDasharray="3 3" stroke="var(--gray-200)" />
               <XAxis dataKey="name" tickLine={false} />
               <YAxis tickLine={false} />
-              <Tooltip cursor={{ fill: "rgba(79, 70, 229, 0.05)" }} formatter={(value: number) => `₹${value.toLocaleString()}`} />
+              <Tooltip cursor={{ fill: "var(--gray-100)" }} formatter={(value: number) => `₹${value.toLocaleString()}`} />
               <Bar dataKey="funds" radius={[8, 8, 0, 0]} barSize={20}>
                 {barData.map((entry, index) => (
                   <Cell
                     key={index}
-                    fill="#FACC15" // primary yellow
-                    onMouseEnter={(e) => (e.currentTarget.style.fill = "#FFD700")}
-                    onMouseLeave={(e) => (e.currentTarget.style.fill = "#FACC15")}
+                    fill="var(--primaryColor)" 
+                    onMouseEnter={(e) => (e.currentTarget.style.fill = "var(--yellow-50)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.fill = "var(--primaryColor)")}
                   />
                 ))}
               </Bar>
@@ -153,39 +119,8 @@ const Dashboard = () => {
           </ResponsiveContainer>
         </div>
       </motion.div>
-
-      <div className="bg-white shadow-xl rounded-xl p-6 mt-8 w-full overflow-x-auto">
-        <h2 className="text-gray-700 font-semibold mb-4">Recent Campaigns</h2>
-        <table className="w-full table-auto border-collapse">
-          <thead>
-            <tr className="bg-primaryColor/20">
-              <th className="p-3 border text-left">ID</th>
-              <th className="p-3 border text-left">Name</th>
-              <th className="p-3 border text-left">Funds Raised</th>
-              <th className="p-3 border text-left">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((item, index) => (
-              <motion.tr
-                key={item.id}
-                custom={index}
-                variants={rowVariants}
-                initial="hidden"
-                animate="visible"
-                whileHover={{ scale: 1.02, backgroundColor: "rgba(250,204,21,0.08)" }}
-                transition={{ type: "spring", stiffness: 80 }}
-                className="cursor-pointer"
-              >
-                <td className="p-3 border">{item.id}</td>
-                <td className="p-3 border">{item.name}</td>
-                <td className="p-3 border">₹{item.raised.toLocaleString()}</td>
-                <td className="p-3 border">{item.status}</td>
-              </motion.tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <RecentCampaign />
+    
     </div>
   );
 };

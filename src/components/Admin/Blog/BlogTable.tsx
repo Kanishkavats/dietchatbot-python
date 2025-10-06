@@ -19,6 +19,7 @@ import { createBlog, updateBlog } from "@/src/services/blogApi";
 import { Blog } from "@/src/types/blog";
 import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
+import AdminCustomPagination from "../Common/CustomePagination";
 
 const BlogTable = () => {
 
@@ -33,7 +34,7 @@ const BlogTable = () => {
   const [itemsPerPage] = useState(10);
 
   const { data: blogData, isLoading: isAllBlogLoading } = useFetchAllBlogs(currentPage, itemsPerPage);
-  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(blogId|| undefined);
+  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(blogId || undefined);
   const { mutate: deleteBlog } = useDeleteSingleBlog();
   const totalPages = blogData?.totalPages || 1;
 
@@ -42,6 +43,7 @@ const BlogTable = () => {
     setMode("edit");
     setDrawerOpen(true);
   }, []);
+
   const handleView = useCallback((blog: Blog) => {
     setBlogId(blog.id.toString());
     setMode("view");
@@ -108,7 +110,6 @@ const BlogTable = () => {
     <section>
       {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
-        {/* Left section: Dropdown + Input */}
         <AnimatedReveal direction="left" delay={0.1}>
           <div className="w-fit flex flex-row gap-2">
             <Dropdown
@@ -131,7 +132,6 @@ const BlogTable = () => {
           </div>
         </AnimatedReveal>
 
-        {/* Right section: Button */}
         <AnimatedReveal direction="left" delay={0.3}>
           <div className="w-fit">
             <Button
@@ -153,19 +153,21 @@ const BlogTable = () => {
       </div>
 
 
-      {/* Table */}
-      {isAllBlogLoading ? <CustomLoader  /> : ( 
-
-      <DataTableWrapper
-        columns={columns}
-        data={filteredData}
-      />
+      {isAllBlogLoading ? 
+      <div className="flex justify-center py-8">
+        <CustomLoader />
+      </div> : (
+        <DataTableWrapper
+          columns={columns}
+          data={filteredData}
+        />
       )}
+
 
       {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
-          <CustomPagination
+          <AdminCustomPagination
             totalPages={totalPages}
             currentPage={currentPage}
             onPageChange={setCurrentPage}
@@ -192,7 +194,7 @@ const BlogTable = () => {
           mode={mode}
 
         >
-          {previewData ? (
+          {mode === "view" && previewData ? (
             <BlogPreview
               data={previewData}
               onBack={() => setPreviewData(null)}
@@ -210,9 +212,10 @@ const BlogTable = () => {
                   () => setDrawerOpen(false)
                 );
               }}
+              mode={mode}
             />
           ) : isLoadingBlog ? (
-           <CustomLoader />
+            <CustomLoader />
           ) : (
             <BlogForm
               initialData={singleBlogData ?? undefined}

@@ -2,114 +2,132 @@
 "use client";
 
 import { useState } from "react";
-import { useCreateComment } from "@/src/hooks/useComments";
-import { useQueryClient } from "@tanstack/react-query";
 import Button from "../common/Buttons/Button";
-import { FaUser, FaRegEnvelope, FaRegComments } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { Form, Formik } from "formik";
+import { CommentReplyFormValues, CommentReplySchema } from "@/src/utils/validations/FormValidation";
+import InputField from "../common/inputs/InputField";
+import { FaX } from "react-icons/fa6";
+import ButtonLoader from "../common/Loader/ButtonLoader";
+import { useAddReply } from "@/src/hooks/useComments";
+import CancelButton from "../common/Buttons/CancelButton";
 
+const initialValues: CommentReplyFormValues = {
+  email: "",
+  name: "",
+  comment: "",
+};
 interface ReplyCommentProps {
-  id: string;
+  id: string|null;
+  handleReplyModel:(value:boolean)=>void
 }
 
-export default function ReplyComment({ id }: ReplyCommentProps) {
-  const queryClient = useQueryClient();
+export default function ReplyComment({ id,handleReplyModel}: ReplyCommentProps) {
+  const mutation = useAddReply();
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [comment, setComment] = useState("");
+  const handleSubmit = (values: CommentReplyFormValues, { resetForm }: { resetForm: () => void }) =>  {
 
-  const mutation = useCreateComment();
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!name || !email || !comment) {
-      alert("Please fill out all fields");
-      return;
-    }
-
-    if (!id) {
-      alert("Blog ID is missing");
-      return;
-    }
-
-   mutation.mutate(
-  { id: id, data: { name, comment, email } },
+    const tempReply = {
+  ...values,
+  id: Date.now(),          
+  commentId: id,
+  isPending: true,         
+};
+const localReplies = JSON.parse(localStorage.getItem('LocalReplies') || '[]');
+localStorage.setItem('LocalReplies',JSON.stringify([...localReplies,tempReply]));
+window.dispatchEvent(new Event("commentAdded"));
+   mutation.mutate({id:id,data:values},
   {
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments", id] });
-      console.log("✅ Comment submitted for blogId:", id);
-      console.log("📝 Comment details:", { name, email, comment });
-
       toast.success("Comment submitted successfully");
-
-      setName("");
-      setEmail("");
-      setComment("");
+      resetForm();
+      handleReplyModel(false);
     },
+    onError:()=>{
+      toast.error("Reply can not be added , please try again later!")
+    }
   }
 );
   };
 
   return (
-    <div className="w-full mt-10 p-4 sm:p-6 max-h-[65vh] max-w-[80vh] bg-white rounded-lg shadow-lg border border-gray-100 lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
-      <h2 className="text-xl sm:text-2xl lg:text-3xl font-nunito font-extrabold text-black mb-6">
+    <div className="w-full mt-10 p-4 sm:p-6 h-[75vh] xs:w-[70vh] md:max-h-[68vh] lg:max-w-[75vh] lg:max-h-[56vh] xl:max-h-[55vh] 2xl:max-h-[30vh] 2xl:max-w-[70vh]  md:max-w-[80vh] bg-white rounded-lg shadow-lg border border-gray-100 py-5">
+      <div className="flex items-center justify-between mb-10">
+        <h2 className="text-xl sm:text-2xl lg:text-[27px] font-nunito font-extrabold text-foreground ">
         Reply
       </h2>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <FaX onClick={()=>handleReplyModel(false)} className="cursor-pointer text-foreground mb-1" size={20}/>
+      </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={CommentReplySchema}
+          onSubmit={handleSubmit}
+        >
+          {() => (
+      <Form className="space-y-4">
         <div className="grid grid-cols-1 md:flex gap-4 lg:flex lg:gap-5">
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
-            <FaUser className="text-[#6B7280]" size={18} />
-            <input
+          <div className="flex-1">
+            <InputField
               type="text"
+              name='name'
+              icon={"mdi:user"}
               placeholder="Your Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full bg-transparent focus:outline-none ml-2"
+              className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full "
             />
           </div>
 
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
-            <FaRegEnvelope className="text-xl mt-1 text-[#6B7280]" />
-            <input
+          <div className="flex-1">
+            <InputField
               type="email"
+              icon={'mdi:envelope'}
+              name="email"
               placeholder="Enter Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-transparent focus:outline-none ml-2"
+              className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full"
             />
           </div>
         </div>
 
-        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full ">
-          <FaRegComments className="text-[#6B7280]" size={18} />
-          <textarea
+        <div className="flex-1  ">
+          <InputField
+            as='textarea'
+            icon={'fa7-regular:comments'}
+            name="comment"
             placeholder="Type Your Reply..."
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className="w-full bg-transparent focus:outline-none resize-none ml-2"
-            rows={4}
+            className="w-full items-start flex bg-gray-light rounded-md px-4 py-2 focus:outline-none resize-none "
           />
         </div>
 
-        <div className="flex justify-start mt-8">
+        <div className="flex justify-start space-x-3 mt-8">
           <div className="w-fit">
           <Button
-            text={mutation.isPending ? "Submitting..." : "Add Reply"}
-            bgColor="bg-[#122F2A]"
-            textColor="text-white"
+            text={ "Add Reply"}
+            bgColor="bg-green"
+            textColor="text-white text-sm lg:text-lg"
             rounded="rounded-full"
             hoverTextColor="group-hover:text-black"
             hoverBg="before:bg-yellow"
-            paddingx="px-6"
-            paddingy="py-5"
-            onClick={handleSubmit}
-          />
+            paddingx="px-4 md:px-5 "
+            paddingy="py-3 md:py-4 "
+            type="submit"
+          >
+            { mutation.isPending? (
+               <ButtonLoader />) : (
+                  "Add Reply"
+            )}
+          </Button>
+          </div>
+          <div className="w-fit">
+            <CancelButton rounded="rounded-full"
+             paddingX="px-4 md:px-6" 
+             paddingY="py-3" 
+             text="Cancel"
+             textSize="text-sm lg:text-lg"
+             onClose={()=>handleReplyModel(false)} />
           </div>
         </div>
-      </form>
+      </Form>
+        )}
+    </Formik>
     </div>
   );
 }
