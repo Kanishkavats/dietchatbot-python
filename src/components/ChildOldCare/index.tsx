@@ -37,35 +37,19 @@ const ScrollBanner: React.FC = () => {
             height: 100% !important;
           }
           
-          /* Mobile and tablet responsive styles */
+          /* Tablet responsive styles - hide arrows when 2 slides are shown */
           @media (max-width: 1024px) {
             .child-old-care-slider .slick-prev,
             .child-old-care-slider .slick-next {
-              opacity: 1 !important;
-            }
-            
-            .child-old-care-slider .slick-prev {
-              left: 10px !important;
-              width: 40px !important;
-              height: 40px !important;
-              top: 50% !important;
-              transform: translateY(-50%) !important;
-            }
-            
-            .child-old-care-slider .slick-next {
-              right: 10px !important;
-              width: 40px !important;
-              height: 40px !important;
-              top: 50% !important;
-              transform: translateY(-50%) !important;
+              display: none !important;
             }
           }
           
-          /* Mobile specific styles */
+          /* Mobile specific styles - hide arrows */
           @media (max-width: 768px) {
             .child-old-care-slider .slick-prev,
             .child-old-care-slider .slick-next {
-              opacity: 0.7 !important;
+              display: none !important;
             }
           }
         `
@@ -106,10 +90,10 @@ const ScrollBanner: React.FC = () => {
           
           {/* Text overlay on bottom curve */}
           <div className="absolute bottom-2 md:bottom-4 lg:bottom-0 left-1/2 transform -translate-x-1/2 text-center px-4">
-            <h2 className="text-lg md:text-xl lg:text-2xl font-nunito font-extrabold  text-dark-green mb-1 leading-tight">
+            <h2 className="text-sm md:text-xl lg:text-2xl font-nunito font-extrabold text-dark-green mb-1 leading-tight whitespace-nowrap">
               Old People & Child Trouble
             </h2>
-            <p className='text-sm md:text-lg lg:text-xl font-small font-nunito text-gray-400'>
+            <p className='text-xs md:text-lg lg:text-xl font-small font-nunito text-gray-400 whitespace-nowrap'>
               Child & Old Care
             </p>
           </div>

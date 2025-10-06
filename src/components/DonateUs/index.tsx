@@ -67,7 +67,7 @@ const DonateUs = ({id}:donateUsProps) => {
               </div>
             </div>
             <div className="xl:col-span-1 space-y-8 clear-both ">
-              <Sidebar diss={'donate-us'} />
+              <Sidebar pathName={'donate-us'} />
                <DonationCard
                 icon={heartLogoIcon.src}
                 backgroundImage={overView.src}

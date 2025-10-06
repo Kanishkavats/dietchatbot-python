@@ -14,6 +14,7 @@ import FeedbackForm from '../FeedbackForm';
 import DonateDifferentWay from '../DonateDifferentWay';
 import LatestNewsArticle from '../LatestNewsArticle';
 import ChildOldCare from '../ChildOldCare';
+import ScrollToTop from '../common/ScrollToTop';
 
 const Home = () => {
   return (
@@ -31,6 +32,7 @@ const Home = () => {
       <ChildOldCare />
       <DonateDifferentWay />
       <LatestNewsArticle />
+      <ScrollToTop />
     </div>
   )
 }
