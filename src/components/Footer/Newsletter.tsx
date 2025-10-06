@@ -48,7 +48,7 @@ const Newsletter = () => {
 
   return (
     <section className="text-white font-nunito py-16 xl:py-20">
-        <div className="container w-full pb-20 xl:ml-20 flex flex-col lg:flex-row lg:items-center justify-between gap-8 px-4 md:px-8 border-b-[1px] border-white/10">
+        <div className="container w-full pb-20 flex flex-col lg:flex-row lg:items-center justify-start gap-8 px-4 md:px-8 border-b-[1px] border-white/10">
         <SlideinFromLeft>
           <h2 className="text-2xl md:text-3xl xl:text-5xl flex  font-nunito font-extrabold">
             {t("Subscribe To Our Newsletter")}
@@ -63,7 +63,7 @@ const Newsletter = () => {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <Form className="flex items-center gap-3 md:gap-4 lg:gap-5 w-full lg:w-2/5 ">
+            <Form className="flex items-center gap-3 md:gap-4 lg:gap-5 w-full lg:w-2/5 lg:ml-auto">
               <InputField
                 name="email"
                 placeholder={t("Enter Email")}

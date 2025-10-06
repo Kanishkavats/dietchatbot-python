@@ -45,7 +45,7 @@ const Footer = () => {
 
 
   return (
-    <footer ref={ref} className="bg-dark-green text-white py-5 px-[3%] xl:px-6 relative">
+    <footer ref={ref} className="bg-dark-green text-white py-5 px-2 md:px-8 relative">
       <Newsletter />
       <motion.div
         animate={{
@@ -69,14 +69,14 @@ const Footer = () => {
 
       {/* Main Grid */}
       <motion.div
-        className="xl:p-20 mx-auto lg:ml-10 py-7 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10"
+        className="mx-auto py-7 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10"
         variants={container}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
       >
         {/* Brand */}
         <motion.div variants={item} className="lg:mb-20 xl:mb-10">
-          <div className="h-10 w-50 xl:h-12 xl:w-55 relative">
+          <div className="h-10 w-48 xl:h-12 xl:w-52 relative">
             <Image src={logoLight} fill alt={footerData.brand.name} />
           </div>
           <p className="mt-8 text-white/50 text-sm xl:text-lg font-nunito tracking-tight leading-7 xl:leading-9">
@@ -87,7 +87,7 @@ const Footer = () => {
               <a
                 key={i}
                 href={s.href}
-                className="w-10 xl:w-13 h-10 xl:h-13 flex items-center justify-center border border-white/10 transition duration-200 rounded-full hover:bg-yellow hover:text-green"
+                className="w-10 xl:w-12 h-10 xl:h-12 flex items-center justify-center border border-white/10 transition duration-200 rounded-full hover:bg-yellow hover:text-green"
               >
                 <Icon icon={s.icon} className="h-4 w-4 xl:h-5 xl:w-5" />
               </a>
@@ -95,7 +95,7 @@ const Footer = () => {
           </div>
         </motion.div>
         {/* Quick links */}
-        <motion.div variants={item} className="xl:ml-20 ">
+        <motion.div variants={item}>
           <h3 className="text-xl font-nunito xl:text-3xl font-bold mb-4">{t("Quick Links")}</h3>
           <div className="w-[35%] mb-6">
             <Divider />
@@ -185,7 +185,7 @@ const Footer = () => {
               repeat: Infinity,
               ease: "easeInOut",
             }}
-            className="absolute top-[29%] xl:top-[30%] right-40 xl:right-18 transform -translate-y-1/2  size-14 text-white"
+            className="absolute top-[29%] xl:top-[30%] right-40 xl:right-16 transform -translate-y-1/2  size-14 text-white"
           >
             <img src={spreadLight.src} alt="decoration" className="w-12 xl:w-18 h-12 xl:h-18" />
           </motion.div>
@@ -199,7 +199,7 @@ const Footer = () => {
         initial="hidden"
         animate={inView ? "show" : "hidden"}
       >
-        <div className=" xl:ml-25 font-nunito
+        <div className="font-nunito
          flex flex-col lg:flex-row items-center justify-between lg:justify-center xl:justify-between gap-4 lg:gap-20 xl:gap-base ">
           <p className="text-center text-sm xl:text-lg xl:text-left">
             Copyright ©{" "}
