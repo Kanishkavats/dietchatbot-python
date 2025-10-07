@@ -32,11 +32,11 @@ export default function HelpingEachOther() {
   return (
     <>
       {isVideoOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/30">
+        <div className="fixed inset-0 z-50 flex items-center justify-center cursor-pointer bg-foreground/30">
           <div className="relative w-full max-w-4xl mx-4">
             <button
               onClick={handleVideoClose}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+              className="absolute -top-12 right-0 cursor-pointer  text-white hover:text-gray-300 transition-colors z-10"
               aria-label="Close video"
             >
               <svg
@@ -53,7 +53,7 @@ export default function HelpingEachOther() {
                 />
               </svg>
             </button>
-            <div className="relative w-full aspect-video bg-foreground rounded-lg overflow-hidden">
+            <div className="relative w-full aspect-video cursor-pointer bg-foreground rounded-lg overflow-hidden">
               <iframe
                 src="https://www.youtube.com/embed/XxVg_s8xAms?autoplay=1&rel=0&modestbranding=1"
                 width="100%"
@@ -172,7 +172,7 @@ export default function HelpingEachOther() {
                     />
                     <button
                       aria-label="Play video"
-                      className="absolute inset-0 flex items-center justify-center group"
+                      className="absolute inset-0 flex items-center justify-center group cursor-pointer"
                       onClick={handleVideoOpen}
                     >
                       <span className="relative flex items-center justify-center">

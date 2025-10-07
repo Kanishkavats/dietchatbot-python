@@ -50,7 +50,7 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
             <p className="text-sm text-gray-500 mb-6">{member.position}</p>
 
             {/* Social links only if provided */}
-            <div className="flex justify-center md:justify-start gap-3 mb-6">
+            <div className="flex justify-center cursor-pointer md:justify-start gap-3 mb-6">
               {member.facebookUrl && (
                 <motion.a
                   href={member.facebookUrl}

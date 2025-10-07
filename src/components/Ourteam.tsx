@@ -45,7 +45,7 @@ const SocialBar = () => {
       {socials.map((social, idx) => (
         <div key={idx} className="relative group">
           <button
-            className={`w-12 h-12 flex items-center justify-center rounded-full shadow-md text-[#000000] transition-colors duration-300 ${social.color} hover:bg-[#FFC107]`}
+            className={`w-12 h-12  cursor-pointer flex items-center justify-center rounded-full shadow-md text-[#000000] transition-colors duration-300 ${social.color} hover:bg-[#FFC107]`}
           >
             {social.icon}
           </button>
