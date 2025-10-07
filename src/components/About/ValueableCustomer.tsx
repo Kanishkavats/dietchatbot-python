@@ -141,12 +141,12 @@ const ValueableCustomer = () => {
           {/* Navigation buttons */}
           <div className="flex justify-center gap-4 mt-8">
             <button
-              className="prev-btn w-14 h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="prev-btn cursor-pointer w-14 h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
               <ArrowLeft size={28} />
             </button>
             <button
-              className="next-btn w-14 h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="next-btn cursor-pointer w-14 h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
               <ArrowRight size={28} />
             </button>
