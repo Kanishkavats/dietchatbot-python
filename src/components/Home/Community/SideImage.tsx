@@ -1,4 +1,4 @@
-import { homeCommunity, mask } from "@/public/assets";
+import { community1, mask } from "@/public/assets";
 import Image from "next/image";
 
 export default function SideImage() {
@@ -22,7 +22,7 @@ export default function SideImage() {
     `}
                 >
                     <Image
-                        src={homeCommunity.src}
+                        src={community1.src}
                         alt="Donation"
                         fill
                         className="object-cover object-left"

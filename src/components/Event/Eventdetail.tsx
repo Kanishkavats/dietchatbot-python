@@ -11,11 +11,11 @@ import {
   FaLinkedinIn,
   FaTumblr,
 } from "react-icons/fa";
-import { ppOne, ppTwo, bannerBg } from '@/public/assets';
+import { eventdetail, eventdetail1, oureventbanner } from '@/public/assets';
 import Comments from '../Charity_with_Difference/Comments';
 import LeaveComment from '../Charity_with_Difference/LeaveComment';
 import PageBanner from '../common/PageBanner';
-import { Event } from '@/src/staticResource';
+import { Event, defaultEventData, socialMediaButtons, googleMapsEmbedUrl } from '@/src/staticResource';
 // import Sidebar from '../Charity_with_Difference/Sidebar';
 import Sidebar from "../common/sideBar";
 
@@ -82,7 +82,7 @@ export default function BlogPage({ blogId = "event-details", event }: BlogPagePr
         }
       `}</style>
       <PageBanner 
-        bgImage={bannerBg} 
+        bgImage={oureventbanner} 
         title="Event Details" 
         tagline="Start Donating Poor People"
         smallIcon="mdi:calendar-heart"
@@ -91,14 +91,14 @@ export default function BlogPage({ blogId = "event-details", event }: BlogPagePr
         initial={{ y: 100, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="bg-[#ffffff] font-sans text-[#667471];"
+        className="bg-[#ffffff] font-sans text-[#667471] pt-12 md:pt-16 lg:pt-20;"
       >
         <div className="container mx-auto p-4 md:p-8">
         <div className="flex flex-col lg:flex-row gap-8">
-          <main className="lg:w-2/3 p-4 sm:p-6">
+          <main className="lg:w-3/5 lg:ml-8 p-4 sm:p-6">
             <div className="relative w-full h-[220px] sm:h-[300px] lg:h-[450px] mb-6 rounded-lg overflow-hidden">
               <Image
-                src={event?.image || "/assets/poster 2.png"}
+                src={event?.image || defaultEventData.image}
                 alt={event?.title || "Smiling African children running"}
                 fill
                 priority
@@ -107,59 +107,36 @@ export default function BlogPage({ blogId = "event-details", event }: BlogPagePr
             </div>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 sm:gap-4 text-[#000000] mb-6">
               <span className="flex items-center gap-1">
-                <IoCalendarSharp className="text-[#FFC107]" /> {event?.date || "02 Apr 2021"}
+                <IoCalendarSharp className="text-[#FFC107]" /> {event?.date || defaultEventData.date}
               </span>
               <span className="flex items-center gap-1">
-                <IoLocationSharp className="text-[#FFC107]" /> {event?.location || "684 West College St. Sun City, USA"}
+                <IoLocationSharp className="text-[#FFC107]" /> {event?.location || defaultEventData.location}
               </span>
             </div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-[#000000] mb-6 leading-tight font-nunito">
-              {event?.title || 'Give African Childrens A Good Education'}
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#000000] mb-6 leading-tight font-nunito">
+              {event?.title || defaultEventData.title}
             </h1>
-            <p className="text-[#667471]  mb-8 font-nunito">
-              {event?.summary || "Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social"}
+            <p className="text-[#667471] text-xl mb-8 font-nunito">
+              {event?.summary || defaultEventData.summary}
             </p>
-            <h2 className="text-3xl font-bold text-[#000000] mb-4 font-nunito">Summary</h2>
-            <p className="text-[#667471] mb-8 font-nunito">
-              {event?.summary || "Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social"}
+            <h2 className="text-3xl font-extrabold text-[#000000] mb-4 font-nunito">Summary</h2>
+            <p className="text-[#667471] mb-8 text-xl font-nunito">
+              {event?.summary || defaultEventData.summary}
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[#000000] font-bold mb-8">
-              {event?.keyPoints ? (
-                event.keyPoints.map((point, index) => (
-                  <div key={index} className="flex items-center gap-2 font-nunito">
-                    <FaRegCheckCircle className="text-[#046B59] text-xl" /> {point}
-                  </div>
-                ))
-              ) : (
-                <>
-                  <div className="flex items-center gap-2 font-nunito">
-                    <FaRegCheckCircle className="text-[#046B59] text-xl" /> Empower Through Charity
-                  </div>
-                  <div className="flex items-center gap-2 font-nunito">
-                    <FaRegCheckCircle className="text-[#046B59] text-xl" /> Giving Hope, Changing Lives
-                  </div>
-                  <div className="flex items-center gap-2 font-nunito">
-                    <FaRegCheckCircle className="text-[#046B59] text-xl" /> Healing Communities
-                  </div>
-                  <div className="flex items-center gap-2 font-nunito">
-                    <FaRegCheckCircle className="text-[#046B59] text-xl" /> Together We Can
-                  </div>
-                  <div className="flex items-center gap-2 font-nunito">
-                    <FaRegCheckCircle className="text-[#046B59] text-xl" /> Compassion In Action
-                  </div>
-                  <div className="flex items-center gap-2 font-nunito">
-                    <FaRegCheckCircle className="text-[#046B59] text-xl" /> Every Act Counts
-                  </div>
-                </>
-              )}
+              {(event?.keyPoints || defaultEventData.keyPoints).map((point, index) => (
+                <div key={index} className="flex items-center gap-2  font-bold font-nunito">
+                  <FaRegCheckCircle className="text-[#046B59] text-xl" /> {point}
+                </div>
+              ))}
             </div>
 
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
                 <Image
-                  src={ppOne}
+                  src={eventdetail}
                   alt="Young child smiling"
                   fill
                   className="object-cover"
@@ -167,7 +144,7 @@ export default function BlogPage({ blogId = "event-details", event }: BlogPagePr
               </div>
               <div className="relative w-full h-[220px] sm:h-[300px] rounded-lg overflow-hidden">
                 <Image
-                  src={ppTwo}
+                  src={eventdetail1}
                   alt="Group of children laughing"
                   fill
                   className="object-cover"
@@ -177,11 +154,11 @@ export default function BlogPage({ blogId = "event-details", event }: BlogPagePr
             <div className="flex flex-col gap-6 items-center justify-between mb-8">
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 w-full social-grid-796">
                 {[
-                  { icon: FaFacebookF, bg: "#4267B2", label: "Facebook" },
-                  { icon: FaTwitter, bg: "#1DA1F2", label: "Twitter" },
-                  { icon: FaPinterest, bg: "#E60023", label: "Pinterest" },
-                  { icon: FaLinkedinIn, bg: "#0077B5", label: "LinkedIn" },
-                  { icon: FaTumblr, bg: "#36465D", label: "Tumblr" },
+                  { icon: FaFacebookF, bg: socialMediaButtons[0].bg, label: socialMediaButtons[0].label },
+                  { icon: FaTwitter, bg: socialMediaButtons[1].bg, label: socialMediaButtons[1].label },
+                  { icon: FaPinterest, bg: socialMediaButtons[2].bg, label: socialMediaButtons[2].label },
+                  { icon: FaLinkedinIn, bg: socialMediaButtons[3].bg, label: socialMediaButtons[3].label },
+                  { icon: FaTumblr, bg: socialMediaButtons[4].bg, label: socialMediaButtons[4].label },
                 ].map((s, i) => (
                   <a
                     key={i}
@@ -196,7 +173,7 @@ export default function BlogPage({ blogId = "event-details", event }: BlogPagePr
               </div>
               <div className="relative w-full h-[250px] sm:h-[350px] lg:h-[450px] rounded-lg overflow-hidden ">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976378252907!3d40.69766374874312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2588f046ee661%3A0xa0b3281fcecc08c!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1716298418080!5m2!1sen!2sin"
+                  src={googleMapsEmbedUrl}
                   width="100%"
                   height="100%"
                  

@@ -6,7 +6,7 @@ import { motion, useInView } from 'framer-motion';
 import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
-import { gridDot, thumbSmChild } from '@/public/assets';
+import { gridDot, donatediffway } from '@/public/assets';
 import FadeUpCard from '@/src/animations/FadeButtomUp';
 
 const DonateDifferentWay: React.FC = () => {
@@ -60,7 +60,7 @@ const DonateDifferentWay: React.FC = () => {
               }}
             >
               <Image
-                src={thumbSmChild} 
+                src={donatediffway} 
                 alt='Children in need' 
                 fill={true}
                 className='w-full h-full object-cover'
@@ -109,7 +109,7 @@ const DonateDifferentWay: React.FC = () => {
               transition={{ duration: 1, delay: 0.3 }}
             >
               <Image
-                src='/assets/section2/thumb-bottom.png' 
+                src='/assets/section2/helpingeachother2.jpg' 
                 alt='Happy child running' 
                 fill={true}
                 className='w-full h-full object-cover'
