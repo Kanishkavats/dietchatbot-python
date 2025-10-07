@@ -66,10 +66,8 @@ const BlogForm = ({
       hi: initialData?.location?.hi ?? "",
     },
     category: {
-      name: {
-        en: initialData?.category?.name?.en ?? "",
-        hi: initialData?.category?.name?.hi ?? "",
-      },
+        en: initialData?.category?.en ?? "",
+        hi: initialData?.category?.hi ?? "",
     },
     images: initialData?.images ?? [],
     existingImages:
@@ -123,7 +121,7 @@ const BlogForm = ({
         initialValues={initialValues}
         validationSchema={blogSchema}
         onSubmit={(values) => {
-          console.log("Formatted Payload:");
+          console.log("Formatted Payload:", values);
 
           const payload = {
             creator: values.creator,
@@ -140,7 +138,7 @@ const BlogForm = ({
             existingImages: values.existingImages,
           };
 
-          console.log("Formatted Payload:", payload);
+          // console.log("Formatted Payload:", payload);
           onPreview?.(payload);
         }}
       >
@@ -269,10 +267,10 @@ const BlogForm = ({
               <Dropdown
                 label={`${lang === "en" ? "Category" : "श्रेणी"}*`}
                 options={categoryOptions}
-                value={values.category.name[lang]}
+                value={values.category[lang]}
                 onChange={(val) => setFieldValue(`category.name.${lang}`, val)}
                 placeholder={lang === "en" ? "Select category" : "श्रेणी चुनें"}
-                error={touched.category?.name?.[lang] ? errors.category?.name?.[lang] : ""}
+                error={touched.category?.[lang] ? errors.category?.[lang] : ""}
               />
 
 

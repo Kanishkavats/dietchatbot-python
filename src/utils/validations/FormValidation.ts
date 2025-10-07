@@ -158,12 +158,10 @@ export const blogSchema = Yup.object({
     hi: Yup.string().required("Location is required in Hindi"),
   }).required(),
 
-  category: Yup.object({
-    name: Yup.object({
-      en: Yup.string().required("Category is required in English"),
-      hi: Yup.string().required("Category is required in Hindi"),
-    }).required(),
-  }).required(),
+ category: Yup.object({
+    en: Yup.string().required("Category is required in English"),
+    hi: Yup.string().required("Category is required in Hindi"),
+  }).required("Category is required"),
 
   images: Yup.array()
     .of(Yup.mixed().required("Image is required"))

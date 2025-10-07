@@ -168,7 +168,8 @@ const BlogPreview = ({ data, onSubmit, onBack, mode }: BlogPreviewProps) => {
       )}
 
       {/* Action Buttons */}
-      {data?.id === null && (
+      {/* {data?._id === null && (
+      )} */}
         <div className="mt-12 flex gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
@@ -186,7 +187,6 @@ const BlogPreview = ({ data, onSubmit, onBack, mode }: BlogPreviewProps) => {
             hoverBg="before:bg-green"
           />
         </div>
-      )}
     </motion.div>
   );
 };
