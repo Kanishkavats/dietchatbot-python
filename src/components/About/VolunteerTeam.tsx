@@ -71,8 +71,8 @@ const VolunteerTeam = () => {
           {isLoading && <p>Loading members...</p>}
           {isError && <p>Failed to load members.</p>}
           {!isLoading && !isError && (
-           //<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div className="volunteer-grid"> 
+           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                {/* <div className="volunteer-grid">  */}
 
               {members.map((member: any, idx: number) => (
                 <VolunteerCard

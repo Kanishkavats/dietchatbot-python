@@ -15,20 +15,18 @@ export const pageBannerBackgourndColor = {
       color-mix(in srgb, var(--color-foreground) 50%, transparent),
       color-mix(in srgb, var(--color-foreground) 0%, transparent)
     )
-  `
+  `,
 };
 
 const PageBanner: React.FC<PageBannerProps> = ({
   bgImage,
   smallIcon = "mdi:hand-heart-outline",
   tagline = "Start Donating Poor People",
-  title
+  title,
 }) => {
-  const{t}=useTranslation();
+  const { t } = useTranslation();
   return (
-    <section
-
-      className="relative w-full h-[50vh] md:h-[80vh] md:w-full flex items-center justify-center overflow-hidden">
+    <section className="relative w-full h-[50vh] md:h-[80vh] md:w-full flex items-center justify-center overflow-hidden">
       {/* Background image */}
       <Image
         src={bgImage}
@@ -38,31 +36,15 @@ const PageBanner: React.FC<PageBannerProps> = ({
         priority
       />
       <section className="absolute top-0 left-0 h-10 w-full z-3">
-        <Image src={horizontalWhiteShape.src} alt="Horizontal White Shape" fill className="object-cover object-end" />
+        <Image
+          src={horizontalWhiteShape.src}
+          alt="Horizontal White Shape"
+          fill
+          className="object-cover object-end"
+        />
       </section>
 
-      <div
-        className="absolute inset-0 z-2"
-        style={pageBannerBackgourndColor}
-      />
-
-
-      {/* Content */}
-      <div className="relative z-3 text-center px-4 sm:px-6">
-        <div
-          className="font-caveat text-lg sm:text-xl md:text-2xl flex items-center justify-center gap-2 text-yellow mb-3 sm:mb-4"
-        >
-          <Icon icon={smallIcon} width={16} height={16} className="sm:w-5 sm:h-5" />
-          <span className="font-semibold">{t(tagline)}</span>
-        </div>
-
-        {/* Title */}
-        <h1
-          className="text-2xl sm:text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-white font-nunito"
-        >
-          {t(title)}
-        </h1>
-      </div>
+      <div className="absolute inset-0 z-2" style={pageBannerBackgourndColor} />
 
       <PulsingImage
         src={spradeBase}
@@ -70,8 +52,34 @@ const PageBanner: React.FC<PageBannerProps> = ({
         height={140}
         width={120}
         duration={4}
-        className="absolute bottom-8 md:top-1/2 left-[-8] md:left-8 z-12 h-15 w-20 md:h-30 md:w-40"
+        className="
+    absolute
+    -left-[25rem]    /* always anchored to left side */
+     
+  top-1/3      /* vertically center (adjust if needed) */
+    -translate-y-1/2 /* perfect vertical centering */
+    z-12
+    h-15 w-20 
+  "
       />
+
+      {/* Content */}
+      <div className="relative z-3 text-center px-4 sm:px-6">
+        <div className="font-caveat text-lg sm:text-xl md:text-2xl flex items-center justify-center gap-2 text-yellow mb-3 sm:mb-4">
+          <Icon
+            icon={smallIcon}
+            width={16}
+            height={16}
+            className="sm:w-5 sm:h-5"
+          />
+          <span className="font-semibold">{t(tagline)}</span>
+        </div>
+
+        {/* Title */}
+        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-white font-nunito">
+          {t(title)}
+        </h1>
+      </div>
     </section>
   );
 };
