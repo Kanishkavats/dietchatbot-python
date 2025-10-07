@@ -2,12 +2,12 @@
 import React from 'react'
 import ContactUs from './ContactUs'
 import PageBanner from '../common/PageBanner'
-import { bannerBg } from '@/public/assets'
+import { contactbanner } from '@/public/assets'
 
 const Contact = () => {
     return (
         <div>
-            <PageBanner bgImage={bannerBg} title="Contact Us" />
+            <PageBanner bgImage={contactbanner} title="Contact Us" />
             <ContactUs />
         </div>
     )

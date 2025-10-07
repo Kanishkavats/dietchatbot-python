@@ -1,4 +1,4 @@
-import logo from './logo.png';
+import logo from './LogoO.png';
 import logoLight from './logo-light.png';
 import heartLogoIcon from './heartLogoIcon.png';
 import homeOne from './home-one.png';
@@ -27,23 +27,29 @@ import ppOne from './charity_with_difference/pp-one.png';
 import ppTwo from './charity_with_difference/pp-two.png';
 import hand from './charity_with_difference/hand.png';
 import galleryImageOne from './galleryImageOne.png';
-import galleryImageTwo from './galleryImageTwo.png';
 import galleryImageThree from './galleryImageTree.png';
 import bannerOne from './banner-one-bg.png';
 import bannerTwo from './banner-two-bg.png';
 import bannerBg from './banner-bg.png';
-import homeCommunity from './home-community.png';
+import ourcausebanner from './ourcausebanner.jpg';
+import oureventbanner from './oureventbanner.jpg';
+import ourteambanner from './ourteambanner.jpg';
+import donateusbanner from './donateusbanner.jpg';
+import latestnewsbanner from './latestnewsbanner.jpg';
+import community1 from './community/community1.jpg';
+import community2 from './community/community2.jpg';
 import yellowspade from './yellowspade.png';
 import valueableshape from './valueableshape.png';
 import mask from './mask.png';
 import icon from './becomevolunter/icon.png';
 import yellow_image from './becomevolunter/yellow_image.png';
-import becomevolunter from './becomevolunter/becomevolunter.png';
-import videobg from './becomevolunter/videobg.png';
+
+
 import icon1 from './childoldcare/icon1.png';
 import icon2 from './childoldcare/icon2.png';
-import child from './childoldcare/child.png';
-import brownchild from './childoldcare/brownchild.png';
+import childoldcare1 from './childoldcare/childoldcare1.jpg';
+import childoldcare2 from './childoldcare/childoldcare22.jpg';
+import childoldcare3 from './childoldcare/childoldcare3.jpg';
 import line from './section2/line.png';
 import parasuit from './section2/parasuit.png';
 import shapeleft from './section2/shapeleft.png';
@@ -58,21 +64,26 @@ import givehealthsupport from './section3/givehealthsupport.png';
 import helpforeducation from './section3/helpforeducation.png';
 import helpforfood from './section3/helpforfood.png';
 import imageBottomTear from './shape-two.png';
-import logocoming from './aboutsection/logocoming.png';
-import photo1 from './aboutsection/photo1.png';
-import photo2 from './aboutsection/photo2.png';
-import photo3 from './aboutsection/photo3.png';
-import photo4 from './aboutsection/photo4.png';
-import photo5 from './aboutsection/photo5.png';
-import photo6 from './aboutsection/photo6.png';
-import photo7 from './aboutsection/photo7.png';
-import photo8 from './aboutsection/photo8.png';
-import photo9 from './aboutsection/photo9.png';
+
+import photo1 from './aboutsection/p1.jpg';
+import photo2 from './aboutsection/p2.jpg';
+import photo3 from './aboutsection/p3.jpg';
+import photo4 from './aboutsection/p4.jpg';
+import photo5 from './aboutsection/p5.jpg';
+import photo6 from './aboutsection/p6.jpg';
+import photo7 from './aboutsection/p7.jpg';
+import photo8 from './aboutsection/p8.jpg';
+
+import aboutus from './aboutsection/aboutus.jpg';
+import askedquestion from './aboutsection/askedquestion.jpg';
+import askedquestion1 from './aboutsection/askedquestoon2.jpg';
+import sendmessagefordonation from './aboutsection/sendmessagefordonation.jpg';
 import voluntear5 from './aboutsection/voluntear5.png';
 import voluntear6 from './aboutsection/voluntear6.png';
 import voluntear7 from './aboutsection/voluntear7.png';
 import voluntear8 from './aboutsection/voluntear8.png';
 import contactbg from './contactbg.png';
+import contactbanner from './contactbanner.jpg';
 import bgOneVolunteer from './bg-one-volunteer.png';
 import image99 from './99.png';
 import greenspade from './greenspade.png';
@@ -80,7 +91,10 @@ import spreadLight from './sprade-light.png';
 import gridDot from './gridDot.png';
 import footballhandbg from "./football_hands-removebg-preview.png";
 import heartHandbg from "./heart_hands-removebg-preview.png";
-import thumbSmChild from "./thumb-sm.png";
+
+import donatediffway from "./donatediffway.jpg";
+import eventdetail from "./event/eventdetail.jpg";
+import eventdetail1 from "./event/eventdetail1.jpg";
 import blurTransparentBg from "./latestNewsArticalbg.png"
 
 
@@ -115,23 +129,31 @@ export {
   ppTwo,
   hand,
   galleryImageOne,
-  galleryImageTwo,
   galleryImageThree,
   bannerOne,
   bannerTwo,
   bannerBg,
-  homeCommunity,
+  ourcausebanner,
+  oureventbanner,
+  ourteambanner,
+  donateusbanner,
+  latestnewsbanner,
+  community1,
+  community2,
   yellowspade,
   valueableshape,
   mask,
   icon,
   yellow_image,
-  becomevolunter,
-  videobg,
+  donatediffway,
+  eventdetail,
+  eventdetail1,
+ 
   icon1,
   icon2,
-  child,
-  brownchild,
+  childoldcare1,
+  childoldcare2,
+  childoldcare3,
   line,
   parasuit,
   shapeleft,
@@ -146,7 +168,7 @@ export {
   helpforeducation,
   helpforfood,
  imageBottomTear,
- logocoming,
+
  photo1,
  photo2,
  photo3,
@@ -155,7 +177,11 @@ export {
  photo6,
  photo7,
  photo8,
- photo9,
+
+  aboutus,
+  askedquestion,
+  askedquestion1,
+  sendmessagefordonation,
  voluntear5,
  voluntear6,
  voluntear7,
@@ -168,6 +194,7 @@ export {
  gridDot,
  footballhandbg,
  heartHandbg,
- thumbSmChild,
+
  blurTransparentBg,
+  contactbanner,
 };

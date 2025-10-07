@@ -1,7 +1,7 @@
 "use client";
 import HeroCause from "./DonationSection";
 import DonationCard from "./DonationCard";
-import { bannerBg, heartLogoIcon, overView } from "@/public/assets";
+import { donateusbanner, heartLogoIcon, overView } from "@/public/assets";
 import { faqData, tags } from "@/src/staticResource";
 import FAQAccordion from "../Accordians/FAQAccordion";
 import { useEffect, useState } from "react";
@@ -38,7 +38,7 @@ const DonateUs = ({id}:donateUsProps) => {
   return (
     <section>
       <PageBanner
-        bgImage={bannerBg}
+        bgImage={donateusbanner}
         tagline="Start Donating Poor People"
         title="Donate Us"
         smallIcon="mdi:hand-heart"
