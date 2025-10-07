@@ -1,5 +1,5 @@
 import * as Yup from "yup";
-import i18n from "i18next"; 
+import i18n from "i18next";
 
 // Existing schemas here...
 
@@ -30,15 +30,15 @@ export const SendMsgformSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required(),
   phone: Yup.string().length(10, "Phone must be at least 10 digits").required(),
   address: Yup.string().min(5, "Address is required").required(),
-  message: Yup.string().min(20,"Message must be of 20 Words").required("Message is required"),
+  message: Yup.string().min(20, "Message must be of 20 Words").required("Message is required"),
 });
 
 export type SendMsgFormValues = Yup.InferType<typeof SendMsgformSchema>;
 
 export const CommentReplySchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required(),
-  name:Yup.string().required("Name is required"),
-  comment: Yup.string().min(2,"Comment must be of atleast 2 Words").required("Reply is required"),
+  name: Yup.string().required("Name is required"),
+  comment: Yup.string().min(2, "Comment must be of atleast 2 Words").required("Reply is required"),
 });
 
 export type CommentReplyFormValues = Yup.InferType<typeof CommentReplySchema>;
@@ -104,24 +104,74 @@ export type CategoryFormValues = Yup.InferType<typeof categorySchema>;
 
 
 
-// ======================= Blog =======================
+// ======================= Blog ======================
+export const blogSchema = Yup.object({
+  title: Yup.object({
+    en: Yup.string().required("Title is required in English"),
+    hi: Yup.string().required("Title is required in Hindi"),
+  }),
+  creator: Yup.object({
+    en: Yup.string().required("Creator is required in English"),
+    hi: Yup.string().required("Creator is required in Hindi"),
+  }),
+  description: Yup.object({
+    en: Yup.string().required("Description is required in English"),
+    hi: Yup.string().required("Description is required in Hindi"),
+  }),
+  summary: Yup.object({
+    en: Yup.string().required("Summary is required in English"),
+    hi: Yup.string().required("Summary is required in Hindi"),
+  }),
+  quote: Yup.object({
+    en: Yup.string().required("Quote is required in English"),
+    hi: Yup.string().required("Quote is required in Hindi"),
+  }),
+  quoteAuthor: Yup.object({
+    en: Yup.string().required("Quote Author is required in English"),
+    hi: Yup.string().required("Quote Author is required in Hindi"),
+  }),
+  tags: Yup.object({
+    en: Yup.array()
+      .of(Yup.string().required("Tag cannot be empty in English"))
+      .min(1, "Add at least one tag in English")
+      .required("English tags are required"),
+    hi: Yup.array()
+      .of(Yup.string().required("Tag cannot be empty in Hindi"))
+      .min(1, "Add at least one tag in Hindi")
+      .required("Hindi tags are required"),
+  }).required("Tags are required in both languages"),
+  keyPoints: Yup.object({
+    en: Yup.array()
+      .of(Yup.string().required("Key point in English is required"))
+      .min(1, "Add at least one key point in English")
+      .required("English key points are required"),
 
-export const blogSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  creator: Yup.string().required("creator is required"),
-  description: Yup.string().required("Description is required"),
-  summary: Yup.string().required("Summary is required"),
-  quote: Yup.string().required("Quote is required"),
-  quoteAuthor: Yup.string().required("Quote Author is required"),
-  category: Yup.string().required("Category is required"),
-  tags: Yup.array().of(Yup.string().required()).min(1, "Add at least one tag"),
-  keyPoints: Yup.array()
-    .of(Yup.string().required())
-    .min(1, "Add at least one key point"),
-  location: Yup.string().required("Location is required"),
-  images: Yup.array().of(Yup.mixed()).min(1, "At least one image is required"),
-  existingImages: Yup.array().of(Yup.string()),
+    hi: Yup.array()
+      .of(Yup.string().required("Key point in Hindi is required"))
+      .min(1, "Add at least one key point in Hindi")
+      .required("Hindi key points are required"),
+  }).required("Key points are required in both languages"),
+
+
+  location: Yup.object({
+    en: Yup.string().required("Location is required in English"),
+    hi: Yup.string().required("Location is required in Hindi"),
+  }).required(),
+
+  category: Yup.object({
+    name: Yup.object({
+      en: Yup.string().required("Category is required in English"),
+      hi: Yup.string().required("Category is required in Hindi"),
+    }).required(),
+  }).required(),
+
+  images: Yup.array()
+    .of(Yup.mixed().required("Image is required"))
+    .min(1, "At least one image is required"),
+  existingImages: Yup.array().of(Yup.string().nullable()),
 });
+
+
 
 export type BlogFormValues = Yup.InferType<typeof blogSchema>;
 

@@ -4,24 +4,37 @@ import { BlogFormValues } from "../utils/validations/FormValidation";
 
 export interface Blog {
   id: number;
-  creator:string;
+  creator: string;
   title: string;
   description: string;
   summary: string;
-  quote: string;               
-  quoteAuthor: string;         
-  category: string;            
+  quote: string;
+  quoteAuthor: string;
+  category: string;
   content: string;
   author: string;
-  tags?: string[];             
-  keyPoints?: string[];        
+  tags?: string[];
+  keyPoints?: string[];
   location: string;
   status: "draft" | "published" | "archived";
   createdAt: string;
   updatedAt?: string;
-  images?: (string | File)[];  
-  imageUrl?: string[];         
+  images?: (string | File)[];
+  imageUrl?: string[];
 }
+export type BlogFormRequiedFields = {
+  title: string;
+  creator: string;
+  description: string;
+  summary: string;
+  quote: string;
+  quoteAuthor: string;
+  category: string;
+  location: string;
+  tags?: string[];
+  keyPoints?: string[];
+};
+
 
 
 export interface BlogFormProps {

@@ -38,7 +38,7 @@ const Dropdown = <T extends string | number>({
 
   return (
     <div className="w-full min-w-[100px] relative" ref={containerRef}>
-      {label && <label className={`block mb-1 font-medium text-blue-50 `}>{label}</label>}
+      {label && <label className={`block mb-1 font-medium text-blue-50 text-[14px] `}>{label}</label>}
 
       <div
         className={`flex items-center gap-2 px-3 py-2 rounded-md border cursor-pointer relative
@@ -55,12 +55,12 @@ const Dropdown = <T extends string | number>({
           />
         )}
 
-        <span className={`flex-1 text-[12px] md:text-[14px]`}>
+        <span className={`flex-1 text-[13px]`}>
           {selectedOption ? selectedOption.label : placeholder || "Select"}
         </span>
         {!readOnly && (<motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
-          className="text-gray-400"
+          className="text-gray-400 text-[13px]"
         >
           <IoMdArrowDropdown />
         </motion.span>)}
@@ -84,7 +84,7 @@ const Dropdown = <T extends string | number>({
                   onChange(opt.value);
                   setIsOpen(false);
                 }}
-                className={`px-3 py-2 cursor-pointer hover:bg-primaryColor ${opt.value === value ? "bg-primaryColor font-medium" : ""
+                className={`px-3 py-2 text-[14px] cursor-pointer hover:bg-primaryColor ${opt.value === value ? "bg-primaryColor font-medium" : ""
                   }`}
               >
                 {opt.label}

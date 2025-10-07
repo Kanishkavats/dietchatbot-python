@@ -128,6 +128,7 @@ const BlogTable = () => {
     },
   });
 
+  console.log("previewData", previewData)
   return (
     <section>
       {/* Top controls */}
@@ -237,7 +238,10 @@ const BlogTable = () => {
               initialData={singleBlogData ?? undefined}
               onClose={() => setDrawerOpen(false)}
               mode={mode}
-              onPreview={(data) => setPreviewData(data)}
+              onPreview={(data) => {
+                setPreviewData(data);
+                setMode("view");
+              }}
               createMutation={createMutation}
               updateMutation={updateMutation}
             />

@@ -1,18 +1,20 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import CustomInput from "../../Admin/Common/CustomInput";
 import { AdminMultiInputListProps } from "@/src/types/adminCommon";
 
-
-
-const MultiInputList: React.FC<AdminMultiInputListProps> = ({
+const MultiInputList: React.FC<AdminMultiInputListProps & { error?: string }> = ({
   label,
   values,
   onChange,
   placeholder,
   isView = false,
-  colorClass = { normal: "bg-yellow/30 text-gray-500", view: "bg-gray-100 text-gray-600" },
+  colorClass = {
+    normal: "bg-yellow/30 text-gray-500",
+    view: "bg-gray-100 text-gray-600",
+  },
+  error, // <-- Accept the error prop here
 }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -28,17 +30,19 @@ const MultiInputList: React.FC<AdminMultiInputListProps> = ({
     onChange(values.filter((v) => v !== item));
   };
 
-const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-  if (e.key === "Enter") {
-    e.preventDefault();
-    addItem();
-  }
-};
-
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      addItem();
+    }
+  };
 
   return (
-    <div className="flex flex-col gap-2">
-      <label className="font-medium">{label}</label>
+    <div className="flex flex-col ">
+      <label className="font-medium text-[13px]">{label}</label>
+
       {!isView && (
         <div className="flex gap-2 items-center">
           <CustomInput
@@ -57,13 +61,13 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaEle
           </button>
         </div>
       )}
-      <div className="flex flex-wrap gap-2 mt-2">
-        {values.map((item) => (
+
+      {values.map((item) => (
+        <div className="flex flex-wrap gap-2 mt-2 ">
           <span
             key={item}
-            className={`flex items-center gap-1 px-2 py-1 rounded-md text-sm ${
-              isView ? colorClass.view : colorClass.normal
-            }`}
+            className={`flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isView ? colorClass.view : colorClass.normal
+              }`}
           >
             {item}
             {!isView && (
@@ -76,8 +80,13 @@ const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaEle
               </button>
             )}
           </span>
-        ))}
-      </div>
+        </div>
+      ))}
+
+      {/* Validation Error */}
+      {error && (
+        <span className="text-[10px] text-red mt-1">{error}</span>
+      )}
     </div>
   );
 };

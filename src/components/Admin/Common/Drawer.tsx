@@ -60,14 +60,14 @@ const Drawer: React.FC<AdminDrawerProps> = ({
                 onClick={onClose}
               />
             </div>
-            {(mode === "edit" || mode === "add") && (
+            {/* {(mode === "edit" || mode === "add") && (
               <div className="font-bold  mt-4 flex justify-end px-6">
                 <LanguageSwitcher
                   paddingx="px-6 py-4  md:px-4 lg:px-6"
                   paddingy="md:py-[10px] lg:py-4"
                 />
               </div>
-            )}
+            )} */}
 
             {/* Content */}
             <div className="px-6 py-4">{children}</div>

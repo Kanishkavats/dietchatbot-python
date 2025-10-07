@@ -108,7 +108,7 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={name} className="block mb-1 font-medium text-gray-700">
+        <label htmlFor={name} className="block mb-1 font-medium text-gray-700 text-[14px]">
           {label}
         </label>
       )}
