@@ -182,7 +182,7 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Tab Content with Donation Cards */}
-              <div className='flex flex-col md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0 lg:p-7 xl:p-2'>
+              <div className='flex flex-col  cursor-pointer md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0 lg:p-7 xl:p-2'>
                 {/* Mission/Vision/Excellence Content */}
                 <div className='flex-1'>
                   {(activeTab === 'mission' || activeTab === 'vision' || activeTab === 'excellence') && (
