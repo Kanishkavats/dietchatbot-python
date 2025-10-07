@@ -24,7 +24,7 @@ export default function CharityProduct() {
             </div>
 
             {/* Sidebar - full width on mobile/tablet, 1/3 on desktop */}
-            <div className="w-full lg:col-span-1 order-2 mt-4 sm:mt-6 lg:mt-0">
+            <div className="w-full lg:col-span-1  order-2 mt-4 sm:mt-6 lg:mt-0">
               <Sidebar />
             </div>
           </div>

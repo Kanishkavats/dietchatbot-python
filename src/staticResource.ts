@@ -52,10 +52,7 @@ export const NAV_ITEMS: NavItem[] = [
       { label: "Become Volunteer", href: "/volunteer" },
       {
         label: "Events",
-        children: [
-          { label: "Events", href: "/events" },
-          { label: "Event Details", href: "/events/details" },
-        ],
+        href: "/events"
       },
       {
         label: "Team", href: "/team"
@@ -385,6 +382,8 @@ export interface Event {
   title: string;
   location: string;
   image: string;
+  summary?: string;
+  keyPoints?: string[];
 }
 
 export const events: Event[] = [
@@ -394,20 +393,47 @@ export const events: Event[] = [
     title: "Transforming Lives Charity Golf Tournament",
     location: "135 W, 46nd Street, New York",
     image: "/one.png",
+    summary: "Join us for an exclusive charity golf tournament that brings together golf enthusiasts and philanthropists to raise funds for children's education. This prestigious event features 18 holes of championship golf, networking opportunities, and a gala dinner. All proceeds go directly to supporting underprivileged children's access to quality education and school supplies.",
+    keyPoints: [
+      "18-hole championship golf course",
+      "Professional tournament format",
+      "Networking with business leaders",
+      "Gala dinner and awards ceremony",
+      "Silent auction with exclusive items",
+      "All proceeds support children's education"
+    ]
   },
   {
     id: 2,
-    date: "October 19, 2025",
+    date: "November 15, 2025",
     title: "Unity in Giving Community Charity Event",
-    location: "135 W, 46nd Street, New York",
+    location: "684 West College St. Sun City, USA",
     image: "/two.png",
+    summary: "A heartwarming community gathering that celebrates the spirit of giving and unity. This family-friendly event features live music, food trucks, children's activities, and a community marketplace. Local businesses and organizations come together to support various charitable causes while building stronger community bonds.",
+    keyPoints: [
+      "Family-friendly activities for all ages",
+      "Live music and entertainment",
+      "Local food vendors and food trucks",
+      "Community marketplace",
+      "Children's games and activities",
+      "Raffle prizes and giveaways"
+    ]
   },
   {
     id: 3,
-    date: "October 19, 2025",
-    title: "Unity in Giving Community Charity Event",
-    location: "135 W, 46nd Street, New York",
+    date: "December 10, 2025",
+    title: "Winter Warmth Community Drive",
+    location: "250 Main Street, Downtown Plaza",
     image: "/three.png",
+    summary: "Help us spread warmth and hope during the winter season. This community drive focuses on collecting winter clothing, blankets, and essential supplies for families in need. Join us for a day of service, community bonding, and making a real difference in people's lives during the coldest months of the year.",
+    keyPoints: [
+      "Winter clothing collection drive",
+      "Blanket and warm supplies distribution",
+      "Hot meal service for the community",
+      "Volunteer opportunities for all ages",
+      "Community service projects",
+      "Warmth and hope for families in need"
+    ]
   }
 ];
 
