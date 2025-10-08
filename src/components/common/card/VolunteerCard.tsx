@@ -47,11 +47,14 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
             initial={{ opacity: 0, y: 50 }}
             animate={controls}
             transition={{ duration: 0.8, delay: idx * 0.2, ease: "easeOut" }}
-            className="relative  shadow rounded-2xl overflow-hidden group"
+            className="relative  shadow rounded-2xl overflow-hidden group w-full sm:max-w-[456px] mx-auto"
             whileHover="hover"
         >
             <Link href={`/volunteer/${member.id}`} className="block">
-                <div className="relative w-full aspect-[4/5] cursor-pointer overflow-hidden">
+                <div className="relative w-full aspect-[9/10] sm:aspect-[9/10] cursor-pointer overflow-hidden">
+                {/* <div className="relative w-full aspect-[9/10] sm:aspect-[9/10] cursor-pointer overflow-hidden"> */}
+                
+
                    <Image
                         src={member.image  || "/assets/default-avatar.png"}
                         alt={member.name || "Member"}
