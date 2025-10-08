@@ -54,7 +54,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
         duration={4}
         className="
     absolute
-    -left-[25rem]    /* always anchored to left side */
+    -left-[20rem]    /* always anchored to left side */
      
   top-1/3      /* vertically center (adjust if needed) */
     -translate-y-1/2 /* perfect vertical centering */

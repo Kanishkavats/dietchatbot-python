@@ -72,7 +72,9 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
       variants={containerVariants}
     >
       <div className="max-w-7xl w-full mt-18 -mx-12 my-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-nunito items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-nunito items-start"> 
+        
+
           {/* Image */}
           <motion.div
             className="flex justify-center order-1"
@@ -171,7 +173,7 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
               <h3 className="text-3xl font-extrabold mb-6 text-left font-nunito">
                 About Me
               </h3>
-              <p className="text-gray-green text-lg leading-relaxed text-left capitalize">
+              <p className="text-[#667471] text-lg leading-relaxed text-left capitalize">
                 {member.about}
               </p>
             </div>
@@ -191,6 +193,14 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
             height: 815px;
           }
         }
+
+          @media (min-width: 992px) and (max-width: 1190px) {
+          .volunteer-image {
+            width: 456px;
+            height: 534px;
+          }
+        }
+          
         @media (min-width: 1198px) {
           .volunteer-image {
             width: 456px;
@@ -237,6 +247,15 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
         
           }
         }
+
+        /* Stack image above text below 990px */
+@media (max-width: 990px) {
+  .volunteer-image {
+    margin-bottom: 2rem; /* add space between image and text */
+  }
+
+ 
+
        
      
 
