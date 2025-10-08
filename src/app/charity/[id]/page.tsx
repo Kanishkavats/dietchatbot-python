@@ -50,17 +50,17 @@ export default async function DynamicCharityPage({ params }: Props) {
      
       {/* Main Content */}
       <div className="py-8">
-        <div className="container mx-auto pr-4 pl-0 lg:pl-30 ml-8">
+        <div className="container mx-auto px-4 sm:px-6 md:px-8 lg:px-8 xl:max-w-screen-xl xl:mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content Area - Takes 2/3 of the space */}
             <div className="lg:col-span-2">
               <CharityContent charityId={parseInt(id)} blogId={content.blogId}/>
             </div>
             
-            {/* Sidebar - Takes 1/3 of the space */}
+            {/* Sidebar - Takes 1/3 of the space */} 
             <div className="lg:col-span-1">
               <Sidebar as='Recent Post' bgColor='bg-white' pathName='charity'/>
-            </div>
+             </div> 
           </div>
         </div>
       </div>

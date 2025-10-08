@@ -17,11 +17,11 @@ const FeedbackForm = () => {
     <div 
       className="w-full min-h-[400px] sm:min-h-[500px] relative bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: 'url(/assets/banner-bg.png)'
+        backgroundImage: 'url(/assets/feedbackformhome.jpg)'
       }}
     >
       {/* Green gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-green/50 to-transparent z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/100 to-dark-green/50 z-10"></div>
       
       {/* Title and Heading */}
       <div className="absolute top-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-20 text-white px-4 sm:px-6 md:px-8">

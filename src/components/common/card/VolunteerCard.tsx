@@ -22,7 +22,7 @@ export const SocialBar = () => {
             {socials.map((social, idx) => (
                 <button
                     key={idx}
-                    className={`w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black transition-colors duration-300 ${social.color} hover:bg-yellow-400`}
+                    className={`w-12 h-12 cursor-pointer flex items-center justify-center rounded-full shadow-md text-black transition-colors duration-300 ${social.color} hover:bg-yellow-400`}
                 >
                     {social.icon}
                 </button>
@@ -95,7 +95,7 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
 
 
             <div className="relative bg-[#f1f0ee] h-28 p-8 flex flex-col items-start transition-colors duration-500 group-hover:bg-[#122f2a]">
-                <h6 className="font-semibold text-md text-black transition-colors duration-300 group-hover:text-white">
+                <h6 className="font-semibold  cursor-pointer text-md text-black transition-colors duration-300 group-hover:text-white">
                     {member.name}
                 </h6>
                 <p className="text-sm text-black transition-colors duration-300 group-hover:text-yellow-400 mt-2">

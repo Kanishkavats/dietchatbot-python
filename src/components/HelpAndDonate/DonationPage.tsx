@@ -13,7 +13,7 @@ import PageBanner from "../common/PageBanner";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import ChildrenNeed from "../About/ChildrenNeed";
 import SendMsg from "../About/SendMsg";
-import { bannerBg } from "@/public/assets";
+import { ourcausebanner } from "@/public/assets";
 import { useFetchAllCampaigns } from "@/src/hooks/useCampaigns";
 
 import "swiper/css";
@@ -68,7 +68,7 @@ const DonationPage: React.FC = () => {
   return (
     <>
       <PageBanner
-        bgImage={bannerBg}
+        bgImage={ourcausebanner}
         tagline="Start Donating Poor People"
         title="Our Causes"
         smallIcon="mdi:hand-heart"
