@@ -8,7 +8,7 @@ import DonationInput from "../../DonateUs/DonationInput";
 import RadioGroup from "../../common/radio/RadioGroup";
 import Button from "../../common/Buttons/Button";
 import { Donationmethods } from "@/src/staticResource";
-import { galleryImageTwo, yellowspade } from "@/public/assets";
+import { community2, yellowspade } from "@/public/assets";
 import { pageBannerBackgourndColor } from "../../common/PageBanner";
 import { motion } from 'framer-motion'
 import SideImage from "./SideImage";
@@ -29,7 +29,7 @@ const Community = () => {
             className="relative h-[800px]  text-white flex justify-center items-cente overflow-hidde"
         >
             <div className="absolute  z-0 inset-0">
-                <Image src={galleryImageTwo.src} alt="bg image" fill className="object-cover" />
+                <Image src={community2.src} alt="bg image" fill className="object-cover" />
             </div>
 
             <motion.div

@@ -32,11 +32,11 @@ export default function HelpingEachOther() {
   return (
     <>
       {isVideoOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-foreground/30">
+        <div className="fixed inset-0 z-50 flex items-center justify-center cursor-pointer bg-foreground/30">
           <div className="relative w-full max-w-4xl mx-4">
             <button
               onClick={handleVideoClose}
-              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors z-10"
+              className="absolute -top-12 right-0 cursor-pointer  text-white hover:text-gray-300 transition-colors z-10"
               aria-label="Close video"
             >
               <svg
@@ -53,7 +53,7 @@ export default function HelpingEachOther() {
                 />
               </svg>
             </button>
-            <div className="relative w-full aspect-video bg-foreground rounded-lg overflow-hidden">
+            <div className="relative w-full aspect-video cursor-pointer bg-foreground rounded-lg overflow-hidden">
               <iframe
                 src="https://www.youtube.com/embed/XxVg_s8xAms?autoplay=1&rel=0&modestbranding=1"
                 width="100%"
@@ -160,7 +160,7 @@ export default function HelpingEachOther() {
                     }}
                   >
                     <Image
-                      src="/assets/section2/thumb-lg.png"
+                      src="/assets/section2/helpingecahother3.JPG"
                       alt="Children in need"
                       fill
                       className="object-cover"
@@ -172,7 +172,7 @@ export default function HelpingEachOther() {
                     />
                     <button
                       aria-label="Play video"
-                      className="absolute inset-0 flex items-center justify-center group"
+                      className="absolute inset-0 flex items-center justify-center group cursor-pointer"
                       onClick={handleVideoOpen}
                     >
                       <span className="relative flex items-center justify-center">
@@ -212,7 +212,7 @@ export default function HelpingEachOther() {
                   {/* Top left overlay image */}
                   <div className="absolute -top-14 -left-22 xl:-top-15 xl:-left-24 lg:w-60 lg:h-55 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                     <Image
-                      src="/assets/section2/thumb-top 2section.png"
+                      src="/assets/section2/helpingeachother1.jpg"
                       alt="Community meal"
                       fill
                       className="object-cover"
@@ -222,7 +222,7 @@ export default function HelpingEachOther() {
                   {/* Bottom right overlay image */}
                   <div className="absolute lg:-bottom-28 xl:-bottom-20 right-0 xl:right-0 w-60 h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                     <Image
-                      src="/assets/section2/thumb-bottom.png"
+                      src="/assets/section2/helpingeachother2.jpg"
                       alt="Smiling child"
                       fill
                       className="object-cover"
