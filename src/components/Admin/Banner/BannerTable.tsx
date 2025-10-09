@@ -12,12 +12,17 @@ import BannerForm from "./BannerForm";
 import { getBannerColumns } from "./getBannerColumns";
 import { Banner, BannerSearchField } from "@/src/types/banner";
 import { BannerFormValues } from "@/src/utils/validations/FormValidation";
-import { useDeleteBanner, useFetchAllBanners, useFetchSingleBanner } from "@/src/hooks/useBanner";
+import {
+  useDeleteBanner,
+  useFetchAllBanners,
+  useFetchSingleBanner,
+} from "@/src/hooks/useBanner";
 import { createBanner, updateBanner } from "@/src/services/bannerApi";
 import { BannerSearchOptions } from "../Data/staticData";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import BannerPreview from "./BannerPreview";
 import AdminCustomPagination from "../Common/CustomePagination";
+import ConfirmModal from "../Common/ConfirmModal";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");
@@ -26,17 +31,23 @@ const BannerTable = () => {
   const [editBannerId, setEditBannerId] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const [currentPage, setCurrentPage] = useState(1)
-  const [itemsPerPage] = useState(10)
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
 
   const queryClient = useQueryClient();
-  const { data: bannerData, isLoading } = useFetchAllBanners(currentPage, itemsPerPage);
+  const { data: bannerData, isLoading } = useFetchAllBanners(
+    currentPage,
+    itemsPerPage
+  );
   const { mutate: deleteBanner } = useDeleteBanner();
   const totalPages = bannerData?.totalPages || 1;
 
   const [bannerId, setbannerId] = useState<string | null>(null);
   const [previewDrawerOpen, setPreviewDrawerOpen] = useState(false);
-  const { data: singleBannerData, isLoading: isPreviewLoading } = useFetchSingleBanner(bannerId || undefined);
+  const { data: singleBannerData, isLoading: isPreviewLoading } =
+    useFetchSingleBanner(bannerId || undefined);
 
   const createMutation = useMutation({
     mutationFn: createBanner,
@@ -53,8 +64,6 @@ const BannerTable = () => {
     },
   });
 
-
-
   const handleDelete = useCallback(
     (b: Banner) => {
       if (!b.id) {
@@ -62,12 +71,22 @@ const BannerTable = () => {
         return;
       }
 
-      if (confirm(`Are you sure you want to delete "${b.title}"?`)) {
-        deleteBanner(b.id);
-      }
+      // if (confirm(`Are you sure you want to delete "${b.title}"?`)) {
+      //   deleteBanner(b.id);
+      // }
+      setSelectedBanner(b);
+      setIsOpen(true);
     },
     [deleteBanner]
   );
+
+  const confirmDelete = useCallback(() => {
+    if (selectedBanner?.id) {
+      deleteBanner(selectedBanner.id.toString());
+      setIsOpen(false);
+      setSelectedBanner(null);
+    }
+  }, [selectedBanner, deleteBanner]);
 
   const handlePreview = useCallback((banner: Banner) => {
     if (!banner.id) return;
@@ -81,8 +100,6 @@ const BannerTable = () => {
     setMode("edit");
     setDrawerOpen(true);
   }, []);
-
-
 
   // Filter data based on search
   const filteredData = useMemo(() => {
@@ -114,7 +131,6 @@ const BannerTable = () => {
               onChange={(value: BannerSearchField) => {
                 setSearchField(value);
               }}
-
             />
             <CustomInput
               ref={searchInputRef}
@@ -155,7 +171,6 @@ const BannerTable = () => {
         <DataTableWrapper columns={columns} data={filteredData} />
       )}
 
-
       {totalPages > 1 && (
         <div className="flex justify-end   mt-4">
           <AdminCustomPagination
@@ -177,12 +192,13 @@ const BannerTable = () => {
             setPreviewDrawerOpen(false);
             setbannerId(null);
           }}
+          mode={mode}
           title={
             previewDrawerOpen
               ? "Banner Preview"
               : mode === "edit"
-                ? "Edit Banner"
-                : "Add Banner"
+              ? "Edit Banner"
+              : "Add Banner"
           }
         >
           {previewDrawerOpen ? (
@@ -204,8 +220,14 @@ const BannerTable = () => {
           )}
         </Drawer>
       )}
-
-
+      <ConfirmModal
+        isOpen={isOpen}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsOpen(false)}
+        title="Confirm Delete"
+        message="Are you sure you want to delete these record ?"
+        buttonText="Delete"
+      />
     </section>
   );
 };

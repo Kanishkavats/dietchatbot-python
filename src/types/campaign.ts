@@ -23,6 +23,7 @@ export interface CampaignFormProps {
   onClose: () => void;
   readOnly?: boolean; 
   mode?: "add" | "edit" | "view";
+  onPreview?: (values: CampaignFormValues & { keyPoints: string[] }) => void;
 }
 
 export interface CampaignColumnCallbacks {
