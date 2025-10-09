@@ -14,6 +14,7 @@ import Loader from '../components/common/Loader';
 import { Toaster } from 'react-hot-toast';
 import CustomCursor from '../components/CustomCursor/CustomCursor';
 import LanguageProviders from './languageProvider';
+import { LanguageProvider } from '../contexts/LanguageContext';
 
 export default function AppProviders({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -64,32 +65,34 @@ export default function AppProviders({ children }: { children: ReactNode }) {
 
   return (
     <LanguageProviders>
-      <Provider store={store}>
-        <QueryClientProvider client={queryClient}>
-          <ThemeApplier />
-          {loading ? (
-            <Loader />
-          ) : showLayout ? (
-            <>
-              {!hideHeaderFooter && (
-                <header>
-                  <Header />
-                </header>
-              )}
-              <main>{children}</main>
-              {!hideHeaderFooter && (
-                <footer>
-                  <Footer />
-                </footer>
-              )}
-            </>
-          ) : (
-            children
-          )}
-          <CustomCursor />
-          <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-        </QueryClientProvider>
-      </Provider>
+      <LanguageProvider>
+        <Provider store={store}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeApplier />
+            {loading ? (
+              <Loader />
+            ) : showLayout ? (
+              <>
+                {!hideHeaderFooter && (
+                  <header>
+                    <Header />
+                  </header>
+                )}
+                <main>{children}</main>
+                {!hideHeaderFooter && (
+                  <footer>
+                    <Footer />
+                  </footer>
+                )}
+              </>
+            ) : (
+              children
+            )}
+            <CustomCursor />
+            <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+          </QueryClientProvider>
+        </Provider>
+      </LanguageProvider>
     </LanguageProviders>
   );
 }

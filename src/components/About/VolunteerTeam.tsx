@@ -49,20 +49,15 @@ const VolunteerTeam = () => {
             {t("Start Donating Poor People")}
           </span>
         </div>
-        {/*<h2 className="text-4xl md:text-5xl font-bold mb-8">
-          {t("Meet Our Volunteer")} <br />
-          <span className="text-yellow">{t("Team")}</span> {t("Members")}
-        </h2>*/}
+       
 
-      <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8 text-center">
+      <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8  text-center leading-snug">
   <span className="hidden xl:inline">
     {t("Meet Our Volunteer")} <br />
     <span className="text-yellow">{t("Team")}</span> {t("Members")}
   </span>
 
-  <span className="inline xl:hidden whitespace-nowrap">
-    {t("Meet Our Volunteer")} <span className="text-yellow">{t("Team")}</span> {t("Members")}
-  </span>
+  
 </h2>
 
 

@@ -39,6 +39,9 @@ const BlogForm = ({
       value: c.name,
     })) || [];
 
+      console.log('check78',categoryData);
+
+
   const isView = mode === "view";
   const isEdit = mode === "edit";
   const { language, toggleLanguage } = useLanguageToggle();

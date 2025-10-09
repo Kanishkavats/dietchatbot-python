@@ -8,7 +8,7 @@ export const getCategoryColumns = ({
   onView,
 }: CategoryColumnCallbacks) => [
     { name: "SNo", cell: (_row: Category, index: number) => index + 1, width: "80px" },
-    { name: "Name", selector: (row: Category) => row.name, sortable: true },
+    { name: "Name (English)", selector: (row: Category) => row.name, sortable: true },
     {
       name: "Actions",
       cell: (row: Category) => (

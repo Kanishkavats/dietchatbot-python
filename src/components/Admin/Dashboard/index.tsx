@@ -66,7 +66,7 @@ const Dashboard = () => {
     <div className="md:p-5 md:pr-0 w-full">
       <Breadcrumb lable="Dashboard" />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {cards.map((card, index) => (
           <motion.div
             key={index}

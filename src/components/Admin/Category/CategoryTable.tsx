@@ -31,6 +31,7 @@ const CategoryTable = () => {
     currentPage,
     itemsPerPage
   );
+
   const { mutate: deleteCategory } = useDeleteCategory();
 
   const handleEdit = useCallback((c: Category) => {
@@ -69,6 +70,8 @@ const CategoryTable = () => {
       c[searchField].toLowerCase().includes(search.toLowerCase())
     );
   }, [categoryData, search, searchField]);
+  console.log("hj",filteredData);
+
 
   const columns = useMemo(
     () =>

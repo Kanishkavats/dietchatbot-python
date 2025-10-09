@@ -207,7 +207,7 @@ export default function Comments({ campaignId }: CommentsProps) {
     return <p>No comments available</p>
   }
   return (
-    <div>
+    <div className="w-full max-w-4xl mx-auto">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">
         {allComments.length.toString().padStart(2, "0")} Comments
       </h2>
