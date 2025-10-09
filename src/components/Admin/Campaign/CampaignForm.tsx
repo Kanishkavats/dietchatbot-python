@@ -14,22 +14,18 @@ import CustomFileInput from "../../Admin/Common/CustomFileInput";
 import Dropdown from "../Common/Dropdown";
 import CancelButton from "../../common/Buttons/CancelButton";
 import { Category } from "@/src/types/category";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import LanguageToggle from "../Common/LanguageToggle";
+import { getInitialCanpaignValues } from "../utils/campaignIntialValues";
+import MultiInputList from "../Common/MultiInputList";
+import { hasErrorsForLang } from "../Common/hasErrorsForLang";
 
 const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
-  const initialValues: CampaignFormValues = {
-    title: initialData?.title ?? "",
-    category: initialData?.category ?? "",
-    description: initialData?.description ?? "",
-    goalAmount: initialData?.goalAmount ?? 0,
-    summary: initialData?.summary ?? "",
-    keyPoints: initialData?.keyPoints ?? [],
-    images: initialData?.images ?? [],
-    existingImages: initialData?.images?.filter((img): img is string => typeof img === "string") ?? [],
-    location: initialData?.location ? String(initialData.location) : "",
-  };
 
-  const [keyPointsList, setKeyPointsList] = useState<string[]>(initialData?.keyPoints ?? []);
+  const initialValues= getInitialCanpaignValues(initialData)
+
   const [keyPointInput, setKeyPointInput] = useState("");
+  const { language, toggleLanguage } = useLanguageToggle();
 
   const { data: categoryData } = useFetchCategory();
   const categoryOptions = categoryData?.category?.map((category:Category) => ({
@@ -39,151 +35,151 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
 
   const isView = mode === "view";
   const isEdit = mode === "edit";
+  console.log(initialData)
 
   return (
     <div className="w-full pb-10">
+      <LanguageToggle language={language} onChange={toggleLanguage} />
       <Formik
         enableReinitialize
         initialValues={initialValues}
         validationSchema={campaignSchema}
-        onSubmit={(values) => {
-          onPreview?.({ ...values, keyPoints: keyPointsList });
+       onSubmit={(values: CampaignFormValues) => {
+        console.log("reached")
+          const payload = { ...values };
+          onPreview?.(payload);
         }}
       >
-        {({ values, handleChange, setFieldValue, errors, touched, isSubmitting }) => {
-          useEffect(() => {
-            setFieldValue("keyPoints", keyPointsList, true);
-          }, [keyPointsList, setFieldValue]);
+        {({values,
+          handleChange,
+          setFieldValue,
+          errors,
+          touched,
+          isSubmitting,
+          validateForm,
+          submitForm,
+          setTouched }) => {
+          const lang = language;
+          // useEffect(() => {
+          //   setFieldValue("keyPoints", keyPointsList, true);
+          // }, [keyPointsList, setFieldValue]);
+          const handlePreviewClick = async () => {
+                      const touchAllFields = (obj: any): any => {
+                        if (typeof obj !== 'object' || obj === null) return true;
+          
+                        const touchedObj: any = {};
+                        for (const key in obj) {
+                          if (!obj.hasOwnProperty(key)) continue;
+          
+                          const value = obj[key];
+                          if (typeof value === 'object' && value !== null) {
+                            touchedObj[key] = touchAllFields(value);
+                          } else {
+                            touchedObj[key] = true;
+                          }
+                        }
+                        return touchedObj;
+                      };
+          
+                      setTouched(touchAllFields(values));
+          
+                      const formErrors = await validateForm();
+                      console.log("Form Errors:", formErrors);
+          
+                      for (const l of ["en", "hi"] as const) {
+                        if (hasErrorsForLang(formErrors, l)) {
+                          toggleLanguage(l); 
+                          return; 
+                        }
+                      }
+          
+                      if (formErrors.images) {
+                        return;
+                      }
+          
+                      submitForm();
+                    };
 
           return (
             <Form className="flex flex-col gap-3">
               <CustomInput
-                label="Title*"
-                placeholder="Title of the campaign"
-                value={values.title}
-                name="title"
+                label={`${lang === "en" ? "Title" : "शीर्षक"}*`}
+                placeholder={lang === "en" ? "Title of the campaign" : "अभियान का शीर्षक"}
+                value={values.title[lang]}
+                name={`title.${lang}`}
                 onChange={handleChange}
-                error={touched.title ? errors.title : ""}
+                error={touched.title?.[lang] ? errors.title?.[lang] : ""}
                 disabled={isView}
               />
 
               <Dropdown
-                label="Category*"
+                label={`${lang === "en" ? "Category" : "श्रेणी"}*`}
                 options={categoryOptions}
-                value={values.category}
-                onChange={(val) => setFieldValue("category", val)}
+                value={values.category[lang]}
+                onChange={(val) => setFieldValue(`category.${lang}`, val)}
                 placeholder="Select category"
-                error={touched.category ? errors.category : ""}
+                error={touched.category?.[lang] ? errors.category?.[lang] : ""}
                 disabled={isView}
               />
 
               <CustomInput
-                label="Location*"
-                placeholder="Location"
-                value={values.location}
-                name="location"
+                label={`${lang === "en" ? "Location" : "स्थान"}*`}
+                placeholder={lang === "en" ? "Location of the campaign" : "अभियान का स्थान"}
+                value={values.location[lang]}
+                name={`location.${lang}`}
                 onChange={handleChange}
-                error={touched.location ? errors.location : ""}
+                error={touched.location?.[lang] ? errors.location?.[lang] : ""}
                 disabled={isView}
               />
 
               <CustomInput
-                label="Goal Amount*"
+                label={`${lang === "en" ? "Goal Amount" : "लक्ष्य राशि"}*`}
                 type="number"
-                placeholder="Enter goal amount"
+                placeholder={lang === "en" ? "Enter goal amount" : "लक्ष्य राशि दर्ज करें"}
                 value={values.goalAmount}
                 name="goalAmount"
                 onChange={handleChange}
-                error={touched.goalAmount ? errors.goalAmount : ""}
+                error={ touched.goalAmount ? errors.goalAmount : ""}
                 disabled={isView}
               />
 
               <CustomInput
-                label="Description*"
+                label={`${lang === "en" ? "Description" : "विवरण"}*`}
                 as="textarea"
-                value={values.description}
-                name="description"
+                placeholder={lang === "en" ? "Campaign description" : "अभियान का विवरण"}
+                value={values.description[lang]}
+                name={`description.${lang}`}
                 onChange={handleChange}
-                error={touched.description ? errors.description : ""}
+                error={touched.description?.[lang] ? errors.description?.[lang] : ""}
                 disabled={isView}
               />
 
               <CustomInput
-                label="Summary*"
+                label={`${lang === "en" ? "Summary" : "सारांश"}*`}
                 as="textarea"
-                value={values.summary}
-                name="summary"
+                placeholder={lang === "en" ? "Short summary" : "संक्षिप्त सारांश"}
+                value={values.summary[lang]}
+                name={`summary.${lang}`}
                 onChange={handleChange}
-                error={touched.summary ? errors.summary : ""}
+                error={touched.summary?.[lang] ? errors.summary?.[lang] : ""}
                 disabled={isView}
               />
 
               {/* Key Points */}
-              <div className="flex flex-col gap-2">
-                <label className="font-medium">Key Points</label>
-                {!isView && (
-                  <div className="flex gap-2 items-center">
-                    <CustomInput
-                      placeholder="Type key point"
-                      value={keyPointInput}
-                      onChange={(e) => setKeyPointInput(e.target.value)}
-                      onKeyDown={(e) => {
-                        if (e.key === "Enter" && keyPointInput.trim()) {
-                          e.preventDefault();
-                          if (!keyPointsList.includes(keyPointInput.trim())) {
-                            setKeyPointsList([...keyPointsList, keyPointInput.trim()]);
-                          }
-                          setKeyPointInput("");
-                        }
-                      }}
-                      className="flex-1"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (keyPointInput.trim() && !keyPointsList.includes(keyPointInput.trim())) {
-                          setKeyPointsList([...keyPointsList, keyPointInput.trim()]);
-                        }
-                        setKeyPointInput("");
-                      }}
-                      className="bg-primaryColor cursor-pointer text-white px-3 py-2 rounded-md"
-                    >
-                      Add
-                    </button>
-                  </div>
-                )}
-
-                <div className="flex flex-wrap gap-2 mt-2">
-                  {keyPointsList.map((point) => (
-                    <span
-                      key={point}
-                      className={`flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isView
-                        ? "bg-gray-100 text-gray-600"
-                        : "bg-lime-200 text-lime-800"
-                        }`}
-                    >
-                      {point}
-                      {!isView && (
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setKeyPointsList(keyPointsList.filter((p) => p !== point))
-                          }
-                          className="text-red font-bold ml-1"
-                        >
-                          <IoMdClose />
-                        </button>
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </div>
+              <MultiInputList
+                label={`${lang === "en" ? "Key Points" : "मुख्य बिंदु"}`}
+                values={values.keyPoints[lang]}
+                onChange={newPoints => setFieldValue(`keyPoints.${lang}`, newPoints)}
+                placeholder={lang === "en" ? "Add a key point" : "मुख्य बिंदु जोड़ें"}
+                isView={isView}
+                // error={touched.keyPoints?.[lang] && errors.keyPoints?.[lang] ? errors.keyPoints?.[lang] : ""}
+              />
 
               {/* Images */}
               <CustomFileInput
-                label="Campaign Images"
+                label={lang === "en" ? "Campaign Images" : "अभियान की छवियाँ"}
                 name="images"
-                error={touched.images && errors.images ? errors.images : ""}
+                error={touched.images&& errors.images ? errors.images : ""}
                 onChange={(files, existingUrls) => {
                   setFieldValue("images", files);
                   setFieldValue("existingImages", existingUrls);
@@ -192,30 +188,47 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 disabled={isView}
                 mode={mode}
                 initialUrls={
-                  Array.isArray(initialData?.images)
-                    ? initialData.images.filter(
-                      (img): img is string => typeof img === "string"
-                    )
-                    : []
-                }
+  Array.isArray(initialData?.existingImages) && initialData.existingImages.length > 0
+    ? initialData.existingImages.filter(
+        (img): img is string => typeof img === "string" && !!img
+      )
+    : Array.isArray(initialData?.images)
+    ? initialData.images.map((img) => {
+        if (typeof img === "string") return img;
+        if (img instanceof File) return URL.createObjectURL(img);
+        return "";
+      }).filter(Boolean)
+    : []
+}
               />
 
               {/* Buttons */}
               {!isView && (
-                <div className="flex gap-2 mt-2 w-fit">
-                  <Button
-                    type="submit"
-                    disabled={isSubmitting}
-                    paddingx="px-4"
-                    paddingy="py-2"
-                    rounded="rounded-[5px]"
-                    bgColor="bg-lime-green"
-                  >
-                    {isSubmitting ? <ButtonLoader /> : "Preview"}
-                  </Button>
-                  <CancelButton text="Cancel" onClose={onClose} />
-                </div>
-              )}
+                              <div className="flex gap-2 mt-4 w-fit">
+                                <Button
+                                  type="button"
+                                  onClick={handlePreviewClick}
+                                  disabled={
+                                    isSubmitting
+                                    // isSubmitting || createMutation.isPending || updateMutation.isPending
+                                  }
+                                  bgColor="bg-lime-green"
+                                  paddingx="px-4"
+                                  paddingy="py-2"
+                                  rounded="rounded-[5px]"
+                                >
+                                  {isSubmitting ? (
+                                    <ButtonLoader />
+                                  ) : isEdit ? (
+                                    "Update"
+                                  ) : (
+                                    "Preview"
+                                  )}
+                                </Button>
+              
+                                <CancelButton text="Cancel" onClose={onClose} />
+                              </div>
+                            )}
             </Form>
           );
         }}

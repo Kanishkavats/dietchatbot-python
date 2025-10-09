@@ -26,6 +26,7 @@ import CampaignPreview from "./CampaignPreview";
 import { Campaign } from "@/src/types/campaign";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
@@ -34,17 +35,20 @@ const CampaignTable = () => {
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [showPreview, setShowPreview] = useState(false);
+
   const [previewData, setPreviewData] = useState<CampaignFormValues | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const{language,toggleLanguage}=useLanguageToggle();
 
   const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage);
   const { data: singleCampaignData, isLoading: isLoadingCampaign } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
 
-
+const lang=language
   const queryClient = useQueryClient();
 
   const createMutation = useMutation({
@@ -61,6 +65,22 @@ const CampaignTable = () => {
       queryClient.invalidateQueries({ queryKey: ["campaigns"] });
     },
   });
+const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages: string[] } => {
+  return {
+    title: data.title ?? { en: "", hi: "" },
+    category: data.category ?? { en: "", hi: "" },
+    description: data.description ?? { en: "", hi: "" },
+    goalAmount: data.goalAmount ?? 0,
+    summary: data.summary ?? { en: "", hi: "" },
+    keyPoints: data.keyPoints ?? { en: [], hi: [] },
+    location: data.location ?? { en: "", hi: "" },
+    images: Array.isArray(data.images) ? data.images.filter(Boolean) : [],
+    existingImages: Array.isArray(data.existingImages)
+      ? data.existingImages.filter((img:any): img is string => !!img)
+      : [],
+  };
+};
+
 
   const handleEdit = useCallback((c: Campaign) => {
     setEditCampaign(c.id.toString());
@@ -71,7 +91,7 @@ const CampaignTable = () => {
   const handleView = useCallback((c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("view");
-    setPreviewData(c);
+    setPreviewData(normalizeCampaignData(c));
     setDrawerOpen(true);
   }, []);
 
@@ -104,10 +124,27 @@ const CampaignTable = () => {
 
 
   const filteredData = useMemo(() => {
-    return paginatedData.filter((campaign: Campaign) =>
-      campaign[searchField]?.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [paginatedData, search, searchField]);
+  return paginatedData.filter((campaign: Campaign) => {
+    const fieldValue = campaign[searchField];
+    if (typeof fieldValue === "string") return fieldValue.toLowerCase().includes(search.toLowerCase());
+    if (typeof fieldValue === "object" && fieldValue?.[lang]) return fieldValue[lang].toLowerCase().includes(search.toLowerCase());
+    return false;
+  });
+}, [paginatedData, search, searchField, lang]);
+  const normalizedCampaignData = useMemo(() => {
+  if (!singleCampaignData) return undefined;
+
+  // Ensure both images and existingImages contain URLs
+  const stringImages =
+    singleCampaignData.images?.filter((img: any) => typeof img === "string") ?? [];
+
+  return {
+    ...singleCampaignData,
+    existingImages: singleCampaignData.existingImages ?? stringImages,
+    images: singleCampaignData.images ?? stringImages,
+  };
+}, [singleCampaignData]);
+
 
   return (
     <div>
@@ -192,48 +229,68 @@ const CampaignTable = () => {
         title={
           mode === "edit"
             ? "Edit Campaign"
-            : mode === "view"
+            : mode === "view"&&!previewData
               ? "View Campaign"
               : "Add Campaign"
         }
         mode={mode}
 
       >
-        {previewData ? (
-          <CampaignPreview
-            mode={mode}
-            data={previewData}
-            onBack={() => setPreviewData(null)}
-            onSubmit={() => {
-              submitCampaignForm(
-                { ...previewData, keyPoints: previewData.keyPoints },
-                singleCampaignData,
-                createMutation,
-                updateMutation,
-                () => {
-                  setPreviewData(null);
-                  setDrawerOpen(false);
-                },
-                () => { },
-                () => setDrawerOpen(false)
-              );
-            }}
-          />
-        ) : isLoadingCampaign ? (
-          <p>Loading...</p>
-        ) : (
-          <CampaignForm
-            initialData={singleCampaignData ?? undefined}
-            onClose={() => {
-              setDrawerOpen(false);
-              setPreviewData(null);
-            }}
-            mode={mode}
-            onPreview={(data) => setPreviewData(data)}
-            createMutation={createMutation}
-            updateMutation={updateMutation}
-          />
-        )}
+        {/* /* {previewData ? ( */}
+         
+        {showPreview ? (
+  <CampaignPreview
+    mode={mode}
+    data={normalizeCampaignData(previewData)}
+    onBack={() => {
+  setShowPreview(false); // 👈 only hide preview
+      // keep previewData so CampaignForm can use it
+    }}
+    onSubmit={() => {
+      submitCampaignForm(
+        { ...previewData!, keyPoints: previewData!.keyPoints },
+        singleCampaignData,
+        createMutation,
+        updateMutation,
+        () => {
+          setPreviewData(null);
+          setShowPreview(false);
+          setDrawerOpen(false);
+        },
+        () => {},
+        () => setDrawerOpen(false)
+      );
+    }}
+  />
+) : (
+  <CampaignForm
+    initialData={{
+    ...(normalizedCampaignData ?? {}),
+    ...(previewData ?? {}),
+    // Ensure both arrays persist
+    images:
+      previewData?.images?.length
+        ? previewData.images
+        : normalizedCampaignData?.images ?? [],
+    existingImages:
+      previewData?.existingImages?.length
+        ? previewData.existingImages
+        : normalizedCampaignData?.existingImages ?? [],
+  }}
+    onClose={() => {
+      setDrawerOpen(false);
+      setPreviewData(null);
+      setShowPreview(false);
+    }}
+    mode={mode}
+    onPreview={(data) => {
+      setPreviewData(data);
+      setShowPreview(true); // 👈 toggle preview
+    }}
+    createMutation={createMutation}
+    updateMutation={updateMutation}
+  />
+)}
       </Drawer>
       )}
     </div>
