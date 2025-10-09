@@ -40,7 +40,7 @@ const VolunteerTeam = () => {
   return (
     <section
       className="relative bg-cover py-16 bg-center w-full"
-      style={{  backgroundImage: `url(${bgOneVolunteer.src})` }}
+      style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
         <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
@@ -49,37 +49,29 @@ const VolunteerTeam = () => {
             {t("Start Donating Poor People")}
           </span>
         </div>
-        {/*<h2 className="text-4xl md:text-5xl font-bold mb-8">
-          {t("Meet Our Volunteer")} <br />
-          <span className="text-yellow">{t("Team")}</span> {t("Members")}
-        </h2>*/}
 
-      <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8 text-center">
-  <span className="hidden xl:inline">
-    {t("Meet Our Volunteer")} <br />
-    <span className="text-yellow">{t("Team")}</span> {t("Members")}
-  </span>
-
-  <span className="inline xl:hidden whitespace-nowrap">
-    {t("Meet Our Volunteer")} <span className="text-yellow">{t("Team")}</span> {t("Members")}
-  </span>
-</h2>
-
-
+        <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8 text-center leading-snug">
+          <span className="block md:inline">{t("Meet Our Volunteer")}</span>{" "}
+          <span className="block md:inline text-yellow">
+            {t("Team Members")}
+          </span>
+        </h2>
 
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           {isLoading && <p>Loading members...</p>}
           {isError && <p>Failed to load members.</p>}
           {!isLoading && !isError && (
-           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                {/* <div className="volunteer-grid">  */}
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2  lg:grid-cols-2 xl:grid-cols-4
+                gap-6"
+            >
+              {/* <div className="volunteer-grid">    */}
 
               {members.map((member: any, idx: number) => (
                 <VolunteerCard
                   key={member.id || idx}
                   member={member}
                   idx={idx}
-                
                 />
               ))}
             </div>
@@ -115,7 +107,6 @@ const VolunteerTeam = () => {
       </div>
 
       <div className="top absolute top-[10%] right-[6%] z-0 font-bold hidden xl:block">
-      
         <Image
           src={greenspade}
           alt="green spade"
