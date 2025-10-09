@@ -15,6 +15,9 @@ import Dropdown from "../Common/Dropdown";
 import MultiInputList from "../Common/MultiInputList";
 import CancelButton from "../../common/Buttons/CancelButton";
 import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import { getInitialBlogValues } from "../utils/blogInitialValues";
+import LanguageToggle from "../Common/LanguageToggle";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
 
 const BlogForm = ({
   initialData,
@@ -24,56 +27,9 @@ const BlogForm = ({
   createMutation,
   updateMutation,
 }: BlogFormProps) => {
-  const [language, setLanguage] = useState<"en" | "hi">("en");
 
   // Prepare initial values for the form
-  const initialValues: BlogFormValues = {
-    title: {
-      en: initialData?.title?.en ?? "",
-      hi: initialData?.title?.hi ?? "",
-    },
-    creator: {
-      en: initialData?.creator?.en ?? "",
-      hi: initialData?.creator?.hi ?? "",
-    },
-    description: {
-      en: initialData?.description?.en ?? "",
-      hi: initialData?.description?.hi ?? "",
-    },
-    summary: {
-      en: initialData?.summary?.en ?? "",
-      hi: initialData?.summary?.hi ?? "",
-    },
-    quote: {
-      en: initialData?.quote?.en ?? "",
-      hi: initialData?.quote?.hi ?? "",
-    },
-    quoteAuthor: {
-      en: initialData?.quoteAuthor?.en ?? "",
-      hi: initialData?.quoteAuthor?.hi ?? "",
-    },
-    tags: {
-      en: initialData?.tags?.en ?? [],
-      hi: initialData?.tags?.hi ?? [],
-    },
-    keyPoints: {
-      en: initialData?.keyPoints?.en ?? [],
-      hi: initialData?.keyPoints?.hi ?? [],
-    },
-
-    location: {
-      en: initialData?.location?.en ?? "",
-      hi: initialData?.location?.hi ?? "",
-    },
-    category: {
-        en: initialData?.category?.en ?? "",
-        hi: initialData?.category?.hi ?? "",
-    },
-    images: initialData?.images ?? [],
-    existingImages:
-      initialData?.existingImages ??
-      (initialData?.images?.filter((img) => typeof img === "string") ?? []),
-  };
+  const initialValues = getInitialBlogValues(initialData);
 
   const { data: categoryData } = useFetchCategory();
 
@@ -85,36 +41,14 @@ const BlogForm = ({
 
   const isView = mode === "view";
   const isEdit = mode === "edit";
+  const { language, toggleLanguage } = useLanguageToggle();
 
   return (
     <div className="w-full pb-10">
 
       {/* Language Toggle */}
 
-      <div className="flex justify-start text-[13px] mb-4">
-        <button
-          type="button"
-          className={`cursor-pointer px-2 py-1 ${language === "en"
-            ? "bg-lime-green text-white"
-            : "bg-gray-200 text-gray-800"
-            } rounded-l`}
-          onClick={() => setLanguage("en")}
-          disabled={language === "en"}
-        >
-          English
-        </button>
-        <button
-          type="button"
-          className={`cursor-pointer px-2 py-1 ${language === "hi"
-            ? "bg-lime-green text-white"
-            : "bg-gray-200 text-gray-800"
-            } rounded-r`}
-          onClick={() => setLanguage("hi")}
-          disabled={language === "hi"}
-        >
-          हिंदी
-        </button>
-      </div>
+    <LanguageToggle language={language} onChange={toggleLanguage} />
 
       <Formik
         enableReinitialize
@@ -180,7 +114,7 @@ const BlogForm = ({
 
             for (const l of ["en", "hi"] as const) {
               if (hasErrorsForLang(formErrors, l)) {
-                setLanguage(l); 
+                toggleLanguage(l); 
                 return; 
               }
             }
@@ -268,7 +202,7 @@ const BlogForm = ({
                 label={`${lang === "en" ? "Category" : "श्रेणी"}*`}
                 options={categoryOptions}
                 value={values.category[lang]}
-                onChange={(val) => setFieldValue(`category.name.${lang}`, val)}
+                onChange={(val) => setFieldValue(`category.${lang}`, val)}
                 placeholder={lang === "en" ? "Select category" : "श्रेणी चुनें"}
                 error={touched.category?.[lang] ? errors.category?.[lang] : ""}
               />

@@ -4,7 +4,7 @@ import { IoMdClose } from "react-icons/io";
 import CustomInput from "../../Admin/Common/CustomInput";
 import { AdminMultiInputListProps } from "@/src/types/adminCommon";
 
-const MultiInputList: React.FC<AdminMultiInputListProps & { error?: string }> = ({
+const MultiInputList: React.FC<AdminMultiInputListProps & { error?: string[] }> = ({
   label,
   values,
   onChange,
@@ -14,7 +14,7 @@ const MultiInputList: React.FC<AdminMultiInputListProps & { error?: string }> = 
     normal: "bg-yellow/30 text-gray-500",
     view: "bg-gray-100 text-gray-600",
   },
-  error, // <-- Accept the error prop here
+  error,
 }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -62,8 +62,8 @@ const MultiInputList: React.FC<AdminMultiInputListProps & { error?: string }> = 
         </div>
       )}
 
-      {values.map((item) => (
-        <div className="flex flex-wrap gap-2 mt-2 ">
+      <div className="flex flex-wrap gap-2 mt-2 ">
+        {values.map((item) => (
           <span
             key={item}
             className={`flex items-center gap-1 px-2 py-1 rounded-md text-sm ${isView ? colorClass.view : colorClass.normal
@@ -80,8 +80,8 @@ const MultiInputList: React.FC<AdminMultiInputListProps & { error?: string }> = 
               </button>
             )}
           </span>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {/* Validation Error */}
       {error && (

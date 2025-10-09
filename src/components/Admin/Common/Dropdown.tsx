@@ -34,7 +34,9 @@ const Dropdown = <T extends string | number>({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [disabled]);
 
+  console.log("value", value)
   const selectedOption = options.find((opt) => opt.value === value);
+  console.log("selectedOption", selectedOption);
 
   return (
     <div className="w-full min-w-[100px] relative" ref={containerRef}>
@@ -43,7 +45,7 @@ const Dropdown = <T extends string | number>({
       <div
         className={`flex items-center gap-2 px-3 py-2 rounded-md border cursor-pointer relative
         ${error ? "border-red" : "border-transparent"}
-        ${readOnly ? "bg-gray-100": "bg-gray-200/60"}
+        ${readOnly ? "bg-gray-100" : "bg-gray-200/60"}
         
         ${className}`}
         onClick={() => !disabled && setIsOpen((prev) => !prev)}

@@ -13,6 +13,7 @@ import CustomInput from "../../Admin/Common/CustomInput";
 import CustomFileInput from "../../Admin/Common/CustomFileInput";
 import Dropdown from "../Common/Dropdown";
 import CancelButton from "../../common/Buttons/CancelButton";
+import { Category } from "@/src/types/category";
 
 const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
   const initialValues: CampaignFormValues = {
@@ -31,9 +32,9 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
   const [keyPointInput, setKeyPointInput] = useState("");
 
   const { data: categoryData } = useFetchCategory();
-  const categoryOptions = categoryData?.category?.map((c) => ({
-    label: c.name,
-    value: c.name,
+  const categoryOptions = categoryData?.category?.map((category:Category) => ({
+    label: category.name,
+    value: category.name,
   })) ?? [];
 
   const isView = mode === "view";
@@ -188,7 +189,6 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                   setFieldValue("existingImages", existingUrls);
                 }}
                 uploadType="multiple"
-
                 disabled={isView}
                 mode={mode}
                 initialUrls={
