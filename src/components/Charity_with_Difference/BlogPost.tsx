@@ -19,6 +19,18 @@ export default function BlogPost({ blogId }: BlogPostProps) {
   if (isLoading) return <p>Loading blog...</p>;
   if (isError) return <p>Failed to load blog.</p>;
   if (!data) return <p>Blog not found</p>;
+
+
+  if (
+    !data ||
+    !data.title ||
+    !data.description ||
+    !data.summary ||
+    !data.location ||
+    !data.createdAt
+  ){
+    return null; // पूरी component hide हो जाएगी
+  }
   const blog = data;
   const BannerImageUrl = blog.images?.[0] || "/default-image.jpg";
   const title = blog.title;

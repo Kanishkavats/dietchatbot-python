@@ -24,6 +24,18 @@ type VolunteerProfileProps = {
 const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
   const router = useRouter();
 
+
+  // 🧠 1️⃣ Check if essential fields are missing → hide component
+  if (
+    !member ||
+    !member.name ||
+    !member.position ||
+    !member.description ||
+    !member.image
+  ) {
+    return null; // ❌ Hide the entire profile if key data missing
+  }
+
   // Fallback image if member.image is empty
   const imageSrc = member.image || "/assets/default-avatar.png";
 

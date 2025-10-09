@@ -32,6 +32,19 @@ const VolunteerTeam = () => {
   const members = data?.members || [];
   const totalPages = data?.totalPages || 1;
 
+    // ✅ 1️⃣ Hide the entire section if no members or incomplete data
+  const hasValidData =
+    Array.isArray(members) &&
+    members.length > 0 &&
+    members.every(
+      (m) => m?.name && m?.designation && m?.image && m?.description
+    );
+
+  if (isError || isLoading || !hasValidData) {
+    return null; // ❌ Don't render section
+  }
+
+
   const handleViewAll = () => {
     setShowPagination(true);
     setCurrentPage(1);
