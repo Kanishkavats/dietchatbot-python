@@ -1,17 +1,10 @@
-
-
 "use client";
 
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import {
-  FaFacebookF,
-  FaTwitter,
-  FaInstagram,
-  FaLinkedinIn,
-} from "react-icons/fa";
+import { motion, useAnimation, useInView } from "framer-motion";
+import { FaFacebookF, FaVimeoV, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import { CircleCheckBig } from "lucide-react";
 
 import Button from "../common/Buttons/Button";
@@ -40,161 +33,247 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
   const imageSrc = member.image || "/assets/default-avatar.png";
 
   return (
-    <section className="w-full flex justify-center items-center py-12 px-4 md:px-8">
-      <div className="max-w-6xl w-full">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center place-items-center font-nunito">
-          <div className="flex justify-center">
-            <div className="rounded-2xl overflow-hidden">
+    <motion.section
+      ref={ref}
+      className="w-full flex justify-center items-center py-12 px-4 md:px-8"
+      initial="hidden"
+      animate={controls}
+      variants={containerVariants}
+    >
+      <div className="max-w-7xl w-full mt-18 -mx-12 my-0">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-nunito items-start"> 
+        
+
+          {/* Image */}
+          <motion.div
+            className="flex justify-center order-1"
+            variants={imageVariants}
+          >
+            <div className="relative rounded-2xl overflow-hidden volunteer-image mx-12 lg:mx-0">
               <Image
                 src={imageSrc}
                 alt={member.name}
-                width={450}
-                height={450}
+                fill
                 className="rounded-2xl object-cover"
               />
             </div>
-          </div>
+          </motion.div>
 
-          <div className="text-center md:text-left">
-            <h2 className="text-3xl font-bold text-foreground font-nunito">
-              {member.name}
-            </h2>
-            <p className="text-sm text-gray-500 mb-6">{member.position}</p>
-
-            {/* Social links only if provided */}
-            <div className="flex justify-center cursor-pointer md:justify-start gap-3 mb-6">
-              {member.facebookUrl && (
-                <motion.a
-                  href={member.facebookUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 bg-white border border-gray-200 rounded-full text-[#046b59] hover:bg-[#046b59] hover:text-white transition-all duration-600"
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ type: "spring", stiffness: 30, damping: 15 }}
-                >
-                  <FaFacebookF size={20} />
-                </motion.a>
-              )}
-              {member.twitterUrl && (
-                <motion.a
-                  href={member.twitterUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 bg-white border border-gray-200 rounded-full text-[#046b59] hover:bg-[#046b59] hover:text-white transition-all duration-600"
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ type: "spring", stiffness: 30, damping: 15 }}
-                >
-                  <FaTwitter size={20} />
-                </motion.a>
-              )}
-              {member.instagramUrl && (
-                <motion.a
-                  href={member.instagramUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 bg-white border border-gray-200 rounded-full text-[#046b59] hover:bg-[#046b59] hover:text-white transition-all duration-600"
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ type: "spring", stiffness: 30, damping: 15 }}
-                >
-                  <FaInstagram size={20} />
-                </motion.a>
-              )}
-              {member.linkedInUrl && (
-                <motion.a
-                  href={member.linkedInUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-3 bg-white border border-gray-200 rounded-full text-[#046b59] hover:bg-[#046b59] hover:text-white transition-all duration-600"
-                  whileHover={{ scale: 1.2 }}
-                  transition={{ type: "spring", stiffness: 30, damping: 15 }}
-                >
-                  <FaLinkedinIn size={20} />
-                </motion.a>
-              )}
-            </div>
-
-            {/* Member description */}
-            {member.description && (
-              <p className="text-gray-500 mb-6 text-sm font-nunito ">
-                {member.description}
+          {/* Text Content */}
+          <motion.div
+            className="order-2 volunteer-text mt-6 lg:mt-0"
+            variants={textVariants}
+          >
+            <div className="mx-6 lg:mx-0 max-w-[900px] lg:max-full">
+              <h2 className="text-3xl font-bold text-foreground">
+                {member.name}
+              </h2>
+              <p className="text-base text-[#747474] mb-6 mt-2">
+                {member.position}
               </p>
-            )}
 
-             <h3 className="font-bold text-xl mb-6">
-              I Help My Clients Stand Out And They Help Me Grow.
-            </h3>
+              {/* <h2 className="text-3xl font-bold text-foreground">{member.name}</h2> */}
+              {/* <p className="text-base text-[#747474] mb-6 mt-2">{member.position}</p> */}
 
-            <div className="mb-3">
-              <div className="flex justify-between text-sm  text-black-700 font-bold ">
-                <span>Donation Collect</span>
-                <span>70%</span>
+              <div className="flex justify-start gap-3 mb-6">
+                {member.facebookUrl && (
+                  <SocialIcon url={member.facebookUrl} Icon={FaFacebookF} />
+                )}
+                {member.vimeoUrl && (
+                  <SocialIcon url={member.vimeoUrl} Icon={FaVimeoV} />
+                )}
+                {member.twitterUrl && (
+                  <SocialIcon url={member.twitterUrl} Icon={FaTwitter} />
+                )}
+                {member.linkedInUrl && (
+                  <SocialIcon url={member.linkedInUrl} Icon={FaLinkedinIn} />
+                )}
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                <div
-                  className="bg-[#046b59] h-2 rounded-full"
-                  style={{ width: "70%" }}
-                ></div>
+
+              <p className="text-[#667471] mb-6 text-base leading-relaxed capitalize">
+                Lorem ipsum dolor sit amet, con adipiscing elit tian convallis
+                elit id impedie. Quisq commodo simply free ornare tortor. If you
+                are going to use a passage.
+              </p>
+
+
+
+
+
+              <h3 className="text-[#000000] text-xl mb-6 font-extrabold">
+                I Help My Clients Stand Out And They Help Me Grow.
+              </h3>
+
+              <ProgressBar label="Donation Collect" percentage={70} />
+              <ProgressBar label="Successful Events" percentage={85} />
+
+              <div className="grid grid-cols-2 gap-3 mb-6 text-sm gap-x-8 gap-y-3">
+                <Feature text="Best Quality Services" />
+                <Feature text="Time Saving" />
+                <Feature text="Meet The Deadlines" />
+                <Feature text="24/7 Customer Support" />
+              </div>
+
+              <div className="w-full max-w-[250px] rounded-full mt-12">
+                <Button
+                  text="Donate With Me"
+                  bgColor="bg-[#FFC107] py-6"
+                  textColor="text-black"
+                  hoverTextColor="group-hover:text-white"
+                  hoverBg="before:bg-[#046b59]"
+                  onClick={() => router.push("/donate-us")}
+                />
               </div>
             </div>
-
-
-            <div className="mb-6">
-              <div className="flex justify-between text-sm  text-black-700 font-bold">
-                <span>Successful Events</span>
-                <span>85%</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-2 mt-1">
-                <div
-                  className="bg-[#046b59] h-2 rounded-full"
-                  style={{ width: "85%" }}
-                ></div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-3 mb-6 text-sm text-black-700">
-              <p className="flex items-center gap-2 font-bold">
-                <CircleCheckBig className="text-[#046b59]" /> Best Quality
-                Services
-              </p>
-              <p className="flex items-center gap-2 font-bold">
-                <CircleCheckBig className="text-[#046b59]" /> Time Saving
-              </p>
-              <p className="flex items-center gap-2 font-bold">
-                <CircleCheckBig className="text-[#046b59]" /> Meet The Deadlines
-              </p>
-              <p className="flex items-center gap-2 font-bold">
-                <CircleCheckBig className="text-[#046b59]" /> 24/7 Customer
-                Support
-              </p>
-            </div>
-
-            <div className="w-58 round full">
-              <Button
-                text="Donate With Me"
-                bgColor="bg-[#FFC107]"
-                textColor="text-black"
-                hoverTextColor="group-hover:text-white"
-                hoverBg="before:bg-[#046b59]"
-                onClick={() => router.push("/donate-us")}
-              />
-            </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* About section */}
+        {/* About Me section */}
         {member.about && (
-          <div className="mt-10 text-center md:text-left font-nunito">
-            <h3 className="text-3xl font-extrabold mb-3 font-nunito">
-              About Me
-            </h3>
-            <p className="text-gray-green font-nunito text-lg leading-relaxed">
-              {member.about}
-            </p>
-          </div>
+          <motion.div
+            className="volunteer-about mt-10"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            variants={aboutVariants}
+          >
+            <div className="mx-0 sm:mx-4 lg:mx-0 max-w-[900px] lg:max-w-full">
+              <h3 className="text-3xl font-extrabold mb-6 text-left font-nunito">
+                About Me
+              </h3>
+              <p className="text-[#667471] text-lg leading-relaxed text-left capitalize">
+                {member.about}
+              </p>
+            </div>
+          </motion.div>
         )}
       </div>
-    </section>
+
+      {/* --- Global responsive styles --- */}
+      <style jsx>{`
+        .volunteer-image {
+          width: 516px;
+          height: 604px;
+        }
+        @media (min-width: 977px) {
+          .volunteer-image {
+            width: 696px;
+            height: 815px;
+          }
+        }
+
+          @media (min-width: 992px) and (max-width: 1190px) {
+          .volunteer-image {
+            width: 456px;
+            height: 534px;
+          }
+        }
+          
+        @media (min-width: 1198px) {
+          .volunteer-image {
+            width: 456px;
+            height: 534px;
+          }
+        }
+        @media (min-width: 1398px) {
+          .volunteer-image {
+            width: 451px;
+            height: 528px;
+          }
+        }
+
+        @media (min-width: 1400px) {
+          .volunteer-image {
+            width: 526px;
+            height: 616px;
+          }
+        }
+        /* Left-aligned responsive text below image */
+        @media (max-width: 1023px) {
+          .volunteer-text,
+          .volunteer-about {
+            max-width: 516px;
+            margin-left: 2rem; /* left gap */
+            margin-right: auto;
+            text-align: left;
+            padding-left: 0;
+            padding-right: 0;
+          }
+        }
+
+        @media (min-width: 1024px) {
+          .volunteer-about {
+            max-width: 100%;
+            margin-left: 0;
+            text-align: left; /* or center if needed */
+          }
+        }
+        @media (max-width: 768px) {
+          .volunteer-text,
+          .volunteer-about {
+            max-width: 90%;
+        
+          }
+        }
+
+        /* Stack image above text below 990px */
+@media (max-width: 990px) {
+  .volunteer-image {
+    margin-bottom: 2rem; /* add space between image and text */
+  }
+
+ 
+
+       
+     
+
+
+      `}</style>
+    </motion.section>
   );
 };
 
 export default VolunteerProfile;
+
+// ----- Helper Components -----
+const SocialIcon = ({ url, Icon }: { url: string; Icon: any }) => (
+  <motion.a
+    href={url}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="p-3 bg-white border border-gray-200 rounded-full text-[#046b59] hover:bg-[#046b59] hover:text-white transition-all duration-600"
+    whileHover={{ scale: 1.2 }}
+    transition={{ type: "spring", stiffness: 30, damping: 15 }}
+  >
+    <Icon size={20} />
+  </motion.a>
+);
+
+const ProgressBar = ({
+  label,
+  percentage,
+}: {
+  label: string;
+  percentage: number;
+}) => (
+  <div className="mb-6">
+    <div className="text-base text-black-700 font-bold mb-2">{label}</div>
+    <div className="w-full bg-gray-200 rounded-full h-2 relative">
+      <div
+        className="bg-[#046b59] h-2 rounded-full relative"
+        style={{ width: `${percentage}%` }}
+      >
+        <span className="absolute -top-6 right-0 text-base font-bold text-black">
+          {percentage}%
+        </span>
+      </div>
+    </div>
+  </div>
+);
+
+const Feature = ({ text }: { text: string }) => (
+  <p className="flex items-center gap-2 font-bold text-base">
+    <CircleCheckBig className="text-[#046b59] w-4 h-4" /> {text}
+  </p>
+);

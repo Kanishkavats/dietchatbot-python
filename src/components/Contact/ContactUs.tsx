@@ -1095,7 +1095,7 @@ const ContactUs = () => {
           {/* Contact Image */}
           <div className="w-full text-center mt-6">
             <Image
-              src="/contact.png"
+              src="/assets/conatctusimage.jpg"
               alt="Contact Illustration"
               height={260}
               width={516}

@@ -7,7 +7,7 @@ import React from "react";
 import Button from "../common/Buttons/Button";
 import { useInView } from "react-intersection-observer";
 import FadeInUp from "@/src/animations/FadeInUp";
-import { contactbg, shapeleft } from "../../../public/assets";
+import { sendmessagefordonation, shapeleft } from "../../../public/assets";
 import { Form, Formik } from "formik";
 import { Trans, useTranslation } from "react-i18next";
 import { SendMsgformSchema, SendMsgFormValues } from "@/src/utils/validations/FormValidation";
@@ -54,7 +54,7 @@ const SendMsg: React.FC = () => {
       <div
         className="absolute inset-0 bg-center bg-cover bg-no-repeat 
                    transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"
-        style={{ backgroundImage: `url(${contactbg.src})` }}></div>
+        style={{ backgroundImage: `url(${sendmessagefordonation.src})` }}></div>
       <div className="absolute inset-0  bg-gradient-to-r from-dark-green via-foreground/2 to-foreground/5"></div>
 
       <FadeInUp initialYExis={-60} delay={0.2} className="absolute top-[-40] md:top-[-90] left-0 w-1/4 md:w-2/5 lg:w-2/7 h-1/2 md:h-2/3 overflow-hidden z-20">

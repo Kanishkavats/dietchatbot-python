@@ -8,7 +8,7 @@ interface DonationPieChartProps {
   colors?: string[];
 }
 
-const defaultColors = ["var(--primaryColor)", "var(--blue)", "var(--lime-green", "var(--purple)"]; // violet, sky, rose, purple
+const defaultColors = ["var(--primaryColor)", "var(--blue)", "var(--lime-green)", "var(--purple)", "var(--red)", "var(--brown)"]; // violet, sky, rose, purple
 
 const DonationPieChart: React.FC<DonationPieChartProps> = ({ data, colors = defaultColors }) => {
   const total = data.reduce((sum, item) => sum + item.value, 0);
@@ -16,7 +16,7 @@ const DonationPieChart: React.FC<DonationPieChartProps> = ({ data, colors = defa
   return (
     <div className="flex flex-col-reverse sm:grid sm:grid-cols-2 w-full gap-4 ">
       {/* Legend */}
-    <div className="flex flex-wrap gap-3 w-full">
+    <div className="flex flex-wrap gap-1 w-full">
   {data.map((entry, index) => {
     const percentage = total === 0 ? 0 : ((entry.value / total) * 100).toFixed(0);
     return (

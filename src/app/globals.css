@@ -833,7 +833,7 @@ body {
   gap: 1.5rem;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 2rem 6rem;
   position:relative;
 
 }
@@ -853,7 +853,7 @@ body {
 }
 
 /* 4 cards per row above 1280px */
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 1200px) {
   .volunteer-grid {
     grid-template-columns: repeat(4, 1fr);
   }

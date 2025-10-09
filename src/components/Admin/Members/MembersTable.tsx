@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import Breadcrumb from "../Breadcrumb";
 import DataTableWrapper from "../Common/DataTableWrapper";
@@ -13,16 +13,24 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import MemberForm from "./MemberForm";
 import { Member } from "@/src/types/members";
 import { getMemberColumns } from "./getMemberColumns";
-import { submitMemberForm, useDeleteSingleMember, useFetchAllMembers, useFetchSingleMember } from "@/src/hooks/useMembers";
+import {
+  submitMemberForm,
+  useDeleteSingleMember,
+  useFetchAllMembers,
+  useFetchSingleMember,
+} from "@/src/hooks/useMembers";
 import { createMember, updateMember } from "@/src/services/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import AdminCustomPagination from "../Common/CustomePagination";
+import ConfirmModal from "../Common/ConfirmModal";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"name" | "position" | "title">("name");
+  const [searchField, setSearchField] = useState<"name" | "position" | "title">(
+    "name"
+  );
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editMember, setEditMember] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
@@ -30,10 +38,17 @@ const MemberTable = () => {
   const [previewData, setPreviewData] = useState<MemberFormValues | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
-  const [singleMemberFallback, setSingleMemberFallback] = useState<MemberFormValues | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const [singleMemberFallback, setSingleMemberFallback] =
+    useState<MemberFormValues | null>(null);
 
-  const { data: memberData, isLoading } = useFetchAllMembers(currentPage, itemsPerPage);
-  const { data: singleMemberData, isLoading: isLoadingMember } = useFetchSingleMember(editMember || undefined);
+  const { data: memberData, isLoading } = useFetchAllMembers(
+    currentPage,
+    itemsPerPage
+  );
+  const { data: singleMemberData, isLoading: isLoadingMember } =
+    useFetchSingleMember(editMember || undefined);
   const { mutate: deleteMember } = useDeleteSingleMember();
 
   const handleEdit = useCallback((m: Member) => {
@@ -45,18 +60,27 @@ const MemberTable = () => {
   const handleView = useCallback((member: Member) => {
     setEditMember(member.id.toString());
     setMode("view");
-    setPreviewData(member);
+    setPreviewData(member as MemberFormValues);
     setDrawerOpen(true);
   }, []);
 
   const handleDelete = useCallback(
     (m: Member) => {
-      if (confirm(`Are you sure you want to delete "${m.name}"?`)) {
-        deleteMember(m.id.toString());
-      }
+      // if (confirm(`Are you sure you want to delete "${m.name}"?`)) {
+      //   deleteMember(m.id.toString());
+      // }
+      setSelectedMember(m);
+      setIsOpen(true);
     },
     [deleteMember]
   );
+  const confirmDelete = useCallback(() => {
+    if (selectedMember) {
+      deleteMember(selectedMember.id.toString());
+      setIsOpen(false);
+      setSelectedMember(null);
+    }
+  }, [selectedMember, deleteMember]);
 
   const columns = useMemo(
     () =>
@@ -153,12 +177,8 @@ const MemberTable = () => {
           <CustomLoader />
         </div>
       ) : (
-        <DataTableWrapper
-          columns={columns}
-          data={filteredData}
-        />
+        <DataTableWrapper columns={columns} data={filteredData} />
       )}
-
 
       {/* Pagination */}
       {totalPages > 1 && (
@@ -184,8 +204,8 @@ const MemberTable = () => {
             mode === "edit"
               ? "Edit Member"
               : mode === "view"
-                ? "View Member"
-                : "Add Member"
+              ? "View Member"
+              : "Add Member"
           }
           mode={mode}
         >
@@ -208,7 +228,7 @@ const MemberTable = () => {
                     setDrawerOpen(false);
                     setSingleMemberFallback(null);
                   },
-                  () => { },
+                  () => {},
                   () => setDrawerOpen(false)
                 );
               }}
@@ -217,7 +237,9 @@ const MemberTable = () => {
             <CustomLoader />
           ) : (
             <MemberForm
-              initialData={singleMemberFallback || singleMemberData || undefined}
+              initialData={
+                singleMemberFallback || singleMemberData || undefined
+              }
               onClose={() => setDrawerOpen(false)}
               mode={mode}
               onPreview={(data) => {
@@ -228,10 +250,16 @@ const MemberTable = () => {
               updateMutation={updateMutation}
             />
           )}
-
-
         </Drawer>
       )}
+      <ConfirmModal
+        isOpen={isOpen}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsOpen(false)}
+        title="Confirm Delete"
+        message="Are you sure you want to delete these record ?"
+        buttonText="Delete"
+      />
     </section>
   );
 };
