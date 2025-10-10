@@ -1,5 +1,5 @@
 import { UseMutationResult } from "@tanstack/react-query";
-import { MemberFormValues } from "../utils/validations/FormValidation";
+import { MemberFormValues } from "../../../utils/validations/FormValidation";
 
 // 🧩 Member model interface
 export interface Member {

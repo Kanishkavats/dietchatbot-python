@@ -2,7 +2,7 @@
 
 import { Formik, Form, FieldArray } from "formik";
 import React, { useState } from "react";
-import { useFetchCategory } from "@/src/hooks/useCategory";
+import { useFetchCategory } from "../hooks/useCategory";
 import { BlogFormValues, blogSchema } from "@/src/utils/validations/FormValidation";
 import { BlogFormProps } from "@/src/types/blog";
 
@@ -219,7 +219,7 @@ const BlogForm = ({
                 onChange={(newTags) => setFieldValue(`tags.${lang}`, newTags)}
                 placeholder={lang === "en" ? "Add a tag" : "टैग जोड़ें"}
                 isView={isView}
-                error={touched.tags?.[lang] && errors.tags?.[lang] ? errors.tags?.[lang] : ""}
+                error={touched.tags?.[lang] && errors.tags?.[lang] ? [String(errors.tags?.[lang])] : undefined}
               />
 
 
@@ -230,7 +230,7 @@ const BlogForm = ({
                 onChange={(newKeyPoints) => setFieldValue(`keyPoints.${lang}`, newKeyPoints)}
                 placeholder={lang === "en" ? "Add a key point" : "मुख्य बिंदु जोड़ें"}
                 isView={isView}
-                error={touched.keyPoints?.[lang] && errors.keyPoints?.[lang] ? errors.keyPoints?.[lang] : ""}
+                error={touched.keyPoints?.[lang] && errors.keyPoints?.[lang] ? [String(errors.keyPoints?.[lang])] : undefined}
               />
 
 
