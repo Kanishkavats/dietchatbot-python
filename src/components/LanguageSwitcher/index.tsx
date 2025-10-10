@@ -4,6 +4,8 @@ import { useState, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icon } from '@iconify/react';
+import { useQueryClient } from '@tanstack/react-query';
+import { useLanguage } from '@/src/contexts/LanguageContext';
 
 const dropdownVariants = {
   hidden: { opacity: 0, y: -10 },
@@ -28,6 +30,8 @@ const LanguageSwitcher = ({
   paddingy = 'py-4',
 }: LanguageSwitcherProps) => {
   const { i18n } = useTranslation();
+  const { setCurrentLanguage } = useLanguage();
+  const queryClient = useQueryClient();
   const [open, setOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   // Initial selectedLang (still fine as fallback)
@@ -63,11 +67,24 @@ const LanguageSwitcher = ({
   }, []);
 
   const changeLanguage = (lng: 'en' | 'hi') => {
+   
+    
+    // Update language context
+    setCurrentLanguage(lng);
+    
+    // Update i18n
     i18n.changeLanguage(lng);
     document.documentElement.dir = 'ltr';
-    localStorage.setItem('lang', lng);
+    
+    // Update local state
     setSelectedLang(languages.find((lang) => lang.code === lng)!);
     setOpen(false);
+    
+    // Invalidate all queries to refetch data with new language
+   
+    queryClient.invalidateQueries();
+    
+   
   };
 
   return (

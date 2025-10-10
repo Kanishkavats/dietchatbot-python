@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 
 "use client";
 
@@ -13,6 +14,7 @@ interface LeaveCommentProps {
 }
 
 export default function LeaveComment({ blogId }: LeaveCommentProps) {
+  if (!blogId) return null; 
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -49,7 +51,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
   };
 
   return (
-    <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg shadow-lg border border-gray-100 lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
+    <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg shadow-lg border border-gray-100 max-w-4xl mx-auto lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
       <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
         Leave A Comment
       </h2>

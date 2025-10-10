@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import Breadcrumb from "../Breadcrumb";
 import { BlogSearchOptions } from "../Data/staticData";
@@ -10,7 +10,12 @@ import Drawer from "../Common/Drawer";
 
 import BlogForm from "./BlogForm";
 import { getBlogColumns } from "./BlogColumns";
-import { submitBlogForm, useDeleteSingleBlog, useFetchAllBlogs, useFetchSingleBlog } from "@/src/hooks/useBlog";
+import {
+  submitBlogForm,
+  useDeleteSingleBlog,
+  useFetchAllBlogs,
+  useFetchSingleBlog,
+} from "@/src/hooks/useBlog";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import BlogPreview from "./PreviewBlog";
@@ -20,11 +25,13 @@ import { Blog } from "@/src/types/blog";
 import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import AdminCustomPagination from "../Common/CustomePagination";
+import ConfirmModal from "../Common/ConfirmModal";
 
 const BlogTable = () => {
-
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"title" | "location" | "category" | "createdAt" | "updatedAt">("title");
+  const [searchField, setSearchField] = useState<
+    "title" | "location" | "category" | "createdAt" | "updatedAt"
+  >("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [blogId, setBlogId] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
@@ -32,9 +39,16 @@ const BlogTable = () => {
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
 
-  const { data: blogData, isLoading: isAllBlogLoading } = useFetchAllBlogs(currentPage, itemsPerPage);
-  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(blogId || undefined);
+  const { data: blogData, isLoading: isAllBlogLoading } = useFetchAllBlogs(
+    currentPage,
+    itemsPerPage
+  );
+  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(
+    blogId || undefined
+  );
   const { mutate: deleteBlog } = useDeleteSingleBlog();
   const totalPages = blogData?.totalPages || 1;
 
@@ -50,16 +64,27 @@ const BlogTable = () => {
     setPreviewData(blog);
     setDrawerOpen(true);
   }, []);
+  
 
 
   const handleDelete = useCallback(
     (b: Blog) => {
-      if (confirm(`Are you sure you want to delete "${b.title}"?`)) {
-        deleteBlog(b.id.toString());
-      }
+      // if (confirm(`Are you sure you want to delete "${b.title}"?`)) {
+      // deleteBlog(b.id.toString());
+      // }
+      setSelectedBlog(b);
+      setIsOpen(true);
     },
     [deleteBlog]
   );
+
+  const confirmDelete = useCallback(() => {
+    if (selectedBlog) {
+      deleteBlog(selectedBlog.id.toString());
+      setIsOpen(false);
+      setSelectedBlog(null);
+    }
+  }, [selectedBlog, deleteBlog]);
 
   const columns = useMemo(
     () =>
@@ -79,7 +104,6 @@ const BlogTable = () => {
       author: b.author || "Admin",
     }));
   }, [blogData]);
-
 
   const filteredData = useMemo(() => {
     return paginatedData.filter((blog: Blog) => {
@@ -106,6 +130,7 @@ const BlogTable = () => {
     },
   });
 
+  console.log("previewData", previewData)
   return (
     <section>
       {/* Top controls */}
@@ -121,7 +146,6 @@ const BlogTable = () => {
                   searchInputRef.current?.focus();
                 }, 0);
               }}
-
             />
             <CustomInput
               ref={searchInputRef}
@@ -152,17 +176,13 @@ const BlogTable = () => {
         </AnimatedReveal>
       </div>
 
-
-      {isAllBlogLoading ? 
-      <div className="flex justify-center py-8">
-        <CustomLoader />
-      </div> : (
-        <DataTableWrapper
-          columns={columns}
-          data={filteredData}
-        />
+      {isAllBlogLoading ? (
+        <div className="flex justify-center py-8">
+          <CustomLoader />
+        </div>
+      ) : (
+        <DataTableWrapper columns={columns} data={filteredData} />
       )}
-
 
       {/* Pagination */}
       {totalPages > 1 && (
@@ -188,11 +208,10 @@ const BlogTable = () => {
             mode === "edit"
               ? "Edit Blog"
               : mode === "view"
-                ? "View Blog"
-                : "Add Blog"
+              ? "View Blog"
+              : "Add Blog"
           }
           mode={mode}
-
         >
           {mode === "view" && previewData ? (
             <BlogPreview
@@ -208,7 +227,7 @@ const BlogTable = () => {
                     setPreviewData(null);
                     setDrawerOpen(false);
                   },
-                  () => { },
+                  () => {},
                   () => setDrawerOpen(false)
                 );
               }}
@@ -221,16 +240,26 @@ const BlogTable = () => {
               initialData={singleBlogData ?? undefined}
               onClose={() => setDrawerOpen(false)}
               mode={mode}
-              onPreview={(data) => setPreviewData(data)}
+              onPreview={(data) => {
+                setPreviewData(data);
+                setMode("view");
+              }}
               createMutation={createMutation}
               updateMutation={updateMutation}
             />
           )}
-
         </Drawer>
       )}
+      <ConfirmModal
+        isOpen={isOpen}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsOpen(false)}
+        title="Confirm Delete"
+        message="Are you sure you want to delete these record ?"
+        buttonText="Delete"
+      />
     </section>
-  )
-}
+  );
+};
 
-export default BlogTable
+export default BlogTable;

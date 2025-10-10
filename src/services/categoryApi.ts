@@ -15,13 +15,13 @@ export const fetchCategoryById = async (id:string) => {
 };
 
 // ✅ Create a new category
-export const createCategory = async (category: { name: string }) => {
+export const createCategory = async (category: { name: { en: string; hi: string } }) => {
   const { data } = await api.post("/category/create-category", category);
   return data;
 };
 
 // ✅ Update a category
-export const updateCategory = async (id: string, category: { name: string }) => {
+export const updateCategory = async (id: string, category: { name: { en: string; hi: string } }) => {
   const { data } = await api.put(`/category/update-category/${id}`, category);
   return data;
 };

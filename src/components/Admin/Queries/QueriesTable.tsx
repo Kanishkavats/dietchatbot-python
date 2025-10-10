@@ -15,23 +15,26 @@ import {
 import { Query } from "@/src/types/query";
 import QueryPreview from "./QueryPreview";
 import Dropdown from "../Common/Dropdown";
-import { filterFields, formTypeOptions, isViewedOptions } from "@/src/staticResource";
+import {
+  filterFields,
+  formTypeOptions,
+  isViewedOptions,
+} from "@/src/staticResource";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
-
-
-
-
+import ConfirmModal from "../Common/ConfirmModal";
 
 const QueriesTable = () => {
-  const [filterField, setFilterField] = useState<"none" | "isViewed" | "formType">("none");
+  const [filterField, setFilterField] = useState<
+    "none" | "isViewed" | "formType"
+  >("none");
   const [filterValue, setFilterValue] = useState<string>("all");
-
-
 
   // Drawer state
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [queryId, setqueryId] = useState<string | null>(null);
   const [previewData, setPreviewData] = useState<Query | null>(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedQuerry, setSelectedQuerry] = useState<Query | null>(null);
 
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -57,13 +60,20 @@ const QueriesTable = () => {
     return {};
   }, [filterField, filterValue]);
 
-  const { data: allData, isLoading } = useFetchAllQueries(currentPage, itemsPerPage, filters);
+  const { data: allData, isLoading } = useFetchAllQueries(
+    currentPage,
+    itemsPerPage,
+    filters
+  );
 
   const totalPages = allData?.totalPages ?? 1;
 
   // Fetch single query (optional - only if needed for preview)
-  const { data: singleQueryData, isLoading: isSingleQueryLoading, refetch: refetchSingle } =
-    useFetchSingleQuery(queryId);
+  const {
+    data: singleQueryData,
+    isLoading: isSingleQueryLoading,
+    refetch: refetchSingle,
+  } = useFetchSingleQuery(queryId);
 
   // Delete mutation
   const { mutate: deleteQuery } = useDeleteQuery();
@@ -81,17 +91,27 @@ const QueriesTable = () => {
 
   const handleDelete = useCallback(
     (e: Query) => {
-      if (confirm(`Are you sure you want to delete "${e.title}"?`)) {
-        deleteQuery(e.id ?? "");
-      }
+      // if (confirm(`Are you sure you want to delete "${e.title}"?`)) {
+      //   deleteQuery(e.id ?? "");
+      // }
+      setSelectedQuerry(e);
+      setIsOpen(true);
     },
     [deleteQuery]
   );
 
+  const confirmDelete = useCallback(() => {
+    if (selectedQuerry?.id) {
+      deleteQuery(selectedQuerry.id.toString());
+      setIsOpen(false);
+      setSelectedQuerry(null);
+    }
+  }, [selectedQuerry, deleteQuery]);
+
   const columns = useMemo(
     () =>
       getQueryColumns({
-        onEdit: () => { }, // No edit now
+        onEdit: () => {}, // No edit now
         onDelete: handleDelete,
         onView: handleView,
       }),
@@ -100,31 +120,33 @@ const QueriesTable = () => {
 
   return (
     <section>
-      <AnimatedReveal direction="left" delay={0.1} className="w-full md:w-fit flex flex-row gap-2 mb-5 md:mb-0">
-          <Dropdown
-            options={filterFields}
-            value={filterField}
-            onChange={(value) => {
-              setFilterField(value as "none" | "isViewed" | "formType");
-              setFilterValue("all");
-            }}
-          />
+      <AnimatedReveal
+        direction="left"
+        delay={0.1}
+        className="w-full md:w-fit flex flex-row gap-2 mb-5 md:mb-0"
+      >
+        <Dropdown
+          options={filterFields}
+          value={filterField}
+          onChange={(value) => {
+            setFilterField(value as "none" | "isViewed" | "formType");
+            setFilterValue("all");
+          }}
+        />
 
-          <Dropdown
-            options={
-              filterField === "isViewed"
-                ? isViewedOptions
-                : filterField === "formType"
-                  ? formTypeOptions
-                  : [{ label: "Select option", value: "all" }]
-            }
-            value={filterValue}
-            onChange={setFilterValue}
-            disabled={filterField === "none"}
-          />
-
+        <Dropdown
+          options={
+            filterField === "isViewed"
+              ? isViewedOptions
+              : filterField === "formType"
+              ? formTypeOptions
+              : [{ label: "Select option", value: "all" }]
+          }
+          value={filterValue}
+          onChange={setFilterValue}
+          disabled={filterField === "none"}
+        />
       </AnimatedReveal>
-    
 
       {/* Table */}
       {isLoading ? (
@@ -158,13 +180,28 @@ const QueriesTable = () => {
           title="Preview Query"
           mode="view"
         >
-          {isSingleQueryLoading ? <CustomLoader /> : <QueryPreview data={singleQueryData} onClose={() => {
-            setDrawerOpen(false);
-            setqueryId(null);
-            setPreviewData(null);
-          }} />}
+          {isSingleQueryLoading ? (
+            <CustomLoader />
+          ) : (
+            <QueryPreview
+              data={singleQueryData}
+              onClose={() => {
+                setDrawerOpen(false);
+                setqueryId(null);
+                setPreviewData(null);
+              }}
+            />
+          )}
         </Drawer>
       )}
+      <ConfirmModal
+        isOpen={isOpen}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsOpen(false)}
+        title="Confirm Delete"
+        message="Are you sure you want to delete these record ?"
+        buttonText="Delete"
+      />
     </section>
   );
 };

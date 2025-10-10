@@ -27,7 +27,7 @@ const CustomInput: React.FC<AdminCustomInputProps> = ({
 
   return (
     <div className={`w-full ${className}`}>
-      {label && <label htmlFor={name} className="block mb-1 font-medium text-blue-50">{label}</label>}
+      {label && <label htmlFor={name} className="block mb-1 font-medium text-blue-50 text-[14px]">{label}</label>}
 
       <div
         className={`flex gap-2 bg-gray-200/60 px-3 py-2 rounded-md border relative
@@ -45,7 +45,7 @@ const CustomInput: React.FC<AdminCustomInputProps> = ({
             value={value}
             onChange={onChange}
             placeholder={placeholder}
-               className={`w-full bg-transparent outline-none text-[14px] placeholder:text-gray-500  ${readOnly ? "cursor-not-allowed text-blue-50/80": "text-foreground/70"}`}
+               className={`w-full bg-transparent outline-none text-[13px] placeholder:text-gray-500  ${readOnly ? "cursor-not-allowed text-blue-50/80": "text-foreground/70"}`}
             rows={4}
             onKeyDown={onKeyDown}
             disabled={disabled}
@@ -61,7 +61,7 @@ const CustomInput: React.FC<AdminCustomInputProps> = ({
             placeholder={placeholder}
             onKeyDown={onKeyDown}
             disabled={disabled}
-            className={`w-full bg-transparent outline-none text-[14px] placeholder:text-gray-500  ${readOnly ? "cursor-not-allowed text-blue-50": "text-foreground/70"}`}
+            className={`w-full bg-transparent outline-none text-[13px] placeholder:text-gray-500  ${readOnly ? "cursor-not-allowed text-blue-50": "text-foreground/70"}`}
           />
         )}
 
@@ -89,7 +89,7 @@ const CustomInput: React.FC<AdminCustomInputProps> = ({
       </div>
 
       {/* Error */}
-      {error && <p className="text-[10px] text-[var(--red)] mt-1">{error}</p>}
+      {error && <p className="text-[10px] text-red mt-1">{error}</p>}
     </div>
   );
 };

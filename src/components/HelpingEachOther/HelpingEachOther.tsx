@@ -186,8 +186,8 @@ export default function HelpingEachOther() {
                             ],
                           }}
                           transition={{
-                            duration: 3,
-                            delay: 2,
+                            duration: 2,
+                            delay: 1,
                             repeat: Infinity,
                             ease: "linear",
                           }}
@@ -408,13 +408,13 @@ export default function HelpingEachOther() {
                 </div>
                 <div className="flex items-start gap-2 md:gap-3">
                   <FaCheckCircle className="text-dark-green md:w-5 md:h-5 mt-2 md:mt-0.5 flex-shrink-0" />
-                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm xl:text-[16px] ">
+                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm xl:text-[16px]">
                     {t("We Give Child A Gift Of A Education")}
                   </span>
                 </div>
                 <div className="flex items-start gap-2 md:gap-3">
                   <FaCheckCircle className="text-dark-green md:w-5 md:h-5 mt-2 md:mt-0.5 flex-shrink-0" />
-                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm xl:text-[16px] ">
+                  <span className="text-dark-green leading-7 md:leading-tight tracking-wide text-sm md:text-sm xl:text-[16px]">
                     {t(
                       "We Help Companies Develop Powerful Corporate Social Responsibility."
                     )}
@@ -426,7 +426,7 @@ export default function HelpingEachOther() {
                 className="flex flex-col md:flex-row mt-4 xs:mt-8 mb-20 lg:mb-25 xl:mb-15 lg:mt-10 items-start sm:items-center gap-8 sm:gap-3 lg:gap-5 opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "1.8s" }}
               >
-                <div className="flex items-center justify-center   ">
+                <div className="flex items-center justify-center">
                   <Button
                     text="More About Us"
                     bgColor="bg-yellow"
