@@ -7,7 +7,12 @@ export interface TeamMember {
   imageUrl?: string;
   image?: string;
   position: string;
-  
+  facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  behanceUrl?: string;
+  vimeoUrl?: string;
+  linkedInUrl?: string;
 
 }
 
