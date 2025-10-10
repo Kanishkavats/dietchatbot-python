@@ -15,12 +15,12 @@ import {
   useDeleteSingleBlog,
   useFetchAllBlogs,
   useFetchSingleBlog,
-} from "@/src/hooks/useBlog";
+} from "../hooks/useBlog";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import BlogPreview from "./PreviewBlog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createBlog, updateBlog } from "@/src/services/blogApi";
+import { createBlog, updateBlog } from "../services/blogApi";
 import { Blog } from "@/src/types/blog";
 import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
@@ -123,7 +123,7 @@ const BlogTable = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (data: { id: string; values: BlogFormValues }) =>
+    mutationFn: (data: { id: string; values: FormData }) =>
       updateBlog(data.id, data.values),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
