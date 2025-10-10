@@ -3,10 +3,9 @@
 import React, { useRef, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { motion, useAnimation, useInView } from "framer-motion";
+import { motion, useAnimation, useInView, Variants } from "framer-motion";
 import { FaFacebookF, FaVimeoV, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import { CircleCheckBig } from "lucide-react";
-
 import Button from "../common/Buttons/Button";
 import { Member } from "@/src/types/members";
 
@@ -16,66 +15,116 @@ type VolunteerProfileProps = {
 
 const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
   const router = useRouter();
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.3 });
+  const controls = useAnimation();
 
+  useEffect(() => {
+    if (inView) controls.start("visible");
+  }, [inView, controls]);
 
-  // 🧠 1️⃣ Check if essential fields are missing → hide component
-  if (
-    !member ||
-    !member.name ||
-    !member.position ||
-    !member.description ||
-    !member.image
-  ) {
-    return null; // ❌ Hide the entire profile if key data missing
-  }
+  const containerVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.5, ease: "easeOut" },
+    },
+  };
 
-  // Fallback image if member.image is empty
+  const imageVariants: Variants = {
+    hidden: { opacity: 0, scale: 0.7, y: 50 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 1.5, ease: "easeOut" },
+    },
+  };
+
+  const textVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.5, ease: "easeOut", delay: 0.3 },
+    },
+  };
+
+  const aboutVariants: Variants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 1.5, ease: "easeOut", delay: 0.5 },
+    },
+  };
+
+  const featureVariants: Variants = {
+    hidden: { opacity: 0, x: -20 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      transition: { delay: i * 0.3, duration: 0.6, ease: "easeOut" },
+    }),
+  };
+
   const imageSrc = member.image || "/assets/default-avatar.png";
 
   return (
     <motion.section
       ref={ref}
-      className="w-full flex justify-center items-center py-12 px-4 md:px-8"
+      className="w-full flex justify-center items-center py-8 sm:py-10 md:py-12 px-4 sm:px-6 md:px-8"
       initial="hidden"
       animate={controls}
       variants={containerVariants}
     >
-      <div className="max-w-7xl w-full mt-18 -mx-12 my-0">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 font-nunito items-start"> 
-        
-
-          {/* Image */}
+      <div className="max-w-7xl w-full mt-12 sm:mt-16 md:mt-18">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 lg:gap-10 font-nunito items-start">
+          {/* ✅ Image Section */}
           <motion.div
-            className="flex justify-center order-1"
+            className="flex justify-center order-1 w-full lg:w-auto max-[640px]:mb-2"
             variants={imageVariants}
           >
-            <div className="relative rounded-2xl overflow-hidden volunteer-image mx-12 lg:mx-0">
-              <Image
-                src={imageSrc}
-                alt={member.name}
-                fill
-                className="rounded-2xl object-cover"
-              />
+            <div className="relative rounded-2xl overflow-hidden volunteer-image mx-0 sm:mx-12 lg:mx-0 w-full max-w-[534px]">
+              <div className="relative w-full aspect-[7/9] sm:aspect-[4/5] md:aspect-auto md:h-[700px]">
+                <Image
+                  src={imageSrc}
+                  alt={member.name}
+                  width={534}
+                  height={639}
+                  className="rounded-2xl object-cover w-full h-full"
+                  // sizes="(max-width: 650px) 90vw, 534px"
+                  sizes="
+    (max-width: 375px) 346.4px,
+    (max-width: 425px) 397.6px,
+    (max-width: 768px) 696px,
+    (max-width: 1024px) 456px,
+    (max-width: 1440px) 526px,
+    526px
+  "
+                  priority
+                />
+              </div>
             </div>
           </motion.div>
 
           {/* Text Content */}
           <motion.div
-            className="order-2 volunteer-text mt-6 lg:mt-0"
+            className="order-2 volunteer-text mt-0 sm:mt-0"
             variants={textVariants}
           >
-            <div className="mx-6 lg:mx-0 max-w-[900px] lg:max-full">
-              <h2 className="text-3xl font-bold text-foreground">
+            <div className="max-w-full lg:max-w-[900px]">
+              {/* Name and Position */}
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-foreground leading-tight">
                 {member.name}
               </h2>
-              <p className="text-base text-[#747474] mb-6 mt-2">
+              <p className="text-base sm:text-base text-[#747474] mb-4 sm:mb-6 mt-2">
                 {member.position}
               </p>
 
-              {/* <h2 className="text-3xl font-bold text-foreground">{member.name}</h2> */}
-              {/* <p className="text-base text-[#747474] mb-6 mt-2">{member.position}</p> */}
-
-              <div className="flex justify-start gap-3 mb-6">
+              {/* Social Icons */}
+              <div className="flex justify-start gap-2 sm:gap-3 mb-4 sm:mb-6 flex-wrap">
                 {member.facebookUrl && (
                   <SocialIcon url={member.facebookUrl} Icon={FaFacebookF} />
                 )}
@@ -90,34 +139,55 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
                 )}
               </div>
 
-              <p className="text-[#667471] mb-6 text-base leading-relaxed capitalize">
+              {/* Description */}
+              <p className="text-[#667471] mb-4 sm:mb-6 text-sm sm:text-base leading-relaxed capitalize">
                 Lorem ipsum dolor sit amet, con adipiscing elit tian convallis
                 elit id impedie. Quisq commodo simply free ornare tortor. If you
                 are going to use a passage.
               </p>
 
-
-
-
-
-              <h3 className="text-[#000000] text-xl mb-6 font-extrabold">
+              {/* Tagline */}
+              <h3 className="text-[#000000] text-lg sm:text-xl md:text-2xl mb-4 sm:mb-6 font-extrabold leading-snug">
                 I Help My Clients Stand Out And They Help Me Grow.
               </h3>
 
+              {/* Progress Bars */}
               <ProgressBar label="Donation Collect" percentage={70} />
               <ProgressBar label="Successful Events" percentage={85} />
 
-              <div className="grid grid-cols-2 gap-3 mb-6 text-sm gap-x-8 gap-y-3">
-                <Feature text="Best Quality Services" />
-                <Feature text="Time Saving" />
-                <Feature text="Meet The Deadlines" />
-                <Feature text="24/7 Customer Support" />
-              </div>
+              {/* Feature Checks */}
+              <motion.div
+                className="grid gap-2 sm:gap-3 mb-4 sm:mb-6 grid-cols-1 sm:grid-cols-2"
+                initial="hidden"
+                animate={inView ? "visible" : "hidden"}
+              >
+                {[
+                  "Best Quality Services",
+                  "Time Saving",
+                  "Meet The Deadlines",
+                  "24/7 Customer Support",
+                ].map((text, index) => (
+                  <motion.p
+                    key={text}
+                    custom={index}
+                    variants={featureVariants}
+                    className={`flex items-center gap-2 font-bold text-base sm:text-sm md:text-base
+                      ${index === 0 ? "mb-2 sm:mb-2" : ""}
+                      ${index === 1 ? "mb-2 sm:mb-2" : ""}
+                      ${index === 2 ? "mb-2 sm:mb-2" : ""}
+                      ${index === 3 ? "mb-2 sm:mb-2" : ""}`}
+                  >
+                    <CircleCheckBig className="text-[#046b59] w-4 h-4 sm:w-4 sm:h-4 flex-shrink-0" />
+                    <span className="leading-tight">{text}</span>
+                  </motion.p>
+                ))}
+              </motion.div>
 
-              <div className="w-full max-w-[250px] rounded-full mt-12">
+              {/* Donate Button */}
+              <div className="w-full max-w-[250px] sm:max-w-[280px] rounded-full mt-6 sm:mt-8 md:mt-12">
                 <Button
                   text="Donate With Me"
-                  bgColor="bg-[#FFC107] py-6"
+                  bgColor="bg-[#FFC107] py-4 sm:py-5 md:py-6"
                   textColor="text-black"
                   hoverTextColor="group-hover:text-white"
                   hoverBg="before:bg-[#046b59]"
@@ -131,18 +201,18 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
         {/* About Me section */}
         {member.about && (
           <motion.div
-            className="volunteer-about mt-10"
+            className="volunteer-about mt-8 sm:mt-10 md:mt-12"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 1.5, ease: "easeOut" }}
             variants={aboutVariants}
           >
-            <div className="mx-0 sm:mx-4 lg:mx-0 max-w-[900px] lg:max-w-full">
-              <h3 className="text-3xl font-extrabold mb-6 text-left font-nunito">
+            <div className="max-w-[900px] lg:max-w-full">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-extrabold mb-4 sm:mb-6 text-left font-nunito">
                 About Me
               </h3>
-              <p className="text-[#667471] text-lg leading-relaxed text-left capitalize">
+              <p className="text-[#747474] text-base sm:text-base md:text-lg font-nunito leading-relaxed text-left capitalize">
                 {member.about}
               </p>
             </div>
@@ -150,85 +220,58 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
         )}
       </div>
 
-      {/* --- Global responsive styles --- */}
       <style jsx>{`
         .volunteer-image {
-          width: 516px;
-          height: 604px;
+          width: 100%;
         }
-        @media (min-width: 977px) {
-          .volunteer-image {
+
+        /* Mobile 375px */
+        @media (max-width: 375px) {
+          .volunteer-image img {
+            width: 346.4px;
+            height: 405.938px;
+          }
+        }
+
+        /* Mobile 425px */
+        @media (min-width: 376px) and (max-width: 425px) {
+          .volunteer-image img {
+            width: 397.6px;
+            height: 465.938px;
+          }
+        }
+
+        /* Tablet 768px */
+        @media (min-width: 426px) and (max-width: 768px) {
+          .volunteer-image img {
             width: 696px;
-            height: 815px;
+            height: 815.638px;
           }
         }
 
-          @media (min-width: 992px) and (max-width: 1190px) {
-          .volunteer-image {
+        /* Laptop 1024px */
+        @media (min-width: 769px) and (max-width: 1024px) {
+          .volunteer-image img {
             width: 456px;
-            height: 534px;
-          }
-        }
-          
-        @media (min-width: 1198px) {
-          .volunteer-image {
-            width: 456px;
-            height: 534px;
-          }
-        }
-        @media (min-width: 1398px) {
-          .volunteer-image {
-            width: 451px;
-            height: 528px;
+            height: 534.388px;
           }
         }
 
-        @media (min-width: 1400px) {
-          .volunteer-image {
+        /* Laptop 1440px */
+        @media (min-width: 1025px) and (max-width: 1440px) {
+          .volunteer-image img {
             width: 526px;
-            height: 616px;
-          }
-        }
-        /* Left-aligned responsive text below image */
-        @media (max-width: 1023px) {
-          .volunteer-text,
-          .volunteer-about {
-            max-width: 516px;
-            margin-left: 2rem; /* left gap */
-            margin-right: auto;
-            text-align: left;
-            padding-left: 0;
-            padding-right: 0;
+            height: 616.412px;
           }
         }
 
-        @media (min-width: 1024px) {
-          .volunteer-about {
-            max-width: 100%;
-            margin-left: 0;
-            text-align: left; /* or center if needed */
+        /* Larger screens above 1440px */
+        @media (min-width: 1441px) {
+          .volunteer-image img {
+            width: 526px;
+            height: 616.412px;
           }
         }
-        @media (max-width: 768px) {
-          .volunteer-text,
-          .volunteer-about {
-            max-width: 90%;
-        
-          }
-        }
-
-        /* Stack image above text below 990px */
-@media (max-width: 990px) {
-  .volunteer-image {
-    margin-bottom: 2rem; /* add space between image and text */
-  }
-
- 
-
-       
-     
-
-
       `}</style>
     </motion.section>
   );
@@ -236,17 +279,17 @@ const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
 
 export default VolunteerProfile;
 
-// ----- Helper Components -----
+/* Helper Components */
 const SocialIcon = ({ url, Icon }: { url: string; Icon: any }) => (
   <motion.a
     href={url}
     target="_blank"
     rel="noopener noreferrer"
-    className="p-3 bg-white border border-gray-200 rounded-full text-[#046b59] hover:bg-[#046b59] hover:text-white transition-all duration-600"
-    whileHover={{ scale: 1.2 }}
-    transition={{ type: "spring", stiffness: 30, damping: 15 }}
+    className="p-2 sm:p-3 bg-white border border-gray-200 rounded-full text-[#046b59] hover:bg-[#046b59] hover:text-white transition-all duration-300"
+    whileHover={{ scale: 1.1 }}
+    transition={{ type: "spring", stiffness: 300, damping: 20 }}
   >
-    <Icon size={20} />
+    <Icon size={16} className="sm:w-5 sm:h-5" />
   </motion.a>
 );
 
@@ -258,22 +301,28 @@ const ProgressBar = ({
   percentage: number;
 }) => (
   <div className="mb-6">
-    <div className="text-base text-black-700 font-bold mb-2">{label}</div>
-    <div className="w-full bg-gray-200 rounded-full h-2 relative">
+    {/* Label */}
+    <div className="text-sm sm:text-base text-black font-bold mb-1">
+      {label}
+    </div>
+
+    {/* Percentage Above the Green Line */}
+    <div className="relative w-full">
       <div
-        className="bg-[#046b59] h-2 rounded-full relative"
-        style={{ width: `${percentage}%` }}
+        className="absolute -top-5 sm:-top-6 right-0 text-xs sm:text-sm md:text-base font-bold text-black"
+        style={{ right: `${100 - percentage}%`, transform: "translateX(13%)" }}
       >
-        <span className="absolute -top-6 right-0 text-base font-bold text-black">
-          {percentage}%
-        </span>
+        {percentage}%
+      </div>
+
+      {/* Background Line */}
+      <div className="w-full bg-gray-200 rounded-full h-1.5 sm:h-2 relative overflow-hidden">
+        {/* Green Line */}
+        <div
+          className="bg-[#046b59] h-1.5 sm:h-2 rounded-full transition-all duration-1000"
+          style={{ width: `${percentage}%` }}
+        />
       </div>
     </div>
   </div>
-);
-
-const Feature = ({ text }: { text: string }) => (
-  <p className="flex items-center gap-2 font-bold text-base">
-    <CircleCheckBig className="text-[#046b59] w-4 h-4" /> {text}
-  </p>
 );
