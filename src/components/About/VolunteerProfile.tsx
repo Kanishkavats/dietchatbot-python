@@ -16,51 +16,20 @@ type VolunteerProfileProps = {
 
 const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {
   const router = useRouter();
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, amount: 0.3 });
-  const controls = useAnimation();
 
-  useEffect(() => {
-    if (inView) controls.start("visible");
-  }, [inView, controls]);
 
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1.5, ease: "easeOut" as const },
-    },
-  };
+  // 🧠 1️⃣ Check if essential fields are missing → hide component
+  if (
+    !member ||
+    !member.name ||
+    !member.position ||
+    !member.description ||
+    !member.image
+  ) {
+    return null; // ❌ Hide the entire profile if key data missing
+  }
 
-  const imageVariants = {
-    hidden: { opacity: 0, scale: 0.7, y: 50 },
-    visible: {
-      opacity: 1,
-      scale: 1,
-      y: 0,
-      transition: { duration: 1.5, ease: "easeOut" as const },
-    },
-  };
-
-  const textVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1.5, ease: "easeOut" as const, delay: 0.3 },
-    },
-  };
-
-  const aboutVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 1.5, ease: "easeOut" as const, delay: 0.5 },
-    },
-  };
-
+  // Fallback image if member.image is empty
   const imageSrc = member.image || "/assets/default-avatar.png";
 
   return (

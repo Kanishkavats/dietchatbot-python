@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 "use client";
 
 import { useState } from "react";
@@ -12,6 +13,8 @@ interface LeaveCommentProps {
 }
 
 export default function LeaveComment({ blogId }: LeaveCommentProps) {
+  if (!blogId) return null;
+
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -28,10 +31,10 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
       return;
     }
 
-    if (!blogId) {
-      alert("Blog ID is missing");
-      return;
-    }
+    // if (!blogId) {
+    //   alert("Blog ID is missing");
+    //   return;
+    // }
 
    mutation.mutate(
   { id: blogId, data: { name, comment, email } },

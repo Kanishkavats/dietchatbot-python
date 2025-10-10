@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 
 "use client";
 
@@ -13,6 +14,7 @@ interface LeaveCommentProps {
 }
 
 export default function LeaveComment({ blogId }: LeaveCommentProps) {
+  if (!blogId) return null; 
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");

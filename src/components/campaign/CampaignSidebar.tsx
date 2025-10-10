@@ -15,6 +15,23 @@ const CampaignSidebar = ({ allCampaigns = [] }: { allCampaigns?: any[] }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedTag, setSelectedTag] = useState("");
 
+  // 🛑 1️⃣ If no campaigns or data missing → hide entire sidebar
+  if (
+    !allCampaigns ||
+    allCampaigns.length === 0 ||
+    allCampaigns.every(
+      (c) =>
+        !c.title ||
+        !c.category ||
+        !c.description ||
+        !c.images ||
+        c.images.length === 0
+    )
+  ) {
+    return null; // ❌ Hide the whole sidebar
+  }
+  
+
   const handleSearch = (query: string) => setSearchQuery(query);
   const handleTagClick = (tag: string) => setSelectedTag(tag);
 
