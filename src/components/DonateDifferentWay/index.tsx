@@ -22,7 +22,7 @@ const DonateDifferentWay: React.FC = () => {
   const missionItems = donateDifferentWayMissionItems;
 
   return (
-    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 mt-20 mb-10 xl:mb-20 lg:mt-25 bg-white '>
+    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 -mt-2 sm:-mt-1 md:mt-2 lg:mt-25 mb-10 xl:mb-20 bg-white '>
       <div className='max-w-7xl  md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto'>
 
         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>

@@ -127,53 +127,55 @@ const HelpAndDonate: React.FC = () => {
             </h2>
           </div>
 
-            <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-12 ml-auto md:ml-12">
-              <button
-                onClick={handlePrev}
-                className="w-12 h-12 md:w-15 md:h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"
-                style={{
-                  backgroundColor:
-                  leftButtonColor === "yellow"
-                    ? "#FBBF24"
-                    : "#07110eff",
-                  transition: "all 0.3s ease",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-                }}
-                onMouseEnter={() => setLeftButtonColor("yellow")}
-                onMouseLeave={() => setLeftButtonColor("green")}
-              >
-                <svg
-                  className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
+            {campaignsToDisplay.length > 4 && (
+              <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-12 ml-auto md:ml-12">
+                <button
+                  onClick={handlePrev}
+                  className="w-12 h-12 md:w-15 md:h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"
+                  style={{
+                    backgroundColor:
+                    leftButtonColor === "yellow"
+                      ? "#FBBF24"
+                      : "#07110eff",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                  }}
+                  onMouseEnter={() => setLeftButtonColor("yellow")}
+                  onMouseLeave={() => setLeftButtonColor("green")}
                 >
-                  <path d="M7.82843 11L13.1924 5.63604L11.7782 4.22183L4 12L11.7782 19.7782L13.1924 18.364L7.82843 13H20V11H7.82843Z" />
-                </svg>
-              </button>
-              <button
-                onClick={handleNext}
-                className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#07110eff] transition-all duration-300"
-                style={{
-                  backgroundColor: rightButtonColor === "yellow"
-                    ? "#FBBF24"
-                    : "#07110eff",
-                  transition: "all 0.3s ease",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-                }}
-                onMouseEnter={() => setRightButtonColor("green")}
-                onMouseLeave={() => setRightButtonColor("yellow")}
-              >
-                <svg
-                  className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <svg
+                    className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M7.82843 11L13.1924 5.63604L11.7782 4.22183L4 12L11.7782 19.7782L13.1924 18.364L7.82843 13H20V11H7.82843Z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#07110eff] transition-all duration-300"
+                  style={{
+                    backgroundColor: rightButtonColor === "yellow"
+                      ? "#FBBF24"
+                      : "#07110eff",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                  }}
+                  onMouseEnter={() => setRightButtonColor("green")}
+                  onMouseLeave={() => setRightButtonColor("yellow")}
                 >
-                  <path d="M16.172 11L10.808 5.63604L12.222 4.22183L20 12L12.222 19.7782L10.808 18.364L16.172 13H4V11H16.172Z" />
-                </svg>
-              </button>
-            </div>
+                  <svg
+                    className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M16.172 11L10.808 5.63604L12.222 4.22183L20 12L12.222 19.7782L10.808 18.364L16.172 13H4V11H16.172Z" />
+                  </svg>
+                </button>
+              </div>
+            )}
 
         </div>
   
@@ -277,43 +279,45 @@ const HelpAndDonate: React.FC = () => {
           </Swiper>
 
           {/* Carousel Indicators - dynamic dots */}
-          <div className="flex justify-center mt-6 md:mt-8 space-x-1.5 md:space-x-2">
-            {Array.from({ length: Math.min(campaignsToDisplay.length, 8) }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (swiperRef.current) {
-                    swiperRef.current.slideTo(index);
-                  }
-                }}
-                className="w-4 h-4 md:w-5 md:h-5 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 flex items-center justify-center"
-                style={{
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  ...(activeIndex === index ? {
-                    border: '2px solid #046B59',
-                    backgroundColor: 'transparent'
-                  } : {
-                    border: 'none',
-                    backgroundColor: 'transparent'
-                  })
-                }}
-              >
-                <div 
-                  className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
-                    activeIndex === index 
-                      ? 'bg-gradient-to-br from-green to-dark-green'
-                      : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
+          {campaignsToDisplay.length > 4 && (
+            <div className="flex justify-center mt-6 md:mt-8 space-x-1.5 md:space-x-2">
+              {Array.from({ length: Math.min(campaignsToDisplay.length, 8) }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (swiperRef.current) {
+                      swiperRef.current.slideTo(index);
+                    }
+                  }}
+                  className="w-4 h-4 md:w-5 md:h-5 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 flex items-center justify-center"
                   style={{
-                    ...(activeIndex === index && {
-                      background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)'
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    ...(activeIndex === index ? {
+                      border: '2px solid #046B59',
+                      backgroundColor: 'transparent'
+                    } : {
+                      border: 'none',
+                      backgroundColor: 'transparent'
                     })
                   }}
-                />
-              </button>
-            ))}
-          </div>
+                >
+                  <div 
+                    className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
+                      activeIndex === index 
+                        ? 'bg-gradient-to-br from-green to-dark-green'
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    style={{
+                      ...(activeIndex === index && {
+                        background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)'
+                      })
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>

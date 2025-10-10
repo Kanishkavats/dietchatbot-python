@@ -212,13 +212,35 @@ export type BannerFormValues = Yup.InferType<typeof bannerSchema>;
 
 // ======================= Member ======================
 
-export const memberSchema = Yup.object().shape({
-  name: Yup.string().required("Name is required"),
-  position: Yup.string().required("Position is required"),
-  title: Yup.string().optional(),
-  description: Yup.string().required("Description is required"),
-  about: Yup.string().optional(),
-  keyPoints: Yup.array().of(Yup.string().required("Key point cannot be empty")),
+export const memberSchema = Yup.object({
+  name: Yup.object({
+    en: Yup.string().required("Name is required in English"),
+    hi: Yup.string().required("Name is required in Hindi"),
+  }),
+  position: Yup.object({
+    en: Yup.string().required("Position is required in English"),
+    hi: Yup.string().required("Position is required in Hindi"),
+  }),
+  title: Yup.object({
+    en: Yup.string().optional(),
+    hi: Yup.string().optional(),
+  }),
+  description: Yup.object({
+    en: Yup.string().required("Description is required in English"),
+    hi: Yup.string().required("Description is required in Hindi"),
+  }),
+  about: Yup.object({
+    en: Yup.string().optional(),
+    hi: Yup.string().optional(),
+  }),
+  keyPoints: Yup.object({
+    en: Yup.array()
+      .of(Yup.string().required("Key point in English is required"))
+      .optional(),
+    hi: Yup.array()
+      .of(Yup.string().required("Key point in Hindi is required"))
+      .optional(),
+  }),
   image: Yup.mixed()
     .test(
       "fileOrString",
