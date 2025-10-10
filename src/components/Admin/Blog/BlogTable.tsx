@@ -64,6 +64,8 @@ const BlogTable = () => {
     setPreviewData(blog);
     setDrawerOpen(true);
   }, []);
+  
+
 
   const handleDelete = useCallback(
     (b: Blog) => {

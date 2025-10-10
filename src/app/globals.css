@@ -860,6 +860,82 @@ body {
 }
 
 
+/* ===============================
+   VolunteerProfile Global Styles
+   =============================== */
+
+.volunteer-image {
+   position: relative;
+  width: 516px;
+  height: 604px;
+}
+
+@media (min-width: 977px) {
+  .volunteer-image {
+    width: 696px;
+    height: 815px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1190px) {
+  .volunteer-image {
+    width: 456px;
+    height: 534px;
+  }
+}
+
+@media (min-width: 1198px) {
+  .volunteer-image {
+    width: 456px;
+    height: 534px;
+  }
+}
+
+@media (min-width: 1398px) {
+  .volunteer-image {
+    width: 451px;
+    height: 528px;
+  }
+}
+
+@media (min-width: 1400px) {
+  .volunteer-image {
+    width: 526px;
+    height: 616px;
+  }
+}
+
+/* --- Text & About Section --- */
+@media (max-width: 1023px) {
+  .volunteer-text,
+  .volunteer-about {
+    max-width: 516px;
+    margin-left: 2rem;
+    margin-right: auto;
+    text-align: left;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .volunteer-about {
+    max-width: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .volunteer-text,
+  .volunteer-about {
+    max-width: 90%;
+  }
+}
+
+
+
+
 
 
 

@@ -32,6 +32,7 @@ const BlogForm = ({
   const initialValues = getInitialBlogValues(initialData);
 
   const { data: categoryData } = useFetchCategory();
+   console.log(categoryData);
 
   const categoryOptions =
     categoryData?.category?.map((c: { id: string; name: string }) => ({
@@ -279,13 +280,15 @@ const BlogForm = ({
                     paddingy="py-2"
                     rounded="rounded-[5px]"
                   >
-                    {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
+                     {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
                       <ButtonLoader />
                     ) : isEdit ? (
                       "Update"
                     ) : (
                       "Preview"
-                    )}
+                    )} 
+                    
+
                   </Button>
 
                   <CancelButton text="Cancel" onClose={onClose} />
@@ -300,3 +303,5 @@ const BlogForm = ({
 };
 
 export default BlogForm;
+
+

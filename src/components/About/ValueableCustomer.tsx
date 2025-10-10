@@ -26,6 +26,29 @@ const ValueableCustomer = () => {
     queryFn: fetchFeedback,
   });
 
+    // 🟡 Loading state
+  if (isLoading) return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
+
+  // 🔴 Hide component if no feedbacks or any required field missing
+  const isInvalidData =
+    Error ||
+    !feedbacks ||
+    feedbacks.length === 0 ||
+    feedbacks.every(
+      (f: any) =>
+        !f.name ||
+        !f.feedback ||
+        !f.rating ||
+        !f.image
+    );
+
+  if (isInvalidData()) {
+    return null; // ❌ Hide entire section if data missing
+  }
+
+  // ✅ Otherwise render section normally
+  
+
   if (isLoading)
     return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
 
