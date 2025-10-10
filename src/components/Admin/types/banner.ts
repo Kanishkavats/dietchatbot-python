@@ -1,5 +1,5 @@
 import { UseMutationResult } from "@tanstack/react-query";
-import { BannerFormValues } from "../utils/validations/FormValidation"; // Assuming you have this schema like Blog
+import { BannerFormValues } from "../../../utils/validations/FormValidation"; // Assuming you have this schema like Blog
 
 export type BannerSearchField = "title" | "subtitle"; // Add more if needed
 
@@ -15,8 +15,7 @@ export interface Banner {
 export interface BannerFormProps {
   initialData?: Partial<BannerFormValues> & Partial<Banner>;
   onClose: () => void;
-  mode?: "add" | "edit"| "view"; 
-  onPreview?: (values: BannerFormValues) => void;
+  mode?: "add" | "edit"; 
   createMutation: UseMutationResult<any, Error, BannerFormValues, unknown>;
   updateMutation: UseMutationResult<any, Error, { id: string; values: BannerFormValues }, unknown>;
 }

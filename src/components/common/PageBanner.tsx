@@ -46,25 +46,17 @@ const PageBanner: React.FC<PageBannerProps> = ({
 
       <div className="absolute inset-0 z-2" style={pageBannerBackgourndColor} />
 
-      <PulsingImage
+      <div className="absolute inset-0 pointer-events-none">
+        <PulsingImage
         src={spradeBase}
         alt="heart deco"
-        height={140}
-        width={120}
         duration={4}
-        className="
-    absolute
-    -left-[20rem]    /* always anchored to left side */
-     
-  top-1/3      /* vertically center (adjust if needed) */
-    -translate-y-1/2 /* perfect vertical centering */
-    z-12
-    h-15 w-20 
-  "
+        className="absolute left-5 top-2/3 -translate-y-1/2 z-12 pointer-events-auto h-15 w-15 sm:h-20 sm:w-20 lg:h-32 lg:w-32  sm:left-10 lg:left-20  "
       />
+      </div>
 
       {/* Content */}
-      <div className="relative z-3 text-center px-4 sm:px-6">
+      <div className="relative z-3 text-center w-full px-4 sm:px-6">
         <div className="font-caveat text-lg sm:text-xl md:text-2xl flex items-center justify-center gap-2 text-yellow mb-3 sm:mb-4">
           <Icon
             icon={smallIcon}
@@ -76,7 +68,7 @@ const PageBanner: React.FC<PageBannerProps> = ({
         </div>
 
         {/* Title */}
-        <h1 className="text-2xl sm:text-3xl md:text-5xl lg:text-[5rem] font-extrabold text-white font-nunito">
+        <h1 className="text-3xl sm:text-3xl md:text-4xl xl:text-[80px] font-extrabold text-white font-nunito">
           {t(title)}
         </h1>
       </div>

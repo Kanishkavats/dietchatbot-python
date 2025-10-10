@@ -1,34 +1,29 @@
-import { UseMutationResult } from "@tanstack/react-query";
-import { CampaignFormValues, CategoryFormValues } from "../utils/validations/FormValidation";
-import { Category } from "./category";
+import { CampaignFormValues, CategoryFormValues } from "../../../utils/validations/FormValidation"
+import { Category } from "../../../types/category";
 
 export interface Campaign {
   id: number;
-  title: { en: string; hi: string };
-  category: { en: string; hi: string };
-  description: { en: string; hi: string };
+  title: string;
+  category: string;
+  description: string;
   goalAmount: number;
-  summary: { en: string; hi: string };
+  summary: string;
   organizer: string;
   raisedAmount: number;
   status: string;
   startDate: string;
   endDate: string;
-  images?: { en?: (string | File)[]; hi?: (string | File)[] }; 
-  existingImages?: { en?: string[]; hi?: string[] };
-  location: { en: string; hi: string };
-  keyPoints: { en: string[]; hi: string[] }; 
+  images?: (string | File)[];
+  imageUrl?: string[]; 
+  location: string;
 }
-
 
 export interface CampaignFormProps {
   initialData?: Partial<CampaignFormValues> & Partial<Campaign>;
   onClose: () => void;
   readOnly?: boolean; 
   mode?: "add" | "edit" | "view";
-  onPreview?: (values: CampaignFormValues) => void;
-  createMutation?: UseMutationResult<any, unknown, any, unknown>;
-  updateMutation?: UseMutationResult<any, unknown, any, unknown>;
+  onPreview?: (values: CampaignFormValues & { keyPoints: string[] }) => void;
 }
 
 export interface CampaignColumnCallbacks {

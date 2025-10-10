@@ -60,7 +60,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
 
   // Truncate description
   //const maxLength=120;
-  const descMaxLength = 100;
+  const descMaxLength = 20;
   const desc = card.description || "No description available";
   const displayText =
     desc.length > descMaxLength ? desc.slice(0, descMaxLength).concat("...") : desc;
@@ -111,7 +111,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
       {/* Content */}
       <div className="p-4 flex flex-col flex-grow">
         <h3 onClick={() => onCardClick(card.id)} className="text-[17px] xl:text-xl font-extrabold cursor-pointer mb-2 font-nunito transition-colors duration-300 text-dark-green hover:text-olive-brown truncate">{title}</h3>
-        <p className="text-gray-green text-[14px] leading-5 font-nunito line-clamp-2 flex-grow">{desc}</p>
+        <p className="text-gray-green text-[14px] leading-5 font-nunito line-clamp-2 flex-grow truncate">{desc}</p>
 
       </div>
        {/* Bottom Section */}
@@ -126,8 +126,8 @@ const DonationCard: React.FC<DonationCardProps> = ({
               className={`w-fit relative cursor-pointer font-semibold font-nunito
                 bg-white border-2 border-dark-green rounded-full px-6  py-2.5 lg:py-3 
                 overflow-hidden group
-                before:content-[''] before:absolute before:inset-0 before:bg-dark-green 
-                before:transition-transform before:duration-500 
+                before:content-[''] before:absolute before:-inset-[0.5px] before:bg-dark-green 
+                before:transition-transform before:duration-500 before:rounded-full 
                 before:origin-center before:scale-x-0 ${hoveredCard === card.id ? 'before:scale-x-100' : 'hover:before:scale-x-100'} before:z-0`}
               onClick={() =>{router.push(`/donate-us/${card.id}`)}}
             >
