@@ -33,7 +33,7 @@ const VolunteerTeam = () => {
   const totalPages = data?.totalPages || 1;
 
     // ✅ 1️⃣ Hide the entire section if no members or incomplete data
-  const hasValidData =
+  {/*const hasValidData =
     Array.isArray(members) &&
     members.length > 0 &&
     members.every(
@@ -42,7 +42,7 @@ const VolunteerTeam = () => {
 
   if (isError || isLoading || !hasValidData) {
     return null; //  Don't render section
-  }
+  }*/}
 
 
   const handleViewAll = () => {
