@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import React from "react";
@@ -11,10 +12,15 @@ import { CategoryFormProps } from "@/src/types/campaign";
 import { CategoryFormValues, categorySchema } from "@/src/utils/validations/FormValidation";
 import { createCategory, updateCategory } from "@/src/services/categoryApi";
 import CancelButton from "../../common/Buttons/CancelButton";
+import LanguageToggle from "../Common/LanguageToggle";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import { getInitialCategoryValues } from "../utils/categoryInitialValues";
+import { hasErrorsForLang } from "../Common/hasErrorsForLang";
 
 const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
   const isView = mode === "view";
   const isEdit = mode === "edit";
+  const { language, toggleLanguage } = useLanguageToggle();
 
   const queryClient = useQueryClient();
 
@@ -31,9 +37,7 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
   });
 
   // ✅ Formik initial values
-  const initialValues: CategoryFormValues = {
-    name: initialData?.name ?? "",
-  };
+  const initialValues = getInitialCategoryValues(initialData);
 
   const handleSubmit = (
     values: CategoryFormValues,
@@ -81,6 +85,9 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
 
   return (
     <div className="w-full pb-6">
+      {/* Language Toggle */}
+      <LanguageToggle language={language} onChange={toggleLanguage} />
+
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -89,44 +96,92 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
           handleSubmit(values, resetForm, setSubmitting)
         }
       >
-        {({ values, handleChange, errors, touched, isSubmitting }) => (
-          <Form className="flex flex-col gap-3">
-            <CustomInput
-              label="Category Name*"
-              placeholder="Enter category name"
-              value={values.name}
-              name="name"
-              onChange={handleChange}
-              error={touched.name ? errors.name : ""}
-              disabled={isView}
-            />
+        {({ 
+          values, 
+          handleChange, 
+          setFieldValue, 
+          errors, 
+          touched, 
+          isSubmitting, 
+          validateForm, 
+          submitForm, 
+          setTouched 
+        }) => {
+          const lang = language;
 
-            {!isView && (
-              <div className="flex gap-2 mt-2 w-fit">
-                <Button
-                  type="submit"
-                  disabled={isSubmitting || createMutation.isPending || updateMutation.isPending}
-                  bgColor="bg-lime-green"
-                  paddingx="px-4"
-                  paddingy="py-2"
-                  rounded="rounded-[5px] "
-                >
-                  {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
-                    <ButtonLoader />
-                  ) : isEdit ? (
-                    "Update"
-                  ) : (
-                    "Create"
-                  )}
-                </Button>
-                 <CancelButton
-                    text="Canceld"
-                    onClose={onClose}
-                  />
-              </div>
-            )}
-          </Form>
-        )}
+          const handleSubmitClick = async () => {
+            const touchAllFields = (obj: any): any => {
+              if (typeof obj !== 'object' || obj === null) return true;
+
+              const touchedObj: any = {};
+              for (const key in obj) {
+                if (!obj.hasOwnProperty(key)) continue;
+
+                const value = obj[key];
+                if (typeof value === 'object' && value !== null) {
+                  touchedObj[key] = touchAllFields(value);
+                } else {
+                  touchedObj[key] = true;
+                }
+              }
+              return touchedObj;
+            };
+
+            setTouched(touchAllFields(values));
+
+            const formErrors = await validateForm();
+            console.log("Form Errors:", formErrors);
+
+            for (const l of ["en", "hi"] as const) {
+              if (hasErrorsForLang(formErrors, l)) {
+                toggleLanguage(l); 
+                return; 
+              }
+            }
+
+            submitForm();
+          };
+          
+          return (
+            <Form className="flex flex-col gap-3">
+              <CustomInput
+                label={`${lang === "en" ? "Category Name" : "श्रेणी का नाम"}*`}
+                placeholder={lang === "en" ? "Enter category name" : "श्रेणी का नाम दर्ज करें"}
+                value={values.name[lang]}
+                name={`name.${lang}`}
+                onChange={(e) => setFieldValue(`name.${lang}`, e.target.value)}
+                error={touched.name?.[lang] ? errors.name?.[lang] : ""}
+                disabled={isView}
+              />
+
+              {!isView && (
+                <div className="flex gap-2 mt-2 w-fit">
+                  <Button
+                    type="button"
+                    onClick={handleSubmitClick}
+                    disabled={isSubmitting || createMutation.isPending || updateMutation.isPending}
+                    bgColor="bg-lime-green"
+                    paddingx="px-4"
+                    paddingy="py-2"
+                    rounded="rounded-[5px] "
+                  >
+                    {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
+                      <ButtonLoader />
+                    ) : isEdit ? (
+                      "Update"
+                    ) : (
+                      "Create"
+                    )}
+                  </Button>
+                   <CancelButton
+                      text="Cancel"
+                      onClose={onClose}
+                    />
+                </div>
+              )}
+            </Form>
+          );
+        }}
       </Formik>
     </div>
   );

@@ -5,22 +5,29 @@ import toast from "react-hot-toast";
 import { QueryFormValues } from "../utils/validations/FormValidation";
 import { deleteQuery, fetchAllQueries, fetchQueryById, updateQuery } from "../services/queryApi";
 import { QueryFilters } from "../types/query";
+import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
 
-// ✅ Fetch all queries (paginated)
+// ✅ Fetch all queries (paginated) - language-aware
 export const useFetchAllQueries = (page: number, limit: number = 10, filters?: QueryFilters) => {
-  return useQuery({
-    queryKey: ["queries", page, limit, filters],
-    queryFn: () => fetchAllQueries(page, limit, filters),
-    placeholderData: keepPreviousData,
-  });
+  return useLanguageAwareQuery(
+    ["queries", page, limit, filters],
+    () => fetchAllQueries(page, limit, filters),
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
-// ✅ Fetch a single query by ID
+// ✅ Fetch a single query by ID - language-aware
 export const useFetchSingleQuery = (id?: string | null) => {
-  return useQuery({
-    queryKey: ["query", id],
-    queryFn: () => fetchQueryById(id!),
-  });
+  return useLanguageAwareQuery(
+    ["query", id],
+    () => fetchQueryById(id!),
+    {
+      enabled: !!id,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 // ✅ Delete query

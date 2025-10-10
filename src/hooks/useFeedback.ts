@@ -10,6 +10,7 @@ import {
   fetchApprovedFeedbacks,
 } from "@/src/services/feedbackApi";
 import { FeedbackFormValues } from "../utils/validations/FormValidation";
+import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
 
 // ======================= Fetch All Feedbacks (Admin) ======================= //
 
@@ -18,10 +19,13 @@ export const useFetchFeedbacks = (
   limit: number,
   status: string | null = null
 ) => {
-  return useQuery({
-    queryKey: ["feedbacks", page, limit, status],
-    queryFn: () => fetchFeedbacks(page, limit, status),
-  });
+  return useLanguageAwareQuery(
+    ["feedbacks", page, limit, status],
+    () => fetchFeedbacks(page, limit, status),
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 export const useFetchApprovedFeedbacks = (
@@ -29,22 +33,26 @@ export const useFetchApprovedFeedbacks = (
   limit: number,
   status: string | null = null
 ) => {
-  return useQuery({
-    queryKey: ["feedbacks", page, limit, status],
-    queryFn: () => fetchApprovedFeedbacks(page, limit, status),
-  });
+  return useLanguageAwareQuery(
+    ["approved-feedbacks", page, limit, status],
+    () => fetchApprovedFeedbacks(page, limit, status),
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 // ======================= Fetch Feedback by ID ======================= //
 
 export const useFetchFeedbackById = (id: string, enabled: boolean = true) => {
-  return useQuery({
-    queryKey: ["feedback", id],
-    queryFn: () => fetchFeedbackById(id),
-    retry: 0,
-    enabled,
-    select: (data) => data || null,
-  });
+  return useLanguageAwareQuery(
+    ["feedback", id],
+    () => fetchFeedbackById(id),
+    {
+      enabled,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 // ======================= Create Feedback ======================= //

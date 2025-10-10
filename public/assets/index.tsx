@@ -1,5 +1,5 @@
 import logo from './LogoO.png';
-import logoLight from './logo-light.png';
+
 import heartLogoIcon from './heartLogoIcon.png';
 import homeOne from './home-one.png';
 import homeTwo from './home-two.png';
@@ -101,7 +101,7 @@ import blurTransparentBg from "./latestNewsArticalbg.png"
 
 export {
   logo,
-  logoLight,
+ 
   heartLogoIcon,
   homeOne,
   homeTwo,

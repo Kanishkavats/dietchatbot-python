@@ -6,7 +6,7 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { footerData } from "@/src/staticResource";
-import { logoLight, spade2, spradeBase,spreadLight } from "@/public/assets";
+import { logo, spade2, spradeBase,spreadLight } from "@/public/assets";
 import Divider from "../common/HorizontalDevider";
 import { useTranslation } from "react-i18next";
 
@@ -77,7 +77,7 @@ const Footer = () => {
         {/* Brand */}
         <motion.div variants={item} className="lg:mb-20 xl:mb-10">
           <div className="h-10 w-48 xl:h-12 xl:w-52 relative">
-            <Image src={logoLight} fill alt={footerData.brand.name} />
+            <Image src={logo} fill alt={footerData.brand.name} />
           </div>
           <p className="mt-8 text-white/50 text-sm xl:text-lg font-nunito tracking-tight leading-7 xl:leading-9">
             {t(footerData.brand.description)}

@@ -34,9 +34,7 @@ const Dropdown = <T extends string | number>({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [disabled]);
 
-  console.log("value", value)
   const selectedOption = options.find((opt) => opt.value === value);
-  console.log("selectedOption", selectedOption);
 
   return (
     <div className="w-full min-w-[100px] relative" ref={containerRef}>

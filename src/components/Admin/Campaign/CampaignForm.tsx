@@ -33,8 +33,8 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
 
   const { data: categoryData } = useFetchCategory();
   const categoryOptions = categoryData?.category?.map((category:Category) => ({
-    label: category.name,
-    value: category.name,
+    label: category.name.en,
+    value: category.name.en,
   })) ?? [];
 
   const isView = mode === "view";

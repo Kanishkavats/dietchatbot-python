@@ -4,6 +4,7 @@ import { fetchAllCampaigns, fetchCampaignById, deleteSingleCampaign} from "../se
 import { CampaignFormValues } from "../utils/validations/FormValidation";
 import { CampaignFormProps } from "@/src/types/campaign";
 import toast from "react-hot-toast";
+import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
 
 // Convert values to FormData
 const buildFormData = (values: CampaignFormValues) => {
@@ -110,22 +111,27 @@ export const submitCampaignForm = (
   }
 };
 
-// ✅ Fetch campaigns with pagination
+// ✅ Fetch campaigns with pagination (language-aware)
 export const useFetchAllCampaigns = (page: number, limit: number = 10) => {
-  return useQuery({
-    queryKey: ["campaigns", page, limit], // different cache per page+limit
-    queryFn: () => fetchAllCampaigns(page, limit),
-     placeholderData: keepPreviousData, 
-  });
+  return useLanguageAwareQuery(
+    ["campaigns", page, limit], // different cache per page+limit
+    () => fetchAllCampaigns(page, limit),
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 
 export const useFetchSingleCampaign = (id?: string,options?: { enabled?: boolean }) => {
-  return useQuery({
-    queryKey: ["campaign", id],
-    queryFn: () => fetchCampaignById(id!),
-    enabled: options?.enabled??!!id,
-  });
+  return useLanguageAwareQuery(
+    ["campaign", id],
+    () => fetchCampaignById(id!),
+    {
+      enabled: options?.enabled ?? !!id,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 

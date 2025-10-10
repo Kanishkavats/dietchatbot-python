@@ -96,8 +96,11 @@ export const campaignSchema = Yup.object().shape({
 export type CampaignFormValues = Yup.InferType<typeof campaignSchema>;
 
 // ======================= Category =======================
-export const categorySchema = Yup.object().shape({
-  name: Yup.string().required("Category name is required"),
+export const categorySchema = Yup.object({
+  name: Yup.object({
+    en: Yup.string().required("Category name is required in English"),
+    hi: Yup.string().required("Category name is required in Hindi"),
+  }).required("Category name is required in both languages"),
 });
 
 export type CategoryFormValues = Yup.InferType<typeof categorySchema>;
