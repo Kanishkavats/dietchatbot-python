@@ -218,8 +218,14 @@ export type CommentFormValues = Yup.InferType<typeof commentSchema>;
 // ======================= Banner ======================
 
 export const bannerSchema = Yup.object().shape({
-  title: Yup.string().required("Title is required"),
-  subtitle: Yup.string().required("Subtitle is required"),
+  title:Yup.object({
+    en:Yup.string().required("Title is required in English"),
+    hi: Yup.string().required("शीर्षक हिंदी में होना आवश्यक है"),
+  }),
+  subtitle:Yup.object({
+    en:Yup.string().required("subtitle is required in English"),
+    hi: Yup.string().required("उपशीर्षक हिंदी में होना आवश्यक है"),
+  }),
   image: Yup.mixed()
     .test(
       "fileOrString",

@@ -48,8 +48,8 @@ const ChildrenNeed = () => {
               <span className="text-yellow font-caveat text-xl md:text-2xl font-semibold">
                 Start Donating Poor People
               </span>
-              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-nunito leading-snug">
-                Children Need Your Help By <br /> Donating Today
+              <p className="text-3xl sm:text-3xl md:text-[40px] max-w-2xl xl:max-w-3xl mx-auto xl:text-[55px] font-extrabold text-white mb-6 font-nunito leading-snug">
+                Children Need Your Help By  Donating Today
               </p>
             </motion.div>
 
