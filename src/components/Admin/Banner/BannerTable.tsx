@@ -13,6 +13,7 @@ import { getBannerColumns } from "./getBannerColumns";
 import { Banner, BannerSearchField } from "@/src/types/banner";
 import { BannerFormValues } from "@/src/utils/validations/FormValidation";
 import {
+  submitBannerForm,
   useDeleteBanner,
   useFetchAllBanners,
   useFetchSingleBanner,
@@ -29,10 +30,12 @@ const BannerTable = () => {
   const [searchField, setSearchField] = useState<BannerSearchField>("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editBannerId, setEditBannerId] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [showPreview, setShowPreview] = useState(false);
+const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
 
@@ -52,7 +55,7 @@ const BannerTable = () => {
   const createMutation = useMutation({
     mutationFn: createBanner,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["banner"] });
+      queryClient.invalidateQueries({ queryKey: ["banners"] });
     },
   });
 
@@ -60,7 +63,8 @@ const BannerTable = () => {
     mutationFn: (data: { id: string; values: BannerFormValues }) =>
       updateBanner(data.id, data.values),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["banner"] });
+     queryClient.invalidateQueries({ queryKey: ["banner"] });
+      queryClient.invalidateQueries({ queryKey: ["banners"] });
     },
   });
 
@@ -71,9 +75,7 @@ const BannerTable = () => {
         return;
       }
 
-      // if (confirm(`Are you sure you want to delete "${b.title}"?`)) {
-      //   deleteBanner(b.id);
-      // }
+      
       setSelectedBanner(b);
       setIsOpen(true);
     },
@@ -91,12 +93,13 @@ const BannerTable = () => {
   const handlePreview = useCallback((banner: Banner) => {
     if (!banner.id) return;
     setbannerId(banner.id);
+    setMode('view')
     setPreviewDrawerOpen(true);
   }, []);
 
   // Handlers
   const handleEdit = useCallback((b: Banner) => {
-    setbannerId(b.id ?? null);
+    setbannerId(b.id?.toString() ?? null);
     setMode("edit");
     setDrawerOpen(true);
   }, []);
@@ -115,7 +118,7 @@ const BannerTable = () => {
         onDelete: handleDelete,
         onView: handlePreview,
       }),
-    [handleEdit, handleDelete]
+    [handleEdit, handleDelete,handlePreview]
   );
 
   return (
@@ -182,44 +185,77 @@ const BannerTable = () => {
       )}
 
       {/* Drawer for Add/Edit */}
-      {(drawerOpen || previewDrawerOpen) && (
-        <Drawer
-          isOpen={drawerOpen || previewDrawerOpen}
-          onClose={() => {
-            setDrawerOpen(false);
-            setEditBannerId(null);
-            setMode("add");
-            setPreviewDrawerOpen(false);
-            setbannerId(null);
-          }}
-          mode={mode}
-          title={
-            previewDrawerOpen
-              ? "Banner Preview"
-              : mode === "edit"
-              ? "Edit Banner"
-              : "Add Banner"
-          }
-        >
-          {previewDrawerOpen ? (
-            isPreviewLoading ? (
-              <CustomLoader />
-            ) : singleBannerData ? (
-              <BannerPreview data={singleBannerData} />
-            ) : (
-              <p>No data to preview</p>
-            )
-          ) : (
-            <BannerForm
-              initialData={singleBannerData}
-              onClose={() => setDrawerOpen(false)}
-              mode={mode}
-              createMutation={createMutation}
-              updateMutation={updateMutation}
-            />
-          )}
-        </Drawer>
-      )}
+      {drawerOpen && (
+  <Drawer
+    isOpen={drawerOpen}
+    onClose={() => {
+      setDrawerOpen(false);
+      setEditBannerId(null);
+      setMode("add");
+      setPreviewData(null);
+      setShowPreview(false);
+    }}
+    title={
+      mode==="edit"
+        ? "Edit Banner"
+        : mode === "view"&&!previewData
+        ? "View Banner"
+        : "Add Banner"
+    }
+    mode={mode}
+  >
+    {showPreview ? (
+      <BannerPreview
+      mode={mode}
+        data={previewData!}
+        onBack={() => setShowPreview(false)}
+        onSubmit={() => {
+          if (!previewData) return;
+          const editBannerData = singleBannerData ?? null;
+
+          submitBannerForm(
+            previewData,
+            editBannerData,
+            createMutation,
+            updateMutation,
+            () => {
+              setShowPreview(false);
+              setPreviewData(null);
+              setDrawerOpen(false);
+            },
+            () => {},
+            () => setDrawerOpen(false)
+          );
+        }}
+      />
+    ) : (
+      <BannerForm
+        initialData={{
+          ...(singleBannerData||{}),
+          ...(previewData||{}),
+          image:
+      previewData?.image || singleBannerData?.image || "",
+      priority:previewData?.priority||singleBannerData?.priority||0,
+    // existingImage:
+    //   previewData?.existingImage || singleBannerData?.image,
+        }}
+        onClose={() => {
+          setDrawerOpen(false);
+          setPreviewData(null);
+          setShowPreview(false);
+        }}
+        mode={mode}
+        onPreview={(data) => {
+          setPreviewData(data);
+          setShowPreview(true);
+        }}
+        createMutation={createMutation}
+        updateMutation={updateMutation}
+      />
+    )}
+  </Drawer>
+)}
+
       <ConfirmModal
         isOpen={isOpen}
         onConfirm={confirmDelete}

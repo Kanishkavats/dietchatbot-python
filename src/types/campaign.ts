@@ -2,22 +2,6 @@ import { UseMutationResult } from "@tanstack/react-query";
 import { CampaignFormValues, CategoryFormValues } from "../utils/validations/FormValidation";
 import { Category } from "./category";
 
-// export interface Campaign {
-//   id: number;
-//   title: string;
-//   category: string;
-//   description: string;
-//   goalAmount: number;
-//   summary: string;
-//   organizer: string;
-//   raisedAmount: number;
-//   status: string;
-//   startDate: string;
-//   endDate: string;
-//   images?: (string | File)[];
-//   imageUrl?: string[]; 
-//   location: string;
-// }
 export interface Campaign {
   id: number;
   title: { en: string; hi: string };
@@ -30,10 +14,10 @@ export interface Campaign {
   status: string;
   startDate: string;
   endDate: string;
-  images?: { en?: (string | File)[]; hi?: (string | File)[] }; // multilingual images
+  images?: { en?: (string | File)[]; hi?: (string | File)[] }; 
   existingImages?: { en?: string[]; hi?: string[] };
   location: { en: string; hi: string };
-  keyPoints: { en: string[]; hi: string[] }; // multilingual key points
+  keyPoints: { en: string[]; hi: string[] }; 
 }
 
 

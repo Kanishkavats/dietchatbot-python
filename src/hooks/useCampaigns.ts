@@ -8,29 +8,6 @@ import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
 
 // Convert values to FormData
 const buildFormData = (values: CampaignFormValues) => {
-  // const formData = new FormData();
-  // formData.append("title", values.title);
-  // formData.append("category", values.category);
-  // formData.append("description", values.description);
-  // formData.append("goalAmount", values.goalAmount.toString());
-  // formData.append("summary", values.summary);
-  // formData.append("location", values.location);
-  //  values.existingImages?.forEach((url) => {
-  //   if (url) formData.append("existingImages[]", url);
-  // });
-
-  // if (!values.keyPoints) values.keyPoints = [];
-  // values.keyPoints.forEach((point) => formData.append("keyPoints[]", point));
-
-  // if (values.images && values.images.length > 0) {
-  //   values.images.forEach((file) => {
-  //     if (file instanceof File) {
-  //       formData.append("images", file);
-  //     }
-  //   });
-  // }
-
-  // return formData;
   const formData = new FormData();
 
   const appendNestedObject = (key: string, obj: any) => {

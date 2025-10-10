@@ -12,15 +12,15 @@ const FAQSection = () => {
   const{t}=useTranslation();
 
   return (
-      <div className="w-full lg:flex md:gap-8 items-start bg-white md:px-4 xl:px-16 pt-16 md:pt-24 max-w-full overflow-hidden">
+      <div className="w-full lg:flex md:gap-8 items-start bg-white px-5 md:px-14 lg:px-0 xl:px-16 pt-16 md:pt-24 max-w-full overflow-hidden">
         {/* Left Side - FAQ */}
-        <div className="lg:w-1/2">
+        <div className="lg:w-2/3 lg:pl-15">
           <FadeInUp>
-            <div className=" font-caveat  flex items-start gap-2 text-green font-semibold mb-4 text-lg lg:text-2xl">
+            <div className=" font-caveat flex items-start gap-2 text-green font-semibold mb-4 text-lg lg:text-2xl">
               <Icon icon="mingcute:hand-heart-line" className="text-3xl" />
               <span>{t("Start Donating Poor People")}</span>
             </div>
-            <h2 className="text-3xl xl:text-4xl font-bold text-gray-900 mb-8">
+            <h2 className="text-3xl font-nunito xl:text-4xl font-extrabold text-gray-900 mb-8">
               {t("Frequently")} <span className="text-yellow">{t("Asked")}</span> {t("Questions")}
             </h2>
           </FadeInUp>
