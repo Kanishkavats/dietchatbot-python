@@ -13,6 +13,7 @@ export interface TeamMember {
   behanceUrl?: string;
   vimeoUrl?: string;
   linkedInUrl?: string;
+  about?: string;
 
 }
 
