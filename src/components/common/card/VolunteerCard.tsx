@@ -13,6 +13,11 @@ interface TeamMember {
   role?: string;
   position?: string;
   image?: string;
+   facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  behanceUrl?: string;
+  vimeoUrl?: string;
 }
 
 interface VolunteerCardProps {
@@ -20,18 +25,42 @@ interface VolunteerCardProps {
   idx: number;
 }
 
-// Social icons
-const SocialBar = () => {
+const SocialBar: React.FC<{ member: TeamMember }> = ({ member }) => {
   const socials = [
-    { icon: <FaFacebookF /> },
+    { icon: <FaFacebookF />, url: member.facebookUrl },
+    { icon: <FaTwitter />, url: member.twitterUrl },
+    { icon: <FaInstagram />, url: member.instagramUrl },
+    { icon: <FaBehance />, url: member.behanceUrl },
+  ];
+
+// Social icons
+{/*const SocialBar = () => {
+  const socials = [
+    { icon: <FaFacebookF />, url: member.facebook },
     { icon: <FaTwitter /> },
     { icon: <FaInstagram /> },
     { icon: <FaBehance /> },
   ];
-
+*/}
   return (
     <div className="flex flex-col gap-2 p-2">
-      {socials.map((social, idx) => (
+       {socials
+        .filter((social) => social.url) // only show icons with a valid URL
+        .map((social, idx) => (
+          <a
+            key={idx}
+            href={social.url!}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black bg-white hover:bg-yellow-400 transition-all duration-300 z-50"
+          >
+            {social.icon}
+          </a>
+        ))}
+    </div>
+  );
+};
+     {/* {socials.map((social, idx) => (
         <button
           key={idx}
           className="w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black bg-white hover:bg-yellow-400 transition-all duration-300 z-50"
@@ -41,13 +70,30 @@ const SocialBar = () => {
       ))}
     </div>
   );
-};
+};*/}
 
 // Volunteer card
 export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member }) => {
   const router = useRouter();
   const [showSocials, setShowSocials] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  const hasSocialAccounts = !!(
+  member.facebookUrl ||
+  member.twitterUrl ||
+  member.instagramUrl ||
+  member.behanceUrl
+);
+
+console.log(`Member: ${member.name}`);
+console.log("Has any social account?", hasSocialAccounts);
+if (hasSocialAccounts) {
+  if (member.facebookUrl) console.log("  Facebook:", member.facebookUrl);
+  if (member.twitterUrl) console.log("  Twitter:", member.twitterUrl);
+  if (member.instagramUrl) console.log("  Instagram:", member.instagramUrl);
+  if (member.behanceUrl) console.log("  Behance:", member.behanceUrl);
+}
+
 
   const isActive = showSocials || isHovered;
 
@@ -75,9 +121,9 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member }) => {
           initial={{ opacity: 0 }}
           animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className="absolute bottom-4 right-2 z-50 flex flex-col gap-2 pb-4"
+          className="absolute bottom-4 right-2 z-50 flex flex-col gap-2 pb-4 hidden lg:flex"
         >
-          <SocialBar />
+         {hasSocialAccounts && <SocialBar member={member} />}
         </motion.div>
 
         {/* Mobile/Tablet click */}
@@ -85,11 +131,11 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member }) => {
           initial={{ opacity: 0 }}
           animate={showSocials ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.3 }}
-          className={`absolute bottom-4  right-2 z-50 flex flex-col gap-2 lg:hidden ${
+          className={`absolute bottom-6  right-2 z-50 flex flex-col gap-2 lg:hidden ${
             showSocials ? "pointer-events-auto" : "pointer-events-none"
           }`}
         >
-          <SocialBar />
+          {hasSocialAccounts && <SocialBar member={member} />}
         </motion.div>
       </div>
 
@@ -114,11 +160,12 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member }) => {
             e.preventDefault();
             setShowSocials((prev) => !prev);
           }}
-          className="absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-all duration-300 overflow-visible"
+          className={`absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-all duration-300 overflow-visible 
+              ${showSocials || isHovered ? "bg-yellow-400 text-black" : "bg-black text-white"}`}
         >
           <span
-            className={`inline-block transition-transform duration-300 ${
-              showSocials ? "rotate-45" : ""
+            className={`inline-block transition-transform duration-300  ${
+              showSocials  || isHovered ? "rotate-45 " : ""
             }`}
           >
             <FiPlus size={24} />

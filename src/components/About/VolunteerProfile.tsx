@@ -8,9 +8,10 @@ import { FaFacebookF, FaVimeoV, FaTwitter, FaLinkedinIn } from "react-icons/fa";
 import { CircleCheckBig } from "lucide-react";
 import Button from "../common/Buttons/Button";
 import { Member } from "@/src/types/members";
+import { TeamMember } from "@/src/types";
 
 type VolunteerProfileProps = {
-  member: Member;
+  member: TeamMember;
 };
 
 const VolunteerProfile: React.FC<VolunteerProfileProps> = ({ member }) => {

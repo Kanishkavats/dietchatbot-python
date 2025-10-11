@@ -9,41 +9,45 @@ import { VolunteerCard } from "../common/card/VolunteerCard";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
 import { useTranslation } from "react-i18next";
 import { useFetchAllMembers } from "@/src/hooks/useMembers";
+import { TeamMember } from "@/src/types";
 
 const VolunteerTeam = () => {
   const router = useRouter();
   const { t } = useTranslation();
 
-  // pagination setup
-
+  // Pagination setup
   const [showPagination, setShowPagination] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-
   const itemsPerPage = currentPage === 1 && !showPagination ? 4 : 8;
 
-  //  fetch members from API
+  // Fetch members from API
   const { data, isLoading, isError } = useFetchAllMembers(
     currentPage,
     itemsPerPage
   );
   console.log(data);
 
-  // safely extract members
+  // Safely extract members
   const members = data?.members || [];
   const totalPages = data?.totalPages || 1;
 
-    // ✅ 1️⃣ Hide the entire section if no members or incomplete data
-  {/*const hasValidData =
-    Array.isArray(members) &&
-    members.length > 0 &&
-    members.every(
-      (m) => m?.name && m?.designation && m?.image && m?.description
+  // ✅ Console log for checking each member’s social accounts
+  members.forEach((member: TeamMember) => {
+    console.log(` Member: ${member.name}`);
+    const hasSocialAccounts = !!(
+      member.facebookUrl ||
+      member.twitterUrl ||
+      member.instagramUrl ||
+      member.linkedInUrl 
     );
-
-  if (isError || isLoading || !hasValidData) {
-    return null; //  Don't render section
-  }*/}
-
+    console.log("Has any social account?", hasSocialAccounts);
+    if (hasSocialAccounts) {
+      if (member.facebookUrl) console.log("  Facebook:", member.facebookUrl);
+      if (member.twitterUrl) console.log("  Twitter:", member.twitterUrl);
+      if (member.instagramUrl) console.log("  Instagram:", member.instagramUrl);
+      if (member.linkedInUrl) console.log("  LinkedIn:", member.linkedInUrl);
+    }
+  });
 
   const handleViewAll = () => {
     setShowPagination(true);
@@ -75,23 +79,16 @@ const VolunteerTeam = () => {
           {isError && <p>Failed to load members.</p>}
           {!isLoading && !isError && (
             <div
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2  lg:grid-cols-2 xl:grid-cols-4
-                gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6"
             >
-              {/* <div className="volunteer-grid">    */}
-
               {members.map((member: any, idx: number) => (
-                <VolunteerCard
-                  key={member.id || idx}
-                  member={member}
-                  idx={idx}
-                />
+                <VolunteerCard key={member.id || idx} member={member} idx={idx} />
               ))}
             </div>
           )}
         </div>
 
-        {/* View All button (switches to pagination mode) */}
+        {/* View All button */}
         {!showPagination && members.length > 0 && (
           <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
             <Button
