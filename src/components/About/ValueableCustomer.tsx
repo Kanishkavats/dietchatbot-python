@@ -41,6 +41,7 @@ const ValueableCustomer = () => {
 
       <div className="mt-[260px]">
         {/* Heading */}
+<<<<<<< Updated upstream
         <div className="flex items-center gap-2 justify-center">
           <i className="text-2xl hand-icon text-[#00715D] -mb-[100px]" />
           <span className="text-[#00715D] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] -mb-[100px]">
@@ -115,6 +116,77 @@ const ValueableCustomer = () => {
                   {/* User Info */}
                   <div className="flex flex-col sm:flex-row sm:items-center mt-6 px-6 gap-2">
                     <div className="w-12 h-12 rounded-full overflow-hidden mx-auto sm:mx-0">
+=======
+        <motion.div
+          className="py-16"
+          ref={ref}
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
+          <div className="flex items-center gap-2 justify-center">
+                        <i className="text-2xl hand-icon text-[#00715D]"></i>
+            <span 
+              className="text-[#00715D] text-[24px] font-caveat font-cursive font-semibold leading-[34px] -mt-[8px]"
+              style={{ width: '362.71px', height: '34px' }}
+            >
+              {t("Start Donating Poor People")}
+            </span>
+          </div>
+          <div className="mt-[15px] px-[12px]">
+            <h2 className="text-center text-[45px] font-extrabold font-nunito text-[#122F2A] mb-0">
+              {t("Our Valueable")}
+              <span className="text-yellow"> {t("Customer")}</span>
+            </h2>
+            <h2 className="text-center text-[45px] font-extrabold font-nunito text-[#122F2A] mt-0">
+              {t("Awesome Feedback")}
+            </h2>
+          </div>
+        </motion.div>
+        {/* Carousel */}
+        <div className="container mx-auto px-25">
+          <div
+            className="relative overflow-hidden w-full"
+            onMouseEnter={() => setHovered(true)}
+            onMouseLeave={() => setHovered(false)}
+          >
+            <motion.div className="flex"
+              animate={{ x: `-${(100 / slides.length) * index}%` }}
+              transition={
+                instant ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
+              }
+              style={{ width: `${(slides.length / visibleCards) * 100}%` }}
+            >
+              {slides.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="px-3"
+                  style={{ width: `${100 / visibleCards}%` }}
+                >
+                  <div className="relative bg-white border border-yellow rounded-3xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
+                    <Image
+                      src={image99}
+                      alt="green spade"
+                      width={70}
+                      height={70}
+                      className="absolute top-8 right-6 opacity-10 z-0"
+                    />
+                    <div>
+                      <div className="flex mb-4 px-6">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <IoMdStar
+                            key={i}
+                            size={20}
+                            className="fill-yellow text-yellow"
+                          />
+                        ))}
+                      </div>
+                      <p className="text-[#667471] font-nunito text-lg px-6 leading-relaxed break-words">
+                        “{t(item.review)}”
+                      </p>
+                    </div>
+                    <div className="flex items-center mt-6 mb-3 px-6">
+>>>>>>> Stashed changes
                       <Image
                         src={item.image || item.avatar || "/assets/author.png"}
                         alt={item.name}
@@ -122,6 +194,7 @@ const ValueableCustomer = () => {
                         height={48}
                         className="w-full h-full object-cover"
                       />
+<<<<<<< Updated upstream
                     </div>
                     <div className="flex flex-col items-center sm:items-start mt-2 sm:mt-0 sm:ml-3">
                       <h4 className="font-bold font-nunito sm:text-[18px] md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-foreground">
@@ -130,6 +203,14 @@ const ValueableCustomer = () => {
                       <p className="text-gray-500 font-nunito sm:text-[14px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[14px]">
                         {t(item.designation || item.role)}
                       </p>
+=======
+                      <div className="ml-3">
+                        <h4 className="font-bold font-nunito  text-foreground">
+                          {t(item.name)}
+                        </h4>
+                        <p className="text-gray-500 font-nunito text-sm">{t(item.role)}</p>
+                      </div>
+>>>>>>> Stashed changes
                     </div>
                   </div>
 

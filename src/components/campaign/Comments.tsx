@@ -1,13 +1,25 @@
+<<<<<<< Updated upstream
+=======
+/* eslint-disable @typescript-eslint/no-explicit-any */
+>>>>>>> Stashed changes
 
 
 "use client";
 
+<<<<<<< Updated upstream
 import React, { useState, useEffect } from 'react';
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { useQuery } from "@tanstack/react-query";
 import { fetchgetcomments } from '@/src/services/commentsApi';
 import { mergeComments, CommentType } from '@/src/utils/mergedComment';
 import Button from '@/src/components/common/Buttons/Button';
+=======
+import React, { useState, useEffect } from "react";
+import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
+import { useQuery } from "@tanstack/react-query";
+import { fetchgetcomments } from "@/src/services/commentsApi";
+import { mergeComments } from "@/src/utils/mergedComment";
+>>>>>>> Stashed changes
 
 interface Comment {
   id: string;
@@ -16,6 +28,7 @@ interface Comment {
   image?: string;
   likeCount?: number;
   timeAgo?: string;
+<<<<<<< Updated upstream
   createdAt?: string;
   replies?: Comment[];
   isPending?: boolean;
@@ -23,12 +36,24 @@ interface Comment {
 
 interface CommentsProps {
   campaignId: string; // blogId
+=======
+  replies?: Comment[];
+  isPending?: boolean;
+  blogId?: string;
+}
+
+interface CommentsProps {
+  campaignId: string;
+>>>>>>> Stashed changes
 }
 
 export default function Comments({ campaignId }: CommentsProps) {
   const [allComments, setAllComments] = useState<Comment[]>([]);
+<<<<<<< Updated upstream
   const [visibleCommentsCount, setVisibleCommentsCount] = useState(5);
   const [currentTime, setCurrentTime] = useState(new Date());
+=======
+>>>>>>> Stashed changes
 
   const { data, isLoading, isError } = useQuery({
     queryKey: ["comments", campaignId],
@@ -36,6 +61,7 @@ export default function Comments({ campaignId }: CommentsProps) {
   });
 
   useEffect(() => {
+<<<<<<< Updated upstream
    
     if (data?.comments) {
      
@@ -133,18 +159,77 @@ export default function Comments({ campaignId }: CommentsProps) {
             <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow p-1 bg-white flex items-center justify-center">
              
               <span className="text-6xl font-bold text-gray-500">
+=======
+    const updateComments = () => {
+      const localComments: Comment[] = JSON.parse(
+        localStorage.getItem("LocalComments") || "[]"
+      );
+
+      const filteredLocalComments = localComments.filter(
+        (comment) => comment.blogId === campaignId
+      );
+
+      let merged: Comment[] = [];
+      if (data?.comments) {
+        merged = mergeComments(data.comments, campaignId);
+      }
+
+      // Combine and remove duplicates using name + comment + blogId
+      const combined = [...merged, ...filteredLocalComments];
+      const uniqueComments = Array.from(
+        new Map(
+          combined.map(c => [`${c.blogId}-${c.name}-${c.comment}`, c])
+        ).values()
+      );
+
+      setAllComments(uniqueComments);
+    };
+
+    updateComments();
+
+    window.addEventListener("commentAdded", updateComments);
+
+    return () => {
+      window.removeEventListener("commentAdded", updateComments);
+    };
+  }, [data, campaignId]);
+
+  if (isLoading) return <p>Loading comments...</p>;
+  if (isError) return <p>No comments available</p>;
+
+  return (
+    <div>
+      <h2 className="xl:text-[32px] text-[20px] lg:text-[24px] font-extrabold mt-10 mb-4 text-[#000000] font-nunito">
+        {allComments.length.toString().padStart(2, "0")} Comments
+      </h2>
+      <div className="space-y-10 mb-8">
+        {allComments.map((comment, index) => (
+          <div
+            key={comment.id + (comment.isPending ? "-pending-" + index : "")}
+            className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6"
+          >
+            <div className="w-20 h-20 sm:w-[98.4px] sm:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
+              <span className="text-2xl font-bold text-[#000000] font-nunito">
+>>>>>>> Stashed changes
                 {comment.name.charAt(0).toUpperCase()}
               </span>
             </div>
             <div className="flex-1">
+<<<<<<< Updated upstream
               <h5 className="text-lg sm:text-xl font-bold font-nunito">
                 {comment.name}
               </h5>
             
+=======
+              <h5 className=" text[#000000] text-lg sm:text-xl  font-bold font-nunito">
+                {comment.name}
+              </h5>
+>>>>>>> Stashed changes
               <p className="text-sm sm:text-base text-[#667471] font-nunito leading-snug whitespace-pre-line">
                 {comment.comment}
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-[#6B7280]">
+<<<<<<< Updated upstream
                 <button className="flex items-center gap-1 hover:text-brown">
                   <FiHeart /> Like {comment.likeCount || 0}
                 </button>
@@ -153,6 +238,16 @@ export default function Comments({ campaignId }: CommentsProps) {
                 </button>
                 <span className="text-gray-500">
                   {comment.createdAt ? getTimeAgo(comment.createdAt) : (comment.timeAgo || "Just now")}
+=======
+                <button className="flex items-center gap-1 font-bold font-nunito text-[#667471]">
+                  <FiHeart /> Like {comment.likeCount || 0}
+                </button>
+                <button className="flex items-center gap-1 font-bold font-nunito text-[#667471]">
+                  <FiCornerUpLeft /> Reply
+                </button>
+                <span className=" text-[#667471] font-nunito font-bold">
+                  {comment.timeAgo || "Just now"}
+>>>>>>> Stashed changes
                 </span>
               </div>
             </div>

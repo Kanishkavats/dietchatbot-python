@@ -1,6 +1,7 @@
 import { DetailsFormValues } from "../utils/validations/FormValidation"
 import api from "./api"
 import { SendMsgFormValues } from "../utils/validations/FormValidation";
+<<<<<<< Updated upstream
 import { ContactFormValues } from "../components/Contact/ContactForm";
 
 import { VolunteerValues } from "../utils/validations/FormValidation";
@@ -19,6 +20,8 @@ export const VolunteerInformationForm = async (values: VolunteerValues) => {
   return data;
 };
 
+=======
+>>>>>>> Stashed changes
 
 
 export const SendMsgInformationForm = async (values: SendMsgFormValues) => {

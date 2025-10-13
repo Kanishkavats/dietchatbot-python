@@ -118,6 +118,7 @@
     "role_1":"Cloth Store Inc.",
     "role_2":"Cloth Store Inc.",
     "role_3":"Cloth Store Inc.",
+<<<<<<< Updated upstream
     "Our Latest ":"Our Latest ",
     "You Like":"You Like",
     "& Articles ":"& Articles ",
@@ -150,3 +151,7 @@
   
 
   }
+=======
+    "Our Valueable":"Our Valueable"
+}
+>>>>>>> Stashed changes
