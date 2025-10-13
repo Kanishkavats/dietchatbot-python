@@ -48,7 +48,7 @@ export default function Newsdetail({ id }: props) {
       transition={{ duration: 0.8, ease: "easeOut" }}
       className="bg-white font-sans  text-gray-green"
     >
-      <div className="lg:w-full p-2 sm:p-2">
+      <div className="max-w-4xl mx-auto lg:w-full p-2 sm:p-4 lg:p-6">
         <FadeUpCard delay={0.3}>
           <div className="relative w-full  h-[250px] sm:h-[300px] lg:h-[500px] xl:h-[550px] mb-6 rounded-3xl overflow-hidden">
             <Image
@@ -104,7 +104,7 @@ export default function Newsdetail({ id }: props) {
                 </div>
               ))}
           </div>
-
+{/* 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-7 mt-15  mb-8">
             <div className="relative w-full h-[200px]  lg:h-[300px] rounded-lg overflow-hidden">
               <Image
@@ -122,7 +122,7 @@ export default function Newsdetail({ id }: props) {
                 className="object-cover"
               />
             </div>
-          </div>
+          </div> */}
 
           <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center mt-14 mb-20 gap-4">
             {/* Tags */}
@@ -176,14 +176,24 @@ export default function Newsdetail({ id }: props) {
             </div>
           </div>
         </FadeUpCard>
-        <FadeUpCard delay={0.3}>
-          <div>
-            <Comments campaignId={id} />
-          </div>
-        </FadeUpCard>
-        <FadeUpCard delay={0.3}>
-          <LeaveComment blogId={id} />
-        </FadeUpCard>
+        
+        {/* Comments Section with proper spacing */}
+        <div className="mt-12 mb-8">
+          <FadeUpCard delay={0.3}>
+            <div className="w-full">
+              <Comments campaignId={id} />
+            </div>
+          </FadeUpCard>
+        </div>
+        
+        {/* Leave Comment Section with proper spacing */}
+        <div className="mt-8 mb-12">
+          <FadeUpCard delay={0.3}>
+            <div className="w-full flex justify-center">
+              <LeaveComment blogId={id} />
+            </div>
+          </FadeUpCard>
+        </div>
       </div>
     </motion.div>
   );

@@ -172,7 +172,7 @@ export default function CharityWithDifference() {
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
               
-               <FaArrowLeft className="text-white group-hover:text-black transition-colors duration-300" />
+               <FaArrowLeft className="text-white cursor-pointer group-hover:text-black transition-colors duration-300" />
             </button>
             <button 
               className="swiper-button-next-custom group bg-yellow rounded-full w-14 h-14  flex items-center justify-center hover:bg-dark-green transition-all duration-300"
@@ -180,7 +180,7 @@ export default function CharityWithDifference() {
               onMouseLeave={() => swiperRef.current?.autoplay?.stop()}
             >
             
-              <FaArrowRight className="text-black group-hover:text-white transition-colors duration-300" />
+              <FaArrowRight className="text-black cursor-pointer group-hover:text-white transition-colors duration-300" />
               
             </button>
           </div>

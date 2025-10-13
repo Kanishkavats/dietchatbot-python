@@ -17,6 +17,19 @@ interface CampaignInfoProps {
   formattedDate?: string;
 }
 const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
+    // 🛑 1️⃣ Check: If no data OR any important field missing, hide entire component
+  const requiredFields = ["title", "description", "images", "createdAt", "location"];
+  const isDataMissing =
+    !data ||
+    requiredFields.some((key) => !data[key] || (Array.isArray(data[key]) && data[key].length === 0));
+
+  if (isDataMissing) {
+    // 👇 Component hidden if even one key field missing
+    return null;
+  }
+
+  // ✅ 2️⃣ Render only if data available
+
   return (
     <motion.div
       initial={{ y: 100, opacity: 0 }}

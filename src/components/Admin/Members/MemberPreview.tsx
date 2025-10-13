@@ -31,6 +31,23 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
         linkedInUrl,
     } = data;
 
+    // Normalize bilingual fields to English string values for preview rendering
+    const pickEn = (val: any): string => {
+        if (val && typeof val === "object" && "en" in val) {
+            return (val as any).en as string;
+        }
+        return (val ?? "") as string;
+    };
+
+    const nameText = pickEn(name);
+    const positionText = pickEn(position);
+    const titleText = pickEn(title);
+    const descriptionText = pickEn(description);
+    const aboutText = pickEn(about);
+    const keyPointsList: string[] = Array.isArray(keyPoints)
+        ? (keyPoints as any)
+        : ((keyPoints as any)?.en ?? []);
+
     const [isSubmitting, setIsSubmitting] = useState(false);
     const socialIconClass =
         "text-white bg-blue-50 hover:bg-yellow rounded-full p-2 size-10 hover:scale-110 transition";
@@ -86,31 +103,29 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
             {/* Member Image */}
             {imagePreview && (
                 <div className="w-40 h-40 mx-auto mb-6  rounded-full overflow-hidden border-4 border-yellow shadow-md">
-                    <img src={imagePreview} alt={name} className="w-full h-full object-cover" />
+                    <img src={imagePreview} alt={nameText} className="w-full h-full object-cover" />
                 </div>
             )}
 
             {/* Name & Position */}
-            <h2 className="text-2xl lg:text-3xl font-bold mb-2 text-center text-foreground">{name}</h2>
-            <p className="text-lg text-center text-foreground/70 mb-6">
-                {position}
-            </p>
+            <h2 className="text-2xl lg:text-3xl font-bold mb-2 text-center text-foreground">{nameText}</h2>
+            <p className="text-lg text-center text-foreground/70 mb-6">{positionText}</p>
 
             {/* Title */}
-            <h3 className="text-2xl font-bold mb-2 text-foreground">{title ? `${title}` : ""}</h3>
+            <h3 className="text-2xl font-bold mb-2 text-foreground">{titleText ? `${titleText}` : ""}</h3>
 
             {/* About / Description */}
             <div className="space-y-4 text-foreground/70 font-[400] text-md leading-relaxed mb-8">
-                <p>{description}</p>
-                {about && <p>{about}</p>}
+                <p>{descriptionText}</p>
+                {aboutText ? <p>{aboutText}</p> : null}
             </div>
 
             {/* Key Points */}
-            {keyPoints.length > 0 && (
+            {(keyPointsList && keyPointsList.length > 0) && (
                 <div className="mt-6">
                     <p className="font-bold text-lime-green mb-2">Key Highlights:</p>
                     <div className="grid  gap-2 ml-2">
-                        {keyPoints.map((point, idx) => (
+                        {keyPointsList.map((point, idx) => (
                             <p key={idx} className="flex items-start gap-2 text-foreground">
                                 <LucideCircleCheckBig className="text-yellow h-5 w-5 mt-1" />
                                 <span className="text-[16px]">{point}</span>
@@ -136,7 +151,7 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
             )}
 
             {/* Buttons */}
-            {mode === "edit" && (
+            {/* {mode === "edit" && ( */}
                 <div className="mt-12 flex justify-baseline gap-6  w-full mx-auto">
                     <Button bgColor="bg-red" rounded="rounded-lg" hoverBg="before:bg-red-50" onClick={onBack}>
                         Back to Edit
@@ -145,7 +160,7 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
                         {isSubmitting ? <ButtonLoader /> : ""}
                     </Button>
                 </div>
-            )}
+            {/* )} */}
         </motion.div>
     );
 };

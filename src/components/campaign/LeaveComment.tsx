@@ -17,6 +17,8 @@ interface LeaveCommentProps {
 }
 
 export default function LeaveComment({ blogId }: LeaveCommentProps) {
+  if (!blogId) return null;
+
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -33,10 +35,10 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
       return;
     }
 
-    if (!blogId) {
-      alert("Blog ID is missing");
-      return;
-    }
+    // if (!blogId) {
+    //   alert("Blog ID is missing");
+    //   return;
+    // }
 
 <<<<<<< Updated upstream
    mutation.mutate(

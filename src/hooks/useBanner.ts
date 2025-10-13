@@ -7,22 +7,22 @@ import {
 } from "../services/bannerApi";
 import { BannerFormValues } from "../utils/validations/FormValidation";
 import toast from "react-hot-toast";
-
-// ✅ Convert BannerFormValues to FormData (handle image file or string)
 const buildFormData = (values: BannerFormValues) => {
-    const formData = new FormData();
+  const formData = new FormData();
 
-    formData.append("title", values.title);
-    formData.append("subtitle", values.subtitle);
-    formData.append("priority", values.priority.toString());
+  
+  formData.append("title", JSON.stringify(values.title));
+  formData.append("subtitle", JSON.stringify(values.subtitle));
+  formData.append("priority", values.priority.toString());
 
-    if (values.image instanceof File) {
-        formData.append("image", values.image);
-    } else if (typeof values.image === "string" && values.image !== "") {
-        formData.append("image", values.image);
-    }
+  
+  if (values.image instanceof File) {
+    formData.append("image", values.image);
+  } else if (typeof values.image === "string" && values.image !== "") {
+    formData.append("image", values.image);
+  }
 
-    return formData;
+  return formData;
 };
 
 // ✅ Handle banner create

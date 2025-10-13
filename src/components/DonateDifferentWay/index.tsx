@@ -6,9 +6,9 @@ import { motion, useInView } from 'framer-motion';
 import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
-import { gridDot, thumbSmChild } from '@/public/assets';
+import { gridDot, donatediffway } from '@/public/assets';
 import FadeUpCard from '@/src/animations/FadeButtomUp';
-
+ import AnimatedCircle from './AnimatedCircle'; // animated circle
 const DonateDifferentWay: React.FC = () => {
   const [activeTab, setActiveTab] = useState('mission');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -22,7 +22,7 @@ const DonateDifferentWay: React.FC = () => {
   const missionItems = donateDifferentWayMissionItems;
 
   return (
-    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 mt-20 mb-10 xl:mb-20 lg:mt-25 bg-white '>
+    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 -mt-2 sm:-mt-1 md:mt-2 lg:mt-25 mb-10 xl:mb-20 bg-white '>
       <div className='max-w-7xl  md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto'>
 
         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
@@ -60,7 +60,7 @@ const DonateDifferentWay: React.FC = () => {
               }}
             >
               <Image
-                src={thumbSmChild} 
+                src={donatediffway} 
                 alt='Children in need' 
                 fill={true}
                 className='w-full h-full object-cover'
@@ -109,7 +109,7 @@ const DonateDifferentWay: React.FC = () => {
               transition={{ duration: 1, delay: 0.3 }}
             >
               <Image
-                src='/assets/section2/thumb-bottom.png' 
+                src='/assets/section2/helpingeachother2.jpg' 
                 alt='Happy child running' 
                 fill={true}
                 className='w-full h-full object-cover'
@@ -170,7 +170,7 @@ const DonateDifferentWay: React.FC = () => {
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6  sm:py-3 lg:px-12 lg:py-2.5 xl:px-7 xl:py-2.5 font-nunito rounded-full font-nunito text-sm  xl:text-lg font-semibold transition-colors duration-400 ${
+                    className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6  sm:py-3 lg:px-12 lg:py-2.5 xl:px-7 xl:py-2.5 font-nunito rounded-full font-nunito text-sm  xl:text-lg font-semibold cursor-pointer transition-colors duration-400 ${
                       activeTab === tab.id
                         ? 'bg-green text-white'
                         : 'text-foreground hover:bg-green hover:text-white'
@@ -182,9 +182,9 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Tab Content with Donation Cards */}
-              <div className='flex flex-col md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0 lg:p-7 xl:p-2'>
+              <div className='flex flex-col cursor-pointer md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0 lg:p-7 xl:p-2'>
                 {/* Mission/Vision/Excellence Content */}
-                <div className='flex-1'>
+                <div className='flex-1 cursor-pointer'>
                   {(activeTab === 'mission' || activeTab === 'vision' || activeTab === 'excellence') && (
                     <div className='space-y-3 sm:space-y-4'>
                       <ul className='space-y-2 sm:space-y-3'>
@@ -201,7 +201,7 @@ const DonateDifferentWay: React.FC = () => {
                       </ul>
                       
                       {/* Circular Progress Indicators */}
-                      <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3 '>
+                      {/* <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3 '>
                         <div className='flex items-center space-x-2 sm:space-x-3'>
                           <div className='relative w-20 h-20 xs:w-23 lg:w-20 lg:h-20 xs:h-23 xl:w-23 xl:h-23 flex-shrink-0'>
                             <svg className='w-20 xs:w-23 h-20 xs:h-23 lg:w-20 lg:h-20 xl:w-23 xl:h-23 transform -rotate-90' viewBox='0 0 100 100'>
@@ -230,9 +230,9 @@ const DonateDifferentWay: React.FC = () => {
                             </div>
                           </div>
                           <p className='text-sm md:text-[16px] xl:text-lg  text-dark-green font-bold font-nunito'>{t("Treatment Helping")}</p>
-                        </div>
+                        </div> */}
 
-                        <div className='flex items-center space-x-2 sm:space-x-3'>
+                        {/* <div className='flex items-center space-x-2 sm:space-x-3'>
                           <div className='relative w-20 h-20 xs:w-23 lg:w-20 lg:h-20 xs:h-23 xl:w-23 xl:h-23 flex-shrink-0'>
                             <svg className='w-20 xs:w-23 h-20 xs:h-23 lg:w-20 lg:h-20 xl:w-23 xl:h-23 transform -rotate-90' viewBox='0 0 100 100'>
                               <circle
@@ -260,9 +260,13 @@ const DonateDifferentWay: React.FC = () => {
                             </div>
                           </div>
                           <p className='text-sm md:text-[16px] xl:text-lg  text-dark-green font-bold font-nunito'>{t("Highest Fund Raised")}</p>
-                        </div>
-                      </div>
+                        </div> */}
+                         <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3'>
+                           <AnimatedCircle percentage={55} label={t("Treatment Helping")} />
+                            <AnimatedCircle percentage={85} label={t("Highest Fund Raised")} />
+                          </div>
                     </div>
+                    
                   )}
                 </div>
               </div>
@@ -390,3 +394,469 @@ const DonateDifferentWay: React.FC = () => {
 };
 
 export default DonateDifferentWay;
+
+// 'use client';
+
+// import React, { useState, useRef } from 'react';
+// import Image from 'next/image';
+// import { motion, useInView } from 'framer-motion';
+// import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
+// import { useTranslation } from 'react-i18next';
+// import { Icon } from '@iconify/react';
+// import { gridDot, thumbSmChild } from '@/public/assets';
+// import AnimatedCircle from './AnimatedCircle'; // animated circle
+
+// const DonateDifferentWay: React.FC = () => {
+//   const [activeTab, setActiveTab] = useState('mission');
+//   const mainImageRef = useRef(null);
+//   const bottomImageRef = useRef(null);
+//   const isInView = useInView(mainImageRef, { once: true, amount: 0.3 });
+//   const isBottomImageInView = useInView(bottomImageRef, { once: true, amount: 0.3 });
+//   const { t } = useTranslation();
+
+//   return (
+//     <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 mt-20 mb-10 xl:mb-20 lg:mt-25 bg-white'>
+//       <div className='max-w-7xl md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto'>
+//         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
+
+//           {/* Left side - Video and images */}
+//           <div className='lg:col-span-3 xl:col-span-5 space-y-3 lg:mt-20 sm:space-y-4 h-full relative'>
+//             {/* Grid pattern */}
+//             <motion.div 
+//               className='hidden xl:block absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-35 lg:h-30 z-0 -mt-12 sm:-mt-16 lg:-mt-20 -ml-8 sm:-ml-12 lg:-ml-15'
+//               animate={{ y: [-2, -30, -2] }}
+//               transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+//             >
+//               <Image src={gridDot} alt='Grid pattern' fill={true} className='w-full h-full rounded-t-full rounded-b-full object-contain opacity-60' />
+//             </motion.div>
+
+//             {/* Main Image */}
+//             <motion.div
+//               ref={mainImageRef}
+//               className='hidden lg:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 xl:w-[450px] lg:-ml-40 xl:-ml-0 h-64 sm:h-80 lg:h-5/7 xl:h-[600px] lg:-mt-15 bg-gray-200 z-10'
+//               initial={{ opacity: 0, x: -100 }}
+//               animate={isInView ? { opacity: 1, x: 0 } : {}}
+//               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+//             >
+//               <Image src={thumbSmChild} alt='Children in need' fill={true} className='w-full h-full object-cover' />
+//               <div className="absolute inset-0 bg-[linear-gradient(104deg,rgba(12,26,23,0)_1.9%,rgba(0,113,93,.08)_18.93%,rgba(0,113,93,.17)_29.72%,rgba(0,113,93,.37)_83.58%,rgba(0,113,93,.67)_109.85%,#00715d_133.89%,#00715d_133.91%,rgba(0,113,93,.91)_149.32%)]" />
+//               <div className='absolute inset-0 opacity-30' style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`, mixBlendMode: 'overlay' }}></div>
+//               <div className='absolute inset-0 flex items-center justify-center'>
+//                 <motion.div
+//                   className='w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 bg-yellow rounded-full flex items-center justify-center cursor-pointer hover:bg-yellow-500 transition-colors shadow-lg'
+//                 >
+//                   <svg className='w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white ml-1' fill='currentColor' viewBox='0 0 24 24'>
+//                     <path d='M8 5v14l11-7z' />
+//                   </svg>
+//                 </motion.div>
+//               </div>
+//             </motion.div>
+
+//             {/* Bottom Image */}
+//             <motion.div
+//               ref={bottomImageRef}
+//               className='hidden lg:block absolute rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-75 lg:h-65 xl:w-75 xl:h-70 z-10 bottom-[-100] lg:bottom-[50] xl:bottom-0 lg:transform lg:-translate-y-1/2 lg:right-[-90%] xl:right-[-10%]'
+//               initial={{ opacity: 0, y: 100 }}
+//               animate={isBottomImageInView ? { opacity: 1, y: 0 } : {}}
+//               transition={{ duration: 1, delay: 0.3 }}
+//             >
+//               <Image src='/assets/section2/thumb-bottom.png' alt='Happy child running' fill={true} className='w-full h-full object-cover' />
+//             </motion.div>
+//           </div>
+
+//           {/* Right side - Content */}
+//           <div className='lg:col-span-9 xl:col-span-7 flex flex-col md:pl-5 lg:p-5 xl:p-0 lg:flex-row gap-4 sm:gap-6'>
+//             <div className='space-y-4 sm:space-y-6 flex-1'>
+//               <div className='font-nunito font-extrabold relative'>
+//                 <div className='flex items-center pl-1 md:pl-0 justify-start lg:pl-15 xl:pl-0 lg:mb-6 xl:mb-0 ml-0'>
+//                   <div className='flex items-center space-x-2 sm:space-x-4'>
+//                     <Icon icon={'mdi:hand-heart'} className="text-lg xs:text-xl md:text-2xl xl:text-3xl text-green" />
+//                     <span className="text-green text-lg sm:text-xl lg:text-2xl font-caveat font-semibold">{t("Start Donating Poor People")}</span>
+//                   </div>
+//                 </div>
+//                 <div className='flex flex-col mt-5 md:mt-5 w-full lg:flex-row items-start justify-between'>
+//                   <h2 className='text-3xl w-full tracking-tight md:tracking-normal lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl font-nunito font-extrabold text-dark-green leading-10 md:leading-10 lg:leading-tight'>
+//                     <span className='text-dark-green'>{t("Donate")} <span className='text-yellow'>{t("Support")}</span> {t("To Make")}</span>
+//                     <span className='text-dark-green'> {t("Difference Way")}</span>
+//                   </h2>
+//                   <motion.div className='flex-shrink-0 absolute top-[35] md:top-[1] md:right-[2] xl:top-[-20] right-[20] xl:right-[-60] ml-2 sm:ml-4 xl:ml-0 mt-1 sm:mt-2'
+//                     animate={{ scale: [0.5, 1.2, 0.5] }}
+//                     transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}>
+//                     <Image src='/assets/childoldcare/spade-green-heart.png' alt='Green heart' width={100} height={100} className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain' />
+//                   </motion.div>
+//                 </div>
+//               </div>
+
+//               <p className='text-gray-green text-sm sm:text-sm xl:text-[16px] md:pr-5 lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-7 lg:leading-relaxed xl:leading-7 lg:tracking-wide xl:tracking-wide font-nunito font-normal'>
+//                 {t("Charity Is The Voluntary Act Of Giving Help, Typically In The Form Of Money, Time, Or Resources, To Those In Need. Charitable Organizations Aim To Solve Social, Environmental, And Economic Challenges By Addressing Issues Like Poverty,")}
+//               </p>
+
+//               {/* Tabs */}
+//               <div className='flex flex-wrap gap-7 xs:gap-5 md:space-x-2 md:gap-1 xl:gap-2 justify-center md:mr-2 border-b border-gray-200 mx-auto lg:ml-5 lg:mr-5 xl:ml-0 xl:mr-0 mt-6 xs:mt-4 xl:mt-10 pb-4'>
+//                 {donateDifferentWayTabs.map(tab => (
+//                   <button
+//                     key={tab.id}
+//                     onClick={() => setActiveTab(tab.id)}
+//                     className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6 sm:py-3 lg:px-12 lg:py-2.5 xl:px-7 xl:py-2.5 font-nunito rounded-full text-sm xl:text-lg font-semibold cursor-pointer transition-colors duration-400 ${activeTab === tab.id ? 'bg-green text-white' : 'text-foreground hover:bg-green hover:text-white'}`}
+//                   >
+//                     {t(tab.label)}
+//                   </button>
+//                 ))}
+//               </div>
+
+//               {/* Mission & Animated Circles */}
+//               <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3'>
+//                 <AnimatedCircle percentage={55} label={t("Treatment Helping")} />
+//                 <AnimatedCircle percentage={85} label={t("Highest Fund Raised")} />
+//               </div>
+
+//               <ul className='space-y-3'>
+//                 {donateDifferentWayMissionItems.map((item, index) => (
+//                   <li key={index} className='flex items-start space-x-2 sm:space-x-2'>
+//                     <div className='w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center flex-shrink-0 mt-0.5'>
+//                       <svg className='w-4 h-4 xl:w-6 xl:h-6 text-yellow' fill='currentColor' viewBox='0 0 24 24' strokeWidth='3' stroke='currentColor'>
+//                         <path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' strokeWidth='3' />
+//                       </svg>
+//                     </div>
+//                     <span className='text-gray-green flex flex-wrap text-sm xl:text-sm font-medium font-nunito md:font-semibold'>{t(item)}</span>
+//                   </li>
+//                 ))}
+//               </ul>
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DonateDifferentWay;
+
+// 'use client';
+
+// import React, { useState, useRef } from 'react';
+// import Image from 'next/image';
+// import { motion, useInView } from 'framer-motion';
+// import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
+// import { useTranslation } from 'react-i18next';
+// import { Icon } from '@iconify/react';
+// import { gridDot, thumbSmChild } from '@/public/assets';
+// import AnimatedCircle from './AnimatedCircle'; // animated circle
+
+// const DonateDifferentWay: React.FC = () => {
+//   const [activeTab, setActiveTab] = useState('mission');
+//   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+//   const mainImageRef = useRef(null);
+//   const bottomImageRef = useRef(null);
+//   const isInView = useInView(mainImageRef, { once: true, amount: 0.3 });
+//   const isBottomImageInView = useInView(bottomImageRef, { once: true, amount: 0.3 });
+//   const { t } = useTranslation();
+
+//   return (
+//     <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 mt-20 mb-10 xl:mb-20 lg:mt-25 bg-white'>
+//       <div className='max-w-7xl md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto'>
+//         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
+
+//           {/* Left side - Video and images */}
+//           <div className='lg:col-span-3 xl:col-span-5 space-y-3 lg:mt-20 sm:space-y-4 h-full relative'>
+//             {/* Grid pattern */}
+//             <motion.div
+//               className='hidden xl:block absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-35 lg:h-30 z-0 -mt-12 sm:-mt-16 lg:-mt-20 -ml-8 sm:-ml-12 lg:-ml-15'
+//               animate={{ y: [-2, -30, -2] }}
+//               transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+//             >
+//               <Image src={gridDot} alt='Grid pattern' fill className='w-full h-full rounded-t-full rounded-b-full object-contain opacity-60' />
+//             </motion.div>
+
+//             {/* Main Image */}
+//             <motion.div
+//               ref={mainImageRef}
+//               className='hidden lg:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 xl:w-[450px] lg:-ml-40 xl:-ml-0 h-64 sm:h-80 lg:h-5/7 xl:h-[600px] lg:-mt-15 bg-gray-200 z-10'
+//               initial={{ opacity: 0, x: -100 }}
+//               animate={isInView ? { opacity: 1, x: 0 } : {}}
+//               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+//             >
+//               <Image src={thumbSmChild} alt='Children in need' fill className='w-full h-full object-cover' />
+//               <div className="absolute inset-0 bg-[linear-gradient(104deg,rgba(12,26,23,0)_1.9%,rgba(0,113,93,.08)_18.93%,rgba(0,113,93,.17)_29.72%,rgba(0,113,93,.37)_83.58%,rgba(0,113,93,.67)_109.85%,#00715d_133.89%,#00715d_133.91%,rgba(0,113,93,.91)_149.32%)]" />
+//               <div className='absolute inset-0 opacity-30' style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`, mixBlendMode: 'overlay' }}></div>
+//               <div className='absolute inset-0 flex items-center justify-center'>
+//                 <motion.div
+//                   className='w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 bg-yellow rounded-full flex items-center justify-center cursor-pointer hover:bg-yellow-500 transition-colors shadow-lg'
+//                   onClick={() => setIsVideoModalOpen(true)}
+//                 >
+//                   <svg className='w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white ml-1' fill='currentColor' viewBox='0 0 24 24'>
+//                     <path d='M8 5v14l11-7z' />
+//                   </svg>
+//                 </motion.div>
+//               </div>
+//             </motion.div>
+
+//             {/* Bottom Image */}
+//             <motion.div
+//               ref={bottomImageRef}
+//               className='hidden lg:block absolute rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-75 lg:h-65 xl:w-75 xl:h-70 z-10 bottom-[-100] lg:bottom-[50] xl:bottom-0 lg:transform lg:-translate-y-1/2 lg:right-[-90%] xl:right-[-10%]'
+//               initial={{ opacity: 0, y: 100 }}
+//               animate={isBottomImageInView ? { opacity: 1, y: 0 } : {}}
+//               transition={{ duration: 1, delay: 0.3 }}
+//             >
+//               <Image src='/assets/section2/thumb-bottom.png' alt='Happy child running' fill className='w-full h-full object-cover' />
+//             </motion.div>
+//           </div>
+
+//           {/* Right side - Content */}
+//           <div className='lg:col-span-9 xl:col-span-7 flex flex-col md:pl-5 lg:p-5 xl:p-0 lg:flex-row gap-4 sm:gap-6'>
+//             <div className='space-y-4 sm:space-y-6 flex-1'>
+//               <div className='font-nunito font-extrabold relative'>
+//                 <div className='flex items-center pl-1 md:pl-0 justify-start lg:pl-15 xl:pl-0 lg:mb-6 xl:mb-0 ml-0'>
+//                   <div className='flex items-center space-x-2 sm:space-x-4'>
+//                     <Icon icon={'mdi:hand-heart'} className="text-lg xs:text-xl md:text-2xl xl:text-3xl text-green" />
+//                     <span className="text-green text-lg sm:text-xl lg:text-2xl font-caveat font-semibold">{t("Start Donating Poor People")}</span>
+//                   </div>
+//                 </div>
+//                 <div className='flex flex-col mt-5 md:mt-5 w-full lg:flex-row items-start justify-between'>
+//                   <h2 className='text-3xl w-full tracking-tight md:tracking-normal lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl font-nunito font-extrabold text-dark-green leading-10 md:leading-10 lg:leading-tight'>
+//                     <span className='text-dark-green'>{t("Donate")} <span className='text-yellow'>{t("Support")}</span> {t("To Make")}</span>
+//                     <span className='text-dark-green'> {t("Difference Way")}</span>
+//                   </h2>
+//                   <motion.div className='flex-shrink-0 absolute top-[35] md:top-[1] md:right-[2] xl:top-[-20] right-[20] xl:right-[-60] ml-2 sm:ml-4 xl:ml-0 mt-1 sm:mt-2'
+//                     animate={{ scale: [0.5, 1.2, 0.5] }}
+//                     transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}>
+//                     <Image src='/assets/childoldcare/spade-green-heart.png' alt='Green heart' width={100} height={100} className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain' />
+//                   </motion.div>
+//                 </div>
+//               </div>
+
+//               <p className='text-gray-green text-sm sm:text-sm xl:text-[16px] md:pr-5 lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-7 lg:leading-relaxed xl:leading-7 lg:tracking-wide xl:tracking-wide font-nunito font-normal'>
+//                 {t("Charity Is The Voluntary Act Of Giving Help, Typically In The Form Of Money, Time, Or Resources, To Those In Need. Charitable Organizations Aim To Solve Social, Environmental, And Economic Challenges By Addressing Issues Like Poverty,")}
+//               </p>
+
+//               {/* Tabs */}
+//               <div className='flex flex-wrap gap-7 xs:gap-5 md:space-x-2 md:gap-1 xl:gap-2 justify-center md:mr-2 border-b border-gray-200 mx-auto lg:ml-5 lg:mr-5 xl:ml-0 xl:mr-0 mt-6 xs:mt-4 xl:mt-10 pb-4'>
+//                 {donateDifferentWayTabs.map(tab => (
+//                   <button
+//                     key={tab.id}
+//                     onClick={() => setActiveTab(tab.id)}
+//                     className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6 sm:py-3 lg:px-12 lg:py-2.5 xl:px-7 xl:py-2.5 font-nunito rounded-full text-sm xl:text-lg font-semibold cursor-pointer transition-colors duration-400 ${activeTab === tab.id ? 'bg-green text-white' : 'text-foreground hover:bg-green hover:text-white'}`}
+//                   >
+//                     {t(tab.label)}
+//                   </button>
+//                 ))}
+//               </div>
+
+//               {/* Mission & Animated Circles */}
+//               <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3'>
+//                 <AnimatedCircle percentage={55} label={t("Treatment Helping")} />
+//                 <AnimatedCircle percentage={85} label={t("Highest Fund Raised")} />
+//               </div>
+
+//               {/* Donate Now & Total Fundraised Cards */}
+//               <div className='flex flex-wrap xs:flex-row sm:flex-row md:flex-col gap-4 xl:gap-2 rounded-xl md:w-2/6 lg:w-2/3 xl:w-[250px] lg:mr-2 xl:mr-0 xl:mt-5 bg-gray-50 border border-gray-300'>
+//                 {/* Donate Now Card */}
+//                 <div className='p-3 sm:p-4 flex-1 flex flex-col items-center justify-center'>
+//                   <div className='w-10 h-10 sm:w-12 sm:h-12 lg:w-20 lg:h-20 xl:w-20 xl:h-18 rounded-lg flex items-center justify-center mb-3 sm:mb-4'>
+//                     <Image
+//                       src='/assets/childoldcare/icon2.png'
+//                       alt='Donate icon'
+//                       width={120}
+//                       height={120}
+//                       className='w-full h-full object-contain'
+//                     />
+//                   </div>
+//                   <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg'>{t("Donate Now")}</h3>
+//                   <p className='text-lg font-caveat font-bold text-yellow italic'>{t("$")}40,456</p>
+//                 </div>
+
+//                 <div className='hidden md:block border border-gray-200 ml-3 mr-3'></div>
+
+//                 {/* Total Fundraised Card */}
+//                 <div className='p-3 sm:p-4 flex-1 flex flex-col items-center justify-center'>
+//                   <div className='w-10 h-10 sm:w-12 sm:h-12 lg:w-20 lg:h-20 xl:w-20 xl:h-18 rounded-lg flex items-center justify-center mb-3 sm:mb-4'>
+//                     <Image
+//                       src='/assets/childoldcare/icon1.png'
+//                       alt='Fundraising icon'
+//                       width={120}
+//                       height={120}
+//                       className='w-full h-full object-contain'
+//                     />
+//                   </div>
+//                   <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg'>{t("Total Fundraised")}</h3>
+//                   <p className='text-lg font-caveat font-bold text-green italic'>{t("$")}1,540,456</p>
+//                 </div>
+//               </div>
+
+//               {/* Mission Items List */}
+//               <ul className='space-y-3'>
+//                 {donateDifferentWayMissionItems.map((item, index) => (
+//                   <li key={index} className='flex items-start space-x-2 sm:space-x-2'>
+//                     <div className='w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center flex-shrink-0 mt-0.5'>
+//                       <svg className='w-4 h-4 xl:w-6 xl:h-6 text-yellow' fill='currentColor' viewBox='0 0 24 24' strokeWidth='3' stroke='currentColor'>
+//                         <path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' strokeWidth='3' />
+//                       </svg>
+//                     </div>
+//                     <span className='text-gray-green flex flex-wrap text-sm xl:text-sm font-medium font-nunito md:font-semibold'>{t(item)}</span>
+//                   </li>
+//                 ))}
+//               </ul>
+
+//             </div>
+//           </div>
+
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DonateDifferentWay;
+
+
+// 'use client';
+
+// import React, { useState, useRef } from 'react';
+// import Image from 'next/image';
+// import { motion, useInView } from 'framer-motion';
+// import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
+// import { useTranslation } from 'react-i18next';
+// import { Icon } from '@iconify/react';
+// import { gridDot, thumbSmChild } from '@/public/assets';
+// import AnimatedCircle from './AnimatedCircle';
+
+// const DonateDifferentWay: React.FC = () => {
+//   const [activeTab, setActiveTab] = useState('mission');
+//   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
+//   const mainImageRef = useRef(null);
+//   const bottomImageRef = useRef(null);
+//   const isInView = useInView(mainImageRef, { once: true, amount: 0.3 });
+//   const isBottomImageInView = useInView(bottomImageRef, { once: true, amount: 0.3 });
+//   const { t } = useTranslation();
+
+//   return (
+//     <div className='w-full py-4 sm:py-6 lg:py-2 px-2 mt-20 mb-10 xl:mb-20 lg:mt-25 bg-white'>
+//       <div className='max-w-7xl md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto'>
+//         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
+
+//           {/* Left side - Video and images */}
+//           <div className='lg:col-span-3 xl:col-span-5 space-y-3 lg:mt-20 sm:space-y-4 h-full relative'>
+
+//             {/* Grid pattern */}
+//             <motion.div
+//               className='hidden xl:block absolute top-0 left-0 w-20 h-20 sm:w-24 sm:h-24 lg:w-35 lg:h-30 z-0 -mt-12 sm:-mt-16 lg:-mt-20 -ml-8 sm:-ml-12 lg:-ml-15'
+//               animate={{ y: [-2, -30, -2] }}
+//               transition={{ duration: 2, ease: "easeInOut", repeat: Infinity, repeatType: "mirror" }}
+//             >
+//               <Image src={gridDot} alt='Grid pattern' fill className='w-full h-full rounded-t-full rounded-b-full object-contain opacity-60' />
+//             </motion.div>
+
+//             {/* Main Image */}
+//             <motion.div
+//               ref={mainImageRef}
+//               className='hidden lg:block relative rounded-xl sm:rounded-2xl overflow-hidden w-full max-w-sm sm:max-w-md lg:w-110 xl:w-[450px] lg:-ml-40 xl:-ml-0 h-64 sm:h-80 lg:h-5/7 xl:h-[600px] lg:-mt-15 bg-gray-200 z-10'
+//               initial={{ opacity: 0, x: -100 }}
+//               animate={isInView ? { opacity: 1, x: 0 } : {}}
+//               transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+//             >
+//               <Image src={thumbSmChild} alt='Children in need' fill className='w-full h-full object-cover' />
+//               <div className="absolute inset-0 bg-[linear-gradient(104deg,rgba(12,26,23,0)_1.9%,rgba(0,113,93,.08)_18.93%,rgba(0,113,93,.17)_29.72%,rgba(0,113,93,.37)_83.58%,rgba(0,113,93,.67)_109.85%,#00715d_133.89%,#00715d_133.91%,rgba(0,113,93,.91)_149.32%)]" />
+//               <div className='absolute inset-0 opacity-30' style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.4'/%3E%3C/svg%3E")`, mixBlendMode: 'overlay' }}></div>
+//               <div className='absolute inset-0 flex items-center justify-center'>
+//                 <motion.div
+//                   className='w-16 h-16 sm:w-18 sm:h-18 lg:w-20 lg:h-20 bg-yellow rounded-full flex items-center justify-center cursor-pointer hover:bg-yellow-500 transition-colors shadow-lg'
+//                   onClick={() => setIsVideoModalOpen(true)}
+//                 >
+//                   <svg className='w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white ml-1' fill='currentColor' viewBox='0 0 24 24'>
+//                     <path d='M8 5v14l11-7z' />
+//                   </svg>
+//                 </motion.div>
+//               </div>
+//             </motion.div>
+
+//             {/* Bottom Image */}
+//             <motion.div
+//               ref={bottomImageRef}
+//               className='hidden lg:block absolute rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden border-4 sm:border-6 lg:border-10 border-white w-48 h-40 sm:w-56 sm:h-48 lg:w-75 lg:h-65 xl:w-75 xl:h-70 z-10 bottom-[-100] lg:bottom-[50] xl:bottom-0 lg:transform lg:-translate-y-1/2 lg:right-[-90%] xl:right-[-10%]'
+//               initial={{ opacity: 0, y: 100 }}
+//               animate={isBottomImageInView ? { opacity: 1, y: 0 } : {}}
+//               transition={{ duration: 1, delay: 0.3 }}
+//             >
+//               <Image src='/assets/section2/thumb-bottom.png' alt='Happy child running' fill className='w-full h-full object-cover' />
+//             </motion.div>
+//           </div>
+
+//           {/* Right side - Content */}
+//           <div className='lg:col-span-9 xl:col-span-7 flex flex-col md:pl-5 lg:p-5 xl:p-0 lg:flex-row gap-4 sm:gap-6'>
+//             <div className='space-y-4 sm:space-y-6 flex-1'>
+//               <div className='font-nunito font-extrabold relative'>
+//                 <div className='flex items-center pl-1 md:pl-0 justify-start lg:pl-15 xl:pl-0 lg:mb-6 xl:mb-0 ml-0'>
+//                   <div className='flex items-center space-x-2 sm:space-x-4'>
+//                     <Icon icon={'mdi:hand-heart'} className="text-lg xs:text-xl md:text-2xl xl:text-3xl text-green" />
+//                     <span className="text-green text-lg sm:text-xl lg:text-2xl font-caveat font-semibold">{t("Start Donating Poor People")}</span>
+//                   </div>
+//                 </div>
+//                 <div className='flex flex-col mt-5 md:mt-5 w-full lg:flex-row items-start justify-between'>
+//                   <h2 className='text-3xl w-full tracking-tight md:tracking-normal lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl font-nunito font-extrabold text-dark-green leading-10 md:leading-10 lg:leading-tight'>
+//                     <span className='text-dark-green'>{t("Donate")} <span className='text-yellow'>{t("Support")}</span> {t("To Make")}</span>
+//                     <span className='text-dark-green'> {t("Difference Way")}</span>
+//                   </h2>
+//                   <motion.div className='flex-shrink-0 absolute top-[35] md:top-[1] md:right-[2] xl:top-[-20] right-[20] xl:right-[-60] ml-2 sm:ml-4 xl:ml-0 mt-1 sm:mt-2'
+//                     animate={{ scale: [0.5, 1.2, 0.5] }}
+//                     transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}>
+//                     <Image src='/assets/childoldcare/spade-green-heart.png' alt='Green heart' width={100} height={100} className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain' />
+//                   </motion.div>
+//                 </div>
+//               </div>
+
+//               <p className='text-gray-green text-sm sm:text-sm xl:text-[16px] md:pr-5 lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-7 lg:leading-relaxed xl:leading-7 lg:tracking-wide xl:tracking-wide font-nunito font-normal'>
+//                 {t("Charity Is The Voluntary Act Of Giving Help, Typically In The Form Of Money, Time, Or Resources, To Those In Need. Charitable Organizations Aim To Solve Social, Environmental, And Economic Challenges By Addressing Issues Like Poverty,")}
+//               </p>
+
+//               {/* Tabs */}
+//               <div className='flex flex-wrap gap-7 xs:gap-5 md:space-x-2 md:gap-1 xl:gap-2 justify-center md:mr-2 border-b border-gray-200 mx-auto lg:ml-5 lg:mr-5 xl:ml-0 xl:mr-0 mt-6 xs:mt-4 xl:mt-10 pb-4'>
+//                 {donateDifferentWayTabs.map(tab => (
+//                   <button
+//                     key={tab.id}
+//                     onClick={() => setActiveTab(tab.id)}
+//                     className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6 sm:py-3 lg:px-12 lg:py-2.5 xl:px-7 xl:py-2.5 font-nunito rounded-full text-sm xl:text-lg font-semibold cursor-pointer transition-colors duration-400 ${activeTab === tab.id ? 'bg-green text-white' : 'text-foreground hover:bg-green hover:text-white'}`}
+//                   >
+//                     {t(tab.label)}
+//                   </button>
+//                 ))}
+//               </div>
+
+//               {/* Mission & Animated Circles */}
+//               <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3'>
+//                 <AnimatedCircle percentage={55} label={t("Treatment Helping")} />
+//                 <AnimatedCircle percentage={85} label={t("Highest Fund Raised")} />
+//               </div>
+
+//               {/* Donate Now & Total Fundraised Cards */}
+//               <div className='flex flex-wrap xs:flex-row sm:flex-row md:flex-col gap-4 xl:gap-2 rounded-xl md:w-2/6 lg:w-2/3 xl:w-[250px] lg:mr-2 xl:mr-0 xl:ml-0 p-4 border border-gray-300 bg-gray-50'>
+//                 {/* Donate Now */}
+//                 <div className='flex-1 flex flex-col items-center justify-center p-2'>
+//                   <div className='w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-lg flex items-center justify-center mb-3'>
+//                     <Image src='/assets/childoldcare/icon2.png' alt='Donate icon' width={120} height={120} className='object-contain w-full h-full' />
+//                   </div>
+//                   <h3 className='text-dark-green font-bold text-sm sm:text-base xl:text-lg mb-1'>{t("Donate Now")}</h3>
+//                   <p className='text-yellow font-caveat font-bold text-lg sm:text-xl xl:text-xl italic'>{t("$")}40,456</p>
+//                 </div>
+
+//                 <div className='hidden md:block border-l border-gray-200'></div>
+
+//                 {/* Total Fundraised */}
+//                 <div className='flex-1 flex flex-col items-center justify-center p-2'>
+//                   <div className='w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 rounded-lg flex items-center justify-center mb-3'>
+//                     <Image src='/assets/childoldcare/icon1.png' alt='Fundraising icon' width={120} height={120} className='object-contain w-full h-full' />
+//                   </div>
+//                   <h3 className='text-dark-green font-bold text-sm sm:text-base xl:text-lg mb-1'>{t("Total Fundraised")}</h3>
+//                   <p className='text-green font-caveat font-bold text-lg sm:text-xl xl:text-xl italic'>{t("$")}70,456</p>
+//                 </div>
+//               </div>
+
+//             </div>
+//           </div>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default DonateDifferentWay;

@@ -18,7 +18,7 @@ const ChildrenNeed = () => {
     <div>
           <section className="relative overflow-hidden min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] lg:min-h-[70vh] ">
           <div className="relative flex items-center justify-center min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] lg:min-h-[70vh] w-full ">
-          <div className="absolute inset-0 bg-cover bg-center bg-[url('/assets/banner-bg.png')]  transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"></div>
+          <div className="absolute inset-0 bg-cover bg-center bg-[url('/assets/aboutsection/childrenneedyourhelp.jpg')]  transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"></div>
           <div className="absolute inset-0 bg-gradient-to-r from-dark-green to-black/10  w-full transparent overflow-hidden"></div>
           <motion.div
             className="absolute left-0 top-[-20] bottom-0 h-180 w-80 md:w-140 overflow-hidden"
@@ -48,8 +48,8 @@ const ChildrenNeed = () => {
               <span className="text-yellow font-caveat text-xl md:text-2xl font-semibold">
                 Start Donating Poor People
               </span>
-              <p className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 font-nunito leading-snug">
-                Children Need Your Help By <br /> Donating Today
+              <p className="text-3xl sm:text-3xl md:text-[40px] max-w-2xl xl:max-w-3xl mx-auto xl:text-[55px] font-extrabold text-white mb-6 font-nunito leading-snug">
+                Children Need Your Help By  Donating Today
               </p>
             </motion.div>
 

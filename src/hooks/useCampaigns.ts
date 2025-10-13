@@ -4,23 +4,36 @@ import { fetchAllCampaigns, fetchCampaignById, deleteSingleCampaign} from "../se
 import { CampaignFormValues } from "../utils/validations/FormValidation";
 import { CampaignFormProps } from "@/src/types/campaign";
 import toast from "react-hot-toast";
+import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
 
 // Convert values to FormData
 const buildFormData = (values: CampaignFormValues) => {
   const formData = new FormData();
-  formData.append("title", values.title);
-  formData.append("category", values.category);
-  formData.append("description", values.description);
+
+  const appendNestedObject = (key: string, obj: any) => {
+    formData.append(key, JSON.stringify(obj));
+  };
+
+  appendNestedObject("title", values.title);
+  appendNestedObject("category", values.category);
+  appendNestedObject("description", values.description);
+  appendNestedObject("summary", values.summary);
+  appendNestedObject("location", values.location);
+
+  // Goal amount
   formData.append("goalAmount", values.goalAmount.toString());
-  formData.append("summary", values.summary);
-  formData.append("location", values.location);
-   values.existingImages?.forEach((url) => {
+
+  // KeyPoints by language
+  if (values.keyPoints) {
+    appendNestedObject("keyPoints", values.keyPoints);
+  }
+
+  // Existing images URLs
+  values.existingImages?.forEach((url) => {
     if (url) formData.append("existingImages[]", url);
   });
 
-  if (!values.keyPoints) values.keyPoints = [];
-  values.keyPoints.forEach((point) => formData.append("keyPoints[]", point));
-
+  // New image files
   if (values.images && values.images.length > 0) {
     values.images.forEach((file) => {
       if (file instanceof File) {
@@ -110,22 +123,27 @@ export const submitCampaignForm = (
   }
 };
 
-// ✅ Fetch campaigns with pagination
+// ✅ Fetch campaigns with pagination (language-aware)
 export const useFetchAllCampaigns = (page: number, limit: number = 10) => {
-  return useQuery({
-    queryKey: ["campaigns", page, limit], // different cache per page+limit
-    queryFn: () => fetchAllCampaigns(page, limit),
-     placeholderData: keepPreviousData, 
-  });
+  return useLanguageAwareQuery(
+    ["campaigns", page, limit], // different cache per page+limit
+    () => fetchAllCampaigns(page, limit),
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 
 export const useFetchSingleCampaign = (id?: string,options?: { enabled?: boolean }) => {
-  return useQuery({
-    queryKey: ["campaign", id],
-    queryFn: () => fetchCampaignById(id!),
-    enabled: options?.enabled??!!id,
-  });
+  return useLanguageAwareQuery(
+    ["campaign", id],
+    () => fetchCampaignById(id!),
+    {
+      enabled: options?.enabled ?? !!id,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
 };
 
 

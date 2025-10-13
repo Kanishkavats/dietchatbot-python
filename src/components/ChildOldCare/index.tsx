@@ -76,7 +76,7 @@ const ScrollBanner: React.FC = () => {
       </div>
 
         {/* Bottom curved overlay with text */}
-        <div className="absolute bottom-[-2px] left-0 w-full h-32 md:h-40 lg:h-40 gap-2 pointer-events-none">
+        <div className="absolute bottom-[-2px] left-0 w-full h-24 md:h-40 lg:h-40 gap-2 pointer-events-none">
           <svg
             className="w-full h-full"
             viewBox="0 0 100 20"
@@ -89,11 +89,11 @@ const ScrollBanner: React.FC = () => {
           </svg>
           
           {/* Text overlay on bottom curve */}
-          <div className="absolute bottom-2 md:bottom-4 lg:bottom-0 left-1/2 transform -translate-x-1/2 text-center px-4">
-            <h2 className="text-sm md:text-xl lg:text-2xl font-nunito font-extrabold text-dark-green mb-1 leading-tight whitespace-nowrap">
+          <div className="absolute bottom-16 md:bottom-4 lg:bottom-0 left-1/2 transform -translate-x-1/2 text-center px-4">
+            <h2 className="text-base md:text-xl lg:text-2xl font-nunito font-extrabold text-dark-green mb-0 md:mb-1 leading-tight whitespace-nowrap">
               Old People & Child Trouble
             </h2>
-            <p className='text-xs md:text-lg lg:text-xl font-small font-nunito text-gray-400 whitespace-nowrap'>
+            <p className='text-sm md:text-lg lg:text-xl font-small font-nunito text-gray-400 whitespace-nowrap'>
               Child & Old Care
             </p>
           </div>
