@@ -17,13 +17,14 @@ import {
   useDeleteBanner,
   useFetchAllBanners,
   useFetchSingleBanner,
-} from "@/src/hooks/useBanner";
-import { createBanner, updateBanner } from "@/src/services/bannerApi";
+} from "@/src/components/Admin/hooks/useBanner";
+import { createBanner, updateBanner } from "@/src/components/Admin/services/bannerApi";
 import { BannerSearchOptions } from "../Data/staticData";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import BannerPreview from "./BannerPreview";
 import AdminCustomPagination from "../Common/CustomePagination";
 import ConfirmModal from "../Common/ConfirmModal";
+import toast from "react-hot-toast";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");
@@ -84,6 +85,8 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
 
   const confirmDelete = useCallback(() => {
     if (selectedBanner?.id) {
+      toast.dismiss()
+      toast.loading("deleting banner....")
       deleteBanner(selectedBanner.id.toString());
       setIsOpen(false);
       setSelectedBanner(null);

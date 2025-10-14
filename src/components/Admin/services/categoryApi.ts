@@ -6,28 +6,28 @@ import api from "../../../services/api";
 // ✅ Fetch all categories
 
 export const fetchCategory = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/category/get-category?page=${page}&limit=${limit}`);
+  const { data } = await api.get(`/admin/category/get-category?page=${page}&limit=${limit}`);
   return data;
 };
 export const fetchCategoryById = async (id:string) => {
-  const { data } = await api.get(`/category/get-category/${id}`);
+  const { data } = await api.get(`/admin/category/get-category/${id}`);
   return data;
 };
 
 // ✅ Create a new category
 export const createCategory = async (category: { name: { en: string; hi: string } }) => {
-  const { data } = await api.post("/category/create-category", category);
+  const { data } = await api.post("/admin/category/create-category", category);
   return data;
 };
 
 // ✅ Update a category
 export const updateCategory = async (id: string, category: { name: { en: string; hi: string } }) => {
-  const { data } = await api.put(`/category/update-category/${id}`, category);
+  const { data } = await api.put(`/admin/category/update-category/${id}`, category);
   return data;
 };
 
 // ✅ Delete a category
 export const deleteCategory = async (id: string) => {
-  const { data } = await api.delete(`/category/delete-category/${id}`);
+  const { data } = await api.delete(`/admin/category/delete-category/${id}`);
   return data;
 };

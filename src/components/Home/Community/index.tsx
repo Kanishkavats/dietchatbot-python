@@ -13,8 +13,10 @@ import { pageBannerBackgourndColor } from "../../common/PageBanner";
 import { motion } from 'framer-motion'
 import SideImage from "./SideImage";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
-
-const Community = () => {
+interface props{
+    hasfeedback?:boolean|null
+}
+const Community = ({hasfeedback}:props) => {
     const [amount, setAmount] = useState<string>("50");
     const [method, setMethod] = useState("test");
     const presetAmounts = [20, 50, 100, 200];
@@ -26,7 +28,7 @@ const Community = () => {
 
     return (
         <section
-            className="relative h-[800px]  text-white flex justify-center items-cente overflow-hidde"
+            className={`relative ${hasfeedback?'h-[800px]':'h-[990px]'}  z-40 text-white flex justify-center items-cente overflow-hidde`}
         >
             <div className="absolute  z-0 inset-0">
                 <Image src={community2.src} alt="bg image" fill className="object-cover" />
@@ -72,9 +74,9 @@ const Community = () => {
 
                 </motion.div>
                 <AnimatedReveal
-                 className="max-w-7xl h-[650px] bg-white   rounded-2xl overflow-hidden mx-auto grid xl:grid-cols-5 relative bottom-[-50px] z-5 mb-15">
+                 className="max-w-7xl h-[650px] bg-white   rounded-2xl overflow-hidden mx-auto grid lg:grid-cols-8 xl:grid-cols-5 relative bottom-[-50px] z-5 mb-15">
 
-                    <div className="bg-white text-foreground rounded-xl  py-4 px-4 md:p-12 w-full col-span-3  relative z-10">
+                    <div className="bg-white text-foreground rounded-xl  py-4 px-4 md:p-12 w-full lg:col-span-5 xl:col-span-3  relative z-10">
                         <h2 className="md:text-3xl font-bold mb-3  md:mb-10">Support Where It Counts.</h2>
 
                         <div className="mb-8">
@@ -110,6 +112,7 @@ const Community = () => {
                         whileInView={{ opacity: 1, transform: "translateZ(0)" }}
                         transition={{ duration: 1, delay: 0.2 }}
                         viewport={{ once: true, margin: "-100px" }}
+                        className="lg:col-span-3 xl:col-span-2"
                     >
                         <SideImage />
                     </motion.div>

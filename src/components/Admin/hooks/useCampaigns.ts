@@ -1,10 +1,10 @@
 
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import { fetchAllCampaigns, fetchCampaignById, deleteSingleCampaign} from "../services/campaignApi";
-import { CampaignFormValues } from "../utils/validations/FormValidation";
+import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
 import { CampaignFormProps } from "@/src/types/campaign";
 import toast from "react-hot-toast";
-import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
+import { useLanguageAwareQuery } from "@/src/hooks/useLanguageAwareQuery";
 
 // Convert values to FormData
 const buildFormData = (values: CampaignFormValues) => {
@@ -124,10 +124,10 @@ export const submitCampaignForm = (
 };
 
 // ✅ Fetch campaigns with pagination (language-aware)
-export const useFetchAllCampaigns = (page: number, limit: number = 10,searchText?:string) => {
+export const useFetchAllCampaigns = (page: number, limit: number = 10) => {
   return useLanguageAwareQuery(
-    ["campaigns", page, limit,searchText], // different cache per page+limit
-    () => fetchAllCampaigns(page, limit,searchText),
+    ["campaigns", page, limit], // different cache per page+limit
+    () => fetchAllCampaigns(page, limit),
     {
       staleTime: 5 * 60 * 1000, // 5 minutes
     }
@@ -136,6 +136,7 @@ export const useFetchAllCampaigns = (page: number, limit: number = 10,searchText
 
 
 export const useFetchSingleCampaign = (id?: string,options?: { enabled?: boolean }) => {
+    console.log(id)
   return useLanguageAwareQuery(
     ["campaign", id],
     () => fetchCampaignById(id!),
@@ -154,6 +155,7 @@ export const useDeleteSignleCampaign = () => {
     mutationFn: deleteSingleCampaign,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+      toast.dismiss();
       toast.success("Campaign deleted successfully");
     },
     onError: (error: any) => {

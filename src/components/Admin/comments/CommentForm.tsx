@@ -9,7 +9,7 @@ import CustomInput from "../Common/CustomInput";
 import { toast } from "react-hot-toast";
 import { Comment } from "@/src/types/comments";
 import { commentSchema, CommentFormValues } from "@/src/utils/validations/FormValidation";
-import { updateComment } from "@/src/services/commentsApi";
+import { updateComment } from "@/src/components/Admin/services/commentsApi";
 import CancelButton from "../../common/Buttons/CancelButton";
 import Dropdown from "../Common/Dropdown";
 

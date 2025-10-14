@@ -20,13 +20,13 @@ export const fetchAllQueries = async (page: number = 1, limit: number = 10, filt
 
   const queryString = new URLSearchParams(params).toString();
 
-  const { data } = await api.get(`/form/getAllForms?${queryString}`);
+  const { data } = await api.get(`/admin/form/getAllForms?${queryString}`);
   return data;
 };
 
 // ✅ Fetch a single query by ID
 export const fetchQueryById = async (id: string) => {
-  const { data } = await api.get(`/form/getFormById/${id}`);
+  const { data } = await api.get(`/admin/form/getFormById/${id}`);
   return data;
 };
 
@@ -35,12 +35,12 @@ export const updateQuery = async (
   id: string,
   values: Partial<QueryFormValues>
 ) => {
-  const { data } = await api.put(`/form/moderate-form/${id}`, values);
+  const { data } = await api.put(`/admin/form/moderate-form/${id}`, values);
   return data;
 };
 
 // ✅ Delete query
 export const deleteQuery = async (id: string) => {
-  const { data } = await api.delete(`/query/delete-query/${id}`);
+  const { data } = await api.delete(`/admin/form/delete-form/${id}`);
   return data;
 };

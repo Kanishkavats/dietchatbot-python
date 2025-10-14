@@ -9,7 +9,7 @@ import CustomLoader from "../common/Loader/CustomLoader";
 const PageLimit=8;
 const LatestNews = () => {
   const [currentPage,setCurrentPage]=useState(1);
-    const { data, isLoading, isError } = useFetchAllBlogs(currentPage, PageLimit);
+    const { data, isLoading, isError } = useFetchAllBlogs(currentPage, PageLimit,"All");
     const handlePageChange=(page:number)=>{
       setCurrentPage(page);
     }

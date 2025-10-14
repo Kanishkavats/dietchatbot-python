@@ -22,7 +22,7 @@ const PageLimit=3;
 const LatestNewsArticle: React.FC = () => {
   const{t}=useTranslation();
  const [currentPage,setCurrentPage]=useState(1);
-    const { data, isLoading, isError } = useFetchAllBlogs(currentPage, PageLimit);
+    const { data, isLoading, isError } = useFetchAllBlogs(currentPage, PageLimit,'All');
 
   return (
     <div 
