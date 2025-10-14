@@ -19,7 +19,7 @@ import {
   useFetchAllMembers,
   useFetchSingleMember,
 } from "@/src/hooks/useMembers";
-import { createMember, updateMember } from "@/src/services/memberApi";
+import { createMember, updateMember } from "../services/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
 import CustomLoader from "../../common/Loader/CustomLoader";
@@ -49,12 +49,16 @@ const MemberTable = () => {
   );
   const { data: singleMemberData, isLoading: isLoadingMember } =
     useFetchSingleMember(editMember || undefined);
+  
   const { mutate: deleteMember } = useDeleteSingleMember();
 
   const handleEdit = useCallback((m: Member) => {
     setEditMember(m.id.toString());
     setMode("edit");
     setDrawerOpen(true);
+    
+    // Set fallback data immediately for edit mode only
+    setSingleMemberFallback(m as any);
   }, []);
 
   const handleView = useCallback((member: Member) => {
@@ -159,6 +163,9 @@ const MemberTable = () => {
               onClick={() => {
                 setDrawerOpen(true);
                 setEditMember(null);
+                setMode("add");
+                setSingleMemberFallback(null);
+                setPreviewData(null);
               }}
               bgColor="bg-lime-green"
               hoverBg="before:bg-primaryColor"
@@ -199,6 +206,8 @@ const MemberTable = () => {
             setDrawerOpen(false);
             setEditMember(null);
             setMode("add");
+            setSingleMemberFallback(null);
+            setPreviewData(null);
           }}
           title={
             mode === "edit"
@@ -236,11 +245,18 @@ const MemberTable = () => {
           ) : isLoadingMember ? (
             <CustomLoader />
           ) : (
-            <MemberForm
+            <>
+              <MemberForm
+              key={`${editMember || 'new'}-${mode}`} // Force re-render when editMember or mode changes
               initialData={
-                singleMemberFallback || singleMemberData || undefined
+                mode === "add" ? undefined : (singleMemberFallback || singleMemberData || undefined)
               }
-              onClose={() => setDrawerOpen(false)}
+              onClose={() => {
+                setDrawerOpen(false);
+                setEditMember(null);
+                setMode("add");
+                setSingleMemberFallback(null);
+              }}
               mode={mode}
               onPreview={(data) => {
                 setPreviewData(data);
@@ -249,6 +265,7 @@ const MemberTable = () => {
               createMutation={createMutation}
               updateMutation={updateMutation}
             />
+            </>
           )}
         </Drawer>
       )}

@@ -22,7 +22,7 @@ const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
       
       if (token) {
         // Call logout API
-        await api.post("/api/V1/user/logout");
+        await api.post("/api/V1/web/user/logout");
       }
       
       // Clear authentication data

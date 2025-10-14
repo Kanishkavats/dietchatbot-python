@@ -1,7 +1,7 @@
 // src/hooks/useCategory.ts
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { createCategory, deleteCategory, fetchCategory, updateCategory } from "../services/categoryApi";
+import { createCategory, deleteCategory, fetchCategory, updateCategory } from "../components/Admin/services/categoryApi";
 
 
 // ======================= Fetch Categories ======================= //

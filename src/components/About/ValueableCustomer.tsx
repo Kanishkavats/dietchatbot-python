@@ -42,9 +42,9 @@ const ValueableCustomer = () => {
         !f.image
     );
 
-  if (isInvalidData()) {
-    return null; // ❌ Hide entire section if data missing
-  }
+  // if (isInvalidData()) {
+  //   return null; // ❌ Hide entire section if data missing
+  // }
 
   // ✅ Otherwise render section normally
   
