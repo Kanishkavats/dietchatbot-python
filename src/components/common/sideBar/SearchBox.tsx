@@ -2,10 +2,15 @@
 import FadeInUp from "@/src/animations/FadeInUp";
 import { Icon } from "@iconify/react";
 import {motion} from "framer-motion"
+import { Dispatch, SetStateAction, useState } from "react";
 interface props{
   bgColor?:string;
+  searchText?:string;
+  setSearchtext:Dispatch<SetStateAction<string>>;
+
 }
-const SearchBox = ({bgColor}:props) => (
+const SearchBox = ({bgColor,searchText,setSearchtext}:props) => {
+  return(
   <FadeInUp
     className={`${bgColor} p-6 rounded-2xl shadow-md mb-6`}>
     <h3 className="font-bold text-xl mb-4">Search Here</h3>
@@ -13,11 +18,13 @@ const SearchBox = ({bgColor}:props) => (
       <input
         type="text"
         placeholder="Search Here..."
+        value={searchText}
+        onChange={(e)=>setSearchtext(e.target.value)}
         className="flex-1 outline-none bg-transparent text-foreground/60"
       />
       <Icon icon="mdi:magnify" className="text-foreground/60 text-xl" />
     </div>
   </FadeInUp>
-);
+)};
 
 export default SearchBox;

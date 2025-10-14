@@ -10,7 +10,7 @@ import {
   fetchgetcomments,
   addReply,
   getRepliesByCommentId
-} from "../services/commentsApi";
+} from "@/src/components/Admin/services/commentsApi";
 import { RepliesResponse } from "../types/comments";
 interface addReplyprops{
     id:string|null;
@@ -127,6 +127,7 @@ export const useDeleteComment = () => {
     mutationFn: deleteComment,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments"] });
+      toast.dismiss();
       toast.success("Comment deleted successfully");
     },
     onError: (err: any) => {

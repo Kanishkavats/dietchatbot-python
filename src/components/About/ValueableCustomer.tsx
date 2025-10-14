@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -18,14 +18,27 @@ const truncateText = (text: string, maxLength: number) => {
   if (!text) return "";
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 };
-
-const ValueableCustomer = () => {
+interface props{
+  setHasFeedback?:React.Dispatch<React.SetStateAction<boolean | null>>
+}
+const ValueableCustomer = ({setHasFeedback}:props) => {
   const { t } = useTranslation();
   const { data: feedbacks = [], isLoading } = useQuery({
     queryKey: ["feedback"],
     queryFn: fetchFeedback,
   });
+//  useEffect(() => {
+//     const invalid =
+//       !feedbacks ||
+//       feedbacks.length === 0 ||
+//       feedbacks.every(
+//         (f: any) => !f.name || !f.feedback || !f.rating || !f.image
+//       );
 
+//     if(setHasFeedback){
+//       setHasFeedback(!invalid);
+//     }
+//   }, [feedbacks, setHasFeedback]);
     // 🟡 Loading state
   if (isLoading) return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
 
@@ -106,7 +119,7 @@ const ValueableCustomer = () => {
             modules={[Navigation, Autoplay]}
             className="pb-12"
           >
-            {feedbacks.map((item, idx) => (
+            {feedbacks.map((item:any, idx:any) => (
               <SwiperSlide key={`${item.id || item.name}-${idx}`}>
                 <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-4 sm:px-6 md:px-[20px] py-6 sm:py-8 md:py-[40px] w-full max-w-[100%] sm:max-w-[320px] md:max-w-[336px] lg:max-w-[456px] xl:max-w-[356px] 2xl:max-w-[415px] h-auto min-h-[400px] sm:min-h-[450px] md:min-h-[445px] lg:min-h-[385px] xl:min-h-[415px] 2xl:min-h-[385px] mx-auto">
                   

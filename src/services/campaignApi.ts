@@ -10,8 +10,8 @@ export const createCampaign = async (campaign: CampaignFormValues) => {
 
 // ✅ Get all campaigns
 // Get all campaigns with pagination
-export const fetchAllCampaigns = async (page: number = 1, limit: number = 2) => {
-  const { data } = await api.get(`/web/campaign/getAllCampaigns?page=${page}&limit=${limit}`);
+export const fetchAllCampaigns = async (page: number = 1, limit: number = 2,searchText?:string) => {
+  const { data } = await api.get(`/web/campaign/getAllCampaigns?page=${page}&limit=${limit}&search=${searchText}`);
   return data;
 };
 

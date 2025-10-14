@@ -11,11 +11,12 @@ import {
   useFetchFeedbacks,
   useFetchFeedbackById,
   useDeleteFeedback,
-} from "@/src/hooks/useFeedback";
+} from "@/src/components/Admin/hooks/useFeedback";
 import { Feedback } from "@/src/types/feedback";
 import FeedbackForm from "./FeedbackForm";
 import { filterOptions } from "@/src/staticResource";
 import ConfirmModal from "../Common/ConfirmModal";
+import toast from "react-hot-toast";
 
 const FeedbackTable = () => {
   const [status, setStatus] = useState<
@@ -89,6 +90,8 @@ const FeedbackTable = () => {
   );
   const confirmDelete = useCallback(() => {
     if (selectedFeedBack) {
+      toast.dismiss();
+      toast.loading("Deleting Feedback....")
       deleteFeedback(selectedFeedBack.id.toString());
       setIsOpen(false);
       setSelectedFeedBack(null);
