@@ -25,6 +25,7 @@ interface TeamMember {
   position: string;
   imageUrl?: string;
   delay?: number;
+  
 }
 
 interface VolunteerCardProps {
