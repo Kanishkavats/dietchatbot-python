@@ -8,6 +8,8 @@ import NavbarMenu from "./NavbarMenu";
 import NavbarActions from "./NavbarActions";
 import NavbarMobile from "./NavbarMobile";
 import Image from "next/image";
+import { useNavItems } from "@/src/hooks/useNavItems";
+
 
 const Navbar = () => {
   const [open, setOpen] = useState<string | null>(null);
@@ -16,7 +18,8 @@ const Navbar = () => {
   const [drawerDelay, setDrawerDelay] = useState(true);
   const [isClosing, setIsClosing] = useState(false);
   const DRAWER_ANIMATION_DELAY = 0;
-  const route = useRouter()
+  const route = useRouter();
+  const navItems = useNavItems();
 
   // Reset backdrop animation flag on open/close
   useEffect(() => {
@@ -43,7 +46,7 @@ const Navbar = () => {
 
       {/* Desktop Menu */}
       <NavbarMenu
-        navItems={NAV_ITEMS}
+        navItems={navItems}
         open={open}
         setOpen={setOpen}
         route={route}
@@ -57,12 +60,14 @@ const Navbar = () => {
       <AnimatePresence>
         {(mobileMenuOpen || isClosing) && (
           <NavbarMobile
+          navItems={navItems}
             isClosing={isClosing}
             backdropDone={backdropDone}
             drawerDelay={DRAWER_ANIMATION_DELAY}
             open={open}
             setOpen={setOpen}
             setMobileMenuOpen={setMobileMenuOpen}
+        
           />
         )}
       </AnimatePresence>

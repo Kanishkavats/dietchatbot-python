@@ -6,12 +6,14 @@ import { RootState } from "@/src/store";
 import { useSelector } from "react-redux";
 import Link from "next/link";
 
+
 interface Props {
   setMobileMenuOpen: (v: boolean) => void;
   mobileMenuOpen: boolean;
 }
 
 const NavbarActions = ({  setMobileMenuOpen, mobileMenuOpen }: Props) => {
+  
 
     const navScrolled = useSelector((state: RootState) => state.navScroll.navScrolled);
   return (
