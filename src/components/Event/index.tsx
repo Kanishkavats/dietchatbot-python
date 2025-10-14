@@ -45,7 +45,10 @@ const Event = () => {
         transition={{ duration: 1, ease: "easeOut", delay: 0.3 }}
         className="px-4 sm:px-6 md:px-8"
       >
-        <EventList currentPage={currentPage} />
+        <EventList 
+          currentPage={currentPage} 
+          onPageChange={setCurrentPage}
+        />
 
       </motion.div>
     </>

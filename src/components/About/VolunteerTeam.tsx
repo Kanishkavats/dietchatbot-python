@@ -1,10 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
-import Pagination from "../common/Pagination";
 import { VolunteerCard } from "../common/card/VolunteerCard";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
 import { useTranslation } from "react-i18next";
@@ -15,23 +13,25 @@ const VolunteerTeam = () => {
   const router = useRouter();
   const { t } = useTranslation();
 
-  // Pagination setup
-  const [showPagination, setShowPagination] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = currentPage === 1 && !showPagination ? 4 : 8;
+  // Show only 4 members initially
+  const itemsPerPage = 4;
 
   // Fetch members from API
   const { data, isLoading, isError } = useFetchAllMembers(
-    currentPage,
+    1,
     itemsPerPage
   );
   console.log(data);
 
   // Safely extract members
   const members = data?.members || [];
-  const totalPages = data?.totalPages || 1;
 
-  // ✅ Console log for checking each member’s social accounts
+  // Hide component if no data is available
+  if (!isLoading && (!data?.members || data.members.length === 0)) {
+    return null;
+  }
+
+  // ✅ Console log for checking each member's social accounts
   members.forEach((member: TeamMember) => {
     console.log(` Member: ${member.name}`);
     const hasSocialAccounts = !!(
@@ -50,8 +50,7 @@ const VolunteerTeam = () => {
   });
 
   const handleViewAll = () => {
-    setShowPagination(true);
-    setCurrentPage(1);
+    router.push('/team');
   };
 
   return (
@@ -67,9 +66,9 @@ const VolunteerTeam = () => {
           </span>
         </div>
 
-        <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8 text-center leading-snug">
-          <span className="block md:inline">{t("Meet Our Volunteer")}</span>{" "}
-          <span className="block md:inline text-yellow">
+        <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8 text-left sm:text-center leading-snug">
+          <span className="block md:inline lg:block">{t("Meet Our Volunteer")}</span>{" "}
+          <span className="block md:inline lg:block text-yellow">
             {t("Team Members")}
           </span>
         </h2>
@@ -89,7 +88,7 @@ const VolunteerTeam = () => {
         </div>
 
         {/* View All button */}
-        {!showPagination && members.length > 0 && (
+        {members.length > 0 && (
           <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
             <Button
               text="View All"
@@ -100,19 +99,6 @@ const VolunteerTeam = () => {
               onClick={handleViewAll}
             />
           </div>
-        )}
-
-        {/* Pagination controls */}
-        {showPagination && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={(page) => {
-              if (page < 1 || page > totalPages) return;
-              setCurrentPage(page);
-            }}
-            groupSize={3}
-          />
         )}
       </div>
 
