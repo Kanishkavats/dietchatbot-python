@@ -95,7 +95,7 @@ export const footerData = {
   },
   bottomLinks: [
     { label: "Terms & Conditions", href: "#" },
-    { label: "Privacy Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Cookie Settings", href: "#" },
   ],
 };

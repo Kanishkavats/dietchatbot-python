@@ -206,7 +206,7 @@ const Footer = () => {
             <span className="text-yellow hover:text-white cursor-pointer">Charifund</span>. All Rights
             Reserved.
           </p>
-          <div className="flex flex-wrap text-sm xl:text-lg justify-center xl:mr-10 text-white gap-6">
+          <div className="flex flex-wrap text-sm xl:text-lg justify-center xl:mr-10 text-white gap-6 cursor-pointer">
             {footerData.bottomLinks.map((link, i) => (
               <a
                 key={i}

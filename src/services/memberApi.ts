@@ -19,6 +19,7 @@ export const fetchAllMembers = async (page: number = 1, limit: number = 10) => {
 
 
 
+
 // Get single member by ID
 export const fetchMemberById = async (id: string) => {
   const { data } = await api.get(`/member/getMemberById/${id}`);
