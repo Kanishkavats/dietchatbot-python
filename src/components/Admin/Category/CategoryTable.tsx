@@ -66,9 +66,17 @@ const CategoryTable = () => {
   }, [selectedCategory, deleteCategory]);
 
   const filteredData = useMemo(() => {
-    return categoryData?.category?.filter((c: Category) =>
-      c[searchField].toLowerCase().includes(search.toLowerCase())
-    );
+    return categoryData?.category?.filter((c: Category) => {
+      if (searchField === "name") {
+        // For name field, search in both English and Hindi
+        return (
+          c.name.en.toLowerCase().includes(search.toLowerCase()) ||
+          c.name.hi.toLowerCase().includes(search.toLowerCase())
+        );
+      }
+      // For other fields, use the original logic
+      return c[searchField as keyof Category]?.toString().toLowerCase().includes(search.toLowerCase());
+    });
   }, [categoryData, search, searchField]);
   console.log("hj",filteredData);
 

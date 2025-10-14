@@ -4,7 +4,7 @@ import api from "./api";
 
 // ✅ Create a campaign
 export const createCampaign = async (campaign: CampaignFormValues) => {
-  const { data } = await api.post("/campaign/add-campaign", campaign);
+  const { data } = await api.post("/admin/campaign/add-campaign", campaign);
   return data;
 };
 
@@ -18,18 +18,18 @@ export const fetchAllCampaigns = async (page: number = 1, limit: number = 2,sear
 
 // Get single campaign by ID
 export const fetchCampaignById = async (id: string) => {
-  const { data } = await api.get(`/campaign/getCampaignById/${id}`);
+  const { data } = await api.get(`/web/campaign/getCampaignById/${id}`);
   return data;
 };
 
 // Update campaign
 export const updateCampaign = async (id: string, campaign: Partial<CampaignFormValues>) => {
-  const { data } = await api.put(`/campaign/update-campaign/${id}`, campaign);
+  const { data } = await api.put(`/admin/campaign/update-campaign/${id}`, campaign);
   return data;
 };
 
 // Delete campaign
 export const deleteSingleCampaign = async (id: string) => {
-  const { data } = await api.delete(`/campaign/delete-campaign/${id}`);
+  const { data } = await api.delete(`/admin/campaign/delete-campaign/${id}`);
   return data;
 };

@@ -4,6 +4,7 @@ import api from "../../../services/api";
 export const fetchFeedbacks = async (page: number, limit: number, status: string | null) => {
   const statusQuery = status && status !== "all" ? `&status=${status}` : "";
   const { data } = await api.get(`/admin/feedback/getAllFeedback?page=${page}&limit=${limit}&${statusQuery}`);
+  
   return data;
 };
 export const fetchApprovedFeedbacks = async (page: number, limit: number, status: string | null) => {

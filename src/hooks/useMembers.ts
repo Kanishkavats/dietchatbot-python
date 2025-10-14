@@ -1,12 +1,13 @@
 // src/hooks/useMembers.ts
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import {
-  fetchAllMembers,
+  // fetchAllMembers,
   fetchMemberById,
   deleteMember,
   createMember,
   updateMember,
-} from "../services/memberApi";
+} from "../components/Admin/services/memberApi";
+import { fetchAllMembers } from "../services/memberApi";
 import { MemberFormValues } from "../utils/validations/FormValidation";
 import toast from "react-hot-toast";
 import { MemberFormProps } from "../types/members";
@@ -145,6 +146,7 @@ export const useFetchAllMembers = (page: number, limit: number = 10) => {
 
 // ✅ Fetch single member
 export const useFetchSingleMember = (id?: string) => {
+  console.log('useFetchSingleMember called with id:', id);
   return useQuery({
     queryKey: ["member", id],
     queryFn: () => fetchMemberById(id!),
