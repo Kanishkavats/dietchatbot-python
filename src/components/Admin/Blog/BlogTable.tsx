@@ -46,7 +46,7 @@ const BlogTable = () => {
     currentPage,
     itemsPerPage
   );
-  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(
+  const { data: singleBlogData, isLoading: isLoadingBlog,refetch } = useFetchSingleBlog(
     blogId || undefined
   );
   const { mutate: deleteBlog } = useDeleteSingleBlog();
@@ -58,12 +58,21 @@ const BlogTable = () => {
     setDrawerOpen(true);
   }, []);
 
-  const handleView = useCallback((blog: Blog) => {
+  const handleView = useCallback(async(blog: Blog) => {
     setBlogId(blog.id.toString());
     setMode("view");
-    setPreviewData(blog);
-    setDrawerOpen(true);
-  }, []);
+     setDrawerOpen(true); // ✅ Open drawer immediately (no UI delay)
+
+  try {
+    const { data } = await refetch(); // ✅ Start fetching campaign
+    if (data) {
+      setMode("view");
+      setPreviewData((data));
+    }
+  } catch (error) {
+    console.error("Failed to fetch campaign:", error);
+  }
+  }, [refetch]);
   
 
 
@@ -235,7 +244,8 @@ const BlogTable = () => {
             />
           ) : isLoadingBlog ? (
             <CustomLoader />
-          ) : (
+          ) :(isLoadingBlog?<><CustomLoader/></>:
+ (
             <BlogForm
               initialData={singleBlogData ?? undefined}
               onClose={() => setDrawerOpen(false)}
@@ -247,7 +257,7 @@ const BlogTable = () => {
               createMutation={createMutation}
               updateMutation={updateMutation}
             />
-          )}
+          ))}
         </Drawer>
       )}
       <ConfirmModal

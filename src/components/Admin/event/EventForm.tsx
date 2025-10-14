@@ -4,8 +4,8 @@ import { Formik, Form } from "formik";
 import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
 import { useFetchCategory } from "@/src/components/Admin/hooks/useCategory";
-import { CampaignFormValues, campaignSchema } from "@/src/utils/validations/FormValidation";
-import { CampaignFormProps } from "@/src/types/campaign";
+import { EventFormValues, EventSchema } from "@/src/utils/validations/FormValidation";
+import { EventFormProps } from "@/src/components/Admin/types/event";
 
 import Button from "../../common/Buttons/Button";
 import ButtonLoader from "../../common/Loader/ButtonLoader";
@@ -19,10 +19,11 @@ import LanguageToggle from "../Common/LanguageToggle";
 import { getInitialCanpaignValues } from "../utils/campaignIntialValues";
 import MultiInputList from "../Common/MultiInputList";
 import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import { getInitialEventValues } from "../utils/eventInitialValues";
 
-const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
+const CampaignForm = ({ initialData, onClose, mode, onPreview }: EventFormProps) => {
 
-  const initialValues= getInitialCanpaignValues(initialData)
+  const initialValues= getInitialEventValues(initialData)
   console.log(initialValues)
 
   const [keyPointInput, setKeyPointInput] = useState("");
@@ -45,8 +46,8 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
       <Formik
         enableReinitialize
         initialValues={initialValues}
-        validationSchema={campaignSchema}
-       onSubmit={(values: CampaignFormValues) => {
+        validationSchema={EventSchema}
+       onSubmit={(values: EventFormValues) => {
         console.log("reached")
           const payload = { ...values };
           onPreview?.(payload);
@@ -134,7 +135,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 disabled={isView}
               />
 
-              <CustomInput
+              {/* <CustomInput
                 label={`${lang === "en" ? "Goal Amount" : "लक्ष्य राशि"}*`}
                 type="number"
                 placeholder={lang === "en" ? "Enter goal amount" : "लक्ष्य राशि दर्ज करें"}
@@ -143,7 +144,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 onChange={handleChange}
                 error={ touched.goalAmount ? errors.goalAmount : ""}
                 disabled={isView}
-              />
+              /> */}
 
               <CustomInput
                 label={`${lang === "en" ? "Description" : "विवरण"}*`}

@@ -50,7 +50,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
 
   const [bannerId, setbannerId] = useState<string | null>(null);
   const [previewDrawerOpen, setPreviewDrawerOpen] = useState(false);
-  const { data: singleBannerData, isLoading: isPreviewLoading } =
+  const { data: singleBannerData, isLoading: isPreviewLoading,refetch } =
     useFetchSingleBanner(bannerId || undefined);
 
   const createMutation = useMutation({
@@ -93,12 +93,22 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
     }
   }, [selectedBanner, deleteBanner]);
 
-  const handlePreview = useCallback((banner: Banner) => {
+  const handlePreview = useCallback(async(banner: Banner) => {
     if (!banner.id) return;
     setbannerId(banner.id);
-    setMode('view')
-    setPreviewDrawerOpen(true);
-  }, []);
+    setMode("view");
+    setDrawerOpen(true); // ✅ Open drawer immediately (no UI delay)
+
+  try {
+    const { data } = await refetch(); // ✅ Start fetching campaign
+    if (data) {
+      setMode("view");
+      setPreviewData(data);
+    }
+  } catch (error) {
+    console.error("Failed to fetch campaign:", error);
+  }
+  }, [refetch]);
 
   // Handlers
   const handleEdit = useCallback((b: Banner) => {
@@ -201,7 +211,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
     title={
       mode==="edit"
         ? "Edit Banner"
-        : mode === "view"&&!previewData
+        : mode === "view"
         ? "View Banner"
         : "Add Banner"
     }
@@ -231,7 +241,8 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
           );
         }}
       />
-    ) : (
+    ) :(isPreviewLoading?<><CustomLoader/></>:
+ (
       <BannerForm
         initialData={{
           ...(singleBannerData||{}),
@@ -255,7 +266,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
         createMutation={createMutation}
         updateMutation={updateMutation}
       />
-    )}
+    ))}
   </Drawer>
 )}
 
