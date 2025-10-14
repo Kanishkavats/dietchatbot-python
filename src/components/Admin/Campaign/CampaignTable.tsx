@@ -35,7 +35,7 @@ const CampaignTable = () => {
   const [searchField, setSearchField] = useState<"title" | "organizer" | "category">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
   const [isOpen, setIsOpen] = useState(false);
     const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -95,14 +95,17 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
   const handleView = useCallback(async (c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("view");
-    setDrawerOpen(true); // ✅ Open drawer immediately (no UI delay)
-
+    setDrawerOpen(true); 
+    setPreviewData(null); 
+  setShowPreview(false);
   try {
-    const { data } = await refetch(); // ✅ Start fetching campaign
-    if (data) {
-      setMode("view");
-      setPreviewData(normalizeCampaignData(data));
-    }
+   setTimeout(async () => {
+      const { data } = await refetch();
+      if (data) {
+        setPreviewData(normalizeCampaignData(data));
+        setShowPreview(true);
+      }
+    }, 100); 
   } catch (error) {
     console.error("Failed to fetch campaign:", error);
   }
@@ -252,27 +255,34 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
           setPreviewData(null);
         }}
         // &&!previewData
-        title={
-          mode === "edit"
-            ? "Edit Campaign"
-            : mode === "view"
-              ? "View Campaign"
-              : "Add Campaign"
-        }
+       title={
+    mode === "edit"
+      ? "Edit Campaign"
+      : mode === "view" || mode === "preview-edit"
+      ? "View Campaign"
+      : "Add Campaign"
+  }
         mode={mode}
 
       >
-        {/* /* {previewData ? ( */}
-         
-        {showPreview ? (
+        {(mode === "view" || mode === "preview-edit") && (
+    !previewData || isLoadingCampaign ? (
+   
+    <div className="flex justify-center py-10">
+      <CustomLoader />
+    </div>
+  ) : (
   <CampaignPreview
     mode={mode}
+    showButton={mode === "preview-edit"}
     data={normalizeCampaignData(previewData)}
     onBack={() => {
-  setShowPreview(false); // 👈 only hide preview
-      // keep previewData so CampaignForm can use it
+  setShowPreview(false); 
+  setMode(editCampaign ? "edit" : "add");
+      
     }}
     onSubmit={() => {
+
       submitCampaignForm(
         { ...previewData!, keyPoints: previewData!.keyPoints },
         singleCampaignData,
@@ -288,8 +298,13 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
       );
     }}
   />
-) :(isLoadingCampaign?<><CustomLoader/></>:
- (
+  )
+  )}
+{(mode === "add" || mode === "edit") && (
+      isLoadingCampaign?(
+        <div><CustomLoader/></div>
+      ):
+    (
   <CampaignForm
     initialData={{
     ...(normalizedCampaignData ?? {}),
@@ -312,7 +327,8 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     mode={mode}
     onPreview={(data) => {
       setPreviewData(data);
-      setShowPreview(true); 
+      setShowPreview(true);
+      setMode('preview-edit') 
     }}
     createMutation={createMutation}
     updateMutation={updateMutation}

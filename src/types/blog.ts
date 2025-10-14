@@ -41,7 +41,7 @@ export interface BlogFormProps {
   initialData?: Partial<BlogFormValues> & Partial<Blog>;
   onClose: () => void;
   readOnly?: boolean;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
   onPreview?: (data: BlogFormValues) => void;
   createMutation: UseMutationResult<any, Error, BlogFormValues, unknown>;
   updateMutation: UseMutationResult<any, Error, { id: string; values: BlogFormValues }, unknown>;
