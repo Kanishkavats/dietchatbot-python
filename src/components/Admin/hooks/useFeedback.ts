@@ -8,7 +8,7 @@ import {
   updateFeedback,
   deleteFeedback,
   fetchApprovedFeedbacks,
-} from "@/src/services/feedbackApi";
+} from "@/src/components/Admin/services/feedbackApi";
 import { FeedbackFormValues } from "../../../utils/validations/FormValidation";
 import { useLanguageAwareQuery } from "../../../hooks/useLanguageAwareQuery";
 
@@ -167,6 +167,7 @@ export const useDeleteFeedback = () => {
     mutationFn: deleteFeedback,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
+      toast.dismiss();
       toast.success("Feedback deleted successfully");
     },
     onError: (err: any) => {

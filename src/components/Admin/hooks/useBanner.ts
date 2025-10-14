@@ -8,21 +8,22 @@ import {
 import { BannerFormValues } from "../../../utils/validations/FormValidation";
 import toast from "react-hot-toast";
 
-// ✅ Convert BannerFormValues to FormData (handle image file or string)
+
 const buildFormData = (values: BannerFormValues) => {
-    const formData = new FormData();
+   const formData = new FormData();
 
-    formData.append("title", values.title);
-    formData.append("subtitle", values.subtitle);
-    formData.append("priority", values.priority.toString());
+ 
+  formData.append("title", JSON.stringify(values.title ?? {}));
+  formData.append("subtitle", JSON.stringify(values.subtitle ?? {}));
 
-    if (values.image instanceof File) {
-        formData.append("image", values.image);
-    } else if (typeof values.image === "string" && values.image !== "") {
-        formData.append("image", values.image);
-    }
+  formData.append("priority", (values.priority ?? 0).toString());
 
-    return formData;
+  if (values.image instanceof File) {
+    formData.append("image", values.image);
+  } else if (typeof values.image === "string" && values.image !== "") {
+    formData.append("existingImage", values.image);
+  }
+  return formData;
 };
 
 // ✅ Handle banner create
@@ -128,6 +129,7 @@ export const useDeleteBanner = () => {
         mutationFn: deleteBanner,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["banners"] });
+            toast.dismiss();
             toast.success("Banner deleted successfully");
         },
         onError: (error: any) => {

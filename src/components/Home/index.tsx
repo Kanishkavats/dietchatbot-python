@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import PartnersCompanies from './PartnersCompanies';
 import HeroStaticSlider from './Hero';
 import CharityWithDifference from '../Charity_with_Difference/CharityWithDiffrence';
@@ -19,9 +19,7 @@ import ScrollToTop from '../common/ScrollToTop';
 
 
 const Home = () => {
-      
-      
-  
+      const [hasFeedback,setHasFeedback]=useState<boolean|null>(true);
   return (
     <div>
       <HeroStaticSlider />
@@ -31,8 +29,12 @@ const Home = () => {
       <HelpAndDonate />
       <BecomeVolunteer />
       <VolunteerTeam />
-      <Community />
-      <ValueableCustomer />
+      <Community hasfeedback={hasFeedback} />
+      {hasFeedback ? (
+        <ValueableCustomer setHasFeedback={setHasFeedback}/>
+      ) : (
+        <div className="mt-[100px] md:mt-[112px] " />
+      )}
       <FeedbackForm />
       <ChildOldCare />
       <DonateDifferentWay />

@@ -12,7 +12,7 @@ const FAQSection = () => {
   const{t}=useTranslation();
 
   return (
-      <div className="w-full lg:flex md:gap-8 items-start bg-white px-5 md:px-14 lg:px-0 xl:px-16 pt-16 md:pt-24 max-w-full overflow-hidden">
+      <div className="w-full lg:flex md:gap-8 items-start bg-white px-2 md:px-14 lg:px-0 xl:px-16 pt-16 md:pt-24 max-w-full overflow-hidden">
         {/* Left Side - FAQ */}
         <div className="lg:w-2/3 lg:pl-15">
           <FadeInUp>

@@ -9,14 +9,14 @@ export const createBlog = async (blog: BlogFormValues) => {
 };
 
 // ✅ Get all blogs with pagination
-export const fetchAllBlogs = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/blog/getAllBlogs?page=${page}&limit=${limit}`);
+export const fetchAllBlogs = async (page: number = 1, limit: number = 10,searchText?:string) => {
+  const { data } = await api.get(`/web/blog/getAllBlogs?page=${page}&limit=${limit}&search=${searchText}`);
   return data;
 };
 
 // ✅ Get single blog by ID
 export const fetchBlogById = async (id: string) => {  
-  const { data } = await api.get(`/blog/getBlogById/${id}`);
+  const { data } = await api.get(`/web/blog/getBlogById/${id}`);
   return data;
 };
 
