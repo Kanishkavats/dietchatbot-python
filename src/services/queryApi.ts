@@ -35,12 +35,12 @@ export const updateQuery = async (
   id: string,
   values: Partial<QueryFormValues>
 ) => {
-  const { data } = await api.put(`/admin/form/moderate-form/${id}`, values);
+  const { data } = await api.put(`/form/moderate-form/${id}`, values);
   return data;
 };
 
 // ✅ Delete query
 export const deleteQuery = async (id: string) => {
-  const { data } = await api.delete(`/admin/query/delete-query/${id}`);
+  const { data } = await api.delete(`/query/delete-query/${id}`);
   return data;
 };
