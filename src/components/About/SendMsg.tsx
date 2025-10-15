@@ -77,21 +77,12 @@ const SendMsg: React.FC = () => {
         >
           <FadeUpCard delay={0.3}>
             <div className="flex gap-2 mt-10 xs:mt-15 p-1 xl:mt-20 ">
-<<<<<<< Updated upstream
               <Icon icon={"mdi:hand-heart"} className="text-[20px]  md:text-[24px] text-yellow" />
               <span className=" text-yellow font-caveat font-extrabold block text-[18px]  md:text-[22px] ">
                 {t("Start Donating Poor People")}
               </span>
             </div>
             <h2 className="text-[30px]  md:text-[40px] font-extrabold text-white lg:mt-4   p-0 xl:p-0 xs:p-0 font-nunito leading-10 md:leading-12 xl:leading-19 tracking-[1px] mt-5">
-=======
-              <Icon icon={"mdi:hand-heart"} className="text-lg xs:text-xl md:text-2xl xl:text-3xl text-yellow" />
-              <span className=" text-yellow font-caveat font-extrabold block text-xl md:text-2xl xl:text-3xl ">
-                {t("Start Donating Poor People")}
-              </span>
-            </div>
-            <h2 className="text-2xl p-2 xl:p-0 xs:p-0 font-nunito sm:text-3xl md:text-4xl xl:text-6xl font-extrabold text-white lg:mt-4 leading-8 md:leading-12 xl:leading-16 tracking-wide ">
->>>>>>> Stashed changes
               <Trans i18nKey="sendMessageForDonation_title" components={{ 1: <span className="text-yellow ml-1" /> }} />
             </h2>
           </FadeUpCard>
@@ -102,7 +93,6 @@ const SendMsg: React.FC = () => {
             {({ isSubmitting }) => (
               <Form className="space-y-10 px-8 xs:px-2 xs:py-2 xl:px-6 xl:py-2 xl:mt-13 ">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-8 lg:gap-4">
-<<<<<<< Updated upstream
                   <InputField
                     name="email"
                     placeholder={t("your email...")}
@@ -125,36 +115,6 @@ const SendMsg: React.FC = () => {
                   />
                 </div>
 
-=======
-                  <div className="relative">
-                    <InputField
-                      name="email"
-                      placeholder={t("your email...")}
-                      icon={"mdi:send"}
-                      placeholderClassName="xl:placeholder:text-lg"
-                      textSize="text-lg"
-                      errorTextSize="text-lg"
-                      iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                      className="w-full  rounded-md flex border border-gray-green text-lg bg-foreground/18 xs:h-[50px] xl:h-[60px] px-4 py-4 
-                 text-white  focus:outline-none "
-                    />
-                  </div>
-                  <div className="relative">
-                    <InputField
-                      name="phone"
-                      textSize="text-lg"
-                      errorTextSize="text-lg"
-                      placeholder={t("your phone...")}
-                      icon="mdi:phone"
-                      placeholderClassName="xl:placeholder:text-lg"
-                      iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                      className="w-full rounded-md border flex border-gray-green xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-                <div className="relative">
->>>>>>> Stashed changes
                   <InputField
                     name="address"
                     textSize="text-lg"
@@ -163,17 +123,9 @@ const SendMsg: React.FC = () => {
                     icon={"mdi:location"}
                     placeholderClassName="xl:placeholder:text-lg"
                     iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-<<<<<<< Updated upstream
                     className="w-full rounded-md border-2 border-white/20 flex xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
                   />
 
-=======
-                    className="w-full rounded-md border border-gray-green flex xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
-                  />
-                </div>
-
-                <div className="relative text-white">
->>>>>>> Stashed changes
                   <InputField
                     as="textarea"
                     name="message"
@@ -183,19 +135,11 @@ const SendMsg: React.FC = () => {
                     placeholder={t("your message...")}
                     icon={"mdi:envelope"}
                     iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-<<<<<<< Updated upstream
                     className="w-full rounded-md border-2 border-white/20 flex xs:h-[150px] xl:h-[160px] bg-foreground/18 px-4 py-4  focus:outline-none resize-none text-white"
                   />
             
 
                 <div className="w-fit">
-=======
-                    className="w-full rounded-md border border-gray-green flex xs:h-[150px] xl:h-[160px] bg-foreground/18 px-4 py-4  focus:outline-none resize-none"
-                  />
-                </div>
-
-                <div className="w-50 xl:w-55 mb-7 xl:mb-10 py-3 px-2 text-foreground">
->>>>>>> Stashed changes
                   <Button
                     type="submit"
                     bgColor="bg-yellow"

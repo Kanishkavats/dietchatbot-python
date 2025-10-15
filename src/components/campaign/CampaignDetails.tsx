@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 
 "use client";
@@ -11,15 +13,10 @@ import {
 } from "@/src/hooks/useCampaigns";
 import { useInView } from "framer-motion";
 import CampaignInfo from "./CampaignInfo";
-<<<<<<< Updated upstream
 import CustomLoader from "../common/Loader/CustomLoader";
 import Sidebar from "../common/sideBar";
 import DynamicDonationCards from "./DynamicDonationCards";
 import {  heartLogoIcon, overView } from "@/public/assets";
-=======
-import CampaignSidebar from "./CampaignSidebar";
-import CustomLoader from "../common/Loader/CustomLoader";
->>>>>>> Stashed changes
 
 
 const CampaignDetails: React.FC = () => {
@@ -58,7 +55,6 @@ const CampaignDetails: React.FC = () => {
     router.push(`/campaign/${cardId}`);
   };
 
-<<<<<<< Updated upstream
   // if (!data) return <p>No campaign found.</p>;
 
   return (
@@ -76,43 +72,14 @@ const CampaignDetails: React.FC = () => {
               Failed to fetch campaign details.
             </div>
           ) : data ? (
-=======
-  // if (isLoading) return <p>Loading campaign details...</p>;
-  if (isLoading) return <CustomLoader />;
-
-  if (isError) return <p>Failed to load campaign details.</p>;
-  if (!data) return <p>No campaign found.</p>;
-
-  return (
-    <div className="bg-[#ffffff] font-sans text-[#667471] w-full">
-      <div className="container mx-auto px-0.5 sm:px-1 md:px-8 py-4 md:py-8">
-        <div className="flex flex-col xl:flex-row gap-6 xl:gap-8">
-          {/* Left/Main content */}
-          <main className="w-full  p-1 sm:p-1 bg-white">
->>>>>>> Stashed changes
             <CampaignInfo
               data={data}
               allCampaigns={allCampaigns?.campaigns || []}
               id={id}
             />
-<<<<<<< Updated upstream
           ) : (
             <p>No campaign found.</p>
           )}
-=======
-          </main>
-
-          {/* Sidebar */}
-          <aside className="w-full  space-y-6 lg:space-y-8">
-            {/* <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} /> */}
-            {allCampaignsLoading ? (
-  <CustomLoader />
-) : (
-  <CampaignSidebar allCampaigns={allCampaigns?.campaigns || []} />
-)}
-
-          </aside>
->>>>>>> Stashed changes
         </div>
         {/* Sidebar */}
         <div className="w-full  space-y-6 lg:space-y-10">

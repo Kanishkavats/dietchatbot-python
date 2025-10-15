@@ -26,72 +26,49 @@ const ValueableCustomer = () => {
     queryFn: fetchFeedback,
   });
 
-    // 🟡 Loading state
-  if (isLoading) return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
-
-  // 🔴 Hide component if no feedbacks or any required field missing
-  const isInvalidData =
-    Error ||
-    !feedbacks ||
-    feedbacks.length === 0 ||
-    feedbacks.every(
-      (f: any) =>
-        !f.name ||
-        !f.feedback ||
-        !f.rating ||
-        !f.image
-    );
-
-  if (isInvalidData()) {
-    return null; // ❌ Hide entire section if data missing
-  }
-
-  // ✅ Otherwise render section normally
-  
-
   if (isLoading)
     return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
 
   return (
     <section
-      className="relative w-full min-h-screen bg-cover bg-center py-8 sm:py-12 md:py-16"
+      className="relative w-full min-h-screen bg-cover bg-center py-16"
       style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       <div
-        className="absolute top-0 left-0 w-[80%] sm:w-[70%] md:w-[60%] h-[30%] sm:h-[35%] md:h-[40%] bg-no-repeat bg-contain"
+        className="absolute top-0 left-0 w-[60%] h-[40%] bg-no-repeat bg-contain"
         style={{ backgroundImage: `url(${valueableshape.src})` }}
       />
 
-      <div className="mt-[100px] sm:mt-[130px] md:mt-[150px] lg:mt-[170px]">
+      <div className="mt-[260px]">
         {/* Heading */}
-<<<<<<< Updated upstream
         <div className="flex items-center gap-2 justify-center">
-          <i className="text-2xl hand-icon text-[#00715D] -mb-[20px] sm:-mb-[40px] md:-mb-[60px] lg:-mb-[80px] xl:-mb-[100px]" />
-          <span className="text-[#00715D] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] -mb-[20px] sm:-mb-[40px] md:-mb-[60px] lg:-mb-[80px] xl:-mb-[100px]">
+          <i className="text-2xl hand-icon text-[#00715D] -mb-[100px]" />
+          <span className="text-[#00715D] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] -mb-[100px]">
             {t("Start Donating Poor People")}
           </span>
         </div>
-        <div className="mt-[15px] sm:mt-[10px] md:mt-[5px] lg:mt-[15px] xl:mt-[20px] px-4 sm:px-6 md:px-8 lg:px-[12px] py-8 sm:py-12 md:py-16 text-center">
-          <h2 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 lg:leading-10 xl:leading-12">
+        <div className="mt-[15px] px-[12px] py-16 text-center">
+          <h2 className="xl:text-[55px] lg:text-[55px] text-[30px] font-nunito font-extrabold text-[#122F2A]">
             {t("Our")}{" "}
             <span className="text-yellow font-nunito">
               {t("Valuable Customers")}
             </span>
           </h2>
-          <h3 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 lg:leading-10 xl:leading-12 mt-4 sm:mt-2 md:-mt-2 lg:mt-2 xl:mt-3">
+          <h3 className="xl:text-[55px] lg:text-[55px] text-[30px] font-nunito font-extrabold text-[#122F2A] mt-0">
             {t("Awesome Feedback")}
           </h3>
         </div>
 
         {/* Swiper Carousel */}
-        <div className="mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-8 xl:px-20 -mt-4 sm:-mt-6 md:-mt-8">
+        <div className="mx-auto w-full px-2 sm:pl-16 sm:pr-8 md:pl-8 lg:px-8 xl:px-20">
           <Swiper
             spaceBetween={12}
             slidesPerView={1}
             breakpoints={{
               320: { slidesPerView: 1, spaceBetween: 12 },
               480: { slidesPerView: 1, spaceBetween: 12 },
-              640: { slidesPerView: 2, spaceBetween: 12 },
+              640: { slidesPerView: 2, spaceBetween: 12 }, // vertical stack
+              728: { slidesPerView: 2, spaceBetween: 12 },
               768: { slidesPerView: 2, spaceBetween: 12 },
               1024: { slidesPerView: 2, spaceBetween: 12 },
               1280: { slidesPerView: 3, spaceBetween: 12 },
@@ -109,130 +86,50 @@ const ValueableCustomer = () => {
           >
             {feedbacks.map((item, idx) => (
               <SwiperSlide key={`${item.id || item.name}-${idx}`}>
-                <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-4 sm:px-6 md:px-[20px] py-6 sm:py-8 md:py-[40px] w-full max-w-[100%] sm:max-w-[320px] md:max-w-[336px] lg:max-w-[456px] xl:max-w-[356px] 2xl:max-w-[415px] h-auto min-h-[400px] sm:min-h-[450px] md:min-h-[445px] lg:min-h-[385px] xl:min-h-[415px] 2xl:min-h-[385px] mx-auto">
+                <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-[20px] py-[40px] w-[291px] h-[445.6px] lg:w-[456px] lg:h-[385.6px] xl:w-[356px] xl:h-[415.6px] 2xl:h-[385.6px] 2xl:w-[415.6px] sm:w-[246px] sm:h-[651.6px] md:w-[336px] md:h-[445.6px]">
                   
                   <Image
                     src={image99}
                     alt="green spade"
                     width={106}
                     height={88}
-                    className="absolute top-4 sm:top-6 md:top-8 right-4 sm:right-5 md:right-6 opacity-10 z-0 w-6 h-5 sm:w-8 sm:h-7 md:w-[76.79px] md:h-[63.75px] xl:w-[106px] xl:h-[88px]"
+                    className="absolute top-8 right-6 opacity-10 z-0 md:w-[76.79px] md:h-[63.75px] xl:w-[106px] xl:h-[88px] sm:w-[63.99px] sm:h-[53.13px] w-[32.7px] h-[27.15px]"
                   />
 
                   {/* Rating */}
-                  <div className="flex mb-3 sm:mb-4 px-4 sm:px-5 md:px-6">
+                  <div className="flex mb-4 px-6">
                     {Array.from({ length: item.rating || 5 }).map((_, i) => (
                       <IoMdStar
                         key={i}
-                        size={16}
-                        className="fill-yellow text-yellow w-4 h-4 sm:w-5 sm:h-5"
+                        size={20}
+                        className="fill-yellow text-yellow"
                       />
                     ))}
                   </div>
 
                   {/* Feedback */}
-                  <p className="text-[#667471] font-nunito text-sm sm:text-base md:text-lg px-4 sm:px-5 md:px-6 leading-relaxed break-words">
+                  <p className="text-[#667471] font-nunito text-lg px-6 sm:text-[16px] md:text-[18px] xl:text-[16px] lg:text-[16px] text-[16px] leading-relaxed break-words">
                     “{truncateText(t(item.feedback || item.review), 120)}”
                   </p>
 
                   {/* User Info */}
                   <div className="flex flex-col sm:flex-row sm:items-center mt-6 px-6 gap-2">
                     <div className="w-12 h-12 rounded-full overflow-hidden mx-auto sm:mx-0">
-=======
-        <motion.div
-          className="py-16"
-          ref={ref}
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-        >
-          <div className="flex items-center gap-2 justify-center">
-                        <i className="text-2xl hand-icon text-[#00715D]"></i>
-            <span 
-              className="text-[#00715D] text-[24px] font-caveat font-cursive font-semibold leading-[34px] -mt-[8px]"
-              style={{ width: '362.71px', height: '34px' }}
-            >
-              {t("Start Donating Poor People")}
-            </span>
-          </div>
-          <div className="mt-[15px] px-[12px]">
-            <h2 className="text-center text-[45px] font-extrabold font-nunito text-[#122F2A] mb-0">
-              {t("Our Valueable")}
-              <span className="text-yellow"> {t("Customer")}</span>
-            </h2>
-            <h2 className="text-center text-[45px] font-extrabold font-nunito text-[#122F2A] mt-0">
-              {t("Awesome Feedback")}
-            </h2>
-          </div>
-        </motion.div>
-        {/* Carousel */}
-        <div className="container mx-auto px-25">
-          <div
-            className="relative overflow-hidden w-full"
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-          >
-            <motion.div className="flex"
-              animate={{ x: `-${(100 / slides.length) * index}%` }}
-              transition={
-                instant ? { duration: 0 } : { duration: 0.8, ease: "easeInOut" }
-              }
-              style={{ width: `${(slides.length / visibleCards) * 100}%` }}
-            >
-              {slides.map((item, idx) => (
-                <div
-                  key={idx}
-                  className="px-3"
-                  style={{ width: `${100 / visibleCards}%` }}
-                >
-                  <div className="relative bg-white border border-yellow rounded-3xl p-8 flex flex-col justify-between shadow-sm  overflow-hidden">
-                    <Image
-                      src={image99}
-                      alt="green spade"
-                      width={70}
-                      height={70}
-                      className="absolute top-8 right-6 opacity-10 z-0"
-                    />
-                    <div>
-                      <div className="flex mb-4 px-6">
-                        {Array.from({ length: 5 }).map((_, i) => (
-                          <IoMdStar
-                            key={i}
-                            size={20}
-                            className="fill-yellow text-yellow"
-                          />
-                        ))}
-                      </div>
-                      <p className="text-[#667471] font-nunito text-lg px-6 leading-relaxed break-words">
-                        “{t(item.review)}”
-                      </p>
-                    </div>
-                    <div className="flex items-center mt-6 mb-3 px-6">
->>>>>>> Stashed changes
                       <Image
                         src={item.image || item.avatar || "/assets/author.png"}
                         alt={item.name}
-                        width={40}
-                        height={40}
+                        width={48}
+                        height={48}
                         className="w-full h-full object-cover"
                       />
-<<<<<<< Updated upstream
                     </div>
                     <div className="flex flex-col items-center sm:items-start mt-2 sm:mt-0 sm:ml-3">
-                      <h4 className="font-bold font-nunito text-sm sm:text-base md:text-lg text-foreground">
+                      <h4 className="font-bold font-nunito sm:text-[18px] md:text-[18px] lg:text-[18px] xl:text-[18px] 2xl:text-[18px] text-foreground">
                         {t(item.name)}
                       </h4>
-                      <p className="text-gray-500 font-nunito text-xs sm:text-sm md:text-base">
+                      <p className="text-gray-500 font-nunito sm:text-[14px] md:text-[14px] lg:text-[14px] xl:text-[14px] 2xl:text-[14px]">
                         {t(item.designation || item.role)}
                       </p>
-=======
-                      <div className="ml-3">
-                        <h4 className="font-bold font-nunito  text-foreground">
-                          {t(item.name)}
-                        </h4>
-                        <p className="text-gray-500 font-nunito text-sm">{t(item.role)}</p>
-                      </div>
->>>>>>> Stashed changes
                     </div>
                   </div>
 
@@ -242,16 +139,16 @@ const ValueableCustomer = () => {
           </Swiper>
 
           {/* Navigation buttons */}
-          <div className="flex justify-center gap-3 sm:gap-4 mt-8 sm:mt-10 md:mt-12">
+          <div className="flex justify-center gap-4 mt-8">
             <button
-              className="prev-btn cursor-pointer w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="prev-btn cursor-pointer w-14 h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
-              <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
+              <ArrowLeft size={28} />
             </button>
             <button
-              className="next-btn cursor-pointer w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
+              className="next-btn cursor-pointer w-14 h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
             >
-              <ArrowRight size={24} className="sm:w-7 sm:h-7" />
+              <ArrowRight size={28} />
             </button>
           </div>
         </div>
