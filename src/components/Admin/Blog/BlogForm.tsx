@@ -30,29 +30,29 @@ const BlogForm = ({
 
   // Prepare initial values for the form
   const initialValues = getInitialBlogValues(initialData);
-
+  const { language, toggleLanguage } = useLanguageToggle();
   const { data: categoryData } = useFetchCategory();
-   console.log(categoryData);
+  console.log(categoryData);
 
   const categoryOptions =
-    categoryData?.category?.map((c: { id: string; name: string }) => ({
-      label: c.name,
-      value: c.name,
-    })) || [];
+    categoryData?.category?.map((category: Category) => ({
+      label: category.name?.[language] || category.name.en,
+      value: category.name?.[language] || category.name.en,
+    })) ?? [];
 
-      console.log('check78',categoryData);
+  console.log('check78', categoryData);
 
 
   const isView = mode === "view";
   const isEdit = mode === "edit";
-  const { language, toggleLanguage } = useLanguageToggle();
+
 
   return (
     <div className="w-full pb-10">
 
       {/* Language Toggle */}
 
-    <LanguageToggle language={language} onChange={toggleLanguage} />
+      <LanguageToggle language={language} onChange={toggleLanguage} />
 
       <Formik
         enableReinitialize
@@ -118,8 +118,8 @@ const BlogForm = ({
 
             for (const l of ["en", "hi"] as const) {
               if (hasErrorsForLang(formErrors, l)) {
-                toggleLanguage(l); 
-                return; 
+                toggleLanguage(l);
+                return;
               }
             }
 
@@ -280,14 +280,14 @@ const BlogForm = ({
                     paddingy="py-2"
                     rounded="rounded-[5px]"
                   >
-                     {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
+                    {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
                       <ButtonLoader />
                     ) : isEdit ? (
                       "Update"
                     ) : (
                       "Preview"
-                    )} 
-                    
+                    )}
+
 
                   </Button>
 

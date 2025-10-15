@@ -4,6 +4,7 @@ import api from "./api";
 export const fetchFeedbacks = async (page: number, limit: number, status: string | null) => {
   const statusQuery = status && status !== "all" ? `&status=${status}` : "";
   const { data } = await api.get(`/admin/feedback/getAllFeedback?page=${page}&limit=${limit}&${statusQuery}`);
+  const { data } = await api.get(`/admin/feedback/getAllFeedback?page=${page}&limit=${limit}&${statusQuery}`);
   return data;
 };
 export const fetchApprovedFeedbacks = async (page: number, limit: number, status: string | null) => {
@@ -14,7 +15,7 @@ export const fetchApprovedFeedbacks = async (page: number, limit: number, status
 
 // Fetch single feedback by ID
 export const fetchFeedbackById = async (id: string) => {
-  const { data } = await api.get(`/admin/feedback/getFeedbackById/${id}`);
+  const { data } = await api.get(`/getFeedbackById/${id}`);
   return data;
 };
 

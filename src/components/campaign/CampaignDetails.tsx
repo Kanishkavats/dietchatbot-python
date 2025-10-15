@@ -1,4 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 
 
 "use client";
