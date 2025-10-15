@@ -24,13 +24,33 @@ const MemberForm = ({
     createMutation,
     updateMutation,
 }: MemberFormProps) => {
-    // Prepare initial values for the form
-    const initialValues = getInitialMemberValues(initialData);
+    
+    // Prepare initial values for the form - use useMemo to recalculate when initialData changes
+    const initialValues = React.useMemo(() => {
+        const values = getInitialMemberValues(initialData);
+        return values;
+    }, [initialData]);
 
     const [keyPointsList, setKeyPointsList] = useState<{en: string[], hi: string[]}>({
         en: initialData?.keyPoints?.en ?? [],
         hi: initialData?.keyPoints?.hi ?? [],
     });
+
+    // Update keyPointsList when initialData changes
+    React.useEffect(() => {
+        if (initialData?.keyPoints) {
+            setKeyPointsList({
+                en: initialData.keyPoints.en ?? [],
+                hi: initialData.keyPoints.hi ?? [],
+            });
+        } else {
+            // Reset to empty arrays if no data
+            setKeyPointsList({
+                en: [],
+                hi: [],
+            });
+        }
+    }, [initialData]);
 
     const isEdit = mode === "edit";
     const { language, toggleLanguage } = useLanguageToggle();
@@ -41,6 +61,7 @@ const MemberForm = ({
             <LanguageToggle language={language} onChange={toggleLanguage} />
 
             <Formik
+                key={initialData?.id || 'new'} // Force re-render when data changes
                 enableReinitialize
                 initialValues={initialValues}
                 validationSchema={memberSchema}

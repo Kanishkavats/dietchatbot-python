@@ -15,7 +15,7 @@ export interface Banner {
 export interface BannerFormProps {
   initialData?: Partial<BannerFormValues> & Partial<Banner>;
   onClose: () => void;
-  mode?: "add" | "edit"| "view"; 
+  mode?: "add" | "edit"| "view"|"preview-edit"; 
   onPreview?: (values: BannerFormValues) => void;
   createMutation: UseMutationResult<any, Error, BannerFormValues, unknown>;
   updateMutation: UseMutationResult<any, Error, { id: string; values: BannerFormValues }, unknown>;

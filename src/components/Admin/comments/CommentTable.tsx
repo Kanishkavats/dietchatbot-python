@@ -9,7 +9,7 @@ import {
   useDeleteComment,
   useFetchComments,
   useFetchCommentById,
-} from "@/src/hooks/useComments";
+} from "@/src/components/Admin/hooks/useComments";
 import { CommentSearchOptions } from "../Data/staticData";
 import { getCommentColumns } from "./getCommentColumns";
 import { Comment } from "@/src/types/comments";
@@ -18,6 +18,7 @@ import CommentForm from "./CommentForm";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import ConfirmModal from "../Common/ConfirmModal";
+import toast from "react-hot-toast";
 
 const CommentTable = () => {
   const [status, setStatus] = useState<
@@ -83,6 +84,8 @@ const CommentTable = () => {
 
   const confirmDelete = useCallback(() => {
     if (selectedComment) {
+      toast.dismiss();
+        toast.loading("Deleting Comment....")
       deleteComment(selectedComment.id.toString());
       setIsOpen(false);
       setSelectedComment(null);

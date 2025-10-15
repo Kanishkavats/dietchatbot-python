@@ -95,7 +95,7 @@ export const footerData = {
   },
   bottomLinks: [
     { label: "Terms & Conditions", href: "#" },
-    { label: "Privacy Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Cookie Settings", href: "#" },
   ],
 };
@@ -374,13 +374,20 @@ export const testimonials = [
 
 
 export interface Event {
-  id: number;
-  date: string;
+  id: string;
   title: string;
+  description: string;
+  summary: string;
+  keyPoints: string[];
+  images: string[];
   location: string;
-  image: string;
-  summary?: string;
-  keyPoints?: string[];
+  latitude: number;
+  longitude: number;
+  startTime: string;
+  endTime: string;
+  // Helper properties for display
+  date?: string;
+  image?: string;
 }
 
 export const events: Event[] = [

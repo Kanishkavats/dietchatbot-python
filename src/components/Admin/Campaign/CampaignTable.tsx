@@ -16,24 +16,28 @@ import {
   useFetchAllCampaigns,
   useFetchSingleCampaign,
   submitCampaignForm
-} from "@/src/hooks/useCampaigns";
+} from '@/src/components/Admin/hooks/useCampaigns'
 import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
+import { createCampaign, updateCampaign } from "@/src/components/Admin/services/campaignApi";
 import CampaignPreview from "./CampaignPreview";
 import { Campaign } from "@/src/types/campaign";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import toast from "react-hot-toast";
+import ConfirmModal from "../Common/ConfirmModal";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"title" | "organizer" | "category">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
+  const [isOpen, setIsOpen] = useState(false);
+    const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
 
@@ -44,7 +48,7 @@ const CampaignTable = () => {
   const{language,toggleLanguage}=useLanguageToggle();
 
   const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage);
-  const { data: singleCampaignData, isLoading: isLoadingCampaign } = useFetchSingleCampaign(editCampaign || undefined);
+  const { data: singleCampaignData, isLoading: isLoadingCampaign,refetch } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
 
@@ -88,21 +92,45 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     setDrawerOpen(true);
   }, []);
 
-  const handleView = useCallback((c: Campaign) => {
+  const handleView = useCallback(async (c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("view");
-    setPreviewData(normalizeCampaignData(c));
-    setDrawerOpen(true);
-  }, []);
+    setDrawerOpen(true); 
+    setPreviewData(null); 
+  setShowPreview(false);
+  try {
+   setTimeout(async () => {
+      const { data } = await refetch();
+      if (data) {
+        setPreviewData(normalizeCampaignData(data));
+        setShowPreview(true);
+      }
+    }, 100); 
+  } catch (error) {
+    console.error("Failed to fetch campaign:", error);
+  }
+  }, [refetch]);
 
   const handleDelete = useCallback(
     (c: Campaign) => {
-      if (confirm(`Are you sure you want to delete "${c.title}"?`)) {
-        deleteCampaign(c.id.toString());
+      if (!c.id) {
+        console.error("Cannot delete Campaign: ID is missing.");
+        return;
       }
+      setSelectedCampaign(c);
+      setIsOpen(true);
     },
     [deleteCampaign]
   );
+  const confirmDelete = useCallback(() => {
+    if (selectedCampaign?.id) {
+      toast.dismiss();
+        toast.loading("Deleting Campaign....")
+      deleteCampaign(selectedCampaign.id.toString());
+      setIsOpen(false);
+      setSelectedCampaign(null);
+    }
+  }, [selectedCampaign, deleteCampaign]);
 
   const columns = useMemo(
     () =>
@@ -226,27 +254,35 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
           setMode("add");
           setPreviewData(null);
         }}
-        title={
-          mode === "edit"
-            ? "Edit Campaign"
-            : mode === "view"&&!previewData
-              ? "View Campaign"
-              : "Add Campaign"
-        }
+        // &&!previewData
+       title={
+    mode === "edit"
+      ? "Edit Campaign"
+      : mode === "view" || mode === "preview-edit"
+      ? "View Campaign"
+      : "Add Campaign"
+  }
         mode={mode}
 
       >
-        {/* /* {previewData ? ( */}
-         
-        {showPreview ? (
+        {(mode === "view" || mode === "preview-edit") && (
+    !previewData || isLoadingCampaign ? (
+   
+    <div className="flex justify-center py-10">
+      <CustomLoader />
+    </div>
+  ) : (
   <CampaignPreview
     mode={mode}
+    showButton={mode === "preview-edit"}
     data={normalizeCampaignData(previewData)}
     onBack={() => {
-  setShowPreview(false); // 👈 only hide preview
-      // keep previewData so CampaignForm can use it
+  setShowPreview(false); 
+  setMode(editCampaign ? "edit" : "add");
+      
     }}
     onSubmit={() => {
+
       submitCampaignForm(
         { ...previewData!, keyPoints: previewData!.keyPoints },
         singleCampaignData,
@@ -262,7 +298,13 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
       );
     }}
   />
-) : (
+  )
+  )}
+{(mode === "add" || mode === "edit") && (
+      isLoadingCampaign?(
+        <div><CustomLoader/></div>
+      ):
+    (
   <CampaignForm
     initialData={{
     ...(normalizedCampaignData ?? {}),
@@ -285,14 +327,23 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     mode={mode}
     onPreview={(data) => {
       setPreviewData(data);
-      setShowPreview(true); // 👈 toggle preview
+      setShowPreview(true);
+      setMode('preview-edit') 
     }}
     createMutation={createMutation}
     updateMutation={updateMutation}
   />
-)}
+))}
       </Drawer>
       )}
+       <ConfirmModal
+        isOpen={isOpen}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsOpen(false)}
+        title="Confirm Delete"
+        message="Are you sure you want to delete these record ?"
+        buttonText="Delete"
+      />
     </div>
   );
 };

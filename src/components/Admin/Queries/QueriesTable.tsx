@@ -11,7 +11,7 @@ import {
   useDeleteQuery,
   useFetchAllQueries,
   useFetchSingleQuery,
-} from "@/src/hooks/useQueries";
+} from "@/src/components/Admin/hooks/useQueries";
 import { Query } from "@/src/types/query";
 import QueryPreview from "./QueryPreview";
 import Dropdown from "../Common/Dropdown";
@@ -22,6 +22,7 @@ import {
 } from "@/src/staticResource";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import ConfirmModal from "../Common/ConfirmModal";
+import toast from "react-hot-toast";
 
 const QueriesTable = () => {
   const [filterField, setFilterField] = useState<
@@ -102,6 +103,8 @@ const QueriesTable = () => {
 
   const confirmDelete = useCallback(() => {
     if (selectedQuerry?.id) {
+      toast.dismiss();
+      toast.loading("Deleting Query....")
       deleteQuery(selectedQuerry.id.toString());
       setIsOpen(false);
       setSelectedQuerry(null);

@@ -50,7 +50,7 @@ export interface AdminCustomFileInputProps {
   onChange: (files: File[], updatedImageUrls?: string[]) => void;
   error?: string;
   disabled?: boolean;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
   initialUrls?: string[];
   uploadType?: "single" | "multiple";
 }

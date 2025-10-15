@@ -34,8 +34,9 @@ const BlogTable = () => {
   >("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [blogId, setBlogId] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [showPreview, setShowPreview] = useState(false);
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -46,7 +47,7 @@ const BlogTable = () => {
     currentPage,
     itemsPerPage
   );
-  const { data: singleBlogData, isLoading: isLoadingBlog } = useFetchSingleBlog(
+  const { data: singleBlogData, isLoading: isLoadingBlog,refetch } = useFetchSingleBlog(
     blogId || undefined
   );
   const { mutate: deleteBlog } = useDeleteSingleBlog();
@@ -58,12 +59,24 @@ const BlogTable = () => {
     setDrawerOpen(true);
   }, []);
 
-  const handleView = useCallback((blog: Blog) => {
+  const handleView = useCallback(async(blog: Blog) => {
     setBlogId(blog.id.toString());
     setMode("view");
-    setPreviewData(blog);
-    setDrawerOpen(true);
-  }, []);
+     setDrawerOpen(true); 
+    setPreviewData(null); 
+  setShowPreview(false);
+  try {
+     setTimeout(async () => {
+      const { data } = await refetch();
+      if (data) {
+      setMode("view");
+      setPreviewData((data));
+    }
+  },100);
+  } catch (error) {
+    console.error("Failed to fetch campaign:", error);
+  }
+  }, [refetch]);
   
 
 
@@ -205,17 +218,24 @@ const BlogTable = () => {
             setMode("add");
           }}
           title={
-            mode === "edit"
-              ? "Edit Blog"
-              : mode === "view"
-              ? "View Blog"
-              : "Add Blog"
-          }
+    mode === "edit"
+      ? "Edit Blog"
+      : mode === "view" || mode === "preview-edit"
+      ? "View Blog"
+      : "Add Blog"
+  }
           mode={mode}
         >
-          {mode === "view" && previewData ? (
+          {(mode === "view" || mode === "preview-edit") && (
+    !previewData || isLoadingBlog ? (
+   
+    <div className="flex justify-center py-10">
+      <CustomLoader />
+    </div>
+  ) : (
             <BlogPreview
               data={previewData}
+              showButton={mode==='preview-edit'?true:false}
               onBack={() => setPreviewData(null)}
               onSubmit={() => {
                 submitBlogForm(
@@ -233,21 +253,25 @@ const BlogTable = () => {
               }}
               mode={mode}
             />
-          ) : isLoadingBlog ? (
-            <CustomLoader />
-          ) : (
+           )
+  )}
+    {(mode === "add" || mode === "edit") && (
+      isLoadingBlog?(
+        <div><CustomLoader/></div>
+      ):
+    (
             <BlogForm
               initialData={singleBlogData ?? undefined}
               onClose={() => setDrawerOpen(false)}
               mode={mode}
               onPreview={(data) => {
                 setPreviewData(data);
-                setMode("view");
+                setMode("preview-edit");
               }}
               createMutation={createMutation}
               updateMutation={updateMutation}
             />
-          )}
+          ))}
         </Drawer>
       )}
       <ConfirmModal

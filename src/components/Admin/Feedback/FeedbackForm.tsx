@@ -12,7 +12,7 @@ import { toast } from "react-hot-toast";
 
 import { feedbackSchema, FeedbackFormValues } from "@/src/utils/validations/FormValidation";
 import { Feedback } from "@/src/types/feedback";
-import { updateFeedback } from "@/src/services/feedbackApi";
+import { updateFeedback } from "@/src/components/Admin/services/feedbackApi";
 
 interface FeedbackFormProps {
   initialData?: Feedback;

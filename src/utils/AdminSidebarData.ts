@@ -1,4 +1,4 @@
-import { MdOutlineDashboardCustomize, MdNotificationsActive, MdCampaign, MdCategory } from "react-icons/md";
+import { MdOutlineDashboardCustomize, MdNotificationsActive, MdCampaign, MdCategory, MdEvent } from "react-icons/md";
 import { FaBloggerB, FaComments } from "react-icons/fa";
 import { TbBrandGoogleBigQuery } from "react-icons/tb";
 import { PiFlagBannerFill } from "react-icons/pi";
@@ -25,6 +25,12 @@ export const sidebarAd = [
     lable: "Campaign",
     nav: "campaign",
     link: "/admin/campaign",
+  },
+  {
+    icon: MdEvent,
+    lable: "Event",
+    nav: "event",
+    link: "/admin/event",
   },
   {
     icon: TbBrandGoogleBigQuery,

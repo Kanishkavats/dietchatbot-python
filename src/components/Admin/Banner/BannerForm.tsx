@@ -61,7 +61,7 @@ const BannerForm = ({
         initialValues={initialValues}
         validationSchema={bannerSchema}
         onSubmit={(values: BannerFormValues) => {
-                console.log("reached")
+                
                   const payload = { ...values };
                   onPreview?.(payload);
                 }}

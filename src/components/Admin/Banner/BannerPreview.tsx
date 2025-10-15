@@ -11,10 +11,11 @@ interface BannerPreviewProps {
   data: BannerFormValues;
   onBack: () => void;
   onSubmit: () => void;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
+  showButtons?:boolean
 }
 
-const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, mode }) => {
+const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, mode,showButtons=true }) => {
     const [imagePreview, setImagePreview] = useState<string | null>(null);
     console.log(data)
 
@@ -61,7 +62,7 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, m
         <p className="text- mt-1"> <strong className="text-xl  text-dark-green">SubTitle:</strong>{data.subtitle?.[lang]}</p>
 
       </div>
-       {/* Buttons */}
+      {showButtons&&(
         <div className="mt-12 flex gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
@@ -79,8 +80,8 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, m
             bgColor="bg-lime-green"
             hoverBg="before:bg-green"
           />
-        </div>
-
+        </div>  
+        )}
     </div>
   );
 };

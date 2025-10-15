@@ -14,10 +14,11 @@ export interface CampaignPreviewProps {
   data: CampaignFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
   onSubmit: () => void;
   onBack: () => void;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
+  showButton?:boolean
 }
 
-const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps) => {
+const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   // const [language, setLanguage] = useState<"en" | "hi">("en");
   const { language, toggleLanguage } = useLanguageToggle();
@@ -132,6 +133,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
       )}
 
       {/* Buttons */}
+      {showButton&&(
         <div className="mt-12 flex gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
@@ -150,6 +152,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
             hoverBg="before:bg-green"
           />
         </div>
+        )}
     </motion.div>
   );
 };

@@ -21,13 +21,14 @@ import { ppOne, ppTwo } from "@/public/assets";
 import { useFetchSingleBlog } from "../hooks/useBlog";
 import FadeUpCard from "../animations/FadeButtomUp";
 import { Comments, LeaveComment } from "./Charity_with_Difference";
+import CustomLoader from "./common/Loader/CustomLoader";
 interface props {
   id: string;
 }
 export default function Newsdetail({ id }: props) {
   const { data, isLoading, isError } = useFetchSingleBlog(id);
   if (isLoading) {
-    return <p className="text-center">Loading blogs...</p>;
+    return <div className=""><CustomLoader/></div>;
   }
 
   if (isError) {

@@ -3,7 +3,7 @@
 import { Formik, Form } from "formik";
 import React, { useState, useEffect } from "react";
 import { IoMdClose } from "react-icons/io";
-import { useFetchCategory } from "@/src/hooks/useCategory";
+import { useFetchCategory } from "@/src/components/Admin/hooks/useCategory";
 import { CampaignFormValues, campaignSchema } from "@/src/utils/validations/FormValidation";
 import { CampaignFormProps } from "@/src/types/campaign";
 
@@ -23,20 +23,22 @@ import { hasErrorsForLang } from "../Common/hasErrorsForLang";
 const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
 
   const initialValues= getInitialCanpaignValues(initialData)
+  console.log(initialValues)
 
   const [keyPointInput, setKeyPointInput] = useState("");
   const { language, toggleLanguage } = useLanguageToggle();
-
   const { data: categoryData } = useFetchCategory();
-  const categoryOptions = categoryData?.category?.map((category:Category) => ({
-    label: category.name.en,
-    value: category.name.en,
+  console.log(categoryData)
+  const categoryOptions =
+  categoryData?.category?.map((category: Category) => ({
+    label: category.name?.[language] || category.name.en, 
+    value: category.name?.[language] || category.name.en,
   })) ?? [];
 
   const isView = mode === "view";
   const isEdit = mode === "edit";
   console.log(initialData)
-
+  console.log(categoryData)
   return (
     <div className="w-full pb-10">
       <LanguageToggle language={language} onChange={toggleLanguage} />

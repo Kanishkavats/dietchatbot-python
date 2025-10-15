@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { forwardRef, useState } from "react";
 import { motion } from "framer-motion";
 import { FaSignOutAlt } from "react-icons/fa";
 import Cookies from "js-cookie";
@@ -8,9 +8,10 @@ import api from "@/src/services/api";
 
 interface LogoutProps {
   onLogout?: () => void;
+  // logoutRef?:React.RefObject<HTMLButtonElement | null>
 }
 
-const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
+const Logout = forwardRef<HTMLButtonElement, LogoutProps>(({ onLogout },logoutRef) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleLogout = async () => {
@@ -63,6 +64,7 @@ const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
   return (
     <motion.button
       onClick={handleLogout}
+      ref={logoutRef}
       disabled={isLoading}
       whileHover={{ scale: isLoading ? 1 : 1.05 }}
       whileTap={{ scale: isLoading ? 1 : 0.95 }}
@@ -79,6 +81,6 @@ const Logout: React.FC<LogoutProps> = ({ onLogout }) => {
       </span>
     </motion.button>
   );
-};
+});
 
 export default Logout;

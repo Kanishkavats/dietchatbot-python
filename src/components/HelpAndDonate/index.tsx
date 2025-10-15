@@ -43,7 +43,7 @@ const HelpAndDonate: React.FC = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   // Fetch campaigns from API
-  const { data: campaignsData, isLoading, error } = useFetchAllCampaigns(1, 8);
+  const { data: campaignsData, isLoading, error } = useFetchAllCampaigns(1, 8,);
 
   // Map API data to match the component structure
   const mapCampaignData = (campaign: any) => {
@@ -64,6 +64,11 @@ const HelpAndDonate: React.FC = () => {
   const campaignsToDisplay = campaignsData?.campaigns 
     ? campaignsData.campaigns.map(mapCampaignData)
     : allDonationCards;
+
+  // Hide component if no data is available
+  if (!isLoading && (!campaignsData?.campaigns || campaignsData.campaigns.length === 0)) {
+    return null;
+  }
 
   const handleCardClick = (id?: string) => {
     // Navigate to donation page with campaign ID if available

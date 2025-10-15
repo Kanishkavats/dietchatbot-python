@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { IoMdStar } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -18,8 +18,10 @@ const truncateText = (text: string, maxLength: number) => {
   if (!text) return "";
   return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
 };
-
-const ValueableCustomer = () => {
+interface props{
+  setHasFeedback?:React.Dispatch<React.SetStateAction<boolean | null>>
+}
+const ValueableCustomer = ({setHasFeedback}:props) => {
   const { t } = useTranslation();
   const { data: feedbacks = [], isLoading } = useQuery({
     queryKey: ["feedback"],
@@ -84,7 +86,7 @@ const ValueableCustomer = () => {
             modules={[Navigation, Autoplay]}
             className="pb-12"
           >
-            {feedbacks.map((item, idx) => (
+            {feedbacks.map((item:any, idx:any) => (
               <SwiperSlide key={`${item.id || item.name}-${idx}`}>
                 <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-[20px] py-[40px] w-[291px] h-[445.6px] lg:w-[456px] lg:h-[385.6px] xl:w-[356px] xl:h-[415.6px] 2xl:h-[385.6px] 2xl:w-[415.6px] sm:w-[246px] sm:h-[651.6px] md:w-[336px] md:h-[445.6px]">
                   
