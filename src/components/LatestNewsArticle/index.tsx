@@ -24,6 +24,11 @@ const LatestNewsArticle: React.FC = () => {
  const [currentPage,setCurrentPage]=useState(1);
     const { data, isLoading, isError } = useFetchAllBlogs(currentPage, PageLimit,'All');
 
+  // Hide component if no data is available
+  if (!isLoading && (!data?.blogs || data.blogs.length === 0)) {
+    return null;
+  }
+
   return (
     <div 
       className={`w-full py-20 px-3 mt-15 relative `}
@@ -97,7 +102,7 @@ const LatestNewsArticle: React.FC = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.8 }}
         >
-          <Link href="/newslist">
+          <Link href="/news-grid">
             <Button 
               text="View All"
               bgColor="bg-yellow"

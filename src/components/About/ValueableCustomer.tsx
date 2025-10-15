@@ -44,7 +44,6 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
 
   // 🔴 Hide component if no feedbacks or any required field missing
   const isInvalidData =
-    Error ||
     !feedbacks ||
     feedbacks.length === 0 ||
     feedbacks.every(
@@ -55,12 +54,10 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
         !f.image
     );
 
-  // if (isInvalidData()) {
-  //   return null; // ❌ Hide entire section if data missing
-  // }
-
-  // ✅ Otherwise render section normally
-  
+  // Hide component if no data is available
+  if (!isLoading && isInvalidData) {
+    return null;
+  }
 
   if (isLoading)
     return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
@@ -75,7 +72,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
         style={{ backgroundImage: `url(${valueableshape.src})` }}
       />
 
-      <div className="mt-[100px] sm:mt-[130px] md:mt-[150px] lg:mt-[170px]">
+      <div className="mt-[100px] sm:mt-[130px] md:mt-[90px] lg:mt-[170px]">
         {/* Heading */}
         <div className="flex items-center gap-2 justify-center">
           <i className="text-2xl hand-icon text-[#00715D] -mb-[20px] sm:-mb-[40px] md:-mb-[60px] lg:-mb-[80px] xl:-mb-[100px]" />

@@ -65,6 +65,11 @@ const HelpAndDonate: React.FC = () => {
     ? campaignsData.campaigns.map(mapCampaignData)
     : allDonationCards;
 
+  // Hide component if no data is available
+  if (!isLoading && (!campaignsData?.campaigns || campaignsData.campaigns.length === 0)) {
+    return null;
+  }
+
   const handleCardClick = (id?: string) => {
     // Navigate to donation page with campaign ID if available
     if (id) {
