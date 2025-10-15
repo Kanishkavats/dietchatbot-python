@@ -5,12 +5,22 @@ import api from "../../../services/api";
 
 // ✅ Fetch all categories
 
-export const fetchCategory = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/admin/category/get-category?page=${page}&limit=${limit}`);
+// export const fetchCategory = async (page: number = 1, limit: number = 10) => {
+//   const { data } = await api.get(`/admin/category/get-category?page=${page}&limit=${limit}`);
+//   return data;
+// };
+export const fetchCategory = async (page?: number, limit?: number) => {
+  const params = new URLSearchParams();
+  if (page !== undefined) params.append("page", String(page));
+  if (limit !== undefined) params.append("limit", String(limit));
+  console.log(page,limit)
+  const query = params.toString() ? `?${params.toString()}` : "";
+  const { data } = await api.get(`/admin/category/get-category${query}`);
+  console.log(data)
   return data;
 };
 export const fetchCategoryById = async (id:string) => {
-  const { data } = await api.get(`/admin/category/get-category/${id}`);
+  const { data } = await api.get(`/admin/category/getCategoryById/${id}`);
   return data;
 };
 

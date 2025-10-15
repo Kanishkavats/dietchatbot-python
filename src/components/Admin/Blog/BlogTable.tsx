@@ -26,6 +26,7 @@ import CustomPagination from "../../common/CustomPaginatioin";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import AdminCustomPagination from "../Common/CustomePagination";
 import ConfirmModal from "../Common/ConfirmModal";
+import toast from "react-hot-toast";
 
 const BlogTable = () => {
   const [search, setSearch] = useState("");
@@ -93,6 +94,8 @@ const BlogTable = () => {
 
   const confirmDelete = useCallback(() => {
     if (selectedBlog) {
+      toast.dismiss();
+        toast.loading("Deleting Blog....")
       deleteBlog(selectedBlog.id.toString());
       setIsOpen(false);
       setSelectedBlog(null);
@@ -142,6 +145,18 @@ const BlogTable = () => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
     },
   });
+const normalizedBlogData = useMemo(() => {
+    if (!singleBlogData) return undefined;
+
+    const stringImages =
+        singleBlogData.images?.filter((img: any) => typeof img === "string") ?? [];
+
+    return {
+        ...singleBlogData,
+        existingImages: singleBlogData.existingImages ?? stringImages,
+        images: singleBlogData.images ?? stringImages,
+    };
+}, [singleBlogData]);
 
   console.log("previewData", previewData)
   return (
@@ -236,7 +251,8 @@ const BlogTable = () => {
             <BlogPreview
               data={previewData}
               showButton={mode==='preview-edit'?true:false}
-              onBack={() => setPreviewData(null)}
+              onBack={() => {setShowPreview(false); 
+  setMode(blogId ? "edit" : "add");}}
               onSubmit={() => {
                 submitBlogForm(
                   { ...previewData, keyPoints: previewData.keyPoints },
@@ -245,7 +261,8 @@ const BlogTable = () => {
                   updateMutation,
                   () => {
                     setPreviewData(null);
-                    setDrawerOpen(false);
+          setShowPreview(false);
+          setDrawerOpen(false);
                   },
                   () => {},
                   () => setDrawerOpen(false)
@@ -261,12 +278,25 @@ const BlogTable = () => {
       ):
     (
             <BlogForm
-              initialData={singleBlogData ?? undefined}
+              initialData={{
+    ...(normalizedBlogData ?? {}),
+    ...(previewData ?? {}),
+    // Ensure both arrays persist
+    images:
+      previewData?.images?.length
+        ? previewData.images
+        : normalizedBlogData?.images ?? [],
+    existingImages:
+      previewData?.existingImages?.length
+        ? previewData.existingImages
+        : normalizedBlogData?.existingImages ?? [],
+              }}
               onClose={() => setDrawerOpen(false)}
               mode={mode}
               onPreview={(data) => {
                 setPreviewData(data);
-                setMode("preview-edit");
+      setShowPreview(true);
+      setMode('preview-edit') 
               }}
               createMutation={createMutation}
               updateMutation={updateMutation}
