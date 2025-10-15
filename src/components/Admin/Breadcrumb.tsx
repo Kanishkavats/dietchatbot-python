@@ -16,7 +16,7 @@ const Breadcrumb = ({ lable }:{lable:string}) => {
       >
         {lable}
       </motion.div>
-      <Logout />
+      {/* <Logout /> */}
     </div>
   );
 };

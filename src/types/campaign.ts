@@ -25,7 +25,7 @@ export interface CampaignFormProps {
   initialData?: Partial<CampaignFormValues> & Partial<Campaign>;
   onClose: () => void;
   readOnly?: boolean; 
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
   onPreview?: (values: CampaignFormValues) => void;
   createMutation?: UseMutationResult<any, unknown, any, unknown>;
   updateMutation?: UseMutationResult<any, unknown, any, unknown>;

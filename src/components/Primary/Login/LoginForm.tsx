@@ -37,7 +37,8 @@ const LoginForm = () => {
           },
           onError: (err: any) => {
             toast.dismiss();
-            toast.error(err?.message || "Login failed ❌");
+            console.log(err)
+            toast.error(err?.response?.data?.message || "Login failed ❌");
             setSubmitting(false); // ✅ reset submitting
           },
         });

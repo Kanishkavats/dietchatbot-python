@@ -123,6 +123,49 @@ export const campaignSchema = Yup.object({
 
 export type CampaignFormValues = Yup.InferType<typeof campaignSchema>;
 
+// ======================= Event =======================
+
+export const EventSchema = Yup.object({
+
+  title:Yup.object({
+    en:Yup.string().required("Title is required in English"),
+    hi: Yup.string().required("शीर्षक हिंदी में होना आवश्यक है"),
+  }),
+  category:Yup.object({
+    en:Yup.string().required("Category is required"),
+    hi:Yup.string().required("श्रेणी आवश्यक है"),
+  }), 
+  description:Yup.object({
+    en:Yup.string().required("Description is required"),
+    hi:Yup.string().required("विवरण आवश्यक है"),
+  }), 
+  summary:Yup.object({
+    en:Yup.string().required("Summary is required"),
+    hi:Yup.string().required("सारांश आवश्यक है"),
+  }), 
+  keyPoints:Yup.object({
+    en: Yup.array()
+      .of(Yup.string().required("Key point in English is required"))
+      .min(1, "Add at least one key point in English")
+      .required("English key points are required"),
+
+    hi: Yup.array()
+      .of(Yup.string().required("मुख्य बिंदु हिंदी में आवश्यक है"))
+      .min(1, "कम से कम एक मुख्य बिंदु हिंदी में जोड़ें")
+      .required("हिंदी मुख्य बिंदु आवश्यक हैं"),
+  }).required("मुख्य बिंदु दोनों भाषाओं में आवश्यक हैं"), 
+ images: Yup.array()
+    .of(Yup.mixed().required("Image is required"))
+    .min(1, "At least one image is required"),
+  location:Yup.object({
+    en:Yup.string().required("Location is required"),
+    hi:Yup.string().required("स्थान आवश्यक है"),
+  }), 
+});
+
+
+export type EventFormValues = Yup.InferType<typeof EventSchema>;
+
 // ======================= Category =======================
 export const categorySchema = Yup.object({
   name: Yup.object({

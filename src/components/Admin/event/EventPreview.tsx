@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
+import { EventFormValues } from "@/src/utils/validations/FormValidation";
 import { FaCalendarAlt } from "react-icons/fa";
 import { MdLocationPin } from "react-icons/md";
 import { LucideCircleCheckBig } from "lucide-react";
@@ -10,15 +10,14 @@ import Button from "../../common/Buttons/Button";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
 import LanguageToggle from "../Common/LanguageToggle";
 
-export interface CampaignPreviewProps {
-  data: CampaignFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
+export interface EventPreviewProps {
+  data: EventFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
   onSubmit: () => void;
   onBack: () => void;
-  mode?: "add" | "edit" | "view"|"preview-edit";
-  showButton?:boolean
+  mode?: "add" | "edit" | "view";
 }
 
-const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: CampaignPreviewProps) => {
+const EventPreview = ({ data, onSubmit, onBack, mode }: EventPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   // const [language, setLanguage] = useState<"en" | "hi">("en");
   const { language, toggleLanguage } = useLanguageToggle();
@@ -105,11 +104,11 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
         </p>
         <p>
           <span className="font-semibold text-foreground">Goal Amount: </span>
-          ₹ {data.goalAmount.toLocaleString()}
+          {/* ₹ {data..toLocaleString()} */}
         </p>
         <p>
           <span className="font-semibold text-foreground">Raised Amount: </span>
-          ₹ {data.raisedAmount && data.raisedAmount.toLocaleString()}
+          {/* ₹ {data.raisedAmount && data.raisedAmount.toLocaleString()} */}
         </p>
 
       </div>
@@ -133,7 +132,6 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
       )}
 
       {/* Buttons */}
-      {showButton&&(
         <div className="mt-12 flex gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
@@ -152,9 +150,8 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
             hoverBg="before:bg-green"
           />
         </div>
-        )}
     </motion.div>
   );
 };
 
-export default CampaignPreview;
+export default EventPreview;

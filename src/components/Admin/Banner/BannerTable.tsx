@@ -31,7 +31,7 @@ const BannerTable = () => {
   const [searchField, setSearchField] = useState<BannerSearchField>("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editBannerId, setEditBannerId] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
@@ -50,7 +50,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
 
   const [bannerId, setbannerId] = useState<string | null>(null);
   const [previewDrawerOpen, setPreviewDrawerOpen] = useState(false);
-  const { data: singleBannerData, isLoading: isPreviewLoading } =
+  const { data: singleBannerData, isLoading: isPreviewLoading,refetch } =
     useFetchSingleBanner(bannerId || undefined);
 
   const createMutation = useMutation({
@@ -93,12 +93,26 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
     }
   }, [selectedBanner, deleteBanner]);
 
-  const handlePreview = useCallback((banner: Banner) => {
+  const handlePreview = useCallback(async(banner: Banner) => {
     if (!banner.id) return;
     setbannerId(banner.id);
-    setMode('view')
-    setPreviewDrawerOpen(true);
-  }, []);
+    setMode("view");
+    setDrawerOpen(true); 
+    setPreviewData(null); 
+  setShowPreview(false);
+
+  try {
+    setTimeout(async () => {
+      const { data } = await refetch();
+      if (data) {
+      setShowPreview(true)
+      setPreviewData(data);
+    }
+    }, 100); 
+  } catch (error) {
+    console.error("Failed to fetch campaign:", error);
+  }
+  }, [refetch]);
 
   // Handlers
   const handleEdit = useCallback((b: Banner) => {
@@ -199,19 +213,28 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
       setShowPreview(false);
     }}
     title={
-      mode==="edit"
-        ? "Edit Banner"
-        : mode === "view"&&!previewData
-        ? "View Banner"
-        : "Add Banner"
-    }
+    mode === "edit"
+      ? "Edit Banner"
+      : mode === "view" || mode === "preview-edit"
+      ? "View Banner"
+      : "Add Banner"
+  }
     mode={mode}
   >
-    {showPreview ? (
+    {(mode === "view" || mode === "preview-edit") && (
+    !previewData || isPreviewLoading ? (
+   
+    <div className="flex justify-center py-10">
+      <CustomLoader />
+    </div>
+  ) : (
       <BannerPreview
       mode={mode}
+      showButtons={mode === "preview-edit"}
         data={previewData!}
-        onBack={() => setShowPreview(false)}
+        onBack={() =>{ setShowPreview(false)
+          setMode(editBannerId ? "edit" : "add");
+        }}
         onSubmit={() => {
           if (!previewData) return;
           const editBannerData = singleBannerData ?? null;
@@ -231,7 +254,14 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
           );
         }}
       />
-    ) : (
+    
+    )
+  )}
+    {(mode === "add" || mode === "edit") && (
+      isPreviewLoading?(
+        <div><CustomLoader/></div>
+      ):
+    (
       <BannerForm
         initialData={{
           ...(singleBannerData||{}),
@@ -251,11 +281,12 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
         onPreview={(data) => {
           setPreviewData(data);
           setShowPreview(true);
+           setMode("preview-edit");
         }}
         createMutation={createMutation}
         updateMutation={updateMutation}
       />
-    )}
+    ))}
   </Drawer>
 )}
 

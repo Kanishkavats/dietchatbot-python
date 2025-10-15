@@ -3,78 +3,81 @@
 'use client';
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import CampaignForm from "./CampaignForm";
-import {  CampaignSearchOptions } from "../Data/staticData";
+import CampaignForm from "../Campaign/CampaignForm";
 import DataTableWrapper from "../Common/DataTableWrapper";
 import CustomInput from "../Common/CustomInput";
 import Dropdown from "../Common/Dropdown";
-import { getCampaignColumns } from "./campaignColumns";
+import { getEventColumns } from "./EventColumns";
 import Button from "../../common/Buttons/Button";
 import Drawer from "../Common/Drawer";
 import {
-  useDeleteSignleCampaign,
-  useFetchAllCampaigns,
-  useFetchSingleCampaign,
-  submitCampaignForm
-} from '@/src/components/Admin/hooks/useCampaigns'
-import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
+  useDeleteSingleEvent,
+  useFetchAllEvent,
+  useFetchSingleEvent,
+  submitEventForm
+} from '@/src/components/Admin/hooks/useEvent'
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCampaign, updateCampaign } from "@/src/components/Admin/services/campaignApi";
-import CampaignPreview from "./CampaignPreview";
+import CampaignPreview from "../Campaign/CampaignPreview";
 import { Campaign } from "@/src/types/campaign";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
 import toast from "react-hot-toast";
 import ConfirmModal from "../Common/ConfirmModal";
+import { createEvent, updateEvent } from "../services/eventApi";
+import { Event } from "../types/event";
+import { EventFormValues } from "@/src/utils/validations/FormValidation";
+import { CampaignSearchOptions } from "../Data/staticData";
+import EventPreview from "./EventPreview";
 
-const CampaignTable = () => {
+const EventTable = () => {
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"title" | "organizer" | "category">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [editCampaign, setEditCampaign] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
+  const [editEvent, setEditEvent] = useState<string | null>(null);
+  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const [isOpen, setIsOpen] = useState(false);
-    const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
+    const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
 
-  const [previewData, setPreviewData] = useState<CampaignFormValues | null>(null);
+  const [previewData, setPreviewData] = useState<EventFormValues | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const{language,toggleLanguage}=useLanguageToggle();
 
-  const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage);
-  const { data: singleCampaignData, isLoading: isLoadingCampaign,refetch } = useFetchSingleCampaign(editCampaign || undefined);
-  const { mutate: deleteCampaign } = useDeleteSignleCampaign();
-  const totalPages = campaignData?.totalPages || 1;
+  const { data: eventData , isLoading } = useFetchAllEvent(currentPage, itemsPerPage);
+  const { data: singleEventData, isLoading: isLoadingCampaign,refetch } = useFetchSingleEvent(editEvent || undefined);
+  const { mutate: deleteEvent } = useDeleteSingleEvent();
+  const totalPages = eventData?.totalPages || 1;
+  console.log(eventData)
 
 const lang=language
   const queryClient = useQueryClient();
 
   const createMutation = useMutation({
-    mutationFn: createCampaign,
+    mutationFn: createEvent,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+      queryClient.invalidateQueries({ queryKey: ["event"] });
     },
   });
 
   const updateMutation = useMutation({
-    mutationFn: (data: { id: string; values: CampaignFormValues }) =>
-      updateCampaign(data.id, data.values),
+    mutationFn: (data: { id: string; values: EventFormValues }) =>
+      updateEvent(data.id, data.values),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+      queryClient.invalidateQueries({ queryKey: ["event"] });
     },
   });
-const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages: string[] } => {
+const normalizeEventData = (data: any): EventFormValues & { existingImages: string[] } => {
   return {
     title: data.title ?? { en: "", hi: "" },
     category: data.category ?? { en: "", hi: "" },
     description: data.description ?? { en: "", hi: "" },
-    goalAmount: data.goalAmount ?? 0,
     summary: data.summary ?? { en: "", hi: "" },
     keyPoints: data.keyPoints ?? { en: [], hi: [] },
     location: data.location ?? { en: "", hi: "" },
@@ -86,55 +89,52 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
 };
 
 
-  const handleEdit = useCallback((c: Campaign) => {
-    setEditCampaign(c.id.toString());
+  const handleEdit = useCallback((e: Event) => {
+    setEditEvent(e.id.toString());
     setMode("edit");
     setDrawerOpen(true);
   }, []);
 
-  const handleView = useCallback(async (c: Campaign) => {
-    setEditCampaign(c.id.toString());
+  const handleView = useCallback(async (e: Event) => {
+    setEditEvent(e.id.toString());
     setMode("view");
     setDrawerOpen(true); 
-    setPreviewData(null); 
-  setShowPreview(false);
+
   try {
-   setTimeout(async () => {
-      const { data } = await refetch();
-      if (data) {
-        setPreviewData(normalizeCampaignData(data));
-        setShowPreview(true);
-      }
-    }, 100); 
+    const { data } = await refetch(); 
+    if (data) {
+      setMode("view");
+      setPreviewData(normalizeEventData(data));
+    }
   } catch (error) {
     console.error("Failed to fetch campaign:", error);
   }
   }, [refetch]);
 
   const handleDelete = useCallback(
-    (c: Campaign) => {
-      if (!c.id) {
+    (e: Event) => {
+      if (!e.id) {
         console.error("Cannot delete Campaign: ID is missing.");
         return;
       }
-      setSelectedCampaign(c);
+      setSelectedEvent(e);
       setIsOpen(true);
     },
-    [deleteCampaign]
+    [deleteEvent]
   );
   const confirmDelete = useCallback(() => {
-    if (selectedCampaign?.id) {
+    if (selectedEvent?.id) {
       toast.dismiss();
         toast.loading("Deleting Campaign....")
-      deleteCampaign(selectedCampaign.id.toString());
+      deleteEvent(selectedEvent.id.toString());
       setIsOpen(false);
-      setSelectedCampaign(null);
+      setSelectedEvent(null);
     }
-  }, [selectedCampaign, deleteCampaign]);
+  }, [selectedEvent, deleteEvent]);
 
   const columns = useMemo(
     () =>
-      getCampaignColumns({
+      getEventColumns({
         onEdit: handleEdit,
         onDelete: handleDelete,
         onView: handleView,
@@ -143,40 +143,55 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
   );
 
   const paginatedData = useMemo(() => {
-    if (!campaignData?.campaigns) return [];
-    return campaignData.campaigns.map((c: any) => ({
-      ...c,
-      organizer: c.organizer || "Admin",
-    }));
-  }, [campaignData]);
+  if (!eventData?.events) return [];
+
+  return eventData.events.map((e: any, index: number) => {
+    const start = new Date(e.startTime);
+    const end = new Date(e.endTime);
+
+    return {
+      id: e.id,
+      title: e.title,
+      description: e.description,
+      summary: e.summary,
+      startTime: start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }), 
+      endTime: end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),     
+      location: e.location,
+      images: e.images,
+      keyPoints: e.keyPoints,
+      status: e.status || "Active",
+      Date: start.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' }), 
+    };
+  });
+}, [eventData]);
+
 
 
   const filteredData = useMemo(() => {
-  return paginatedData.filter((campaign: Campaign) => {
-    const fieldValue = campaign[searchField];
+  return paginatedData.filter((event: Event) => {
+    const fieldValue = event[searchField];
     if (typeof fieldValue === "string") return fieldValue.toLowerCase().includes(search.toLowerCase());
     if (typeof fieldValue === "object" && fieldValue?.[lang]) return fieldValue[lang].toLowerCase().includes(search.toLowerCase());
     return false;
   });
 }, [paginatedData, search, searchField, lang]);
-  const normalizedCampaignData = useMemo(() => {
-  if (!singleCampaignData) return undefined;
+  const normalizedEventData = useMemo(() => {
+  if (!singleEventData) return undefined;
 
   // Ensure both images and existingImages contain URLs
   const stringImages =
-    singleCampaignData.images?.filter((img: any) => typeof img === "string") ?? [];
+    singleEventData.images?.filter((img: any) => typeof img === "string") ?? [];
 
   return {
-    ...singleCampaignData,
-    existingImages: singleCampaignData.existingImages ?? stringImages,
-    images: singleCampaignData.images ?? stringImages,
+    ...singleEventData,
+    // existingImages: singleEventData.existingImages ?? stringImages,
+    images: singleEventData.images ?? stringImages,
   };
-}, [singleCampaignData]);
+}, [singleEventData]);
 
 
   return (
     <div>
-      {/* Top Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
           <div className="w-fit flex flex-row gap-2">
@@ -202,10 +217,10 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
         <AnimatedReveal direction="left" delay={0.3}>
           <div className="w-fit">
             <Button
-              text="Add Campaign"
+              text="Add Event"
               onClick={() => {
                 setDrawerOpen(true);
-                setEditCampaign(null);
+                setEditEvent(null);
                 setMode("add");
               }}
               bgColor="bg-lime-green"
@@ -250,40 +265,33 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
         isOpen={drawerOpen}
         onClose={() => {
           setDrawerOpen(false);
-          setEditCampaign(null);
+          setEditEvent(null);
           setMode("add");
           setPreviewData(null);
         }}
         // &&!previewData
-       title={
-    mode === "edit"
-      ? "Edit Campaign"
-      : mode === "view" || mode === "preview-edit"
-      ? "View Campaign"
-      : "Add Campaign"
-  }
+        title={
+          mode === "edit"
+            ? "Edit Campaign"
+            : mode === "view"
+              ? "View Campaign"
+              : "Add Campaign"
+        }
         mode={mode}
 
       >
-        {(mode === "view" || mode === "preview-edit") && (
-    !previewData || isLoadingCampaign ? (
-   
-    <div className="flex justify-center py-10">
-      <CustomLoader />
-    </div>
-  ) : (
-  <CampaignPreview
+        {/* /* {previewData ? ( */}
+         
+        {showPreview ? (
+  <EventPreview
     mode={mode}
-    showButton={mode === "preview-edit"}
-    data={normalizeCampaignData(previewData)}
+    data={normalizeEventData(previewData)}
     onBack={() => {
-  setShowPreview(false); 
-  setMode(editCampaign ? "edit" : "add");
-      
+  setShowPreview(false); // 👈 only hide preview
+      // keep previewData so CampaignForm can use it
     }}
     onSubmit={() => {
-
-      submitCampaignForm(
+      submitEventForm(
         { ...previewData!, keyPoints: previewData!.keyPoints },
         singleCampaignData,
         createMutation,
@@ -298,26 +306,21 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
       );
     }}
   />
-  )
-  )}
-{(mode === "add" || mode === "edit") && (
-      isLoadingCampaign?(
-        <div><CustomLoader/></div>
-      ):
-    (
+) :(isLoadingCampaign?<><CustomLoader/></>:
+ (
   <CampaignForm
     initialData={{
-    ...(normalizedCampaignData ?? {}),
+    ...(normalizedEventData ?? {}),
     ...(previewData ?? {}),
     // Ensure both arrays persist
     images:
       previewData?.images?.length
         ? previewData.images
-        : normalizedCampaignData?.images ?? [],
+        : normalizedEventData?.images ?? [],
     existingImages:
       previewData?.existingImages?.length
         ? previewData.existingImages
-        : normalizedCampaignData?.existingImages ?? [],
+        : normalizedEventData?.existingImages ?? [],
   }}
     onClose={() => {
       setDrawerOpen(false);
@@ -327,8 +330,7 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     mode={mode}
     onPreview={(data) => {
       setPreviewData(data);
-      setShowPreview(true);
-      setMode('preview-edit') 
+      setShowPreview(true); 
     }}
     createMutation={createMutation}
     updateMutation={updateMutation}
@@ -348,5 +350,5 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
   );
 };
 
-export default CampaignTable;
+export default EventTable;
 

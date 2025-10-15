@@ -133,7 +133,7 @@ export const submitBlogForm = (
 };
 
 // ✅ Fetch blogs with pagination
-export const useFetchAllBlogs = (page: number, limit: number = 10,searchText?:string) => {
+export const useFetchAllBlogs = (page: number, limit: number = 10,searchText='All') => {
   return useQuery({
     queryKey: ["blogs", page, limit,searchText],
     queryFn: () => fetchAllBlogs(page, limit,searchText),

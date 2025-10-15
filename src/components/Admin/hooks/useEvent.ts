@@ -1,10 +1,11 @@
 
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
-import { fetchAllCampaigns, fetchCampaignById, deleteSingleCampaign} from "../services/campaignApi";
-import { CampaignFormValues } from "../utils/validations/FormValidation";
+import { createEvent,deleteSingleEvent,fetchAllEvent,fetchEventById,updateEvent} from "../services/eventApi";
+import { CampaignFormValues, EventFormValues } from "@/src/utils/validations/FormValidation";
 import { CampaignFormProps } from "@/src/types/campaign";
 import toast from "react-hot-toast";
-import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
+import { useLanguageAwareQuery } from "@/src/hooks/useLanguageAwareQuery";
+import { EventFormProps } from "../types/event";
 
 // Convert values to FormData
 const buildFormData = (values: CampaignFormValues) => {
@@ -46,8 +47,8 @@ const buildFormData = (values: CampaignFormValues) => {
 };
 
 
-//  function to handle campaign create
-const handleCreateCampaign = (
+
+const handleCreatEvent = (
   values: CampaignFormValues,
   createMutation: any,
   resetForm: () => void,
@@ -55,13 +56,13 @@ const handleCreateCampaign = (
   onClose: () => void
 ) => {
   toast.dismiss();
-  toast.loading("Creating campaign...");
+  toast.loading("Creating Event...");
   const formData = buildFormData(values);
 
   createMutation.mutate(formData, {
     onSuccess: () => {
       toast.dismiss();
-      toast.success("Campaign created");
+      toast.success("Event created");
       resetForm();
       setSubmitting(false);
       onClose();
@@ -74,8 +75,8 @@ const handleCreateCampaign = (
   });
 };
 
-// function to handle campaign update
-const handleUpdateCampaign = (
+
+const handleUpdateEvent = (
   id: string,
   values: CampaignFormValues,
   updateMutation: any,
@@ -84,7 +85,7 @@ const handleUpdateCampaign = (
   onClose: () => void
 ) => {
   toast.dismiss();
-  toast.loading("Updating campaign...");
+  toast.loading("Updating event...");
   const formData = buildFormData(values);
 
   updateMutation.mutate(
@@ -92,7 +93,7 @@ const handleUpdateCampaign = (
     {
       onSuccess: () => {
         toast.dismiss();
-        toast.success("Campaign updated");
+        toast.success("event updated");
         resetForm();
         setSubmitting(false);
         onClose();
@@ -106,58 +107,60 @@ const handleUpdateCampaign = (
   );
 };
 
-// unified form submit
-export const submitCampaignForm = (
-  values: CampaignFormValues,
-  initialData: CampaignFormProps["initialData"],
+
+export const submitEventForm = (
+  values: EventFormValues,
+  initialData: EventFormProps["initialData"],
   createMutation: any,
   updateMutation: any,
   resetForm: () => void,
   setSubmitting: (isSubmitting: boolean) => void,
   onClose: () => void
 ) => {
-  if (initialData?.id) {
-    handleUpdateCampaign(initialData.id.toString(), values, updateMutation, resetForm, setSubmitting, onClose);
-  } else {
-    handleCreateCampaign(values, createMutation, resetForm, setSubmitting, onClose);
-  }
+//   if (initialData?.id) {
+//     handleUpdateCampaign(initialData.id.toString(), values, updateMutation, resetForm, setSubmitting, onClose);
+//   } else {
+//     handleCreateCampaign(values, createMutation, resetForm, setSubmitting, onClose);
+//   }
 };
 
-// ✅ Fetch campaigns with pagination (language-aware)
-export const useFetchAllCampaigns = (page: number, limit: number = 10,searchText="All") => {
+
+export const useFetchAllEvent = (page: number, limit: number = 10) => {
   return useLanguageAwareQuery(
-    ["campaigns", page, limit,searchText], // different cache per page+limit
-    () => fetchAllCampaigns(page, limit,searchText),
+    ["event", page, limit], 
+    () => fetchAllEvent(page, limit),
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
     }
   );
 };
 
 
-export const useFetchSingleCampaign = (id?: string,options?: { enabled?: boolean }) => {
+export const useFetchSingleEvent = (id?: string,options?: { enabled?: boolean }) => {
+    console.log(id)
   return useLanguageAwareQuery(
-    ["campaign", id],
-    () => fetchCampaignById(id!),
+    ["event", id],
+    () => fetchEventById(id!),
     {
       enabled: options?.enabled ?? !!id,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
     }
   );
 };
 
 
-//  Delete campaign
-export const useDeleteSignleCampaign = () => {
+
+export const useDeleteSingleEvent = () => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: deleteSingleCampaign,
+    mutationFn: deleteSingleEvent,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
-      toast.success("Campaign deleted successfully");
+      queryClient.invalidateQueries({ queryKey: ["event"] });
+      toast.dismiss();
+      toast.success("event deleted successfully");
     },
     onError: (error: any) => {
-      toast.error(error?.message || "Failed to delete campaign");
+      toast.error(error?.message || "Failed to event campaign");
     }
   });
 };

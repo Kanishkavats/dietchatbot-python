@@ -12,6 +12,7 @@ import Comments from "../comments";
 import Banner from "../Banner";
 import Queries from "../Queries";
 import Feedback from "../Feedback";
+import Event from "../event";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
@@ -22,6 +23,7 @@ const AdminTab = () => {
     members: <Members />,
     settings: <Settings />,
     campaign: <Campaign />,
+    event:<Event/>,
     category: <Category />,
     blog:<Blog />,
     comments: <Comments />,
