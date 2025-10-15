@@ -15,6 +15,7 @@ import { Toaster } from 'react-hot-toast';
 import CustomCursor from '../components/CustomCursor/CustomCursor';
 import LanguageProviders from './languageProvider';
 import { LanguageProvider } from '../contexts/LanguageContext';
+import I18nProvider from './I18nProvider';
 
 export default function AppProviders({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -64,6 +65,7 @@ export default function AppProviders({ children }: { children: ReactNode }) {
   }
 
   return (
+    <I18nProvider>
     <LanguageProviders>
       <LanguageProvider>
         <Provider store={store}>
@@ -94,5 +96,6 @@ export default function AppProviders({ children }: { children: ReactNode }) {
         </Provider>
       </LanguageProvider>
     </LanguageProviders>
+    </I18nProvider>
   );
 }

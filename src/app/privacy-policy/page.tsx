@@ -14,6 +14,7 @@ const PrivacyPolicy = () => {
 
       {/* Text content only */}
       <section className="max-w-4xl mx-auto px-4 py-12 text-gray-700 leading-relaxed">
+      {/* <section className="w-full mx-0 px-4 sm:px-8 py-12 text-gray-700 leading-relaxed"> */}
         <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
         <p className="mb-6">
           Your privacy matters to us. This Privacy Policy explains how we
@@ -31,7 +32,9 @@ const PrivacyPolicy = () => {
           experience and ensure smooth operation of our website. This may
           include:
         </p>
-        <ul className="list-disc list-inside mb-6 space-y-2">
+        {/* <ul className="list-disc list-inside mb-6 space-y-2"> */}
+        <ul className="list-disc list-outside pl-4 mb-6 space-y-2">
+
           <li>Personal details such as your name, email address, and phone number.</li>
           <li>Information submitted through forms, surveys, or sign-up processes.</li>
           <li>Usage data, including IP address, browser type, and pages visited.</li>
@@ -46,7 +49,9 @@ const PrivacyPolicy = () => {
           improve our content, and communicate effectively with you. We use your
           information to:
         </p>
-        <ul className="list-disc list-inside mb-6 space-y-2">
+        {/* <ul className="list-disc list-inside mb-6 space-y-2"> */}
+        <ul className="list-disc list-outside pl-4 mb-6 space-y-2">
+
           <li>Respond to inquiries, feedback, or service requests.</li>
           <li>Personalize and improve user experience on our platform.</li>
           <li>Send important updates, newsletters, or promotional materials (only if you opt-in).</li>
