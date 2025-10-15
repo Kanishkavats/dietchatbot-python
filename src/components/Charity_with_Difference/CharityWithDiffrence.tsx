@@ -16,12 +16,14 @@ import { FaArrowLeft } from "react-icons/fa";
 import { FaArrowRight } from "react-icons/fa";
 import FadeUpCard from '@/src/animations/FadeButtomUp';
 import SlideinFromLeft from '@/src/animations/SlideInFromLeft';
+import { useTranslation } from 'react-i18next';
 
 export default function CharityWithDifference() {
   // Animation refs
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true });
   const swiperRef = useRef<SwiperType | null>(null);
+  const { t } = useTranslation();
 
   return (
     <div className="bg-white overflow-hidden py-4  lg:py-4 px-4 relative">
@@ -36,7 +38,7 @@ export default function CharityWithDifference() {
             transition={{ duration: 1 }}
           >
             <i className="text-xl md:text-2xl text-green hand-icon"></i>
-            <span className="text-green font-caveat text-lg md:text-[22px] xl:text-2xl font-bold">Start Donating Poor People</span>
+            <span className="text-green font-caveat text-lg md:text-[22px] xl:text-2xl font-bold">{t("Start Donating Poor People")}</span>
           </motion.div>
           <motion.h2 
             className="text-[28px] leading-tight font-nunito md:text-4xl xl:text-[50px] font-bold text-dark-green mb-6 xs:mb-4" 
@@ -45,7 +47,7 @@ export default function CharityWithDifference() {
             animate={isHeaderInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
             transition={{ duration: 1, delay: 0.2 }}
           >
-            Charity With Difference
+            {t("Charity With Difference")}
           </motion.h2>
           <motion.p 
             className="text-gray-green text-[16px] font-semibold max-w-[780px] font-nunito lg:max-w-2xl xl:max-w-3xl md:text-[16px] md:tracking-tight font-nunito xl:tracking-wide leading-7 mx-auto"
@@ -54,8 +56,7 @@ export default function CharityWithDifference() {
             animate={isHeaderInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
             transition={{ duration: 1, delay: 0.4 }}
           >
-            Join Our Monthly Giving Program To Provide Consistent Support To Our Initiatives. 
-            Regular Contributions, No Matter The Size, Help Us Plan And Sustain Long-Term Projects.
+            {t("Join Our Monthly Giving Program To Provide Consistent Support To Our Initiatives. Regular Contributions, No Matter The Size, Help Us Plan And Sustain Long-Term Projects.")}
           </motion.p>
         </div>
         </FadeUpCard>
@@ -106,7 +107,7 @@ export default function CharityWithDifference() {
             }
           }}
         >
-          <div className='md:px-14 lg:px-15 xl:px-8 mx-auto'>
+          <div className='md:px-14 lg:px-15 xl:px-8 mx-auto charity-container-center'>
           <Swiper
             onSwiper={(swiper) => {
               swiperRef.current = swiper;

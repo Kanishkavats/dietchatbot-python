@@ -1,5 +1,37 @@
 @import "tailwindcss";
 
+/* Center charity container and utilize space for 500px-750px */
+@media (min-width: 500px) and (max-width: 750px) {
+  .charity-container-center {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  .charity-container-center .swiper {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  .charity-container-center .swiper-wrapper {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  
+  .charity-container-center .swiper-slide {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: auto !important;
+    flex-shrink: 0 !important;
+  }
+}
+
 /* Font imports */
 @font-face {
   font-family: "Charifund";

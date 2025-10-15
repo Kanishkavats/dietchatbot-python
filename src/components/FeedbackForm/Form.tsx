@@ -9,6 +9,7 @@ import InputField from "../common/inputs/InputField";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import { feedbackSchema, FeedbackFormValues } from '@/src/utils/validations/FormValidation';
 import { useCreateFeedback, submitFeedbackForm } from '@/src/hooks/useFeedback';
+import { useTranslation } from 'react-i18next';
 
 const initialValues: FeedbackFormValues = {
   name: '',
@@ -23,6 +24,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
   const [imageName, setImageName] = React.useState<string>('')
   const [imageSizeError, setImageSizeError] = React.useState<string>('')
   const [toast, setToast] = React.useState<{ type: 'success' | 'error', message: string } | null>(null)
+  const { t } = useTranslation()
   
   // Initialize the mutation hook
   const createFeedbackMutation = useCreateFeedback()
@@ -48,7 +50,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
 
   const handleSubmit = async (values: FeedbackFormValues, { resetForm, setSubmitting }: any) => {
 
-    setToast({ type: 'success', message: 'Submitting your feedback...' });
+    setToast({ type: 'success', message: t('Submitting your feedback...') });
     try {
       await submitFeedbackForm(
         values,
@@ -59,7 +61,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
       );
     } catch (error) {
       console.log('❌ Error in feedback submission:', error);
-      setToast({ type: 'error', message: 'Failed to submit feedback' });
+      setToast({ type: 'error', message: t('Failed to submit feedback') });
     }
   }
 
@@ -116,11 +118,11 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                 <div className="flex gap-1 sm:gap-2 mt-2 sm:mt-3 mb-2 sm:mb-3">
                   <Icon icon={"mdi:hand-heart"} className="text-lg sm:text-xl text-yellow" />
                   <span className="text-yellow font-caveat font-extrabold text-sm sm:text-lg md:text-xl">
-                    Start Donating Poor People
+                    {t("Start Donating Poor People")}
                   </span>
                 </div>
                 <h2 className="text-lg sm:text-xl md:text-2xl font-nunito font-extrabold text-white leading-tight">
-                  Share Your <span className="text-yellow">Experience!</span>
+                  {t("Share Your")} <span className="text-yellow">{t("Experience!")}</span>
                 </h2>
               </FadeUpCard>
             </div>
@@ -145,7 +147,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                     <div className="relative">
                       <InputField
                         name="name"
-                        placeholder="Your name..."
+                        placeholder={t("Your name...")}
                         icon={"mdi:account"}
                         textSize="text-base"
                         errorTextSize="text-sm"
@@ -159,7 +161,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                         name="designation"
                         textSize="text-base"
                         errorTextSize="text-sm"
-                        placeholder="Your designation..."
+                        placeholder={t("Your designation...")}
                         icon="mdi:briefcase"
                         iconClassName="text-yellow text-base font-bold size-5 mt-[2px]"
                         className="w-full rounded-md border flex border-gray-green h-[44px] sm:h-[48px] bg-foreground/18 px-3 sm:px-4 py-2 sm:py-3 text-white focus:outline-none"
@@ -170,7 +172,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                   {/* Rating */}
                   <div className="relative">
                     <label className="block text-xs sm:text-sm font-medium text-white mb-2">
-                      Rating * (1-5)
+                      {t("Rating")} * (1-5)
                     </label>
                     <div className="flex gap-1 sm:gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -201,7 +203,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                       name="feedback"
                       textSize="text-base"
                       errorTextSize="text-sm"
-                      placeholder="Your feedback..."
+                      placeholder={t("Your feedback...")}
                       icon="mdi:message-text"
                       iconClassName="text-yellow text-base font-bold size-5 mt-[2px]"
                       className="w-full rounded-md border border-gray-green h-[100px] sm:h-[96px] bg-foreground/18 px-3 sm:px-4 py-2 sm:py-3 focus:outline-none resize-none overflow-y-auto scrollbar-hide"
@@ -213,7 +215,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
 
                   <div className="relative text-white">
                     <label className="block text-xs sm:text-sm font-medium text-white mb-2">
-                      Profile Image *
+                      {t("Profile Image")} *
                     </label>
                     <div className="relative">
                       {imagePreview ? (
@@ -231,7 +233,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                                 {imageName}
                               </div>
                               <div className="text-gray-400 text-xs sm:text-sm">
-                                Uploaded successfully
+                                {t("Uploaded successfully")}
                               </div>
                             </div>
                             <button
@@ -255,8 +257,8 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                             className="text-yellow text-xl sm:text-2xl md:text-3xl mb-1 sm:mb-2"
                           />
                           <div className="text-center px-1 sm:px-2">
-                            <span className="text-gray-400 text-xs sm:text-sm font-base">Drag & Drop your images here or </span>
-                            <span className="text-yellow text-xs sm:text-sm font-semibold cursor-pointer">browse files</span>
+                            <span className="text-gray-400 text-xs sm:text-sm font-base">{t("Drag & Drop your images here or")} </span>
+                            <span className="text-yellow text-xs sm:text-sm font-semibold cursor-pointer">{t("browse files")}</span>
                           </div>
                           <input
                             type="file"
@@ -268,7 +270,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                                 
                                 const maxSize = 5 * 1024 * 1024; 
                                 if (file.size > maxSize) {
-                                  setImageSizeError('Image size must be less than 5MB.');
+                                  setImageSizeError(t('Image size must be less than 5MB.'));
                                   setImagePreview(null);
                                   setImageName('');
                                   setFieldValue('image', null);
@@ -318,7 +320,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                        
                       }}
                     >
-                      {isSubmitting ? 'Submitting...' : 'Submit Feedback'}
+                      {isSubmitting ? t('Submitting...') : t('Submit Feedback')}
                       </Button>
                     </div>
                   </div>

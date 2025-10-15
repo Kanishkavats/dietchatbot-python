@@ -32,8 +32,12 @@ const NavbarActions = ({  setMobileMenuOpen, mobileMenuOpen }: Props) => {
 
       {/* Menu Icon (Mobile) */}
       <div className="xl:hidden block">
-        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-green">
-          <Icon icon="ci:menu-alt-02" width={36} height={38} />
+        <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="text-teal-600">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="currentColor" transform="rotate(180)">
+            <rect x="4" y="8" width="16" height="2" rx="1" fill="currentColor" opacity="0.9"/>
+            <rect x="4" y="15" width="24" height="1.5" rx="0.75" fill="currentColor"/>
+            <rect x="4" y="22" width="20" height="1" rx="0.5" fill="currentColor" opacity="0.7"/>
+          </svg>
         </button>
       </div>
     </div>

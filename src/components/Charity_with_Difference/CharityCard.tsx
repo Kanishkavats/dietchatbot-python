@@ -1,8 +1,8 @@
 'use client';
 
 import React from 'react';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 
 interface CharityCardProps {
   id: number;
@@ -25,11 +25,39 @@ const CharityCard: React.FC<CharityCardProps> = ({
   isTransitioning,
   animationDelay = 0
 }) => {
-  const router = useRouter();
-
-  const handleCardClick = () => {
-    router.push(`/charity/${id}`);
+  const { t } = useTranslation();
+  
+  // Get translated title and description based on card ID
+  const getTranslatedContent = (cardId: number) => {
+    switch (cardId) {
+      case 1:
+      case 4:
+        return {
+          title: t("Healthy Food"),
+          description: t("Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple")
+        };
+      case 2:
+      case 5:
+        return {
+          title: t("Medical Care"),
+          description: t("Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple")
+        };
+      case 3:
+      case 6:
+        return {
+          title: t("Child Education"),
+          description: t("Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple")
+        };
+      default:
+        return {
+          title: title,
+          description: description
+        };
+    }
   };
+
+  const translatedContent = getTranslatedContent(id);
+  
   // Map color classes to CSS variables
   const getColorClass = (colorClass: string) => {
     switch (colorClass) {
@@ -112,17 +140,15 @@ const CharityCard: React.FC<CharityCardProps> = ({
         </div>
 
         {/* Title */}
-        <div className='cursor-pointer mt-2'
-        onClick={handleCardClick}
-        >
+        <div className='mt-2'>
         <h3 className="text-lg xl:text-2xl font-extrabold text-dark-green mb-4 hover:text-olive-brown transition-all duration-300 ">
-          {title}
+          {translatedContent.title}
         </h3>
         </div>
 
         {/* Description */}
         <p className="text-gray-green text-[15px] leading-7 tracking xs:max-w-[250px] md:max-w-[300px] lg:max-w-[260px]">
-          {description}
+          {translatedContent.description}
         </p>
       </div>
     </motion.div>

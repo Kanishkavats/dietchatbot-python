@@ -11,7 +11,7 @@ const Login = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 flex-grow">
         {/* Left Side */}
         <div className="hidden md:flex flex-col items-center justify-center bg-primaryColor text-black p-10">
-          <Image src={logo.src} alt="logo" width={280} height={120} className="mb-6" />
+          <Image src={logo.src} alt="logo" width={280} height={120} className="mb-6 object-contain md:w-96 md:h-40 lg:w-[420px] lg:h-48 -ml-16" />
           <h2 className="text-3xl font-bold text-center">Welcome Back</h2>
           <p className="mt-4 text-center text-black/80 max-w-md">
             Sign in to continue managing your funds and stay connected with the Charifund community.
