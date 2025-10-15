@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { EventFormValues } from "@/src/utils/validations/FormValidation";
-import { FaCalendarAlt } from "react-icons/fa";
+import { FaCalendarAlt, FaClock } from "react-icons/fa";
 import { MdLocationPin } from "react-icons/md";
 import { LucideCircleCheckBig } from "lucide-react";
 import { motion } from "framer-motion";
@@ -14,11 +14,13 @@ export interface EventPreviewProps {
   data: EventFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
   onSubmit: () => void;
   onBack: () => void;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
+  showButton?:boolean;
 }
 
-const EventPreview = ({ data, onSubmit, onBack, mode }: EventPreviewProps) => {
+const EventPreview = ({ data, onSubmit, onBack, mode,showButton=true }: EventPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
+  console.log(data)
   // const [language, setLanguage] = useState<"en" | "hi">("en");
   const { language, toggleLanguage } = useLanguageToggle();
   useEffect(() => {
@@ -52,6 +54,17 @@ const EventPreview = ({ data, onSubmit, onBack, mode }: EventPreviewProps) => {
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);
   const lang=language
+  const formatDate = (dateStr?:  Date|null) => {
+  if (!dateStr) return "-";
+  const d = new Date(dateStr);
+  return d.toLocaleDateString("en-IN", { day: "2-digit", month: "short", year: "numeric" });
+};
+
+const formatTime = (dateStr?: Date|null) => {
+  if (!dateStr) return "-";
+  const d = new Date(dateStr);
+  return d.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit", hour12: true });
+};
   return (
     <motion.div
       className="bg-white lg:px-4 py-8 max-w-5xl mx-auto font-sans text-black"
@@ -97,20 +110,12 @@ const EventPreview = ({ data, onSubmit, onBack, mode }: EventPreviewProps) => {
         <p>{data.description?.[lang]}</p>
         <p>{data.summary?.[lang]}</p>
 
-        <p>
-          <span className="font-semibold text-foreground">Organizer
-            : </span>
-          {data.organizer}
-        </p>
-        <p>
-          <span className="font-semibold text-foreground">Goal Amount: </span>
-          {/* ₹ {data..toLocaleString()} */}
-        </p>
-        <p>
-          <span className="font-semibold text-foreground">Raised Amount: </span>
-          {/* ₹ {data.raisedAmount && data.raisedAmount.toLocaleString()} */}
-        </p>
-
+        <div className="flex flex-wrap gap-x-6 gap-y-2 mb-6 text-foreground font-medium">
+        <p className="flex items-center gap-2"><FaCalendarAlt /> Start: {formatDate(data.startDate)} </p>
+        <p className="flex items-center gap-2"><FaClock /> {formatTime(data.startTime)}</p>
+        <p className="flex items-center gap-2"><FaCalendarAlt /> End: {formatDate(data.endDate)}</p>
+        <p className="flex items-center gap-2"><FaClock /> {formatTime(data.endTime)}</p>
+        </div>
       </div>
 
       {/* Image Grid */}
@@ -132,6 +137,7 @@ const EventPreview = ({ data, onSubmit, onBack, mode }: EventPreviewProps) => {
       )}
 
       {/* Buttons */}
+      {showButton&&(
         <div className="mt-12 flex gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
@@ -150,6 +156,7 @@ const EventPreview = ({ data, onSubmit, onBack, mode }: EventPreviewProps) => {
             hoverBg="before:bg-green"
           />
         </div>
+        )}
     </motion.div>
   );
 };

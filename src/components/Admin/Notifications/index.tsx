@@ -44,7 +44,7 @@ const Notifications = () => {
   };
 
   return (
-    <div className="p-5 w-full">
+    <div className=" w-full">
       <Breadcrumb lable="Notifications" />
 
       <div className="mt-6 bg-white rounded-xl py-4">
