@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
 import { gridDot, donatediffway } from '@/public/assets';
 import FadeUpCard from '@/src/animations/FadeButtomUp';
- import AnimatedCircle from './AnimatedCircle'; // animated circle
+import AnimatedCircle from './AnimatedCircle'; // animated circle
 const DonateDifferentWay: React.FC = () => {
   const [activeTab, setActiveTab] = useState('mission');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -131,7 +131,7 @@ const DonateDifferentWay: React.FC = () => {
           </div>
         </div>
                 <div className='flex flex-col mt-5 md:mt-5 w-full lg:flex-row items-start justify-between '>
-                  <h2 className='text-3xl w-full tracking-tight md:tracking-normal lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl font-nunito font-extrabold  text-dark-green leading-10 md:leading-10 lg:leading-tight'>
+                  <h2 className='text-3xl w-full tracking-tight md:tracking-normal lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl  lg:text-[40px] font-nunito font-extrabold  text-dark-green leading-10 md:leading-10 lg:leading-tight'>
                     <span className='text-dark-green'>{t("Donate")} <span className='text-yellow'>{t("Support")}</span> {t("To Make")}</span>
                     <span className='text-dark-green'> {t("Difference Way")}</span>
                   </h2>
@@ -159,18 +159,18 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Introductory text */}
-              <p className='text-gray-green text-sm sm:text-sm xl:text-[16px] md:pr-5 lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-7  lg:leading-relaxed xl:leading-7 lg:tracking-wide xl:tracking-wide  font-nunito font-normal'>
+              <p className='text-gray-green text-sm sm:text-sm xl:text-[16px] lg:text-[16px] md:pr-5 lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-7  lg:leading-relaxed xl:leading-7 lg:tracking-wide xl:tracking-wide  font-nunito font-normal'>
                 {t("Charity Is The Voluntary Act Of Giving Help, Typically In The Form Of Money, Time, Or Resources, To Those In Need. Charitable Organizations Aim To Solve Social, Environmental, And Economic Challenges By Addressing Issues Like Poverty,")}
               </p>
               <div className='flex flex-col md:flex-row lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 '>
                 <div >
               {/* Tabbed Navigation */}
-              <div className='flex flex-wrap gap-7 xs:gap-5 md:space-x-2 md:gap-1 xl:gap-2 justify-center md:mr-2 border-b border-gray-200 mx-auto lg:ml-5 lg:mr-5 xl:ml-0 xl:mr-0 mt-6 xs:mt-4 xl:mt-10 pb-4 '>
+              <div className='flex flex-wrap gap-7 xs:gap-5 md:space-x-2 md:gap-1 xl:gap-2  justify-center md:mr-2 border-b border-gray-200 mx-auto lg:ml-5 lg:mr-5 xl:ml-0 xl:mr-0 mt-6 xs:mt-4 xl:mt-10 pb-4 '>
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6  sm:py-3 lg:px-12 lg:py-2.5 xl:px-7 xl:py-2.5 font-nunito rounded-full font-nunito text-sm  xl:text-lg font-semibold cursor-pointer transition-colors duration-400 ${
+                    className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6  sm:py-3  lg:py-3 lg:px-8 xl:px-7 xl:py-2.5 font-nunito rounded-full font-nunito text-sm  xl:text-lg font-semibold cursor-pointer transition-colors duration-400 ${
                       activeTab === tab.id
                         ? 'bg-green text-white'
                         : 'text-foreground hover:bg-green hover:text-white'
@@ -182,7 +182,7 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Tab Content with Donation Cards */}
-              <div className='flex flex-col cursor-pointer md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0 lg:p-7 xl:p-2'>
+              <div className='flex flex-col cursor-pointer md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0  lg:py-3 lg:px-8  xl:p-2'>
                 {/* Mission/Vision/Excellence Content */}
                 <div className='flex-1 cursor-pointer'>
                   {(activeTab === 'mission' || activeTab === 'vision' || activeTab === 'excellence') && (
@@ -195,7 +195,7 @@ const DonateDifferentWay: React.FC = () => {
                                 <path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' strokeWidth='3'/>
                               </svg>
                             </div>
-                            <span className='text-gray-green flex flex-wrap text-sm xl:text-sm font-medium font-nunito md:font-semibold'>{t(item)}</span>
+                            <span className='text-[#696969] flex flex-wrap text-sm xl:text-sm lg:text-[16px] font-medium font-nunito md:font-semibold'>{t(item)}</span>
                           </li>
                         ))}
                       </ul>
@@ -224,7 +224,7 @@ const DonateDifferentWay: React.FC = () => {
                         className='w-full h-full object-contain'
                       />
                     </div>
-                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg'>{t("Donate Now")}</h3>
+                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg lg:text-[20px]'>{t("Donate Now")}</h3>
                     <p className='text-lg font-caveat font-bold text-yellow italic'>{t("$")}40,456</p>
                   </div>
                      <div className='hidden md:block border border-gray-200 ml-3 mr-3'></div>
@@ -239,7 +239,7 @@ const DonateDifferentWay: React.FC = () => {
                         className='w-full h-full object-contain'
                       />
                     </div>
-                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg '>{t("Total Fundraised")}</h3>
+                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg lg:text-[20px] '>{t("Total Fundraised")}</h3>
                     <p className='text-lg font-caveat font-bold text-green italic'>{t("$")}1,540,456</p>
                   </div>
                 </div>

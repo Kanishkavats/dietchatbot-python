@@ -1,4 +1,7 @@
+
+
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 interface NoticeProps {
   title?: string;
@@ -12,7 +15,7 @@ interface NoticeProps {
 }
 
 const Notice: React.FC<NoticeProps> = ({
-  title = "Notice",
+  title,
   message,
   icon = "⚠️",
   wrapperClassName = "",
@@ -21,6 +24,11 @@ const Notice: React.FC<NoticeProps> = ({
   titleClassName = "",
   messageClassName = "",
 }) => {
+  const { t } = useTranslation();
+
+  // Set default title if not provided
+  const displayTitle = title || t("Notice");
+
   return (
     <div
       className={`xl:px-15 max-w-[35rem] flex items-center relative p-3 border border-gray-200 bg-yellow/8 rounded xl:rounded-full shadow-sm ${wrapperClassName}`}
@@ -29,15 +37,13 @@ const Notice: React.FC<NoticeProps> = ({
       <div
         className={`h-full w-[4px] absolute top-0 left-10 hidden xl:flex justify-center items-center bg-dark-green ${iconWrapperClassName}`}
       >
-        <span className={`text-lg text-yellow ${iconClassName}`}>
-          {icon}
-        </span>
+        <span className={`text-lg text-yellow ${iconClassName}`}>{icon}</span>
       </div>
 
       {/* Text */}
       <p className={`text-[15px] text-gray-green ${messageClassName}`}>
         <strong className={`font-semibold text---foreground ${titleClassName}`}>
-          {title}:
+          {displayTitle}:
         </strong>{" "}
         {message}
       </p>
