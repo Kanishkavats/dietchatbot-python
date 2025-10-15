@@ -20,7 +20,12 @@ import { useFetchAllCampaigns } from "@/src/hooks/useCampaigns";
 import "swiper/css";
 import "swiper/css/navigation";
 
+
+import { useTranslation } from "react-i18next";
+
+
 const DonationPage: React.FC = () => {
+  const {t} = useTranslation();
   const router = useRouter();
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [hoveredLeft, setHoveredLeft] = useState(false);
@@ -72,8 +77,8 @@ const DonationPage: React.FC = () => {
     <>
       <PageBanner
         bgImage={ourcausebanner}
-        tagline="Start Donating Poor People"
-        title="Our Causes"
+        tagline={t("Start Donating Poor People")}
+        title={t("Our Causes")}
         smallIcon="mdi:hand-heart"
         decoIcon="mdi:ribbon"
         decoPosition="absolute bottom-10 left-10"
@@ -87,14 +92,14 @@ const DonationPage: React.FC = () => {
               <div className="flex items-center justify-center mb-6">
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
                 <span className="text-[var(--green)] font-caveat text-2xl font-bold">
-                  Start Donating Poor People
+                  {t("Start Donating Poor People")}
                 </span>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-nunito leading-tight mb-8">
-                <span className="text-gray-800 font-bold">Be The Reason Of Someone </span>
+                <span className="text-gray-800 font-bold">{t("Be The Reason Of Someone")} </span>
                 <br />
-                <span className="text-yellow-400 font-bold">Smiles </span>
-                <span className="text-gray-800 font-bold">Causes</span>
+                <span className="text-yellow-400 font-bold">{t("Smiles")} </span>
+                <span className="text-gray-800 font-bold">{t("Causes")}</span>
               </h2>
             </div>
           </FadeUpCard>
@@ -127,17 +132,17 @@ const DonationPage: React.FC = () => {
                 <div className="flex items-center mb-4">
                   <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
                   <span className="text-[var(--green)] font-caveat text-base sm:text-lg md:text-xl lg:text-2xl font-bold w-full">
-                    Start Donating Poor People
+                    {t("Start Donating Poor People")}
                   </span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight w-full" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'}}>
                   <div className="w-full">
-                    <span className="text-gray-800">Help & </span>
-                    <span className="text-yellow-400">Donate </span>
-                    <span className="text-gray-800">Them when</span>
+                    <span className="text-gray-800">{t("Help &")} </span>
+                    <span className="text-yellow-400">{t("Donate")} </span>
+                    <span className="text-gray-800">{t("Them when")}</span>
                   </div>
                   <div className="block">
-                    <span className="text-gray-800">They are In Need</span>
+                    <span className="text-gray-800">{t("They are In Need")}</span>
                   </div>
                 </h2>
               </div>
