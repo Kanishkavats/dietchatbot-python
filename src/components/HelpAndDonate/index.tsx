@@ -29,6 +29,7 @@ interface CampaignCard {
 
 
 const HelpAndDonate: React.FC = () => {
+  
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);

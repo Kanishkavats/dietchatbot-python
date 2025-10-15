@@ -1,3 +1,5 @@
+
+
 // src/services/blogApi.ts
 import { BlogFormValues } from "../utils/validations/FormValidation";
 import api from "./api";
@@ -22,7 +24,7 @@ export const fetchBlogById = async (id: string) => {
 
 // ✅ Update blog
 export const updateBlog = async (id: string, blog: Partial<BlogFormValues>) => {
-  const { data } = await api.put(`/admin/blog/update-blog/${id}`, blog);
+  const { data } = await api.put(`/admin/blog/update-blog/${id}, blog`);
   return data;
 };
 

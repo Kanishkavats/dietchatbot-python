@@ -1,3 +1,7 @@
+
+
+
+
 // src/services/bannerApi.ts
 import { BannerFormValues } from "../utils/validations/FormValidation";
 import api from "./api";
@@ -22,12 +26,14 @@ export const fetchBannerById = async (id: string) => {
 
 //  Update banner
 export const updateBanner = async (id: string, banner: Partial<BannerFormValues>) => {
-  const { data } = await api.put(`/admin/banner/update-banner/${id}`, banner);
+  const { data } = await api.put(`/admin/banner/update-banner/${id}, banner`);
   return data;
 };
 
 //  Delete banner
 export const deleteBanner = async (id: string) => {
   const { data } = await api.delete(`/admin/banner/delete-banner/${id}`);
-  return data;
+  return data;
 };
+
+

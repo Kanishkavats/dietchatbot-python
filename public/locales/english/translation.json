@@ -118,35 +118,23 @@
     "role_1":"Cloth Store Inc.",
     "role_2":"Cloth Store Inc.",
     "role_3":"Cloth Store Inc.",
-    "Our Latest ":"Our Latest ",
-    "You Like":"You Like",
-    "& Articles ":"& Articles ",
-    
-  "fillForm": "Fill Up The Form",
-  "formNote": "Your Email Address Will Not Be Published. Required Fields Are Marked *",
-  "firstName": "First Name",
-  "lastName": "Last Name",
-  
-  
-  "occupation": "Occupation",
-  
-  "submit": "Submit Now",
-  "Valuable Customers":"Valuable Customers",
-  "Our":"Our",
-  "feedback":"feedback",
-  "review":"review",
-  "image":"image",
-  "designation":"designation",
-  "role":"role",
-  "avatar":"avatar"
-  
-  
-  
-  
-  
-
-
-
-  
-
-  }
+    "Our Valueable":"Our Valueable",
+    "Be The Reason Of Someone": "Be The Reason Of Someone",
+  "Smiles": "Smiles",
+  "Help &": "Help &",
+  "Donate": "Donate",
+  "Them when": "Them when",
+  "They are In Need": "They are In Need",
+  "Loading campaigns...": "Loading campaigns...",
+  "Failed to load campaigns.": "Failed to load campaigns.",
+  "Our Causes": "Our Causes",
+  "Start Donating Poor People": "Start Donating Poor People",
+  "Causes": "Causes",
+  "Raised": "Raised",
+  "Goal": "Goal",
+  "View Details": "View Details",
+  "Start Donating Poor People": "Start Donating Poor People",
+  "Children Need Your Help By Donating Today": "Children Need Your Help By Donating Today",
+  "Discover More": "Discover More",
+  "Get A Quote": "Get A Quote"
+}
