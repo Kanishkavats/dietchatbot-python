@@ -13,8 +13,8 @@ export const createBlog = async (blog: FormData) => {
 };
 
 // ✅ Get all blogs with pagination
-export const fetchAllBlogs = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/admin/blog/getAllBlogs?page=${page}&limit=${limit}`);
+export const fetchAllBlogs = async (page: number = 1, limit: number = 10,search?:string) => {
+  const { data } = await api.get(`/admin/blog/getAllBlogs?page=${page}&limit=${limit}&search=${search}`);
   return data;
 };
 

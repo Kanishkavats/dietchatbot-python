@@ -13,6 +13,7 @@ import {
 import LanguageSetting from "../Common/LanguageSetting";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
 import Logout from "../Common/Logout";
+import { useTranslation } from "react-i18next";
 
 interface SettingItem {
   id: number;
@@ -28,7 +29,8 @@ const Settings = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [emailUpdates, setEmailUpdates] = useState(false);
   const { language, toggleLanguage } = useLanguageToggle();
-  const logoutButtonRef = useRef<HTMLButtonElement>(null); 
+  const logoutButtonRef = useRef<HTMLButtonElement>(null);
+  const{t}=useTranslation(); 
   
   
   const handleLogoutCardClick = () => {
@@ -126,10 +128,10 @@ const Settings = () => {
                   </div>
                   <div className="flex-1">
                     <h3 className="font-semibold text-gray-800">
-                      {item.title}
+                      {t(item.title)}
                     </h3>
                     <p className="text-gray-500 text-sm mt-1">
-                      {item.description}
+                      {t(item.description)}
                     </p>
                   </div>
                 </div>
@@ -145,8 +147,8 @@ const Settings = () => {
               {item.icon}
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-gray-800">{item.title}</h3>
-              <p className="text-gray-500 text-sm mt-1">{item.description}</p>
+              <h3 className="font-semibold text-gray-800">{t(item.title)}</h3>
+              <p className="text-gray-500 text-sm mt-1">{t(item.description)}</p>
             </div>
             {item.type === "toggle" && (
               <div

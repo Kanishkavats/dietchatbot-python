@@ -25,19 +25,24 @@ import { useLanguageToggle } from "../hooks/useLanguageToggle";
 import toast from "react-hot-toast";
 import ConfirmModal from "../Common/ConfirmModal";
 import { createEvent, updateEvent } from "../services/eventApi";
-import { Event } from "../types/event";
+import { Event, EventsValue } from "../types/event";
 import { EventFormValues } from "@/src/utils/validations/FormValidation";
-import { CampaignSearchOptions } from "../Data/staticData";
+import { CampaignSearchOptions, EventSearchOptions } from "../Data/staticData";
 import EventPreview from "./EventPreview";
 import EventForm from "./EventForm";
+import useDebounce from "@/src/hooks/useDebounce";
+import DatePicker from "react-datepicker";
+import { format } from "date-fns";
 
 const EventTable = () => {
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"title" | "organizer" | "category">("title");
+  const [searchField, setSearchField] = useState<"title" | "location" | "date">("title");
+  const [EventField, setEventField] = useState<"upcoming" | "ended" | "live"|"All">('All');
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editEvent, setEditEvent] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
   const [isOpen, setIsOpen] = useState(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
@@ -46,9 +51,10 @@ const EventTable = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const debounceValue=useDebounce(search,1000);
   const{language,toggleLanguage}=useLanguageToggle();
 
-  const { data: eventData , isLoading } = useFetchAllEvent(currentPage, itemsPerPage);
+  const { data: eventData , isLoading } = useFetchAllEvent(currentPage, itemsPerPage,debounceValue,EventField);
   const { data: singleEventData, isLoading: isLoadingEvent,refetch } = useFetchSingleEvent(editEvent || undefined);
   const { mutate: deleteEvent } = useDeleteSingleEvent();
   const totalPages = eventData?.totalPages || 1;
@@ -173,14 +179,15 @@ const normalizeEventData = (data: any): EventFormValues=> {
 
 
 
-  const filteredData = useMemo(() => {
-  return paginatedData.filter((event: Event) => {
-    const fieldValue = event[searchField];
-    if (typeof fieldValue === "string") return fieldValue.toLowerCase().includes(search.toLowerCase());
-    if (typeof fieldValue === "object" && fieldValue?.[lang]) return fieldValue[lang].toLowerCase().includes(search.toLowerCase());
-    return false;
-  });
-}, [paginatedData, search, searchField, lang]);
+//   const filteredData = useMemo(() => {
+//   return paginatedData.filter((event: Event) => {
+//     const fieldValue = event[searchField];
+//     if (typeof fieldValue === "string") return fieldValue.toLowerCase().includes(search.toLowerCase());
+//     if (typeof fieldValue === "object" && fieldValue?.[lang]) return fieldValue[lang].toLowerCase().includes(search.toLowerCase());
+//     return false;
+//   });
+// }, [paginatedData, search, searchField, lang]);
+const filteredData = useMemo(() => paginatedData, [paginatedData]);
   const normalizedEventData = useMemo(() => {
   if (!singleEventData) return undefined;
 
@@ -202,7 +209,7 @@ const normalizeEventData = (data: any): EventFormValues=> {
         <AnimatedReveal direction="left" delay={0.1}>
           <div className="w-fit flex flex-row gap-2">
             <Dropdown
-              options={CampaignSearchOptions}
+              options={EventSearchOptions}
               value={searchField}
               onChange={(value) => {
                 setSearchField(value);
@@ -211,12 +218,33 @@ const normalizeEventData = (data: any): EventFormValues=> {
                 }, 0);
               }}
             />
-            <CustomInput
-              ref={searchInputRef}
-              placeholder={`Search by ${searchField}...`}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            {searchField === "date" ? (
+  <DatePicker
+    selected={selectedDate}
+    onChange={(date: Date | null) => {
+      setSelectedDate(date);
+      setSearch(date ? format(date, "yyyy-MM-dd") : ""); 
+    }}
+    dateFormat="yyyy-MM-dd"
+    placeholderText="Select date"
+    className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primaryColor w-full"
+  />
+) : (
+  <CustomInput
+    ref={searchInputRef}
+    placeholder={`Search by ${searchField}...`}
+    value={search}
+    onChange={(e) => setSearch(e.target.value)}
+  />
+)}
+<Dropdown
+options={EventsValue}
+value={EventField}
+onChange={(value)=>{
+  setSearch(value)
+}}
+
+/>
           </div>
         </AnimatedReveal>
 
@@ -250,7 +278,7 @@ const normalizeEventData = (data: any): EventFormValues=> {
       ) : (
          <DataTableWrapper
         columns={columns}
-        data={filteredData}
+        data={paginatedData}
       />
       )}
 

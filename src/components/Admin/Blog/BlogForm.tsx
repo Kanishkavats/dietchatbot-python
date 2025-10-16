@@ -252,10 +252,13 @@ const BlogForm = ({
                 label="Blog Images*"
                 name="images"
                 error={touched.images && errors.images ? errors.images : ""}
-                onChange={(files, existingUrls) => {
-                  setFieldValue("images", files);
-                  setFieldValue("existingImages", existingUrls);
-                }}
+                                            onChange={(newFiles, remainingUrls) => {
+  setFieldValue("images", [
+    ...(values.images || []), 
+    ...newFiles
+  ]);
+  setFieldValue("existingImages", remainingUrls);
+}}
                 uploadType="multiple"
                 disabled={isView}
                 mode={mode}

@@ -9,8 +9,9 @@ export const createEvent = async (campaign: CampaignFormValues) => {
 };
 
 
-export const fetchAllEvent = async (page: number = 1, limit: number = 2) => {
-  const { data } = await api.get(`/admin/event/getAllEvents?page=${page}&limit=${limit}`);
+export const fetchAllEvent = async (page: number = 1, limit: number = 2,search?:string,eventStatus?:string) => {
+  console.log(search)
+  const { data } = await api.get(`/admin/event/getAllEvents?page=${page}&limit=${limit}&search=${search}`);
 //   console.log(data);
   return data;
 };

@@ -154,7 +154,7 @@
   "Enter amount": "Enter amount",
   "Custom": "Custom",
   "10": "10",
-  "20": "२०",
+  "20": "20",
   "Help & ": "Help & ",
 
 
@@ -162,5 +162,28 @@
   "50": "50",
   "100": "100",
   "200": "200",
-  "amount":"amount"
+  "amount":"amount",
+  "Dashboard":"Dashboard",
+  "Notifications":"Notifications",
+  "Settings": "Settings",
+  "Campaign": "Campaign",
+  "Event":"Event",
+  "Category":"Category",
+  "Blog":"Blog",
+  "Comments":"Comments",
+  "Banner":"Banner",
+  "Queries":"Queries",
+  "Feedback":"Feedback",
+  "Profile Settings":"Profile Settings",
+  "Email Updates":"Email Updates",
+  "Privacy Settings":"Privacy Settings",
+  "Logout":"Logout",
+  "Language":"Language",
+  "Update your profile info and password.":"Update your profile info and password.",
+  "Enable or disable platform notifications.":"Enable or disable platform notifications.",
+  "Receive email updates about campaigns and donations.":"Receive email updates about campaigns and donations.",
+  "Manage your privacy and security preferences.":"Manage your privacy and security preferences.",
+  "Securely sign out of your account.":"Securely sign out of your account.",
+  "Change the display language.":"Change the display language."
+
 }

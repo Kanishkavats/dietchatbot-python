@@ -4,8 +4,8 @@ import { BannerSearchField } from "@/src/types/banner";
 
 export const CampaignSearchOptions = [
   { label: "Title", value: "title" },
-  { label: "Organizer", value: "organizer" },
   { label: "Category", value: "category" },
+  { label: "Status ", value: "status" },
 ] as const;
 
 export const CategorySearchOptions = [
@@ -17,8 +17,7 @@ export const BlogSearchOptions = [
   { label: "Title", value: "title" },
   { label: "Category", value: "category" },
   { label: "Location", value: "location" },
-  { label: "CreatedAt", value: "createdAt" },
-  { label: "UpdatedAt", value: "updatedAt" },
+  { label: "Creator", value: "creator" },
 ] as const;
 
 
@@ -26,6 +25,11 @@ export const CommentSearchOptions = [
   { label: "Status", value: "status" },
 
 ]
+export const EventSearchOptions = [
+  { label: "Title", value: "title" },
+  { label: "Location", value: "location" },
+  { label: "Date ", value: "date" },
+] as const;
 
 export const BannerSearchOptions = [
   { label: "Title", value: "title" },

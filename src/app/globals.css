@@ -123,6 +123,20 @@ body {
   .swiper-wrapper {
     transition-timing-function: ease-in-out !important;
   }
+  .scrollbar-custom{
+    @apply [&::-webkit-scrollbar]:w-[5px];
+     @apply [&::-webkit-scrollbar-button]:bg-dark-green; 
+    @apply [&::-webkit-scrollbar-corner]:bg-dark-green;
+
+    @apply [&::-webkit-scrollbar-track]:bg-blue-200/80;
+    @apply [&::-webkit-scrollbar-thumb]:min-h-[50px]; 
+    @apply [&::-webkit-scrollbar-thumb]:rounded-full;
+    @apply [&::-webkit-scrollbar-thumb]:bg-green;
+    @apply dark:[&::-webkit-scrollbar-track]:bg-blue-200/80;
+    @apply dark:[&::-webkit-scrollbar-thumb]:bg-green;
+    @apply dark:[&::-webkit-scrollbar-thumb]:min-h-[50px];
+    @apply dark:[&::-webkit-scrollbar-thumb]:rounded-full;
+  }
 }
 
 .scrollbar-hide::-webkit-scrollbar {

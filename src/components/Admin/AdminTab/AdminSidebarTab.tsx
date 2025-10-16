@@ -4,6 +4,7 @@ import { sidebarAd } from "@/src/utils/AdminSidebarData";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { MdArrowForwardIos, MdMenu } from "react-icons/md";
 
 interface AdminSideBarTabProps {
@@ -21,6 +22,7 @@ const AdminSideBarTab = ({
 }: AdminSideBarTabProps) => {
   const [isMobile, setIsMobile] = useState(false);
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const { t } = useTranslation();
 
   // Detect mobile screen
   useEffect(() => {
@@ -96,7 +98,7 @@ const AdminSideBarTab = ({
                     }`}
                   >
                     {item.icon && <item.icon className="w-5 h-5" />}
-                    <span>{item.lable}</span>
+                    <span>{t(item.lable)}</span>
                   </motion.div>
                 );
               })}
@@ -176,7 +178,7 @@ const AdminSideBarTab = ({
                           transition={{ duration: 0.2 }}
                           className={isActive ? "text-white" : "text-black"}
                         >
-                          {item.lable}
+                          {t(item.lable)}
                         </motion.span>
                       )}
                     </motion.div>

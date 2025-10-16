@@ -64,8 +64,12 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
     mutationFn: (data: { id: string; values: BannerFormValues }) =>
       updateBanner(data.id, data.values),
     onSuccess: () => {
-     queryClient.invalidateQueries({ queryKey: ["banner"] });
-      queryClient.invalidateQueries({ queryKey: ["banners"] });
+     queryClient.invalidateQueries({
+      predicate: (query) => query.queryKey[0] === "banners",
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["banner", bannerId],
+    });
     },
   });
 
@@ -170,6 +174,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
                 setEditBannerId(null);
                 setMode("add");
                 setDrawerOpen(true);
+                setPreviewData(null);
               }}
               bgColor="bg-lime-green"
               hoverBg="before:bg-primaryColor"

@@ -156,7 +156,7 @@ export default function HelpingEachOther() {
                     transition={{ 
                       duration: 1,
                       ease:"easeOut",
-                      delay:0.4
+                      delay:0.1
                     }}
                   >
                     <Image
@@ -316,7 +316,7 @@ export default function HelpingEachOther() {
               </div>
 
               <div className=" mb-3 md:mb-3 lg:mb-3 md:pr-15 lg:pr-10 xs:pr-1 xl:pr-0">
-                <h2 className="text-[28px] font-nunito  md:text-4xl lg:text-4xl xl:text-6xl md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking opacity-0 anim-fade-in-up">
+                <h2 className="text-[28px] font-nunito  md:text-4xl lg:text-4xl xl:text-[56px] md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking opacity-0 anim-fade-in-up">
                   {t("Helping Each Other Can Make")}{" "}
                   <span className="text-yellow">{t("World")}</span>
                   {t(" Better")}

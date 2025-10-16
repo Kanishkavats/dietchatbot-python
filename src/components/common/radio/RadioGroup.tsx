@@ -49,22 +49,19 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
 
             {/* custom radio */}
             <span
-              className={` w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors  ${isSelected ? 'opacity-100': 'opacity-50'}`}
-              style={{
-                borderColor: selectedColor,
-                backgroundColor: isSelected ? "transparent" : `${selectedColor}20`, 
-              }}
+              className={` w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors  ${isSelected ? `opacity-100 border-green`: 'opacity-50 border-gray-300'}`}
+              
             >
               {!isSelected && (
                  <span
-                  className="w-2.5 h-2.5 rounded-full"
+                  className={`w-2.5 h-2.5 rounded-full ${unselectedColor}`}
                   style={{ backgroundColor: selectedColor }}
                 />
               )}
               {isSelected && (
                 <span
-                  className="w-2.5 h-2.5 rounded-full"
-                  style={{ backgroundColor: selectedColor }}
+                  className={`w-2.5 h-2.5 rounded-full ${selectedColor} `}
+                  // style={{ backgroundColor: selectedColor }}
                 />
               )}
             </span>

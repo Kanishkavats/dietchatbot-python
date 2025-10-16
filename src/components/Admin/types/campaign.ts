@@ -57,3 +57,8 @@ export interface CategoryColumnCallbacks {
   onDelete: (category: Category) => void;
   onView: (category: Category) => void;
 }
+export const statusValue = [
+  { label: "Active", value: "active" },
+  { label: "Completed", value: "completed" },
+  { label: "Inactive", value: "inactive" },
+] as const;
