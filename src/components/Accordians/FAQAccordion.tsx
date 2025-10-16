@@ -19,10 +19,11 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
         className={`w-full cursor-pointer text-left px-6 py-6 flex justify-between items-center transition-all duration-300 ${
           isOpen
             ? "bg-green text-white rounded-t-3xl"
-            : "bg-white text-gray-green rounded-3xl"
+            : "bg-white text-[#122F2A] font-extrabold rounded-3xl"
         }`}
       >
         <span className="font-medium">{t(item.question)}</span>
+        <span className="font-semibold font-nunito lg:text-[18px] 2xl:text-[20px]">{t(item.question)}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -35,6 +36,7 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
         <motion.div
           layout
           className="px-6 py-4 bg-white text-gray-green border-t border-gray-200 rounded-b-4xl"
+          className="px-6 py-4 bg-white font-medium text-[15px] font-nunito lg:text-[16px] text-[#747474] border-t border-gray-200 rounded-b-4xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

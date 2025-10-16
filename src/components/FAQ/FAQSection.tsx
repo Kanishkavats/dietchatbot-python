@@ -17,10 +17,12 @@ const FAQSection = () => {
         <div className="lg:w-1/2">
           <FadeInUp>
             <div className=" font-caveat  flex items-start gap-2 text-green font-semibold mb-4 text-lg lg:text-2xl">
+            <div className=" font-caveat flex items-start gap-2 text-green font-semibold mb-4 text-lg md:text-[20px] lg:text-2xl">
               <Icon icon="mingcute:hand-heart-line" className="text-3xl" />
               <span>{t("Start Donating Poor People")}</span>
             </div>
             <h2 className="text-3xl xl:text-4xl font-bold text-gray-900 mb-8">
+            <h2 className="text-3xl md:text-[30px] font-nunito xl:text-4xl 2xl:text-[55px] lg:text-[40px] font-extrabold text-gray-900 mb-8">
               {t("Frequently")} <span className="text-yellow">{t("Asked")}</span> {t("Questions")}
             </h2>
           </FadeInUp>
