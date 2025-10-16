@@ -7,7 +7,6 @@ import Drawer from "../Common/Drawer";
 import DataTableWrapper from "../Common/DataTableWrapper";
 import { CategorySearchOptions } from "../Data/staticData";
 import CategoryForm from "./CategoryForm";
-import { useFetchCategory, useDeleteCategory } from "@/src/hooks/useCategory";
 import { Category } from "@/src/types/category";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { getCategoryColumns } from "./categoryColumns";
@@ -15,7 +14,7 @@ import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import ConfirmModal from "../Common/ConfirmModal";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import { useFetchCategoryById } from "../hooks/useCategory";
+import { useDeleteCategory, useFetchCategory, useFetchCategoryById } from "../hooks/useCategory";
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");

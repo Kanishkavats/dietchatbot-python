@@ -5,7 +5,6 @@ export interface NavItem {
   label: string;
   href?: string;
    dropdown?: NavItem[] | null;
- // dropdown?: { label: string; href: string }[] | null;
 }
 
 export const useNavItems = (): NavItem[] => {

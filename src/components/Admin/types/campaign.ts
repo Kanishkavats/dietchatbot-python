@@ -57,3 +57,11 @@ export interface CategoryColumnCallbacks {
   onDelete: (category: Category) => void;
   onView: (category: Category) => void;
 }
+
+export interface CampaignApiResponse {
+campaigns: Campaign[];
+limit?:number;
+page?:number;
+total?:number;
+totalPages?:number;
+}
