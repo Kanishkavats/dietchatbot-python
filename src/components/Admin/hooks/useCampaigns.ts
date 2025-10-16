@@ -129,7 +129,7 @@ export const useFetchAllCampaigns = (page: number, limit: number = 10,search?:st
     ["campaigns", page, limit,search], // different cache per page+limit
     () => fetchAllCampaigns(page, limit,search),
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
     }
   );
 };

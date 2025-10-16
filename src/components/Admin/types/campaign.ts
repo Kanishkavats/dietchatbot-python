@@ -62,3 +62,11 @@ export const statusValue = [
   { label: "Completed", value: "completed" },
   { label: "Inactive", value: "inactive" },
 ] as const;
+
+export interface CampaignApiResponse {
+campaigns: Campaign[];
+limit?:number;
+page?:number;
+total?:number;
+totalPages?:number;
+}

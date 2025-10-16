@@ -423,7 +423,7 @@ export default function HelpingEachOther() {
               </div>
 
               <div
-                className="flex flex-col md:flex-row mt-4 xs:mt-8 mb-20 lg:mb-25 xl:mb-15 lg:mt-10 items-start sm:items-center gap-8 sm:gap-3 lg:gap-5 opacity-0 anim-fade-in-up"
+                className="flex flex-col [@media(min-width:400px)]:flex-row mt-4 xs:mt-8 mb-20 lg:mb-25 xl:mb-15 lg:mt-10 items-start [@media(min-width:400px)]:items-center gap-8 [@media(min-width:400px)]:gap-3 lg:gap-5 opacity-0 anim-fade-in-up"
                 style={{ animationDelay: "1.8s" }}
               >
                 <div className="flex items-center justify-center">

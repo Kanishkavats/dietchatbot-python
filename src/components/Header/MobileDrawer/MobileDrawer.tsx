@@ -48,7 +48,7 @@ export const MobileDrawer = ({
       </div>
 
       <div className="ps-8 my-10">
-        <motion.img src={logo.src} alt="Logo" className="h-10" />
+        <motion.img src={logo.src} alt="Logo" className="h-10 w-auto object-contain -ml-3" />
       </div>
 
        

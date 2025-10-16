@@ -19,7 +19,7 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
         className={`w-full cursor-pointer text-left px-6 py-6 flex justify-between items-center transition-all duration-300 ${
           isOpen
             ? "bg-green text-white rounded-t-3xl"
-            : "bg-white text-gray-green rounded-3xl"
+            : "bg-white text-[#122F2A] font-extrabold rounded-3xl"
         }`}
       >
         <span className="font-semibold">{t(item.question)}</span>

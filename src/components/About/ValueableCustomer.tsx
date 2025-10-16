@@ -68,15 +68,15 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
       style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       <div
-        className="absolute top-0 left-0 w-[80%] sm:w-[70%] md:w-[60%] h-[30%] sm:h-[35%] md:h-[40%] bg-no-repeat bg-contain"
+        className="absolute top-0 left-0 w-[80%] sm:w-[70%] md:w-[60%] h-[30%] sm:h-[35%] md:h-[40%] bg-no-repeat bg-contain z-10"
         style={{ backgroundImage: `url(${valueableshape.src})` }}
       />
 
-      <div className="mt-[100px] sm:mt-[130px] md:mt-[90px] lg:mt-[170px]">
+      <div className="mt-[100px] sm:mt-[130px] md:mt-[120px] lg:mt-[140px] xl:mt-[170px]">
         {/* Heading */}
-        <div className="flex items-center gap-2 justify-center">
-          <i className="text-2xl hand-icon text-[#00715D] -mb-[20px] sm:-mb-[40px] md:-mb-[60px] lg:-mb-[80px] xl:-mb-[100px]" />
-          <span className="text-[#00715D] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] -mb-[20px] sm:-mb-[40px] md:-mb-[60px] lg:-mb-[80px] xl:-mb-[100px]">
+        <div className="flex items-center gap-2 justify-center relative z-20 mb-4">
+          <i className="text-2xl hand-icon text-[#00715D]" />
+          <span className="text-[#00715D] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] relative z-20">
             {t("Start Donating Poor People")}
           </span>
         </div>
@@ -87,7 +87,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
               {t("Valuable Customers")}
             </span>
           </h2>
-          <h3 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 lg:leading-10 xl:leading-12 mt-4 sm:mt-2 md:-mt-2 lg:mt-2 xl:mt-3">
+          <h3 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 lg:leading-10 xl:leading-12 mt-4 sm:mt-2 md:mt-4 lg:mt-6 xl:mt-3">
             {t("Awesome Feedback")}
           </h3>
         </div>
