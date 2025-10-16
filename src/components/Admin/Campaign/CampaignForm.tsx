@@ -119,7 +119,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 options={categoryOptions}
                 value={values.category[lang]}
                 onChange={(val) => setFieldValue(`category.${lang}`, val)}
-                placeholder="Select category"
+                placeholder={lang==='en'?"Select category":"श्रेणी चुनें"}
                 error={touched.category?.[lang] ? errors.category?.[lang] : ""}
                 disabled={isView}
               />

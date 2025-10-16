@@ -11,7 +11,7 @@ const LanguageSetting: React.FC<LanguageSettingProps> = ({
   setLanguage,
 }) => {
   return (
-    <div className="flex flex-col md:flex-row w-full items-start">
+    <div className="flex flex-col lg:flex-row w-full items-start">
       <div className="flex items-center gap-4 w-full">
         <div className="w-12 h-12 bg-primaryColor/10 text-primaryColor rounded-full flex items-center justify-center">
           <FaLanguage size={24} />

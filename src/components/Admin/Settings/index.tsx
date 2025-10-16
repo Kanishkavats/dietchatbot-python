@@ -96,7 +96,7 @@ const Settings = () => {
   };
 
   return (
-    <div className="p-5 w-full">
+    <div className=" w-full">
       <Breadcrumb lable="Settings" />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-6 mt-6">
@@ -108,7 +108,7 @@ const Settings = () => {
             initial="hidden"
             animate="visible"
             whileHover={{ scale: 1.03, y: -3 }}
-            className={`bg-white shadow-lg rounded-xl p-6 transition-all duration-200 ${
+            className={`bg-white shadow-lg rounded-xl p-6 flex-wrap transition-all duration-200 ${
               item.type === "action" || item.type === "component"
                 ? "flex-col items-start cursor-default"
                 : "flex items-center gap-4 cursor-pointer"
@@ -139,7 +139,7 @@ const Settings = () => {
                   </div>:<>{item.component}</>}
               </motion.div>
             ):item.type==='component'?
-            <div>{item.component}</div>
+            <div className="">{item.component}</div>
           :<>
             <div className="w-12 h-12 bg-primaryColor/10 text-primaryColor rounded-full flex items-center justify-center">
               {item.icon}

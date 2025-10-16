@@ -18,7 +18,7 @@ export const fetchAllEvent = async (page: number = 1, limit: number = 2) => {
 
 
 export const fetchEventById = async (id: string) => {
-  const { data } = await api.get(`/admin/getEventById/${id}`);
+  const { data } = await api.get(`/admin/event/getEventById/${id}`);
   return data;
 };
 

@@ -12,7 +12,7 @@ export const getInitialCanpaignValues = (initialData: any): CampaignFormValues =
     en: initialData?.description?.en ?? "",
     hi: initialData?.description?.hi ?? "",
   },
-  goalAmount: initialData?.goalAmount ?? 0,
+  goalAmount: initialData?.goalAmount ?? '',
   summary: {
     en: initialData?.summary?.en ?? "",
     hi: initialData?.summary?.hi ?? "",

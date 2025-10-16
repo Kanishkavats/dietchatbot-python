@@ -42,7 +42,5 @@ export const getInitialBlogValues = (initialData: any): BlogFormValues => ({
     hi: initialData?.category?.hi ?? "",
   },
   images: initialData?.images ?? [],
-  existingImages:
-    initialData?.existingImages ??
-    (initialData?.images?.filter((img:string) => typeof img === "string") ?? []),
+  existingImages:initialData?.existingImages ?? [],
 });

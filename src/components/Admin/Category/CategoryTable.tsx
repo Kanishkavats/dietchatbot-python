@@ -14,12 +14,14 @@ import { getCategoryColumns } from "./categoryColumns";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import ConfirmModal from "../Common/ConfirmModal";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import { useFetchCategoryById } from "../hooks/useCategory";
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"name">("name");
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const [editCategory, setEditCategory] = useState<string | null>(null);
+  const [editCategory, setEditCategory] = useState<string>('');
   const [mode, setMode] = useState<"add" | "edit" | "view">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
@@ -31,6 +33,10 @@ const CategoryTable = () => {
     currentPage,
     itemsPerPage
   );
+  const{data:singleCategoryData,isLoading:singleCategoryLoading}=useFetchCategoryById(editCategory);
+  console.log("here",singleCategoryData)
+  const{language,toggleLanguage}=useLanguageToggle();
+  const lang=language
 
   const { mutate: deleteCategory } = useDeleteCategory();
 
@@ -65,20 +71,25 @@ const CategoryTable = () => {
     }
   }, [selectedCategory, deleteCategory]);
 
-  const filteredData = useMemo(() => {
-    return categoryData?.category?.filter((c: Category) => {
+ const filteredData = useMemo(() => {
+  return (
+    categoryData?.category?.filter((c: Category) => {
       if (searchField === "name") {
-        // For name field, search in both English and Hindi
-        return (
-          c.name.en.toLowerCase().includes(search.toLowerCase()) ||
-          c.name.hi.toLowerCase().includes(search.toLowerCase())
-        );
+        
+        const nameValue =
+          typeof c.name === "string"
+            ? c.name
+            : c.name?.[lang] || c.name?.en || "";
+        return nameValue.toLowerCase().includes(search.toLowerCase());
       }
-      // For other fields, use the original logic
-      return c[searchField as keyof Category]?.toString().toLowerCase().includes(search.toLowerCase());
-    });
-  }, [categoryData, search, searchField]);
-  console.log("hj",filteredData);
+
+      const value = c[searchField as keyof Category];
+      return value?.toString().toLowerCase().includes(search.toLowerCase());
+    }) || []
+  );
+}, [categoryData, search, searchField, lang]);
+
+
 
 
   const columns = useMemo(
@@ -124,7 +135,7 @@ const CategoryTable = () => {
               text="Add Category"
               onClick={() => {
                 setDrawerOpen(true);
-                setEditCategory(null);
+                setEditCategory('');
                 setMode("add");
               }}
               bgColor="bg-lime-green"
@@ -165,7 +176,7 @@ const CategoryTable = () => {
           isOpen={drawerOpen}
           onClose={() => {
             setDrawerOpen(false);
-            setEditCategory(null);
+            setEditCategory('');
             setMode("add");
           }}
           mode={mode}
@@ -178,13 +189,17 @@ const CategoryTable = () => {
           }
           width="400px"
         >
+          {singleCategoryLoading ? (
+    <div className="flex justify-center items-center h-40">
+      <CustomLoader />
+    </div>
+  ) : (
           <CategoryForm
-            initialData={categoryData?.category?.find(
-              (c: Category) => c.id === editCategory
-            )}
+            initialData={singleCategoryData || null}
             onClose={() => setDrawerOpen(false)}
             mode={mode}
           />
+  )}
         </Drawer>
       )}
       <ConfirmModal

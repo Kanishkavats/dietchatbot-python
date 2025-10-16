@@ -2,8 +2,6 @@
 
 import { Formik, Form } from "formik";
 import React, { useState, useEffect } from "react";
-import { IoMdClose } from "react-icons/io";
-import { useFetchCategory } from "@/src/components/Admin/hooks/useCategory";
 import { EventFormValues, EventSchema } from "@/src/utils/validations/FormValidation";
 import { EventFormProps } from "@/src/components/Admin/types/event";
 
@@ -13,33 +11,28 @@ import CustomInput from "../../Admin/Common/CustomInput";
 import CustomFileInput from "../../Admin/Common/CustomFileInput";
 import Dropdown from "../Common/Dropdown";
 import CancelButton from "../../common/Buttons/CancelButton";
-import { Category } from "@/src/types/category";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
 import LanguageToggle from "../Common/LanguageToggle";
 import { getInitialCanpaignValues } from "../utils/campaignIntialValues";
 import MultiInputList from "../Common/MultiInputList";
 import { hasErrorsForLang } from "../Common/hasErrorsForLang";
 import { getInitialEventValues } from "../utils/eventInitialValues";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import LocationPicker from "../Common/LocationPicker";
 
-const CampaignForm = ({ initialData, onClose, mode, onPreview }: EventFormProps) => {
+
+const EventForm = ({ initialData, onClose, mode, onPreview }: EventFormProps) => {
 
   const initialValues= getInitialEventValues(initialData)
   console.log(initialValues)
 
   const [keyPointInput, setKeyPointInput] = useState("");
   const { language, toggleLanguage } = useLanguageToggle();
-  const { data: categoryData } = useFetchCategory();
-  console.log(categoryData)
-  const categoryOptions =
-  categoryData?.category?.map((category: Category) => ({
-    label: category.name?.[language] || category.name.en, 
-    value: category.name?.[language] || category.name.en,
-  })) ?? [];
 
   const isView = mode === "view";
   const isEdit = mode === "edit";
   console.log(initialData)
-  console.log(categoryData)
   return (
     <div className="w-full pb-10">
       <LanguageToggle language={language} onChange={toggleLanguage} />
@@ -114,16 +107,80 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: EventFormProps)
                 error={touched.title?.[lang] ? errors.title?.[lang] : ""}
                 disabled={isView}
               />
+              <div className="flex flex-wrap gap-4">
+  {/* Start */}
+  <div className="flex flex-col w-full">
+    <label className="font-medium text-sm">{`${lang === "en" ? "Start Date" : "प्रारंभ तिथि"}*`}</label>
+    <DatePicker
+      selected={values.startDate}
+      className="placeholder:text-xs focus:outline-none border  text-sm border-gray-200 rounded-lg w-full py-1 px-2 bg-gray-light"
+      onChange={(date) => setFieldValue("startDate", date)}
+      dateFormat="dd.MM.yyyy"
+      disabled={isView}
+      placeholderText={lang==='en'?"Select start date":"प्रारंभ तिथि का चयन करें"}
+    />
+    {touched.startDate && typeof errors.startDate==='string' && (
+      <div className="text-red-500 text-sm">{errors?.startDate}</div>
+    )}
+  </div>
 
-              <Dropdown
-                label={`${lang === "en" ? "Category" : "श्रेणी"}*`}
-                options={categoryOptions}
-                value={values.category[lang]}
-                onChange={(val) => setFieldValue(`category.${lang}`, val)}
-                placeholder="Select category"
-                error={touched.category?.[lang] ? errors.category?.[lang] : ""}
-                disabled={isView}
-              />
+  <div className="flex flex-col w-full">
+    <label className="font-medium text-sm">{`${lang === "en" ? "Start Time" : "प्रारंभ समय"}*`}</label>
+    <DatePicker
+    className="placeholder:text-xs focus:outline-none text-sm border-gray-200 rounded-lg w-full py-1 px-2 bg-gray-light "
+      selected={values.startTime}
+      onChange={(date) => setFieldValue("startTime", date)}
+      showTimeSelect
+      showTimeSelectOnly
+      timeIntervals={30}
+      timeCaption="Time"
+      dateFormat="hh:mm aa"
+      disabled={isView}
+      placeholderText={lang==='en'?"Select start time":"प्रारंभ समय ..."}
+    />
+    {touched.startTime && typeof errors.startTime==='string' && (
+      <div className="text-red-500 text-sm">{errors.startTime}</div>
+    )}
+  </div>
+</div>
+
+<div className="flex flex-wrap gap-4 mt-2">
+  {/* End */}
+  <div className="flex flex-col w-full">
+    <label className="font-medium text-sm">{`${lang==='en'?'End Date':'समाप्ति तिथि'}*`}</label>
+    <DatePicker
+      selected={values.endDate}
+      className="placeholder:text-xs focus:outline-none text-sm border-gray-200 rounded-lg w-full py-1 px-2 bg-gray-light "
+      onChange={(date) => setFieldValue("endDate", date)}
+      dateFormat="dd.MM.yyyy"
+      disabled={isView}
+      placeholderText={lang==='en'?'Select end date':'अंतिम तिथि का चयन करें'}
+    />
+    {touched.endDate && typeof errors.endDate==='string' && (
+      <div className="text-red-500 text-sm">{errors.endDate}</div>
+    )}
+  </div>
+
+  <div className="flex flex-col w-full">
+    <label className="font-medium text-sm">{`${lang==='en'?'End Time':'अंत समय'}*`}</label>
+    <DatePicker
+      selected={values.endTime}
+      className="placeholder:text-xs focus:outline-none text-sm border-gray-200 rounded-lg w-full py-1 px-2 bg-gray-light"
+      onChange={(date) => setFieldValue("endTime", date)}
+      showTimeSelect
+      showTimeSelectOnly
+      timeIntervals={30}
+      timeCaption="Time"
+      dateFormat="hh:mm aa"
+      disabled={isView}
+      placeholderText={lang==='en'?'Select end time':'समाप्ति समय चुनें'}
+    />
+    {touched.endTime && typeof errors.endTime==='string' && (
+      <div className="text-red-500 text-sm">{errors.endTime}</div>
+    )}
+  </div>
+</div>
+
 
               <CustomInput
                 label={`${lang === "en" ? "Location" : "स्थान"}*`}
@@ -167,6 +224,20 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: EventFormProps)
                 error={touched.summary?.[lang] ? errors.summary?.[lang] : ""}
                 disabled={isView}
               />
+              <LocationPicker
+  value={{
+    location: values.location,
+    latitude: values.latitude || null,
+    longitude: values.longitude || null,
+  }}
+  onChange={(val) => {
+    setFieldValue("location", val.location);
+    setFieldValue("latitude", val.latitude);
+    setFieldValue("longitude", val.longitude);
+  }}
+  disabled={isView}
+/>
+
 
               {/* Key Points */}
               <MultiInputList
@@ -180,7 +251,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: EventFormProps)
 
               {/* Images */}
               <CustomFileInput
-                label={lang === "en" ? "Campaign Images" : "अभियान की छवियाँ"}
+                label={lang === "en" ? "Event Images" : "कार्यक्रम चित्र"}
                 name="images"
                 error={touched.images&& errors.images ? errors.images : ""}
                 onChange={(files, existingUrls) => {
@@ -240,4 +311,4 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: EventFormProps)
   );
 };
 
-export default CampaignForm;
+export default EventForm;

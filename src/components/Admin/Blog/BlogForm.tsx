@@ -18,6 +18,7 @@ import { hasErrorsForLang } from "../Common/hasErrorsForLang";
 import { getInitialBlogValues } from "../utils/blogInitialValues";
 import LanguageToggle from "../Common/LanguageToggle";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import { Category } from "../types/category";
 
 const BlogForm = ({
   initialData,
@@ -30,22 +31,22 @@ const BlogForm = ({
 
   // Prepare initial values for the form
   const initialValues = getInitialBlogValues(initialData);
+  const { language, toggleLanguage } = useLanguageToggle();
 
   const { data: categoryData } = useFetchCategory();
    console.log(categoryData);
 
   const categoryOptions =
-    categoryData?.category?.map((c: { id: string; name: string }) => ({
-      label: c.name,
-      value: c.name,
-    })) || [];
+    categoryData?.category?.map((category: Category) => ({
+      label: category.name?.[language] || category.name.en, 
+      value: category.name?.[language] || category.name.en,
+    })) ?? [];
 
-      console.log('check78',categoryData);
+      
 
 
   const isView = mode === "view";
   const isEdit = mode === "edit";
-  const { language, toggleLanguage } = useLanguageToggle();
 
   return (
     <div className="w-full pb-10">
@@ -207,8 +208,9 @@ const BlogForm = ({
                 options={categoryOptions}
                 value={values.category[lang]}
                 onChange={(val) => setFieldValue(`category.${lang}`, val)}
-                placeholder={lang === "en" ? "Select category" : "श्रेणी चुनें"}
+                placeholder={lang==='en'?"Select category":"श्रेणी चुनें"}
                 error={touched.category?.[lang] ? errors.category?.[lang] : ""}
+                disabled={isView}
               />
 
 
@@ -258,12 +260,18 @@ const BlogForm = ({
                 disabled={isView}
                 mode={mode}
                 initialUrls={
-                  Array.isArray(initialData?.images)
-                    ? initialData.images.filter(
-                      (img: string | File): img is string => typeof img === "string"
-                    )
-                    : []
-                }
+  Array.isArray(initialData?.existingImages) && initialData.existingImages.length > 0
+    ? initialData.existingImages.filter(
+        (img): img is string => typeof img === "string" && !!img
+      )
+    : Array.isArray(initialData?.images)
+    ? initialData.images.map((img) => {
+        if (typeof img === "string") return img;
+        if (img instanceof File) return URL.createObjectURL(img);
+        return "";
+      }).filter(Boolean)
+    : []
+}
               />
 
               {/* Action Buttons */}

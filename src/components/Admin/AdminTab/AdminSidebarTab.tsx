@@ -64,7 +64,7 @@ const AdminSideBarTab = ({
             animate={{ x: 0 }}
             exit={{ x: -300 }}
             transition={{ type: "tween", duration: 0.3 }}
-            className="fixed top-0 left-0 h-full  bottom-0 w-64 bg-white z-50 shadow-lg rounded-r-3xl flex flex-col"
+            className="fixed top-0 left-0 h-full overflow-y-auto md:overflow-auto bottom-0 w-64 bg-white z-50 shadow-lg rounded-r-3xl flex flex-col"
           >
             {/* Close Button */}
             <div className="flex justify-end p-4">

@@ -19,9 +19,6 @@ import {
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCampaign, updateCampaign } from "@/src/components/Admin/services/campaignApi";
-import CampaignPreview from "../Campaign/CampaignPreview";
-import { Campaign } from "@/src/types/campaign";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
@@ -32,13 +29,14 @@ import { Event } from "../types/event";
 import { EventFormValues } from "@/src/utils/validations/FormValidation";
 import { CampaignSearchOptions } from "../Data/staticData";
 import EventPreview from "./EventPreview";
+import EventForm from "./EventForm";
 
 const EventTable = () => {
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"title" | "organizer" | "category">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editEvent, setEditEvent] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
   const [isOpen, setIsOpen] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -51,7 +49,7 @@ const EventTable = () => {
   const{language,toggleLanguage}=useLanguageToggle();
 
   const { data: eventData , isLoading } = useFetchAllEvent(currentPage, itemsPerPage);
-  const { data: singleEventData, isLoading: isLoadingCampaign,refetch } = useFetchSingleEvent(editEvent || undefined);
+  const { data: singleEventData, isLoading: isLoadingEvent,refetch } = useFetchSingleEvent(editEvent || undefined);
   const { mutate: deleteEvent } = useDeleteSingleEvent();
   const totalPages = eventData?.totalPages || 1;
   console.log(eventData)
@@ -73,18 +71,22 @@ const lang=language
       queryClient.invalidateQueries({ queryKey: ["event"] });
     },
   });
-const normalizeEventData = (data: any): EventFormValues & { existingImages: string[] } => {
+const normalizeEventData = (data: any): EventFormValues=> {
+  const start = new Date(data.startTime);
+    const end = new Date(data.endTime);
   return {
     title: data.title ?? { en: "", hi: "" },
-    category: data.category ?? { en: "", hi: "" },
     description: data.description ?? { en: "", hi: "" },
     summary: data.summary ?? { en: "", hi: "" },
     keyPoints: data.keyPoints ?? { en: [], hi: [] },
+    startDate: start,
+    startTime:start,
+    endDate: end,
+    endTime: end,
     location: data.location ?? { en: "", hi: "" },
     images: Array.isArray(data.images) ? data.images.filter(Boolean) : [],
-    existingImages: Array.isArray(data.existingImages)
-      ? data.existingImages.filter((img:any): img is string => !!img)
-      : [],
+    latitude: initialData?.latitude ?? null,
+  longitude: initialData?.longitude ?? null,
   };
 };
 
@@ -99,13 +101,17 @@ const normalizeEventData = (data: any): EventFormValues & { existingImages: stri
     setEditEvent(e.id.toString());
     setMode("view");
     setDrawerOpen(true); 
-
+    setPreviewData(null); 
+  setShowPreview(false);
   try {
-    const { data } = await refetch(); 
-    if (data) {
+   setTimeout(async () => {
+      const { data } = await refetch();
+      if (data) {
       setMode("view");
       setPreviewData(normalizeEventData(data));
+      setShowPreview(true)
     }
+    }, 100); 
   } catch (error) {
     console.error("Failed to fetch campaign:", error);
   }
@@ -125,7 +131,7 @@ const normalizeEventData = (data: any): EventFormValues & { existingImages: stri
   const confirmDelete = useCallback(() => {
     if (selectedEvent?.id) {
       toast.dismiss();
-        toast.loading("Deleting Campaign....")
+        toast.loading("Deleting Event....")
       deleteEvent(selectedEvent.id.toString());
       setIsOpen(false);
       setSelectedEvent(null);
@@ -153,14 +159,14 @@ const normalizeEventData = (data: any): EventFormValues & { existingImages: stri
       id: e.id,
       title: e.title,
       description: e.description,
-      summary: e.summary,
-      startTime: start.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }), 
-      endTime: end.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true }),     
+      summary: e.summary,     
       location: e.location,
       images: e.images,
       keyPoints: e.keyPoints,
       status: e.status || "Active",
-      Date: start.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' }), 
+      startTime: start.toLocaleTimeString("en-IN", { hour: '2-digit', minute: '2-digit', hour12: true }),
+  endTime: end.toLocaleTimeString("en-IN", { hour: '2-digit', minute: '2-digit', hour12: true }),
+  Date: start.toLocaleDateString("en-IN", { day: '2-digit', month: 'short', year: 'numeric' }),
     };
   });
 }, [eventData]);
@@ -271,24 +277,29 @@ const normalizeEventData = (data: any): EventFormValues & { existingImages: stri
         }}
         // &&!previewData
         title={
-          mode === "edit"
-            ? "Edit Campaign"
-            : mode === "view"
-              ? "View Campaign"
-              : "Add Campaign"
+    mode === "edit"
+      ? "Edit Event"
+      : mode === "view" || mode === "preview-edit"
+      ? "View Event"
+      : "Add Event"
         }
         mode={mode}
 
       >
-        {/* /* {previewData ? ( */}
-         
-        {showPreview ? (
+        {(mode === "view" || mode === "preview-edit") && (
+    !previewData || isLoadingEvent ? (
+   
+    <div className="flex justify-center py-10">
+      <CustomLoader />
+    </div>
+  ) : (
   <EventPreview
     mode={mode}
+    showButton={mode === "preview-edit"}
     data={normalizeEventData(previewData)}
     onBack={() => {
-  setShowPreview(false); // 👈 only hide preview
-      // keep previewData so CampaignForm can use it
+  setShowPreview(false); 
+      
     }}
     onSubmit={() => {
       submitEventForm(
@@ -306,9 +317,14 @@ const normalizeEventData = (data: any): EventFormValues & { existingImages: stri
       );
     }}
   />
-) :(isLoadingCampaign?<><CustomLoader/></>:
- (
-  <CampaignForm
+   )
+  )}
+{(mode === "add" || mode === "edit") && (
+      isLoadingEvent?(
+        <div><CustomLoader/></div>
+      ):
+    (
+  <EventForm
     initialData={{
     ...(normalizedEventData ?? {}),
     ...(previewData ?? {}),
@@ -316,11 +332,7 @@ const normalizeEventData = (data: any): EventFormValues & { existingImages: stri
     images:
       previewData?.images?.length
         ? previewData.images
-        : normalizedEventData?.images ?? [],
-    existingImages:
-      previewData?.existingImages?.length
-        ? previewData.existingImages
-        : normalizedEventData?.existingImages ?? [],
+        : normalizedEventData?.images ?? []
   }}
     onClose={() => {
       setDrawerOpen(false);
@@ -331,6 +343,7 @@ const normalizeEventData = (data: any): EventFormValues & { existingImages: stri
     onPreview={(data) => {
       setPreviewData(data);
       setShowPreview(true); 
+      setMode('preview-edit') 
     }}
     createMutation={createMutation}
     updateMutation={updateMutation}
