@@ -7,7 +7,6 @@ import Eventdetail from "./Eventdetail";
 import { Icon } from "@iconify/react";
 import { fetchAllEvents, EventsResponse } from "@/src/services/eventApi";
 import CustomPagination from "../common/CustomPaginatioin";
-import CustomLoader from "../common/Loader/CustomLoader";
 
 
 interface EventListProps {
@@ -28,7 +27,12 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
         setLoading(true);
         setError(null);
         const response: EventsResponse = await fetchAllEvents(currentPage, itemsPerPage);
-
+        
+        // Console log to see event details
+        console.log('📅 Events API Response:', response);
+       
+        
+        
         // Transform API data to match component expectations
         const transformedEvents: Event[] = response.events.map(event => ({
           ...event,
@@ -37,7 +41,7 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
             month: 'long',
             day: 'numeric'
           }),
-          image: event.images[0] || '/assets/events.jpg' 
+          image: event.images[0] || '/assets/events.jpg' // Use first image or fallback
         }));
         
         console.log('📅 Events to display - Main event:', transformedEvents[0]);
@@ -58,9 +62,9 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
 
   if (loading) {
     return (
-      <section className="">
+      <section className="py-16 bg-[#ffffff]">
         <div className="flex justify-center items-center h-64">
-          <CustomLoader />
+          <div className="text-lg text-gray-600">Loading events...</div>
         </div>
       </section>
     );
@@ -68,9 +72,9 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
 
   if (error) {
     return (
-      <section className="py-16 bg-white">
+      <section className="py-16 bg-[#ffffff]">
         <div className="flex justify-center items-center h-64">
-          <div className="text-lg text-red">{error}</div>
+          <div className="text-lg text-red-600">{error}</div>
         </div>
       </section>
     );
@@ -81,18 +85,22 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
   }
 
   return (
-    <section className=" py-12">
+    <section className="py-16 bg-[#ffffff]">
       <div
         className="
           flex flex-col items-center gap-6
-          lg:grid lg:grid-cols-5
-           w-full
+          lg:flex-row lg:gap-[20px] lg:w-[1000px] lg:h-[500px] lg:mx-auto
         "
       >
         
         {events[0] && (
           <div
-            className=" col-span-3  relative w-full h-[250px] sm:h-[350px] lg:h-[700px] lg:w-full overflow-hidden "
+            className="
+              relative w-full h-[250px] sm:h-[350px]
+              lg:w-[480px] lg:h-[500px]
+               overflow-hidden
+              charity-card animate-fade-in card-stagger-1
+            "
           >
             
             <motion.img
@@ -116,14 +124,15 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
                 className="absolute inset-0 w-full h-full rounded-xl  object-cover"
               />
             </Link>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-            <div className="absolute left-4  font-nunito font-extrabold sm:left-8 bottom-6 sm:bottom-10 flex flex-col gap-2 max-w-[400px] lg:max-w-[350px] text-white animate-slide-up-delay">
+            
+            <div className="absolute left-4  font-nunito font-extrabold sm:left-8 bottom-6 sm:bottom-10 flex flex-col gap-2 max-w-[400px] lg:max-w-[350px] text-[#ffffff] animate-slide-up-delay">
               <span className="text-lg lg:text-base font-nunito font-bold">{events[0].date}</span>
-              <h3 className="text-xl sm:text-3xl lg:text-[34px] font-bold  leading-snug font-nunito">
+              <h3 className="text-xl sm:text-3xl lg:text-2xl font-bold  leading-snug font-nunito">
                 <Link href={`/event-details/${events[0].id}`}>{events[0].title}</Link>
               </h3>
-              <p className="text-base lg:text-base  flex items-center gap-2 font-nunito font-bold">
+              <p className="text-base lg:text-sm flex items-center gap-2 font-nunito font-bold">
                 <Icon icon="ion:location" width="24" height="24" className="text-white lg:w-5 lg:h-5" />
                 {events[0].location}
               </p>
@@ -133,20 +142,21 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
 
         
         <div
-          className=" col-span-2
-            flex flex-col gap-6 
-            w-full h-full
+          className="
+            flex flex-col gap-6 w-full
+            lg:w-[480px] lg:h-[500px]
           "
         >
-          {events.slice(1,2).map((event: Event, index) => {
+          {events.slice(1).map((event: Event, index) => {
           
           return (
             <div
               key={event.id}
               className={`
-                relative w-full h-[200px] sm:h-[250px] lg:h-full
+                relative w-full h-[200px] sm:h-[250px]
+                lg:w-[480px] lg:h-[240px]
                 bg-black rounded-[4px] overflow-hidden
-                 animate-fade-in card-stagger-${index + 2}
+                charity-card animate-fade-in card-stagger-${index + 2}
               `}
             >
               <Link href={`/event-details/${event.id}`} className="absolute inset-0">
@@ -156,15 +166,15 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
                   className="absolute inset-0 w-full h-full rounded-xl  object-cover"
                 />
               </Link>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
               
-              <div className="absolute left-4  font-nunito  font-extrabold  sm:left-6 bottom-4 sm:bottom-6 text-white max-w-[350px] lg:max-w-[300px] animate-slide-up-delay">
+              <div className="absolute left-4  font-nunito  font-extrabold  sm:left-6 bottom-4 sm:bottom-6 text-[#ffffff] max-w-[350px] lg:max-w-[300px] animate-slide-up-delay">
                 <span className="text-base lg:text-sm font-nunito font-bold">{event.date}</span>
-                <h3 className="text-lg sm:text-2xl lg:text-[34px] font-bold leading-snug font-nunito">
+                <h3 className="text-lg sm:text-2xl lg:text-xl font-bold leading-snug font-nunito">
                   <Link href={`/event-details/${event.id}`}>{event.title}</Link>
                 </h3>
-                <p className="text-base lg:text-base flex items-center gap-2 font-nunito font-bold">
+                <p className="text-base lg:text-sm flex items-center gap-2 font-nunito font-bold">
                   <Icon icon="ion:location" width="24" height="24" className="text-white lg:w-5 lg:h-5" />
                   {event.location}
                 </p>
