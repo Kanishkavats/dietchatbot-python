@@ -2,13 +2,31 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
+  fetchFeedbacks,
+  fetchFeedbackById,
   createFeedback,
+  updateFeedback,
+  deleteFeedback,
   fetchApprovedFeedbacks,
 } from "@/src/services/feedbackApi";
 import { FeedbackFormValues } from "../utils/validations/FormValidation";
 import { useLanguageAwareQuery } from "./useLanguageAwareQuery";
 
+// ======================= Fetch All Feedbacks (Admin) ======================= //
 
+export const useFetchFeedbacks = (
+  page: number,
+  limit: number,
+  status: string | null = null
+) => {
+  return useLanguageAwareQuery(
+    ["feedbacks", page, limit, status],
+    () => fetchFeedbacks(page, limit, status),
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
+};
 
 export const useFetchApprovedFeedbacks = (
   page: number,
@@ -24,7 +42,20 @@ export const useFetchApprovedFeedbacks = (
   );
 };
 
+// ======================= Fetch Feedback by ID ======================= //
 
+export const useFetchFeedbackById = (id: string, enabled: boolean = true) => {
+  return useLanguageAwareQuery(
+    ["feedback", id],
+    () => fetchFeedbackById(id),
+    {
+      enabled,
+      staleTime: 5 * 60 * 1000, // 5 minutes
+    }
+  );
+};
+
+// ======================= Create Feedback ======================= //
 
 // ✅ Convert values to FormData
 const buildFeedbackFormData = (values: FeedbackFormValues) => {
@@ -109,3 +140,37 @@ export const submitFeedbackForm = (
   handleCreateFeedback(values, createMutation, resetForm, setSubmitting, onClose);
 };
 
+// ======================= Update Feedback ======================= //
+
+export const useUpdateFeedback = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({ id, values }: { id: string; values: { approved?: boolean; status?: "approved" | "rejected" } }) =>
+      updateFeedback(id, values),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
+      toast.success("Feedback updated successfully");
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to update feedback");
+    },
+  });
+};
+
+// ======================= Delete Feedback ======================= //
+
+export const useDeleteFeedback = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: deleteFeedback,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
+      toast.success("Feedback deleted successfully");
+    },
+    onError: (err: any) => {
+      toast.error(err?.response?.data?.message || "Failed to delete feedback");
+    },
+  });
+};
