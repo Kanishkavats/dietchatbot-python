@@ -55,7 +55,7 @@ const Dropdown = <T extends string | number>({
           />
         )}
 
-        <span className={`flex-1 text-[13px]`}>
+        <span className={`flex-1 whitespace-nowrap text-[13px]`}>
           {selectedOption ? selectedOption.label : placeholder || "Select"}
         </span>
         {!readOnly && (<motion.span

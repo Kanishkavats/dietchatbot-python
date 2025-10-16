@@ -74,7 +74,7 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     title: data.title ?? { en: "", hi: "" },
     category: data.category ?? { en: "", hi: "" },
     description: data.description ?? { en: "", hi: "" },
-    goalAmount: data.goalAmount ?? 0,
+    goalAmount: data.goalAmount ?? '',
     summary: data.summary ?? { en: "", hi: "" },
     keyPoints: data.keyPoints ?? { en: [], hi: [] },
     location: data.location ?? { en: "", hi: "" },

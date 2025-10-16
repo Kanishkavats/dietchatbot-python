@@ -157,6 +157,7 @@ export const useDeleteSingleBlog = () => {
     mutationFn: deleteSingleBlog,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      toast.dismiss();
       toast.success("Blog deleted successfully");
     },
     onError: (error: any) => {

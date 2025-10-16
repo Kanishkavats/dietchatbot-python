@@ -13,6 +13,7 @@ import Button from "../common/Buttons/Button";
 import DonationCard from "../common/card/DonationCard";
 import { allDonationCards } from "../../staticResource";
 import { useFetchAllCampaigns } from "../../hooks/useCampaigns";
+import { useTranslation } from "react-i18next"; 
 
 interface CampaignCard {
   id: string;
@@ -29,6 +30,7 @@ interface CampaignCard {
 
 
 const HelpAndDonate: React.FC = () => {
+  const { t } = useTranslation(); 
   
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -117,18 +119,18 @@ const HelpAndDonate: React.FC = () => {
             {/* Top Left Text */}
             <div className="flex items-center mb-4 md:mb-6">
               <i className="text-lg md:text-xl mr-2 text-[var(--green)] hand-icon"></i>
-              <span className="text-[var(--green)] font-caveat text-lg md:text-xl lg:text-2xl font-bold">Start Donating Poor People</span>
+              <span className="text-[var(--green)] font-caveat text-lg md:text-xl lg:text-2xl font-bold">{t("Start Donating Poor People")}</span>
             </div>
 
             {/* Main Heading */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 md:mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>
               <div className="w-full lg:w-[761px]">
-                <span className="text-gray-800">Help & </span>
-                <span className="text-yellow-400">Donate </span>
-                <span className="text-gray-800">Them when</span>
+                <span className="text-gray-800">{t("Help & ")}</span>
+                <span className="text-yellow-400">{t("Donate")} </span>
+                <span className="text-gray-800">{t("Them when")}</span>
               </div>
               <div className="block">
-                <span className="text-gray-800">They are In Need</span>
+                <span className="text-gray-800">{t("They are In Need")}</span>
               </div>
             </h2>
           </div>

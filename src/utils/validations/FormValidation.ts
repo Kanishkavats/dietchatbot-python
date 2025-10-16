@@ -130,10 +130,6 @@ export const EventSchema = Yup.object({
   title:Yup.object({
     en:Yup.string().required("Title is required in English"),
     hi: Yup.string().required("शीर्षक हिंदी में होना आवश्यक है"),
-  }),
-  category:Yup.object({
-    en:Yup.string().required("Category is required"),
-    hi:Yup.string().required("श्रेणी आवश्यक है"),
   }), 
   description:Yup.object({
     en:Yup.string().required("Description is required"),
@@ -142,7 +138,11 @@ export const EventSchema = Yup.object({
   summary:Yup.object({
     en:Yup.string().required("Summary is required"),
     hi:Yup.string().required("सारांश आवश्यक है"),
-  }), 
+  }),
+  startDate: Yup.date().nullable(),
+  startTime: Yup.date().nullable(),
+  endDate: Yup.date().nullable(),
+  endTime: Yup.date().nullable(),    
   keyPoints:Yup.object({
     en: Yup.array()
       .of(Yup.string().required("Key point in English is required"))
@@ -161,6 +161,8 @@ export const EventSchema = Yup.object({
     en:Yup.string().required("Location is required"),
     hi:Yup.string().required("स्थान आवश्यक है"),
   }), 
+  latitude: Yup.number().nullable().required("latitude is required"),
+  longitude: Yup.number().nullable().required("Longitude is required"),
 });
 
 

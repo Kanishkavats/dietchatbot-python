@@ -7,9 +7,10 @@ export interface Event {
   description: { en: string; hi: string };
   summary: { en: string; hi: string };
   status: string;
-  startTime: string;
-  Date: string;
-  endTime: string;
+   startDate: Date | null;
+  startTime: Date | null;
+  endDate: Date | null;
+  endTime: Date | null;
   images?: { en?: (string | File)[]; hi?: (string | File)[] }; 
   existingImages?: { en?: string[]; hi?: string[] };
   location: { en: string; hi: string };
@@ -24,7 +25,7 @@ export interface EventFormProps {
   initialData?: Partial<EventFormValues> & Partial<Event>;
   onClose: () => void;
   readOnly?: boolean; 
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
   onPreview?: (values: EventFormValues) => void;
   createMutation?: UseMutationResult<any, unknown, any, unknown>;
   updateMutation?: UseMutationResult<any, unknown, any, unknown>;

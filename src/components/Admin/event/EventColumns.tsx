@@ -19,6 +19,7 @@ export const getEventColumns = ({
       name: "End Time",
       selector: (row: Event) => `${row.endTime}`,
     },
+    { name: "Location", selector: (row: Event) => row.location },
     { name: "Status", selector: (row: Event) => row.status },
     {
       name: "Actions",

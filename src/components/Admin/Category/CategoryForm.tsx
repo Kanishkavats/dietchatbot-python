@@ -21,7 +21,7 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
   const isView = mode === "view";
   const isEdit = mode === "edit";
   const { language, toggleLanguage } = useLanguageToggle();
-
+  console.log(initialData)
   const queryClient = useQueryClient();
 
   // ✅ Mutations
