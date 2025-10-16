@@ -57,7 +57,7 @@ const Footer = () => {
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[29%] xl:top-[25%] left-0 xl:left-8 transform -translate-y-1/2 text-yellow"
+        className="absolute top-[20%] xl:top-[25%] left-0 xl:left-8 transform -translate-y-1/2 text-yellow"
       >
         <img
           src={spade2.src}
@@ -76,10 +76,10 @@ const Footer = () => {
       >
         {/* Brand */}
         <motion.div variants={item} className="lg:mb-20 xl:mb-10">
-          <div className="h-10 w-48 xl:h-12 xl:w-52 relative">
-            <Image src={logo} fill alt={footerData.brand.name} />
+          <div className="h-12 w-52 md:h-12 md:w-56 lg:h-14 lg:w-64 xl:h-16 xl:w-72 relative -ml-15 md:-ml-22">
+            <Image src={logo} fill alt={footerData.brand.name} className="object-contain" />
           </div>
-          <p className="mt-8 text-white/50 text-sm xl:text-lg font-nunito tracking-tight leading-7 xl:leading-9">
+          <p className="mt-8 text-white/50 text-sm xl:text-lg font-nunito tracking-tight leading-7 xl:leading-9 text-left w-full">
             {t(footerData.brand.description)}
           </p>
           <div className="flex gap-3 mt-6">

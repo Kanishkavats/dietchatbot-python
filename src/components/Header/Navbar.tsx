@@ -38,10 +38,10 @@ const Navbar = () => {
   return (
     <nav className="w-full flex items-center justify-between py-4 relative">
       {/* Logo */}
-      <div className="h-10 w-40 relative cursor-pointer"
+      <div className="h-10 w-40 md:h-12 md:w-48 lg:h-14 lg:w-56 relative cursor-pointer -ml-12"
         onClick={() => route.push("/")}
       >
-        <Image src={logo.src} alt="Logo" fill />
+        <Image src={logo.src} alt="Logo" fill className="object-contain" />
       </div>
 
       {/* Desktop Menu */}

@@ -5,8 +5,10 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { childOldCareImages, childOldCareSliderSettings } from '../../staticResource';
+import { useTranslation } from 'react-i18next';
 
 const ScrollBanner: React.FC = () => {
+  const { t } = useTranslation();
 
   // Use imported data from staticResource
   const images = childOldCareImages;
@@ -67,7 +69,7 @@ const ScrollBanner: React.FC = () => {
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
               }}
-              className="w-full h-[400px] md:h-[500px] lg:h-[600px] relative rounded-t-[20px] md:rounded-t-[30px] lg:rounded-none">
+              className="w-full h-[400px] md:h-[500px] lg:h-[600px] relative rounded-t-0 md:rounded-t-[30px] lg:rounded-none">
                
               </div>
             </div>
@@ -91,10 +93,10 @@ const ScrollBanner: React.FC = () => {
           {/* Text overlay on bottom curve */}
           <div className="absolute bottom-16 md:bottom-4 lg:bottom-0 left-1/2 transform -translate-x-1/2 text-center px-4">
             <h2 className="text-base md:text-xl lg:text-2xl font-nunito font-extrabold text-dark-green mb-0 md:mb-1 leading-tight whitespace-nowrap">
-              Old People & Child Trouble
+              {t("Old People & Child Trouble")}
             </h2>
             <p className='text-sm md:text-lg lg:text-xl font-small font-nunito text-gray-400 whitespace-nowrap'>
-              Child & Old Care
+              {t("Child & Old Care")}
             </p>
           </div>
         </div>
@@ -119,3 +121,4 @@ const ScrollBanner: React.FC = () => {
 };
 
 export default ScrollBanner;
+
