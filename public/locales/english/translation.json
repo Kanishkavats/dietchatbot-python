@@ -213,48 +213,34 @@
   "Help & ": "Help & ",
 
 
-<<<<<<< HEAD
-<<<<<<< Updated upstream
-
-  
-
-  }
-=======
-=======
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
-  "25": "25",
+"25": "25",
   "50": "50",
   "100": "100",
   "200": "200",
-<<<<<<< HEAD
+
   "amount":"amount",
-  "Share Your": "Share Your",
-  "Experience!": "Experience!",
-  "Your name...": "Your name...",
-  "Your designation...": "Your designation...",
+  "Member data not available": "Member data not available",
+  "Lorem ipsum dolor sit amet, con adipiscing elit tian convallis elit id impedie. Quisq commodo simply free ornare tortor. If you are going to use a passage.": "Lorem ipsum dolor sit amet, con adipiscing elit tian convallis elit id impedie. Quisq commodo simply free ornare tortor. If you are going to use a passage.",
+  "I Help My Clients Stand Out And They Help Me Grow.": "I Help My Clients Stand Out And They Help Me Grow.",
+  "Key Points": "Key Points",
+  "Best Quality Services": "Best Quality Services",
+  "Time Saving": "Time Saving",
+  "Meet The Deadlines": "Meet The Deadlines",
+  "24/7 Customer Support": "24/7 Customer Support",
+  "Donate With Me": "Donate With Me",
+  "About Me": "About Me",
+
   "Rating * (1-5)": "Rating * (1-5)",
-  "Your feedback...": "Your feedback...",
+
   "Profile Image *": "Profile Image *",
-  "Uploaded successfully": "Uploaded successfully",
-  "Drag & Drop your images here or": "Drag & Drop your images here or",
-  "browse files": "browse files",
-  "Submit Feedback": "Submit Feedback",
-  "Submitting...": "Submitting...",
-  "Submitting your feedback...": "Submitting your feedback...",
-  "Failed to submit feedback": "Failed to submit feedback",
+
   
-    "Submitting your feedback...": "Submitting your feedback...",
-  "Failed to submit feedback": "Failed to submit feedback",
-  "Image size must be less than 5MB.": "Image size must be less than 5MB.",
-  "Image is required": "Image is required",
-    "Name is required": "Name is required",
-  "Designation is required": "Designation is required",
-  "Image is required": "Image is required",
+
   "Feedback must be 500 characters or less": "Feedback must be 500 characters or less",
-  "Feedback is required": "Feedback is required",
+
   "Please select a rating": "Please select a rating",
   "Maximum rating is 5": "Maximum rating is 5",
-  "Rating is required": "Rating is required",
+
   "PrivacyPolicy": {
     "Heading": "Our Commitment to Your Privacy",
     "BannerMoto": "Privacy Policy",
@@ -290,8 +276,4 @@
 
 
 }
->>>>>>> Stashed changes
-=======
-  "amount":"amount"
-}
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
+

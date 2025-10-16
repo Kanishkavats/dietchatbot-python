@@ -151,6 +151,10 @@ export const useFetchSingleMember = (id?: string) => {
     queryKey: ["member", id],
     queryFn: () => fetchMemberById(id!),
     enabled: !!id,
+    retry: 2,
+    retryDelay: 1000,
+    staleTime: 5 * 60 * 1000, // 5 minutes - data is considered fresh for 5 minutes
+    cacheTime: 10 * 60 * 1000, // 10 minutes - keep in cache for 10 minutes
   });
 };
 

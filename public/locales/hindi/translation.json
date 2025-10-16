@@ -156,13 +156,11 @@
  "image": "चित्र",
   "designation": "पदनाम",
  "role": "भूमिका",
-<<<<<<< HEAD
-<<<<<<< Updated upstream
- "avatar": "अवतार"
-=======
+
  "avatar": "अवतार",
-=======
- "avatar": "अवतार",
+
+
+ 
   "Our Valuable": "हमारी मूल्यवान",
   "Feedback": "प्रतिक्रिया",
   "your opinion counts here": "आपकी राय यहाँ मायने रखती है",
@@ -191,8 +189,7 @@
   "Child & Old Care": "बच्चे और बुजुर्गों की देखभाल",
 
 
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
- "Be The Reason Of Someone": "किसी के मुस्कान की वजह बनें",
+ "Be The Reason Of Someone": "किसी के मुस्कान की जह बनें",
   "Smiles": "मुस्कानें",
   "Help &": "मदद करें और",
   "Donate": "दान करें",
@@ -234,7 +231,19 @@
   "100": "₹१००",
   "200": "₹२००",
   "amount":" राशि",
-<<<<<<< HEAD
+
+  "Help & ": "मदद और ",
+  "Member data not available": "सदस्य डेटा उपलब्ध नहीं है",
+  "Lorem ipsum dolor sit amet, con adipiscing elit tian convallis elit id impedie. Quisq commodo simply free ornare tortor. If you are going to use a passage.": "लोरेम इप्सम डोलर सिट एमेट, कॉन एडिपिसिंग एलिट टियन कॉनवलिस एलिट आईडी इम्पेडी। क्विस्क कॉमोडो सिंप्ली फ्री ऑर्नेयर टॉर्टर। यदि आप एक पैसेज का उपयोग करने जा रहे हैं।",
+  "I Help My Clients Stand Out And They Help Me Grow.": "मैं अपने ग्राहकों को बाहर खड़े होने में मदद करता हूं और वे मुझे बढ़ने में मदद करते हैं।",
+  "Key Points": "मुख्य बिंदु",
+  "Best Quality Services": "सर्वोत्तम गुणवत्ता सेवाएं",
+  "Time Saving": "समय की बचत",
+  "Meet The Deadlines": "समय सीमा पूरी करना",
+  "24/7 Customer Support": "24/7 ग्राहक सहायता",
+  "Donate With Me": "मेरे साथ दान करें",
+  "About Me": "मेरे बारे में",
+
   "Help & ": "मदद और ",
   "Share Your": "अपना साझा करें",
   "Experience!": "अनुभव!",
@@ -298,14 +307,6 @@
 
 
 
-
->>>>>>> Stashed changes
-=======
-  "Help & ": "मदद और "
-
-
-
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
 
 
 
