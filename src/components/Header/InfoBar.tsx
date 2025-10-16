@@ -32,7 +32,7 @@ const InfoBar = () => {
         </div>
         {/* Right: Dropdowns & Social Icons */}
         <div className="flex items-center space-x-6 font-nunito">
-          <InfoBarDropdown options={currencies} label="Currency" />
+          {/* <InfoBarDropdown options={currencies} label="Currency" /> */}
           <LanguageSwitcher paddingy="py-2" />
 
           {/* Social Icons */}

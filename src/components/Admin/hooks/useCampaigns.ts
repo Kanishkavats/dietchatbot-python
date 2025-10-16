@@ -126,10 +126,10 @@ export const submitCampaignForm = (
 // ✅ Fetch campaigns with pagination (language-aware)
 export const useFetchAllCampaigns = (page: number, limit: number = 10) => {
   return useLanguageAwareQuery(
-    ["campaigns", page, limit], // different cache per page+limit
+    ["campaigns", page, limit], 
     () => fetchAllCampaigns(page, limit),
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
     }
   );
 };
