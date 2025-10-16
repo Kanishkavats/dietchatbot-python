@@ -12,6 +12,7 @@ import Button from '../common/Buttons/Button'
 import InputField from "../common/inputs/InputField";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import { useCreateFeedback, submitFeedbackForm } from '@/src/hooks/useFeedback';
+<<<<<<< HEAD
 import { useTranslation } from "react-i18next";
 
 export interface FeedbackFormValues {
@@ -21,6 +22,9 @@ export interface FeedbackFormValues {
   rating: number;
   image: File | string | null;
 }
+=======
+import { useTranslation } from 'react-i18next';
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
 
 const initialValues: FeedbackFormValues = {
   name: '',
@@ -36,6 +40,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
   const [imageName, setImageName] = React.useState<string>('')
   const [imageSizeError, setImageSizeError] = React.useState<string>('')
   const [toast, setToast] = React.useState<{ type: 'success' | 'error', message: string } | null>(null)
+<<<<<<< HEAD
 
   // ✅ Yup schema inside component for dynamic translation
   const feedbackSchema = Yup.object({
@@ -57,6 +62,11 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
       .required(t("Rating is required")),
   });
 
+=======
+  const { t } = useTranslation()
+  
+  // Initialize the mutation hook
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
   const createFeedbackMutation = useCreateFeedback()
 
   // Lock body scroll when modal is open
@@ -76,6 +86,10 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
   }, [toast])
 
   const handleSubmit = async (values: FeedbackFormValues, { resetForm, setSubmitting }: any) => {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
     setToast({ type: 'success', message: t('Submitting your feedback...') });
     try {
       await submitFeedbackForm(
@@ -190,7 +204,11 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                   {/* Rating */}
                   <div className="relative">
                     <label className="block text-xs sm:text-sm font-medium text-white mb-2">
+<<<<<<< HEAD
                       {t("Rating * (1-5)")}
+=======
+                      {t("Rating")} * (1-5)
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
                     </label>
                     <div className="flex gap-1 sm:gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -234,7 +252,11 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                   {/* Image */}
                   <div className="relative text-white">
                     <label className="block text-xs sm:text-sm font-medium text-white mb-2">
+<<<<<<< HEAD
                       {t("Profile Image *")}
+=======
+                      {t("Profile Image")} *
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
                     </label>
                     <div className="relative">
                       {imagePreview ? (
@@ -321,6 +343,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                   <div className="py-2 sm:py-3 text-center">
                     <div className="inline-block">
                       <Button
+<<<<<<< HEAD
                         type="submit"
                         bgColor="bg-yellow"
                         textColor="text-black"
@@ -330,6 +353,20 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                         paddingy="py-3 sm:py-4"
                       >
                         {isSubmitting ? t('Submitting...') : t('Submit Feedback')}
+=======
+                      type="submit"
+                      bgColor="bg-yellow"
+                      textColor="text-black"
+                      hoverTextColor="group-hover:text-white"
+                      hoverBg="before:bg-foreground"
+                      paddingx="px-6 sm:px-10"
+                      paddingy="py-3 sm:py-4"
+                      onClick={(e) => {
+                       
+                      }}
+                    >
+                      {isSubmitting ? t('Submitting...') : t('Submit Feedback')}
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
                       </Button>
                     </div>
                   </div>

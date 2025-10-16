@@ -8,13 +8,17 @@ import DonationInput from "../../DonateUs/DonationInput";
 import RadioGroup from "../../common/radio/RadioGroup";
 import Button from "../../common/Buttons/Button";
 import { Donationmethods } from "@/src/staticResource";
-import { galleryImageTwo, yellowspade } from "@/public/assets";
+import { community2, yellowspade } from "@/public/assets";
 import { pageBannerBackgourndColor } from "../../common/PageBanner";
 import { motion } from 'framer-motion'
 import SideImage from "./SideImage";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
-
-const Community = () => {
+import { useTranslation } from "react-i18next";
+interface props{
+    hasfeedback?:boolean|null
+}
+const Community = ({hasfeedback}:props) => {
+    const {t} = useTranslation();
     const [amount, setAmount] = useState<string>("50");
     const [method, setMethod] = useState("test");
     const presetAmounts = [20, 50, 100, 200];
@@ -26,10 +30,10 @@ const Community = () => {
 
     return (
         <section
-            className="relative h-[800px]  text-white flex justify-center items-cente overflow-hidde"
+            className={`relative ${hasfeedback?'h-[800px]':'h-[990px]'}  z-40 text-white flex justify-center items-cente overflow-hidde`}
         >
             <div className="absolute  z-0 inset-0">
-                <Image src={galleryImageTwo.src} alt="bg image" fill className="object-cover" />
+                <Image src={community2.src} alt="bg image" fill className="object-cover" />
             </div>
 
             <motion.div
@@ -63,22 +67,22 @@ const Community = () => {
 
                     <p className="text-yellow font-medium flex items-center gap-2 font-caveat text-2xl">
                         <Icon icon="mdi:hand-heart" className=" cursor-pointer" />
-                        Start Donating Poor People
+                        {t("Start Donating Poor People")}
                     </p>
 
                     <h1 className="text-2xl md:text-5xl font-extrabold text-white leading-tight mt-5 font-nunito max-w-xl lg:max-w-2xl">
-                        Join The <span className="text-yellow">Community</span>  To Give  Education For Children
+                        {t("Join The")} <span className="text-yellow">{t("Community")}</span>  {t("To Give Education For Children")}
                     </h1>
 
                 </motion.div>
                 <AnimatedReveal
-                 className="max-w-7xl h-[650px] bg-white   rounded-2xl overflow-hidden mx-auto grid xl:grid-cols-5 relative bottom-[-50px] z-5 mb-15">
+                 className="max-w-7xl h-[650px] bg-white   rounded-2xl overflow-hidden mx-auto grid lg:grid-cols-8 xl:grid-cols-5 relative bottom-[-50px] z-5 mb-15">
 
-                    <div className="bg-white text-foreground rounded-xl  py-4 px-4 md:p-12 w-full col-span-3  relative z-10">
-                        <h2 className="md:text-3xl font-bold mb-3  md:mb-10">Support Where It Counts.</h2>
+                    <div className="bg-white text-foreground rounded-xl  py-4 px-4 md:p-12 w-full lg:col-span-5 xl:col-span-3  relative z-10">
+                        <h2 className="md:text-3xl font-bold mb-3  md:mb-10">{t("Support Where It Counts")}.</h2>
 
                         <div className="mb-8">
-                            <Notice message="Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed." />
+                            <Notice message={t("Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed.")} />
                         </div>
 
                         {/* Donation Input */}
@@ -90,10 +94,14 @@ const Community = () => {
 
                         {/* Payment Methods */}
                         <div className="space-y-3 mt-10">
-                            <p className="text-xl font-semibold">Select Payment Method</p>
+                            <p className="text-xl font-semibold">{t("Select Payment Method")}</p>
                             <RadioGroup
                                 name="payment"
-                                options={Donationmethods}
+                               // options={Donationmethods}
+                               options={Donationmethods.map(option => ({
+                                ...option,
+                                label: t(option.label) // Translate each option label
+                               }))}
                                 value={method}
                                 onChange={setMethod}
                                 selectedColor="green"
@@ -102,7 +110,7 @@ const Community = () => {
                         </div>
                         <div className="w-fit">
 
-                            <Button text="Donate Now" onClick={handleDonateNow} />
+                            <Button text={t("Donate Now")} onClick={handleDonateNow} />
                         </div>
                     </div>
                     <motion.div
@@ -110,6 +118,7 @@ const Community = () => {
                         whileInView={{ opacity: 1, transform: "translateZ(0)" }}
                         transition={{ duration: 1, delay: 0.2 }}
                         viewport={{ once: true, margin: "-100px" }}
+                        className="lg:col-span-3 xl:col-span-2"
                     >
                         <SideImage />
                     </motion.div>

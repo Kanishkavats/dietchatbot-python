@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 interface DonationInputProps {
   presetAmounts?: number[];
@@ -32,9 +33,11 @@ const DonationInput: React.FC<DonationInputProps> = ({
 
   const isCustom = !presetAmounts.map(String).includes(amount) && amount !== "";
 
+  const { t } = useTranslation();
+
   return (
     <div className="space-y-3">
-      <p className="text-xl font-semibold">Your Donation:</p>
+      <p className="text-xl font-semibold">{t("Your Donation")}:</p>
 
       {/* Input */}
       <div className="flex items-center bg-[var(--gray-100)] rounded-full px-4 py-1 space-x-4 max-w-[35rem]">
@@ -46,7 +49,7 @@ const DonationInput: React.FC<DonationInputProps> = ({
           value={amount}
           onChange={handleAmountChange}
           inputMode="numeric"
-          placeholder="Enter amount"
+          placeholder={t("Enter amount")}
           className="bg-transparent outline-none w-full text-xl font-medium
             [&::-webkit-outer-spin-button]:appearance-none
             [&::-webkit-inner-spin-button]:appearance-none
@@ -66,7 +69,7 @@ const DonationInput: React.FC<DonationInputProps> = ({
                 : "bg-[var(--white)] text-[var(--green)] border-[var(--gray-200)]"
               } hover:bg-[var(--green)] hover:text-[var(--white)]`}
           >
-            {preset}
+            {t(`${preset}`)}
           </button>
         ))}
 
@@ -81,7 +84,7 @@ const DonationInput: React.FC<DonationInputProps> = ({
               : "bg-[var(--white)] text-[var(--green)] border-[var(--gray-200)]"
             } hover:bg-[var(--green)] hover:text-[var(--white)]`}
         >
-          Custom
+          {t("Custom")}
         </button>
       </div>
     </div>

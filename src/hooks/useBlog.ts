@@ -9,31 +9,37 @@ import toast from "react-hot-toast";
 const buildFormData = (values: BlogFormValues) => {
   const formData = new FormData();
 
-  formData.append("title", values.title);
-  formData.append("creator", values.creator);
-  formData.append("category", values.category);
-  formData.append("description", values.description);
-  formData.append("summary", values.summary);
-  formData.append("quote", values.quote);
-  formData.append("quoteAuthor", values.quoteAuthor);
-  formData.append("location", values.location);
+  // Helper to append nested objects as JSON strings
+  const appendNestedObject = (key: string, obj: any) => {
+    formData.append(key, JSON.stringify(obj));
+  };
 
-  // Tags
-  if (values.tags && values.tags.length > 0) {
-    values.tags.forEach((tag) => formData.append("tags[]", tag));
+  // Append nested objects as JSON strings
+  appendNestedObject("title", values.title);
+  appendNestedObject("creator", values.creator);
+  appendNestedObject("category", values.category);
+  appendNestedObject("description", values.description);
+  appendNestedObject("summary", values.summary);
+  appendNestedObject("quote", values.quote);
+  appendNestedObject("quoteAuthor", values.quoteAuthor);
+  appendNestedObject("location", values.location);
+
+  // Append tags by language as JSON strings
+  if (values.tags) {
+    appendNestedObject("tags", values.tags);
   }
 
-  // Key Points
-  if (values.keyPoints && values.keyPoints.length > 0) {
-    values.keyPoints.forEach((point) => formData.append("keyPoints[]", point));
+  // Append keyPoints by language as JSON strings
+  if (values.keyPoints) {
+    appendNestedObject("keyPoints", values.keyPoints);
   }
 
-  // Existing Images
+  // Existing images URLs
   values.existingImages?.forEach((url) => {
     if (url) formData.append("existingImages[]", url);
   });
 
-  // New Images
+  // New image files
   if (values.images && values.images.length > 0) {
     values.images.forEach((file) => {
       if (file instanceof File) {
@@ -44,6 +50,8 @@ const buildFormData = (values: BlogFormValues) => {
 
   return formData;
 };
+
+
 
 // ✅ Handle blog create
 const handleCreateBlog = (
@@ -56,6 +64,8 @@ const handleCreateBlog = (
   toast.dismiss();
   toast.loading("Creating blog...");
   const formData = buildFormData(values);
+
+  console.log("formted", formData)
 
   createMutation.mutate(formData, {
     onSuccess: () => {
@@ -123,15 +133,15 @@ export const submitBlogForm = (
 };
 
 // ✅ Fetch blogs with pagination
-export const useFetchAllBlogs = (page: number, limit: number = 10) => {
+export const useFetchAllBlogs = (page: number, limit: number = 10,searchText='All') => {
   return useQuery({
-    queryKey: ["blogs", page, limit],
-    queryFn: () => fetchAllBlogs(page, limit),
+    queryKey: ["blogs", page, limit,searchText],
+    queryFn: () => fetchAllBlogs(page, limit,searchText),
     placeholderData: keepPreviousData,
   });
 };
 
- // Fetch single blog
+// Fetch single blog
 export const useFetchSingleBlog = (id?: string) => {
   return useQuery({
     queryKey: ["blog", id],

@@ -7,17 +7,21 @@ import { MdLocationPin } from "react-icons/md";
 import { LucideCircleCheckBig } from "lucide-react";
 import { motion } from "framer-motion";
 import Button from "../../common/Buttons/Button";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import LanguageToggle from "../Common/LanguageToggle";
 
 export interface CampaignPreviewProps {
   data: CampaignFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
   onSubmit: () => void;
   onBack: () => void;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
+  showButton?:boolean
 }
 
-const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps) => {
+const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-
+  // const [language, setLanguage] = useState<"en" | "hi">("en");
+  const { language, toggleLanguage } = useLanguageToggle();
   useEffect(() => {
     if (!data.images && !data.existingImages) return;
 
@@ -46,10 +50,9 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
       });
     };
   }, [data.images, data.existingImages]);
-
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);
-
+  const lang=language
   return (
     <motion.div
       className="bg-white lg:px-4 py-8 max-w-5xl mx-auto font-sans text-black"
@@ -57,6 +60,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
     >
+      <LanguageToggle language={language} onChange={toggleLanguage} />
       {/* Banner Image */}
       {bannerImage && (
         <div className="w-full h-64 sm:h-80 mb-8 rounded-xl overflow-hidden">
@@ -79,20 +83,20 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
         {data.location && (
           <p className="flex items-center text-[16px] gap-2">
             <MdLocationPin className="text-yellow" />
-            {data.location}
+            {data.location?.[lang]}
           </p>
         )}
       </div>
 
       {/* Title */}
       <h2 className="text-2xl lg:text-4xl font-bold mb-4 font-nunito text-foreground">
-        {data.title}
+        {data.title?.[lang]}
       </h2>
 
       {/* Description / Summary / Goal */}
       <div className="space-y-4 text-foreground/60 font-[400] text-md lg:text-lg leading-relaxed">
-        <p>{data.description}</p>
-        <p>{data.summary}</p>
+        <p>{data.description?.[lang]}</p>
+        <p>{data.summary?.[lang]}</p>
 
         <p>
           <span className="font-semibold text-foreground">Organizer
@@ -129,6 +133,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
       )}
 
       {/* Buttons */}
+      {showButton&&(
         <div className="mt-12 flex gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
@@ -147,6 +152,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode }: CampaignPreviewProps)
             hoverBg="before:bg-green"
           />
         </div>
+        )}
     </motion.div>
   );
 };

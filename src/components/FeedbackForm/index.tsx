@@ -6,6 +6,7 @@ import { motion, useInView } from 'framer-motion'
 import { useRef } from 'react'
 import Button from '../common/Buttons/Button'
 import Form from './Form'
+import { useTranslation } from 'react-i18next'
 
 const FeedbackForm = () => {
   const [showForm, setShowForm] = useState(false)
@@ -13,15 +14,16 @@ const FeedbackForm = () => {
   const headingRef = useRef(null)
   const isInView = useInView(titleRef, { once: true, amount: 0.3 })
   const isHeadingInView = useInView(headingRef, { once: true, amount: 0.3 })
+  const { t } = useTranslation()
   return (
     <div 
       className="w-full min-h-[400px] sm:min-h-[500px] relative bg-cover bg-center bg-no-repeat"
       style={{
-        backgroundImage: 'url(/assets/banner-bg.png)'
+        backgroundImage: 'url(/assets/feedbackformhome.jpg)'
       }}
     >
       {/* Green gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-r from-green/50 to-transparent z-10"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-foreground/100 to-dark-green/50 z-10"></div>
       
       {/* Title and Heading */}
       <div className="absolute top-50 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-center z-20 text-white px-4 sm:px-6 md:px-8">
@@ -33,7 +35,7 @@ const FeedbackForm = () => {
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
             <Icon icon="mdi:hand-heart" className="cursor-pointer text-sm sm:text-base md:text-lg" />
-            <span className="truncate">Start Donating Poor People</span>
+            <span className="truncate">{t("Start Donating Poor People")}</span>
           </motion.p>
         </div>
         
@@ -44,12 +46,12 @@ const FeedbackForm = () => {
             animate={isHeadingInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
             transition={{ duration: 1, ease: [0.25, 0.1, 0.25, 1] }}
           >
-                   Our Valuable <span className="text-yellow">Feedback,,</span> your opinion counts here.
+                   {t("Our Valuable")} <span className="text-yellow">{t("Feedback")},</span> {t("your opinion counts here")}.
           </motion.h1>
            <div className="mt-6 sm:mt-8 md:mt-10 lg:mt-13 flex justify-center">
              <div className="w-fit scale-90 sm:scale-100">
                <Button 
-                 text=" Send Feedback" 
+                 text={t("Send Feedback")} 
                  onClick={() => setShowForm(true)}
                />
              </div>

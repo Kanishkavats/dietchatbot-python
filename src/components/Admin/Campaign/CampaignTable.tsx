@@ -16,35 +16,43 @@ import {
   useFetchAllCampaigns,
   useFetchSingleCampaign,
   submitCampaignForm
-} from "@/src/hooks/useCampaigns";
+} from '@/src/components/Admin/hooks/useCampaigns'
 import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCampaign, updateCampaign } from "@/src/services/campaignApi";
+import { createCampaign, updateCampaign } from "@/src/components/Admin/services/campaignApi";
 import CampaignPreview from "./CampaignPreview";
 import { Campaign } from "@/src/types/campaign";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import toast from "react-hot-toast";
+import ConfirmModal from "../Common/ConfirmModal";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
   const [searchField, setSearchField] = useState<"title" | "organizer" | "category">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
+  const [isOpen, setIsOpen] = useState(false);
+    const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const [showPreview, setShowPreview] = useState(false);
+
   const [previewData, setPreviewData] = useState<CampaignFormValues | null>(null);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const{language,toggleLanguage}=useLanguageToggle();
 
   const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage);
-  const { data: singleCampaignData, isLoading: isLoadingCampaign } = useFetchSingleCampaign(editCampaign || undefined);
+  const { data: singleCampaignData, isLoading: isLoadingCampaign,refetch } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
 
-
+const lang=language
   const queryClient = useQueryClient();
 
   const createMutation = useMutation({
@@ -61,6 +69,22 @@ const CampaignTable = () => {
       queryClient.invalidateQueries({ queryKey: ["campaigns"] });
     },
   });
+const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages: string[] } => {
+  return {
+    title: data.title ?? { en: "", hi: "" },
+    category: data.category ?? { en: "", hi: "" },
+    description: data.description ?? { en: "", hi: "" },
+    goalAmount: data.goalAmount ?? '',
+    summary: data.summary ?? { en: "", hi: "" },
+    keyPoints: data.keyPoints ?? { en: [], hi: [] },
+    location: data.location ?? { en: "", hi: "" },
+    images: Array.isArray(data.images) ? data.images.filter(Boolean) : [],
+    existingImages: Array.isArray(data.existingImages)
+      ? data.existingImages.filter((img:any): img is string => !!img)
+      : [],
+  };
+};
+
 
   const handleEdit = useCallback((c: Campaign) => {
     setEditCampaign(c.id.toString());
@@ -68,21 +92,45 @@ const CampaignTable = () => {
     setDrawerOpen(true);
   }, []);
 
-  const handleView = useCallback((c: Campaign) => {
+  const handleView = useCallback(async (c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("view");
-    setPreviewData(c);
-    setDrawerOpen(true);
-  }, []);
+    setDrawerOpen(true); 
+    setPreviewData(null); 
+  setShowPreview(false);
+  try {
+   setTimeout(async () => {
+      const { data } = await refetch();
+      if (data) {
+        setPreviewData(normalizeCampaignData(data));
+        setShowPreview(true);
+      }
+    }, 100); 
+  } catch (error) {
+    console.error("Failed to fetch campaign:", error);
+  }
+  }, [refetch]);
 
   const handleDelete = useCallback(
     (c: Campaign) => {
-      if (confirm(`Are you sure you want to delete "${c.title}"?`)) {
-        deleteCampaign(c.id.toString());
+      if (!c.id) {
+        console.error("Cannot delete Campaign: ID is missing.");
+        return;
       }
+      setSelectedCampaign(c);
+      setIsOpen(true);
     },
     [deleteCampaign]
   );
+  const confirmDelete = useCallback(() => {
+    if (selectedCampaign?.id) {
+      toast.dismiss();
+        toast.loading("Deleting Campaign....")
+      deleteCampaign(selectedCampaign.id.toString());
+      setIsOpen(false);
+      setSelectedCampaign(null);
+    }
+  }, [selectedCampaign, deleteCampaign]);
 
   const columns = useMemo(
     () =>
@@ -104,10 +152,27 @@ const CampaignTable = () => {
 
 
   const filteredData = useMemo(() => {
-    return paginatedData.filter((campaign: Campaign) =>
-      campaign[searchField]?.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [paginatedData, search, searchField]);
+  return paginatedData.filter((campaign: Campaign) => {
+    const fieldValue = campaign[searchField];
+    if (typeof fieldValue === "string") return fieldValue.toLowerCase().includes(search.toLowerCase());
+    if (typeof fieldValue === "object" && fieldValue?.[lang]) return fieldValue[lang].toLowerCase().includes(search.toLowerCase());
+    return false;
+  });
+}, [paginatedData, search, searchField, lang]);
+  const normalizedCampaignData = useMemo(() => {
+  if (!singleCampaignData) return undefined;
+
+  // Ensure both images and existingImages contain URLs
+  const stringImages =
+    singleCampaignData.images?.filter((img: any) => typeof img === "string") ?? [];
+
+  return {
+    ...singleCampaignData,
+    existingImages: singleCampaignData.existingImages ?? stringImages,
+    images: singleCampaignData.images ?? stringImages,
+  };
+}, [singleCampaignData]);
+
 
   return (
     <div>
@@ -189,53 +254,96 @@ const CampaignTable = () => {
           setMode("add");
           setPreviewData(null);
         }}
-        title={
-          mode === "edit"
-            ? "Edit Campaign"
-            : mode === "view"
-              ? "View Campaign"
-              : "Add Campaign"
-        }
+        // &&!previewData
+       title={
+    mode === "edit"
+      ? "Edit Campaign"
+      : mode === "view" || mode === "preview-edit"
+      ? "View Campaign"
+      : "Add Campaign"
+  }
         mode={mode}
 
       >
-        {previewData ? (
-          <CampaignPreview
-            mode={mode}
-            data={previewData}
-            onBack={() => setPreviewData(null)}
-            onSubmit={() => {
-              submitCampaignForm(
-                { ...previewData, keyPoints: previewData.keyPoints },
-                singleCampaignData,
-                createMutation,
-                updateMutation,
-                () => {
-                  setPreviewData(null);
-                  setDrawerOpen(false);
-                },
-                () => { },
-                () => setDrawerOpen(false)
-              );
-            }}
-          />
-        ) : isLoadingCampaign ? (
-          <p>Loading...</p>
-        ) : (
-          <CampaignForm
-            initialData={singleCampaignData ?? undefined}
-            onClose={() => {
-              setDrawerOpen(false);
-              setPreviewData(null);
-            }}
-            mode={mode}
-            onPreview={(data) => setPreviewData(data)}
-            createMutation={createMutation}
-            updateMutation={updateMutation}
-          />
-        )}
+        {(mode === "view" || mode === "preview-edit") && (
+    !previewData || isLoadingCampaign ? (
+   
+    <div className="flex justify-center py-10">
+      <CustomLoader />
+    </div>
+  ) : (
+  <CampaignPreview
+    mode={mode}
+    showButton={mode === "preview-edit"}
+    data={normalizeCampaignData(previewData)}
+    onBack={() => {
+  setShowPreview(false); 
+  setMode(editCampaign ? "edit" : "add");
+      
+    }}
+    onSubmit={() => {
+
+      submitCampaignForm(
+        { ...previewData!, keyPoints: previewData!.keyPoints },
+        singleCampaignData,
+        createMutation,
+        updateMutation,
+        () => {
+          setPreviewData(null);
+          setShowPreview(false);
+          setDrawerOpen(false);
+        },
+        () => {},
+        () => setDrawerOpen(false)
+      );
+    }}
+  />
+  )
+  )}
+{(mode === "add" || mode === "edit") && (
+      isLoadingCampaign?(
+        <div><CustomLoader/></div>
+      ):
+    (
+  <CampaignForm
+    initialData={{
+    ...(normalizedCampaignData ?? {}),
+    ...(previewData ?? {}),
+    // Ensure both arrays persist
+    images:
+      previewData?.images?.length
+        ? previewData.images
+        : normalizedCampaignData?.images ?? [],
+    existingImages:
+      previewData?.existingImages?.length
+        ? previewData.existingImages
+        : normalizedCampaignData?.existingImages ?? [],
+  }}
+    onClose={() => {
+      setDrawerOpen(false);
+      setPreviewData(null);
+      setShowPreview(false);
+    }}
+    mode={mode}
+    onPreview={(data) => {
+      setPreviewData(data);
+      setShowPreview(true);
+      setMode('preview-edit') 
+    }}
+    createMutation={createMutation}
+    updateMutation={updateMutation}
+  />
+))}
       </Drawer>
       )}
+       <ConfirmModal
+        isOpen={isOpen}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsOpen(false)}
+        title="Confirm Delete"
+        message="Are you sure you want to delete these record ?"
+        buttonText="Delete"
+      />
     </div>
   );
 };

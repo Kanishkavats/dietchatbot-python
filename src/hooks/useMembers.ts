@@ -1,29 +1,35 @@
 // src/hooks/useMembers.ts
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import {
-  fetchAllMembers,
+  // fetchAllMembers,
   fetchMemberById,
   deleteMember,
   createMember,
   updateMember,
-} from "../services/memberApi";
+} from "../components/Admin/services/memberApi";
+import { fetchAllMembers } from "../services/memberApi";
 import { MemberFormValues } from "../utils/validations/FormValidation";
 import toast from "react-hot-toast";
 import { MemberFormProps } from "../types/members";
 
-// ✅ Convert values to FormData
-const buildFormData = (values: MemberFormValues ) => {
+// ✅ Convert values to FormData (bilingual-aware, mirrors blog implementation)
+const buildFormData = (values: MemberFormValues) => {
   const formData = new FormData();
 
-  formData.append("name", values.name);
-  formData.append("position", values.position);
-  if (values.title) formData.append("title", values.title);
-  formData.append("description", values.description);
-  if (values.about) formData.append("about", values.about);
+  const appendNestedObject = (key: string, obj: any) => {
+    formData.append(key, JSON.stringify(obj));
+  };
 
-  // Key Points
-  if (values.keyPoints && values.keyPoints.length > 0) {
-    values.keyPoints.forEach((point) => formData.append("keyPoints[]", point));
+  // Bilingual fields as JSON strings
+  appendNestedObject("name", values.name);
+  appendNestedObject("position", values.position);
+  if (values.title) appendNestedObject("title", values.title);
+  appendNestedObject("description", values.description);
+  if (values.about) appendNestedObject("about", values.about);
+
+  // Key points by language
+  if (values.keyPoints) {
+    appendNestedObject("keyPoints", values.keyPoints);
   }
 
   // Social Links
@@ -32,15 +38,22 @@ const buildFormData = (values: MemberFormValues ) => {
   if (values.instagramUrl) formData.append("instagramUrl", values.instagramUrl);
   if (values.linkedInUrl) formData.append("linkedInUrl", values.linkedInUrl);
 
-  // Existing Images
-  values.existingImages?.forEach((url) => {
-    if (url) formData.append("existingImages[]", url);
-  });
+  // Existing Images (support both existingImages[] and legacy existingImage)
+  if (Array.isArray(values.existingImages)) {
+    values.existingImages.forEach((url) => {
+      if (url) formData.append("existingImages[]", url);
+    });
+  }
+  // @ts-ignore - legacy field tolerance
+  if ((values as any).existingImage && typeof (values as any).existingImage === "string") {
+    // keep API contract consistent
+    formData.append("existingImages[]", (values as any).existingImage);
+  }
 
- //  Single Image
-if (values.image && values.image instanceof File) {
-  formData.append("image", values.image);
-}
+  // Single Image file
+  if (values.image && values.image instanceof File) {
+    formData.append("image", values.image);
+  }
 
   return formData;
 };
@@ -133,6 +146,7 @@ export const useFetchAllMembers = (page: number, limit: number = 10) => {
 
 // ✅ Fetch single member
 export const useFetchSingleMember = (id?: string) => {
+  console.log('useFetchSingleMember called with id:', id);
   return useQuery({
     queryKey: ["member", id],
     queryFn: () => fetchMemberById(id!),

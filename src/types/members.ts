@@ -4,14 +4,33 @@ import { MemberFormValues } from "../utils/validations/FormValidation";
 // 🧩 Member model interface
 export interface Member {
   id: string;
-  name: string;
-  position: string;
-  title?: string;
-  description: string;
-  about?: string;
-  keyPoints: string[];
+  name: {
+    en: string;
+    hi: string;
+  };
+  position: {
+    en: string;
+    hi: string;
+  };
+  title?: {
+    en: string;
+    hi: string;
+  };
+  description: {
+    en: string;
+    hi: string;
+  };
+  about?: {
+    en: string;
+    hi: string;
+  };
+  keyPoints: {
+    en: string[];
+    hi: string[];
+  };
   image?: string;
   facebookUrl?: string;
+  vimeoUrl?: string;
   twitterUrl?: string;
   instagramUrl?: string;
   linkedInUrl?: string;

@@ -7,19 +7,25 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import Image from "next/image";
+import { ArrowLeft, ArrowRight } from "lucide-react";
 
 import DonationCard from "../common/card/DonationCard";
 import PageBanner from "../common/PageBanner";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import ChildrenNeed from "../About/ChildrenNeed";
 import SendMsg from "../About/SendMsg";
-import { bannerBg } from "@/public/assets";
+import { ourcausebanner } from "@/public/assets";
 import { useFetchAllCampaigns } from "@/src/hooks/useCampaigns";
 
 import "swiper/css";
 import "swiper/css/navigation";
 
+
+import { useTranslation } from "react-i18next";
+
+
 const DonationPage: React.FC = () => {
+  const {t} = useTranslation();
   const router = useRouter();
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
   const [hoveredLeft, setHoveredLeft] = useState(false);
@@ -36,9 +42,11 @@ const DonationPage: React.FC = () => {
 
   // Pagination state
   const [page, setPage] = useState(1);
-  const { data, isLoading, isError } = useFetchAllCampaigns(page, 8);
+  const { data, isLoading, isError }: any = useFetchAllCampaigns(page, 8);
+  console.log("check", data);
 
-  const handleCardClick = (id: string) => {
+  const handleCardClick = (id?: string) => {
+    if (!id) return;
     router.push(`/campaign/${id}`);
   };
 
@@ -47,8 +55,8 @@ const DonationPage: React.FC = () => {
 
   // Map API data
   const campaignsToDisplay = useMemo(() => {
-    if (!data?.campaigns) return [];
-    return data.campaigns.map((campaign: any) => ({
+    if (!(data as any)?.campaigns) return [];
+    return (data as any).campaigns.map((campaign: any) => ({
       id: campaign._id || campaign.id,
       image: campaign.images?.[0] || "/default-image.jpg",
       category: campaign.category,
@@ -68,9 +76,9 @@ const DonationPage: React.FC = () => {
   return (
     <>
       <PageBanner
-        bgImage={bannerBg}
-        tagline="Start Donating Poor People"
-        title="Our Causes"
+        bgImage={ourcausebanner}
+        tagline={t("Start Donating Poor People")}
+        title={t("Our Causes")}
         smallIcon="mdi:hand-heart"
         decoIcon="mdi:ribbon"
         decoPosition="absolute bottom-10 left-10"
@@ -84,14 +92,14 @@ const DonationPage: React.FC = () => {
               <div className="flex items-center justify-center mb-6">
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
                 <span className="text-[var(--green)] font-caveat text-2xl font-bold">
-                  Start Donating Poor People
+                  {t("Start Donating Poor People")}
                 </span>
               </div>
-              <h2 className="text-5xl md:text-6xl font-extrabold leading-tight mb-8">
-                <span className="text-gray-800 font-extrabold">Be The Reason Of Someone </span>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-nunito leading-tight mb-8">
+                <span className="text-gray-800 font-bold">{t("Be The Reason Of Someone")} </span>
                 <br />
-                <span className="text-yellow-400 font-extrabold">Smiles </span>
-                <span className="text-gray-800 font-extrabold">Causes</span>
+                <span className="text-yellow-400 font-bold">{t("Smiles")} </span>
+                <span className="text-gray-800 font-bold">{t("Causes")}</span>
               </h2>
             </div>
           </FadeUpCard>
@@ -116,59 +124,43 @@ const DonationPage: React.FC = () => {
       <ChildrenNeed />
 
       {/* === Carousel Section === */}
-      <section ref={carouselSectionRef} className="relative py-20 min-h-[500px] overflow-hidden">
+      <section ref={carouselSectionRef} className="relative py-20 min-h-[500px] overflow-hidden  ">
         <div className="relative z-10 container mx-auto px-4 max-w-7xl">
-          {/* Navigation Arrows */}
-          <div className="flex items-center gap-4 mt-6 md:mt-12 ml-0 md:ml-12">
-            <button
-              onClick={handlePrev}
-              onMouseEnter={() => setHoveredLeft(true)}
-              onMouseLeave={() => setHoveredLeft(false)}
-              className="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer"
-              style={{
-                backgroundColor: hoveredLeft
-                  ? "#FBBF24"
-                  : leftButtonColor === "yellow"
-                  ? "#FBBF24"
-                  : "#07110eff",
-                transition: "all 0.3s ease",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <svg
-                className={`h-12 w-8 ${hoveredLeft ? "text-gray-900" : "text-white"}`}
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
+          <div className="flex flex-col md:flex-row items-start justify-between gap-4">
+            <FadeUpCard delay={0.3}>
+              <div className="text-left mb-8 md:mb-12">
+                <div className="flex items-center mb-4">
+                  <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
+                  <span className="text-[var(--green)] font-caveat text-base sm:text-lg md:text-xl lg:text-2xl font-bold w-full">
+                    {t("Start Donating Poor People")}
+                  </span>
+                </div>
+                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight w-full" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'}}>
+                  <div className="w-full">
+                    <span className="text-gray-800">{t("Help &")} </span>
+                    <span className="text-yellow-400">{t("Donate")} </span>
+                    <span className="text-gray-800">{t("Them when")}</span>
+                  </div>
+                  <div className="block">
+                    <span className="text-gray-800">{t("They are In Need")}</span>
+                  </div>
+                </h2>
+              </div>
+            </FadeUpCard>
+            <div className="flex items-center gap-3 sm:gap-4 mt-0 md:mt-14">
+              <button
+                onClick={handlePrev}
+                className="prev-btn cursor-pointer w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
               >
-                <path d="M7.82843 11L13.1924 5.63604L11.7782 4.22183L4 12L11.7782 19.7782L13.1924 18.364L7.82843 13H20V11H7.82843Z" />
-              </svg>
-            </button>
-
-            <button
-              onClick={handleNext}
-              onMouseEnter={() => setHoveredRight(true)}
-              onMouseLeave={() => setHoveredRight(false)}
-              className="w-16 h-16 rounded-full flex items-center justify-center cursor-pointer"
-              style={{
-                backgroundColor: hoveredRight
-                  ? "#07110eff"
-                  : rightButtonColor === "yellow"
-                  ? "#FBBF24"
-                  : "#07110eff",
-                transition: "all 0.3s ease",
-                boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-              }}
-            >
-              <svg
-                className={`h-12 w-8 ${hoveredRight ? "text-white" : "text-gray-900"}`}
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                xmlns="http://www.w3.org/2000/svg"
+                <ArrowLeft size={24} className="sm:w-7 sm:h-7" />
+              </button>
+              <button
+                onClick={handleNext}
+                className="next-btn cursor-pointer w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors duration-500 ease-in-out"
               >
-                <path d="M16.172 11L10.808 5.63604L12.222 4.22183L20 12L12.222 19.7782L10.808 18.364L16.172 13H4V11H16.172Z" />
-              </svg>
-            </button>
+                <ArrowRight size={24} className="sm:w-7 sm:h-7" />
+              </button>
+            </div>
           </div>
 
           {/* Swiper */}

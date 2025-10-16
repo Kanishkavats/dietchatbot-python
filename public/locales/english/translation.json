@@ -118,9 +118,15 @@
     "role_1":"Cloth Store Inc.",
     "role_2":"Cloth Store Inc.",
     "role_3":"Cloth Store Inc.",
-    "Our Latest ":"Our Latest ",
-    "You Like":"You Like",
-    "& Articles ":"& Articles ",
+  "Our Latest ":"Our Latest ",
+  "You Like":"You Like",
+  "& Articles ":"& Articles ",
+  "Charity With Difference":"Charity With Difference",
+  "Join Our Monthly Giving Program To Provide Consistent Support To Our Initiatives. Regular Contributions, No Matter The Size, Help Us Plan And Sustain Long-Term Projects.":"Join Our Monthly Giving Program To Provide Consistent Support To Our Initiatives. Regular Contributions, No Matter The Size, Help Us Plan And Sustain Long-Term Projects.",
+  "Healthy Food":"Healthy Food",
+  "Medical Care":"Medical Care",
+  "Child Education":"Child Education",
+  "Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple":"Set Up A Secure And User-Friendly Online Donation Platform That Accepts Multiple",
     
   "fillForm": "Fill Up The Form",
   "formNote": "Your Email Address Will Not Be Published. Required Fields Are Marked *",
@@ -138,24 +144,89 @@
   "image":"image",
   "designation":"designation",
   "role":"role",
-  "avatar":"avatar"
+  "avatar":"avatar",
+  "Our Valuable": "Our Valuable",
+  "Feedback": "Feedback",
+  "your opinion counts here": "your opinion counts here",
+  "Send Feedback": "Send Feedback",
+  "Share Your": "Share Your",
+  "Experience!": "Experience!",
+  "Your name...": "Your name...",
+  "Your designation...": "Your designation...",
+  "Rating": "Rating",
+  "Your feedback...": "Your feedback...",
+  "Profile Image": "Profile Image",
+  "Uploaded successfully": "Uploaded successfully",
+  "Drag & Drop your images here or": "Drag & Drop your images here or",
+  "browse files": "browse files",
+  "Image size must be less than 5MB.": "Image size must be less than 5MB.",
+  "Submitting...": "Submitting...",
+  "Submit Feedback": "Submit Feedback",
+  "Submitting your feedback...": "Submitting your feedback...",
+  "Failed to submit feedback": "Failed to submit feedback",
+  "Name is required": "Name is required",
+  "Designation is required": "Designation is required",
+  "Feedback is required": "Feedback is required",
+  "Rating is required": "Rating is required",
+  "Image is required": "Image is required",
+  "Old People & Child Trouble": "Old People & Child Trouble",
+  "Child & Old Care": "Child & Old Care",
   
   
-  
-  
-  
+  "Our Valueable":"Our Valueable",
+    "Be The Reason Of Someone": "Be The Reason Of Someone",
+  "Smiles": "Smiles",
+  "Help &": "Help &",
+  "Donate": "Donate",
+  "Them when": "Them when",
+  "They are In Need": "They are In Need",
+  "Loading campaigns...": "Loading campaigns...",
+  "Failed to load campaigns.": "Failed to load campaigns.",
+  "Our Causes": "Our Causes",
+  "Start Donating Poor People": "Start Donating Poor People",
+  "Causes": "Causes",
+  "Raised": "Raised",
+  "Goal": "Goal",
+  "View Details": "View Details",
+  "Start Donating Poor People": "Start Donating Poor People",
+  "Children Need Your Help By Donating Today": "Children Need Your Help By Donating Today",
+  "Discover More": "Discover More",
+  "Get A Quote": "Get A Quote",
+  "Start Donating Poor People": "Start Donating Poor People",
+  "Join The": "Join The",
+  "community": "Community",
+  "To Give Education For Children": "To Give Education For Children",
+  "Support Where It Counts": "Support Where It Counts.",
+  "Test Mode Enabled Notice": "Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed.",
+  "Select Payment Method": "Select Payment Method",
+  "Donate Now": "Donate Now",
+  "Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed.":"Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed.",
+  "Notice":"Notice",
+  "Test Donation": "Test Donation",
+  "Offline Donation": "Offline Donation",
+  "Credit Card": "Credit Card",
+  "Your Donation": "Your Donation",
+  "Enter amount": "Enter amount",
+  "Custom": "Custom",
+  "10": "10",
+  "20": "२०",
+  "Help & ": "Help & ",
 
 
+<<<<<<< HEAD
 <<<<<<< Updated upstream
 
   
 
   }
 =======
+=======
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
   "25": "25",
   "50": "50",
   "100": "100",
   "200": "200",
+<<<<<<< HEAD
   "amount":"amount",
   "Share Your": "Share Your",
   "Experience!": "Experience!",
@@ -220,3 +291,7 @@
 
 }
 >>>>>>> Stashed changes
+=======
+  "amount":"amount"
+}
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed

@@ -1,6 +1,6 @@
 export interface NavItem {
   label: string;
-  dropdown: any[] | null; // could be DropdownOption[] or image options
+  dropdown?: any[] | null; // could be DropdownOption[] or image options
   href?:string;
 }
 

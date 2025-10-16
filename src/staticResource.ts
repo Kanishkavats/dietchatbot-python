@@ -1,4 +1,4 @@
-import { bannerOne, bannerTwo, charityLife, galleryImageOne, galleryImageThree, galleryImageTwo, heartCare, homeCommunity, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, phOne, phTree, phTwo, theBird, treeLife, womenWithOneChild, womenWithOneChildDark } from "../public/assets";
+import { bannerOne, bannerTwo, charityLife, galleryImageOne, galleryImageThree, community1, community2, heartCare, homeFive, homeFour, homeOne, homeThree, homeTwo, loremIpsum, phOne, phTree, phTwo, theBird, treeLife, womenWithOneChild, womenWithOneChildDark, photo1, photo2, photo3, photo4 } from "../public/assets";
 import { Cause } from "./types/donateUs";
 import { FAQItem } from "./types/faq";
 import { NavItem } from "./types/header";
@@ -56,9 +56,6 @@ export const NAV_ITEMS: NavItem[] = [
       },
       {
         label: "Team", href: "/team"
-      },
-      {
-        label: "Shop", href: "/shop"
       }
 
     ],
@@ -98,7 +95,7 @@ export const footerData = {
   },
   bottomLinks: [
     { label: "Terms & Conditions", href: "#" },
-    { label: "Privacy Policy", href: "#" },
+    { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Cookie Settings", href: "#" },
   ],
 };
@@ -146,10 +143,10 @@ export const faqData: FAQItem[] = [
 // donate us page data
 
 export const GalleryImage = [
-  { src: galleryImageOne, className: "col-span-1 lg:col-span-2" },
-  { src: womenWithOneChildDark },
-  { src: galleryImageTwo },
-  { src: galleryImageThree, className: "col-span-1 lg:col-span-2" },
+  { src: photo1, className: "col-span-1 lg:col-span-2" },
+  { src: photo2 },
+  { src: photo3 },
+  { src: photo4, className: "col-span-1 lg:col-span-2" },
 ];
 
 export const causes: Cause[] = [
@@ -377,13 +374,20 @@ export const testimonials = [
 
 
 export interface Event {
-  id: number;
-  date: string;
+  id: string;
   title: string;
+  description: string;
+  summary: string;
+  keyPoints: string[];
+  images: string[];
   location: string;
-  image: string;
-  summary?: string;
-  keyPoints?: string[];
+  latitude: number;
+  longitude: number;
+  startTime: string;
+  endTime: string;
+  // Helper properties for display
+  date?: string;
+  image?: string;
 }
 
 export const events: Event[] = [
@@ -392,7 +396,7 @@ export const events: Event[] = [
     date: "October 19, 2025",
     title: "Transforming Lives Charity Golf Tournament",
     location: "135 W, 46nd Street, New York",
-    image: "/one.png",
+    image: "/assets/donatediffway.jpg",
     summary: "Join us for an exclusive charity golf tournament that brings together golf enthusiasts and philanthropists to raise funds for children's education. This prestigious event features 18 holes of championship golf, networking opportunities, and a gala dinner. All proceeds go directly to supporting underprivileged children's access to quality education and school supplies.",
     keyPoints: [
       "18-hole championship golf course",
@@ -408,7 +412,7 @@ export const events: Event[] = [
     date: "November 15, 2025",
     title: "Unity in Giving Community Charity Event",
     location: "684 West College St. Sun City, USA",
-    image: "/two.png",
+    image: "/assets/events.jpg",
     summary: "A heartwarming community gathering that celebrates the spirit of giving and unity. This family-friendly event features live music, food trucks, children's activities, and a community marketplace. Local businesses and organizations come together to support various charitable causes while building stronger community bonds.",
     keyPoints: [
       "Family-friendly activities for all ages",
@@ -424,7 +428,7 @@ export const events: Event[] = [
     date: "December 10, 2025",
     title: "Winter Warmth Community Drive",
     location: "250 Main Street, Downtown Plaza",
-    image: "/three.png",
+    image: "/assets/ourcausebanner.jpg",
     summary: "Help us spread warmth and hope during the winter season. This community drive focuses on collecting winter clothing, blankets, and essential supplies for families in need. Join us for a day of service, community bonding, and making a real difference in people's lives during the coldest months of the year.",
     keyPoints: [
       "Winter clothing collection drive",
@@ -656,12 +660,12 @@ export const charityTags = [
 
 // ChildOldCare component data
 export const childOldCareImages = [
-  { src: '/assets/childoldcare/4people.png', alt: 'Image 1' },
-  { src: '/assets/childoldcare/child.png', alt: 'Image 2' },
-  { src: '/assets/childoldcare/brownchild.png', alt: 'Image 3' },
-  { src: '/assets/childoldcare/4people.png', alt: 'Image 1' },
-  { src: '/assets/childoldcare/child.png', alt: 'Image 2' },
-  { src: '/assets/childoldcare/brownchild.png', alt: 'Image 3' }
+  { src: '/assets/childoldcare/childoldcare3.jpg', alt: 'Image 1' },
+  { src: '/assets/childoldcare/childoldcare1.jpg', alt: 'Image 2' },
+  { src: '/assets/childoldcare/childoldcare22.jpg', alt: 'Image 3' },
+  { src: '/assets/childoldcare/childoldcare3.jpg', alt: 'Image 1' },
+  { src: '/assets/childoldcare/childoldcare1.jpg', alt: 'Image 2' },
+  { src: '/assets/childoldcare/childoldcare22.jpg', alt: 'Image 3' }
 ];
 
 export const childOldCareSliderSettings = {
@@ -749,7 +753,7 @@ export interface NewsItem {
 
 export const newsData: NewsItem[] = [
   {
-    img: homeCommunity.src,
+    img: community1.src,
     category: "Health",
     categoryIcon: "🏥",
     title: "IT Service Case Studies Accelerate Business Fly Success Tech",
@@ -990,3 +994,36 @@ export const filterOptions = [
   { label: "Rejected", value: "rejected" },
   { label: "Pending", value: "pending" },
 ]
+
+// Event Detail Page Data
+export interface SocialMediaButton {
+  icon: any;
+  bg: string;
+  label: string;
+}
+
+export const socialMediaButtons: SocialMediaButton[] = [
+  { icon: "FaFacebookF", bg: "#4267B2", label: "Facebook" },
+  { icon: "FaTwitter", bg: "#1DA1F2", label: "Twitter" },
+  { icon: "FaPinterest", bg: "#E60023", label: "Pinterest" },
+  { icon: "FaLinkedinIn", bg: "#0077B5", label: "LinkedIn" },
+  { icon: "FaTumblr", bg: "#ff5528", label: "Tumblr" },
+];
+
+export const defaultEventData = {
+  title: 'Give African Childrens A Good Education',
+  date: "02 Apr 2021",
+  location: "684 West College St. Sun City, USA",
+  image: "/assets/poster 2.png",
+  summary: "Charity And Donation Is A Categorys That Involves Giving Financial Category That Involves Giving Financial Or Material Support Various Causes Organizations. It Allows Individuals Towards The A Addressing Social Category That Involves Giving Financial Or Material Support Various Causes Of Organizations. It Allows Individuals Towards Addressing Social",
+  keyPoints: [
+    "Empower Through Charity",
+    "Giving Hope, Changing Lives", 
+    "Healing Communities",
+    "Together We Can",
+    "Compassion In Action",
+    "Every Act Counts"
+  ]
+};
+
+export const googleMapsEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976378252907!3d40.69766374874312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2588f046ee661%3A0xa0b3281fcecc08c!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1716298418080!5m2!1sen!2sin";

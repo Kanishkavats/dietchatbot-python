@@ -1,11 +1,12 @@
 'use client';
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { NAV_ITEMS, socialIcons } from "@/src/staticResource";
+import { socialIcons } from "@/src/staticResource";
 import MobileDropdownItem from "./MobileDropdownItem";
 import { logo } from "../../../../public/assets";
 import Button from "../../common/Buttons/Button";
 import LanguageSwitcher from "../../LanguageSwitcher";
+import { NavItem } from "@/src/types/header";
 
 interface MobileDrawerProps {
   drawerDelay: number; // <-- Change from boolean to number
@@ -13,6 +14,7 @@ interface MobileDrawerProps {
   open: string | null;
   setOpen: React.Dispatch<React.SetStateAction<string | null>>;
   setMobileMenuOpen: (open: boolean) => void;
+   navItems: NavItem[];
 }
 
 export const MobileDrawer = ({
@@ -20,7 +22,8 @@ export const MobileDrawer = ({
   isClosing,
   open,
   setOpen,
-  setMobileMenuOpen
+  setMobileMenuOpen,
+   navItems,
 }: MobileDrawerProps) => {
 
 
@@ -34,7 +37,7 @@ export const MobileDrawer = ({
         delay: !isClosing ? drawerDelay : 0,
         ease: 'easeInOut',
       }}
-      className="fixed top-0 left-0 h-full w-full md:w-104 bg-white shadow-lg z-50 pt-6 pb-20 xl:hidden overflow-y-auto"
+      className="fixed top-0 left-0 h-full w-full md:w-104 bg-white shadow-lg z-50 pt-6 pb-20 xl:hidden overflow-y-auto overflow-x-hidden"
     >
 
       {/* Close Button */}
@@ -45,12 +48,14 @@ export const MobileDrawer = ({
       </div>
 
       <div className="ps-8 my-10">
-        <motion.img src={logo.src} alt="Logo" className="h-10" />
+        <motion.img src={logo.src} alt="Logo" className="h-10 w-auto object-contain -ml-3" />
       </div>
+
+       
 
       {/* Navigation Items with Dropdowns */}
       <ul>
-        {NAV_ITEMS.map((item, i) => (
+        {navItems.map((item, i) => (
           <MobileDropdownItem
             key={i}
             item={item}
@@ -61,12 +66,16 @@ export const MobileDrawer = ({
         ))}
       </ul>
 
-      <div className="px-8 mt-5 flex justify-between items-center gap-5 ">
+       
+
+     {/* <div className="px-8 mt-5 flex justify-between items-center gap-5 "> */}
+      <div className="sticky top-0 z-30 bg-white px-8 py-4 flex flex-col gap-3 border-b border-gray-200">
+       
+        <LanguageSwitcher rounded="rounded-md" />
         <div className="w-fit">
 
         <Button text="Donate Now" rounded="rounded-md" />
         </ div>
-        <LanguageSwitcher rounded="rounded-md" />
       </div>
       <div className="flex  items-center justify-center space-x-4 mt-10 ">
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { useMarkQueryAsViewed } from "@/src/hooks/useQueries";
+import { useMarkQueryAsViewed } from "@/src/components/Admin/hooks/useQueries";
 import Button from "../../common/Buttons/Button";
 import ButtonLoader from "../../common/Loader/ButtonLoader";
 import { useFetchAllMembers } from "@/src/hooks/useMembers";

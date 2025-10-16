@@ -6,9 +6,9 @@ import { motion, useInView } from 'framer-motion';
 import { donateDifferentWayTabs, donateDifferentWayMissionItems } from '../../staticResource';
 import { useTranslation } from 'react-i18next';
 import { Icon } from '@iconify/react';
-import { gridDot, thumbSmChild } from '@/public/assets';
+import { gridDot, donatediffway } from '@/public/assets';
 import FadeUpCard from '@/src/animations/FadeButtomUp';
-
+import AnimatedCircle from './AnimatedCircle'; // animated circle
 const DonateDifferentWay: React.FC = () => {
   const [activeTab, setActiveTab] = useState('mission');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
@@ -22,7 +22,7 @@ const DonateDifferentWay: React.FC = () => {
   const missionItems = donateDifferentWayMissionItems;
 
   return (
-    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 mt-20 mb-10 xl:mb-20 lg:mt-25 bg-white '>
+    <div className='w-full py-4 sm:py-6 lg:py-2 lg:px-0 px-2 -mt-2 sm:-mt-1 md:mt-2 lg:mt-25 mb-10 xl:mb-20 bg-white '>
       <div className='max-w-7xl  md:pl-10 md:pr-10 lg:pl-0 lg:pr-0 mx-auto'>
 
         <div className='grid grid-cols-1 md:grid-cols-1 lg:grid-cols-12 gap-4 xs:gap-6 sm:gap-8 lg:gap-20 w-full items-start'>
@@ -60,7 +60,7 @@ const DonateDifferentWay: React.FC = () => {
               }}
             >
               <Image
-                src={thumbSmChild} 
+                src={donatediffway} 
                 alt='Children in need' 
                 fill={true}
                 className='w-full h-full object-cover'
@@ -109,7 +109,7 @@ const DonateDifferentWay: React.FC = () => {
               transition={{ duration: 1, delay: 0.3 }}
             >
               <Image
-                src='/assets/section2/thumb-bottom.png' 
+                src='/assets/section2/helpingeachother2.jpg' 
                 alt='Happy child running' 
                 fill={true}
                 className='w-full h-full object-cover'
@@ -131,7 +131,7 @@ const DonateDifferentWay: React.FC = () => {
           </div>
         </div>
                 <div className='flex flex-col mt-5 md:mt-5 w-full lg:flex-row items-start justify-between '>
-                  <h2 className='text-3xl w-full tracking-tight md:tracking-normal lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl font-nunito font-extrabold  text-dark-green leading-10 md:leading-10 lg:leading-tight'>
+                  <h2 className='text-3xl w-full tracking-tight md:tracking-normal lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 sm:text-3xl md:text-4xl xl:text-6xl  lg:text-[40px] font-nunito font-extrabold  text-dark-green leading-10 md:leading-10 lg:leading-tight'>
                     <span className='text-dark-green'>{t("Donate")} <span className='text-yellow'>{t("Support")}</span> {t("To Make")}</span>
                     <span className='text-dark-green'> {t("Difference Way")}</span>
                   </h2>
@@ -159,18 +159,18 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Introductory text */}
-              <p className='text-gray-green text-sm sm:text-sm xl:text-[16px] md:pr-5 lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-7  lg:leading-relaxed xl:leading-7 lg:tracking-wide xl:tracking-wide  font-nunito font-normal'>
+              <p className='text-gray-green text-sm sm:text-sm xl:text-[16px] lg:text-[16px] md:pr-5 lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 leading-7  lg:leading-relaxed xl:leading-7 lg:tracking-wide xl:tracking-wide  font-nunito font-normal'>
                 {t("Charity Is The Voluntary Act Of Giving Help, Typically In The Form Of Money, Time, Or Resources, To Those In Need. Charitable Organizations Aim To Solve Social, Environmental, And Economic Challenges By Addressing Issues Like Poverty,")}
               </p>
               <div className='flex flex-col md:flex-row lg:pl-15 lg:pr-10 xl:pl-0 xl:pr-0 '>
                 <div >
               {/* Tabbed Navigation */}
-              <div className='flex flex-wrap gap-7 xs:gap-5 md:space-x-2 md:gap-1 xl:gap-2 justify-center md:mr-2 border-b border-gray-200 mx-auto lg:ml-5 lg:mr-5 xl:ml-0 xl:mr-0 mt-6 xs:mt-4 xl:mt-10 pb-4 '>
+              <div className='flex flex-wrap gap-7 xs:gap-5 md:space-x-2 md:gap-1 xl:gap-2  justify-center md:mr-2 border-b border-gray-200 mx-auto lg:ml-5 lg:mr-5 xl:ml-0 xl:mr-0 mt-6 xs:mt-4 xl:mt-10 pb-4 '>
                 {tabs.map((tab) => (
                   <button
                     key={tab.id}
                     onClick={() => setActiveTab(tab.id)}
-                    className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6  sm:py-3 lg:px-12 lg:py-2.5 xl:px-7 xl:py-2.5 font-nunito rounded-full font-nunito text-sm  xl:text-lg font-semibold transition-colors duration-400 ${
+                    className={`px-8 py-3 xs:px-15 md:px-8 sm:px-6  sm:py-3  lg:py-3 lg:px-8 xl:px-7 xl:py-2.5 font-nunito rounded-full font-nunito text-sm  xl:text-lg font-semibold cursor-pointer transition-colors duration-400 ${
                       activeTab === tab.id
                         ? 'bg-green text-white'
                         : 'text-foreground hover:bg-green hover:text-white'
@@ -182,9 +182,9 @@ const DonateDifferentWay: React.FC = () => {
               </div>
 
               {/* Tab Content with Donation Cards */}
-              <div className='flex flex-col md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0 lg:p-7 xl:p-2'>
+              <div className='flex flex-col cursor-pointer md:flex-row md:pl-2 xl:mt-5 mt-2 xs:mt-7 lg:mt-0  lg:py-3 lg:px-8  xl:p-2'>
                 {/* Mission/Vision/Excellence Content */}
-                <div className='flex-1'>
+                <div className='flex-1 cursor-pointer'>
                   {(activeTab === 'mission' || activeTab === 'vision' || activeTab === 'excellence') && (
                     <div className='space-y-3 sm:space-y-4'>
                       <ul className='space-y-2 sm:space-y-3'>
@@ -195,74 +195,18 @@ const DonateDifferentWay: React.FC = () => {
                                 <path d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z' strokeWidth='3'/>
                               </svg>
                             </div>
-                            <span className='text-gray-green flex flex-wrap text-sm xl:text-sm font-medium font-nunito md:font-semibold'>{t(item)}</span>
+                            <span className='text-[#696969] flex flex-wrap text-sm xl:text-sm lg:text-[16px] font-medium font-nunito md:font-semibold'>{t(item)}</span>
                           </li>
                         ))}
                       </ul>
                       
-                      {/* Circular Progress Indicators */}
-                      <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3 '>
-                        <div className='flex items-center space-x-2 sm:space-x-3'>
-                          <div className='relative w-20 h-20 xs:w-23 lg:w-20 lg:h-20 xs:h-23 xl:w-23 xl:h-23 flex-shrink-0'>
-                            <svg className='w-20 xs:w-23 h-20 xs:h-23 lg:w-20 lg:h-20 xl:w-23 xl:h-23 transform -rotate-90' viewBox='0 0 100 100'>
-                              <circle
-                                cx='50'
-                                cy='50'
-                                r='35'
-                                stroke='#e5e7eb'
-                                strokeWidth='6'
-                                fill='none'
-                              />
-                              <circle
-                                cx='50'
-                                cy='50'
-                                r='35'
-                                stroke='#046b59'
-                                strokeWidth='6'
-                                fill='none'
-                                strokeDasharray={`${2 * Math.PI * 35}`}
-                                strokeDashoffset={`${2 * Math.PI * 35 * (1 - 0.55)}`}
-                                strokeLinecap='round'
-                              />
-                            </svg>
-                            <div className='absolute inset-0 flex items-center justify-center'>
-                              <span className='text-sm xs:text-sm sm:text-sm font-bold text-dark-green'>55%</span>
-                            </div>
+                     
+                         <div className='flex flex-col sm:flex-row gap-4 sm:gap-8 pt-3'>
+                           <AnimatedCircle percentage={55} label={t("Treatment Helping")} />
+                            <AnimatedCircle percentage={85} label={t("Highest Fund Raised")} />
                           </div>
-                          <p className='text-sm md:text-[16px] xl:text-lg  text-dark-green font-bold font-nunito'>{t("Treatment Helping")}</p>
-                        </div>
-
-                        <div className='flex items-center space-x-2 sm:space-x-3'>
-                          <div className='relative w-20 h-20 xs:w-23 lg:w-20 lg:h-20 xs:h-23 xl:w-23 xl:h-23 flex-shrink-0'>
-                            <svg className='w-20 xs:w-23 h-20 xs:h-23 lg:w-20 lg:h-20 xl:w-23 xl:h-23 transform -rotate-90' viewBox='0 0 100 100'>
-                              <circle
-                                cx='50'
-                                cy='50'
-                                r='35'
-                                stroke='#e5e7eb'
-                                strokeWidth='6'
-                                fill='none'
-                              />  
-                              <circle
-                                cx='50'
-                                cy='50'
-                                r='35'
-                                stroke='#046b59'
-                                strokeWidth='6'
-                                fill='none'
-                                strokeDasharray={`${2 * Math.PI * 35}`}
-                                strokeDashoffset={`${2 * Math.PI * 35 * (1 - 0.85)}`}
-                                strokeLinecap='round'
-                              />
-                            </svg>
-                            <div className='absolute inset-0 flex items-center justify-center'>
-                              <span className='text-sm xs:text-sm sm:text-sm font-bold text-dark-green'>85%</span>
-                            </div>
-                          </div>
-                          <p className='text-sm md:text-[16px] xl:text-lg  text-dark-green font-bold font-nunito'>{t("Highest Fund Raised")}</p>
-                        </div>
-                      </div>
                     </div>
+                    
                   )}
                 </div>
               </div>
@@ -280,7 +224,7 @@ const DonateDifferentWay: React.FC = () => {
                         className='w-full h-full object-contain'
                       />
                     </div>
-                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg'>{t("Donate Now")}</h3>
+                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg lg:text-[20px]'>{t("Donate Now")}</h3>
                     <p className='text-lg font-caveat font-bold text-yellow italic'>{t("$")}40,456</p>
                   </div>
                      <div className='hidden md:block border border-gray-200 ml-3 mr-3'></div>
@@ -295,7 +239,7 @@ const DonateDifferentWay: React.FC = () => {
                         className='w-full h-full object-contain'
                       />
                     </div>
-                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg '>{t("Total Fundraised")}</h3>
+                    <h3 className='text-dark-green font-bold mb-2 font-nunito text-sm md:text-lg xl:text-lg lg:text-[20px] '>{t("Total Fundraised")}</h3>
                     <p className='text-lg font-caveat font-bold text-green italic'>{t("$")}1,540,456</p>
                   </div>
                 </div>
@@ -390,3 +334,4 @@ const DonateDifferentWay: React.FC = () => {
 };
 
 export default DonateDifferentWay;
+

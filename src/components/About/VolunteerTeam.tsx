@@ -1,46 +1,62 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
-import Pagination from "../common/Pagination";
 import { VolunteerCard } from "../common/card/VolunteerCard";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
 import { useTranslation } from "react-i18next";
 import { useFetchAllMembers } from "@/src/hooks/useMembers";
+import { TeamMember } from "@/src/types";
 
 const VolunteerTeam = () => {
   const router = useRouter();
   const { t } = useTranslation();
 
-  // pagination setup
+  // Show only 4 members initially
+  const itemsPerPage = 4;
 
-  const [showPagination, setShowPagination] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-
-  const itemsPerPage = currentPage === 1 && !showPagination ? 4 : 8;
-
-  //  fetch members from API
+  // Fetch members from API
   const { data, isLoading, isError } = useFetchAllMembers(
-    currentPage,
+    1,
     itemsPerPage
   );
   console.log(data);
 
-  // safely extract members
+  // Safely extract members
   const members = data?.members || [];
-  const totalPages = data?.totalPages || 1;
+
+  // Hide component if no data is available
+  if (!isLoading && (!data?.members || data.members.length === 0)) {
+    return null;
+  }
+
+  // ✅ Console log for checking each member's social accounts
+  members.forEach((member: TeamMember) => {
+    console.log(` Member: ${member.name}`);
+    const hasSocialAccounts = !!(
+      member.facebookUrl ||
+      member.twitterUrl ||
+      member.instagramUrl ||
+      member.linkedInUrl 
+    );
+    console.log("Has any social account?", hasSocialAccounts);
+    if (hasSocialAccounts) {
+      if (member.facebookUrl) console.log("  Facebook:", member.facebookUrl);
+      if (member.twitterUrl) console.log("  Twitter:", member.twitterUrl);
+      if (member.instagramUrl) console.log("  Instagram:", member.instagramUrl);
+      if (member.linkedInUrl) console.log("  LinkedIn:", member.linkedInUrl);
+    }
+  });
 
   const handleViewAll = () => {
-    setShowPagination(true);
-    setCurrentPage(1);
+    router.push('/team');
   };
 
   return (
     <section
       className="relative bg-cover py-16 bg-center w-full"
-      style={{  backgroundImage: `url(${bgOneVolunteer.src})` }}
+      style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
         <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
@@ -49,32 +65,30 @@ const VolunteerTeam = () => {
             {t("Start Donating Poor People")}
           </span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-bold mb-8">
-          {t("Meet Our Volunteer")} <br />
-          <span className="text-yellow">{t("Team")}</span> {t("Members")}
+
+        <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8 text-left sm:text-center leading-snug">
+          <span className="block md:inline lg:block">{t("Meet Our Volunteer")}</span>{" "}
+          <span className="block md:inline lg:block text-yellow">
+            {t("Team Members")}
+          </span>
         </h2>
 
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
           {isLoading && <p>Loading members...</p>}
           {isError && <p>Failed to load members.</p>}
           {!isLoading && !isError && (
-           //<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-6">
-               <div className="volunteer-grid">
-
+            <div
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6"
+            >
               {members.map((member: any, idx: number) => (
-                <VolunteerCard
-                  key={member.id || idx}
-                  member={member}
-                  idx={idx}
-                
-                />
+                <VolunteerCard key={member.id || idx} member={member} idx={idx} />
               ))}
             </div>
           )}
         </div>
 
-        {/* View All button (switches to pagination mode) */}
-        {!showPagination && members.length > 0 && (
+        {/* View All button */}
+        {members.length > 0 && (
           <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
             <Button
               text="View All"
@@ -86,23 +100,9 @@ const VolunteerTeam = () => {
             />
           </div>
         )}
-
-        {/* Pagination controls */}
-        {showPagination && (
-          <Pagination
-            currentPage={currentPage}
-            totalPages={totalPages}
-            onPageChange={(page) => {
-              if (page < 1 || page > totalPages) return;
-              setCurrentPage(page);
-            }}
-            groupSize={3}
-          />
-        )}
       </div>
 
       <div className="top absolute top-[10%] right-[6%] z-0 font-bold hidden xl:block">
-      
         <Image
           src={greenspade}
           alt="green spade"

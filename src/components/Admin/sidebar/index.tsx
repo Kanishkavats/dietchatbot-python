@@ -26,7 +26,7 @@ const AdminSideBar = () => {
             alt="logo"
             width={180}
             height={80}
-            className="mb-6 h-10 w-auto"
+            className="mb-6 h-10 w-auto md:h-12 md:w-auto lg:h-14 lg:w-auto object-contain -ml-12"
           />
         ) : (
           <div className="h-10" />

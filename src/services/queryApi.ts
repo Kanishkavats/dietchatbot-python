@@ -20,13 +20,13 @@ export const fetchAllQueries = async (page: number = 1, limit: number = 10, filt
 
   const queryString = new URLSearchParams(params).toString();
 
-  const { data } = await api.get(`/form/getAllForms?${queryString}`);
+  const { data } = await api.get(`/admin/form/getAllForms?${queryString}`);
   return data;
 };
 
 // ✅ Fetch a single query by ID
 export const fetchQueryById = async (id: string) => {
-  const { data } = await api.get(`/form/getFormById/${id}`);
+  const { data } = await api.get(`/admin/form/getFormById/${id}`);
   return data;
 };
 

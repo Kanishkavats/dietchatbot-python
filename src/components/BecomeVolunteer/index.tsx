@@ -8,11 +8,11 @@ import Button from "../common/Buttons/Button";
 import { useTranslation } from "react-i18next";
 
 // Import images directly from public/assets
-import becomeVolunteerBg from "../../../public/assets/becomevolunter/becomevolunter.png";
+import becomeVolunteerBg from "../../../public/assets/becomevolunter/becomevoluntter2.jpg";
 import volunteerIcon from "../../../public/assets/becomevolunter/icon.png";
 import yellowImage from "../../../public/assets/becomevolunter/yellow_image.png";
-import videoBg from "../../../public/assets/becomevolunter/videobg.png";
-import thumbLg from "../../../public/assets/section2/thumb-lg.png";
+import videoBg from "../../../public/assets/becomevolunter/becomevoluntter1.jpg";
+import thumbLg from "../../../public/assets/becomevolunter/becomevolunteer3.jpg";
 
 const BecomeVolunteer: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);

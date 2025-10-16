@@ -9,7 +9,7 @@ import {
   useDeleteComment,
   useFetchComments,
   useFetchCommentById,
-} from "@/src/hooks/useComments";
+} from "@/src/components/Admin/hooks/useComments";
 import { CommentSearchOptions } from "../Data/staticData";
 import { getCommentColumns } from "./getCommentColumns";
 import { Comment } from "@/src/types/comments";
@@ -17,17 +17,26 @@ import Drawer from "../Common/Drawer";
 import CommentForm from "./CommentForm";
 import AdminCustomPagination from "../Common/CustomePagination";
 import CustomLoader from "../../common/Loader/CustomLoader";
+import ConfirmModal from "../Common/ConfirmModal";
+import toast from "react-hot-toast";
 
 const CommentTable = () => {
-  const [status, setStatus] = useState<"all" | "approved" | "rejected" | "pending">("all");
+  const [status, setStatus] = useState<
+    "all" | "approved" | "rejected" | "pending"
+  >("all");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [CommentId, setCommentId] = useState<string | null>(null);
   const [mode, setMode] = useState<"edit" | "view">("view");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedComment, setSelectedComment] = useState<Comment | null>(null);
 
-
-  const { data: commentData, isLoading } = useFetchComments(currentPage, itemsPerPage,  status);
+  const { data: commentData, isLoading } = useFetchComments(
+    currentPage,
+    itemsPerPage,
+    status
+  );
 
   const { mutate: deleteComment } = useDeleteComment();
   const totalPages = commentData?.totalPages || 1;
@@ -38,33 +47,52 @@ const CommentTable = () => {
     refetch: refetchSingleComment,
   } = useFetchCommentById(CommentId || "");
 
+  const handleEdit = useCallback(
+    (comment: Comment) => {
+      setCommentId(comment.id);
+      setMode("edit");
+      setDrawerOpen(true);
+      refetchSingleComment();
+    },
+    [refetchSingleComment]
+  );
 
-  const handleEdit = useCallback((comment: Comment) => {
-    setCommentId(comment.id);
-    setMode("edit");
-    setDrawerOpen(true);
-    refetchSingleComment();
-  }, [refetchSingleComment]);
-
-  const handleView = useCallback((comment: Comment) => {
-    setCommentId(comment.id);
-    setMode("view");
-    setDrawerOpen(true);
-    refetchSingleComment();
-  }, [refetchSingleComment]);
+  const handleView = useCallback(
+    (comment: Comment) => {
+      setCommentId(comment.id);
+      setMode("view");
+      setDrawerOpen(true);
+      refetchSingleComment();
+    },
+    [refetchSingleComment]
+  );
 
   const handleDelete = useCallback(
     (comment: Comment) => {
-      if (confirm(`Are you sure you want to delete this comment by "${comment.name}"?`)) {
-        deleteComment(comment.id);
-      }
+      // if (
+      //   confirm(
+      //     `Are you sure you want to delete this comment by "${comment.name}"?`
+      //   )
+      // ) {
+      //   deleteComment(comment.id);
+      // }
+      setSelectedComment(comment);
+      setIsOpen(true);
     },
     [deleteComment]
   );
 
+  const confirmDelete = useCallback(() => {
+    if (selectedComment) {
+      toast.dismiss();
+        toast.loading("Deleting Comment....")
+      deleteComment(selectedComment.id.toString());
+      setIsOpen(false);
+      setSelectedComment(null);
+    }
+  }, [selectedComment, deleteComment]);
+
   const tableData = commentData?.comments || [];
-
-
 
   const columns = useMemo(
     () =>
@@ -81,21 +109,20 @@ const CommentTable = () => {
       {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-          <div className=" flex flex-col sm:flex-row gap-2">
-          </div>
-            <Dropdown
-              options={[
-                { label: "All", value: "all" },
-                { label: "Approved", value: "approved" },
-                { label: "Rejected", value: "rejected" },
-                { label: "Pending", value: "pending" },
-              ]}
-              value={status}
-              onChange={(value) => {
-                setStatus(value);
-                setCurrentPage(1); // reset to first page on status change
-              }}
-            />
+          <div className=" flex flex-col sm:flex-row gap-2"></div>
+          <Dropdown
+            options={[
+              { label: "All", value: "all" },
+              { label: "Approved", value: "approved" },
+              { label: "Rejected", value: "rejected" },
+              { label: "Pending", value: "pending" },
+            ]}
+            value={status}
+            onChange={(value) => {
+              setStatus(value);
+              setCurrentPage(1); // reset to first page on status change
+            }}
+          />
         </AnimatedReveal>
       </div>
 
@@ -107,7 +134,6 @@ const CommentTable = () => {
       ) : (
         <DataTableWrapper columns={columns} data={tableData} />
       )}
-
 
       {totalPages > 1 && (
         <div className="flex items-center justify-end mt-4">
@@ -128,6 +154,7 @@ const CommentTable = () => {
             setCommentId(null);
             setMode("view");
           }}
+          mode={mode}
           title={mode === "edit" ? "Edit Comment" : "View Comment"}
           width="500px"
         >
@@ -144,6 +171,15 @@ const CommentTable = () => {
           )}
         </Drawer>
       )}
+
+      <ConfirmModal
+        isOpen={isOpen}
+        onConfirm={confirmDelete}
+        onCancel={() => setIsOpen(false)}
+        title="Confirm Delete"
+        message="Are you sure you want to delete these record ?"
+        buttonText="Delete"
+      />
     </div>
   );
 };

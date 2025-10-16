@@ -13,6 +13,7 @@ import Button from "../common/Buttons/Button";
 import DonationCard from "../common/card/DonationCard";
 import { allDonationCards } from "../../staticResource";
 import { useFetchAllCampaigns } from "../../hooks/useCampaigns";
+import { useTranslation } from "react-i18next"; 
 
 interface CampaignCard {
   id: string;
@@ -29,6 +30,8 @@ interface CampaignCard {
 
 
 const HelpAndDonate: React.FC = () => {
+  const { t } = useTranslation(); 
+  
   const router = useRouter();
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
@@ -43,7 +46,7 @@ const HelpAndDonate: React.FC = () => {
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
   // Fetch campaigns from API
-  const { data: campaignsData, isLoading, error } = useFetchAllCampaigns(1, 8);
+  const { data: campaignsData, isLoading, error } = useFetchAllCampaigns(1, 8,);
 
   // Map API data to match the component structure
   const mapCampaignData = (campaign: any) => {
@@ -64,6 +67,11 @@ const HelpAndDonate: React.FC = () => {
   const campaignsToDisplay = campaignsData?.campaigns 
     ? campaignsData.campaigns.map(mapCampaignData)
     : allDonationCards;
+
+  // Hide component if no data is available
+  if (!isLoading && (!campaignsData?.campaigns || campaignsData.campaigns.length === 0)) {
+    return null;
+  }
 
   const handleCardClick = (id?: string) => {
     // Navigate to donation page with campaign ID if available
@@ -111,69 +119,71 @@ const HelpAndDonate: React.FC = () => {
             {/* Top Left Text */}
             <div className="flex items-center mb-4 md:mb-6">
               <i className="text-lg md:text-xl mr-2 text-[var(--green)] hand-icon"></i>
-              <span className="text-[var(--green)] font-caveat text-lg md:text-xl lg:text-2xl font-bold">Start Donating Poor People</span>
+              <span className="text-[var(--green)] font-caveat text-lg md:text-xl lg:text-2xl font-bold">{t("Start Donating Poor People")}</span>
             </div>
 
             {/* Main Heading */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 md:mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>
               <div className="w-full lg:w-[761px]">
-                <span className="text-gray-800">Help & </span>
-                <span className="text-yellow-400">Donate </span>
-                <span className="text-gray-800">Them when</span>
+                <span className="text-gray-800">{t("Help & ")}</span>
+                <span className="text-yellow-400">{t("Donate")} </span>
+                <span className="text-gray-800">{t("Them when")}</span>
               </div>
               <div className="block">
-                <span className="text-gray-800">They are In Need</span>
+                <span className="text-gray-800">{t("They are In Need")}</span>
               </div>
             </h2>
           </div>
 
-            <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-12 ml-auto md:ml-12">
-              <button
-                onClick={handlePrev}
-                className="w-12 h-12 md:w-15 md:h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"
-                style={{
-                  backgroundColor:
-                  leftButtonColor === "yellow"
-                    ? "#FBBF24"
-                    : "#07110eff",
-                  transition: "all 0.3s ease",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-                }}
-                onMouseEnter={() => setLeftButtonColor("yellow")}
-                onMouseLeave={() => setLeftButtonColor("green")}
-              >
-                <svg
-                  className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
+            {campaignsToDisplay.length > 4 && (
+              <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-12 ml-auto md:ml-12">
+                <button
+                  onClick={handlePrev}
+                  className="w-12 h-12 md:w-15 md:h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"
+                  style={{
+                    backgroundColor:
+                    leftButtonColor === "yellow"
+                      ? "#FBBF24"
+                      : "#07110eff",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                  }}
+                  onMouseEnter={() => setLeftButtonColor("yellow")}
+                  onMouseLeave={() => setLeftButtonColor("green")}
                 >
-                  <path d="M7.82843 11L13.1924 5.63604L11.7782 4.22183L4 12L11.7782 19.7782L13.1924 18.364L7.82843 13H20V11H7.82843Z" />
-                </svg>
-              </button>
-              <button
-                onClick={handleNext}
-                className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#07110eff] transition-all duration-300"
-                style={{
-                  backgroundColor: rightButtonColor === "yellow"
-                    ? "#FBBF24"
-                    : "#07110eff",
-                  transition: "all 0.3s ease",
-                  boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
-                }}
-                onMouseEnter={() => setRightButtonColor("green")}
-                onMouseLeave={() => setRightButtonColor("yellow")}
-              >
-                <svg
-                  className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
+                  <svg
+                    className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${leftButtonColor === "yellow"  ? "text-gray-900" : "text-white"}`}
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M7.82843 11L13.1924 5.63604L11.7782 4.22183L4 12L11.7782 19.7782L13.1924 18.364L7.82843 13H20V11H7.82843Z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="w-12 h-12 md:w-16 md:h-16 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#07110eff] transition-all duration-300"
+                  style={{
+                    backgroundColor: rightButtonColor === "yellow"
+                      ? "#FBBF24"
+                      : "#07110eff",
+                    transition: "all 0.3s ease",
+                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.2)",
+                  }}
+                  onMouseEnter={() => setRightButtonColor("green")}
+                  onMouseLeave={() => setRightButtonColor("yellow")}
                 >
-                  <path d="M16.172 11L10.808 5.63604L12.222 4.22183L20 12L12.222 19.7782L10.808 18.364L16.172 13H4V11H16.172Z" />
-                </svg>
-              </button>
-            </div>
+                  <svg
+                    className={`h-8 w-6 md:h-12 md:w-8 transition-colors duration-300 ${rightButtonColor === "green" ? "text-white" : "text-foreground"}`}
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M16.172 11L10.808 5.63604L12.222 4.22183L20 12L12.222 19.7782L10.808 18.364L16.172 13H4V11H16.172Z" />
+                  </svg>
+                </button>
+              </div>
+            )}
 
         </div>
   
@@ -277,43 +287,45 @@ const HelpAndDonate: React.FC = () => {
           </Swiper>
 
           {/* Carousel Indicators - dynamic dots */}
-          <div className="flex justify-center mt-6 md:mt-8 space-x-1.5 md:space-x-2">
-            {Array.from({ length: Math.min(campaignsToDisplay.length, 8) }, (_, index) => (
-              <button
-                key={index}
-                onClick={() => {
-                  if (swiperRef.current) {
-                    swiperRef.current.slideTo(index);
-                  }
-                }}
-                className="w-4 h-4 md:w-5 md:h-5 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 flex items-center justify-center"
-                style={{
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer',
-                  ...(activeIndex === index ? {
-                    border: '2px solid #046B59',
-                    backgroundColor: 'transparent'
-                  } : {
-                    border: 'none',
-                    backgroundColor: 'transparent'
-                  })
-                }}
-              >
-                <div 
-                  className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
-                    activeIndex === index 
-                      ? 'bg-gradient-to-br from-green to-dark-green'
-                      : 'bg-gray-300 hover:bg-gray-400'
-                  }`}
+          {campaignsToDisplay.length > 4 && (
+            <div className="flex justify-center mt-6 md:mt-8 space-x-1.5 md:space-x-2">
+              {Array.from({ length: Math.min(campaignsToDisplay.length, 8) }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    if (swiperRef.current) {
+                      swiperRef.current.slideTo(index);
+                    }
+                  }}
+                  className="w-4 h-4 md:w-5 md:h-5 rounded-full transition-all duration-300 cursor-pointer hover:scale-125 flex items-center justify-center"
                   style={{
-                    ...(activeIndex === index && {
-                      background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)'
+                    transition: 'all 0.3s ease',
+                    cursor: 'pointer',
+                    ...(activeIndex === index ? {
+                      border: '2px solid #046B59',
+                      backgroundColor: 'transparent'
+                    } : {
+                      border: 'none',
+                      backgroundColor: 'transparent'
                     })
                   }}
-                />
-              </button>
-            ))}
-          </div>
+                >
+                  <div 
+                    className={`w-1.5 h-1.5 md:w-2 md:h-2 rounded-full transition-all duration-300 ${
+                      activeIndex === index 
+                        ? 'bg-gradient-to-br from-green to-dark-green'
+                        : 'bg-gray-300 hover:bg-gray-400'
+                    }`}
+                    style={{
+                      ...(activeIndex === index && {
+                        background: 'linear-gradient(135deg, #046B59 0%, #122F2A 100%)'
+                      })
+                    }}
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </section>
