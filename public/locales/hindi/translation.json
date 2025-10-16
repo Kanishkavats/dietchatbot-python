@@ -1,8 +1,9 @@
 {
   "Home": "मुखपृष्ठ",
   "About Us": "हमारे बारे में",
+  "Causes": "कारण",
   "Pages": "पृष्ठ",
-  "FAQ": "अक्सर पूछे प्रश्न",
+  "FAQ": "सामान्य प्रश्न",
   "Donate Us": "दान करें",
   "Become Volunteer": "स्वयंसेवक बनें",
   "Events": "घटनाएं",
@@ -137,8 +138,8 @@
   "formNote": "आपका ईमेल पता प्रकाशित नहीं किया जाएगा। आवश्यक फ़ील्ड * चिह्नित हैं",
   "firstName": "पहला नाम",
   "lastName": "अंतिम नाम",
-  "Checkout Our Upcoming<br/>Full <1>Event</1> List": "हमारे आगामी <1> कार्यक्रम </1> सूची पर जाएं",
-  "Our Event": "हमारे कार्यक्रम",
+  
+  
   "occupation": "पेशा",
   
   "submit": "अभी जमा करें",
@@ -157,6 +158,9 @@
  "role": "भूमिका",
 
  "avatar": "अवतार",
+
+
+ 
   "Our Valuable": "हमारी मूल्यवान",
   "Feedback": "प्रतिक्रिया",
   "your opinion counts here": "आपकी राय यहाँ मायने रखती है",
@@ -176,6 +180,7 @@
   "Submit Feedback": "प्रतिक्रिया जमा करें",
   "Submitting your feedback...": "आपकी प्रतिक्रिया जमा की जा रही है...",
   "Failed to submit feedback": "प्रतिक्रिया जमा करने में विफल",
+  "Name is required": "नाम आवश्यक है",
   "Designation is required": "पदनाम आवश्यक है",
   "Feedback is required": "प्रतिक्रिया आवश्यक है",
   "Rating is required": "रेटिंग आवश्यक है",
@@ -184,26 +189,32 @@
   "Child & Old Care": "बच्चे और बुजुर्गों की देखभाल",
 
 
- "Be The Reason Of Someone": "किसी के मुस्कान की वजह बनें",
+ "Be The Reason Of Someone": "किसी के मुस्कान की जह बनें",
   "Smiles": "मुस्कानें",
   "Help &": "मदद करें और",
+  "Donate": "दान करें",
   "Them when": "जब वे",
   "They are In Need": "ज़रूरत में हों",
   "Loading campaigns...": "अभियान लोड हो रहे हैं...",
   "Failed to load campaigns.": "अभियान लोड करने में विफल।",
   "Our Causes": "हमारे कारण",
-  "Causes": "अभियान",
+  "Start Donating Poor People": "गरीब लोगों को दान देना शुरू करें",
+  "Causes": "कारण",
   "Raised": "उठाई गई राशि",
   "Goal": "लक्ष्य",
   "View Details": "विवरण देखें",
+  "Start Donating Poor People": "गरीबों को दान देना शुरू करें",
   "Children Need Your Help By Donating Today" : "बच्चों को मदद की ज़रूरत है, आज ही दान करें",
   "Discover More": "अधिक जानें",
+  "Get A Quote": "कोटेशन प्राप्त करें",
+  "Start Donating Poor People": "गरीबों को दान देना शुरू करें",
   "Join The": "शामिल हों",
   "community": "समुदाय",
   "To Give Education For Children": "बच्चों को शिक्षा देने के लिए",
   "Support Where It Counts": "जहां जरूरत है वहां मदद करें।",
   "Test Mode Enabled Notice": "टेस्ट मोड सक्षम है। टेस्ट मोड में कोई वास्तविक दान संसाधित नहीं होता।",
   "Select Payment Method": "भुगतान विधि चुनें",
+  "Donate Now": "अभी दान करें",
   "Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed.":"टेस्ट मोड सक्षम है। टेस्ट मोड में कोई भी लाइव डोनेशन प्रोसेस नहीं किया जाता।",
   "Notice":"सूचना",
   "Test Donation": "टेस्ट डोनेशन",
@@ -243,6 +254,18 @@
   "Manage your privacy and security preferences.":"अपनी गोपनीयता और सुरक्षा प्राथमिकताएँ प्रबंधित करें।",
   "Securely sign out of your account.":"अपने खाते से सुरक्षित रूप से साइन आउट करें।",
   "Change the display language.":"प्रदर्शन भाषा बदलें।",
+
+  "Help & ": "मदद और ",
+  "Member data not available": "सदस्य डेटा उपलब्ध नहीं है",
+  "Lorem ipsum dolor sit amet, con adipiscing elit tian convallis elit id impedie. Quisq commodo simply free ornare tortor. If you are going to use a passage.": "लोरेम इप्सम डोलर सिट एमेट, कॉन एडिपिसिंग एलिट टियन कॉनवलिस एलिट आईडी इम्पेडी। क्विस्क कॉमोडो सिंप्ली फ्री ऑर्नेयर टॉर्टर। यदि आप एक पैसेज का उपयोग करने जा रहे हैं।",
+  "I Help My Clients Stand Out And They Help Me Grow.": "मैं अपने ग्राहकों को बाहर खड़े होने में मदद करता हूं और वे मुझे बढ़ने में मदद करते हैं।",
+  "Key Points": "मुख्य बिंदु",
+  "Best Quality Services": "सर्वोत्तम गुणवत्ता सेवाएं",
+  "Time Saving": "समय की बचत",
+  "Meet The Deadlines": "समय सीमा पूरी करना",
+  "24/7 Customer Support": "24/7 ग्राहक सहायता",
+  "Donate With Me": "मेरे साथ दान करें",
+  "About Me": "मेरे बारे में",
 
   "Help & ": "मदद और ",
   "Share Your": "अपना साझा करें",
@@ -302,8 +325,18 @@
     "ChangesText": "हम समय-समय पर इस गोपनीयता नीति को अपडेट कर सकते हैं ताकि हमारे अभ्यास में बदलाव या अन्य संचालन, कानूनी, या नियामक कारणों को प्रतिबिंबित किया जा सके। किसी भी संशोधन को इस पृष्ठ पर अद्यतन संशोधन तिथि के साथ पोस्ट किया जाएगा।",
     "ContactTitle": "8. हमसे संपर्क करें",
     "ContactText": "यदि आपके पास इस गोपनीयता नीति से संबंधित कोई प्रश्न, चिंता, या अनुरोध हैं, तो कृपया हमसे {{email}} पर संपर्क करें। हम यह सुनिश्चित करने के लिए यहाँ हैं कि आपके अनुभव हमारे साथ सुरक्षित, पारदर्शी और आपकी गोपनीयता का सम्मान करने वाला बने।"
-  },
-  "Help & ": "मदद और "
+  }
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

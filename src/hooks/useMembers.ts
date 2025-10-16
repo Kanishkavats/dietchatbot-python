@@ -1,8 +1,11 @@
 // src/hooks/useMembers.ts
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import {
+  // fetchAllMembers,
   fetchMemberById,
   deleteMember,
+  createMember,
+  updateMember,
 } from "../components/Admin/services/memberApi";
 import { fetchAllMembers } from "../services/memberApi";
 import { MemberFormValues } from "../utils/validations/FormValidation";
@@ -148,6 +151,10 @@ export const useFetchSingleMember = (id?: string) => {
     queryKey: ["member", id],
     queryFn: () => fetchMemberById(id!),
     enabled: !!id,
+    retry: 2,
+    retryDelay: 1000,
+    staleTime: 5 * 60 * 1000, // 5 minutes - data is considered fresh for 5 minutes
+    cacheTime: 10 * 60 * 1000, // 10 minutes - keep in cache for 10 minutes
   });
 };
 

@@ -26,7 +26,7 @@ const staticImages = [bannerOne.src, bannerTwo.src];
 export default function HeroStaticSlider() {
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
-
+  
   // Fetch dynamic banner data
   const { data: bannersData, isLoading, error } = useFetchAllBanners(1, 10);
   const banners = bannersData?.banners || [];
@@ -37,16 +37,16 @@ export default function HeroStaticSlider() {
       console.log("✅ Banners fetched:", bannersData.banners);
     }
   }, [bannersData]);
-
+  
   // Use dynamic images if available, otherwise fallback to static
-  const images = banners.length > 0
+  const images = banners.length > 0 
     ? banners
-      .filter((banner: Banner) => banner.image && banner.image.trim() !== '')
-      // .map((banner: any) => banner.bannerImage)
-      .map((banner: Banner) => banner.image)
+        .filter((banner:  Banner ) => banner.image && banner.image.trim() !== '')
+        // .map((banner: any) => banner.bannerImage)
+        .map((banner:  Banner ) => banner.image)
 
     : staticImages;
-
+  
   // If no valid dynamic images, use static fallback
   const finalImages = images.length > 0 ? images : staticImages;
 
@@ -63,8 +63,8 @@ export default function HeroStaticSlider() {
 
   const handlePrev = () => setIndex((prev) => (prev - 1 + finalImages.length) % finalImages.length);
   const handleNext = () => setIndex((prev) => (prev + 1) % finalImages.length);
-
   
+  // Get current banner data
   const currentBanner = banners[index] || {};
   const bannerTitle = currentBanner.title || "Giving Help To Those Who Need It";
   const bannerSubtitle = currentBanner.subtitle || "Start Donating Poor People";
@@ -83,15 +83,15 @@ export default function HeroStaticSlider() {
         animate={{ opacity: 1 }}
         transition={{ duration: 2, ease: "easeInOut" }}
         className="absolute inset-0 bg-cover bg-center"
-        style={{
-          backgroundImage: `url(${finalImages[index]})`,
-          backgroundSize: "cover",     
-          backgroundPosition: "center", 
-          width: "100%",
-          height: "922.4px",
-        }}
+         style={{
+    backgroundImage: `url(${finalImages[index]})`,
+    backgroundSize: "cover",     // ensures image covers the div
+    backgroundPosition: "center", // keeps it centered
+    width: "100%",
+    height: "922.4px",
+  }}
       />
-      <section className="relative h-5 w-full z-22 ">
+      <section className="relative h-5 w-full z-22">
         <Image src={horizontalWhiteShape.src} alt="Horizontal White Shape" fill />
       </section>
       <section className="relative h-[80vh] xl:h-screen w-20 md:w-30 z-21 ">
@@ -119,44 +119,44 @@ export default function HeroStaticSlider() {
         style={pageBannerBackgourndColor}
       >
         <div className="ml-2 md:ml-4 lg:ml-6 xl:ml-8">
-          <AnimatedReveal
-            key={index}
-            direction="left"
-            distance={100}
-            duration={1}
-            className="space-y-6"
-          >
-            <p className="text-yellow text-2xl font-medium flex items-center gap-2 font-caveat">
-              <Icon icon="mdi:hand-heart" className="text-3xl  font-medium cursor-pointer" />
-              {bannerSubtitle}
-            </p>
+        <AnimatedReveal
+          key={index}
+          direction="left"
+          distance={100}
+          duration={1}
+          className="space-y-6"
+        >
+          <p className="text-yellow text-2xl font-medium flex items-center gap-2 font-caveat">
+            <Icon icon="mdi:hand-heart" className="text-3xl  font-medium cursor-pointer" />
+            {bannerSubtitle}
+          </p>
 
-            <h1 className="text-4xl  max-w-[17ch] sm:text-4xl  sm:max-w-[17ch] md:text-6xl md:max-w-[12ch]   lg:text-6xl xl:text-7xl font-extrabold text-white xl:max-w-[12ch] leading-tight">
-              {bannerTitle}
-            </h1>
+          <h1 className="text-4xl  max-w-[17ch] sm:text-4xl  sm:max-w-[17ch] md:text-6xl md:max-w-[12ch]   lg:text-6xl xl:text-7xl font-extrabold text-white xl:max-w-[12ch] leading-tight">
+            {bannerTitle}
+          </h1>
 
-            <div className="flex flex-col min-[450px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
-              <div className="w-auto sm:w-auto min-w-[50px] sm:min-w-[120px]">
-                <Button
-                  text="Discover More"
-                  textColor="text-white"
-                  bgColor="bg-black/30"
-                  hoverBg="before:bg-yellow"
-                  hoverTextColor="group-hover:text-foreground"
-                  onClick={() => window.open(bannerLink, '_blank')}
+          <div className="flex flex-col min-[450px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
+            <div className="w-auto sm:w-auto min-w-[50px] sm:min-w-[120px]">
+              <Button
+                text="Discover More"
+                textColor="text-white"
+                bgColor="bg-black/30"
+                hoverBg="before:bg-yellow"
+                hoverTextColor="group-hover:text-foreground"
+                onClick={() => window.open(bannerLink, '_blank')}
+                paddingy="py-5"
+              />
+            </div>
+            <div className="sm:w-auto min-w-[50px] sm:min-w-[120px]">
+              <Link href="/contact">
+                <Button 
+                  text="Get A Quote"
                   paddingy="py-5"
                 />
-              </div>
-              <div className="sm:w-auto min-w-[50px] sm:min-w-[120px]">
-                <Link href="/contact">
-                  <Button
-                    text="Get A Quote"
-                    paddingy="py-5"
-                  />
-                </Link>
-              </div>
+              </Link>
             </div>
-          </AnimatedReveal>
+          </div>
+        </AnimatedReveal>
         </div>
 
         {/* ✅ Navigation Arrows - Desktop */}
@@ -166,7 +166,7 @@ export default function HeroStaticSlider() {
             className="w-15 h-15 cursor-pointer rounded-full bg-dark-green flex items-center justify-center text-white shadow-md  hover:text-black hover:scale-105 hover:bg-yellow transition"
           >
             <Icon icon="mdi:arrow-left" className="text-3xl" />
-          </button>
+          </button> 
           <button
             onClick={handleNext}
             className="w-15 h-15 rounded-full bg-yellow cursor-pointer flex items-center justify-center text-black shadow-md hover:text-white hover:scale-105 hover:bg-dark-green transition"

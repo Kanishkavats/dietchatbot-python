@@ -1,5 +1,106 @@
+// src/hooks/useBanners.ts
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
-import { fetchAllBanners } from "../services/bannerApi";
+import {
+    fetchAllBanners,
+    fetchBannerById,
+    deleteBanner,
+} from "../services/bannerApi";
+import { BannerFormValues } from "../utils/validations/FormValidation";
+import toast from "react-hot-toast";
+const buildFormData = (values: BannerFormValues) => {
+  const formData = new FormData();
+
+  
+  formData.append("title", JSON.stringify(values.title));
+  formData.append("subtitle", JSON.stringify(values.subtitle));
+  formData.append("priority", values.priority.toString());
+
+  
+  if (values.image instanceof File) {
+    formData.append("image", values.image);
+  } else if (typeof values.image === "string" && values.image !== "") {
+    formData.append("image", values.image);
+  }
+
+  return formData;
+};
+
+// ✅ Handle banner create
+const handleCreateBanner = (
+    values: BannerFormValues,
+    createMutation: any,
+    resetForm: () => void,
+    setSubmitting: (isSubmitting: boolean) => void,
+    onClose: () => void
+) => {
+    toast.dismiss();
+    toast.loading("Creating banner...");
+    const formData = buildFormData(values);
+
+    createMutation.mutate(formData, {
+        onSuccess: () => {
+            toast.dismiss();
+            toast.success("Banner created successfully");
+            resetForm();
+            setSubmitting(false);
+            onClose();
+        },
+        onError: (err: any) => {
+            toast.dismiss();
+            toast.error(err?.message || "Failed to create banner");
+            setSubmitting(false);
+        },
+    });
+};
+
+// ✅ Handle banner update
+const handleUpdateBanner = (
+    id: string,
+    values: BannerFormValues,
+    updateMutation: any,
+    resetForm: () => void,
+    setSubmitting: (isSubmitting: boolean) => void,
+    onClose: () => void
+) => {
+    toast.dismiss();
+    toast.loading("Updating banner...");
+    const formData = buildFormData(values);
+
+    updateMutation.mutate(
+        { id, values: formData },
+        {
+            onSuccess: () => {
+                toast.dismiss();
+                toast.success("Banner updated successfully");
+                resetForm();
+                setSubmitting(false);
+                onClose();
+            },
+            onError: (err: any) => {
+                toast.dismiss();
+                toast.error(err?.message || "Failed to update banner");
+                setSubmitting(false);
+            },
+        }
+    );
+};
+
+// ✅ Unified banner form submit
+export const submitBannerForm = (
+    values: BannerFormValues,
+    initialData: { id?: string } | undefined,
+    createMutation: any,
+    updateMutation: any,
+    resetForm: () => void,
+    setSubmitting: (isSubmitting: boolean) => void,
+    onClose: () => void
+) => {
+    if (initialData?.id) {
+        handleUpdateBanner(initialData.id.toString(), values, updateMutation, resetForm, setSubmitting, onClose);
+    } else {
+        handleCreateBanner(values, createMutation, resetForm, setSubmitting, onClose);
+    }
+};
 
 // ✅ Fetch banners with pagination
 export const useFetchAllBanners = (page: number, limit: number = 10) => {
@@ -8,5 +109,29 @@ export const useFetchAllBanners = (page: number, limit: number = 10) => {
         queryFn: () => fetchAllBanners(page, limit),
         placeholderData: keepPreviousData,
 
+    });
+};
+
+// ✅ Fetch single banner
+export const useFetchSingleBanner = (id?: string) => {
+    return useQuery({
+        queryKey: ["banner", id],
+        queryFn: () => fetchBannerById(id!),
+        enabled: !!id,
+    });
+};
+
+// ✅ Delete banner
+export const useDeleteBanner = () => {
+    const queryClient = useQueryClient();
+    return useMutation({
+        mutationFn: deleteBanner,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["banners"] });
+            toast.success("Banner deleted successfully");
+        },
+        onError: (error: any) => {
+            toast.error(error?.message || "Failed to delete banner");
+        },
     });
 };
