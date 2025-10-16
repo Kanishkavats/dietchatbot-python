@@ -107,7 +107,7 @@ export default function CharityWithDifference() {
             }
           }}
         >
-          <div className='md:px-14 lg:px-15 xl:px-8 mx-auto charity-container-center'>
+          <div className='md:px-14 lg:px-15 xl:px-8 mx-auto'>
           <Swiper
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
@@ -129,21 +129,40 @@ export default function CharityWithDifference() {
             }}
             loop={true}
             breakpoints={{
-              320: {
+               0: {
+    slidesPerView: 0,
+    spaceBetween: 4,
+    centeredSlides: false,
+  },
+              300: {
+                slidesPerView: 1,
+                spaceBetween: 10,
+                centeredSlides: true,
+              },
+              480: {
+                slidesPerView: 1,
+                spaceBetween: 15,
+                centeredSlides: true,
+              },
+              700: {
                 slidesPerView: 1,
                 spaceBetween: 20,
+                centeredSlides: true,
               },
               768: {
                 slidesPerView: 2,
                 spaceBetween: 20,
+                centeredSlides: false,
               },
               1024: {
                 slidesPerView: 2,
-                spaceBetween: 20,
+                spaceBetween: 25,
+                centeredSlides: false,
               },
               1440: {
                 slidesPerView: 3,
-                spaceBetween: 20,
+                spaceBetween: 30,
+                centeredSlides: false,
               },
             }}
             className="font-nunito font-semibold"

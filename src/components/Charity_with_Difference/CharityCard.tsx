@@ -116,10 +116,22 @@ const CharityCard: React.FC<CharityCardProps> = ({
 
   return (
     <motion.div
-      className={`relative group rounded-[30px] p-8 min-w-[270px] max-w-[400px] min-h-[400px] xl:min-h-[450px] flex items-center justify-center
+      className={`relative group rounded-[30px] flex items-center justify-center
+        w-full h-[400px] p-4
+        xs:w-full xs:h-[420px] xs:p-5
+        sm:w-full sm:h-[450px] sm:p-6
+        md:w-full md:h-[480px] md:p-7
+        lg:w-full lg:h-[500px] lg:p-8
+        xl:w-full xl:h-[520px] xl:p-9
         ${id % 3 === 0 ? "bg-image-1" : id % 3 === 1 ? "bg-image-2" : "bg-image-3"} 
         `}
-     
+      style={{
+        minWidth: 'min(30vw, 280px)',
+        maxWidth: '100%',
+        width: '100%',
+        height: 'clamp(400px, 50vw, 520px)',
+        padding: 'clamp(1rem, 3vw, 2.5rem)'
+      }}
       transition={{ duration: 0.3, ease: "easeOut" }}
     >
 
@@ -127,27 +139,48 @@ const CharityCard: React.FC<CharityCardProps> = ({
       <div className="relative z-10 text-center "
       >
         {/* Icon */}
-                 <div
-           className="w-20 h-20 transition-all duration-300 mx-auto mb-6 rounded-full flex items-center justify-center group-hover:scale-x-[-1]"
-           style={{ backgroundColor: borderColor }}
-         >
-                     <i 
-                       className={`text-3xl text-white font-awesome ${iconClass} transition-transform duration-300`} 
-                       style={{ 
-                         fontFamily: 'FontAwesome, Arial, sans-serif'
-                       }}
-                     ></i>
+        <div
+          className="transition-all duration-300 mx-auto mb-4 rounded-full flex items-center justify-center group-hover:scale-x-[-1]"
+          style={{ 
+            backgroundColor: borderColor,
+            width: 'clamp(3.5rem, 8vw, 5rem)',
+            height: 'clamp(3.5rem, 8vw, 5rem)',
+            marginBottom: 'clamp(1rem, 3vw, 2rem)'
+          }}
+        >
+          <i 
+            className={`text-white font-awesome ${iconClass} transition-transform duration-300`} 
+            style={{ 
+              fontFamily: 'FontAwesome, Arial, sans-serif',
+              fontSize: 'clamp(1.5rem, 4vw, 2.5rem)'
+            }}
+          ></i>
         </div>
 
         {/* Title */}
         <div className='mt-2'>
-        <h3 className="text-lg xl:text-2xl font-extrabold text-dark-green mb-4 hover:text-olive-brown transition-all duration-300 ">
-          {translatedContent.title}
-        </h3>
+          <h3 
+            className="font-extrabold text-dark-green hover:text-olive-brown transition-all duration-300"
+            style={{
+              fontSize: 'clamp(1rem, 3vw, 1.5rem)',
+              marginBottom: 'clamp(0.75rem, 2vw, 1.5rem)',
+              lineHeight: '1.2'
+            }}
+          >
+            {translatedContent.title}
+          </h3>
         </div>
 
         {/* Description */}
-        <p className="text-gray-green text-[15px] leading-7 tracking xs:max-w-[250px] md:max-w-[300px] lg:max-w-[260px]">
+        <p 
+          className="text-gray-green tracking-wide"
+          style={{
+            fontSize: 'clamp(0.875rem, 2.5vw, 1rem)',
+            lineHeight: 'clamp(1.4, 2vw, 1.6)',
+            maxWidth: 'clamp(200px, 80%, 320px)',
+            margin: '0 auto'
+          }}
+        >
           {translatedContent.description}
         </p>
       </div>
