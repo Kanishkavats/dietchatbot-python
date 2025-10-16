@@ -174,31 +174,9 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     }));
   }, [campaignData]);
 
-
-//   const filteredData = useMemo(() => {
-//   return paginatedData.filter((campaign: Campaign) => {
-//     const fieldValue = campaign[searchField];
-//     if (typeof fieldValue === "string") return fieldValue.toLowerCase().includes(search.toLowerCase());
-//     if (typeof fieldValue === "object" && fieldValue?.[lang]) return fieldValue[lang].toLowerCase().includes(search.toLowerCase());
-//     return false;
-//   });
-// }, [paginatedData, search, searchField, lang]);
-
 const filteredData = useMemo(() => paginatedData, [paginatedData]);
 
-//   const normalizedCampaignData = useMemo(() => {
-//   if (!singleCampaignData) return undefined;
 
-//   // Ensure both images and existingImages contain URLs
-//   const stringImages =
-//     singleCampaignData.images?.filter((img: any) => typeof img === "string") ?? [];
-
-//   return {
-//     ...singleCampaignData,
-//     // existingImages: singleCampaignData.existingImages ?? stringImages,
-//     images: singleCampaignData.images ?? stringImages,
-//   };
-// }, [singleCampaignData]);
 
 const normalizedCampaignData = useMemo(() => {
   if (!singleCampaignData) return undefined;

@@ -34,5 +34,5 @@ export const EventsValue = [
   { label: "Upcoming", value: "upcoming" },
   { label: "Live", value: "live" },
   { label: "Ended", value: "ended" },
-  { label: "All", value: "all" },
+  
 ] as const;

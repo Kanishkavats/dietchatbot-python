@@ -62,9 +62,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
           submitForm,
           setTouched }) => {
           const lang = language;
-          // useEffect(() => {
-          //   setFieldValue("keyPoints", keyPointsList, true);
-          // }, [keyPointsList, setFieldValue]);
+          
           const handlePreviewClick = async () => {
                       const touchAllFields = (obj: any): any => {
                         if (typeof obj !== 'object' || obj === null) return true;
@@ -186,19 +184,12 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                   setFieldValue("images", files);
                   setFieldValue("existingImages", existingUrls);
                 }}
-  //                             onChange={(newFiles, remainingUrls) => {
-  // setFieldValue("images", [
-  //   ...(values.images || []), 
-  //   ...newFiles
-  // ]);
-  // setFieldValue("existingImages", remainingUrls);
-// }}
                 uploadType="multiple"
                 disabled={isView}
                 mode={mode}
                 initialUrls={(() => {
                   const urls: string[] = [];
-                  // Only include existing server URLs here to avoid duplicates
+                  
                   if (Array.isArray(values.existingImages)) {
                     urls.push(
                       ...values.existingImages.filter(

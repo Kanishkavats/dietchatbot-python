@@ -127,8 +127,8 @@ export const submitEventForm = (
 
 export const useFetchAllEvent = (page: number, limit: number = 10,search?:string,eventStatus?:string) => {
   return useLanguageAwareQuery(
-    ["event", page, limit,search], 
-    () => fetchAllEvent(page, limit,search),
+    ["event", page, limit,search,eventStatus], 
+    () => fetchAllEvent(page, limit,search,eventStatus),
     {
       staleTime: 5 * 60 * 1000, 
     }

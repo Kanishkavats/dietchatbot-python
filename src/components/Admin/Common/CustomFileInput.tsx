@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent, DragEvent, useEffect } from "react";
+import React, { useState, ChangeEvent, DragEvent, useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { Icon } from "@iconify/react";
 import { AdminCustomFileInputProps, AdminFileItem } from "@/src/types/adminCommon";
@@ -21,6 +21,7 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
     ...initialUrls.map((url) => ({ url, status: "success", progress: 100 })),
     ...initialFiles.map((file) => ({ file, url: URL.createObjectURL(file), status: "success", progress: 100 })),
   ]);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Note: Do not auto-sync after mount to avoid clobbering user changes
 
@@ -69,6 +70,8 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
       const actualIndex = uploadType === "single" ? idx : files.length + idx;
       simulateUpload(actualIndex);
     });
+        if (inputRef.current) inputRef.current.value = "";
+
   };
 
   // Drag & Drop
@@ -135,6 +138,7 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
         >
           <input
             id={name}
+            ref={inputRef}
             name={name}
             type="file"
             multiple={uploadType === "multiple"}

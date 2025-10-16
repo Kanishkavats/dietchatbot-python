@@ -134,12 +134,6 @@ const BlogTable = () => {
     }));
   }, [blogData]);
 
-  // const filteredData = useMemo(() => {
-  //   return paginatedData.filter((blog: Blog) => {
-  //     const value = blog[searchField];
-  //     return value?.toString().toLowerCase().includes(search.toLowerCase());
-  //   });
-  // }, [paginatedData, search, searchField]);
   const filteredData = useMemo(() => paginatedData, [paginatedData]);
 
 

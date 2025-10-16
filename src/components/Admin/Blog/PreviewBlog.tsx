@@ -20,23 +20,33 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [language, setLanguage] = useState<"en" | "hi">("en");
 
+  
   useEffect(() => {
-    if (!data.images) return;
-
-    const previews = data.images
-      .filter((img): img is File | string => img !== undefined)
-      .map((img) =>
-        typeof img === "string" ? img : URL.createObjectURL(img)
-      );
-
-    setImagePreviews(previews);
-
-    return () => {
-      previews.forEach((url) => {
-        if (url.startsWith("blob:")) URL.revokeObjectURL(url);
+      if (!data) return;
+      const seen = new Set<string>();
+      const list: string[] = [];
+      const addUrl = (url?: string) => {
+        if (!url || typeof url !== 'string') return;
+        if (seen.has(url)) return;
+        list.push(url);
+        seen.add(url);
+      };
+  
+      // First: server URLs
+      data.existingImages?.forEach((u) => addUrl(u));
+      // Then: files or strings in images
+      data.images?.forEach((img) => {
+        if (img && typeof img === 'object' && img instanceof Blob) {
+          const objectUrl = (img as any)._objectUrl || ((img as any)._objectUrl = URL.createObjectURL(img));
+          addUrl(objectUrl);
+        } else if (typeof img === 'string') {
+          addUrl(img);
+        }
       });
-    };
-  }, [data.images]);
+  
+      setImagePreviews(list);
+      return () => {};
+    }, [data]);
 
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);

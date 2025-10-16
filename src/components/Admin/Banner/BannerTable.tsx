@@ -25,6 +25,7 @@ import BannerPreview from "./BannerPreview";
 import AdminCustomPagination from "../Common/CustomePagination";
 import ConfirmModal from "../Common/ConfirmModal";
 import toast from "react-hot-toast";
+import useDebounce from "@/src/hooks/useDebounce";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");
@@ -39,11 +40,12 @@ const BannerTable = () => {
 const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
-
+  const debounceValue=useDebounce(search,1000);
   const queryClient = useQueryClient();
   const { data: bannerData, isLoading } = useFetchAllBanners(
     currentPage,
-    itemsPerPage
+    itemsPerPage,
+    debounceValue
   );
   const { mutate: deleteBanner } = useDeleteBanner();
   const totalPages = bannerData?.totalPages || 1;
@@ -124,14 +126,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
     setMode("edit");
     setDrawerOpen(true);
   }, []);
-
-  // Filter data based on search
-  const filteredData = useMemo(() => {
-    return bannerData?.banners?.filter((b: Banner) =>
-      b[searchField]?.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [bannerData, search, searchField]);
-
+  
   const columns = useMemo(
     () =>
       getBannerColumns({
@@ -154,6 +149,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
               value={searchField}
               onChange={(value: BannerSearchField) => {
                 setSearchField(value);
+                setSearch('')
               }}
             />
             <CustomInput
@@ -193,7 +189,7 @@ const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
           <CustomLoader />
         </div>
       ) : (
-        <DataTableWrapper columns={columns} data={filteredData} />
+        <DataTableWrapper columns={columns} data={bannerData?.banners||[]} />
       )}
 
       {totalPages > 1 && (
