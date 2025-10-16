@@ -10,7 +10,9 @@ import ScrollImgSection from './ScrollImgSection'
 import { aboutus } from '@/public/assets'
 import DonateDifferentWay from '../DonateDifferentWay'
 
+
 const About = () => {
+  
   return (
     <div>
       <PageBanner bgImage={aboutus} title="About us" />

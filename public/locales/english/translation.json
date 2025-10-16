@@ -205,9 +205,85 @@
   "Help & ": "Help & ",
 
 
+<<<<<<< HEAD
+<<<<<<< Updated upstream
+
+  
+
+  }
+=======
+=======
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
   "25": "25",
   "50": "50",
   "100": "100",
   "200": "200",
+<<<<<<< HEAD
+  "amount":"amount",
+  "Share Your": "Share Your",
+  "Experience!": "Experience!",
+  "Your name...": "Your name...",
+  "Your designation...": "Your designation...",
+  "Rating * (1-5)": "Rating * (1-5)",
+  "Your feedback...": "Your feedback...",
+  "Profile Image *": "Profile Image *",
+  "Uploaded successfully": "Uploaded successfully",
+  "Drag & Drop your images here or": "Drag & Drop your images here or",
+  "browse files": "browse files",
+  "Submit Feedback": "Submit Feedback",
+  "Submitting...": "Submitting...",
+  "Submitting your feedback...": "Submitting your feedback...",
+  "Failed to submit feedback": "Failed to submit feedback",
+  
+    "Submitting your feedback...": "Submitting your feedback...",
+  "Failed to submit feedback": "Failed to submit feedback",
+  "Image size must be less than 5MB.": "Image size must be less than 5MB.",
+  "Image is required": "Image is required",
+    "Name is required": "Name is required",
+  "Designation is required": "Designation is required",
+  "Image is required": "Image is required",
+  "Feedback must be 500 characters or less": "Feedback must be 500 characters or less",
+  "Feedback is required": "Feedback is required",
+  "Please select a rating": "Please select a rating",
+  "Maximum rating is 5": "Maximum rating is 5",
+  "Rating is required": "Rating is required",
+  "PrivacyPolicy": {
+    "Heading": "Our Commitment to Your Privacy",
+    "BannerMoto": "Privacy Policy",
+    "IntroductionTitle": "1. Introduction",
+    "IntroductionText": "Your privacy matters to us. This Privacy Policy explains how we collect, use, and protect your personal information when you engage with our website or services. By accessing our platform, you agree to the terms described below. We encourage you to read this policy carefully to understand how your information is handled.",
+    "InformationTitle": "2. Information We Collect",
+    "InformationText": "We collect both personal and non-personal information to improve your experience and ensure smooth operation of our website. This may include:",
+    "InformationList": [
+      "Personal details such as your name, email address, and phone number.",
+      "Information submitted through forms, surveys, or sign-up processes.",
+      "Usage data, including IP address, browser type, and pages visited.",
+      "Cookies and similar tracking technologies to enhance site performance."
+    ],
+    "UsageTitle": "3. How We Use Your Information",
+    "UsageText": "The data we collect allows us to provide a seamless experience, improve our content, and communicate effectively with you. We use your information to:",
+    "UsageList": [
+      "Respond to inquiries, feedback, or service requests.",
+      "Personalize and improve user experience on our platform.",
+      "Send important updates, newsletters, or promotional materials (only if you opt-in).",
+      "Monitor and analyze usage patterns to enhance website performance."
+    ],
+    "DataProtectionTitle": "4. Data Protection",
+    "DataProtectionText": "We prioritize the security of your personal data. All information is stored using secure servers and protected by appropriate administrative, technical, and physical safeguards. While we strive to ensure the highest level of security, please note that no method of electronic storage or transmission over the internet is 100% secure.",
+    "SharingTitle": "5. Sharing Your Information",
+    "SharingText": "We do not sell or rent your personal data to third parties. However, we may share limited information with trusted partners or service providers who help us operate our website or deliver services — always under strict confidentiality agreements and only for legitimate business purposes.",
+    "RightsTitle": "6. Your Rights",
+    "RightsText": "You have full control over your personal information. You may request access, correction, or deletion of your data at any time. You can also choose to unsubscribe from our emails or withdraw consent where applicable.",
+    "ChangesTitle": "7. Changes to This Policy",
+    "ChangesText": "We may update this Privacy Policy periodically to reflect changes in our practices or for other operational, legal, or regulatory reasons. Any modifications will be posted on this page with an updated revision date.",
+    "ContactTitle": "8. Contact Us",
+    "ContactText": "If you have any questions, concerns, or requests related to this Privacy Policy, please contact us at {{email}}. We are here to ensure your experience with us remains safe, transparent, and respectful of your privacy."
+  }
+
+
+}
+>>>>>>> Stashed changes
+=======
   "amount":"amount"
 }
+>>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
