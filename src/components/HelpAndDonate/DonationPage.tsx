@@ -68,9 +68,6 @@ const DonationPage: React.FC = () => {
     }));
   }, [data]);
 
-  if (isLoading) return <p>Loading campaigns...</p>;
-  if (isError) return <p>Failed to load campaigns.</p>;
-
   const donationCardsBig = campaignsToDisplay;
 
   return (
@@ -105,18 +102,39 @@ const DonationPage: React.FC = () => {
           </FadeUpCard>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {campaignsToDisplay.map((card:any, index:number) => (
-              <FadeUpCard key={card.id || index} delay={index * 0.2}>
-                <DonationCard
-                  card={card}
-                  isInView={isInView}
-                  hoveredCard={hoveredCard}
-                  onMouseEnter={setHoveredCard}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  onCardClick={handleCardClick}
-                />
-              </FadeUpCard>
-            ))}
+            {isLoading ? (
+              // Loading skeleton for grid
+              Array.from({ length: 8 }).map((_, index) => (
+                <FadeUpCard key={`skeleton-${index}`} delay={index * 0.1}>
+                  <div className="bg-gray-200 animate-pulse rounded-lg h-80">
+                    <div className="h-48 bg-gray-300 rounded-t-lg"></div>
+                    <div className="p-4 space-y-3">
+                      <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                      <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                      <div className="h-3 bg-gray-300 rounded w-full"></div>
+                      <div className="h-3 bg-gray-300 rounded w-2/3"></div>
+                    </div>
+                  </div>
+                </FadeUpCard>
+              ))
+            ) : isError ? (
+              <div className="col-span-full text-center py-8">
+                <p className="text-red-500">Failed to load campaigns. Please try again.</p>
+              </div>
+            ) : (
+              campaignsToDisplay.map((card:any, index:number) => (
+                <FadeUpCard key={card.id || index} delay={index * 0.2}>
+                  <DonationCard
+                    card={card}
+                    isInView={isInView}
+                    hoveredCard={hoveredCard}
+                    onMouseEnter={setHoveredCard}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    onCardClick={handleCardClick}
+                  />
+                </FadeUpCard>
+              ))
+            )}
           </div>
         </div>
       </section>
@@ -164,35 +182,56 @@ const DonationPage: React.FC = () => {
           </div>
 
           {/* Swiper */}
-          <Swiper
-            modules={[Navigation, Autoplay]}
-            slidesPerView={1}
-            spaceBetween={26}
-            loop={true}
-            autoplay={{ delay: 15000, disableOnInteraction: false }}
-            onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
-            onSwiper={(swiper) => (swiperRef.current = swiper)}
-            breakpoints={{
-              640: { slidesPerView: 2, spaceBetween: 30 },
-              1024: { slidesPerView: 3, spaceBetween: 30 },
-              1280: { slidesPerView: 4, spaceBetween: 30 },
-            }}
-            className="h-auto"
-            speed={850}
-          >
-            {donationCardsBig.map((card:any, index:number) => (
-              <SwiperSlide key={`${card.id}-${index}`} className="h-auto">
-                <DonationCard
-                  card={card}
-                  isInView={isCarouselInView}
-                  hoveredCard={hoveredCard}
-                  onMouseEnter={setHoveredCard}
-                  onMouseLeave={() => setHoveredCard(null)}
-                  onCardClick={handleCardClick}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
+          {isLoading ? (
+            // Loading skeleton for carousel
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {Array.from({ length: 4 }).map((_, index) => (
+                <div key={`carousel-skeleton-${index}`} className="bg-gray-200 animate-pulse rounded-lg h-80">
+                  <div className="h-48 bg-gray-300 rounded-t-lg"></div>
+                  <div className="p-4 space-y-3">
+                    <div className="h-4 bg-gray-300 rounded w-3/4"></div>
+                    <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+                    <div className="h-3 bg-gray-300 rounded w-full"></div>
+                    <div className="h-3 bg-gray-300 rounded w-2/3"></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : isError ? (
+            <div className="text-center py-8">
+              <p className="text-red-500">Failed to load campaigns. Please try again.</p>
+            </div>
+          ) : (
+            <Swiper
+              modules={[Navigation, Autoplay]}
+              slidesPerView={1}
+              spaceBetween={26}
+              loop={true}
+              autoplay={{ delay: 15000, disableOnInteraction: false }}
+              onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              breakpoints={{
+                640: { slidesPerView: 2, spaceBetween: 30 },
+                1024: { slidesPerView: 3, spaceBetween: 30 },
+                1280: { slidesPerView: 4, spaceBetween: 30 },
+              }}
+              className="h-auto"
+              speed={850}
+            >
+              {donationCardsBig.map((card:any, index:number) => (
+                <SwiperSlide key={`${card.id}-${index}`} className="h-auto">
+                  <DonationCard
+                    card={card}
+                    isInView={isCarouselInView}
+                    hoveredCard={hoveredCard}
+                    onMouseEnter={setHoveredCard}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    onCardClick={handleCardClick}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          )}
         </div>
       </section>
 

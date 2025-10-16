@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
-import { VolunteerCard } from "../common/card/VolunteerCard";
+import { VolunteerCard } from "../volunteer/VolunteerCard";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
 import { useTranslation } from "react-i18next";
 import { useFetchAllMembers } from "@/src/hooks/useMembers";
@@ -59,7 +59,7 @@ const VolunteerTeam = () => {
       style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
-        <div className="flex items-center text-[#046b59] justify-center gap-2 mb-2">
+        <div className="flex items-center text-[#046b59] justify-center gap-3 mb-2">
           <i className="text-2xl hand-icon"></i>
           <span className="font-caveat text-2xl font-semibold">
             {t("Start Donating Poor People")}
@@ -78,7 +78,7 @@ const VolunteerTeam = () => {
           {isError && <p>Failed to load members.</p>}
           {!isLoading && !isError && (
             <div
-              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6"
+              className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-3"
             >
               {members.map((member: any, idx: number) => (
                 <VolunteerCard key={member.id || idx} member={member} idx={idx} />
@@ -89,7 +89,7 @@ const VolunteerTeam = () => {
 
         {/* View All button */}
         {members.length > 0 && (
-          <div className="flex items-center w-[200px] h-[80px] justify-center mt-6">
+          <div className="flex items-center w-[170px] h-[90px] justify-center mt-6">
             <Button
               text="View All"
               bgColor="bg-[#FFC107]"

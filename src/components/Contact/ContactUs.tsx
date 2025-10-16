@@ -94,7 +94,7 @@ const ContactUs = () => {
 
                       {/* Feedback */}
                       <p className="text-[#667471] font-nunito text-sm sm:text-base leading-relaxed px-2 flex-grow">
-                        "{truncateText(item.feedback || "", 120)}"
+                        "{truncateText(item.feedback || "", 260)}"
                       </p>
 
                       {/* User Info */}

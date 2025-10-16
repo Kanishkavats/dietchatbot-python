@@ -27,19 +27,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
     queryKey: ["feedback"],
     queryFn: fetchFeedback,
   });
-//  useEffect(() => {
-//     const invalid =
-//       !feedbacks ||
-//       feedbacks.length === 0 ||
-//       feedbacks.every(
-//         (f: any) => !f.name || !f.feedback || !f.rating || !f.image
-//       );
 
-//     if(setHasFeedback){
-//       setHasFeedback(!invalid);
-//     }
-//   }, [feedbacks, setHasFeedback]);
-    // 🟡 Loading state
   if (isLoading) return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
 
   // 🔴 Hide component if no feedbacks or any required field missing
@@ -64,7 +52,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
 
   return (
     <section
-      className="relative w-full min-h-screen bg-cover bg-center py-8 sm:py-12 md:py-16"
+      className="relative w-full min-h-screen bg-cover bg-center py-8 sm:py-12 md:py-16 pb-20 sm:pb-24 md:pb-32 lg:pb-40 xl:pb-48"
       style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       <div
@@ -72,28 +60,30 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
         style={{ backgroundImage: `url(${valueableshape.src})` }}
       />
 
-      <div className="mt-[100px] sm:mt-[130px] md:mt-[120px] lg:mt-[140px] xl:mt-[170px]">
-        {/* Heading */}
-        <div className="flex items-center gap-2 justify-center relative z-20 mb-4">
-          <i className="text-2xl hand-icon text-[#00715D]" />
-          <span className="text-[#00715D] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] relative z-20">
-            {t("Start Donating Poor People")}
-          </span>
-        </div>
-        <div className="mt-[15px] sm:mt-[10px] md:mt-[5px] lg:mt-[15px] xl:mt-[20px] px-4 sm:px-6 md:px-8 lg:px-[12px] py-8 sm:py-12 md:py-16 text-center">
-          <h2 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 lg:leading-10 xl:leading-12">
-            {t("Our")}{" "}
-            <span className="text-yellow font-nunito">
-              {t("Valuable Customers")}
+      <div className="mt-[100px] sm:mt-[130px] md:mt-[120px] min-[770px]:mt-[150px] min-[800px]:mt-[160px] min-[900px]:mt-[140px] lg:mt-[140px] xl:mt-[170px]">
+        <div>
+          {/* Heading */}
+          <div className="flex items-center gap-1 justify-center md:mt-[20px] relative z-20 mb-4">
+            <i className="text-2xl hand-icon sm:mt-[25px] text-[#00715D]" />
+            <span className="text-[#00715D] sm:mt-[30px] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] relative z-20 min-[770px]:text-[22px] min-[800px]:text-[24px]">
+              {t("Start Donating Poor People")}
             </span>
-          </h2>
-          <h3 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 lg:leading-10 xl:leading-12 mt-4 sm:mt-2 md:mt-4 lg:mt-6 xl:mt-3">
-            {t("Awesome Feedback")}
-          </h3>
+          </div>
+          <div className="mt-[15px] sm:mt-[10px] md:mt-[5px] min-[770px]:mt-[-10px] min-[800px]:mt-[-15px] min-[900px]:mt-[-20px] min-[1000px]:mt-[-25px] min-[1100px]:mt-[-30px] min-[1200px]:mt-[-35px] lg:mt-[-40px] xl:mt-[-50px] px-4 sm:px-6 md:px-8 lg:px-[12px] py-8 sm:py-12 md:py-16 text-center md:mt-[-10px]">
+            <h2 className="text-[22px] sm:text-[28px] md:text-[35px] min-[770px]:text-[38px] min-[800px]:text-[40px] min-[900px]:text-[42px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 min-[770px]:leading-10 min-[800px]:leading-10 min-[900px]:leading-10 lg:leading-10 xl:leading-12">
+              {t("Our")}{" "}
+              <span className="text-yellow font-nunito">
+                {t("Valuable Customers")}
+              </span>
+            </h2>
+            <h3 className="text-[22px] sm:text-[28px] md:text-[35px] min-[770px]:text-[38px] min-[800px]:text-[40px] min-[900px]:text-[42px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 min-[770px]:leading-10 min-[800px]:leading-10 min-[900px]:leading-10 lg:leading-10 xl:leading-12 mt-4 sm:mt-2 md:mt-4 lg:mt-6 xl:mt-3">
+              {t("Awesome Feedback")}
+            </h3>
+          </div>
         </div>
 
         {/* Swiper Carousel */}
-        <div className="mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-8 xl:px-20 -mt-4 sm:-mt-6 md:-mt-8">
+        <div className="mx-auto w-full px-4 sm:px-6 md:px-8 lg:px-8 xl:px-20 mt-2 sm:mt-3 md:mt-4 lg:mt-3 xl:mt-4">
           <Swiper
             spaceBetween={12}
             slidesPerView={1}
@@ -118,7 +108,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
           >
             {feedbacks.map((item:any, idx:any) => (
               <SwiperSlide key={`${item.id || item.name}-${idx}`}>
-                <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-4 sm:px-6 md:px-[20px] py-6 sm:py-8 md:py-[40px] w-full max-w-[100%] sm:max-w-[320px] md:max-w-[336px] lg:max-w-[456px] xl:max-w-[356px] 2xl:max-w-[415px] h-auto min-h-[400px] sm:min-h-[450px] md:min-h-[445px] lg:min-h-[385px] xl:min-h-[415px] 2xl:min-h-[385px] mx-auto">
+                <div className="relative bg-white border border-yellow rounded-3xl flex flex-col shadow-sm overflow-hidden px-4 sm:px-6 md:px-[20px] py-6 sm:py-8 md:py-[40px] w-full max-w-[100%] sm:max-w-[320px] md:max-w-[336px] lg:max-w-[456px] xl:max-w-[456px] 2xl:max-w-[456px] h-auto min-h-[400px] sm:min-h-[450px] md:min-h-[445px] lg:min-h-[360px] xl:min-h-[360px] 2xl:min-h-[360px] mx-auto">
                   
                   <Image
                     src={image99}
@@ -129,7 +119,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
                   />
 
                   {/* Rating */}
-                  <div className="flex mb-3 sm:mb-4 px-4 sm:px-5 md:px-6">
+                  <div className="flex mb-3 sm:mb-4">
                     {Array.from({ length: item.rating || 5 }).map((_, i) => (
                       <IoMdStar
                         key={i}
@@ -140,12 +130,16 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
                   </div>
 
                   {/* Feedback */}
-                  <p className="text-[#667471] font-nunito text-sm sm:text-base md:text-lg px-4 sm:px-5 md:px-6 leading-relaxed break-words">
-                    “{truncateText(t(item.feedback || item.review), 120)}”
+                  <p className="text-gray-500
+                   font-nunito text-16px font-semibold text-sm sm:text-base md:text-lg leading-relaxed break-words">
+                    "{truncateText(t(item.feedback || item.review), 230)}"
                   </p>
 
+                  {/* Spacer to push user info to bottom */}
+                  <div className="flex-grow"></div>
+
                   {/* User Info */}
-                  <div className="flex flex-col sm:flex-row sm:items-center mt-4 sm:mt-5 md:mt-6 px-4 sm:px-5 md:px-6 gap-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center mt-4 sm:mt-5 md:mt-6  sm:px-5 md:px-6 gap-2">
                     <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full overflow-hidden mx-auto sm:mx-0">
                       <Image
                         src={item.image || item.avatar || "/assets/author.png"}
