@@ -96,7 +96,7 @@ export default function HelpingEachOther() {
             
             <div className="relative  col-span-3  opacity-0 anim-fade-in-left hidden lg:block">
             
-              <div className="hidden xl:block lg:h-[450px] absolute -left-10 top-42 -bottom-15 w-16 lg:w-16 xl:w-25 bg-green rounded-3xl border-t-4 border-b-4 border-yellow-500  items-center justify-center z-20 transition-all duration-300">
+              <div className="hidden xl:block lg:h-[450px] absolute -left-1 top-42 -bottom-15 w-16 lg:w-16 xl:w-23 bg-green rounded-3xl border-t-4 border-b-4 border-yellow-500  items-center justify-center z-20 transition-all duration-300">
                 <div
                   className="transform -rotate-90 text-white font-extrabold text-xl whitespace-nowrap mt-80 px-2"
                   style={{
@@ -111,7 +111,7 @@ export default function HelpingEachOther() {
               </div>
 
               {/* Grid pattern - only show on xl+ */}
-              <div className="hidden xl:block absolute  -left- lg:-left-6 xl:-left-20 top-95 -bottom-4 z-10">
+              <div className="hidden xl:block absolute  -left-3 lg:-left-6 xl:-left-11 top-95 -bottom-4 z-10">
                 <Image
                   src="/assets/section2/grid.png"
                   alt="Grid pattern"
@@ -244,7 +244,6 @@ export default function HelpingEachOther() {
                  ></motion.div>
               </div>
 
-              {/* White box with yellow border - bottom left */}
 
               {/* Animated parachute */}
               <motion.div
@@ -316,7 +315,7 @@ export default function HelpingEachOther() {
               </div>
 
               <div className=" mb-3 md:mb-3 lg:mb-3 md:pr-15 lg:pr-10 xs:pr-1 xl:pr-0">
-                <h2 className="text-[28px] font-nunito  md:text-4xl lg:text-4xl xl:text-[56px] md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking opacity-0 anim-fade-in-up">
+                <h2 className="text-[24px] font-nunito  md:text-4xl lg:text-4xl xl:text-[56px] md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking opacity-0 anim-fade-in-up">
                   {t("Helping Each Other Can Make")}{" "}
                   <span className="text-yellow">{t("World")}</span>
                   {t(" Better")}
@@ -434,7 +433,7 @@ export default function HelpingEachOther() {
                     fontWeight=""
                     hoverTextColor="group-hover:text-white"
                     hoverBg="before:bg-green"
-                    paddingx=" px-8 xs:px-7 md:px-6 lg:px-7 xl:px-8"
+                    paddingx=" px-8 xs:px-7 md:px-6 lg:px-6 xl:px-8"
                     paddingy="py-6 xs:py-6 md:py-6 lg:py-6 xl:py-7"
                     onClick={handleMoreAboutUs}
                   />

@@ -6,7 +6,7 @@ import HeroStaticSlider from './Hero';
 import CharityWithDifference from '../Charity_with_Difference/CharityWithDiffrence';
 import HelpingEachOther from '../HelpingEachOther/HelpingEachOther';
 import HelpAndDonate from '../HelpAndDonate';
-import BecomeVolunteer from '../BecomeVolunteer/BecomeVolunteer';
+import BecomeVolunteer from '../BecomeVolunteer';
 import VolunteerTeam from '../volunteer/VolunteerTeam';
 import Community from './Community';
 import ValueableCustomer from '../volunteer/ValueableCustomer';
@@ -30,6 +30,7 @@ const Home = () => {
       <BecomeVolunteer />
       <VolunteerTeam />
       <Community hasfeedback={hasFeedback} />
+      <div className="mt-8 md:mt-0"></div>
       {hasFeedback ? (
         <ValueableCustomer setHasFeedback={setHasFeedback}/>
       ) : (
