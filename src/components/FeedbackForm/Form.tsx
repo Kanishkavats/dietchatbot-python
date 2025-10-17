@@ -12,19 +12,8 @@ import Button from '../common/Buttons/Button'
 import InputField from "../common/inputs/InputField";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import { useCreateFeedback, submitFeedbackForm } from '@/src/hooks/useFeedback';
-<<<<<<< HEAD
-import { useTranslation } from "react-i18next";
-
-export interface FeedbackFormValues {
-  name: string;
-  designation: string;
-  feedback: string;
-  rating: number;
-  image: File | string | null;
-}
-=======
 import { useTranslation } from 'react-i18next';
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
+import { FeedbackFormValues, feedbackSchema } from '@/src/utils/validations/FormValidation'
 
 const initialValues: FeedbackFormValues = {
   name: '',
@@ -40,33 +29,8 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
   const [imageName, setImageName] = React.useState<string>('')
   const [imageSizeError, setImageSizeError] = React.useState<string>('')
   const [toast, setToast] = React.useState<{ type: 'success' | 'error', message: string } | null>(null)
-<<<<<<< HEAD
-
-  // ✅ Yup schema inside component for dynamic translation
-  const feedbackSchema = Yup.object({
-    name: Yup.string().required(t("Name is required")),
-    designation: Yup.string().required(t("Designation is required")),
-    image: Yup.mixed()
-      .test("fileOrString", t("Image is required"), (value) => {
-        if (typeof value === "string" && value.trim() !== "") return true;
-        if (value instanceof File) return true;
-        return false;
-      })
-      .required(t("Image is required")),
-    feedback: Yup.string()
-      .max(500, t("Feedback must be 500 characters or less"))
-      .required(t("Feedback is required")),
-    rating: Yup.number()
-      .min(1, t("Please select a rating"))
-      .max(5, t("Maximum rating is 5"))
-      .required(t("Rating is required")),
-  });
-
-=======
-  const { t } = useTranslation()
   
   // Initialize the mutation hook
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
   const createFeedbackMutation = useCreateFeedback()
 
   // Lock body scroll when modal is open
@@ -86,10 +50,6 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
   }, [toast])
 
   const handleSubmit = async (values: FeedbackFormValues, { resetForm, setSubmitting }: any) => {
-<<<<<<< HEAD
-=======
-
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
     setToast({ type: 'success', message: t('Submitting your feedback...') });
     try {
       await submitFeedbackForm(
@@ -204,11 +164,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                   {/* Rating */}
                   <div className="relative">
                     <label className="block text-xs sm:text-sm font-medium text-white mb-2">
-<<<<<<< HEAD
-                      {t("Rating * (1-5)")}
-=======
                       {t("Rating")} * (1-5)
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
                     </label>
                     <div className="flex gap-1 sm:gap-2">
                       {[1, 2, 3, 4, 5].map((star) => (
@@ -252,11 +208,7 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                   {/* Image */}
                   <div className="relative text-white">
                     <label className="block text-xs sm:text-sm font-medium text-white mb-2">
-<<<<<<< HEAD
-                      {t("Profile Image *")}
-=======
                       {t("Profile Image")} *
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
                     </label>
                     <div className="relative">
                       {imagePreview ? (
@@ -343,17 +295,6 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                   <div className="py-2 sm:py-3 text-center">
                     <div className="inline-block">
                       <Button
-<<<<<<< HEAD
-                        type="submit"
-                        bgColor="bg-yellow"
-                        textColor="text-black"
-                        hoverTextColor="group-hover:text-white"
-                        hoverBg="before:bg-foreground"
-                        paddingx="px-6 sm:px-10"
-                        paddingy="py-3 sm:py-4"
-                      >
-                        {isSubmitting ? t('Submitting...') : t('Submit Feedback')}
-=======
                       type="submit"
                       bgColor="bg-yellow"
                       textColor="text-black"
@@ -366,7 +307,6 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                       }}
                     >
                       {isSubmitting ? t('Submitting...') : t('Submit Feedback')}
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
                       </Button>
                     </div>
                   </div>

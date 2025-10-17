@@ -103,6 +103,8 @@
   --color-dusty-rose:#e9d1d1;
   --color-gray-light:#f2f2f2;
   --color-olive-brown:#6b5103;
+  --color-gray-secondary:#838383;
+
 }
 @theme{
   --breakpoint-xs: 25rem;

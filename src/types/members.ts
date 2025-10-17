@@ -36,8 +36,8 @@ export interface Member {
   linkedInUrl?: string;
   createdAt?: string;
   updatedAt?: string;
-  img:string;
-  role:string;
+  img: string;
+  role: string;
 }
 
 // 🧩 Props for MemberForm component
@@ -55,4 +55,30 @@ export interface MemberColumnCallbacks {
   onEdit: (member: Member) => void;
   onDelete: (member: Member) => void;
   onView?: (member: Member) => void; // optional if you don’t support view mode
+}
+
+
+export interface TeamMember {
+  id: string;
+  name: string;
+  role?: string;
+  position?: string;
+  image?: string;
+  imageUrl?: string;
+  facebookUrl?: string;
+  twitterUrl?: string;
+  instagramUrl?: string;
+  linkedInUrl?: string;
+  behanceUrl?: string;
+  vimeoUrl?: string;
+  delay?: number;
+}
+
+export interface VolunteerGridProps {
+  members: TeamMember[];
+}
+
+export interface VolunteerCardProps {
+  member: TeamMember;
+  idx: number;
 }
