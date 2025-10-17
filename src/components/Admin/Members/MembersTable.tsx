@@ -245,9 +245,9 @@ const MemberTable = () => {
           ) : (
             <>
               <MemberForm
-              key={`${editMember || 'new'}-${mode}`} // Force re-render when editMember or mode changes
+              key={`${editMember || 'new'}-${mode}`} 
               initialData={
-                mode === "add" ? undefined : ( singleMemberData ||singleMemberFallback  || undefined)
+                mode === "add" ? undefined : ( singleMemberData || singleMemberFallback  || undefined)
               }
               onClose={() => {
                 setDrawerOpen(false);

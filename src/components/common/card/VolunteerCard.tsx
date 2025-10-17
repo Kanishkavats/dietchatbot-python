@@ -47,7 +47,7 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
         onClick={() => window.location.href = `/volunteer/${member.id}`}
       >
         <Image
-          src={member.imageUrl || "/assets/volunteer1.png"}
+          src={member.image || "/assets/volunteer1.png"}
           alt={member.name}
           fill
           className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"

@@ -209,7 +209,7 @@ const MemberForm = ({
                                 name="facebookUrl"
                                 value={values.facebookUrl ?? ""}
                                 onChange={handleChange}
-                                placeholder="https://facebook.com/..."
+                                placeholder="url"
                                 error={touched.facebookUrl ? errors.facebookUrl : ""}
                             />
 
@@ -218,7 +218,7 @@ const MemberForm = ({
                                 name="twitterUrl"
                                 value={values.twitterUrl ?? ""}
                                 onChange={handleChange}
-                                placeholder="https://twitter.com/..."
+                                placeholder="url"
                                 error={touched.twitterUrl ? errors.twitterUrl : ""}
                             />
 
@@ -227,7 +227,7 @@ const MemberForm = ({
                                 name="instagramUrl"
                                 value={values.instagramUrl ?? ""}
                                 onChange={handleChange}
-                                placeholder="https://instagram.com/..."
+                                placeholder="url"
                                 error={touched.instagramUrl ? errors.instagramUrl : ""}
                             />
 
@@ -236,7 +236,7 @@ const MemberForm = ({
                                 name="linkedInUrl"
                                 value={values.linkedInUrl ?? ""}
                                 onChange={handleChange}
-                                placeholder="https://linkedin.com/in/..."
+                                placeholder="url"
                                 error={touched.linkedInUrl ? errors.linkedInUrl : ""}
                             />
 
