@@ -69,12 +69,12 @@ export const sidebarAd = [
     nav: "feedback",
     link: "/admin/feedback",
   },
-  {
-    icon: MdNotificationsActive,
-    lable: "Notifications",
-    nav: "notifications",
-    link: "/admin/notifications",
-  },
+  // {
+  //   icon: MdNotificationsActive,
+  //   lable: "Notifications",
+  //   nav: "notifications",
+  //   link: "/admin/notifications",
+  // },
   {
     icon: IoSettings,
     lable: "Settings",
