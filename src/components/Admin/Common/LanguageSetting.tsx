@@ -1,6 +1,9 @@
+
+'use client'
 import { FaLanguage } from "react-icons/fa";
 import LanguageToggle from "./LanguageToggle";
 import LanguageSwitcher from "../../LanguageSwitcher";
+import { useTranslation } from "react-i18next";
 
 interface LanguageSettingProps {
   language: "en" | "hi";
@@ -10,6 +13,7 @@ const LanguageSetting: React.FC<LanguageSettingProps> = ({
   language,
   setLanguage,
 }) => {
+  const{t}=useTranslation();
   return (
     <div className="flex flex-col lg:flex-row w-full items-start">
       <div className="flex items-center gap-4 w-full">
@@ -17,9 +21,9 @@ const LanguageSetting: React.FC<LanguageSettingProps> = ({
           <FaLanguage size={24} />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold text-gray-800">Language</h3>
+          <h3 className="font-semibold text-gray-800">{t("Language")}</h3>
           <p className="text-gray-500 text-sm mt-1">
-            Change the display language.
+            {t("Change the display language.")}
           </p>
         </div>
       </div>

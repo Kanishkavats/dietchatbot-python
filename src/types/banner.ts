@@ -1,7 +1,7 @@
 import { UseMutationResult } from "@tanstack/react-query";
-import { BannerFormValues } from "../utils/validations/FormValidation"; // Assuming you have this schema like Blog
+import { BannerFormValues } from "../utils/validations/FormValidation"; 
 
-export type BannerSearchField = "title" | "subtitle"; // Add more if needed
+export type BannerSearchField = "title" | "subtitle"|"priority"; 
 
 // Banner - used in <BannerTable />
 export interface Banner {

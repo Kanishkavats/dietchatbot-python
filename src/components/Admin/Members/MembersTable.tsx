@@ -25,6 +25,7 @@ import MemberPreview from "./MemberPreview";
 import CustomLoader from "../../common/Loader/CustomLoader";
 import AdminCustomPagination from "../Common/CustomePagination";
 import ConfirmModal from "../Common/ConfirmModal";
+import useDebounce from "@/src/hooks/useDebounce";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");
@@ -42,10 +43,12 @@ const MemberTable = () => {
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
   const [singleMemberFallback, setSingleMemberFallback] =
     useState<MemberFormValues | null>(null);
+    const debounceValue=useDebounce(search,1000);
 
   const { data: memberData, isLoading } = useFetchAllMembers(
     currentPage,
-    itemsPerPage
+    itemsPerPage,
+    debounceValue
   );
   const { data: singleMemberData, isLoading: isLoadingMember } =
     useFetchSingleMember(editMember || undefined);
@@ -103,13 +106,9 @@ const MemberTable = () => {
   }, [memberData]);
 
   const totalPages = memberData?.totalPages || 1;
-
-  const filteredData = useMemo(() => {
-    return paginatedData.filter((member: Member) => {
-      const value = member[searchField as keyof Member];
-      return value?.toString().toLowerCase().includes(search.toLowerCase());
-    });
-  }, [paginatedData, search, searchField]);
+  const filteredData = useMemo(() => paginatedData, [paginatedData]);
+  
+  
 
   // Mutations
   const queryClient = useQueryClient();
@@ -140,6 +139,7 @@ const MemberTable = () => {
               value={searchField}
               onChange={(value) => {
                 setSearchField(value);
+                setSearch('')
                 setTimeout(() => {
                   searchInputRef.current?.focus();
                 }, 0);
@@ -182,7 +182,7 @@ const MemberTable = () => {
           <CustomLoader />
         </div>
       ) : (
-        <DataTableWrapper columns={columns} data={filteredData} />
+        <DataTableWrapper columns={columns} data={paginatedData} />
       )}
 
       {/* Pagination */}

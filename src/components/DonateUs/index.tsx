@@ -11,12 +11,14 @@ import PageBanner from "../common/PageBanner";
 import DonationSection from "./DonationSection";
 import { useFetchAllCampaigns, useFetchSingleCampaign } from "@/src/hooks/useCampaigns";
 import Sidebar from "../common/sideBar";
+import { useRouter } from "next/navigation";
 const page=1;
 interface  donateUsProps{
   id?:string;
 }
 const DonateUs = ({id}:donateUsProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const router=useRouter();
   const {
     data: allCampaigns,
     isLoading: allCampaignsLoading,
@@ -45,7 +47,7 @@ const DonateUs = ({id}:donateUsProps) => {
         decoIcon="mdi:ribbon"
         decoPosition="absolute bottom-10 left-10"
       />
-      <section className="bg-gray-100 py-16 flex justify-center items-center w-full">
+      <section className="bg-white py-16 flex justify-center items-center w-full">
         <div className="w-11/12 xl:w-10/12">
           <div className=" grid grid-cols-1 xl:grid-cols-3 gap-10">
             <div className="xl:col-span-2 relative">
@@ -75,7 +77,7 @@ const DonateUs = ({id}:donateUsProps) => {
                 title="Education Health For Every Child"
                 buttonText="Get A Quote"
                 onCardClick={()=>{''}}
-                onButtonClick={() => console.log("Button Clicked!")}
+                onButtonClick={() => router.push("/contact")}
               />
               </div>
               </div>

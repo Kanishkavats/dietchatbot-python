@@ -133,10 +133,10 @@ export const submitBlogForm = (
 };
 
 // ✅ Fetch blogs with pagination
-export const useFetchAllBlogs = (page: number, limit: number = 10) => {
+export const useFetchAllBlogs = (page: number, limit: number = 10,search?:string) => {
   return useQuery({
-    queryKey: ["blogs", page, limit],
-    queryFn: () => fetchAllBlogs(page, limit),
+    queryKey: ["blogs", page, limit,search],
+    queryFn: () => fetchAllBlogs(page, limit,search),
     placeholderData: keepPreviousData,
   });
 };

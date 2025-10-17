@@ -125,10 +125,10 @@ export const submitEventForm = (
 };
 
 
-export const useFetchAllEvent = (page: number, limit: number = 10) => {
+export const useFetchAllEvent = (page: number, limit: number = 10,search?:string,eventStatus?:string) => {
   return useLanguageAwareQuery(
-    ["event", page, limit], 
-    () => fetchAllEvent(page, limit),
+    ["event", page, limit,search,eventStatus], 
+    () => fetchAllEvent(page, limit,search,eventStatus),
     {
       staleTime: 5 * 60 * 1000, 
     }

@@ -29,10 +29,15 @@ import CustomLoader from "../../common/Loader/CustomLoader";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
 import toast from "react-hot-toast";
 import ConfirmModal from "../Common/ConfirmModal";
+import useDebounce from "@/src/hooks/useDebounce";
+import { useFetchCategory } from "../hooks/useCategory";
+import { Category } from "../types/category";
+import { statusValue } from "../types/campaign";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"title" | "organizer" | "category">("title");
+  const [searchField, setSearchField] = useState<"title" | "category"|"status">("title");
+  const [statusField, setStatusField] = useState<"active" | "completed" | "inactive"|"status">("active");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
@@ -45,12 +50,19 @@ const CampaignTable = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const debounceValue=useDebounce(search,1000);
   const{language,toggleLanguage}=useLanguageToggle();
 
-  const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage);
+  const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage,debounceValue);
   const { data: singleCampaignData, isLoading: isLoadingCampaign,refetch } = useFetchSingleCampaign(editCampaign || undefined);
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
+  const { data: categoryData } = useFetchCategory();
+    const categoryOptions =
+      categoryData?.category?.map((category: Category) => ({
+        label: category.name?.[language] || category.name.en, 
+        value: category.name?.[language] || category.name.en,
+      })) ?? [];  
 
 const lang=language
   const queryClient = useQueryClient();
@@ -66,10 +78,18 @@ const lang=language
     mutationFn: (data: { id: string; values: CampaignFormValues }) =>
       updateCampaign(data.id, data.values),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["campaigns"] });
+      queryClient.invalidateQueries({
+      predicate: (query) => query.queryKey[0] === "campaigns",
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["campaign", editCampaign],
+    });
     },
   });
 const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages: string[] } => {
+  const hasFileImages = Array.isArray(data.images) && data.images.some((img: any) => typeof img !== 'string');
+  const serverUrlsFrom = (arr: any[]) => arr.filter((img: any): img is string => typeof img === 'string' && !!img);
+
   return {
     title: data.title ?? { en: "", hi: "" },
     category: data.category ?? { en: "", hi: "" },
@@ -78,9 +98,13 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     summary: data.summary ?? { en: "", hi: "" },
     keyPoints: data.keyPoints ?? { en: [], hi: [] },
     location: data.location ?? { en: "", hi: "" },
-    images: Array.isArray(data.images) ? data.images.filter(Boolean) : [],
-    existingImages: Array.isArray(data.existingImages)
-      ? data.existingImages.filter((img:any): img is string => !!img)
+    images: hasFileImages ? (data.images as any[]) : [],
+    existingImages: hasFileImages
+      ? (Array.isArray(data.existingImages) ? serverUrlsFrom(data.existingImages) : [])
+      : Array.isArray(data.existingImages)
+      ? serverUrlsFrom(data.existingImages)
+      : Array.isArray(data.images)
+      ? serverUrlsFrom(data.images)
       : [],
   };
 };
@@ -150,26 +174,25 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     }));
   }, [campaignData]);
 
+const filteredData = useMemo(() => paginatedData, [paginatedData]);
 
-  const filteredData = useMemo(() => {
-  return paginatedData.filter((campaign: Campaign) => {
-    const fieldValue = campaign[searchField];
-    if (typeof fieldValue === "string") return fieldValue.toLowerCase().includes(search.toLowerCase());
-    if (typeof fieldValue === "object" && fieldValue?.[lang]) return fieldValue[lang].toLowerCase().includes(search.toLowerCase());
-    return false;
-  });
-}, [paginatedData, search, searchField, lang]);
-  const normalizedCampaignData = useMemo(() => {
+
+
+const normalizedCampaignData = useMemo(() => {
   if (!singleCampaignData) return undefined;
 
-  // Ensure both images and existingImages contain URLs
-  const stringImages =
-    singleCampaignData.images?.filter((img: any) => typeof img === "string") ?? [];
+  const stringImages = Array.isArray(singleCampaignData.images)
+    ? singleCampaignData.images.filter((img: any) => typeof img === "string" && !!img)
+    : [];
 
   return {
     ...singleCampaignData,
-    existingImages: singleCampaignData.existingImages ?? stringImages,
-    images: singleCampaignData.images ?? stringImages,
+    images: Array.isArray(singleCampaignData.images)
+      ? singleCampaignData.images.filter((img: any) => typeof img !== "string") 
+      : [],
+    existingImages: singleCampaignData.existingImages?.length
+      ? singleCampaignData.existingImages
+      : stringImages,
   };
 }, [singleCampaignData]);
 
@@ -182,20 +205,41 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
           <div className="w-fit flex flex-row gap-2">
             <Dropdown
               options={CampaignSearchOptions}
-              value={searchField}
+             value={searchField}
               onChange={(value) => {
                 setSearchField(value);
+                setSearch(""); 
                 setTimeout(() => {
                   searchInputRef.current?.focus();
                 }, 0);
               }}
             />
+            {searchField==='category'?(<>
+            <Dropdown
+            options={categoryOptions}
+            value={search||''}
+            onChange={(value)=>{
+              setSearch(value)
+            }}
+            />
+
+            </>):((searchField==='status')?(<>
+            <Dropdown
+            options={statusValue}
+            value={statusField}
+            onChange={(value)=>{
+              setSearch(value)
+              setStatusField(value)
+            }}
+            />
+            </>):(
             <CustomInput
               ref={searchInputRef}
               placeholder={`Search by ${searchField}...`}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
+            ))}
           </div>
         </AnimatedReveal>
 
@@ -206,6 +250,7 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
               onClick={() => {
                 setDrawerOpen(true);
                 setEditCampaign(null);
+                setPreviewData(null);
                 setMode("add");
               }}
               bgColor="bg-lime-green"
@@ -229,7 +274,7 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
       ) : (
          <DataTableWrapper
         columns={columns}
-        data={filteredData}
+        data={paginatedData}
       />
       )}
 

@@ -62,9 +62,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
           submitForm,
           setTouched }) => {
           const lang = language;
-          // useEffect(() => {
-          //   setFieldValue("keyPoints", keyPointsList, true);
-          // }, [keyPointsList, setFieldValue]);
+          
           const handlePreviewClick = async () => {
                       const touchAllFields = (obj: any): any => {
                         if (typeof obj !== 'object' || obj === null) return true;
@@ -181,7 +179,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
               <CustomFileInput
                 label={lang === "en" ? "Campaign Images" : "अभियान की छवियाँ"}
                 name="images"
-                error={touched.images&& errors.images ? errors.images : ""}
+                error={(touched.images && errors.images) || (touched as any).existingImages && (errors as any).existingImages ? (errors as any).images || (errors as any).existingImages : ""}
                 onChange={(files, existingUrls) => {
                   setFieldValue("images", files);
                   setFieldValue("existingImages", existingUrls);
@@ -189,19 +187,25 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 uploadType="multiple"
                 disabled={isView}
                 mode={mode}
-                initialUrls={
-  Array.isArray(initialData?.existingImages) && initialData.existingImages.length > 0
-    ? initialData.existingImages.filter(
-        (img): img is string => typeof img === "string" && !!img
-      )
-    : Array.isArray(initialData?.images)
-    ? initialData.images.map((img) => {
-        if (typeof img === "string") return img;
-        if (img instanceof File) return URL.createObjectURL(img);
-        return "";
-      }).filter(Boolean)
-    : []
-}
+                initialUrls={(() => {
+                  const urls: string[] = [];
+                  
+                  if (Array.isArray(values.existingImages)) {
+                    urls.push(
+                      ...values.existingImages.filter(
+                        (img: any): img is string => typeof img === "string" && !!img
+                      )
+                    );
+                  } else if (Array.isArray(initialData?.existingImages)) {
+                    urls.push(
+                      ...initialData.existingImages.filter(
+                        (img: any): img is string => typeof img === "string" && !!img
+                      )
+                    );
+                  }
+                  return urls;
+                })()}
+                initialFiles={Array.isArray(values.images) ? values.images.filter((f:any) => f instanceof File) as File[] : []}
               />
 
               {/* Buttons */}

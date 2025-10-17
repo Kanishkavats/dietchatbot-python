@@ -3,9 +3,11 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Logout from "./Common/Logout";
+import { useTranslation } from "react-i18next";
 
 
 const Breadcrumb = ({ lable }:{lable:string}) => {
+  const{t}=useTranslation();
   return (
     <div className="flex justify-between items-center mb-6">
       <motion.div
@@ -14,7 +16,7 @@ const Breadcrumb = ({ lable }:{lable:string}) => {
         transition={{ duration: 0.4, ease: "easeOut" }}
         className="text-gray-600 font-semibold text-2xl cursor-pointer"
       >
-        {lable}
+        {t(lable)}
       </motion.div>
       {/* <Logout /> */}
     </div>

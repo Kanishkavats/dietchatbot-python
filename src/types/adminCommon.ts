@@ -52,6 +52,7 @@ export interface AdminCustomFileInputProps {
   disabled?: boolean;
   mode?: "add" | "edit" | "view"|"preview-edit";
   initialUrls?: string[];
+  initialFiles?: File[];
   uploadType?: "single" | "multiple";
 }
 

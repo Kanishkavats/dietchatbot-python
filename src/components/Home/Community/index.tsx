@@ -14,13 +14,16 @@ import { motion } from 'framer-motion'
 import SideImage from "./SideImage";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/src/store";
+import { setAmount, setMethod } from "@/src/store/slice/donationSlice";
 interface props{
     hasfeedback?:boolean|null
 }
 const Community = ({hasfeedback}:props) => {
     const {t} = useTranslation();
-    const [amount, setAmount] = useState<string>("50");
-    const [method, setMethod] = useState("test");
+    const dispatch = useDispatch();
+  const { amount, method } = useSelector((state: RootState) => state.donation);
     const presetAmounts = [20, 50, 100, 200];
     const router = useRouter();
 
@@ -89,7 +92,7 @@ const Community = ({hasfeedback}:props) => {
                         <DonationInput
                             presetAmounts={presetAmounts}
                             value={amount}
-                            onAmountChange={(val) => setAmount(val)}
+                            onAmountChange={(val) => dispatch(setAmount(val))}
                         />
 
                         {/* Payment Methods */}
@@ -103,8 +106,9 @@ const Community = ({hasfeedback}:props) => {
                                 label: t(option.label) // Translate each option label
                                }))}
                                 value={method}
-                                onChange={setMethod}
-                                selectedColor="green"
+                                onChange={(val)=>dispatch(setMethod(val))}
+                                selectedColor="bg-green"
+                                unselectedColor="bg-gray-300"
                                 className="mb-6"
                             />
                         </div>

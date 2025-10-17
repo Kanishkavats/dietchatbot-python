@@ -9,8 +9,17 @@ export const createEvent = async (campaign: CampaignFormValues) => {
 };
 
 
-export const fetchAllEvent = async (page: number = 1, limit: number = 2) => {
-  const { data } = await api.get(`/admin/event/getAllEvents?page=${page}&limit=${limit}`);
+export const fetchAllEvent = async (page: number = 1, limit: number = 2,search?:string,eventStatus?:string) => {
+  let url = `/admin/event/getAllEvents?page=${page}&limit=${limit}`;
+
+  
+  if (eventStatus && eventStatus.trim() !== "") {
+    url += `&status=${encodeURIComponent(eventStatus)}`;
+  } else if (search && search.trim() !== "") {
+    url += `&search=${encodeURIComponent(search)}`;
+  }
+
+  const { data } = await api.get(url);
 //   console.log(data);
   return data;
 };
