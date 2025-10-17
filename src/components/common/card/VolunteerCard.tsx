@@ -5,6 +5,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 
 import { SocialBar } from "./SocialBar";
 import { VolunteerCardProps } from "@/src/types/members";
+import { useRouter } from "next/navigation";
 
 export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
   const ref = useRef<HTMLDivElement>(null);
@@ -13,6 +14,7 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
   const [isHovered, setIsHovered] = useState(false);
   const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
   const [showSocial, setShowSocial] = useState(false);
+  const router=useRouter();
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,23 +33,23 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
   const bgClass = isHovered ? "bg-[#122f2a]" : "bg-[#f1f0ee]";
   const nameColor = isHovered ? "text-white" : "text-black";
   const roleColor = isHovered ? "text-yellow-400" : "text-black";
-
+console.log(member)
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 50 }}
       animate={controls}
       transition={{ duration: 0.8, delay: member.delay || idx * 0.2, ease: "easeOut" }}
-      className="relative shadow rounded-2xl overflow-hidden group"
+      className="relative rounded-lg transition-all duration-300 overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className="relative w-full aspect-[4/4] cursor-pointer overflow-hidden"
+        className="relative w-full aspect-[5/6] cursor-pointer overflow-hidden"
         onClick={() => window.location.href = `/volunteer/${member.id}`}
       >
         <Image
-          src={member.imageUrl || "/assets/volunteer1.png"}
+          src={member.image || "/assets/volunteer1.png"}
           alt={member.name}
           fill
           className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
@@ -64,17 +66,17 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
           initial={{ opacity: 0, y: -20 }}
           animate={(isHovered || (isMobileOrTablet && showSocial)) ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
-          className="absolute bottom-4 right-2 z-50 flex flex-col gap-2 pb-4"
+          className="absolute bottom-4 right-2 z-20 flex flex-col gap-2 pb-4"
         >
           <SocialBar member={member} />
         </motion.div>
       </div>
 
       <div className={`relative h-28 p-8 flex flex-col items-start transition-all duration-500 ${bgClass}`}>
-        <h6 className={`font-semibold text-md transition-colors duration-300 ${nameColor}`}>
+        <h6 className={`font-extrabold font-nunito text-dark-green text-md xl:text-xl transition-colors duration-300 cursor-pointer ${nameColor}`} onClick={()=>{router.push(`/volunteer/${member.id}`)}}>
           {member.name}
         </h6>
-        <p className={`text-sm mt-2 transition-colors duration-300 ${roleColor}`}>
+        <p className={`text-sm font-nunito font-semibold mt-2 text-dark-green transition-colors duration-300 ${roleColor}`}>
           {member.position}
         </p>
 

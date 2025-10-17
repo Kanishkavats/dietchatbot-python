@@ -21,7 +21,7 @@ const ChildrenNeed = () => {
           <section className="relative overflow-hidden min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] lg:min-h-[70vh] ">
           <div className="relative flex items-center justify-center min-h-[40vh] sm:min-h-[50vh] md:min-h-[60vh] lg:min-h-[70vh] w-full ">
           <div className="absolute inset-0 bg-cover bg-center bg-[url('/assets/aboutsection/childrenneedyourhelp.jpg')]  transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"></div>
-          <div className="absolute inset-0 bg-gradient-to-r from-dark-green to-black/10  w-full transparent overflow-hidden"></div>
+          <div className="absolute inset-0 bg-gradient-to-r from-dark-green via-dark-green/98 to-black/5 max-w-5xl    transparent overflow-hidden"></div>
           <motion.div
             className="absolute left-0 top-[-20] bottom-0 h-180 w-80 md:w-140 overflow-hidden"
             animate={{ y: [20, -60, 20] }}

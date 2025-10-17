@@ -7,14 +7,15 @@ import CharityWithDifference from '../Charity_with_Difference/CharityWithDiffren
 import HelpingEachOther from '../HelpingEachOther/HelpingEachOther';
 import HelpAndDonate from '../HelpAndDonate';
 import BecomeVolunteer from '../BecomeVolunteer/BecomeVolunteer';
-import VolunteerTeam from '../volunteer/VolunteerTeam';
 import Community from './Community';
-import ValueableCustomer from '../volunteer/ValueableCustomer';
 import FeedbackForm from '../FeedbackForm';
 import DonateDifferentWay from '../DonateDifferentWay';
 import LatestNewsArticle from '../LatestNewsArticle';
 import ChildOldCare from '../ChildOldCare';
 import ScrollToTop from '../common/ScrollToTop';
+import VolunteerTeam from '../Volunteer/VolunteerTeam';
+import ValueableCustomer from '../Volunteer/ValueableCustomer';
+
 
 
 
@@ -28,7 +29,7 @@ const Home = () => {
       <HelpingEachOther />
       <HelpAndDonate />
       <BecomeVolunteer />
-      <VolunteerTeam />
+      <VolunteerTeam bg={"bg-white"}/>
       <Community hasfeedback={hasFeedback} />
       {hasFeedback ? (
         <ValueableCustomer setHasFeedback={setHasFeedback}/>
