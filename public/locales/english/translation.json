@@ -50,7 +50,7 @@
   "Do you offer cooking tips and techniques?": "Do you offer cooking tips and techniques?",
   "How frequently you update you recipe collection?": "How frequently you update you recipe collection?",
   "We Give Child A Gift Of A Education": "We Give Child A Gift Of A Education",
-  "Become A Volunteer?": "Become A Volunteer?",
+  "Become A Volunteer": "Become A Volunteer",
   "Make Donation To Us?": "Make Donation To Us?",
   "Contact Now": "Contact Now",
   "Meet Our Volunteer": "Meet Our Volunteer",
@@ -330,5 +330,12 @@
   "Your message...": "Your message...",
   "Save Information": "Save Information",
   "Form submitted successfully!": "Form submitted successfully!",
-  "Something went wrong. Try again.": "Something went wrong. Try again."
+  "Something went wrong. Try again.": "Something went wrong. Try again.",
+  "Volunteer Requirements": "Volunteer Requirements",
+  "Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit Voluptatem Accusantium Doloremque Laudantium, Totam Rem Aperiam, Eaque Inventore": "Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit Voluptatem Accusantium Doloremque Laudantium, Totam Rem Aperiam, Eaque Inventore",
+  "message is a required field": "message is a required field",
+  "occupation is a required field":"occupation is a required field",
+  "lastName is a required field":"last Name is a required field",
+  "firstName is a required field":"firs tName is a required field",
+  "Our Team":"Our Team"
 }

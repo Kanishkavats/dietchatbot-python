@@ -29,8 +29,8 @@ const NavbarMenu = ({ navItems, open, setOpen, route }: Props) => {
             onMouseLeave={() => setOpen(null)}
           >
             <div
-              className={`flex items-center gap-1 font-semibold font-nunito py-6 transition-colors duration-200
-            ${isActive ? "text-brown" : "text-foreground/90 hover:text-brown"}`}
+              className={`flex items-center gap-1 font-semibold font-nunito py-[18px] transition-colors duration-200
+            ${isActive ? "text-brown" : "text-foreground/90 hover:text-"}`}
               onClick={() => {
                 if (item?.href) route.push(item?.href);
               }}

@@ -41,13 +41,6 @@ const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberP
     return [];
   };
 
-  // const nameText = getLangText(name);
-  // const positionText = getLangText(position);
-  // const titleText = getLangText(title);
-  // const descriptionText = getLangText(description);
-  // const aboutText = getLangText(about);
-  // const keyPointsList = getLangArray(keyPoints);
-
   const socialIconClass =
     "text-white bg-blue-50 hover:bg-yellow rounded-full p-2 size-10 hover:scale-110 transition";
 

@@ -12,20 +12,22 @@ const FAQSection = () => {
   const{t}=useTranslation();
 
   return (
-      <div className="w-full lg:flex md:gap-8 items-start bg-white px-2 md:px-14 lg:px-0 xl:px-16 pt-16 md:pt-8 max-w-full overflow-hidden">
+      <div className="w-full lg:flex relative  lg:h-[800px] xl:h-[900px]  md:gap-8 items-start bg-white  overflow-hidden">
         {/* Left Side - FAQ */}
-        <div className="lg:w-2/3 lg:pl-15">
+        <div className="lg:w-2/3 px-2  md:px-10 lg:px-0 xl:px-16 py-20 xl:mb-50 mx-auto 2xl:max-w-2xl lg:pl-15  ">
           <FadeInUp>
-            <div className=" font-caveat flex items-start gap-2 text-green font-semibold mb-4 text-lg md:text-xl lg:text-2xl">
+            <div className=" font-caveat flex items-start gap-2 text-green font-semibold mb-4 text-lg md:text-xl lg:text-2xl ">
               <Icon icon="mingcute:hand-heart-line" className="text-3xl" />
               <span>{t("Start Donating Poor People")}</span>
             </div>
-            <h2 className="text-3xl md:text-4xl font-nunito xl:text-4xl font-extrabold text-gray-900 mb-8">
+            <h2 className="text-3xl md:text-[40px] font-nunito lg:text-[38px] xl:text-[56px] font-extrabold text-gray-900 mb-8 md:mb-10 lg:max-w-5xl">
               {t("Frequently")} <span className="text-yellow">{t("Asked")}</span> {t("Questions")}
             </h2>
           </FadeInUp>
           <FadeInUp>
+            <div className="lg:absolute  lg:z-20 xl:z-0 lg:max-w-2xl ">
             <FAQList openIndex={openIndex} setOpenIndex={setOpenIndex} />
+            </div>
           </FadeInUp>
         </div>
         {/* Right Side - Images */}
