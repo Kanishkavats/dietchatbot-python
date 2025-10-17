@@ -1,8 +1,8 @@
 import api from "./api";
 
 // Get all members with pagination
-export const fetchAllMembers = async (page: number = 1, limit: number = 10,search?:string) => {
-  const { data } = await api.get(`/web/member/getAllMembers?page=${page}&limit=${limit}&search=${search}`);
+export const fetchAllMembers = async (page: number = 1, limit: number = 10) => {
+  const { data } = await api.get(`/web/member/getAllMembers?page=${page}&limit=${limit}`);
   return data;
 };
 

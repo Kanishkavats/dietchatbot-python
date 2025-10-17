@@ -1,6 +1,6 @@
 // src/services/bannerApi.ts
 import { BannerFormValues } from "../../../utils/validations/FormValidation";
-import api from "../../../services/api";
+import api from "./api";
 
 //  Create a banner
 export const createBanner = async (banner: BannerFormValues) => {

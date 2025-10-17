@@ -195,12 +195,34 @@ const MemberForm = ({
                                 label={`${lang === "en" ? "Profile Image" : "प्रोफ़ाइल छवि"}*`}
                                 name="image"
                                 error={touched.image && !values.image && typeof errors.image === "string" ? errors.image : ""}
-                                onChange={(files, existingUrl) => {
-                                    setFieldValue("image", files[0], true);
-                                    setFieldValue("existingImage", existingUrl);
-                                }}
+                                // onChange={(files, existingUrl) => {
+                                //     setFieldValue("image", files[0], true);
+                                //     setFieldValue("existingImage", existingUrl);
+                                // }}
                                 mode={mode}
-                                initialUrls={initialData?.image ? [initialData.image] : []}
+                               initialUrls={
+  initialData?.image
+  ? Array.isArray(initialData.image)
+    ? initialData.image.map(img => 
+        typeof img === "string" ? img : URL.createObjectURL(img)
+      )
+    : [
+        typeof initialData.image === "string"
+          ? initialData.image
+          : URL.createObjectURL(initialData.image)
+      ]
+  : []
+}
+            //   error={touched.image && typeof errors.image === "string" ? errors.image : ""}
+              onChange={(files, existingUrls) => {
+                if (files.length > 0) {
+                  setFieldValue("image", files[0]);
+                } else if (existingUrls && existingUrls.length > 0) {
+                  setFieldValue("image", existingUrls[0]);
+                } else {
+                  setFieldValue("image", "");
+                }
+              }}
                             />
 
                             {/* Social Links */}

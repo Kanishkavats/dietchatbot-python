@@ -1,5 +1,5 @@
 // src/services/categoryApi.ts
-import api from "../../../services/api";
+import api from "./api";
 
 export const fetchCategory = async (page?: number, limit?: number) => {
   const params = new URLSearchParams();
