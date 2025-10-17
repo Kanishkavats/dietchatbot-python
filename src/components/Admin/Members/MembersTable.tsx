@@ -49,6 +49,7 @@ const MemberTable = () => {
   );
   const { data: singleMemberData, isLoading: isLoadingMember } =
     useFetchSingleMember(editMember || undefined);
+    console.log("check", singleMemberData)
   
   const { mutate: deleteMember } = useDeleteSingleMember();
 
@@ -70,9 +71,6 @@ const MemberTable = () => {
 
   const handleDelete = useCallback(
     (m: Member) => {
-      // if (confirm(`Are you sure you want to delete "${m.name}"?`)) {
-      //   deleteMember(m.id.toString());
-      // }
       setSelectedMember(m);
       setIsOpen(true);
     },
@@ -249,7 +247,7 @@ const MemberTable = () => {
               <MemberForm
               key={`${editMember || 'new'}-${mode}`} // Force re-render when editMember or mode changes
               initialData={
-                mode === "add" ? undefined : (singleMemberFallback || singleMemberData || undefined)
+                mode === "add" ? undefined : ( singleMemberData ||singleMemberFallback  || undefined)
               }
               onClose={() => {
                 setDrawerOpen(false);

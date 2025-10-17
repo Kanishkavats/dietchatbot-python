@@ -1,171 +1,98 @@
-"use client";
-
-import React, { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { FiPlus } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { FaBehance, FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import { motion, useAnimation, useInView } from "framer-motion";
 
-interface TeamMember {
-  id: string;
-  name: string;
-  role?: string;
-  position?: string;
-  image?: string;
-   facebookUrl?: string;
-  twitterUrl?: string;
-  instagramUrl?: string;
-  behanceUrl?: string;
-  vimeoUrl?: string;
-}
+import { SocialBar } from "./SocialBar";
+import { VolunteerCardProps } from "@/src/types/members";
 
-interface VolunteerCardProps {
-  member: TeamMember;
-  idx: number;
-}
-
-const SocialBar: React.FC<{ member: TeamMember }> = ({ member }) => {
-  const socials = [
-    { icon: <FaFacebookF />, url: member.facebookUrl },
-    { icon: <FaTwitter />, url: member.twitterUrl },
-    { icon: <FaInstagram />, url: member.instagramUrl },
-    { icon: <FaBehance />, url: member.behanceUrl },
-  ];
-
-// Social icons
-{/*const SocialBar = () => {
-  const socials = [
-    { icon: <FaFacebookF />, url: member.facebook },
-    { icon: <FaTwitter /> },
-    { icon: <FaInstagram /> },
-    { icon: <FaBehance /> },
-  ];
-*/}
-  return (
-    <div className="flex flex-col gap-2 p-2">
-       {socials
-        .filter((social) => social.url) // only show icons with a valid URL
-        .map((social, idx) => (
-          <a
-            key={idx}
-            href={social.url!}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black bg-white hover:bg-yellow-400 transition-all duration-300 z-50"
-          >
-            {social.icon}
-          </a>
-        ))}
-    </div>
-  );
-};
-     {/* {socials.map((social, idx) => (
-        <button
-          key={idx}
-          className="w-12 h-12 flex items-center justify-center rounded-full shadow-md text-black bg-white hover:bg-yellow-400 transition-all duration-300 z-50"
-        >
-          {social.icon}
-        </button>
-      ))}
-    </div>
-  );
-};*/}
-
-// Volunteer card
-export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member }) => {
-  const router = useRouter();
-  const [showSocials, setShowSocials] = useState(false);
+export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const controls = useAnimation();
+  const inView = useInView(ref, { margin: "-100px" });
   const [isHovered, setIsHovered] = useState(false);
+  const [isMobileOrTablet, setIsMobileOrTablet] = useState(false);
+  const [showSocial, setShowSocial] = useState(false);
 
-  const hasSocialAccounts = !!(
-  member.facebookUrl ||
-  member.twitterUrl ||
-  member.instagramUrl ||
-  member.behanceUrl
-);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobileOrTablet(window.innerWidth < 1024); // below lg
+    };
 
-console.log(`Member: ${member.name}`);
-console.log("Has any social account?", hasSocialAccounts);
-if (hasSocialAccounts) {
-  if (member.facebookUrl) console.log("  Facebook:", member.facebookUrl);
-  if (member.twitterUrl) console.log("  Twitter:", member.twitterUrl);
-  if (member.instagramUrl) console.log("  Instagram:", member.instagramUrl);
-  if (member.behanceUrl) console.log("  Behance:", member.behanceUrl);
-}
+    handleResize(); // Initial check
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
+  useEffect(() => {
+    if (inView) controls.start({ opacity: 1, y: 0 });
+  }, [inView, controls]);
 
-  const isActive = showSocials || isHovered;
-
-  const bgClass = isActive ? "bg-[#122f2a]" : "bg-[#f1f0ee]";
-  const nameColor = isActive ? "text-white" : "text-black";
-  const roleColor = isActive ? "text-yellow-400" : "text-black";
+  const bgClass = isHovered ? "bg-[#122f2a]" : "bg-[#f1f0ee]";
+  const nameColor = isHovered ? "text-white" : "text-black";
+  const roleColor = isHovered ? "text-yellow-400" : "text-black";
 
   return (
     <motion.div
-      className="relative shadow rounded-2xl overflow-hidden w-full"
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={controls}
+      transition={{ duration: 0.8, delay: member.delay || idx * 0.2, ease: "easeOut" }}
+      className="relative shadow rounded-2xl overflow-hidden group"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="relative w-full aspect-[9/10] cursor-pointer overflow-hidden">
+      <div
+        className="relative w-full aspect-[4/4] cursor-pointer overflow-hidden"
+        onClick={() => window.location.href = `/volunteer/${member.id}`}
+      >
         <Image
-          src={member.image || "/assets/default-avatar.png"}
-          alt={member.name || "Member"}
+          src={member.imageUrl || "/assets/volunteer1.png"}
+          alt={member.name}
           fill
           className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"
-          onClick={() => router.push(`/volunteer/${member.id}`)}
+        />
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileHover={{ opacity: 1 }}
+          transition={{ duration: 0.4 }}
+          className="absolute bottom-0 left-0 right-0 h-1/2"
         />
 
-        {/* Desktop hover */}
+        {/* ✅ Social Icons (hover for desktop, click for mobile/tablet) */}
         <motion.div
-          initial={{ opacity: 0 }}
-          animate={isHovered ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="absolute bottom-4 right-2 z-50 flex flex-col gap-2 pb-4 hidden lg:flex"
+          initial={{ opacity: 0, y: -20 }}
+          animate={(isHovered || (isMobileOrTablet && showSocial)) ? { opacity: 1, y: 0 } : { opacity: 0, y: -20 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
+          className="absolute bottom-4 right-2 z-50 flex flex-col gap-2 pb-4"
         >
-         {hasSocialAccounts && <SocialBar member={member} />}
-        </motion.div>
-
-        {/* Mobile/Tablet click */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={showSocials ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className={`absolute bottom-6  right-2 z-50 flex flex-col gap-2 lg:hidden ${
-            showSocials ? "pointer-events-auto" : "pointer-events-none"
-          }`}
-        >
-          {hasSocialAccounts && <SocialBar member={member} />}
+          <SocialBar member={member} />
         </motion.div>
       </div>
 
-      {/* Bottom content */}
-      <div
-        className={`relative h-28 p-8 flex flex-col items-start transition-all duration-500 ${bgClass}`}
-      >
-        <h6
-          className={`font-semibold text-md transition-colors duration-300 ${nameColor}`}
-        >
+      <div className={`relative h-28 p-8 flex flex-col items-start transition-all duration-500 ${bgClass}`}>
+        <h6 className={`font-semibold text-md transition-colors duration-300 ${nameColor}`}>
           {member.name}
         </h6>
-        <p
-          className={`text-sm mt-2 transition-colors duration-300 ${roleColor}`}
-        >
-          {member.role || member.position}
+        <p className={`text-sm mt-2 transition-colors duration-300 ${roleColor}`}>
+          {member.position}
         </p>
 
-        {/* Plus button */}
+        {/* ✅ Plus Button: toggles social icons in mobile/tablet */}
         <button
+          className={`absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center rounded-full transition-all duration-300 overflow-visible ${
+            isHovered || (isMobileOrTablet && showSocial) ? "bg-yellow-400 text-black" : "bg-black text-white"
+          }`}
           onClick={(e) => {
-            e.preventDefault();
-            setShowSocials((prev) => !prev);
+            e.stopPropagation(); // prevent triggering card click
+            if (isMobileOrTablet) {
+              setShowSocial((prev) => !prev);
+            }
           }}
-          className={`absolute top-[-22px] right-4 w-12 h-12 flex items-center justify-center bg-black text-white rounded-full transition-all duration-300 overflow-visible 
-              ${showSocials || isHovered ? "bg-yellow-400 text-black" : "bg-black text-white"}`}
         >
           <span
-            className={`inline-block transition-transform duration-300  ${
-              showSocials  || isHovered ? "rotate-45 " : ""
+            className={`inline-block transition-transform duration-300 ${
+              isHovered || (isMobileOrTablet && showSocial) ? "rotate-45" : ""
             }`}
           >
             <FiPlus size={24} />
@@ -173,31 +100,5 @@ if (hasSocialAccounts) {
         </button>
       </div>
     </motion.div>
-  );
-};
-
-// Volunteer Grid
-interface VolunteerGridProps {
-  members: TeamMember[];
-}
-
-export const VolunteerGrid: React.FC<VolunteerGridProps> = ({ members }) => {
-  return (
-    <div
-      className="
-    grid grid-cols-1 
-    sm:grid-cols-2 
-    max-[1199px]:grid-cols-2 
-    min-[1200px]:grid-cols-4 
-    gap-6 
-    max-w-[1200px] 
-    mx-auto 
-    p-8
-  "
-    >
-      {members.map((member, idx) => (
-        <VolunteerCard key={member.id} member={member} idx={idx} />
-      ))}
-    </div>
   );
 };

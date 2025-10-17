@@ -3,11 +3,11 @@
 import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
-import { VolunteerCard } from "../volunteer/VolunteerCard";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
 import { useTranslation } from "react-i18next";
 import { useFetchAllMembers } from "@/src/hooks/useMembers";
-import { TeamMember } from "@/src/types";
+import { VolunteerCard } from "../common/card/VolunteerCard";
+import { TeamMember } from "@/src/types/members";
 
 const VolunteerTeam = () => {
   const router = useRouter();

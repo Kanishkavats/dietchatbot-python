@@ -1,9 +1,9 @@
 import React from 'react'
 import BecomeVolunteer from '../BecomeVolunteer/BecomeVolunteer'
-import VolunteerForm from './VolunteerForm'
 import FadeInUp from '@/src/animations/FadeInUp'
 import PageBanner from '../common/PageBanner'
 import { bannerBg } from '@/public/assets'
+import VolunteerForm from './VolunteerForm'
 
 const Volunteer = () => {
   return (
