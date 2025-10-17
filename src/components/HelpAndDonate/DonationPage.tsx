@@ -101,10 +101,10 @@ const DonationPage: React.FC = () => {
                   ? "text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl" 
                   : "text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
               }`}>
-                <span className="text-gray-800 font-bold">{t("Be The Reason Of Someone")} </span>
+                <span className="text-[#122F2A] font-extrabold">{t("Be The Reason Of Someone")} </span>
                 <br />
-                <span className="text-yellow-400 font-bold">{t("Smiles")} </span>
-                <span className="text-gray-800 font-bold">{t("Causes")}</span>
+                <span className="text-yellow-400 font-extrabold">{t("Smiles")} </span>
+                <span className="text-[#122F2A] font-extrabold">{t("Causes")}</span>
               </h2>
             </div>
           </FadeUpCard>
