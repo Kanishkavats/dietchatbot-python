@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export interface RadioOption {
   label: string;
@@ -27,6 +28,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
   unselectedColor = "#d1d5db", // tailwind gray-300
   ...props
 }) => {
+  const { t } = useTranslation();
   return (
     <div className={`flex flex-wrap gap-4 ${className ?? ""}`}
       {...props}>
@@ -67,7 +69,7 @@ const RadioGroup: React.FC<RadioGroupProps> = ({
             </span>
 
             {/* label */}
-            <span className="text-md font-medium">{option.label}</span>
+            <span className="text-md font-medium">{t(option.label)}</span>
           </label>
         );
       })}

@@ -32,7 +32,6 @@ const InfoBar = () => {
         </div>
         {/* Right: Dropdowns & Social Icons */}
         <div className="flex items-center space-x-6 font-nunito">
-          <InfoBarDropdown options={currencies} label="Currency" />
           <LanguageSwitcher paddingy="py-2" />
 
           {/* Social Icons */}
@@ -42,7 +41,6 @@ const InfoBar = () => {
                 key={label}
                 href={link}
                 aria-label={label}
-                // whileHover={{ scale: 1.2 }}
                 className={`cursor-pointer text-palate-white hover:text-yellow transition-colors duration-200`}
               >
                 <Icon icon={icon} className="w-[18px] h-[18px]" />

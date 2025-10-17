@@ -14,7 +14,7 @@ export const useNavItems = (): NavItem[] => {
   return [
     { label: t("Home"), href: "/" },
     { label: t("About Us"), href: "/about" },
-    { label: t("Causes"), href: "/causes" },
+    { label: t("Campaign"), href: "/causes" },
     {
       label: t("Pages"),
       dropdown: [
@@ -25,7 +25,7 @@ export const useNavItems = (): NavItem[] => {
         { label: t("Team"), href: "/team" },
       ],
     },
-    { label: t("News"), href: "/news-grid" },
+    { label: t("Blog"), href: "/news-grid" },
     { label: t("Contact Us"), href: "/contact" },
   ];
 };

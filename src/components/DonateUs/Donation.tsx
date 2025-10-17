@@ -10,10 +10,12 @@ import DonationInput from "./DonationInput";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/src/store";
 import { setAmount, setMethod } from "@/src/store/slice/donationSlice";
+import { useTranslation } from "react-i18next";
 
 const Donation = () => {
   const dispatch=useDispatch();
   const { amount, method } = useSelector((state: RootState) => state.donation);
+  const { t } = useTranslation();
 
   const presetAmounts = [20, 50, 100, 200];
 
@@ -24,9 +26,9 @@ const Donation = () => {
 
   return (
     <div className="max-w-2xl mx-auto xl:px-4 xl:py-8 space-y-8 ">
-      <h2 className="text-xl font-semibold">Support Where It Counts.</h2>
+      <h2 className="text-xl font-semibold">{t("Support Where It Counts.")}</h2>
       {/* Notice */}
-      <Notice message="Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed." />
+      <Notice message={t("Test Mode Is Enabled. While In Test Mode No Live Donations Are Processed.")} />
 
       {/* Donation Input */}
       <DonationInput
@@ -37,7 +39,7 @@ const Donation = () => {
 
       {/* Payment Methods */}
       <div className="space-y-3">
-        <p className="text-xl font-semibold">Select Payment Method</p>
+        <p className="text-xl font-semibold">{t("Select Payment Method")}</p>
         <RadioGroup
           name="payment"
           options={Donationmethods}
@@ -49,7 +51,7 @@ const Donation = () => {
         />
       </div>
       <div className="container w-[200px]">
-        <Button text="Donate Now" />
+        <Button text={t("Donate Now")} />
       </div>
       <div className="bg-gray-200 h-[3px]" />
       <DetailsForm />

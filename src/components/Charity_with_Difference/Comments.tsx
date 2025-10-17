@@ -206,6 +206,12 @@ export default function Comments({ campaignId }: CommentsProps) {
   if(isError){
     return <p>No comments available</p>
   }
+  
+  // Hide the entire comments section if there are no comments
+  if (allComments.length === 0) {
+    return null;
+  }
+  
   return (
     <div className="w-full max-w-4xl mx-auto">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6">

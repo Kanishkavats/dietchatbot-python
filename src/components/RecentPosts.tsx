@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { phOne, phTwo, phTree } from '@/public/assets';
 import { FaCalendarAlt } from 'react-icons/fa';
+import { useTranslation } from 'react-i18next';
 
 const recentPosts = [
   {
@@ -27,9 +28,11 @@ const recentPosts = [
 ];
 
 export default function RecentPosts() {
+  const { t } = useTranslation();
+  
   return (
     <div className="bg-[rgb(235,235,235)] rounded-2xl mb-5 p-4 sm:p-5 lg:p-8 xl:p-10">
-      <h3 className="text-lg sm:text-xl lg:text-xl xl:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">Recent Posts</h3>
+      <h3 className="text-lg sm:text-xl lg:text-xl xl:text-3xl font-bold text-gray-900 mb-3 sm:mb-4">{t("Recent Posts")}</h3>
       <div className="space-y-3 sm:space-y-4 p-2 mt-4 sm:mt-5 lg:mt-6 xl:mt-8">
         {recentPosts.map((post) => (
           <div key={post.id} className="flex flex-col sm:flex-row items-start gap-3">

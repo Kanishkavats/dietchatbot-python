@@ -35,8 +35,7 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
       {isOpen && (
         <motion.div
           layout
-          
-          className="px-6 py-4 bg-white font-medium text-[15px] font-nunito lg:text-[16px] text-[#747474] border-t border-gray-200 rounded-b-4xl"
+          className="px-6 py-4 md:px-10 md:py-6 bg-white font-medium text-[15px] md:text-[17px] font-nunito text-gray-green border-t border-gray-200 rounded-b-4xl"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
