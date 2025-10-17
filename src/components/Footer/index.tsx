@@ -36,7 +36,7 @@ const Footer = () => {
   return (
     <footer
       ref={ref}
-      className="bg-dark-green text-white py-10 sm:py-14 px-4 sm:px-6 md:px-8 xl:px-28 relative"
+      className="bg-dark-green text-white py-10 sm:py-14 px-3 sm:px-4 md:px-8  xl:px-28 relative"
     >
       <Newsletter />
 
@@ -44,7 +44,7 @@ const Footer = () => {
       <motion.div
         animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-[25%] left-0 xl:left-8 transform -translate-y-1/2 text-yellow"
+        className="absolute top-[25%] left-0 xl:left-8 transform -translate-y-1/2 text-yellow  "
       >
         <img
           src={spade2.src}
@@ -55,7 +55,7 @@ const Footer = () => {
 
       {/* Main Grid */}
       <motion.div
-        className="mx-auto max-w-screen-2xl py-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 md:gap-12"
+        className="mx-auto max-w-screen-2xl py-10 grid grid-cols-2  xl:grid-cols-4  gap-10 md:gap-12 md:px-8 place-items-center"
         variants={container}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
