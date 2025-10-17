@@ -1,14 +1,6 @@
 // src/services/categoryApi.ts
 import api from "../../../services/api";
 
-
-
-// ✅ Fetch all categories
-
-// export const fetchCategory = async (page: number = 1, limit: number = 10) => {
-//   const { data } = await api.get(`/admin/category/get-category?page=${page}&limit=${limit}`);
-//   return data;
-// };
 export const fetchCategory = async (page?: number, limit?: number) => {
   const params = new URLSearchParams();
   if (page !== undefined) params.append("page", String(page));

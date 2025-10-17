@@ -63,7 +63,7 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, m
 
       </div>
       {showButtons&&(
-        <div className="mt-12 flex gap-6 justify-end md:w-fit">
+        <div className="mt-12 flex flex-wrap gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
             rounded="rounded-lg"

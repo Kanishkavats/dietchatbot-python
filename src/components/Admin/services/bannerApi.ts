@@ -9,8 +9,8 @@ export const createBanner = async (banner: BannerFormValues) => {
 };
 
 //  Get all banners with pagination
-export const fetchAllBanners = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/admin/banner/getAllBanners?page=${page}&limit=${limit}`);
+export const fetchAllBanners = async (page: number = 1, limit: number = 10,search?:string) => {
+  const { data } = await api.get(`/admin/banner/getAllBanners?page=${page}&limit=${limit}&search=${search}`);
   return data;
 };
 

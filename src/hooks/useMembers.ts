@@ -130,10 +130,10 @@ export const submitMemberForm = (
 };
 
 // ✅ Fetch members with pagination
-export const useFetchAllMembers = (page: number, limit: number = 10) => {
+export const useFetchAllMembers = (page: number, limit: number = 10,search?:string) => {
   return useQuery({
-    queryKey: ["members", page, limit],
-    queryFn: () => fetchAllMembers(page, limit),
+    queryKey: ["members", page, limit,search],
+    queryFn: () => fetchAllMembers(page, limit,search),
     placeholderData: keepPreviousData,
   });
 };

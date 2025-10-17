@@ -23,33 +23,31 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
   // const [language, setLanguage] = useState<"en" | "hi">("en");
   const { language, toggleLanguage } = useLanguageToggle();
   useEffect(() => {
-    if (!data.images && !data.existingImages) return;
-
-    const previews: string[] = [];
-
-    if (data.existingImages?.length) {
-      previews.push(...data.existingImages);
-    }
-
-    if (data.images?.length) {
-      data.images.forEach((img) => {
-        if (img && typeof img === "object" && img instanceof Blob) {
-          const objectUrl = URL.createObjectURL(img);
-          previews.push(objectUrl);
-        } else if (typeof img === "string") {
-          previews.push(img);
-        }
-      });
-    }
-
-    setImagePreviews(previews);
-
-    return () => {
-      previews.forEach((url) => {
-        if (url.startsWith("blob:")) URL.revokeObjectURL(url);
-      });
+    if (!data) return;
+    const seen = new Set<string>();
+    const list: string[] = [];
+    const addUrl = (url?: string) => {
+      if (!url || typeof url !== 'string') return;
+      if (seen.has(url)) return;
+      list.push(url);
+      seen.add(url);
     };
-  }, [data.images, data.existingImages]);
+
+    // First: server URLs
+    data.existingImages?.forEach((u) => addUrl(u));
+    // Then: files or strings in images
+    data.images?.forEach((img) => {
+      if (img && typeof img === 'object' && img instanceof Blob) {
+        const objectUrl = (img as any)._objectUrl || ((img as any)._objectUrl = URL.createObjectURL(img));
+        addUrl(objectUrl);
+      } else if (typeof img === 'string') {
+        addUrl(img);
+      }
+    });
+
+    setImagePreviews(list);
+    return () => {};
+  }, [data]);
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);
   const lang=language
@@ -134,7 +132,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
 
       {/* Buttons */}
       {showButton&&(
-        <div className="mt-12 flex gap-6 justify-end md:w-fit">
+        <div className="mt-12 flex flex-wrap gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
             rounded="rounded-lg"

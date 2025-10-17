@@ -28,9 +28,9 @@ const buildFormData = (values: CampaignFormValues) => {
     appendNestedObject("keyPoints", values.keyPoints);
   }
 
-  // Existing images URLs
+  // Existing images URLs (send each under 'existingImages')
   values.existingImages?.forEach((url) => {
-    if (url) formData.append("existingImages[]", url);
+    if (url) formData.append("existingImages", url);
   });
 
   // New image files
@@ -123,11 +123,11 @@ export const submitCampaignForm = (
   }
 };
 
-// ✅ Fetch campaigns with pagination (language-aware)
-export const useFetchAllCampaigns = (page: number, limit: number = 10) => {
+
+export const useFetchAllCampaigns = (page: number, limit: number = 10,search?:string) => {
   return useLanguageAwareQuery(
-    ["campaigns", page, limit], // different cache per page+limit
-    () => fetchAllCampaigns(page, limit),
+    ["campaigns", page, limit,search], 
+    () => fetchAllCampaigns(page, limit,search),
     {
       staleTime: 5 * 60 * 1000, // 5 minutes
     }

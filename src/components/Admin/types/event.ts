@@ -30,3 +30,9 @@ export interface EventFormProps {
   createMutation?: UseMutationResult<any, unknown, any, unknown>;
   updateMutation?: UseMutationResult<any, unknown, any, unknown>;
 }
+export const EventsValue = [
+  { label: "Upcoming", value: "upcoming" },
+  { label: "Live", value: "live" },
+  { label: "Ended", value: "ended" },
+  
+] as const;

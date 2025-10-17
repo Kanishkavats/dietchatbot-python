@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, ChangeEvent, DragEvent } from "react";
+import React, { useState, ChangeEvent, DragEvent, useEffect, useRef } from "react";
 import { IoMdClose } from "react-icons/io";
 import { Icon } from "@iconify/react";
 import { AdminCustomFileInputProps, AdminFileItem } from "@/src/types/adminCommon";
@@ -14,11 +14,16 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
   disabled = false,
   mode = "add",
   initialUrls = [],
+  initialFiles = [],
   uploadType = "single",
 }) => {
-  const [files, setFiles] = useState<AdminFileItem[]>(
-    initialUrls.map((url) => ({ url, status: "success", progress: 100 }))
-  );
+  const [files, setFiles] = useState<AdminFileItem[]>([
+    ...initialUrls.map((url) => ({ url, status: "success", progress: 100 })),
+    ...initialFiles.map((file) => ({ file, url: URL.createObjectURL(file), status: "success", progress: 100 })),
+  ]);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  // Note: Do not auto-sync after mount to avoid clobbering user changes
 
   const isView = mode === "view";
   const isEditable = mode === "add" || mode === "edit";
@@ -54,7 +59,10 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
 
     onChange(
       updated.filter((f) => f.file).map((f) => f.file!),
-      updated.filter((f) => !f.file).map((f) => f.url)
+      updated
+        .filter((f) => !f.file)
+        .map((f) => f.url)
+        .filter((u) => typeof u === "string" && !u.startsWith("blob:"))
     );
 
     // simulate progress for new items
@@ -62,6 +70,8 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
       const actualIndex = uploadType === "single" ? idx : files.length + idx;
       simulateUpload(actualIndex);
     });
+        if (inputRef.current) inputRef.current.value = "";
+
   };
 
   // Drag & Drop
@@ -81,7 +91,10 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
 
       onChange(
         updated.filter((f) => f.file).map((f) => f.file!),
-        updated.filter((f) => !f.file).map((f) => f.url)
+        updated
+          .filter((f) => !f.file)
+          .map((f) => f.url)
+          .filter((u) => typeof u === "string" && !u.startsWith("blob:"))
       );
 
       newItems.forEach((_, idx) => {
@@ -99,10 +112,12 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
   const removeFile = (idx: number) => {
     const updated = files.filter((_, i) => i !== idx);
     setFiles(updated);
-    onChange(
-      updated.filter((f) => f.file).map((f) => f.file!),
-      updated.filter((f) => !f.file).map((f) => f.url)
-    );
+    const keptFiles = updated.filter((f) => f.file).map((f) => f.file!);
+    const keptUrls = updated
+      .filter((f) => !f.file)
+      .map((f) => f.url)
+      .filter((u) => typeof u === "string" && !u.startsWith("blob:"));
+    onChange(keptFiles, keptUrls);
   };
 
   return (
@@ -123,6 +138,7 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
         >
           <input
             id={name}
+            ref={inputRef}
             name={name}
             type="file"
             multiple={uploadType === "multiple"}
@@ -144,7 +160,7 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
         <div className="mt-4 space-y-2">
           {files.map((f, idx) => (
             <div
-              key={idx}
+              key={f.url || `${idx}`}
               className="flex items-center justify-between border border-gray-200 rounded-md px-3 py-2 bg-white shadow-sm"
             >
               <div className="flex items-center gap-2">
@@ -167,7 +183,8 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
 
               {isEditable && (
                 <button
-                  onClick={() => removeFile(idx)}
+                  type="button"
+                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); removeFile(idx); }}
                   className="text-red hover:text-red-50 p-1 cursor-pointer"
                 >
                   <IoMdClose size={18} />

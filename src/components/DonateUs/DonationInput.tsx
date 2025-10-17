@@ -42,7 +42,7 @@ const DonationInput: React.FC<DonationInputProps> = ({
       {/* Input */}
       <div className="flex items-center bg-[var(--gray-100)] rounded-full px-4 py-1 space-x-4 max-w-[35rem]">
         <div className="bg-[var(--green)] text-[var(--white)] rounded-full w-12 h-10 flex items-center justify-center text-xl font-bold">
-          $
+          ₹
         </div>
         <input
           type="text"

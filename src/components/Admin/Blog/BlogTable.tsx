@@ -27,12 +27,14 @@ import CustomLoader from "../../common/Loader/CustomLoader";
 import AdminCustomPagination from "../Common/CustomePagination";
 import ConfirmModal from "../Common/ConfirmModal";
 import toast from "react-hot-toast";
+import useDebounce from "@/src/hooks/useDebounce";
+import { useFetchCategory } from "../hooks/useCategory";
+import { Category } from "../types/category";
+import { useLanguageToggle } from "../hooks/useLanguageToggle";
 
 const BlogTable = () => {
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<
-    "title" | "location" | "category" | "createdAt" | "updatedAt"
-  >("title");
+  const [searchField, setSearchField] = useState<"title" | "location" | "category" |"creator">("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [blogId, setBlogId] = useState<string | null>(null);
   const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
@@ -43,14 +45,25 @@ const BlogTable = () => {
   const [itemsPerPage] = useState(10);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
+  const debounceValue=useDebounce(search,1000);
 
   const { data: blogData, isLoading: isAllBlogLoading } = useFetchAllBlogs(
     currentPage,
-    itemsPerPage
+    itemsPerPage,
+    debounceValue
   );
+  const{language,toggleLanguage}=useLanguageToggle();
   const { data: singleBlogData, isLoading: isLoadingBlog,refetch } = useFetchSingleBlog(
     blogId || undefined
   );
+  const { data: categoryData } = useFetchCategory();
+     
+  
+    const categoryOptions =
+      categoryData?.category?.map((category: Category) => ({
+        label: category.name?.[language] || category.name.en, 
+        value: category.name?.[language] || category.name.en,
+      })) ?? [];
   const { mutate: deleteBlog } = useDeleteSingleBlog();
   const totalPages = blogData?.totalPages || 1;
 
@@ -121,12 +134,8 @@ const BlogTable = () => {
     }));
   }, [blogData]);
 
-  const filteredData = useMemo(() => {
-    return paginatedData.filter((blog: Blog) => {
-      const value = blog[searchField];
-      return value?.toString().toLowerCase().includes(search.toLowerCase());
-    });
-  }, [paginatedData, search, searchField]);
+  const filteredData = useMemo(() => paginatedData, [paginatedData]);
+
 
   // Mutations
   const queryClient = useQueryClient();
@@ -142,7 +151,12 @@ const BlogTable = () => {
     mutationFn: (data: { id: string; values: FormData }) =>
       updateBlog(data.id, data.values),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+      queryClient.invalidateQueries({
+      predicate: (query) => query.queryKey[0] === "blogs",
+    });
+    queryClient.invalidateQueries({
+      queryKey: ["blog", blogId],
+    });
     },
   });
 const normalizedBlogData = useMemo(() => {
@@ -170,17 +184,29 @@ const normalizedBlogData = useMemo(() => {
               value={searchField}
               onChange={(value) => {
                 setSearchField(value);
+                setSearch(""); 
                 setTimeout(() => {
                   searchInputRef.current?.focus();
                 }, 0);
               }}
             />
+            {searchField==='category'?(<>
+            <Dropdown
+            options={categoryOptions}
+            value={search||''}
+            onChange={(value)=>{
+              setSearch(value)
+            }}
+            />
+
+            </>):(
             <CustomInput
               ref={searchInputRef}
               placeholder={`Search by ${searchField}...`}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
+            )}
           </div>
         </AnimatedReveal>
 
@@ -191,6 +217,8 @@ const normalizedBlogData = useMemo(() => {
               onClick={() => {
                 setDrawerOpen(true);
                 setBlogId(null);
+                setMode('add')
+                setPreviewData(null);
               }}
               bgColor="bg-lime-green"
               hoverBg="before:bg-primaryColor"
@@ -209,7 +237,7 @@ const normalizedBlogData = useMemo(() => {
           <CustomLoader />
         </div>
       ) : (
-        <DataTableWrapper columns={columns} data={filteredData} />
+        <DataTableWrapper columns={columns} data={paginatedData} />
       )}
 
       {/* Pagination */}
