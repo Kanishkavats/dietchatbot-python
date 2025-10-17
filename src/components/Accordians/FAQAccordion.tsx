@@ -22,12 +22,8 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
             : "bg-white text-[#122F2A] font-extrabold rounded-3xl"
         }`}
       >
-<<<<<<< HEAD
-        <span className="font-medium">{t(item.question)}</span>
+        
         <span className="font-semibold font-nunito lg:text-[18px] 2xl:text-[20px]">{t(item.question)}</span>
-=======
-        <span className="font-semibold">{t(item.question)}</span>
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
@@ -39,12 +35,8 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
       {isOpen && (
         <motion.div
           layout
-<<<<<<< HEAD
-          className="px-6 py-4 bg-white text-gray-green border-t border-gray-200 rounded-b-4xl"
+          
           className="px-6 py-4 bg-white font-medium text-[15px] font-nunito lg:text-[16px] text-[#747474] border-t border-gray-200 rounded-b-4xl"
-=======
-          className="px-6 py-4 bg-white font-medium text-[15px] font-nunito text-gray-green border-t border-gray-200 rounded-b-4xl"
->>>>>>> 6c44b47fa356aa44c2aab774963610805c5cbbed
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}

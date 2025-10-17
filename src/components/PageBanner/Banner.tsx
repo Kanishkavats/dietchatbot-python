@@ -43,7 +43,7 @@ export default function Banner({
         </div>
 
         {/* Main Title */}
-        <h1 className="text-white text-5xl md:text-7xl font-cursive font-bold mb-8 drop-shadow-lg">
+        <h1 className="text-white text-[30px] sm:text-[30px] md:text-7xl font-cursive font-bold mb-8 drop-shadow-lg">
           {BannerMoto}
         </h1>
 
