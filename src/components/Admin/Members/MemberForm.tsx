@@ -24,6 +24,7 @@ const MemberForm = ({
     createMutation,
     updateMutation,
 }: MemberFormProps) => {
+    console.log("initial value", initialData)
     
     // Prepare initial values for the form - use useMemo to recalculate when initialData changes
     const initialValues = React.useMemo(() => {
@@ -240,7 +241,7 @@ const MemberForm = ({
                             />
 
                             {/* Action Buttons */}
-                            <div className="flex gap-2 mt-4">
+                            <div className="flex gap-2 mt-4 w-fit">
                                 <Button
                                     type="button"
                                     onClick={handlePreviewClick}
