@@ -113,17 +113,25 @@ const HelpAndDonate: React.FC = () => {
 
       <div className="relative z-10 container mx-auto px-3 sm:px-6 lg:px-0 xl:px-0 max-w-7xl">
         {/* Header Section */}
-        <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-6 md:mb-12 lg:mb-6">
+        <div className="flex flex-col md:flex-row md:items-start md:justify-between lg:flex-row lg:items-start lg:justify-between mb-6 md:mb-12 lg:mb-6">
           {/* Left Side - Main Content */}
-          <div className="flex-1 max-w-2xl mb-6 lg:mb-0">
+          <div className="flex-1 max-w-2xl mb-6 md:mb-0 lg:mb-0 flex-grow">
             {/* Top Left Text */}
-            <div className="flex items-center mb-4 md:mb-6">
+            <div className="flex items-center mb-4 md:mb-6 flex-grow">
               <i className="text-lg md:text-xl mr-2 text-[var(--green)] hand-icon"></i>
-              <span className="text-[var(--green)] font-caveat text-lg md:text-xl lg:text-2xl font-bold">{t("Start Donating Poor People")}</span>
+              <span className={`text-[var(--green)] font-caveat font-bold ${
+                t("Start Donating Poor People").length > 25 
+                  ? "text-sm md:text-lg lg:text-lg" 
+                  : "text-lg md:text-2xl lg:text-2xl"
+              }`}>{t("Start Donating Poor People")}</span>
             </div>
 
             {/* Main Heading */}
-            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 md:mb-8" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>
+            <h2 className={`font-bold leading-tight mb-2 md:mb-4 flex-grow ${
+              t("Help & ").length > 10 || t("Donate").length > 10 || t("Them when").length > 10 || t("They are In Need").length > 10
+                ? "text-2xl sm:text-3xl md:text-5xl lg:text-5xl" 
+                : "text-3xl sm:text-4xl md:text-6xl lg:text-6xl"
+            }`} style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '700'}}>
               <div className="w-full lg:w-[761px]">
                 <span className="text-gray-800">{t("Help & ")}</span>
                 <span className="text-yellow-400">{t("Donate")} </span>
@@ -136,7 +144,7 @@ const HelpAndDonate: React.FC = () => {
           </div>
 
             {campaignsToDisplay.length > 4 && (
-              <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-12 ml-auto md:ml-12">
+              <div className="flex items-center gap-3 md:gap-4 mt-0 md:mt-0 ml-auto md:ml-6">
                 <button
                   onClick={handlePrev}
                   className="w-12 h-12 md:w-15 md:h-15 rounded-full flex items-center justify-center cursor-pointer hover:bg-[#FBBF24] transition-all duration-300"

@@ -126,12 +126,12 @@ export default function HeroStaticSlider() {
           duration={1}
           className="space-y-6"
         >
-          <p className="text-yellow text-2xl font-medium flex items-center gap-2 font-caveat">
-            <Icon icon="mdi:hand-heart" className="text-3xl  font-medium cursor-pointer" />
+          <p className="text-yellow text-xl sm:text-2xl font-medium flex items-center gap-2 font-caveat">
+            <Icon icon="mdi:hand-heart" className="text-2xl sm:text-3xl font-medium cursor-pointer" />
             {bannerSubtitle}
           </p>
 
-          <h1 className="text-4xl  max-w-[17ch] sm:text-4xl  sm:max-w-[17ch] md:text-6xl md:max-w-[12ch]   lg:text-6xl xl:text-7xl font-extrabold text-white xl:max-w-[12ch] leading-tight">
+          <h1 className="text-3xl max-w-[17ch] sm:text-4xl sm:max-w-[17ch] md:text-6xl md:max-w-[12ch] lg:text-6xl xl:text-7xl font-extrabold text-white xl:max-w-[12ch] leading-tight">
             {bannerTitle}
           </h1>
 

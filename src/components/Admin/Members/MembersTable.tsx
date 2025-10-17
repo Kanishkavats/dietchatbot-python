@@ -18,7 +18,7 @@ import {
   useDeleteSingleMember,
   useFetchAllMembers,
   useFetchSingleMember,
-} from "@/src/hooks/useMembers";
+} from "@/src/components/Admin/hooks/useMembers";
 import { createMember, updateMember } from "../services/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
@@ -34,8 +34,9 @@ const MemberTable = () => {
   );
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editMember, setEditMember] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const[showPreview,setShowPreview]=useState<boolean>();
   const [previewData, setPreviewData] = useState<MemberFormValues | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(5);
@@ -50,7 +51,7 @@ const MemberTable = () => {
     itemsPerPage,
     debounceValue
   );
-  const { data: singleMemberData, isLoading: isLoadingMember } =
+  const { data: singleMemberData, isLoading: isLoadingMember ,refetch} =
     useFetchSingleMember(editMember || undefined);
     console.log("check", singleMemberData)
   
@@ -61,16 +62,29 @@ const MemberTable = () => {
     setMode("edit");
     setDrawerOpen(true);
     
-    // Set fallback data immediately for edit mode only
-    setSingleMemberFallback(m as any);
+    // // Set fallback data immediately for edit mode only
+    // setSingleMemberFallback(m as any);
   }, []);
 
   const handleView = useCallback((member: Member) => {
     setEditMember(member.id.toString());
     setMode("view");
-    setPreviewData(member as MemberFormValues);
-    setDrawerOpen(true);
-  }, []);
+    setDrawerOpen(true)
+    setPreviewData(null); 
+  setShowPreview(false);
+
+  try {
+    setTimeout(async () => {
+      const { data } = await refetch();
+      if (data) {
+      setShowPreview(true)
+      setPreviewData(data);
+    }
+    }, 100); 
+  } catch (error) {
+    console.error("Failed to fetch campaign:", error);
+  }
+  }, [refetch]);
 
   const handleDelete = useCallback(
     (m: Member) => {
@@ -162,7 +176,7 @@ const MemberTable = () => {
                 setDrawerOpen(true);
                 setEditMember(null);
                 setMode("add");
-                setSingleMemberFallback(null);
+                // setSingleMemberFallback(null);
                 setPreviewData(null);
               }}
               bgColor="bg-lime-green"
@@ -204,8 +218,9 @@ const MemberTable = () => {
             setDrawerOpen(false);
             setEditMember(null);
             setMode("add");
-            setSingleMemberFallback(null);
+            // setSingleMemberFallback(null);
             setPreviewData(null);
+            setShowPreview(false)
           }}
           title={
             mode === "edit"
@@ -216,14 +231,20 @@ const MemberTable = () => {
           }
           mode={mode}
         >
-          {previewData ? (
+          {(mode === "view" || mode === "preview-edit") && (
+    !previewData || isLoadingMember ? (
+   
+    <div className="flex justify-center py-10">
+      <CustomLoader />
+    </div>
+  ) : (
             <MemberPreview
-              data={previewData}
+              data={previewData!}
+              showButton={mode === "preview-edit"}
               mode={mode}
-              onBack={() => {
-                setSingleMemberFallback(previewData);
-                setPreviewData(null);
-              }}
+              onBack={() =>{ setShowPreview(false)
+          setMode(editMember ? "edit" : "add");
+        }}
               onSubmit={() => {
                 submitMemberForm(
                   { ...previewData, keyPoints: previewData.keyPoints },
@@ -233,38 +254,52 @@ const MemberTable = () => {
                   () => {
                     setPreviewData(null);
                     setDrawerOpen(false);
-                    setSingleMemberFallback(null);
+                    // setSingleMemberFallback(null);
                   },
                   () => {},
                   () => setDrawerOpen(false)
                 );
               }}
             />
-          ) : isLoadingMember ? (
-            <CustomLoader />
-          ) : (
-            <>
+            )
+  )}
+           {(mode === "add" || mode === "edit") && (
+      isLoadingMember?(
+        <div><CustomLoader/></div>
+      ):
+    (
               <MemberForm
+<<<<<<< HEAD
               key={`${editMember || 'new'}-${mode}`} 
               initialData={
                 mode === "add" ? undefined : ( singleMemberData || singleMemberFallback  || undefined)
               }
+=======
+              key={`${editMember || 'new'}-${mode}`} // Force re-render when editMember or mode changes
+              initialData={{
+                ...(singleMemberData||{}),
+                ...(previewData||{}),
+                // image:previewData?.image||singleMemberData?.image||'',
+              }}
+>>>>>>> d213a8b79097202a93365c96e0420b502c7620b6
               onClose={() => {
                 setDrawerOpen(false);
                 setEditMember(null);
-                setMode("add");
-                setSingleMemberFallback(null);
+                // setMode("add");
+                setShowPreview(false)
+                // setSingleMemberFallback(null);
               }}
               mode={mode}
               onPreview={(data) => {
                 setPreviewData(data);
-                setSingleMemberFallback(null);
+                setShowPreview(true)
+                setMode("preview-edit");
+                // setSingleMemberFallback(null);
               }}
               createMutation={createMutation}
               updateMutation={updateMutation}
             />
-            </>
-          )}
+           ))}
         </Drawer>
       )}
       <ConfirmModal

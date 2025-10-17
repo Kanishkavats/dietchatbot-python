@@ -48,7 +48,7 @@
   "Do you offer cooking tips and techniques?": "क्या आप खाना पकाने की युक्तियाँ और तकनीकें प्रदान करते हैं?",
   "How frequently you update you recipe collection?": "आप अपने रेसिपी संग्रह को कितनी बार अपडेट करते हैं?",
   "We Give Child A Gift Of A Education": "हम बच्चों को शिक्षा का उपहार देते हैं",
-  "Become A Volunteer?": "स्वयंसेवक बनें?",
+  "Become A Volunteer": "स्वयंसेवक बनें",
   "Make Donation To Us?": "हमें दान करें?",
   "Contact Now": "अभी संपर्क करें",
   "Meet Our Volunteer": "हमारे स्वयंसेवक से मिलें",
@@ -284,6 +284,12 @@
     "ContactText": "यदि आपके पास इस गोपनीयता नीति से संबंधित कोई प्रश्न, चिंता, या अनुरोध हैं, तो कृपया हमसे {{email}} पर संपर्क करें। हम यह सुनिश्चित करने के लिए यहाँ हैं कि आपके अनुभव हमारे साथ सुरक्षित, पारदर्शी और आपकी गोपनीयता का सम्मान करने वाला बने।"
   },
   "Back to Edit": "संपादन पर वापस जाएं",
-  "Meet Our Volunteer Team Members": "हमारे स्वयंसेवक सदस्यों <1>टीम</1>  सदस्यों"
-
+  "Meet Our Volunteer Team Members": "हमारे स्वयंसेवक सदस्यों <1>टीम</1>  सदस्यों",
+  "Volunteer Requirements": "स्वयंसेवक आवश्यकताएं",
+  "Sed Ut Perspiciatis Unde Omnis Iste Natus Error Sit Voluptatem Accusantium Doloremque Laudantium, Totam Rem Aperiam, Eaque Inventore": "हम स्पष्ट रूप से जानते हैं कि यह त्रुटि कहाँ से उत्पन्न हुई, जो अपराधी और दुःख का कारण बनी है, पूरी स्थिति को खोलती है, और इसके आविष्कारक को दर्शाती है।",
+  "message is a required field": "संदेश आवश्यक है",
+  "occupation is a required field":"व्यवसाय एक आवश्यक फ़ील्ड है।",
+  "lastName is a required field":"अंतिम नाम एक आवश्यक फ़ील्ड है",
+  "firstName is a required field":"पहला नाम एक आवश्यक फ़ील्ड है।",
+  "Our Team":"हमारी दल"
 }

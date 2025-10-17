@@ -26,8 +26,7 @@ const initialValues: VolunteerValues = {
 };
 
 const VolunteerForm = () => {
-  const { t } = useTranslation();
-
+  const { t} = useTranslation();
   const mutation = useMutation({
     mutationFn: VolunteerInformationForm,
     onSuccess: () => {
@@ -50,13 +49,15 @@ const VolunteerForm = () => {
     });
   };
 
+  
+
   return (
-    <div className="w-full mx-auto bg-white px-3 xl:px-8 py-6 xl:py-10 rounded-lg border border-gray-200">
+    <div className="w-full mx-auto bg-white px-4 xl:px-8 py-10 xl:py-10 rounded-lg border border-gray-200">
       {/* Heading */}
-      <h2 className="text-sm xl:text-3xl font-nunito font-bold mb-2">
+      <h2 className="text-xl xl:text-3xl font-nunito font-bold mb-2 ">
         {t("fillForm")}
       </h2>
-      <p className="mt-4 mb-12 text-gray-500 text-[15px] leading-5 xl:max-w-[70%]">
+      <p className="mt-4 mb-12 text-gray-500 text-[15px] xl:max-w-[70%] leading-8 tracking-wider">
         {t("formNote")}
       </p>
 
@@ -67,9 +68,9 @@ const VolunteerForm = () => {
         onSubmit={handleSubmit}
       >
         {({ isSubmitting }) => (
-          <Form className="space-y-6">
+          <Form className="space-y-6 ">
             {/* First + Last Name */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 ">
               <InputField name="firstName" placeholder={t("firstName")} icon="mdi:account" />
               <InputField name="lastName" placeholder={t("lastName")} icon="mdi:account" />
             </div>

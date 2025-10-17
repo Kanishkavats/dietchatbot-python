@@ -44,7 +44,7 @@ export interface Member {
 export interface MemberFormProps {
   initialData?: Partial<MemberFormValues> & Partial<Member>;
   onClose: () => void;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
   onPreview?: (data: MemberFormValues) => void;
   createMutation: UseMutationResult<any, Error, MemberFormValues, unknown>;
   updateMutation: UseMutationResult<any, Error, { id: string; values: MemberFormValues }, unknown>;

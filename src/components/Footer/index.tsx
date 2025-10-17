@@ -6,80 +6,72 @@ import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { footerData } from "@/src/staticResource";
-import { logo, spade2, spradeBase,spreadLight } from "@/public/assets";
+import { logo, spade2, spreadLight } from "@/public/assets";
 import Divider from "../common/HorizontalDevider";
 import { useTranslation } from "react-i18next";
 
 const Footer = () => {
-
-  // ref for the whole footer
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
-  const{t}=useTranslation();
+  const { t } = useTranslation();
 
-  // Parent container animation (for stagger effect)
   const container = {
     hidden: {},
     show: {
-      transition: {
-        staggerChildren: 0.25, 
-      },
+      transition: { staggerChildren: 0.25 },
     },
   };
 
-  // Each item animation
   const item = {
     hidden: { opacity: 0, y: 50 },
     show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
   };
 
-  // Common base for underline effect
   const underlineBase =
-    "relative inline-flex items-center gap-2 text-white/50  before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-yellow before:block before:scale-x-0 before:origin-center before:transition-transform";
+    "relative inline-flex items-center gap-2 text-white/50 before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-yellow before:block before:scale-x-0 before:origin-center before:transition-transform";
 
-  // Variant: triggers from parent group
   const underlineOnGroupHover = `${underlineBase} text-white transition-colors group-hover:text-yellow before:duration-500 group-hover:before:scale-x-100`;
-
-  // Variant: triggers on element itself
   const underlineOnHover = `${underlineBase} cursor-pointer hover:text-yellow before:duration-300 hover:before:scale-x-100`;
 
-
   return (
-    <footer ref={ref} className="bg-dark-green text-white py-5 px-2 md:px-8 relative">
+    <footer
+      ref={ref}
+      className="bg-dark-green text-white py-15 sm:py-14 px-4 sm:px-6 md:px-8 xl:px-28 relative"
+    >
       <Newsletter />
+
+      {/* Floating Decorative Icon */}
       <motion.div
-        animate={{
-          scale: [1, 1.3, 1],
-          opacity: [0.6, 1, 0.6]
-        }}
-        transition={{
-          duration: 3,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-        className="absolute top-[20%] xl:top-[25%] left-0 xl:left-8 transform -translate-y-1/2 text-yellow"
+        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        className="absolute top-[25%] left-0 xl:left-8 transform -translate-y-1/2 text-yellow"
       >
         <img
           src={spade2.src}
           alt="Logo"
-          className="w-12 xl:w-18 h-12 xl:h-18"
+          className="w-10 xl:w-14 h-10 xl:h-14"
         />
       </motion.div>
 
-
       {/* Main Grid */}
       <motion.div
-        className="mx-auto py-7 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-10"
+        className="mx-auto max-w-screen-2xl py-10 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-10 md:gap-12"
         variants={container}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
       >
-        {/* Brand */}
-        <motion.div variants={item} className="lg:mb-20 xl:mb-10">
-          <div className="h-12 w-52 md:h-12 md:w-56 lg:h-14 lg:w-64 xl:h-16 xl:w-72 relative -ml-15 md:-ml-22">
-            <Image src={logo} fill alt={footerData.brand.name} className="object-contain" />
+        {/* Brand Section */}
+        <motion.div variants={item}>
+          
+          <div className="h-18 w-62 md:h-12 md:w-56 lg:h-14  lg:w-64 xl:h-16 xl:w-72 relative -ml-15 md:-ml-22">
+            <Image
+               src={logo}
+               fill
+               alt={footerData.brand.name}
+               className="object-contain"
+             />
           </div>
-          <p className="mt-8 text-white/50 text-sm xl:text-lg font-nunito tracking-tight leading-7 xl:leading-9 text-left w-full">
+          <p className="mt-6 text-white/50 text-sm xl:text-base leading-7 w-full">
             {t(footerData.brand.description)}
           </p>
           <div className="flex gap-3 mt-6">
@@ -87,28 +79,32 @@ const Footer = () => {
               <a
                 key={i}
                 href={s.href}
-                className="w-10 xl:w-12 h-10 xl:h-12 flex items-center justify-center border border-white/10 transition duration-200 rounded-full hover:bg-yellow hover:text-green"
+                className="w-10 h-10 flex items-center justify-center border border-white/10 rounded-full hover:bg-yellow hover:text-green transition duration-200"
               >
-                <Icon icon={s.icon} className="h-4 w-4 xl:h-5 xl:w-5" />
+                <Icon icon={s.icon} className="h-4 w-4" />
               </a>
             ))}
           </div>
         </motion.div>
-        {/* Quick links */}
+
+        {/* Quick Links */}
         <motion.div variants={item}>
-          <h3 className="text-xl font-nunito xl:text-3xl font-bold mb-4">{t("Quick Links")}</h3>
-          <div className="w-[35%] mb-6">
+          <h3 className="text-[20px] xl:text-2xl lg:text-[20px] 2xl:text-[24px] font-bold mb-3">
+            {t("Quick Links")}
+          </h3>
+          <div className="w-[35%] mb-5">
             <Divider />
           </div>
-
-          <ul className="space-y-3 xl:space-y-4">
+          <ul className="space-y-3">
             {footerData.quickLinks.map((link, i) => (
-              <li key={i} className="relative group text-sm font-nunito xl:text-xl ">
-                <a
-                  href={link.href}
-                  className={underlineOnGroupHover}
-                >
-                  <Icon icon="mingcute:arrow-up-fill" width={18} height={18} className="rotate-45" />
+              <li key={i} className="group text-[16px] xl:text-base lg:text-[16px] 2xl:text-[16px]">
+                <a href={link.href} className={underlineOnGroupHover}>
+                  <Icon
+                    icon="mingcute:arrow-up-fill"
+                    width={16}
+                    height={16}
+                    className="rotate-45"
+                  />
                   {t(link.label)}
                 </a>
               </li>
@@ -116,102 +112,101 @@ const Footer = () => {
           </ul>
         </motion.div>
 
-        {/* Services */}
+        {/* Our Services */}
         <motion.div variants={item}>
-          <h3 className="text-xl font-nunito  xl:text-3xl font-bold xl:mb-4 ps-1">
+          <h3 className="text-[20px] xl:text-2xl lg:text-[20px] 2xl:text-[24px] font-bold mb-3">
             {t("Our Services")}
           </h3>
-          <div className="w-[35%] mb-6">
+          <div className="w-[35%] mb-5">
             <Divider />
           </div>
-          <ul className="space-y-3 xl:space-y-4  ">
+          <ul className="space-y-3">
             {footerData.services.map((service, i) => (
-              <li key={i} className="relative group text-sm font-nunito xl:text-xl">
-                <a
-                  href={service.href}
-                  className={underlineOnGroupHover}
-                >
-                  <Icon icon="mingcute:arrow-up-fill" className="rotate-45" width={18} height={18} />
-
+              <li key={i} className="group text-[16px] xl:text-[16px] lg:text-[16px] 2xl:text-[16px]">
+                <a href={service.href} className={underlineOnGroupHover}>
+                  <Icon
+                    icon="mingcute:arrow-up-fill"
+                    width={16}
+                    height={16}
+                    className="rotate-45"
+                  />
                   {t(service.label)}
                 </a>
               </li>
-
             ))}
           </ul>
-
-
-
         </motion.div>
 
-        {/* Contact */}
-        <motion.div variants={item} className="text-white relative">
-          <h3 className="text-xl font-nunito  xl:text-3xl font-bold mb-4 text-white">
+        {/* Get In Touch */}
+        <motion.div variants={item} className="relative">
+          <h3 className="text-[20px] xl:text-2xl lg:text-[20px] 2xl:text-[24px] font-bold mb-3">
             {t("Get In Touch")}
           </h3>
-          <div className="w-[35%] mb-6">
+          <div className="w-[35%] mb-5">
             <Divider />
           </div>
-          <div className="space-y-3 xl:space-y-4 flex flex-col">
-
-            <p
-              className={`${underlineOnHover} text-sm font-nunito font-light xl:text-xl  xl:gap-5`}
-            >
-              <Icon icon="ion:location" width="30" height="30" className="text-yellow" />
+          <div className="space-y-4">
+            <p className={`${underlineOnHover} text-sm xl:text-base lg:text-[20px] 2xl:text`}>
+              <Icon
+                icon="ion:location"
+                width="22"
+                height="22"
+                className="text-yellow"
+              />
               <span>{footerData.contact.address}</span>
             </p>
-
-            <p
-              className={`${underlineOnHover} text-sm font-nunito font-light xl:text-xl  xl:gap-5`}
-            >
-              <Icon icon="mdi:phone" width="20" height="30" className="text-yellow" />
+            <p className={`${underlineOnHover} text-sm xl:text-base`}>
+              <Icon
+                icon="mdi:phone"
+                width="22"
+                height="22"
+                className="text-yellow"
+              />
               <span>{footerData.contact.phone}</span>
             </p>
-
-            <p
-              className={`${underlineOnHover} text-sm font-nunito font-light xl:text-xl  xl:gap-5`}
-            >
-              <Icon icon="mdi:email" width="20" height="30" className="text-yellow" />
+            <p className={`${underlineOnHover} text-sm xl:text-base`}>
+              <Icon
+                icon="mdi:email"
+                width="22"
+                height="22"
+                className="text-yellow"
+              />
               <span>{footerData.contact.email}</span>
             </p>
           </div>
+
           <motion.div
-            animate={{
-              scale: [1, 1.3, 1],
-              opacity: [0.6, 1, 0.6],
-            }}
-            transition={{
-              duration: 3,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-[29%] xl:top-[30%] right-40 xl:right-16 transform -translate-y-1/2  size-14 text-white"
+            animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[28%] right-10 xl:right-0 text-white"
           >
-            <img src={spreadLight.src} alt="decoration" className="w-12 xl:w-18 h-12 xl:h-18" />
+            <img
+              src={spreadLight.src}
+              alt="decoration"
+              className="w-12 h-12 xl:w-16 xl:h-16"
+            />
           </motion.div>
         </motion.div>
       </motion.div>
 
       {/* Bottom Section */}
       <motion.div
-        className="border-t border-white/10 mt-8 py-6"
+        className="w-full border-t border-white/10 mt-10 pt-6 max-w-screen-2xl mx-auto"
         variants={item}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
       >
-        <div className="font-nunito
-         flex flex-col lg:flex-row items-center justify-between lg:justify-center xl:justify-between gap-4 lg:gap-20 xl:gap-base ">
-          <p className="text-center text-sm xl:text-lg xl:text-left">
-            Copyright ©{" "}
-            <span className="text-yellow hover:text-white cursor-pointer">Charifund</span>. All Rights
+        <div className="flex flex-col lg:flex-row items-center justify-between gap-4 font-nunito text-[16px] xl:text-base 2xl:text-[16px] lg:text-[16px] sm:text-[16px]">
+          <p className="text-center text-white/70">
+            © <span className="text-yellow">Charifund</span>. All Rights
             Reserved.
           </p>
-          <div className="flex flex-wrap text-sm xl:text-lg justify-center xl:mr-10 text-white gap-6 cursor-pointer">
+          <div className="flex flex-wrap gap-5 justify-center text-white">
             {footerData.bottomLinks.map((link, i) => (
               <a
                 key={i}
                 href={link.href}
-                className={` relative inline-flex items-center gap-2  before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-yellow before:block before:scale-x-0 before:origin-center before:transition-transform cursor-pointer hover:text-yellow before:duration-300 hover:before:scale-x-100 text-white`}
+                className="relative inline-flex items-center gap-2 hover:text-yellow before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-yellow before:scale-x-0 hover:before:scale-x-100 before:transition-transform before:duration-300"
               >
                 {t(link.label)}
               </a>

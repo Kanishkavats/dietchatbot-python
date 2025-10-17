@@ -1,6 +1,6 @@
 import { QueryFilters } from "../../../types/query";
 import { QueryFormValues } from "../../../utils/validations/FormValidation";
-import api from "../../../services/api";
+import api from "./api";
 
 // ✅ Fetch all queries with pagination
 export const fetchAllQueries = async (page: number = 1, limit: number = 10, filters?: QueryFilters) => {

@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import AnimatedProgressBar from "../AnimatedProgressBar";
 import Button from "../Buttons/Button";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 
 interface DonationCardProps {
   card?: {
@@ -70,6 +71,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
   const title = card.title || "No Title";
   const displayTitle =
     title.length > titleMaxLength ? title.slice(0, titleMaxLength).concat("...") : title;
+    const {t} = useTranslation();
 
   return (
     <div
@@ -134,7 +136,7 @@ const DonationCard: React.FC<DonationCardProps> = ({
               <div className={`flex items-center justify-center gap-2 relative z-10 font-bold transition-colors duration-300 whitespace-nowrap font-nunito ${
                 hoveredCard === card.id ? 'text-white' : 'text-dark-green group-hover:text-white'
               }`}>
-                <span className="leading-none text-sm">Donate Now</span>
+                <span className="leading-none text-sm">{t("Donate Now")}</span>
               </div>
             </button>
           </div>
