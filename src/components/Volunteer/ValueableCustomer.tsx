@@ -13,6 +13,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import CustomLoader from "../common/Loader/CustomLoader";
 
 const truncateText = (text: string, maxLength: number) => {
   if (!text) return "";
@@ -22,15 +23,15 @@ interface props{
   setHasFeedback?:React.Dispatch<React.SetStateAction<boolean | null>>
 }
 const ValueableCustomer = ({setHasFeedback}:props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
   const { data: feedbacks = [], isLoading } = useQuery({
     queryKey: ["feedback"],
     queryFn: fetchFeedback,
   });
 
-  if (isLoading) return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
+  if (isLoading) return <CustomLoader />;
 
-  // 🔴 Hide component if no feedbacks or any required field missing
   const isInvalidData =
     !feedbacks ||
     feedbacks.length === 0 ||
@@ -48,7 +49,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
   }
 
   if (isLoading)
-    return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
+    return <p className="text-center text-lg"><CustomLoader /></p>;
 
   return (
     <section
@@ -63,9 +64,9 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
       <div className="mt-[100px] sm:mt-[130px] md:mt-[120px] min-[770px]:mt-[150px] min-[800px]:mt-[160px] min-[900px]:mt-[140px] lg:mt-[140px] xl:mt-[170px]">
         <div>
           {/* Heading */}
-          <div className="flex items-center gap-1 justify-center md:mt-[20px] relative z-20 mb-4">
-            <i className="text-2xl hand-icon sm:mt-[25px] text-[#00715D]" />
-            <span className="text-[#00715D] sm:mt-[30px] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] relative z-20 min-[770px]:text-[22px] min-[800px]:text-[24px]">
+          <div className="flex items-center gap-1 justify-center md:mt-[20px] relative z-20 mb-4 ">
+            <i className="text-2xl hand-icon sm:mt-[25px] text-green" />
+            <span className="text-green sm:mt-[30px] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] relative z-20 min-[770px]:text-[22px] min-[800px]:text-[24px]">
               {t("Start Donating Poor People")}
             </span>
           </div>

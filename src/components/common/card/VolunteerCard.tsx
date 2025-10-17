@@ -32,6 +32,10 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
   const nameColor = isHovered ? "text-white" : "text-black";
   const roleColor = isHovered ? "text-yellow-400" : "text-black";
 
+
+  console.log("checking member", member);
+  
+
   return (
     <motion.div
       ref={ref}
@@ -47,7 +51,7 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
         onClick={() => window.location.href = `/volunteer/${member.id}`}
       >
         <Image
-          src={member.image || "/assets/volunteer1.png"}
+          src={member.imageUrl || "/assets/volunteer1.png"}
           alt={member.name}
           fill
           className="object-cover transition-transform duration-500 ease-in-out group-hover:scale-105"

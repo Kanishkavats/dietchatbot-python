@@ -4,16 +4,17 @@ import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useFetchAllMembers } from "@/src/hooks/useMembers";
 import { VolunteerCard } from "../common/card/VolunteerCard";
 import { TeamMember } from "@/src/types/members";
+import CustomLoader from "../common/Loader/CustomLoader";
 
 const VolunteerTeam = () => {
   const router = useRouter();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
 
-  // Show only 4 members initially
   const itemsPerPage = 4;
 
   // Fetch members from API
@@ -21,7 +22,6 @@ const VolunteerTeam = () => {
     1,
     itemsPerPage
   );
-  console.log(data);
 
   // Safely extract members
   const members = data?.members || [];
@@ -31,23 +31,7 @@ const VolunteerTeam = () => {
     return null;
   }
 
-  // ✅ Console log for checking each member's social accounts
-  members.forEach((member: TeamMember) => {
-    console.log(` Member: ${member.name}`);
-    const hasSocialAccounts = !!(
-      member.facebookUrl ||
-      member.twitterUrl ||
-      member.instagramUrl ||
-      member.linkedInUrl 
-    );
-    console.log("Has any social account?", hasSocialAccounts);
-    if (hasSocialAccounts) {
-      if (member.facebookUrl) console.log("  Facebook:", member.facebookUrl);
-      if (member.twitterUrl) console.log("  Twitter:", member.twitterUrl);
-      if (member.instagramUrl) console.log("  Instagram:", member.instagramUrl);
-      if (member.linkedInUrl) console.log("  LinkedIn:", member.linkedInUrl);
-    }
-  });
+
 
   const handleViewAll = () => {
     router.push('/team');
@@ -55,26 +39,22 @@ const VolunteerTeam = () => {
 
   return (
     <section
-      className="relative bg-cover py-16 bg-center w-full"
+      className="relative bg-cover py-16  w-full" 
       style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
-      <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
-        <div className="flex items-center text-[#046b59] justify-center gap-3 mb-2">
+      <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center " >
+        <div className="flex items-center text-green justify-center gap-3 mb-2">
           <i className="text-2xl hand-icon"></i>
           <span className="font-caveat text-2xl font-semibold">
             {t("Start Donating Poor People")}
           </span>
         </div>
-
-        <h2 className="text-3xl md:text-4xl xl:text-5xl font-bold mb-8 text-left sm:text-center leading-snug">
-          <span className="block md:inline lg:block">{t("Meet Our Volunteer")}</span>{" "}
-          <span className="block md:inline lg:block text-yellow">
-            {t("Team Members")}
-          </span>
+        <h2 className="text-[23px] md:text-4xl lg:text-5xl font-bold mb-8">
+          <Trans i18nKey={t('Meet Our Volunteer Team Members')} components={{ 1: <span className="text-yellow"></span> }} />
         </h2>
 
         <div className="w-full max-w-7xl mx-auto px-4 py-8">
-          {isLoading && <p>Loading members...</p>}
+          {isLoading && <CustomLoader />}
           {isError && <p>Failed to load members.</p>}
           {!isLoading && !isError && (
             <div
