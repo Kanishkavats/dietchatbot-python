@@ -15,29 +15,17 @@ interface MemberPreviewProps {
   data: MemberFormValues & { createdAt?: string };
   onSubmit: () => void;
   onBack: () => void;
-  mode?: "add" | "edit" | "view";
+  mode?: "add" | "edit" | "view"|"preview-edit";
+  showButton?:boolean;
 }
 
-const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => {
+const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberPreviewProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { language, toggleLanguage } = useLanguageToggle();
   const lang = language;
-
-  const {
-    name,
-    position,
-    title,
-    description,
-    about,
-    keyPoints = [],
-    facebookUrl,
-    twitterUrl,
-    instagramUrl,
-    linkedInUrl,
-  } = data;
-
+   console.log(data) 
   // Get localized string
   const getLangText = (field: any): string => {
     if (field && typeof field === "object" && lang in field) {
@@ -53,12 +41,12 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
     return [];
   };
 
-  const nameText = getLangText(name);
-  const positionText = getLangText(position);
-  const titleText = getLangText(title);
-  const descriptionText = getLangText(description);
-  const aboutText = getLangText(about);
-  const keyPointsList = getLangArray(keyPoints);
+  // const nameText = getLangText(name);
+  // const positionText = getLangText(position);
+  // const titleText = getLangText(title);
+  // const descriptionText = getLangText(description);
+  // const aboutText = getLangText(about);
+  // const keyPointsList = getLangArray(keyPoints);
 
   const socialIconClass =
     "text-white bg-blue-50 hover:bg-yellow rounded-full p-2 size-10 hover:scale-110 transition";
@@ -66,12 +54,12 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
   const socialLinks = useMemo(
     () =>
       [
-        { url: facebookUrl, icon: <FaFacebook className={socialIconClass} /> },
-        { url: twitterUrl, icon: <FaTwitter className={socialIconClass} /> },
-        { url: instagramUrl, icon: <FaInstagram className={socialIconClass} /> },
-        { url: linkedInUrl, icon: <FaLinkedin className={socialIconClass} /> },
+        { url: data?.facebookUrl||'', icon: <FaFacebook className={socialIconClass} /> },
+        { url: data?.twitterUrl||'', icon: <FaTwitter className={socialIconClass} /> },
+        { url: data?.instagramUrl||'', icon: <FaInstagram className={socialIconClass} /> },
+        { url: data?.linkedInUrl||'', icon: <FaLinkedin className={socialIconClass} /> },
       ].filter((link): link is { url: string; icon: JSX.Element } => !!link.url),
-    [facebookUrl, twitterUrl, instagramUrl, linkedInUrl]
+    [data?.facebookUrl, data?.twitterUrl, data?.instagramUrl, data?.linkedInUrl]
   );
 
   useEffect(() => {
@@ -120,41 +108,41 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
       {/* Member Image */}
       {imagePreview && (
         <div className="w-40 h-40 mx-auto mb-6 rounded-full overflow-hidden border-4 border-yellow shadow-md">
-          <img src={imagePreview} alt={nameText} className="w-full h-full object-cover" />
+          <img src={imagePreview} alt={data?.name?.[lang]} className="w-full h-full object-cover" />
         </div>
       )}
 
       {/* Name & Position */}
       <h2 className="text-2xl lg:text-3xl font-bold mb-2 text-center text-foreground">
-        {nameText}
+        {data?.name?.[lang]}
       </h2>
-      <p className="text-lg text-center text-foreground/70 mb-6">{positionText}</p>
+      <p className="text-lg text-center text-foreground/70 mb-6">{data?.position?.[lang]}</p>
 
       {/* Title */}
       <h3 className="text-2xl font-bold mb-2 text-foreground">
-        {titleText || ""}
+        {data?.title?.[lang] || ""}
       </h3>
 
       {/* Description & About */}
       <div className="space-y-4 text-foreground/70 font-[400] text-md leading-relaxed mb-8">
-        <p>{descriptionText}</p>
-        {aboutText && <p>{aboutText}</p>}
+        <p>{data?.description?.[lang]}</p>
+        {data?.about && <p>{data?.about?.[lang]}</p>}
       </div>
 
       {/* Key Points */}
-      {keyPointsList.length > 0 && (
-        <div className="mt-6">
-          <p className="font-bold text-lime-green mb-2">{lang === "hi" ? "मुख्य बिंदु" : "Key Points"}:</p>
-          <div className="grid gap-2 ml-2">
-            {keyPointsList.map((point, idx) => (
-              <p key={idx} className="flex items-start gap-2 text-foreground">
-                <LucideCircleCheckBig className="text-yellow h-5 w-5 mt-1" />
-                <span className="text-[16px]">{point}</span>
-              </p>
-            ))}
-          </div>
-        </div>
-      )}
+      <div className="mt-4">
+                <p className="font-bold text-lime-green mb-1 flex items-center gap-2">
+                  Key Points:
+                </p>
+                <div className="ml-2 space-y-1 grid lg:grid-cols-2 gap-2">
+                  {(data.keyPoints?.[lang] ?? []).map((point, idx) => (
+                    <p key={idx} className="flex items-start gap-2 text-foreground">
+                      <LucideCircleCheckBig className="text-yellow h-5 w-5" />
+                      <span className="text-[16px]">{point}</span>
+                    </p>
+                  ))}
+                </div>
+              </div>
 
       {/* Social Links */}
       {socialLinks.length > 0 && (
@@ -171,6 +159,7 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
       )}
 
       {/* Buttons */}
+      {showButton&&(
       <div className="mt-12 flex justify-baseline gap-6 w-fit ">
         <Button
           bgColor="bg-red"
@@ -191,6 +180,7 @@ const MemberPreview = ({ data, onSubmit, onBack, mode }: MemberPreviewProps) => 
           {isSubmitting && <ButtonLoader />}
         </Button>
       </div>
+      )}
     </motion.div>
   );
 };

@@ -1,5 +1,5 @@
 import { MemberFormValues } from "../../../utils/validations/FormValidation";
-import api from "../../../services/api";
+import api from "./api";
 import { makeApiPath } from "../../../services/apiConfig";
 
 const BASE = makeApiPath("member");
@@ -11,8 +11,8 @@ export const createMember = async (member: MemberFormValues) => {
 };
 
 // Get all members with pagination
-export const fetchAllMembers = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/admin/member/getAllMembers?page=${page}&limit=${limit}`);
+export const fetchAllMembers = async (page: number = 1, limit: number = 10,search?:string) => {
+  const { data } = await api.get(`/admin/member/getAllMembers?page=${page}&limit=${limit}&search=${search}`);
   return data;
 };
 
