@@ -2,7 +2,7 @@ import React from 'react'
 import FAQSection from './FAQSection'
 import PageBanner from '../common/PageBanner'
 import { bannerBg } from '@/public/assets'
-import BecomeVolunteer from '../BecomeVolunteer/BecomeVolunteer'
+import BecomeVolunteer from '../BecomeVolunteer'
 import VolunteerTeam from '../volunteer/VolunteerTeam'
 
 const FAQ = () => {

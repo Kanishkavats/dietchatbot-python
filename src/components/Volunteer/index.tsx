@@ -1,5 +1,5 @@
 import React from 'react'
-import BecomeVolunteer from '../BecomeVolunteer/BecomeVolunteer'
+import BecomeVolunteer from '../BecomeVolunteer'
 import FadeInUp from '@/src/animations/FadeInUp'
 import PageBanner from '../common/PageBanner'
 import { bannerBg } from '@/public/assets'

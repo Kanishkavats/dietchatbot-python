@@ -21,7 +21,7 @@ interface props{
     hasfeedback?:boolean|null
 }
 const Community = ({hasfeedback}:props) => {
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const dispatch = useDispatch();
   const { amount, method } = useSelector((state: RootState) => state.donation);
     const presetAmounts = [20, 50, 100, 200];
@@ -68,13 +68,13 @@ const Community = ({hasfeedback}:props) => {
                     viewport={{ once: true, margin: "-100px" }}
                 >
 
-                    <p className="text-yellow font-medium flex items-center gap-2 font-caveat text-2xl">
+                    <p className={`text-yellow font-medium flex items-center gap-2 font-caveat ${i18n.language === 'hindi' ? 'text-sm' : 'text-base'}`} style={{fontSize: i18n.language === 'hindi' ? 'clamp(0.875rem, 2.5vw, 1.5rem)' : 'clamp(1rem, 2.5vw, 1.5rem)'}}>
                         <Icon icon="mdi:hand-heart" className=" cursor-pointer" />
                         {t("Start Donating Poor People")}
                     </p>
 
-                    <h1 className="text-2xl md:text-5xl font-extrabold text-white leading-tight mt-5 font-nunito max-w-xl lg:max-w-2xl">
-                        {t("Join The")} <span className="text-yellow">{t("Community")}</span>  {t("To Give Education For Children")}
+                    <h1 className={`font-extrabold text-white leading-tight mt-5 font-nunito max-w-xl lg:max-w-2xl ${i18n.language === 'hindi' ? 'text-base' : 'text-lg'}`} style={{fontSize: i18n.language === 'hindi' ? 'clamp(1rem, 4vw, 2.5rem)' : 'clamp(1.125rem, 4vw, 3rem)'}}>
+                        {t("Join The")} <span className="text-yellow">{t("community")}</span>  {t("To Give Education For Children")}
                     </h1>
 
                 </motion.div>
