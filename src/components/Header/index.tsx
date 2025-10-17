@@ -24,7 +24,7 @@ const Header = () => {
 
   return (
     <div className="sticky top-0 z-50 bg-background transition-all duration-300">
-      <div className="px-2">
+      <div className="px-10">
         <InfoBar />
         {!scrolled && (
           <div className="transition-opacity duration-300 md:px-8">

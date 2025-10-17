@@ -269,19 +269,12 @@ const MemberTable = () => {
       ):
     (
               <MemberForm
-<<<<<<< HEAD
-              key={`${editMember || 'new'}-${mode}`} 
-              initialData={
-                mode === "add" ? undefined : ( singleMemberData || singleMemberFallback  || undefined)
-              }
-=======
               key={`${editMember || 'new'}-${mode}`} // Force re-render when editMember or mode changes
               initialData={{
                 ...(singleMemberData||{}),
                 ...(previewData||{}),
                 // image:previewData?.image||singleMemberData?.image||'',
               }}
->>>>>>> d213a8b79097202a93365c96e0420b502c7620b6
               onClose={() => {
                 setDrawerOpen(false);
                 setEditMember(null);

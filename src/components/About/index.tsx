@@ -2,9 +2,9 @@ import React from 'react'
 import PageBanner from '../common/PageBanner'
 import HelpingEachOther from '../HelpingEachOther/HelpingEachOther'
 import ChildrenNeed from './ChildrenNeed'
-import VolunteerTeam from '../volunteer/VolunteerTeam'
+import VolunteerTeam from '../Volunteer/VolunteerTeam'
 import FAQSection from '../FAQ/FAQSection'
-import ValueableCustomer from '../volunteer/ValueableCustomer'
+import ValueableCustomer from '../Volunteer/ValueableCustomer'
 import SendMsg from './SendMsg'
 import ScrollImgSection from './ScrollImgSection'
 import { aboutus } from '@/public/assets'
@@ -18,7 +18,7 @@ const About = () => {
       <PageBanner bgImage={aboutus} title="About us" />
       <HelpingEachOther />
       <ChildrenNeed />
-      <VolunteerTeam />
+      <VolunteerTeam bg=''/>
       <FAQSection />
       <ValueableCustomer />
       <SendMsg />

@@ -9,14 +9,14 @@ const FAQSideImages = () => {
   const { primaryColor } = useSelector((state: RootState) => state.theme);
 
   return (
-    <div className="hidden lg:flex lg:w-1/2 mt-12 xl:mt-0 h-screen relative pl-4 items-center bg-green overflow-hidden">
+    <div className="hidden lg:flex lg:w-1/2  xl:mt-0 h-full  relative pl-4 items-center bg-green overflow-hidden">
       {/* Vertical Shape */}
       <div className="absolute top-0 left-0 w-10 h-full z-10">
         <Image src={verticalShape.src} fill alt="shape" />
       </div>
 
       {/* Man with Children */}
-      <FadeInUp className="w-full md:w-3/5 h-[80%] relative rounded-2xl border-10 border-white shadow-lg">
+      <FadeInUp className="w-full lg:w-3/4 h-[90%] right-[-160] xl:right-[-50] relative rounded-2xl border-10 border-white shadow-lg">
         <div className="relative w-full h-full">
           <Image
             src={askedquestion.src}
@@ -31,7 +31,7 @@ const FAQSideImages = () => {
       </FadeInUp>
 
       {/* Woman with Child */}
-      <SlideInRight className="w-2/4 mt-6 h-68 absolute right-2 top-[30%] xl:top-[30%] rounded-lg overflow-hidden shadow-lg border-4 border-white -translate-y-16 z-10">
+      <SlideInRight className="w-2/4 mt-6 h-68 absolute hidden xl:flex right-2 top-[30%] xl:top-[30%] rounded-lg overflow-hidden shadow-lg border-4 border-white -translate-y-16 z-10">
         <Image
           src={askedquestion1.src}
           alt="Mother with child"
