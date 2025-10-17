@@ -8,6 +8,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import Button from "../common/Buttons/Button";
 import { FaUser, FaRegEnvelope, FaRegComments } from "react-icons/fa";
 import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
 
 interface LeaveCommentProps {
   blogId: string;
@@ -15,6 +16,7 @@ interface LeaveCommentProps {
 
 export default function LeaveComment({ blogId }: LeaveCommentProps) {
   if (!blogId) return null; 
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
 
   const [name, setName] = useState("");
@@ -27,12 +29,12 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
     e.preventDefault();
 
     if (!name || !email || !comment) {
-      alert("Please fill out all fields");
+      alert(t("Please fill out all fields"));
       return;
     }
 
     if (!blogId) {
-      alert("Blog ID is missing");
+      alert(t("Blog ID is missing"));
       return;
     }
 
@@ -41,7 +43,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
   {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
-      toast.success("Comment submitted successfully");
+      toast.success(t("Comment submitted successfully"));
       setName("");
       setEmail("");
       setComment("");
@@ -53,7 +55,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
   return (
     <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg shadow-lg border border-gray-100 max-w-4xl mx-auto lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
       <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
-        Leave A Comment
+        {t("Leave A Comment")}
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -62,7 +64,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             <FaUser className="text-[#6B7280]" size={18} />
             <input
               type="text"
-              placeholder="Your Name"
+              placeholder={t("Your Name")}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="w-full bg-transparent focus:outline-none ml-2"
@@ -73,7 +75,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
             <FaRegEnvelope className="text-xl mt-1 text-[#6B7280]" />
             <input
               type="email"
-              placeholder="Enter Email"
+              placeholder={t("Enter Email")}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="w-full bg-transparent focus:outline-none ml-2"
@@ -84,7 +86,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
         <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[820px] lg:h-[184px]">
           <FaRegComments className="text-[#6B7280]" size={18} />
           <textarea
-            placeholder="Type Your Comments..."
+            placeholder={t("Type Your Comments...")}
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             className="w-full bg-transparent focus:outline-none resize-none ml-2"
@@ -95,7 +97,7 @@ export default function LeaveComment({ blogId }: LeaveCommentProps) {
         <div className="flex justify-start mt-8">
           <div className="w-fit">
           <Button
-            text={mutation.isPending ? "Submitting..." : "Submit Comment"}
+            text={mutation.isPending ? t("Submitting...") : t("Submit Comment")}
             bgColor="bg-[#122F2A]"
             textColor="text-white"
             rounded="rounded-full"

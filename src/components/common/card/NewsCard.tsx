@@ -5,6 +5,7 @@ import { Icon } from "@iconify/react";
 import { FaCircleArrowRight } from "react-icons/fa6";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useTranslation } from 'react-i18next';
 
 interface Props {
   id:string;
@@ -37,6 +38,7 @@ const heartVariants = {
 const NewsCard = ({ card }: cardProps) => {
   const heartControls = useAnimation();
   const router=useRouter();
+  const { t } = useTranslation();
   return(
   <motion.div
     className="bg-white cursor-pointer hover:bg-green rounded-2xl h-full shadow-xl text-black hover:text-white overflow-hidden group relative transition-colors duration-500 p-5 flex flex-col"
@@ -79,7 +81,7 @@ const NewsCard = ({ card }: cardProps) => {
             width={17}
             className="text-yellow"
           />
-          <span className=" ">comments ({card?.commentCount})</span>
+          <span className=" ">{t("comments")} ({card?.commentCount})</span>
           
         </span>
       </div>
@@ -94,7 +96,7 @@ const NewsCard = ({ card }: cardProps) => {
         href={`/news-details/${card?.id}`}
         className="text-sm md:text-sm xl:text-lg font-semibold underline text-gray-900 group-hover:text-white flex items-center gap-2"
       >
-        Read More
+        {t("Read More")}
         <FaCircleArrowRight className="text-lg text-green group-hover:text-yellow" />
       </Link>
 

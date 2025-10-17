@@ -1,13 +1,16 @@
 "use client";
 
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { useTranslation } from "react-i18next";
 
 const RecentCauses = ({ causes }: { causes: any[] }) => {
+  const { t } = useTranslation();
+  
   if (!causes || causes.length === 0) return null;
 
   return (
     <div className="bg-[#ffffff] p-6 rounded-lg shadow-md">
-      <h3 className="lg:text-[20px] text-[20px] xl:text-[24px] font-bold font-nunito text-[#000000] mb-6">Recent Causes</h3>
+      <h3 className="lg:text-[20px] text-[20px] xl:text-[24px] font-bold font-nunito text-[#000000] mb-6">{t("Recent Causes")}</h3>
       <ul className="space-y-6">
         {causes.map((cause) => (
           <li key={cause.id} className="flex items-start space-x-3">

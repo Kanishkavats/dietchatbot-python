@@ -6,7 +6,7 @@ import { useFetchAllBlogs } from "@/src/hooks/useBlog";
 import CustomPagination from "../common/CustomPaginatioin";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import CustomLoader from "../common/Loader/CustomLoader";
-const PageLimit=8;
+const PageLimit=4;
 const LatestNews = () => {
   const [currentPage,setCurrentPage]=useState(1);
     const { data, isLoading, isError } = useFetchAllBlogs(currentPage, PageLimit);

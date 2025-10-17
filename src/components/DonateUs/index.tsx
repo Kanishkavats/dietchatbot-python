@@ -12,6 +12,7 @@ import DonationSection from "./DonationSection";
 import { useFetchAllCampaigns, useFetchSingleCampaign } from "@/src/hooks/useCampaigns";
 import Sidebar from "../common/sideBar";
 import { useRouter } from "next/navigation";
+import { useTranslation } from "react-i18next";
 const page=1;
 interface  donateUsProps{
   id?:string;
@@ -19,6 +20,7 @@ interface  donateUsProps{
 const DonateUs = ({id}:donateUsProps) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   const router=useRouter();
+  const { t } = useTranslation();
   const {
     data: allCampaigns,
     isLoading: allCampaignsLoading,
@@ -41,8 +43,8 @@ const DonateUs = ({id}:donateUsProps) => {
     <section>
       <PageBanner
         bgImage={donateusbanner}
-        tagline="Start Donating Poor People"
-        title="Donate Us"
+        tagline={t("Start Donating Poor People")}
+        title={t("Donate Us")}
         smallIcon="mdi:hand-heart"
         decoIcon="mdi:ribbon"
         decoPosition="absolute bottom-10 left-10"
@@ -73,9 +75,9 @@ const DonateUs = ({id}:donateUsProps) => {
                <DonationCard
                 icon={heartLogoIcon.src}
                 backgroundImage={overView.src}
-                subtitle="Small Donations Bigger Impact"
-                title="Education Health For Every Child"
-                buttonText="Get A Quote"
+                subtitle={t("Small Donations Bigger Impact")}
+                title={t("Education Health For Every Child")}
+                buttonText={t("Get A Quote")}
                 onCardClick={()=>{''}}
                 onButtonClick={() => router.push("/contact")}
               />
