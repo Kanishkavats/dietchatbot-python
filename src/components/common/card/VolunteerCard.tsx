@@ -32,6 +32,10 @@ export const VolunteerCard: React.FC<VolunteerCardProps> = ({ member, idx }) => 
   const nameColor = isHovered ? "text-white" : "text-black";
   const roleColor = isHovered ? "text-yellow-400" : "text-black";
 
+
+  console.log("checking member", member);
+  
+
   return (
     <motion.div
       ref={ref}

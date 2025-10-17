@@ -19,9 +19,7 @@ import toast from "react-hot-toast";
 import ButtonLoader from "../common/Loader/ButtonLoader";
 
 const Newsletter = () => {
-  const { t } = useTranslation();
-  const bgBase = `relative inline-flex items-center gap-2 before:content-[''] before:absolute before:inset-0 before:bg-quaternary-green before:scale-x-0 before:origin-center before:transition-transform before:duration-300`;
-  const bgOnHover = `${bgBase} cursor-pointer hover:text-white hover:before:scale-x-100`;
+  const { t, i18n } = useTranslation();
 
   const mutation = useMutation({
     mutationFn: (email: string) => NewsletterEmailForm(email),
@@ -46,14 +44,14 @@ const Newsletter = () => {
 
   return (
     <section className="text-white font-nunito py-16 xl:py-20">
-      <div className="container w-full max-w-screen-2xl mx-auto pb-20 flex flex-col lg:flex-row lg:items-center justify-start gap-8 px-4 sm:px-3 md:px-8 2xl:px-0 border-b-[1px] border-white/10">
+      <div className="container w-full max-w-screen-2xl mx-auto pb-20 flex flex-col lg:flex-row lg:items-center justify-start gap-8 px-0 sm:px-3 md:px-8 2xl:px-0 border-b-[1px] border-white/10 ">
         {/* Text Section */}
         <SlideinFromLeft>
           <div>
             <h2 className="text-[30px] sm:text-[24px] md:text-[30px] xl:text-[40px]  2xl:text-[40px] flex font-nunito font-extrabold sm:my-[-8px] ">
               {t("Subscribe To Our Newsletter")}
             </h2>
-            <p className="text-[18px] sm:text-[18px] xl:text-[18px] md:text-[18px] 2xl:text-[18px] mt-2 xl:leading-8 2xl:mt-8px">
+            <p className="text-[18px] opacity-70 sm:text-[18px] xl:text-[18px] md:text-[18px] 2xl:text-[18px] mt-2 xl:leading-8 2xl:mt-8px">
               {t("Regular Inspections And Feedback Mechanisms")}
             </p>
           </div>

@@ -36,7 +36,7 @@ const Footer = () => {
   return (
     <footer
       ref={ref}
-      className="bg-dark-green text-white py-10 sm:py-14 px-4 sm:px-6 md:px-8 xl:px-28 relative"
+      className="bg-dark-green text-white py-15 sm:py-14 px-4 sm:px-6 md:px-8 xl:px-28 relative"
     >
       <Newsletter />
 
@@ -63,7 +63,7 @@ const Footer = () => {
         {/* Brand Section */}
         <motion.div variants={item}>
           
-          <div className="h-12 w-52 md:h-12 md:w-56 lg:h-14 lg:w-64 xl:h-16 xl:w-72 relative -ml-15 md:-ml-22">
+          <div className="h-18 w-62 md:h-12 md:w-56 lg:h-14  lg:w-64 xl:h-16 xl:w-72 relative -ml-15 md:-ml-22">
             <Image
                src={logo}
                fill

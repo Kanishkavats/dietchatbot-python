@@ -79,7 +79,7 @@ const BecomeVolunteer: React.FC = () => {
               animate={leftPanelInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 1, ease: "easeOut", delay: 0.4 }}
             >
-              {t("Become A Volunteer?")}
+              {t("Become A Volunteer")}?
             </motion.h3>
 
             <motion.div

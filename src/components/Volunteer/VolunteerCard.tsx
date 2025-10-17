@@ -1,11 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { FiPlus } from "react-icons/fi";
-import { motion } from "framer-motion";
-import { FaBehance, FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa";
+import React from "react";
 import { VolunteerCard } from "../common/card/VolunteerCard";
 import { VolunteerGridProps } from "@/src/types/members";
 

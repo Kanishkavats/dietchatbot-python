@@ -13,6 +13,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import CustomLoader from "../common/Loader/CustomLoader";
 
 const truncateText = (text: string, maxLength: number) => {
   if (!text) return "";
@@ -22,15 +23,15 @@ interface props{
   setHasFeedback?:React.Dispatch<React.SetStateAction<boolean | null>>
 }
 const ValueableCustomer = ({setHasFeedback}:props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
   const { data: feedbacks = [], isLoading } = useQuery({
     queryKey: ["feedback"],
     queryFn: fetchFeedback,
   });
 
-  if (isLoading) return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
+  if (isLoading) return <CustomLoader />;
 
-  // 🔴 Hide component if no feedbacks or any required field missing
   const isInvalidData =
     !feedbacks ||
     feedbacks.length === 0 ||
@@ -48,7 +49,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
   }
 
   if (isLoading)
-    return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
+    return <p className="text-center text-lg"><CustomLoader /></p>;
 
   return (
     <section
