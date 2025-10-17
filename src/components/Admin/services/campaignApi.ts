@@ -1,6 +1,6 @@
 
 import { CampaignFormValues } from "../../../utils/validations/FormValidation";
-import api from "../../../services/api";
+import api from "./api";
 
 // ✅ Create a campaign
 export const createCampaign = async (campaign: CampaignFormValues) => {

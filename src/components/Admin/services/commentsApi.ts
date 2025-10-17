@@ -1,7 +1,7 @@
 
 // src/services/commentApi.ts
 import { RepliesResponse } from "../../../types/comments";
-import api from "../../../services/api";
+import api from "./api";
 
 // ✅ Fetch all comments
 export const fetchComments = async (page: number, limit: number, status: string | null) => {

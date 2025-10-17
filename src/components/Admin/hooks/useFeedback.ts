@@ -17,11 +17,12 @@ import { useLanguageAwareQuery } from "../../../hooks/useLanguageAwareQuery";
 export const useFetchFeedbacks = (
   page: number,
   limit: number,
-  status: string | null = null
+  searchField: string,
+  search:string
 ) => {
   return useLanguageAwareQuery(
-    ["feedbacks", page, limit, status],
-    () => fetchFeedbacks(page, limit, status),
+    ["feedbacks", page, limit, searchField,search],
+    () => fetchFeedbacks(page, limit, searchField,search),
     {
       staleTime: 5 * 60 * 1000, // 5 minutes
     }

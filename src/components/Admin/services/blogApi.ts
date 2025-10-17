@@ -1,6 +1,6 @@
 // src/services/blogApi.ts
 import { BlogFormValues } from "../../../utils/validations/FormValidation";
-import api from "../../../services/api";
+import api from "./api";
 
 // ✅ Create a blog
 export const createBlog = async (blog: FormData) => {

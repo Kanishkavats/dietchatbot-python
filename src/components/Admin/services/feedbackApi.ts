@@ -1,10 +1,18 @@
-import api from "../../../services/api";
+import api from "./api";
 
 // Fetch all feedbacks
-export const fetchFeedbacks = async (page: number, limit: number, status: string | null) => {
-  const statusQuery = status && status !== "all" ? `&status=${status}` : "";
-  const { data } = await api.get(`/admin/feedback/getAllFeedback?page=${page}&limit=${limit}&${statusQuery}`);
-  
+export const fetchFeedbacks = async (page: number, limit: number, searchField: string | null,search?:string) => {
+  let query = `?page=${page}&limit=${limit}`;
+
+  if (searchField && search) {
+    if (searchField === "status" && search !== "All") {
+      query += `&status=${search}`;
+    } else if (searchField !== "status") {
+      query += `&${searchField}=${encodeURIComponent(search)}`;
+    }
+  }
+
+  const { data } = await api.get(`/admin/feedback/getAllFeedback${query}`);
   return data;
 };
 export const fetchApprovedFeedbacks = async (page: number, limit: number, status: string | null) => {
