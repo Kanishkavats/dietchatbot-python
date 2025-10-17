@@ -88,11 +88,19 @@ const DonationPage: React.FC = () => {
             <div className="text-center mb-16">
               <div className="flex items-center justify-center mb-6">
                 <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
-                <span className="text-[var(--green)] font-caveat text-2xl font-bold">
+                <span className={`text-[var(--green)] font-caveat font-bold ${
+                  t("Start Donating Poor People").length > 25 
+                    ? "text-lg sm:text-xl md:text-2xl" 
+                    : "text-2xl"
+                }`}>
                   {t("Start Donating Poor People")}
                 </span>
               </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold font-nunito leading-tight mb-8">
+              <h2 className={`font-extrabold font-nunito leading-tight mb-8 ${
+                t("Be The Reason Of Someone").length > 20 
+                  ? "text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl" 
+                  : "text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
+              }`}>
                 <span className="text-gray-800 font-bold">{t("Be The Reason Of Someone")} </span>
                 <br />
                 <span className="text-yellow-400 font-bold">{t("Smiles")} </span>
@@ -149,11 +157,19 @@ const DonationPage: React.FC = () => {
               <div className="text-left mb-8 md:mb-12">
                 <div className="flex items-center mb-4">
                   <i className="text-xl mr-2 text-[var(--green)] hand-icon"></i>
-                  <span className="text-[var(--green)] font-caveat text-base sm:text-lg md:text-xl lg:text-2xl font-bold w-full">
+                  <span className={`text-[var(--green)] font-caveat font-bold w-full ${
+                    t("Start Donating Poor People").length > 25 
+                      ? "text-sm sm:text-base md:text-lg lg:text-xl" 
+                      : "text-base sm:text-lg md:text-xl lg:text-2xl"
+                  }`}>
                     {t("Start Donating Poor People")}
                   </span>
                 </div>
-                <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold leading-tight w-full" style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'}}>
+                <h2 className={`font-extrabold leading-tight w-full ${
+                  t("Help &").length > 10 || t("Donate").length > 10 || t("Them when").length > 10 || t("They are In Need").length > 10
+                    ? "text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl" 
+                    : "text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
+                }`} style={{fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800'}}>
                   <div className="w-full">
                     <span className="text-gray-800">{t("Help &")} </span>
                     <span className="text-yellow-400">{t("Donate")} </span>
