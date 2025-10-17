@@ -19,7 +19,7 @@ const AdminTab = () => {
   const [activeTab, setActiveTab] = useState<string>("dashboard");
   const Tab: { [key: string]: JSX.Element } = {
     dashboard: <Dashboard />,
-    notifications: <Notifications />,
+    // notifications: <Notifications />,
     members: <Members />,
     settings: <Settings />,
     campaign: <Campaign />,

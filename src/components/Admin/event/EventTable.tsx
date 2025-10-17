@@ -91,8 +91,8 @@ const normalizeEventData = (data: any): EventFormValues=> {
     endTime: end,
     location: data.location ?? { en: "", hi: "" },
     images: Array.isArray(data.images) ? data.images.filter(Boolean) : [],
-    latitude: initialData?.latitude ?? null,
-  longitude: initialData?.longitude ?? null,
+    latitude: data?.latitude ?? null,
+  longitude: data?.longitude ?? null,
   };
 };
 

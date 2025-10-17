@@ -10,12 +10,12 @@ import CustomInput from "../Common/CustomInput";
 import { toast } from "react-hot-toast";
 import { CategoryFormProps } from "@/src/types/campaign";
 import { CategoryFormValues, categorySchema } from "@/src/utils/validations/FormValidation";
-import { createCategory, updateCategory } from "@/src/services/categoryApi";
 import CancelButton from "../../common/Buttons/CancelButton";
 import LanguageToggle from "../Common/LanguageToggle";
 import { useLanguageToggle } from "../hooks/useLanguageToggle";
 import { getInitialCategoryValues } from "../utils/categoryInitialValues";
 import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import { createCategory, updateCategory } from "../services/categoryApi";
 
 const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
   const isView = mode === "view";
