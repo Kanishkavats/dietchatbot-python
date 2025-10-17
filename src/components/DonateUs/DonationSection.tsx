@@ -4,6 +4,7 @@ import Image from "next/image";
 import { posterTwo } from "@/public/assets";
 import Donation from "./Donation";
 import CustomLoader from "../common/Loader/CustomLoader";
+import { useTranslation } from "react-i18next";
 
 interface props{
   data?:any
@@ -11,6 +12,7 @@ interface props{
   isError?:boolean;
 }
 const DonationSection = ({data,isError,isLoading}:props) => {
+  const { t } = useTranslation();
   
   if(isLoading){
    return <CustomLoader/>
@@ -31,10 +33,10 @@ const DonationSection = ({data,isError,isLoading}:props) => {
       className="relative top-[-52px] left-1/2 transform -translate-x-1/2 bg-white rounded-2xl w-[95%] md:w-[90%] px-4 xl:px-8 py-16 shadow z-20"
     >
       <h2 className="text-2xl md:text-4xl font-bold mb-6">
-        {data?.title||"Help Children Rise Out Of Poverty"}
+        {data?.title||t("Help Children Rise Out Of Poverty")}
       </h2>
       <p className="text-gray-green my-4">
-        {data?.description||"Lorem Ipsum Is Simply Dummy A Of The Printing And Type Setting Industry. Ipsum Has Been The Industry's Standard Dummy."}
+        {data?.description||t("Lorem Ipsum Is Simply Dummy A Of The Printing And Type Setting Industry. Ipsum Has Been The Industry's Standard Dummy.")}
       </p>
       <Donation />
     </motion.div>

@@ -1,6 +1,7 @@
  "use client";
 import { Formik, Form } from "formik";
 import { useMutation } from "@tanstack/react-query";
+import { useTranslation } from "react-i18next";
 
 
 
@@ -21,13 +22,14 @@ const initialValues: DetailsFormValues = {
     message: "",
 };
 const DetailsForm = () => {
+    const { t } = useTranslation();
     const mutation = useMutation({
         mutationFn: DetailsInformationForm,
         onSuccess: () => {
-            toast.success("Form submitted successfully!");
+            toast.success(t("Form submitted successfully!"));
         },
         onError: (error: any) => {
-            toast.error("Something went wrong. Try again.");
+            toast.error(t("Something went wrong. Try again."));
             console.error("Submission error:", error);
         },
     });
@@ -43,7 +45,7 @@ const DetailsForm = () => {
     };
     return (
         <div className="w-full mx-auto bg-white">
-            <h2 className="text-2xl font-bold mb-6">Details Information</h2>
+            <h2 className="text-2xl font-bold mb-6">{t("Details Information")}</h2>
             <Formik
                 initialValues={initialValues}
                 validationSchema={DetailsformSchema}
@@ -52,17 +54,17 @@ const DetailsForm = () => {
                 {({ isSubmitting }) => (
                     <Form className="space-y-6">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <InputField name="firstName" placeholder="First Name" icon="mdi:account" />
-                            <InputField name="lastName" placeholder="Last Name" icon="mdi:account" />
+                            <InputField name="firstName" placeholder={t("First Name")} icon="mdi:account" />
+                            <InputField name="lastName" placeholder={t("Last Name")} icon="mdi:account" />
                         </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <InputField name="email" placeholder="Your Email" icon="mdi:email" />
-                            <InputField name="phone" placeholder="Your Number" icon="mdi:phone" />
+                            <InputField name="email" placeholder={t("Your Email")} icon="mdi:email" />
+                            <InputField name="phone" placeholder={t("Your Number")} icon="mdi:phone" />
                         </div>
-                        <InputField name="address" placeholder="Your Address" icon="mdi:map-marker" />
+                        <InputField name="address" placeholder={t("Your Address")} icon="mdi:map-marker" />
                         <InputField
                             name="message"
-                            placeholder="Your message..."
+                            placeholder={t("Your message...")}
                             icon="mdi:email-outline"
                             as="textarea"
                         />
@@ -71,7 +73,7 @@ const DetailsForm = () => {
                             disabled={mutation.isPending}
                             hoverBg="before:bg-foreground"
                         >
-                            {isSubmitting || mutation.isPending ? <ButtonLoader /> : "Save Information"}
+                            {isSubmitting || mutation.isPending ? <ButtonLoader /> : t("Save Information")}
                         </Button>
                     </Form>
                 )}

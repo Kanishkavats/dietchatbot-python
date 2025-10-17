@@ -22,10 +22,12 @@ import { useFetchSingleBlog } from "../hooks/useBlog";
 import FadeUpCard from "../animations/FadeButtomUp";
 import { Comments, LeaveComment } from "./Charity_with_Difference";
 import CustomLoader from "./common/Loader/CustomLoader";
+import { useTranslation } from "react-i18next";
 interface props {
   id: string;
 }
 export default function Newsdetail({ id }: props) {
+  const { t } = useTranslation();
   const { data, isLoading, isError } = useFetchSingleBlog(id);
   if (isLoading) {
     return <div className=""><CustomLoader/></div>;
@@ -87,7 +89,7 @@ export default function Newsdetail({ id }: props) {
             </div>
           </div>
           <h2 className="text-xl md:text-3xl xl:text-4xl font-extrabold mt-6 md:mt-10  text-foreground mb-4 font-nunito">
-            Summary
+            {t("Summary")}
           </h2>
           <p className="text-gray-green mt-5 lg:mt-8 text-sm tracking-wide leading-6 md:leading-7 lg:text-lg lg:leading-10 xl:text-xl   mb-8 font-nunito">
             {data?.summary}
@@ -129,7 +131,7 @@ export default function Newsdetail({ id }: props) {
             {/* Tags */}
             <div className="flex items-center flex-wrap gap-2">
               <span className="font-medium text-lg lg:text-xl text-dark-green">
-                Tags:
+                {t("Tags")}
               </span>
 
               {data &&
@@ -146,7 +148,7 @@ export default function Newsdetail({ id }: props) {
             {/* Share */}
             <div className="flex items-center  gap-3">
               <span className="font-medium text-lg lg:text-xl text-dark-green">
-                Share:
+                {t("Share")}
               </span>
               <div className="flex space-x-2 gap-4">
                 <a
@@ -178,7 +180,7 @@ export default function Newsdetail({ id }: props) {
           </div>
         </FadeUpCard>
         
-        {/* Comments Section with proper spacing */}
+        {/* Comments Section with proper spacing - only show if there are comments */}
         <div className="mt-12 mb-8">
           <FadeUpCard delay={0.3}>
             <div className="w-full">
@@ -187,7 +189,7 @@ export default function Newsdetail({ id }: props) {
           </FadeUpCard>
         </div>
         
-        {/* Leave Comment Section with proper spacing */}
+        {/* Leave Comment Section with proper spacing - always visible */}
         <div className="mt-8 mb-12">
           <FadeUpCard delay={0.3}>
             <div className="w-full flex justify-center">
