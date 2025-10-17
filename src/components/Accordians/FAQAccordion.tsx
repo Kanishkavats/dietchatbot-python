@@ -22,7 +22,8 @@ const FAQAccordion = ({ item, isOpen, onClick }: FAQAccordionItemProps) => {
             : "bg-white text-[#122F2A] font-extrabold rounded-3xl"
         }`}
       >
-        <span className="font-semibold">{t(item.question)}</span>
+        
+        <span className="font-semibold font-nunito lg:text-[18px] 2xl:text-[20px]">{t(item.question)}</span>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.5, ease: "easeInOut" }}

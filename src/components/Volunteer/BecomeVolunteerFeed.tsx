@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import Notice from "../common/Notice";
 import { VolunteerFeatures, VolunteerNotice, VolunteerPage, VolunteerProgress } from "@/src/staticResource";
 
-const BecomeVolunteer = () => {
+const BecomeVolunteerFeed = () => {
 
   return (
     <section className="font-nunito">
@@ -63,4 +63,4 @@ const BecomeVolunteer = () => {
   );
 };
 
-export default BecomeVolunteer;
+export default BecomeVolunteerFeed;

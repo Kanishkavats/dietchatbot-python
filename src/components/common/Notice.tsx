@@ -1,5 +1,5 @@
 
-
+'use client'
 import React from "react";
 import { useTranslation } from "react-i18next";
 
@@ -42,10 +42,10 @@ const Notice: React.FC<NoticeProps> = ({
 
       {/* Text */}
       <p className={`text-[15px] text-gray-green ${messageClassName}`}>
-        <strong className={`font-semibold text---foreground ${titleClassName}`}>
+        <strong className={`font-semibold text-foreground ${titleClassName}`}>
           {displayTitle}:
         </strong>{" "}
-        {message}
+        {t(`${message}`)}
       </p>
     </div>
   );

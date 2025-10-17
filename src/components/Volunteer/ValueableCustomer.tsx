@@ -13,6 +13,7 @@ import { Navigation, Autoplay } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/navigation";
+import CustomLoader from "../common/Loader/CustomLoader";
 
 const truncateText = (text: string, maxLength: number) => {
   if (!text) return "";
@@ -22,15 +23,15 @@ interface props{
   setHasFeedback?:React.Dispatch<React.SetStateAction<boolean | null>>
 }
 const ValueableCustomer = ({setHasFeedback}:props) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
   const { data: feedbacks = [], isLoading } = useQuery({
     queryKey: ["feedback"],
     queryFn: fetchFeedback,
   });
 
-  if (isLoading) return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
+  if (isLoading) return <CustomLoader />;
 
-  // 🔴 Hide component if no feedbacks or any required field missing
   const isInvalidData =
     !feedbacks ||
     feedbacks.length === 0 ||
@@ -48,7 +49,7 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
   }
 
   if (isLoading)
-    return <p className="text-center text-lg">{t("Loading feedback...")}</p>;
+    return <p className="text-center text-lg"><CustomLoader /></p>;
 
   return (
     <section
@@ -63,13 +64,13 @@ const ValueableCustomer = ({setHasFeedback}:props) => {
       <div className="mt-[100px] sm:mt-[130px] md:mt-[120px] min-[770px]:mt-[150px] min-[800px]:mt-[160px] min-[900px]:mt-[140px] lg:mt-[140px] xl:mt-[170px]">
         <div>
           {/* Heading */}
-          <div className="flex items-center gap-1 justify-center md:mt-[20px] relative z-20 mb-4">
+          <div className="flex items-center gap-1 justify-center md:mt-[20px] relative z-20 mb-0 sm:mb-4">
             <i className="text-2xl hand-icon sm:mt-[25px] text-[#00715D]" />
             <span className="text-[#00715D] sm:mt-[30px] xl:text-[24px] lg:text-[24px] text-[20px] font-caveat font-semibold leading-[34px] relative z-20 min-[770px]:text-[22px] min-[800px]:text-[24px]">
               {t("Start Donating Poor People")}
             </span>
           </div>
-          <div className="mt-[15px] sm:mt-[10px] md:mt-[5px] min-[770px]:mt-[-10px] min-[800px]:mt-[-15px] min-[900px]:mt-[-20px] min-[1000px]:mt-[-25px] min-[1100px]:mt-[-30px] min-[1200px]:mt-[-35px] lg:mt-[-40px] xl:mt-[-50px] px-4 sm:px-6 md:px-8 lg:px-[12px] py-8 sm:py-12 md:py-16 text-center md:mt-[-10px]">
+          <div className="mt-0 sm:mt-[10px] md:mt-[5px] min-[770px]:mt-[-10px] min-[800px]:mt-[-15px] min-[900px]:mt-[-20px] min-[1000px]:mt-[-25px] min-[1100px]:mt-[-30px] min-[1200px]:mt-[-35px] lg:mt-[-40px] xl:mt-[-50px] px-4 sm:px-6 md:px-8 lg:px-[12px] py-8 sm:py-12 md:py-16 text-center md:mt-[-10px]">
             <h2 className="text-[22px] sm:text-[28px] md:text-[35px] min-[770px]:text-[38px] min-[800px]:text-[40px] min-[900px]:text-[42px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-6 sm:leading-8 md:leading-9 min-[770px]:leading-10 min-[800px]:leading-10 min-[900px]:leading-10 lg:leading-10 xl:leading-12">
               {t("Our")}{" "}
               <span className="text-yellow font-nunito">

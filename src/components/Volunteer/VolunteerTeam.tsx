@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import Button from "../common/Buttons/Button";
 import Image from "next/image";
 import { bgOneVolunteer, greenspade } from "../../../public/assets";
-import { useTranslation } from "react-i18next";
+import { Trans, useTranslation } from "react-i18next";
 import { useFetchAllMembers } from "@/src/hooks/useMembers";
 import { VolunteerCard } from "../common/card/VolunteerCard";
 import { TeamMember } from "@/src/types/members";
@@ -26,7 +26,6 @@ const VolunteerTeam = ({bg=''}:props) => {
     }
   })
 
-  // Show only 4 members initially
   const itemsPerPage = 4;
 
   // Fetch members from API
@@ -34,7 +33,6 @@ const VolunteerTeam = ({bg=''}:props) => {
     1,
     itemsPerPage
   );
-  console.log(data);
 
   // Safely extract members
   const members = data?.members || [];
@@ -44,23 +42,7 @@ const VolunteerTeam = ({bg=''}:props) => {
     return null;
   }
 
-  // ✅ Console log for checking each member's social accounts
-  members.forEach((member: TeamMember) => {
-    console.log(` Member: ${member.name}`);
-    const hasSocialAccounts = !!(
-      member.facebookUrl ||
-      member.twitterUrl ||
-      member.instagramUrl ||
-      member.linkedInUrl 
-    );
-    console.log("Has any social account?", hasSocialAccounts);
-    if (hasSocialAccounts) {
-      if (member.facebookUrl) console.log("  Facebook:", member.facebookUrl);
-      if (member.twitterUrl) console.log("  Twitter:", member.twitterUrl);
-      if (member.instagramUrl) console.log("  Instagram:", member.instagramUrl);
-      if (member.linkedInUrl) console.log("  LinkedIn:", member.linkedInUrl);
-    }
-  });
+
 
   const handleViewAll = () => {
     router.push('/team');

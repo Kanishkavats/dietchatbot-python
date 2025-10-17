@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import PageBanner from "@/src/components/common/PageBanner";
-import VolunteerProfile from "@/src/components/Volunteer/VolunteerProfile";
+import VolunteerProfile from "@/src/components/volunteer/VolunteerProfile";
 
 const Page = () => {
   const { id } = useParams();

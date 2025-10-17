@@ -143,7 +143,7 @@ const Ourteams = () => {
   const totalPages: number = memberData?.totalPages || 1;
 
   return (
-    <section className="relative bg-cover py-16 bg-center w-full bg-[url('/assets/bg-one-volunteer.png')]">
+    <section className="relative bg-cover py-16 bg-center w-full bg-[url('/assets/bg-one-volunteer.png')] ">
       <div className="min-h-[80vh] flex flex-col items-center justify-center px-4 text-center">
         <div className="flex items-center text-green justify-center gap-2 mb-3">
           <i className="text-xl lg:text-2xl hand-icon"></i>
@@ -151,7 +151,7 @@ const Ourteams = () => {
             {t("Start Donating Poor People")}
           </span>
         </div>
-        <h2 className="text-[23px] md:text-4xl lg:text-5xl font-bold mb-8">
+        <h2 className="text-[23px] md:text-4xl lg:text-5xl font-bold mb-8 ">
           <Trans i18nKey={t('Meet Our Volunteer Team Members')} components={{1:<span className="text-yellow"></span>}} />
         </h2>
 
