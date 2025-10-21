@@ -1,10 +1,10 @@
 // src/hooks/useBlogs.ts
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 
-import { BlogFormProps } from "@/src/types/blog";
 import toast from "react-hot-toast";
 import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import { deleteSingleBlog, fetchAllBlogs, fetchBlogById } from "@/src/services/admin/blogApi";
+import { BlogFormProps } from "@/src/types/admin/blog";
 
 // ✅ Convert values to FormData
 const buildFormData = (values: BlogFormValues) => {
@@ -65,9 +65,6 @@ const handleCreateBlog = (
   toast.dismiss();
   toast.loading("Creating blog...");
   const formData = buildFormData(values);
-
-  console.log("formted", formData)
-
   createMutation.mutate(formData, {
     onSuccess: () => {
       toast.dismiss();
@@ -134,10 +131,10 @@ export const submitBlogForm = (
 };
 
 // ✅ Fetch blogs with pagination
-export const useFetchAllBlogs = (page: number, limit: number = 10,search?:string) => {
+export const useFetchAllBlogs = (page: number, limit: number = 10, search?: string, searchField?: string) => {
   return useQuery({
-    queryKey: ["blogs", page, limit,search],
-    queryFn: () => fetchAllBlogs(page, limit,search),
+    queryKey: ["blogs", page, limit, search, searchField],
+    queryFn: () => fetchAllBlogs(page, limit, search, searchField),
     placeholderData: keepPreviousData,
   });
 };

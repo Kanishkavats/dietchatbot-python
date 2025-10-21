@@ -1,5 +1,5 @@
 
-import { CampaignFormValues } from "../../../utils/validations/FormValidation";
+import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
 import api from "./api";
 
 // ✅ Create a campaign
@@ -8,10 +8,16 @@ export const createCampaign = async (campaign: CampaignFormValues) => {
   return data;
 };
 
-// ✅ Get all campaigns
 // Get all campaigns with pagination
-export const fetchAllCampaigns = async (page: number = 1, limit: number = 2,search?:string) => {
-  const { data } = await api.get(`/admin/campaign/getAllCampaigns?page=${page}&limit=${limit}&search=${search}`);
+export const fetchAllCampaigns = async (
+  page: number = 1,
+  limit: number = 2,
+  search?: string
+) => {
+  const searchQuery = search ? `&search=${encodeURIComponent(search)}` : "";
+  const { data } = await api.get(
+    `/admin/campaign/getAllCampaigns?page=${page}&limit=${limit}${searchQuery}`
+  );
   return data;
 };
 

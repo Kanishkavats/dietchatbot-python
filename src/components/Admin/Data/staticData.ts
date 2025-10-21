@@ -1,5 +1,5 @@
 import { DropdownOption } from "@/src/types/admin";
-import { BannerSearchField } from "@/src/types/admin/banner";
+import { BannerSearchField } from "@/src/types/web/banner";
 
 
 export const CampaignSearchOptions = [
@@ -44,3 +44,4 @@ export const memberSearchOptions = [
   { label: "Position", value: "position" },
   { label: "Title", value: "title" },
 ] as const;
+

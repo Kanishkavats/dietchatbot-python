@@ -115,6 +115,11 @@ body {
   background-color: var(--color-white);
 }
 
+.recharts-sector:focus {
+  outline: none !important;
+}
+
+
 /* Custom cursor styles */
 .custom-cursor {
   z-index: 100;
