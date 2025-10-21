@@ -2,30 +2,25 @@
 
 import { Formik, Form } from "formik";
 import React, { useState, useEffect } from "react";
-import { IoMdClose } from "react-icons/io";
-import { useFetchCategory } from "@/src/components/Admin/hooks/useCategory";
+import { useFetchCategory } from "@/src/hooks/admin/useCategory";
 import { CampaignFormValues, campaignSchema } from "@/src/utils/validations/FormValidation";
-import { CampaignFormProps } from "@/src/types/campaign";
-
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CustomInput from "../../Admin/Common/CustomInput";
-import CustomFileInput from "../../Admin/Common/CustomFileInput";
-import Dropdown from "../Common/Dropdown";
-import CancelButton from "../../common/Buttons/CancelButton";
-import { Category } from "@/src/types/category";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import LanguageToggle from "../Common/LanguageToggle";
+import CustomInput from "../../UI/admin/CustomInput";
+import CustomFileInput from "../../UI/admin/CustomFileInput";
+import Dropdown from "../../UI/admin/Dropdown";
+import { Category } from "@/src/types/web/category";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
 import { getInitialCanpaignValues } from "../utils/campaignIntialValues";
-import MultiInputList from "../Common/MultiInputList";
-import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import MultiInputList from "../../UI/admin/MultiInputList";
+import { hasErrorsForLang } from "../../UI/admin/hasErrorsForLang";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Button from "../../UI/web/Buttons/Button";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import { CampaignFormProps } from "@/src/types/admin/campaign";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
 
   const initialValues= getInitialCanpaignValues(initialData)
-  console.log(initialValues)
-
-  const [keyPointInput, setKeyPointInput] = useState("");
   const { language, toggleLanguage } = useLanguageToggle();
   const { data: categoryData } = useFetchCategory();
   console.log(categoryData)

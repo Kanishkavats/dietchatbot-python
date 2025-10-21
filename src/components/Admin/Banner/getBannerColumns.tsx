@@ -1,13 +1,10 @@
 import React from "react";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import TableRowActions from "../Campaign/CampaignActions";
-import { Banner } from "@/src/types/banner";
+import { Banner } from "@/src/types/admin/banner";
+import { BannerColumnCallbacks } from "@/src/types/admin";
 
-interface BannerColumnCallbacks {
-  onEdit: (banner: Banner) => void;
-  onDelete: (banner: Banner) => void;
-  onView: (banner: Banner) => void;
-}
+
 
 export const getBannerColumns = ({
   onEdit,

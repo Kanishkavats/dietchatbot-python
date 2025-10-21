@@ -1,23 +1,15 @@
 "use client";
 
 import React, { useEffect, useState, useMemo, JSX } from "react";
-import { MemberFormValues } from "@/src/utils/validations/FormValidation";
 import { motion } from "framer-motion";
 import { LucideCircleCheckBig } from "lucide-react";
-import Button from "../../common/Buttons/Button";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import LanguageToggle from "../Common/LanguageToggle";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
 import { useTranslation } from "react-i18next";
-
-interface MemberPreviewProps {
-  data: MemberFormValues & { createdAt?: string };
-  onSubmit: () => void;
-  onBack: () => void;
-  mode?: "add" | "edit" | "view"|"preview-edit";
-  showButton?:boolean;
-}
+import Button from "../../UI/web/Buttons/Button";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
+import { MemberPreviewProps } from "@/src/types/admin";
 
 const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberPreviewProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -40,13 +32,6 @@ const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberP
     if (field && typeof field === "object" && lang in field) return field[lang] ?? [];
     return [];
   };
-
-  // const nameText = getLangText(name);
-  // const positionText = getLangText(position);
-  // const titleText = getLangText(title);
-  // const descriptionText = getLangText(description);
-  // const aboutText = getLangText(about);
-  // const keyPointsList = getLangArray(keyPoints);
 
   const socialIconClass =
     "text-white bg-blue-50 hover:bg-yellow rounded-full p-2 size-10 hover:scale-110 transition";

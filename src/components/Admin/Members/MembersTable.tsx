@@ -1,31 +1,30 @@
 "use client";
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import Breadcrumb from "../Breadcrumb";
-import DataTableWrapper from "../Common/DataTableWrapper";
-import CustomInput from "../Common/CustomInput";
-import Dropdown from "../Common/Dropdown";
-import Button from "../../common/Buttons/Button";
-import Drawer from "../Common/Drawer";
-
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
+import CustomInput from "../../UI/admin/CustomInput";
+import Dropdown from "../../UI/admin/Dropdown";
+import Drawer from "../../UI/admin/Drawer";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { MemberFormValues } from "@/src/utils/validations/FormValidation";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import MemberForm from "./MemberForm";
-import { Member } from "@/src/types/members";
+import { Member } from "@/src/types/web/members";
 import { getMemberColumns } from "./getMemberColumns";
 import {
   submitMemberForm,
   useDeleteSingleMember,
   useFetchAllMembers,
   useFetchSingleMember,
-} from "@/src/components/Admin/hooks/useMembers";
-import { createMember, updateMember } from "../services/memberApi";
+} from "@/src/hooks/admin/useMembers";
+import { createMember, updateMember } from "@/src/services/admin/memberApi";
 import { memberSearchOptions } from "../Data/staticData";
 import MemberPreview from "./MemberPreview";
-import CustomLoader from "../../common/Loader/CustomLoader";
-import AdminCustomPagination from "../Common/CustomePagination";
-import ConfirmModal from "../Common/ConfirmModal";
-import useDebounce from "@/src/hooks/useDebounce";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
+import useDebounce from "@/src/hooks/web/useDebounce";
+import Button from "../../UI/web/Buttons/Button";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");

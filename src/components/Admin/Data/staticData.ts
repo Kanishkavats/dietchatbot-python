@@ -1,5 +1,5 @@
-import { DropdownOption } from "@/src/types/adminCommon";
-import { BannerSearchField } from "@/src/types/banner";
+import { DropdownOption } from "@/src/types/admin";
+import { BannerSearchField } from "@/src/types/admin/banner";
 
 
 export const CampaignSearchOptions = [

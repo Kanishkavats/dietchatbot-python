@@ -1,10 +1,9 @@
 import { createSlice,PayloadAction } from "@reduxjs/toolkit";
 
-interface DonationState{
+const initialState:{
     amount:string;
     method:string;
-}
-const initialState:DonationState={
+}={
     amount:'50',
     method:"test",
 }

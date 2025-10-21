@@ -1,20 +1,12 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import { FaCalendarAlt } from "react-icons/fa";
 import { motion } from "framer-motion";
 import { MdLocationPin } from "react-icons/md";
 import { LucideCircleCheckBig } from "lucide-react";
-import Button from "../../common/Buttons/Button";
-
-interface BlogPreviewProps {
-  data: BlogFormValues & { createdAt?: string };
-  onSubmit: () => void;
-  onBack: () => void;
-  mode: string;
-  showButton?:boolean
-}
+import Button from "../../UI/web/Buttons/Button";
+import { BlogPreviewProps } from "@/src/types/admin";
 
 const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);

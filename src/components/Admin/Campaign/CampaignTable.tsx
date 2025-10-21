@@ -5,34 +5,33 @@
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import CampaignForm from "./CampaignForm";
 import {  CampaignSearchOptions } from "../Data/staticData";
-import DataTableWrapper from "../Common/DataTableWrapper";
-import CustomInput from "../Common/CustomInput";
-import Dropdown from "../Common/Dropdown";
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
+import CustomInput from "../../UI/admin/CustomInput";
+import Dropdown from "../../UI/admin/Dropdown";
 import { getCampaignColumns } from "./campaignColumns";
-import Button from "../../common/Buttons/Button";
-import Drawer from "../Common/Drawer";
+import Drawer from "../../UI/admin/Drawer";
 import {
   useDeleteSignleCampaign,
   useFetchAllCampaigns,
   useFetchSingleCampaign,
   submitCampaignForm
-} from '@/src/components/Admin/hooks/useCampaigns'
+} from '@/src/hooks/admin/useCampaigns'
 import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCampaign, updateCampaign } from "@/src/components/Admin/services/campaignApi";
+import { createCampaign, updateCampaign } from "@/src/services/admin/campaignApi";
 import CampaignPreview from "./CampaignPreview";
-import { Campaign } from "@/src/types/campaign";
-import AdminCustomPagination from "../Common/CustomePagination";
-import CustomLoader from "../../common/Loader/CustomLoader";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import { Campaign, statusValue } from "@/src/types/admin/campaign";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
+import { useLanguageToggle } from "@/src/hooks/web/useLanguageToggle";
 import toast from "react-hot-toast";
-import ConfirmModal from "../Common/ConfirmModal";
-import useDebounce from "@/src/hooks/useDebounce";
-import { useFetchCategory } from "../hooks/useCategory";
-import { Category } from "../types/category";
-import { statusValue } from "../types/campaign";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
+import useDebounce from "@/src/hooks/web/useDebounce";
+import { useFetchCategory } from "@/src/hooks/admin/useCategory";
+import Button from "../../UI/web/Buttons/Button";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
+import { Category } from "@/src/types/admin/category";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");

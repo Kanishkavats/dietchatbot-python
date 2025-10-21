@@ -12,14 +12,14 @@ import Comments from "../comments";
 import Banner from "../Banner";
 import Queries from "../Queries";
 import Feedback from "../Feedback";
-import Event from "../event";
+import Event from "../Event";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
   const [activeTab, setActiveTab] = useState<string>("dashboard");
   const Tab: { [key: string]: JSX.Element } = {
     dashboard: <Dashboard />,
-    notifications: <Notifications />,
+    // notifications: <Notifications />,
     members: <Members />,
     settings: <Settings />,
     campaign: <Campaign />,

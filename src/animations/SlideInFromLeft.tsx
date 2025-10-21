@@ -1,10 +1,7 @@
 import { motion } from "framer-motion";
 import { ReactNode } from "react";
-interface slideinFromLeftProps {
-  className?: string;
-  children: ReactNode;
-  delay?: number;
-}
+import { slideinFromLeftProps } from "../types";
+
 const SlideinFromLeft = ({
   children,
   className = "",

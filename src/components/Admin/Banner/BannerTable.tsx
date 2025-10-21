@@ -1,31 +1,26 @@
 "use client";
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import DataTableWrapper from "../Common/DataTableWrapper";
-import CustomInput from "../Common/CustomInput";
-import Dropdown from "../Common/Dropdown";
-import Button from "../../common/Buttons/Button";
-import Drawer from "../Common/Drawer";
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
+import CustomInput from "../../UI/admin/CustomInput";
+import Dropdown from "../../UI/admin/Dropdown";
+import Drawer from "../../UI/admin/Drawer";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import BannerForm from "./BannerForm";
 import { getBannerColumns } from "./getBannerColumns";
-import { Banner, BannerSearchField } from "@/src/types/banner";
+import { Banner, BannerSearchField } from "@/src/types/admin/banner";
 import { BannerFormValues } from "@/src/utils/validations/FormValidation";
-import {
-  submitBannerForm,
-  useDeleteBanner,
-  useFetchAllBanners,
-  useFetchSingleBanner,
-} from "@/src/components/Admin/hooks/useBanner";
-import { createBanner, updateBanner } from "@/src/components/Admin/services/bannerApi";
+import { submitBannerForm, useDeleteBanner, useFetchAllBanners, useFetchSingleBanner, } from "@/src/hooks/admin/useBanner";
 import { BannerSearchOptions } from "../Data/staticData";
-import CustomLoader from "../../common/Loader/CustomLoader";
 import BannerPreview from "./BannerPreview";
-import AdminCustomPagination from "../Common/CustomePagination";
-import ConfirmModal from "../Common/ConfirmModal";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
-import useDebounce from "@/src/hooks/useDebounce";
+import useDebounce from "@/src/hooks/web/useDebounce";
+import Button from "../../UI/web/Buttons/Button";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
+import { createBanner, updateBanner } from "@/src/services/admin/bannerApi";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");

@@ -1,0 +1,111 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+
+"use client";
+
+import { useState } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { FaUser, FaRegEnvelope, FaRegComments } from "react-icons/fa";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import Button from "../../UI/web/Buttons/Button";
+import { useCreateComment } from "@/src/hooks/web/useComments";
+
+export default function LeaveComment({ blogId }: { blogId: string }) {
+  if (!blogId) return null; 
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
+
+  const mutation = useCreateComment();
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!name || !email || !comment) {
+      alert(t("Please fill out all fields"));
+      return;
+    }
+
+    if (!blogId) {
+      alert(t("Blog ID is missing"));
+      return;
+    }
+
+   mutation.mutate(
+  { id: blogId, data: { name, comment, email } },
+  {
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
+      toast.success(t("Comment submitted successfully"));
+      setName("");
+      setEmail("");
+      setComment("");
+    },
+  }
+);
+  };
+
+  return (
+    <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg shadow-lg border border-gray-100 max-w-4xl mx-auto lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
+      <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
+        {t("Leave A Comment")}
+      </h2>
+
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 md:flex gap-4 lg:flex lg:gap-5">
+          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
+            <FaUser className="text-[#6B7280]" size={18} />
+            <input
+              type="text"
+              placeholder={t("Your Name")}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full bg-transparent focus:outline-none ml-2"
+            />
+          </div>
+
+          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
+            <FaRegEnvelope className="text-xl mt-1 text-[#6B7280]" />
+            <input
+              type="email"
+              placeholder={t("Enter Email")}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="w-full bg-transparent focus:outline-none ml-2"
+            />
+          </div>
+        </div>
+
+        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[820px] lg:h-[184px]">
+          <FaRegComments className="text-[#6B7280]" size={18} />
+          <textarea
+            placeholder={t("Type Your Comments...")}
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            className="w-full bg-transparent focus:outline-none resize-none ml-2"
+            rows={4}
+          />
+        </div>
+
+        <div className="flex justify-start mt-8">
+          <div className="w-fit">
+          <Button
+            text={mutation.isPending ? t("Submitting...") : t("Submit Comment")}
+            bgColor="bg-[#122F2A]"
+            textColor="text-white"
+            rounded="rounded-full"
+            hoverTextColor="group-hover:text-black"
+            hoverBg="before:bg-yellow"
+            paddingx="px-6"
+            paddingy="py-5"
+            onClick={handleSubmit}
+          />
+          </div>
+        </div>
+      </form>
+    </div>
+  );
+}

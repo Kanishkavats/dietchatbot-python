@@ -1,24 +1,22 @@
 "use client";
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import Dropdown from "../Common/Dropdown";
-import CustomInput from "../Common/CustomInput";
-import DataTableWrapper from "../Common/DataTableWrapper";
+import Dropdown from "../../UI/admin/Dropdown";
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import {
   useDeleteComment,
   useFetchComments,
   useFetchCommentById,
-} from "@/src/components/Admin/hooks/useComments";
-import { CommentSearchOptions } from "../Data/staticData";
+} from "@/src/hooks/admin/useComments";
 import { getCommentColumns } from "./getCommentColumns";
-import { Comment } from "@/src/types/comments";
-import Drawer from "../Common/Drawer";
+import { Comment } from "@/src/types/web/comments";
+import Drawer from "../../UI/admin/Drawer";
 import CommentForm from "./CommentForm";
-import AdminCustomPagination from "../Common/CustomePagination";
-import CustomLoader from "../../common/Loader/CustomLoader";
-import ConfirmModal from "../Common/ConfirmModal";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
 
 const CommentTable = () => {
   const [status, setStatus] = useState<

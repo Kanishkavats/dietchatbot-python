@@ -1,8 +1,8 @@
 "use client";
 
 import { useSelector } from "react-redux";
-import { RootState } from "@/store";
 import { useEffect } from "react";
+import { RootState } from "../store";
 
 export default function ThemeApplier() {
   const { primaryColor } = useSelector((state: RootState) => state.theme);

@@ -1,14 +1,8 @@
 "use client";
 import { motion } from "framer-motion";
 import React from "react";
+import { FadeUpCardProps } from "../types";
 
-interface FadeUpCardProps {
-  children: React.ReactNode;
-  delay?: number; 
-  className?: string;
-  initialYExis?:number;  
-  onAnimationComplete?: () => void;
-}
 
 const FadeUpCard: React.FC<FadeUpCardProps> = ({ children, delay = 0 ,className='',initialYExis=100,onAnimationComplete}) => {
   return (

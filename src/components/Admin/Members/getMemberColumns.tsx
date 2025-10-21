@@ -1,13 +1,7 @@
 import React from "react";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import TableRowActions from "../Campaign/CampaignActions";
-import { Member } from "@/src/types/members";
-
-interface MemberColumnCallbacks {
-  onEdit: (member: Member) => void;
-  onDelete: (member: Member) => void;
-  onView?: (member: Member) => void;
-}
+import { Member } from "@/src/types/web/members";
 
 export const getMemberColumns = ({
   onEdit,

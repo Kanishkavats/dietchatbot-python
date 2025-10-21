@@ -1,26 +1,16 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { CampaignFormValues } from "@/src/utils/validations/FormValidation";
 import { FaCalendarAlt } from "react-icons/fa";
 import { MdLocationPin } from "react-icons/md";
-import { LucideCircleCheckBig } from "lucide-react";
 import { motion } from "framer-motion";
-import Button from "../../common/Buttons/Button";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import LanguageToggle from "../Common/LanguageToggle";
-
-export interface CampaignPreviewProps {
-  data: CampaignFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
-  onSubmit: () => void;
-  onBack: () => void;
-  mode?: "add" | "edit" | "view"|"preview-edit";
-  showButton?:boolean
-}
+import LanguageToggle from "../../UI/admin/LanguageToggle";
+import Button from "../../UI/web/Buttons/Button";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
+import { CampaignPreviewProps } from "@/src/types/admin";
 
 const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  // const [language, setLanguage] = useState<"en" | "hi">("en");
   const { language, toggleLanguage } = useLanguageToggle();
   useEffect(() => {
     if (!data) return;

@@ -1,5 +1,5 @@
 // src/components/Comments/commentColumns.ts
-import { Comment, CommentColumnCallbacks } from "@/src/types/comments";
+import { Comment, CommentColumnCallbacks } from "@/src/types/web/comments";
 import TableRowActions from "../Campaign/CampaignActions";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 

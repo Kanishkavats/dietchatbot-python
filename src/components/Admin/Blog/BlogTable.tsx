@@ -2,11 +2,10 @@
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import Breadcrumb from "../Breadcrumb";
 import { BlogSearchOptions } from "../Data/staticData";
-import DataTableWrapper from "../Common/DataTableWrapper";
-import CustomInput from "../Common/CustomInput";
-import Dropdown from "../Common/Dropdown";
-import Button from "../../common/Buttons/Button";
-import Drawer from "../Common/Drawer";
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
+import CustomInput from "../../UI/admin/CustomInput";
+import Dropdown from "../../UI/admin/Dropdown";
+import Drawer from "../../UI/admin/Drawer";
 
 import BlogForm from "./BlogForm";
 import { getBlogColumns } from "./BlogColumns";
@@ -15,22 +14,22 @@ import {
   useDeleteSingleBlog,
   useFetchAllBlogs,
   useFetchSingleBlog,
-} from "../hooks/useBlog";
+} from "@/src/hooks/admin/useBlog";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import BlogPreview from "./PreviewBlog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createBlog, updateBlog } from "../services/blogApi";
-import { Blog } from "@/src/types/blog";
-import CustomPagination from "../../common/CustomPaginatioin";
-import CustomLoader from "../../common/Loader/CustomLoader";
-import AdminCustomPagination from "../Common/CustomePagination";
-import ConfirmModal from "../Common/ConfirmModal";
+import { createBlog, updateBlog } from "@/src/services/admin/blogApi";
+import { Blog } from "@/src/types/admin/blog";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
-import useDebounce from "@/src/hooks/useDebounce";
-import { useFetchCategory } from "../hooks/useCategory";
-import { Category } from "../types/category";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import useDebounce from "@/src/hooks/web/useDebounce";
+import { useFetchCategory } from "@/src/hooks/admin/useCategory";
+import { Category } from "@/src/types/admin/category";
+import Button from "../../UI/web/Buttons/Button";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const BlogTable = () => {
   const [search, setSearch] = useState("");
@@ -52,7 +51,7 @@ const BlogTable = () => {
     itemsPerPage,
     debounceValue
   );
-  const{language,toggleLanguage}=useLanguageToggle();
+  const{language}=useLanguageToggle();
   const { data: singleBlogData, isLoading: isLoadingBlog,refetch } = useFetchSingleBlog(
     blogId || undefined
   );
@@ -96,9 +95,6 @@ const BlogTable = () => {
 
   const handleDelete = useCallback(
     (b: Blog) => {
-      // if (confirm(`Are you sure you want to delete "${b.title}"?`)) {
-      // deleteBlog(b.id.toString());
-      // }
       setSelectedBlog(b);
       setIsOpen(true);
     },

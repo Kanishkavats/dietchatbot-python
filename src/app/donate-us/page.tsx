@@ -1,4 +1,4 @@
-import DonateUs from '@/src/components/DonateUs'
+import DonateUs from '@/src/components/Web/DonateUs'
 import React from 'react'
 
 const page = () => {

@@ -1,9 +1,8 @@
 import React from "react";
-import { useMarkQueryAsViewed } from "@/src/components/Admin/hooks/useQueries";
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import { useFetchAllMembers } from "@/src/hooks/useMembers";
-import { Query, QueryPreviewRowProps } from "@/src/types/query";
+import { Query, QueryPreviewRowProps } from "@/src/types/web/query";
+import Button from "../../UI/web/Buttons/Button";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import { useMarkQueryAsViewed } from "@/src/hooks/admin/useQueries";
 
 const FieldRow = ({ label, value, isLast = false, isBool = false } :QueryPreviewRowProps) => {
   if (

@@ -2,11 +2,9 @@
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { FaUser } from "react-icons/fa";
+import { DonationPieChartProps } from "@/src/types/admin";
 
-interface DonationPieChartProps {
-  data: { name: string; value: number }[];
-  colors?: string[];
-}
+
 
 const defaultColors = ["var(--primaryColor)", "var(--blue)", "var(--lime-green)", "var(--purple)", "var(--red)", "var(--brown)"]; // violet, sky, rose, purple
 
@@ -14,28 +12,28 @@ const DonationPieChart: React.FC<DonationPieChartProps> = ({ data, colors = defa
   const total = data.reduce((sum, item) => sum + item.value, 0);
 
   return (
-    <div className="flex flex-col-reverse sm:grid sm:grid-cols-2 w-full gap-4 ">
+    <div className="flex flex-col-reverse sm:grid sm:grid-cols-2 lg:grid-cols-1 w-full gap-4 ">
       {/* Legend */}
-    <div className="flex flex-wrap gap-1 w-full">
-  {data.map((entry, index) => {
-    const percentage = total === 0 ? 0 : ((entry.value / total) * 100).toFixed(0);
-    return (
-      <div
-        key={index}
-        className="flex items-center gap-2 p-2  rounded-md min-w-[140px] sm:min-w-[160px] flex-grow"
-      >
-        <span
-          className="w-3 h-3 rounded-full"
-          style={{ backgroundColor: colors[index % colors.length] }}
-        ></span>
-        <span className="font-semibold text-sm">{entry.name}</span>
-        <span className="text-sm text-black font-semibold">{percentage}%</span>
-        <FaUser className="text-gray-500" />
-        <span className="text-sm text-gray-600">{entry.value}</span>
+      <div className="flex flex-wrap gap-1 w-full">
+        {data.map((entry, index) => {
+          const percentage = total === 0 ? 0 : ((entry.value / total) * 100).toFixed(0);
+          return (
+            <div
+              key={index}
+              className="flex items-center gap-2 p-2  rounded-md min-w-[140px] sm:min-w-[160px] flex-grow"
+            >
+              <span
+                className="w-3 h-3 rounded-full"
+                style={{ backgroundColor: colors[index % colors.length] }}
+              ></span>
+              <span className="font-semibold text-sm">{entry.name}</span>
+              <span className="text-sm text-black font-semibold">{percentage}%</span>
+              <FaUser className="text-gray-500" />
+              <span className="text-sm text-gray-600">{entry.value}</span>
+            </div>
+          );
+        })}
       </div>
-    );
-  })}
-</div>
 
 
       {/* Donut Chart */}

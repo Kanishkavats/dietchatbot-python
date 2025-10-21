@@ -1,12 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
-
-interface SlideInRightProps {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-}
+import { SlideInRightProps } from "../types";
 
 const SlideInRight = ({ children, delay = 0, className = "" }: SlideInRightProps) => (
   <motion.div
