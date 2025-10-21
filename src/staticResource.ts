@@ -221,7 +221,7 @@ export const donateDifferentWayExcellenceItems = [
 export const donationCards: DonationCardData[] = [
   {
     id: 1,
-    image: "/assets/section3/helpforeducation.png",
+    image: "/assets/helpforeducation.png",
     category: "Food",
     title: "Help For Education",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -231,7 +231,7 @@ export const donationCards: DonationCardData[] = [
   },
   {
     id: 2,
-    image: "/assets/section3/helpforfood.png",
+    image: "/assets/helpforfood.png",
     category: "Health",
     title: "Help For Food",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -241,7 +241,7 @@ export const donationCards: DonationCardData[] = [
   },
   {
     id: 3,
-    image: "/assets/section3/givehealthsupport.png",
+    image: "/assets/givehealthsupport.png",
     category: "Food",
     title: "Give Health Support",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -251,7 +251,7 @@ export const donationCards: DonationCardData[] = [
   },
   {
     id: 4,
-    image: "/assets/section3/childenweworkfor.png",
+    image: "/assets/childenweworkfor.png",
     category: "Health",
     title: "Children We Work ",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -263,7 +263,7 @@ export const donationCards: DonationCardData[] = [
 export const donationCardsBig: DonationCardData[] = [
   {
     id: 1,
-    image: "/assets/section3/childenweworkfor.png",
+    image: "/assets/childenweworkfor.png",
     category: "Health",
     title: "Children We Work ",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -273,7 +273,7 @@ export const donationCardsBig: DonationCardData[] = [
   },
   {
     id: 2,
-    image: "/assets/section3/helpforeducation.png",
+    image: "/assets/helpforeducation.png",
     category: "Food",
     title: "Help For Education",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -283,7 +283,7 @@ export const donationCardsBig: DonationCardData[] = [
   },
   {
     id: 3,
-    image: "/assets/section3/helpforfood.png",
+    image: "/assets/helpforfood.png",
     category: "Health",
     title: "Help For Food",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -293,7 +293,7 @@ export const donationCardsBig: DonationCardData[] = [
   },
   {
     id: 4,
-    image: "/assets/section3/givehealthsupport.png",
+    image: "/assets/givehealthsupport.png",
     category: "Food",
     title: "Give Health Support",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -303,7 +303,7 @@ export const donationCardsBig: DonationCardData[] = [
   },
   {
     id: 5,
-    image: "/assets/section3/childenweworkfor.png",
+    image: "/assets/childenweworkfor.png",
     category: "Health",
     title: "Children We Work ",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -313,7 +313,7 @@ export const donationCardsBig: DonationCardData[] = [
   },
   {
     id: 6,
-    image: "/assets/section3/helpforeducation.png",
+    image: "/assets/helpforeducation.png",
     category: "Food",
     title: "Help For Education",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -323,7 +323,7 @@ export const donationCardsBig: DonationCardData[] = [
   },
   {
     id: 7,
-    image: "/assets/section3/helpforfood.png",
+    image: "/assets/helpforfood.png",
     category: "Health",
     title: "Help For Food",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",
@@ -333,7 +333,7 @@ export const donationCardsBig: DonationCardData[] = [
   },
   {
     id: 8,
-    image: "/assets/section3/givehealthsupport.png",
+    image: "/assets/givehealthsupport.png",
     category: "Food",
     title: "Give Health Support",
     description: "Lorem Ipsum Dolor Sit Amet, Consete Sadipscing Elitr, Sed Diam Nonum",

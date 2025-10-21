@@ -5,7 +5,8 @@
 
 import { bannerBg } from "@/public/assets";
 import CampaignDetails from "@/src/components/Web/Campaign/CampaignDetails";
-import PageBanner from "@/src/components/UI/PageBanner";
+//import PageBanner from "@/src/components/UI/PageBanner";
+import PageBanner from "@/src/helper/PageBanner";
 
 const CampaignPage = () => {
    return (

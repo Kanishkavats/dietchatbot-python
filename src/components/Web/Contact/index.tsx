@@ -1,7 +1,8 @@
 'use client'
 import React from 'react'
 import ContactUs from './ContactUs'
-import PageBanner from '../../UI/PageBanner'
+//import PageBanner from '../../UI/PageBanner'
+import PageBanner from "@/src/helper/PageBanner";
 import { contactbanner } from '@/public/assets'
 
 const Contact = () => {

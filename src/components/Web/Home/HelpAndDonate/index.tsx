@@ -46,7 +46,7 @@ const HelpAndDonate: React.FC = () => {
           : 0;
         return {
           id: campaign.id?.toString() || Math.random().toString(),
-          image: campaign.images?.[0] || "/assets/section3/helpforeducation.png",
+          image: campaign.images?.[0] || "/assets/helpforeducation.png",
           category: campaign.category || "General",
           title: campaign.title || "Campaign Title",
           description: campaign.description || "No description available",
@@ -97,7 +97,7 @@ const HelpAndDonate: React.FC = () => {
       {/* Background */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: "url('/assets/section3/bgsection3.png')" }}
+        style={{ backgroundImage: "url('/assets/bgsection3.png')" }}
       >
         <div className="absolute inset-0 bg-black/4" />
       </div>
@@ -177,7 +177,7 @@ const HelpAndDonate: React.FC = () => {
           transition={{ duration: 1 }}
         >
           <Image
-            src="/assets/section2/spade.png"
+            src="/assets/spade.png"
             alt="Hand outline"
             width={60}
             height={60}
