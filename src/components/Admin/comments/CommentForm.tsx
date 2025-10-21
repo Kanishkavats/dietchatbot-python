@@ -3,21 +3,16 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CustomInput from "../Common/CustomInput";
+import CustomInput from "../../UI/admin/CustomInput";
 import { toast } from "react-hot-toast";
-import { Comment } from "@/src/types/comments";
 import { commentSchema, CommentFormValues } from "@/src/utils/validations/FormValidation";
-import { updateComment } from "@/src/components/Admin/services/commentsApi";
-import CancelButton from "../../common/Buttons/CancelButton";
-import Dropdown from "../Common/Dropdown";
+import Dropdown from "../../UI/admin/Dropdown";
+import Button from "../../UI/web/Buttons/Button";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import { updateComment } from "@/src/services/admin/commentsApi";
+import { CommentFormProps } from "@/src/types/admin";
 
-interface CommentFormProps {
-  initialData?: Comment;
-  onClose: () => void;
-  mode: "edit" | "view";
-}
 
 const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode }) => {
   const isView = mode === "view";

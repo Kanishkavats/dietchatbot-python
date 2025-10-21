@@ -1,21 +1,8 @@
+import { CampaignType } from "../types/web/campaign";
+import { CommentType } from "../types/web/comments";
 
 
-// ---------------- COMMENTS ----------------
-export interface CommentType {
-  id: string;
-  name: string;
-  comment: string;
-  blogId: string;
-  isPending?: boolean;
-  createdAt?: string;
-  timeAgo?: string;
-  likeCount?: number;
-  replies?: CommentType[];
-}
 
-/**
- * Save a pending comment locally
- */
 export function savePendingComment(comment: CommentType) {
   if (typeof window === "undefined") return;
 
@@ -26,9 +13,6 @@ export function savePendingComment(comment: CommentType) {
   localStorage.setItem("LocalComments", JSON.stringify(updated));
 }
 
-/**
- * Get all pending comments for a specific blogId
- */
 export function getLocalComments(blogId: string): CommentType[] {
   if (typeof window === "undefined") return [];
 
@@ -46,9 +30,6 @@ export function getLocalComments(blogId: string): CommentType[] {
   }
 }
 
-/**
- * Remove a local comment by ID
- */
 export function removeLocalComment(id: string) {
   if (typeof window === "undefined") return;
 
@@ -59,9 +40,6 @@ export function removeLocalComment(id: string) {
   localStorage.setItem("LocalComments", JSON.stringify(updated));
 }
 
-/**
- * Get like counts from localStorage
- */
 export function getLikeCounts(): Record<string, number> {
   if (typeof window === "undefined") return {};
   
@@ -74,29 +52,20 @@ export function getLikeCounts(): Record<string, number> {
   }
 }
 
-/**
- * Save like counts to localStorage
- */
 export function saveLikeCounts(likeCounts: Record<string, number>) {
   if (typeof window === "undefined") return;
   
   localStorage.setItem("LikeCounts", JSON.stringify(likeCounts));
 }
 
-/**
- * Update like count for a specific comment
- */
+
 export function updateLikeCount(commentId: string, newCount: number) {
   const likeCounts = getLikeCounts();
   likeCounts[commentId] = newCount;
   saveLikeCounts(likeCounts);
 }
 
-/**
- * Merge API comments with local comments
- * - Deduplicate: remove local if API has the same ID
- * - Preserve like counts from localStorage
- */
+
 export function mergeComments(
   apiComments: CommentType[],
   blogId: string
@@ -128,18 +97,6 @@ export function mergeComments(
   return [...mergedApiComments, ...mergedLocalComments];
 }
 
-// ---------------- CAMPAIGNS ----------------
-export interface CampaignType {
-  id: string;
-  title: string;
-  description: string;
-  isPending?: boolean;
-  createdAt?: string;
-}
-
-/**
- * Save a pending campaign locally
- */
 export function savePendingCampaign(campaign: CampaignType) {
   if (typeof window === "undefined") return;
 
@@ -150,9 +107,7 @@ export function savePendingCampaign(campaign: CampaignType) {
   localStorage.setItem("LocalCampaigns", JSON.stringify(updated));
 }
 
-/**
- * Get all pending campaigns
- */
+
 export function getLocalCampaigns(): CampaignType[] {
   if (typeof window === "undefined") return [];
 
@@ -168,9 +123,7 @@ export function getLocalCampaigns(): CampaignType[] {
   }
 }
 
-/**
- * Remove a pending campaign by ID
- */
+
 export function removeLocalCampaign(id: string) {
   if (typeof window === "undefined") return;
 
@@ -181,17 +134,14 @@ export function removeLocalCampaign(id: string) {
   localStorage.setItem("LocalCampaigns", JSON.stringify(updated));
 }
 
-/**
- * Merge API campaigns with local campaigns
- * - Deduplicate: remove local if API has the same ID
- */
+
 export function mergeCampaigns(apiCampaigns: CampaignType[]): CampaignType[] {
   const localCampaigns = getLocalCampaigns();
 
   const filteredLocal = localCampaigns.filter((local) => {
     const existsInApi = apiCampaigns.some((api) => api.id === local.id);
     if (existsInApi) {
-      removeLocalCampaign(local.id); // cleanup storage
+      removeLocalCampaign(local.id); 
       return false;
     }
     return true;

@@ -2,19 +2,17 @@
 
 import { Formik, Form } from "formik";
 import React, { useState } from "react";
-import { MemberFormProps } from "@/src/types/members";
-import { MemberFormValues, memberSchema } from "@/src/utils/validations/FormValidation";
-
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CustomInput from "../../Admin/Common/CustomInput";
-import CustomFileInput from "../../Admin/Common/CustomFileInput";
-import MultiInputList from "../Common/MultiInputList";
-import CancelButton from "../../common/Buttons/CancelButton";
-import LanguageToggle from "../Common/LanguageToggle";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import { MemberFormProps } from "@/src/types/web/members";
+import { memberSchema } from "@/src/utils/validations/FormValidation";
+import CustomInput from "../../UI/admin/CustomInput";
+import CustomFileInput from "../../UI/admin/CustomFileInput";
+import MultiInputList from "../../UI/admin/MultiInputList";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
+import { hasErrorsForLang } from "../../UI/admin/hasErrorsForLang";
 import { getInitialMemberValues } from "../utils/memberInitialValues";
+import Button from "../../UI/web/Buttons/Button";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const MemberForm = ({
     initialData,

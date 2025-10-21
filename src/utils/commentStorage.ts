@@ -1,20 +1,5 @@
+import { CommentType } from "../types/web/comments";
 
-
-import { json } from "stream/consumers";
-
-export interface CommentType {
-  id: string;
-  name: string;
-  comment: string;
-  blogId?: string;
-  isPending?: boolean;
-  createdAt?: string;
-  timeAgo?: string;
-  likeCount?: number;
-  replies?: CommentType[];
-}
-
-// Get pending comments for a specific blog
 export function getLocalComments(blogId: string): CommentType[] {
   if (typeof window === "undefined") return [];
   const stored = localStorage.getItem("LocalComments");

@@ -1,13 +1,6 @@
 "use client";
 import { motion } from "framer-motion";
-import { ReactNode } from "react";
-
-interface FadeInUpProps {
-  children: ReactNode;
-  delay?: number;
-  className?: string;
-  initialYExis?:number;
-}
+import { FadeInUpProps } from "../types";
 
 const FadeInUp = ({ children, delay = 0, className = "", initialYExis = 40 }: FadeInUpProps) => (
 

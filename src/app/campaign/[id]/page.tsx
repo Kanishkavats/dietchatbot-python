@@ -2,21 +2,19 @@
 
 "use client";
 
-import CampaignDetails from "@/src/components/campaign/CampaignDetails";
 
 import { bannerBg } from "@/public/assets";
-import PageBanner from "@/src/components/common/PageBanner";
+import CampaignDetails from "@/src/components/Web/Campaign/CampaignDetails";
+import PageBanner from "@/src/components/UI/PageBanner";
 
 const CampaignPage = () => {
    return (
-    <><PageBanner bgImage={bannerBg} title="Cause Details" /><CampaignDetails />
-       
-       </>
-  
-
-
+      <>
+         <PageBanner bgImage={bannerBg} title="Cause Details" />
+         <CampaignDetails />
+      </>
    )
-  
+
 };
 
 export default CampaignPage;

@@ -2,12 +2,9 @@
 
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface ThemeState {
-  primaryColor: string; // stores the variable name
-}
 
-const initialState: ThemeState = {
-  primaryColor: "palate-yellow", // default
+const initialState: {primaryColor: string; } = {
+  primaryColor: "palate-yellow", 
 };
 
 const themeSlice = createSlice({
@@ -16,11 +13,10 @@ const themeSlice = createSlice({
   reducers: {
    setPrimaryColor: (state, action) => {
   state.primaryColor = action.payload;
-  // update CSS variable on <html>
   if (typeof window !== "undefined") {
     document.documentElement.style.setProperty(
       "--primary-color",
-      `var(--${action.payload})` // maps to your Tailwind custom palette
+      `var(--${action.payload})`
     );
   }
 },

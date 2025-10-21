@@ -1,19 +1,11 @@
 'use client'
 
 import React, { useEffect, useState } from "react";
-import { BannerFormValues } from "@/src/utils/validations/FormValidation";
-import Button from "../../common/Buttons/Button";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import LanguageToggle from "../Common/LanguageToggle";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
 import Image from "next/image";
-
-interface BannerPreviewProps {
-  data: BannerFormValues;
-  onBack: () => void;
-  onSubmit: () => void;
-  mode?: "add" | "edit" | "view" | "preview-edit";
-  showButtons?: boolean
-}
+import Button from "../../UI/web/Buttons/Button";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
+import { BannerPreviewProps } from "@/src/types/admin";
 
 const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, mode, showButtons = true }) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);

@@ -4,24 +4,15 @@ import React, { useEffect, useState } from "react";
 import { EventFormValues } from "@/src/utils/validations/FormValidation";
 import { FaCalendarAlt, FaClock } from "react-icons/fa";
 import { MdLocationPin } from "react-icons/md";
-import { LucideCircleCheckBig } from "lucide-react";
 import { motion } from "framer-motion";
-import Button from "../../common/Buttons/Button";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import LanguageToggle from "../Common/LanguageToggle";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
+import Button from "../../UI/web/Buttons/Button";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
+import { EventPreviewProps } from "@/src/types/admin";
 
-export interface EventPreviewProps {
-  data: EventFormValues & { createdAt?: string; existingImages?: string[], organizer?: string, raisedAmount?: number };
-  onSubmit: () => void;
-  onBack: () => void;
-  mode?: "add" | "edit" | "view"|"preview-edit";
-  showButton?:boolean;
-}
 
 const EventPreview = ({ data, onSubmit, onBack, mode,showButton=true }: EventPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
-  console.log(data)
-  // const [language, setLanguage] = useState<"en" | "hi">("en");
   const { language, toggleLanguage } = useLanguageToggle();
   useEffect(() => {
     if (!data.images && !data.existingImages) return;

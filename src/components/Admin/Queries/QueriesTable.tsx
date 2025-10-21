@@ -1,28 +1,28 @@
 "use client";
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import DataTableWrapper from "../Common/DataTableWrapper";
-import CustomLoader from "../../common/Loader/CustomLoader";
-import AdminCustomPagination from "../Common/CustomePagination";
-import Drawer from "../Common/Drawer";
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
+import Drawer from "../../UI/admin/Drawer";
 
 import { getQueryColumns } from "./getQueriesColumns";
 import {
   useDeleteQuery,
   useFetchAllQueries,
   useFetchSingleQuery,
-} from "@/src/components/Admin/hooks/useQueries";
-import { Query } from "@/src/types/query";
+} from "@/src/hooks/admin/useQueries";
+import { Query } from "@/src/types/web/query";
 import QueryPreview from "./QueryPreview";
-import Dropdown from "../Common/Dropdown";
+import Dropdown from "../../UI/admin/Dropdown";
 import {
   filterFields,
   formTypeOptions,
   isViewedOptions,
 } from "@/src/staticResource";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
-import ConfirmModal from "../Common/ConfirmModal";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
 
 const QueriesTable = () => {
   const [filterField, setFilterField] = useState<

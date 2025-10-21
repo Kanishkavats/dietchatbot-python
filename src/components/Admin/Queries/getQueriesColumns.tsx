@@ -1,14 +1,9 @@
 import React from "react";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import TableRowActions from "../Campaign/CampaignActions";
-import { Query } from "@/src/types/query";
+import { Query } from "@/src/types/web/query";
 import { Icon } from "@iconify/react";
-
-interface QueryColumnCallbacks {
-  onEdit: (Query: Query) => void;
-  onDelete: (Query: Query) => void;
-  onView?: (Query: Query) => void;
-}
+import { QueryColumnCallbacks } from "@/src/types/admin";
 
 export const getQueryColumns = ({
   onEdit,

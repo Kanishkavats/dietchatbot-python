@@ -2,17 +2,18 @@
 
 import React from "react";
 import { Formik, Form } from "formik";
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CancelButton from "../../common/Buttons/CancelButton";
-import CustomInput from "../../Admin/Common/CustomInput";
-import CustomFileInput from "../../Admin/Common/CustomFileInput";
+
+import CustomInput from "../../UI/admin/CustomInput";
+import CustomFileInput from "../../UI/admin/CustomFileInput";
 import { BannerFormValues, bannerSchema } from "@/src/utils/validations/FormValidation";
-import { BannerFormProps } from "@/src/types/banner";
-import { submitBannerForm } from "@/src/hooks/useBanner";
-import LanguageToggle from "../Common/LanguageToggle";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import { BannerFormProps } from "@/src/types/admin/banner";
+import { submitBannerForm } from "@/src/hooks/admin/useBanner";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
+import { hasErrorsForLang } from "../../UI/admin/hasErrorsForLang";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Button from "../../UI/web/Buttons/Button";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const BannerForm = ({
   initialData,

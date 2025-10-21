@@ -1,21 +1,20 @@
 "use client";
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import Dropdown from "../Common/Dropdown";
-import CustomInput from "../Common/CustomInput";
-import Button from "../../common/Buttons/Button";
-import Drawer from "../Common/Drawer";
-import DataTableWrapper from "../Common/DataTableWrapper";
+import Dropdown from "../../UI/admin/Dropdown";
+import CustomInput from "../../UI/admin/CustomInput";
+import Drawer from "../../UI/admin/Drawer";
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
 import { CategorySearchOptions } from "../Data/staticData";
 import CategoryForm from "./CategoryForm";
-import { useFetchCategory, useDeleteCategory } from "@/src/hooks/useCategory";
-import { Category } from "@/src/types/category";
+import { useFetchCategory, useDeleteCategory, useFetchCategoryById } from "@/src/hooks/admin/useCategory";
+import { Category } from "@/src/types/web/category";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { getCategoryColumns } from "./categoryColumns";
-import AdminCustomPagination from "../Common/CustomePagination";
-import CustomLoader from "../../common/Loader/CustomLoader";
-import ConfirmModal from "../Common/ConfirmModal";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import { useFetchCategoryById } from "../hooks/useCategory";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
+import Button from "../../UI/web/Buttons/Button";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const CategoryTable = () => {
   const [search, setSearch] = useState("");

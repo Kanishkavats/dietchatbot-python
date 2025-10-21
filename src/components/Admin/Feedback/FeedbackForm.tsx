@@ -3,22 +3,17 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CustomInput from "../Common/CustomInput";
-import Dropdown from "../Common/Dropdown";
-import CancelButton from "../../common/Buttons/CancelButton";
+import CustomInput from "../../UI/admin/CustomInput";
+import Dropdown from "../../UI/admin/Dropdown";
 import { toast } from "react-hot-toast";
-
 import { feedbackSchema, FeedbackFormValues } from "@/src/utils/validations/FormValidation";
-import { Feedback } from "@/src/types/feedback";
-import { updateFeedback } from "@/src/components/Admin/services/feedbackApi";
+import { Feedback } from "@/src/types/web/feedback";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Button from "../../UI/web/Buttons/Button";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import { updateFeedback } from "@/src/services/admin/feedbackApi";
+import { FeedbackFormProps } from "@/src/types/admin";
 
-interface FeedbackFormProps {
-  initialData?: Feedback;
-  onClose: () => void;
-  mode: "edit" | "view";
-}
 
 const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode }) => {
   const isView = mode === "view";

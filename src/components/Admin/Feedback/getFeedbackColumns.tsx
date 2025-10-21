@@ -1,5 +1,5 @@
 // src/components/Feedback/getFeedbackColumns.ts
-import { Feedback, FeedbackColumnCallbacks} from "@/src/types/feedback";
+import { Feedback, FeedbackColumnCallbacks} from "@/src/types/web/feedback";
 import TableRowActions from "../Campaign/CampaignActions";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 

@@ -1,24 +1,22 @@
 "use client";
 
 import { Formik, Form, FieldArray } from "formik";
-import React, { useState } from "react";
-import { useFetchCategory } from "../hooks/useCategory";
-import { BlogFormValues, blogSchema } from "@/src/utils/validations/FormValidation";
-import { BlogFormProps } from "@/src/types/blog";
-
-// Components
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CustomInput from "../../Admin/Common/CustomInput";
-import CustomFileInput from "../../Admin/Common/CustomFileInput";
-import Dropdown from "../Common/Dropdown";
-import MultiInputList from "../Common/MultiInputList";
-import CancelButton from "../../common/Buttons/CancelButton";
-import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import React from "react";
+import { useFetchCategory } from "@/src/hooks/admin/useCategory";
+import {  blogSchema } from "@/src/utils/validations/FormValidation";
+import { BlogFormProps } from "@/src/types/admin/blog";
+import CustomInput from "../../UI/admin/CustomInput";
+import CustomFileInput from "../../UI/admin/CustomFileInput";
+import Dropdown from "../../UI/admin/Dropdown";
+import MultiInputList from "../../UI/admin/MultiInputList";
+import { hasErrorsForLang } from "../../UI/admin/hasErrorsForLang";
 import { getInitialBlogValues } from "../utils/blogInitialValues";
-import LanguageToggle from "../Common/LanguageToggle";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import { Category } from "../types/category";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Button from "../../UI/web/Buttons/Button";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
+import { Category } from "@/src/types/admin/category";
 
 const BlogForm = ({
   initialData,

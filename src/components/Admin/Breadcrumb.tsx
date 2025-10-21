@@ -2,7 +2,7 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import Logout from "./Common/Logout";
+import Logout from "../UI/admin/Logout";
 import { useTranslation } from "react-i18next";
 
 

@@ -1,18 +1,12 @@
 "use client";
 import { logo } from "@/public/assets";
+import { AdminSideBarTabProps } from "@/src/types/admin";
 import { sidebarAd } from "@/src/utils/AdminSidebarData";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { MdArrowForwardIos, MdMenu } from "react-icons/md";
-
-interface AdminSideBarTabProps {
-  isOpen: boolean;
-  setIsOpen: (state: boolean) => void;
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
-}
 
 const AdminSideBarTab = ({
   isOpen,

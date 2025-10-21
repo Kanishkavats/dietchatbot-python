@@ -3,20 +3,11 @@ import React, { JSX, useRef, useState } from "react";
 import Breadcrumb from "../Breadcrumb";
 import { motion, Variants } from "framer-motion";
 import { FaSignOutAlt, FaLanguage, } from "react-icons/fa";
-import LanguageSetting from "../Common/LanguageSetting";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import Logout from "../Common/Logout";
+import Logout from "../../UI/admin/Logout";
 import { useTranslation } from "react-i18next";
-
-interface SettingItem {
-  id: number;
-  title: string;
-  description: string;
-  icon: JSX.Element;
-  type: "toggle" | "info" | "component" | "action";
-  component?: JSX.Element;
-  onClick?: () => void;
-}
+import LanguageSetting from "../../UI/admin/LanguageSetting";
+import { useLanguageToggle } from "@/src/hooks/web/useLanguageToggle";
+import { SettingItem } from "@/src/types/admin";
 
 const Settings = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
@@ -48,7 +39,7 @@ const Settings = () => {
       icon: <FaLanguage size={24} />,
       type: "component",
       component: (
-        <LanguageSetting language={language} setLanguage={toggleLanguage} />
+        <LanguageSetting  />
       ),
     },
   ];

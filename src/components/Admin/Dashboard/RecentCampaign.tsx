@@ -1,7 +1,7 @@
 import React from 'react'
 import { motion, Variants } from "framer-motion";
-import { useFetchAllCampaigns } from '@/src/hooks/useCampaigns';
-import { Campaign } from '@/src/types/campaign';
+import { Campaign } from '@/src/types/admin/campaign';
+import { useFetchAllCampaigns } from '@/src/hooks/admin/useCampaigns';
 
 function RecentCampaign() {
   const rowVariants: Variants = {
