@@ -1,4 +1,5 @@
-import { askedquestion, askedquestion1, verticalShape } from "@/public/assets";
+import { askedquestion, askedquestion1 , verticalShape } from "@/public/assets";
+
 import FadeInUp from "@/src/animations/FadeInUp";
 import SlideInRight from "@/src/animations/SlideInRight";
 import { RootState } from "@/src/store";

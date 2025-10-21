@@ -109,7 +109,7 @@ const DonateDifferentWay: React.FC = () => {
               transition={{ duration: 1, delay: 0.3 }}
             >
               <Image
-                src='/assets/section2/helpingeachother2.jpg' 
+                src='/assets/helpingeachother2.jpg' 
                 alt='Happy child running' 
                 fill={true}
                 className='w-full h-full object-cover'
@@ -148,7 +148,7 @@ const DonateDifferentWay: React.FC = () => {
                     }}
                   >
                     <Image
-                      src='/assets/childoldcare/spade-green-heart.png'
+                      src='/assets/spade-green-heart.png'
                       alt='Green heart'
                       width={100}
                       height={100}
@@ -217,7 +217,7 @@ const DonateDifferentWay: React.FC = () => {
                   <div className=' p-3 sm:p-4  transition-shadow flex-1 flex flex-col items-center justify-center sm:flex-none'>
                     <div className='w-10 h-10 sm:w-12 sm:h-12 lg:w-20 lg:h-20 xl:w-20 xl:h-18 rounded-lg flex items-center justify-center  mb-3 sm:mb-4'>
                       <Image
-                        src='/assets/childoldcare/icon2.png'
+                        src='/assets/icon2.png'
                         alt='Donate icon'
                         width={120}
                         height={120}
@@ -232,7 +232,7 @@ const DonateDifferentWay: React.FC = () => {
                   <div className='  p-3 sm:p-4  transition-shadow flex-1 flex flex-col items-center justify-center sm:flex-none '>
                     <div className='w-10 h-10 sm:w-12 sm:h-12 lg:w-20 lg:h-20 xl:w-20 xl:h-18 rounded-lg flex items-center justify-center mb-3 sm:mb-4'>
                       <Image
-                        src='/assets/childoldcare/icon1.png'
+                        src='/assets/icon1.png'
                         alt='Fundraising icon'
                         width={120}
                         height={120}

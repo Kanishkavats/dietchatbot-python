@@ -87,7 +87,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
           }}
         >
           <Image
-            src="/assets/section2/hand (1) section2.png"
+            src="/assets/hand (1) section2.png"
             alt="Hand outline"
             width={100}
             height={100}
@@ -117,7 +117,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
               {/* Grid pattern - only show on xl+ */}
               <div className="hidden xl:block absolute  -left-3 lg:-left-6 xl:-left-11 top-95 -bottom-4 z-10">
                 <Image
-                  src="/assets/section2/grid.png"
+                  src="/assets/grid.png"
                   alt="Grid pattern"
                   width={120}
                   height={400}
@@ -136,7 +136,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                   style={{ animationDelay: "0.3s" }}
                 >
                   <Image
-                    src="/assets/section2/line.png"
+                    src="/assets/line.png"
                     alt="Decorative wavy line"
                     width={200}
                     height={40}
@@ -164,7 +164,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                     }}
                   >
                     <Image
-                      src="/assets/section2/helpingecahother3.JPG"
+                      src="/assets/helpingecahother3.JPG"
                       alt="Children in need"
                       fill
                       className="object-cover "
@@ -216,7 +216,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                   {/* Top left overlay image */}
                   <div className="absolute -top-14 -left-22 xl:-top-15 xl:-left-24 lg:w-60 lg:h-55 xl:w-60 xl:h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                     <Image
-                      src="/assets/section2/helpingeachother1.jpg"
+                      src="/assets/helpingeachother1.jpg"
                       alt="Community meal"
                       fill
                       className="object-cover"
@@ -226,7 +226,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                   {/* Bottom right overlay image */}
                   <div className="absolute lg:-bottom-28 xl:-bottom-20 right-0 xl:right-0 w-60 h-60 rounded-2xl overflow-hidden shadow-lg border-6 border-white bg-white">
                     <Image
-                      src="/assets/section2/helpingeachother2.jpg"
+                      src="/assets/helpingeachother2.jpg"
                       alt="Smiling child"
                       fill
                       className="object-cover"
@@ -269,7 +269,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                 }}
               >
                 <Image
-                  src="/assets/section2/parasuit.png"
+                  src="/assets/parasuit.png"
                   alt="Hot air balloon"
                   width={100}
                   height={100}
@@ -302,7 +302,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                 }}
               >
                 <Image
-                  src="/assets/section2/parasuit.png"
+                  src="/assets/parasuit.png"
                   alt="Hot air balloon"
                   width={100}
                   height={100}
@@ -474,7 +474,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                 }}
               >
                 <Image
-                  src="/assets/section2/spade.png"
+                  src="/assets/spade.png"
                   alt="Heart Outline"
                   width={60}
                   height={60}

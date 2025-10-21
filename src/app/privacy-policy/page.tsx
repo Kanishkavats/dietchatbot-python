@@ -1,16 +1,18 @@
 "use client";
 
 import React from "react";
-import Banner from "@/src/components/PageBanner/Banner";
+//import Banner from "@/src/components/PageBanner/Banner";
+import Banner from "@/src/helper/PageBanner";
 
 const PrivacyPolicy = () => {
   return (
     <div>
       {/* Reuse the same banner as About page */}
-      <Banner
+      {/* <Banner
         Heading="Our Commitment to Your Privacy"
         BannerMoto="Privacy Policy"
-      />
+      /> */}
+      <Banner bgImage={`Our Commitment to Your Privacy`} title="Privacy Policy" />
 
       {/* Text content only */}
       {/* <section className="max-w-4xl mx-auto px-4 py-12 text-gray-700 leading-relaxed">

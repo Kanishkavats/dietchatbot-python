@@ -7,11 +7,11 @@ import { useRouter } from "next/navigation";
 import Button from "../../../UI/web/Buttons/Button";
 import { useTranslation } from "react-i18next";
 
-import becomeVolunteerBg from "@/public/assets/becomevolunter/becomevoluntter2.jpg";
-import volunteerIcon from "@/public/assets/becomevolunter/icon.png";
-import yellowImage from "@/public/assets/becomevolunter/yellow_image.png";
-import videoBg from "@/public/assets/becomevolunter/becomevoluntter1.jpg";
-import thumbLg from "@/public/assets/becomevolunter/becomevolunteer3.jpg";
+import becomeVolunteerBg from "@/public/assets/becomevoluntter2.jpg";
+import volunteerIcon from "@/public/assets/icon.png";
+import yellowImage from "@/public/assets/yellow_image.png";
+import videoBg from "@/public/assets/sendmessagefordonation.jpg";
+import thumbLg from "@/public/assets/becomevolunteer3.jpg";
 
 const BecomeVolunteer: React.FC = () => {
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);
