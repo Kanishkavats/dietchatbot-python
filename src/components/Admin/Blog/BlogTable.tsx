@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import Breadcrumb from "../Breadcrumb";
 import { BlogSearchOptions } from "../Data/staticData";
 import DataTableWrapper from "../../UI/admin/DataTableWrapper";
 import CustomInput from "../../UI/admin/CustomInput";
@@ -20,7 +19,7 @@ import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import BlogPreview from "./PreviewBlog";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createBlog, updateBlog } from "@/src/services/admin/blogApi";
-import { Blog } from "@/src/types/admin/blog";
+import { Blog, SearchField } from "@/src/types/admin/blog";
 import AdminCustomPagination from "../../UI/admin/CustomePagination";
 import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
@@ -33,10 +32,10 @@ import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const BlogTable = () => {
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"title" | "location" | "category" |"creator">("title");
+  const [searchField, setSearchField] = useState<SearchField>("title");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [blogId, setBlogId] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view" | "preview-edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
@@ -44,25 +43,25 @@ const BlogTable = () => {
   const [itemsPerPage] = useState(10);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
-  const debounceValue=useDebounce(search,1000);
+  const searchedData = useDebounce(search, 1000);
 
   const { data: blogData, isLoading: isAllBlogLoading } = useFetchAllBlogs(
     currentPage,
     itemsPerPage,
-    debounceValue
+    searchedData,
+    searchField
   );
-  const{language}=useLanguageToggle();
-  const { data: singleBlogData, isLoading: isLoadingBlog,refetch } = useFetchSingleBlog(
+  const { language } = useLanguageToggle();
+  const { data: singleBlogData, isLoading: isLoadingBlog, refetch } = useFetchSingleBlog(
     blogId || undefined
   );
   const { data: categoryData } = useFetchCategory();
-     
-  
-    const categoryOptions =
-      categoryData?.category?.map((category: Category) => ({
-        label: category.name?.[language] || category.name.en, 
-        value: category.name?.[language] || category.name.en,
-      })) ?? [];
+
+  const categoryOptions =
+    categoryData?.category?.map((category: Category) => ({
+      label: category.name?.[language] || category.name.en,
+      value: category.name?.[language] || category.name.en,
+    })) ?? [];
   const { mutate: deleteBlog } = useDeleteSingleBlog();
   const totalPages = blogData?.totalPages || 1;
 
@@ -72,25 +71,25 @@ const BlogTable = () => {
     setDrawerOpen(true);
   }, []);
 
-  const handleView = useCallback(async(blog: Blog) => {
+  const handleView = useCallback(async (blog: Blog) => {
     setBlogId(blog.id.toString());
     setMode("view");
-     setDrawerOpen(true); 
-    setPreviewData(null); 
-  setShowPreview(false);
-  try {
-     setTimeout(async () => {
-      const { data } = await refetch();
-      if (data) {
-      setMode("view");
-      setPreviewData((data));
+    setDrawerOpen(true);
+    setPreviewData(null);
+    setShowPreview(false);
+    try {
+      setTimeout(async () => {
+        const { data } = await refetch();
+        if (data) {
+          setMode("view");
+          setPreviewData((data));
+        }
+      }, 100);
+    } catch (error) {
+      console.error("Failed to fetch campaign:", error);
     }
-  },100);
-  } catch (error) {
-    console.error("Failed to fetch campaign:", error);
-  }
   }, [refetch]);
-  
+
 
 
   const handleDelete = useCallback(
@@ -104,7 +103,7 @@ const BlogTable = () => {
   const confirmDelete = useCallback(() => {
     if (selectedBlog) {
       toast.dismiss();
-        toast.loading("Deleting Blog....")
+      toast.loading("Deleting Blog....")
       deleteBlog(selectedBlog.id.toString());
       setIsOpen(false);
       setSelectedBlog(null);
@@ -148,27 +147,26 @@ const BlogTable = () => {
       updateBlog(data.id, data.values),
     onSuccess: () => {
       queryClient.invalidateQueries({
-      predicate: (query) => query.queryKey[0] === "blogs",
-    });
-    queryClient.invalidateQueries({
-      queryKey: ["blog", blogId],
-    });
+        predicate: (query) => query.queryKey[0] === "blogs",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["blog", blogId],
+      });
     },
   });
-const normalizedBlogData = useMemo(() => {
+  const normalizedBlogData = useMemo(() => {
     if (!singleBlogData) return undefined;
 
     const stringImages =
-        singleBlogData.images?.filter((img: any) => typeof img === "string") ?? [];
+      singleBlogData.images?.filter((img: any) => typeof img === "string") ?? [];
 
     return {
-        ...singleBlogData,
-        existingImages: singleBlogData.existingImages ?? stringImages,
-        images: singleBlogData.images ?? stringImages,
+      ...singleBlogData,
+      existingImages: singleBlogData.existingImages ?? stringImages,
+      images: singleBlogData.images ?? stringImages,
     };
-}, [singleBlogData]);
+  }, [singleBlogData]);
 
-  console.log("previewData", previewData)
   return (
     <section>
       {/* Top controls */}
@@ -178,30 +176,30 @@ const normalizedBlogData = useMemo(() => {
             <Dropdown
               options={BlogSearchOptions}
               value={searchField}
-              onChange={(value) => {
+              onChange={(value:SearchField) => {
                 setSearchField(value);
-                setSearch(""); 
+                setSearch("");
                 setTimeout(() => {
                   searchInputRef.current?.focus();
                 }, 0);
               }}
             />
-            {searchField==='category'?(<>
-            <Dropdown
-            options={categoryOptions}
-            value={search||''}
-            onChange={(value)=>{
-              setSearch(value)
-            }}
-            />
+            {searchField === 'category' ? (<>
+              <Dropdown
+                options={categoryOptions}
+                value={search || ''}
+                onChange={(value:SearchField) => {
+                  setSearch(value)
+                }}
+              />
 
-            </>):(
-            <CustomInput
-              ref={searchInputRef}
-              placeholder={`Search by ${searchField}...`}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            </>) : (
+              <CustomInput
+                ref={searchInputRef}
+                placeholder={`Search by ${searchField}...`}
+                value={search}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+              />
             )}
           </div>
         </AnimatedReveal>
@@ -257,75 +255,76 @@ const normalizedBlogData = useMemo(() => {
             setMode("add");
           }}
           title={
-    mode === "edit"
-      ? "Edit Blog"
-      : mode === "view" || mode === "preview-edit"
-      ? "View Blog"
-      : "Add Blog"
-  }
+            mode === "edit"
+              ? "Edit Blog"
+              : mode === "view" || mode === "preview-edit"
+                ? "View Blog"
+                : "Add Blog"
+          }
           mode={mode}
         >
           {(mode === "view" || mode === "preview-edit") && (
-    !previewData || isLoadingBlog ? (
-   
-    <div className="flex justify-center py-10">
-      <CustomLoader />
-    </div>
-  ) : (
-            <BlogPreview
-              data={previewData}
-              showButton={mode==='preview-edit'?true:false}
-              onBack={() => {setShowPreview(false); 
-  setMode(blogId ? "edit" : "add");}}
-              onSubmit={() => {
-                submitBlogForm(
-                  { ...previewData, keyPoints: previewData.keyPoints },
-                  singleBlogData,
-                  createMutation,
-                  updateMutation,
-                  () => {
-                    setPreviewData(null);
-          setShowPreview(false);
-          setDrawerOpen(false);
-                  },
-                  () => {},
-                  () => setDrawerOpen(false)
-                );
-              }}
-              mode={mode}
-            />
-           )
-  )}
-    {(mode === "add" || mode === "edit") && (
-      isLoadingBlog?(
-        <div><CustomLoader/></div>
-      ):
-    (
-            <BlogForm
-              initialData={{
-    ...(normalizedBlogData ?? {}),
-    ...(previewData ?? {}),
-    // Ensure both arrays persist
-    images:
-      previewData?.images?.length
-        ? previewData.images
-        : normalizedBlogData?.images ?? [],
-    existingImages:
-      previewData?.existingImages?.length
-        ? previewData.existingImages
-        : normalizedBlogData?.existingImages ?? [],
-              }}
-              onClose={() => setDrawerOpen(false)}
-              mode={mode}
-              onPreview={(data) => {
-                setPreviewData(data);
-      setShowPreview(true);
-      setMode('preview-edit') 
-              }}
-              createMutation={createMutation}
-              updateMutation={updateMutation}
-            />
-          ))}
+            !previewData || isLoadingBlog ? (
+
+              <div className="flex justify-center py-10">
+                <CustomLoader />
+              </div>
+            ) : (
+              <BlogPreview
+                data={previewData}
+                showButton={mode === 'preview-edit' ? true : false}
+                onBack={() => {
+                  setShowPreview(false);
+                  setMode(blogId ? "edit" : "add");
+                }}
+                onSubmit={() => {
+                  submitBlogForm(
+                    { ...previewData, keyPoints: previewData.keyPoints },
+                    singleBlogData,
+                    createMutation,
+                    updateMutation,
+                    () => {
+                      setPreviewData(null);
+                      setShowPreview(false);
+                      setDrawerOpen(false);
+                    },
+                    () => { },
+                    () => setDrawerOpen(false)
+                  );
+                }}
+                mode={mode}
+              />
+            )
+          )}
+          {(mode === "add" || mode === "edit") && (
+            isLoadingBlog ? (
+              <div><CustomLoader /></div>
+            ) :
+              (
+                <BlogForm
+                  initialData={{
+                    ...(normalizedBlogData ?? {}),
+                    ...(previewData ?? {}),
+                    images:
+                      previewData?.images?.length
+                        ? previewData.images
+                        : normalizedBlogData?.images ?? [],
+                    existingImages:
+                      previewData?.existingImages?.length
+                        ? previewData.existingImages
+                        : normalizedBlogData?.existingImages ?? [],
+                  }}
+                  onClose={() => setDrawerOpen(false)}
+                  mode={mode}
+                  onPreview={(data) => {
+                    setPreviewData(data);
+                    setShowPreview(true);
+                    setMode('preview-edit')
+                  }}
+                  createMutation={createMutation}
+                  updateMutation={updateMutation}
+                />
+              ))}
         </Drawer>
       )}
       <ConfirmModal
