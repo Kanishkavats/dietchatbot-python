@@ -24,3 +24,5 @@ export interface BannerColumnCallbacks {
   onDelete: (banner: Banner) => void;
   onView?: (banner: Banner) => void; 
 }
+
+export type BannerSearchField = "title" | "subtitle" | "priority";

@@ -1,5 +1,5 @@
-import Login from '@/src/components/Primary/Login/Login'
 import React from 'react'
+import Login from '@/src/components/Primary/Login'
 
 const page = () => {
   return <Login/>
