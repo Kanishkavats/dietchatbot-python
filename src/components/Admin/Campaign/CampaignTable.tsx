@@ -4,7 +4,7 @@
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
 import CampaignForm from "./CampaignForm";
-import {  CampaignSearchOptions } from "../Data/staticData";
+import { CampaignSearchOptions } from "../Data/staticData";
 import DataTableWrapper from "../../UI/admin/DataTableWrapper";
 import CustomInput from "../../UI/admin/CustomInput";
 import Dropdown from "../../UI/admin/Dropdown";
@@ -35,13 +35,13 @@ import { Category } from "@/src/types/admin/category";
 
 const CampaignTable = () => {
   const [search, setSearch] = useState("");
-  const [searchField, setSearchField] = useState<"title" | "category"|"status">("title");
-  const [statusField, setStatusField] = useState<"active" | "completed" | "inactive"|"status">("active");
+  const [searchField, setSearchField] = useState<"title" | "category" | "status">("title");
+  const [statusField, setStatusField] = useState<"active" | "completed" | "inactive" | "status">("active");
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [editCampaign, setEditCampaign] = useState<string | null>(null);
-  const [mode, setMode] = useState<"add" | "edit" | "view"|"preview-edit">("add");
+  const [mode, setMode] = useState<"add" | "edit" | "view" | "preview-edit">("add");
   const [isOpen, setIsOpen] = useState(false);
-    const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
+  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
 
@@ -49,21 +49,21 @@ const CampaignTable = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const debounceValue=useDebounce(search,1000);
-  const{language,toggleLanguage}=useLanguageToggle();
+  const searchedData = useDebounce(search, 1000);
+  const { language } = useLanguageToggle();
 
-  const { data: campaignData , isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage,debounceValue);
-  const { data: singleCampaignData, isLoading: isLoadingCampaign,refetch } = useFetchSingleCampaign(editCampaign || undefined);
+  const { data: campaignData, isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage, searchedData, searchField) as { data: { campaigns: Campaign[]; totalPages: number }, isLoading: boolean };
+  const { data: singleCampaignData, isLoading: isLoadingCampaign, refetch } = useFetchSingleCampaign(editCampaign || undefined) as { data: Campaign, isLoading: boolean, refetch: any}; ;
   const { mutate: deleteCampaign } = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
   const { data: categoryData } = useFetchCategory();
-    const categoryOptions =
-      categoryData?.category?.map((category: Category) => ({
-        label: category.name?.[language] || category.name.en, 
-        value: category.name?.[language] || category.name.en,
-      })) ?? [];  
+  const categoryOptions =
+    categoryData?.category?.map((category: Category) => ({
+      label: category.name?.[language] || category.name.en,
+      value: category.name?.[language] || category.name.en,
+    })) ?? [];
 
-const lang=language
+  const lang = language
   const queryClient = useQueryClient();
 
   const createMutation = useMutation({
@@ -78,35 +78,35 @@ const lang=language
       updateCampaign(data.id, data.values),
     onSuccess: () => {
       queryClient.invalidateQueries({
-      predicate: (query) => query.queryKey[0] === "campaigns",
-    });
-    queryClient.invalidateQueries({
-      queryKey: ["campaign", editCampaign],
-    });
+        predicate: (query) => query.queryKey[0] === "campaigns",
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["campaign", editCampaign],
+      });
     },
   });
-const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages: string[] } => {
-  const hasFileImages = Array.isArray(data.images) && data.images.some((img: any) => typeof img !== 'string');
-  const serverUrlsFrom = (arr: any[]) => arr.filter((img: any): img is string => typeof img === 'string' && !!img);
+  const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages: string[] } => {
+    const hasFileImages = Array.isArray(data.images) && data.images.some((img: any) => typeof img !== 'string');
+    const serverUrlsFrom = (arr: any[]) => arr.filter((img: any): img is string => typeof img === 'string' && !!img);
 
-  return {
-    title: data.title ?? { en: "", hi: "" },
-    category: data.category ?? { en: "", hi: "" },
-    description: data.description ?? { en: "", hi: "" },
-    goalAmount: data.goalAmount ?? '',
-    summary: data.summary ?? { en: "", hi: "" },
-    keyPoints: data.keyPoints ?? { en: [], hi: [] },
-    location: data.location ?? { en: "", hi: "" },
-    images: hasFileImages ? (data.images as any[]) : [],
-    existingImages: hasFileImages
-      ? (Array.isArray(data.existingImages) ? serverUrlsFrom(data.existingImages) : [])
-      : Array.isArray(data.existingImages)
-      ? serverUrlsFrom(data.existingImages)
-      : Array.isArray(data.images)
-      ? serverUrlsFrom(data.images)
-      : [],
+    return {
+      title: data.title ?? { en: "", hi: "" },
+      category: data.category ?? { en: "", hi: "" },
+      description: data.description ?? { en: "", hi: "" },
+      goalAmount: data.goalAmount ?? '',
+      summary: data.summary ?? { en: "", hi: "" },
+      keyPoints: data.keyPoints ?? { en: [], hi: [] },
+      location: data.location ?? { en: "", hi: "" },
+      images: hasFileImages ? (data.images as any[]) : [],
+      existingImages: hasFileImages
+        ? (Array.isArray(data.existingImages) ? serverUrlsFrom(data.existingImages) : [])
+        : Array.isArray(data.existingImages)
+          ? serverUrlsFrom(data.existingImages)
+          : Array.isArray(data.images)
+            ? serverUrlsFrom(data.images)
+            : [],
+    };
   };
-};
 
 
   const handleEdit = useCallback((c: Campaign) => {
@@ -118,20 +118,20 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
   const handleView = useCallback(async (c: Campaign) => {
     setEditCampaign(c.id.toString());
     setMode("view");
-    setDrawerOpen(true); 
-    setPreviewData(null); 
-  setShowPreview(false);
-  try {
-   setTimeout(async () => {
-      const { data } = await refetch();
-      if (data) {
-        setPreviewData(normalizeCampaignData(data));
-        setShowPreview(true);
-      }
-    }, 100); 
-  } catch (error) {
-    console.error("Failed to fetch campaign:", error);
-  }
+    setDrawerOpen(true);
+    setPreviewData(null);
+    setShowPreview(false);
+    try {
+      setTimeout(async () => {
+        const { data } = await refetch();
+        if (data) {
+          setPreviewData(normalizeCampaignData(data));
+          setShowPreview(true);
+        }
+      }, 100);
+    } catch (error) {
+      console.error("Failed to fetch campaign:", error);
+    }
   }, [refetch]);
 
   const handleDelete = useCallback(
@@ -148,7 +148,7 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
   const confirmDelete = useCallback(() => {
     if (selectedCampaign?.id) {
       toast.dismiss();
-        toast.loading("Deleting Campaign....")
+      toast.loading("Deleting Campaign....")
       deleteCampaign(selectedCampaign.id.toString());
       setIsOpen(false);
       setSelectedCampaign(null);
@@ -173,27 +173,27 @@ const normalizeCampaignData = (data: any): CampaignFormValues & { existingImages
     }));
   }, [campaignData]);
 
-const filteredData = useMemo(() => paginatedData, [paginatedData]);
+  const filteredData = useMemo(() => paginatedData, [paginatedData]);
 
 
 
-const normalizedCampaignData = useMemo(() => {
-  if (!singleCampaignData) return undefined;
+  const normalizedCampaignData = useMemo(() => {
+    if (!singleCampaignData) return undefined;
 
-  const stringImages = Array.isArray(singleCampaignData.images)
-    ? singleCampaignData.images.filter((img: any) => typeof img === "string" && !!img)
-    : [];
+    const stringImages = Array.isArray(singleCampaignData.images)
+      ? singleCampaignData.images.filter((img: any) => typeof img === "string" && !!img)
+      : [];
 
-  return {
-    ...singleCampaignData,
-    images: Array.isArray(singleCampaignData.images)
-      ? singleCampaignData.images.filter((img: any) => typeof img !== "string") 
-      : [],
-    existingImages: singleCampaignData.existingImages?.length
-      ? singleCampaignData.existingImages
-      : stringImages,
-  };
-}, [singleCampaignData]);
+    return {
+      ...singleCampaignData,
+      images: Array.isArray(singleCampaignData.images)
+        ? singleCampaignData.images.filter((img: any) => typeof img !== "string")
+        : [],
+      existingImages: singleCampaignData.existingImages?.length
+        ? singleCampaignData.existingImages
+        : stringImages,
+    };
+  }, [singleCampaignData]);
 
 
   return (
@@ -201,43 +201,43 @@ const normalizedCampaignData = useMemo(() => {
       {/* Top Controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-          <div className="w-fit flex flex-row gap-2">
+          <div className=" flex flex-row gap-2">
             <Dropdown
               options={CampaignSearchOptions}
-             value={searchField}
+              value={searchField}
               onChange={(value) => {
                 setSearchField(value);
-                setSearch(""); 
+                setSearch("");
                 setTimeout(() => {
                   searchInputRef.current?.focus();
                 }, 0);
               }}
             />
-            {searchField==='category'?(<>
-            <Dropdown
-            options={categoryOptions}
-            value={search||''}
-            onChange={(value)=>{
-              setSearch(value)
-            }}
-            />
+            {searchField === 'category' ? (<>
+              <Dropdown
+                options={categoryOptions}
+                value={search || ''}
+                onChange={(value) => {
+                  if (value) setSearch(value)
+                }}
+              />
 
-            </>):((searchField==='status')?(<>
-            <Dropdown
-            options={statusValue}
-            value={statusField}
-            onChange={(value)=>{
-              setSearch(value)
-              setStatusField(value)
-            }}
-            />
-            </>):(
-            <CustomInput
-              ref={searchInputRef}
-              placeholder={`Search by ${searchField}...`}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
+            </>) : ((searchField === 'status') ? (<>
+              <Dropdown
+                options={statusValue}
+                value={statusField}
+                onChange={(value) => {
+                  setSearch(value)
+                  setStatusField(value)
+                }}
+              />
+            </>) : (
+              <CustomInput
+                ref={searchInputRef}
+                placeholder={`Search by ${searchField}...`}
+                value={search}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+              />
             ))}
           </div>
         </AnimatedReveal>
@@ -265,16 +265,16 @@ const normalizedCampaignData = useMemo(() => {
       </div>
 
       {/* Table */}
-     
-       {isLoading ? (
+
+      {isLoading ? (
         <div className="flex justify-center py-8">
           <CustomLoader />
         </div>
       ) : (
-         <DataTableWrapper
-        columns={columns}
-        data={paginatedData}
-      />
+        <DataTableWrapper
+          columns={columns}
+          data={paginatedData}
+        />
       )}
 
       {/* Pagination */}
@@ -290,97 +290,97 @@ const normalizedCampaignData = useMemo(() => {
 
       {/* Drawer */}
       {drawerOpen && (
-      <Drawer
-        isOpen={drawerOpen}
-        onClose={() => {
-          setDrawerOpen(false);
-          setEditCampaign(null);
-          setMode("add");
-          setPreviewData(null);
-        }}
-        // &&!previewData
-       title={
-    mode === "edit"
-      ? "Edit Campaign"
-      : mode === "view" || mode === "preview-edit"
-      ? "View Campaign"
-      : "Add Campaign"
-  }
-        mode={mode}
+        <Drawer
+          isOpen={drawerOpen}
+          onClose={() => {
+            setDrawerOpen(false);
+            setEditCampaign(null);
+            setMode("add");
+            setPreviewData(null);
+          }}
+          // &&!previewData
+          title={
+            mode === "edit"
+              ? "Edit Campaign"
+              : mode === "view" || mode === "preview-edit"
+                ? "View Campaign"
+                : "Add Campaign"
+          }
+          mode={mode}
 
-      >
-        {(mode === "view" || mode === "preview-edit") && (
-    !previewData || isLoadingCampaign ? (
-   
-    <div className="flex justify-center py-10">
-      <CustomLoader />
-    </div>
-  ) : (
-  <CampaignPreview
-    mode={mode}
-    showButton={mode === "preview-edit"}
-    data={normalizeCampaignData(previewData)}
-    onBack={() => {
-  setShowPreview(false); 
-  setMode(editCampaign ? "edit" : "add");
-      
-    }}
-    onSubmit={() => {
+        >
+          {(mode === "view" || mode === "preview-edit") && (
+            !previewData || isLoadingCampaign ? (
 
-      submitCampaignForm(
-        { ...previewData!, keyPoints: previewData!.keyPoints },
-        singleCampaignData,
-        createMutation,
-        updateMutation,
-        () => {
-          setPreviewData(null);
-          setShowPreview(false);
-          setDrawerOpen(false);
-        },
-        () => {},
-        () => setDrawerOpen(false)
-      );
-    }}
-  />
-  )
-  )}
-{(mode === "add" || mode === "edit") && (
-      isLoadingCampaign?(
-        <div><CustomLoader/></div>
-      ):
-    (
-  <CampaignForm
-    initialData={{
-    ...(normalizedCampaignData ?? {}),
-    ...(previewData ?? {}),
-    // Ensure both arrays persist
-    images:
-      previewData?.images?.length
-        ? previewData.images
-        : normalizedCampaignData?.images ?? [],
-    existingImages:
-      previewData?.existingImages?.length
-        ? previewData.existingImages
-        : normalizedCampaignData?.existingImages ?? [],
-  }}
-    onClose={() => {
-      setDrawerOpen(false);
-      setPreviewData(null);
-      setShowPreview(false);
-    }}
-    mode={mode}
-    onPreview={(data) => {
-      setPreviewData(data);
-      setShowPreview(true);
-      setMode('preview-edit') 
-    }}
-    createMutation={createMutation}
-    updateMutation={updateMutation}
-  />
-))}
-      </Drawer>
+              <div className="flex justify-center py-10">
+                <CustomLoader />
+              </div>
+            ) : (
+              <CampaignPreview
+                mode={mode}
+                showButton={mode === "preview-edit"}
+                data={normalizeCampaignData(previewData)}
+                onBack={() => {
+                  setShowPreview(false);
+                  setMode(editCampaign ? "edit" : "add");
+
+                }}
+                onSubmit={() => {
+
+                  submitCampaignForm(
+                    { ...previewData!, keyPoints: previewData!.keyPoints },
+                    singleCampaignData,
+                    createMutation,
+                    updateMutation,
+                    () => {
+                      setPreviewData(null);
+                      setShowPreview(false);
+                      setDrawerOpen(false);
+                    },
+                    () => { },
+                    () => setDrawerOpen(false)
+                  );
+                }}
+              />
+            )
+          )}
+          {(mode === "add" || mode === "edit") && (
+            isLoadingCampaign ? (
+              <div><CustomLoader /></div>
+            ) :
+              (
+                <CampaignForm
+                  initialData={{
+                    ...(normalizedCampaignData ?? {}),
+                    ...(previewData ?? {}),
+                    // Ensure both arrays persist
+                    images:
+                      previewData?.images?.length
+                        ? previewData.images
+                        : normalizedCampaignData?.images ?? [],
+                    existingImages:
+                      previewData?.existingImages?.length
+                        ? previewData.existingImages
+                        : normalizedCampaignData?.existingImages ?? [],
+                  }}
+                  onClose={() => {
+                    setDrawerOpen(false);
+                    setPreviewData(null);
+                    setShowPreview(false);
+                  }}
+                  mode={mode}
+                  onPreview={(data) => {
+                    setPreviewData(data);
+                    setShowPreview(true);
+                    setMode('preview-edit')
+                  }}
+                  createMutation={createMutation}
+                  updateMutation={updateMutation}
+                />
+              ))}
+        </Drawer>
       )}
-       <ConfirmModal
+      <ConfirmModal
         isOpen={isOpen}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}

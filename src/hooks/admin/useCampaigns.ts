@@ -124,10 +124,10 @@ export const submitCampaignForm = (
 };
 
 
-export const useFetchAllCampaigns = (page: number, limit: number = 10,search?:string) => {
+export const useFetchAllCampaigns = (page: number, limit: number = 10,search?:string, searchField?: string) => {
   return useLanguageAwareQuery(
-    ["campaigns", page, limit,search], 
-    () => fetchAllCampaigns(page, limit,search),
+    ["campaigns", page, limit,search, searchField], 
+    () => fetchAllCampaigns(page, limit,search, searchField),
     {
       staleTime: 5 * 60 * 1000, 
     }

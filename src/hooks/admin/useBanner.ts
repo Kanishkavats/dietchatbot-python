@@ -100,12 +100,11 @@ export const submitBannerForm = (
 };
 
 // ✅ Fetch banners with pagination
-export const useFetchAllBanners = (page: number, limit: number = 10,search?:string) => {
+export const useFetchAllBanners = (page: number, limit: number = 10,search?:string, searchField?: string) => {
     return useQuery({
-        queryKey: ["banners", page, limit,search],
-        queryFn: () => fetchAllBanners(page, limit,search),
+        queryKey: ["banners", page, limit,search, searchField],
+        queryFn: () => fetchAllBanners(page, limit,search, searchField),
         placeholderData: keepPreviousData,
-
     });
 };
 

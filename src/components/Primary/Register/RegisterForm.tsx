@@ -3,9 +3,9 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { useMutation } from "@tanstack/react-query";
-import InputField from "../../../UI/web/InputField";
-import Button from "../../../UI/web/Buttons/Button";
-import ButtonLoader from "../../../UI/web/Loader/ButtonLoader";
+import InputField from "../../UI/web/InputField";
+import Button from "../../UI/web/Buttons/Button";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
 import { registerUser } from "@/src/services/authApi"; // your API

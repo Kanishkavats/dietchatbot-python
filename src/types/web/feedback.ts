@@ -13,3 +13,10 @@ export interface FeedbackColumnCallbacks {
   onDelete: (feedback: Feedback) => void;
   onView: (feedback: Feedback) => void;
 }
+
+export interface FeedbackApiResponse {
+  feedback: Feedback[];
+  totalPages: number;
+  page: number;
+  limit: number;
+}

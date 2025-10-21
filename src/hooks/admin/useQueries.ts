@@ -5,13 +5,13 @@ import toast from "react-hot-toast";
 import { QueryFormValues } from "@/src/utils/validations/FormValidation";
 import { deleteQuery, fetchAllQueries, fetchQueryById, updateQuery } from "@/src/services/admin/queryApi";
 import { useLanguageAwareQuery } from "@/src/hooks/web/useLanguageAwareQuery"; 
-import { QueryFilters } from "@/src/components/Admin/types/query";
 
 // ✅ Fetch all queries (paginated) - language-aware
-export const useFetchAllQueries = (page: number, limit: number = 10, filters?: QueryFilters) => {
+export const useFetchAllQueries = (page: number, limit: number = 10, filterValue?: string, filterField?: string) => {
+  
   return useLanguageAwareQuery(
-    ["queries", page, limit, filters],
-    () => fetchAllQueries(page, limit, filters),
+    ["queries", page, limit, filterValue, filterField],
+    () => fetchAllQueries(page, limit, filterValue, filterField),
     {
       staleTime: 5 * 60 * 1000, // 5 minutes
     }

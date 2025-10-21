@@ -12,12 +12,17 @@ export const createCampaign = async (campaign: CampaignFormValues) => {
 export const fetchAllCampaigns = async (
   page: number = 1,
   limit: number = 2,
-  search?: string
+  search?: string,
+  searchField?: string
 ) => {
-  const searchQuery = search ? `&search=${encodeURIComponent(search)}` : "";
-  const { data } = await api.get(
-    `/admin/campaign/getAllCampaigns?page=${page}&limit=${limit}${searchQuery}`
-  );
+  let url = `/admin/campaign/getAllCampaigns?page=${page}&limit=${limit}`;
+  if (search && searchField) {
+    url += `&${encodeURIComponent(searchField)}=${encodeURIComponent(search)}`
+  } else if (search) {
+    url += `&search=${encodeURIComponent(search)}`
+  }
+
+  const { data } = await api.get(url);
   return data;
 };
 

@@ -11,9 +11,8 @@ import {
   useFetchFeedbackById,
   useDeleteFeedback,
 } from "@/src/hooks/admin/useFeedback";
-import { Feedback } from "@/src/types/web/feedback";
+import { Feedback, FeedbackApiResponse } from "@/src/types/web/feedback";
 import FeedbackForm from "./FeedbackForm";
-import { filterOptions } from "@/src/staticResource";
 import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
 import { FeedbackSearchField, FeedbackStatusField } from "@/src/types/admin/feedback";
@@ -27,10 +26,10 @@ const FeedbackTable = () => {
   // Drawer state
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [feedbackId, setFeedbackId] = useState<string | null>(null);
-  const [searchField,setSearchField]=useState<string>('');
+  const [searchField, setSearchField] = useState<string>('');
   const [mode, setMode] = useState<"edit" | "view">("view");
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const [statusField,setStatusField]=useState<string>('');
+  const [statusField, setStatusField] = useState<string>('');
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
@@ -39,16 +38,15 @@ const FeedbackTable = () => {
   const [selectedFeedBack, setSelectedFeedBack] = useState<Feedback | null>(
     null
   );
-  const debounceValue=useDebounce(search,1000);
-const effectiveSearchValue =
-  searchField === "status" ? statusField : debounceValue;
+  const searchedData = useDebounce(search, 1000);
+
   // Fetch feedback data with filters
   const { data: feedbackData, isLoading } = useFetchFeedbacks(
     currentPage,
     itemsPerPage,
-    searchField,
-    effectiveSearchValue
-  );
+    searchedData,
+    searchField
+  ) as { data: FeedbackApiResponse; isLoading: boolean , };
 
   const { mutate: deleteFeedback } = useDeleteFeedback();
 
@@ -123,36 +121,36 @@ const effectiveSearchValue =
       {/* Filter */}
       <div className="flex justify-start mb-4 gap-4 w-fit">
         <Dropdown
-              options={FeedbackSearchField}
-              value={searchField}
-              onChange={(value) => {
-                setSearchField(value);
-                setSearch('')
-                setCurrentPage(1)
-              if (value !== "status") {
+          options={FeedbackSearchField}
+          value={searchField}
+          onChange={(value) => {
+            setSearchField(value);
+            setSearch('')
+            setCurrentPage(1)
+            if (value !== "status") {
               setStatusField("");
-    }
-                setTimeout(() => {
-                  searchInputRef.current?.focus();
-                }, 0);
-              }}
-            />{(searchField==='status')?(<>
+            }
+            setTimeout(() => {
+              searchInputRef.current?.focus();
+            }, 0);
+          }}
+        />{(searchField === 'status') ? (<>
           <Dropdown
-          options={FeedbackStatusField}
+            options={FeedbackStatusField}
             value={statusField}
-            onChange={(value)=>{
-          setStatusField(value)
-}}
+            onChange={(value) => {
+              setStatusField(value)
+            }}
 
-/>
-</>): (
-  <CustomInput
-    ref={searchInputRef}
-    placeholder={`Search by ${searchField}...`}
-    value={search}
-    onChange={(e) => setSearch(e.target.value)}
-  />
-)}
+          />
+        </>) : (
+          <CustomInput
+            ref={searchInputRef}
+            placeholder={`Search by ${searchField}...`}
+            value={search}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
+          />
+        )}
       </div>
 
       {/* Table */}

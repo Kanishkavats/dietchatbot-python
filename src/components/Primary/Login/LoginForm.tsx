@@ -1,13 +1,13 @@
 "use client";
 import { Formik, Form } from "formik";
 import { useMutation } from "@tanstack/react-query";
-import InputField from "../../../UI/web/InputField";
-import Button from "../../../UI/web/Buttons/Button";
-import { loginUser } from "@/src/services/authApi";
+import InputField from "../../UI/web/InputField";
+import Button from "../../UI/web/Buttons/Button";
 import { loginSchema, loginValues } from "@/src/utils/validations/FormValidation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import ButtonLoader from "../../../UI/web/Loader/ButtonLoader";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import { loginUser } from "@/src/services/web/authApi";
 
 const initialValues: loginValues = {
   email: "",
@@ -32,14 +32,14 @@ const LoginForm = () => {
             toast.dismiss();
             Cookies.set("token", data.token, { expires: 7, path: "/" });
             toast.success("Login successful 🎉");
-            setSubmitting(false); // ✅ reset submitting
+            setSubmitting(false); 
             window.location.href = "/dashboard";
           },
           onError: (err: any) => {
             toast.dismiss();
             console.log(err)
-            toast.error(err?.response?.data?.message || "Login failed ❌");
-            setSubmitting(false); // ✅ reset submitting
+            toast.error(err?.response?.data?.message || "Login failed ");
+            setSubmitting(false); 
           },
         });
       }}
@@ -65,7 +65,7 @@ const LoginForm = () => {
           {/* Submit button */}
           <Button
           type="submit"
-            hoverBg="before:bg-[var(--green)]"
+            hoverBg="before:bg-green"
             disabled={isPending || isSubmitting}
           >
             {isPending || isSubmitting ? <ButtonLoader /> : "Submit"}

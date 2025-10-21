@@ -3,11 +3,7 @@ import api from "./api";
 
 // ✅ Create a blog
 export const createBlog = async (blog: FormData) => {
-  const { data } = await api.post("/admin/blog/create-blog", blog, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const { data } = await api.post("/admin/blog/create-blog", blog);
   return data;
 };
 
@@ -31,11 +27,7 @@ export const fetchBlogById = async (id: string) => {
 
 // ✅ Update blog
 export const updateBlog = async (id: string, blog: FormData) => {
-  const { data } = await api.put(`/admin/blog/update-blog/${id}`, blog, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
-  });
+  const { data } = await api.put(`/admin/blog/update-blog/${id}`, blog);
   return data;
 };
 

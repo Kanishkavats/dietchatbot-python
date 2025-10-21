@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { logo } from "@/public/assets";
-import Link from "next/link";
 import LoginForm from "./LoginForm";
 
 const Login = () => {
