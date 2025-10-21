@@ -1,13 +1,13 @@
 "use client";
 import { Formik, Form } from "formik";
 import { useMutation } from "@tanstack/react-query";
-import InputField from "../../../UI/web/InputField";
-import Button from "../../../UI/web/Buttons/Button";
-import { loginUser } from "@/src/services/authApi";
+import InputField from "../../UI/web/InputField";
+import Button from "../../UI/web/Buttons/Button";
+import { loginUser } from "@/src/services/web/authApi";
 import { loginSchema, loginValues } from "@/src/utils/validations/FormValidation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-import ButtonLoader from "../../../UI/web/Loader/ButtonLoader";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 
 const initialValues: loginValues = {
   email: "",
@@ -64,7 +64,7 @@ const LoginForm = () => {
 
           {/* Submit button */}
           <Button
-          type="submit"
+            type="submit"
             hoverBg="before:bg-[var(--green)]"
             disabled={isPending || isSubmitting}
           >
