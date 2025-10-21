@@ -12,13 +12,19 @@ export const createBlog = async (blog: FormData) => {
 };
 
 // ✅ Get all blogs with pagination
-export const fetchAllBlogs = async (page: number = 1, limit: number = 10,search?:string) => {
-  const { data } = await api.get(`/admin/blog/getAllBlogs?page=${page}&limit=${limit}&search=${search}`);
+export const fetchAllBlogs = async (page: number = 1, limit: number = 10, search?: string, searchField?: string) => {
+  let url = `/admin/blog/getAllBlogs?page=${page}&limit=${limit}`;
+  if (search && searchField) {
+    url += `&${encodeURIComponent(searchField)}=${encodeURIComponent(search)}`;
+  } else if (search) {
+    url += `&search=${encodeURIComponent(search)}`;
+  }
+  const { data } = await api.get(url);
   return data;
 };
 
 // ✅ Get single blog by ID
-export const fetchBlogById = async (id: string) => {  
+export const fetchBlogById = async (id: string) => {
   const { data } = await api.get(`/admin/blog/getBlogById/${id}`);
   return data;
 };

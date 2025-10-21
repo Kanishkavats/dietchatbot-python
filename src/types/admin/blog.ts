@@ -1,5 +1,5 @@
+import { BlogFormValues } from "@/src/utils/validations/FormValidation";
 import { UseMutationResult } from "@tanstack/react-query";
-import { BlogFormValues } from "../../../utils/validations/FormValidation";
 
 
 export interface Blog {
@@ -53,3 +53,6 @@ export interface BlogColumnCallbacks {
   onDelete: (blog: Blog) => void;
   onView: (blog: Blog) => void;
 }
+
+
+export type SearchField = "title" | "location" | "category" | "creator";

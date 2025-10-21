@@ -11,33 +11,37 @@ import {
   Tooltip,
   ResponsiveContainer,
   Cell,
-  PieChart,
-  Pie,
 } from "recharts";
 import { FaMoneyBillWave, FaUsers, FaClipboardList, FaRegBell } from "react-icons/fa";
 import DonationPieChart from "./DonationPieChart";
 import RecentCampaign from "./RecentCampaign";
 
-const Dashboard = () => {
-  const barData = [
-    { name: "Jan", funds: 4000 },
-    { name: "Feb", funds: 3000 },
-    { name: "Mar", funds: 5000 },
-    { name: "Apr", funds: 4000 },
-    { name: "May", funds: 6000 },
-    { name: "Jun", funds: 7000 },
-  ];
+const barData = [
+  { name: "Jan", funds: 4000 },
+  { name: "Feb", funds: 3000 },
+  { name: "Mar", funds: 5000 },
+  { name: "Apr", funds: 4000 },
+  { name: "May", funds: 6000 },
+  { name: "Jun", funds: 7000 },
+];
 
-  const pieData = [
-    { name: "Charity A", value: 12000 },
-    { name: "Charity B", value: 8000 },
-    { name: "Charity C", value: 15000 },
-    { name: "Charity D", value: 5000 },
-    { name: "Charity E", value: 10000 },
-    { name: "Charity F", value: 7000 },
-  ];
+export const pieData = [
+  { name: "Charity A", value: 12000 },
+  { name: "Charity B", value: 8000 },
+  { name: "Charity C", value: 15000 },
+  { name: "Charity D", value: 5000 },
+  { name: "Charity E", value: 10000 },
+  { name: "Charity F", value: 7000 },
+];
 
-  
+export const cards = [
+  { title: "Total Funds", value: "₹45,000", icon: <FaMoneyBillWave size={24} />, color: "from-yellow-400 to-yellow-600" },
+  { title: "Active Campaigns", value: "8", icon: <FaClipboardList size={24} />, color: "from-green-400 to-green-600" },
+  { title: "Members", value: "125", icon: <FaUsers size={24} />, color: "from-yellow-300 to-yellow-500" },
+  { title: "Pending Requests", value: "3", icon: <FaRegBell size={24} />, color: "from-green-300 to-green-500" },
+];
+
+export const Dashboard = () => {
 
   const cardVariants: Variants = {
     hidden: { opacity: 0, y: 30 },
@@ -54,13 +58,6 @@ const Dashboard = () => {
     hidden: { opacity: 0 },
     visible: { opacity: 1, transition: { duration: 0.8 } },
   };
-
-  const cards = [
-    { title: "Total Funds", value: "₹45,000", icon: <FaMoneyBillWave size={24} />, color: "from-yellow-400 to-yellow-600" },
-    { title: "Active Campaigns", value: "8", icon: <FaClipboardList size={24} />, color: "from-green-400 to-green-600" },
-    { title: "Members", value: "125", icon: <FaUsers size={24} />, color: "from-yellow-300 to-yellow-500" },
-    { title: "Pending Requests", value: "3", icon: <FaRegBell size={24} />, color: "from-green-300 to-green-500" },
-  ];
 
   return (
     <div className="md:p-5 md:pr-0 w-full">
@@ -109,7 +106,7 @@ const Dashboard = () => {
                 {barData.map((entry, index) => (
                   <Cell
                     key={index}
-                    fill="var(--primaryColor)" 
+                    fill="var(--primaryColor)"
                     onMouseEnter={(e) => (e.currentTarget.style.fill = "var(--yellow-50)")}
                     onMouseLeave={(e) => (e.currentTarget.style.fill = "var(--primaryColor)")}
                   />
@@ -120,7 +117,7 @@ const Dashboard = () => {
         </div>
       </motion.div>
       <RecentCampaign />
-    
+
     </div>
   );
 };
