@@ -4,18 +4,18 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CustomInput from "../Common/CustomInput";
+import CustomInput from "../../UI/admin/CustomInput";
 import { toast } from "react-hot-toast";
-import { CategoryFormProps } from "@/src/types/campaign";
 import { CategoryFormValues, categorySchema } from "@/src/utils/validations/FormValidation";
-import CancelButton from "../../common/Buttons/CancelButton";
-import LanguageToggle from "../Common/LanguageToggle";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
 import { getInitialCategoryValues } from "../utils/categoryInitialValues";
-import { hasErrorsForLang } from "../Common/hasErrorsForLang";
-import { createCategory, updateCategory } from "../services/categoryApi";
+import { hasErrorsForLang } from "../../UI/admin/hasErrorsForLang";
+import { createCategory, updateCategory } from "@/src/services/admin/categoryApi";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Button from "../../UI/web/Buttons/Button";
+import { CategoryFormProps } from "@/src/types/admin/campaign";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
   const isView = mode === "view";

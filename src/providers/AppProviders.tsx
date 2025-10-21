@@ -3,19 +3,22 @@
 
 import { Provider } from 'react-redux';
 import { store } from '@/src/store';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
+
 import ThemeApplier from '@/src/helper/ThemeApplier';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactNode, useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import Cookies from 'js-cookie';
-import Loader from '../components/common/Loader';
+
 import { Toaster } from 'react-hot-toast';
-import CustomCursor from '../components/CustomCursor/CustomCursor';
+
 import LanguageProviders from './languageProvider';
 import { LanguageProvider } from '../contexts/LanguageContext';
 import I18nProvider from './I18nProvider';
+import Loader from '../components/UI/web/Loader';
+import Header from '../components/Web/Header';
+import Footer from '../components/Web/Footer';
+import CustomCursor from '../components/Web/CustomCursor/CustomCursor';
 
 export default function AppProviders({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());

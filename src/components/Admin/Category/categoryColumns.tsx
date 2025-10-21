@@ -1,4 +1,4 @@
-import { Category, CategoryColumnCallbacks } from "@/src/types/category";
+import { Category, CategoryColumnCallbacks } from "@/src/types/web/category";
 import TableRowActions from "../Campaign/CampaignActions";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 

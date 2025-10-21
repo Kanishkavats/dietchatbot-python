@@ -2,16 +2,9 @@
 import { motion, MotionProps } from "framer-motion";
 import { ReactNode, useRef } from "react";
 import { useInView } from "framer-motion";
+import { AnimatedRevealProps } from "../types";
 
-interface AnimatedRevealProps extends MotionProps {
-  children: ReactNode;
-  className?: string;
-  direction?: "up" | "down" | "left" | "right";
-  duration?: number;
-  delay?: number;
-  distance?: number;
-  once?: boolean; 
-}
+
 
 const AnimatedReveal = ({
   children,

@@ -1,5 +1,5 @@
 
-import Volunteer from '@/src/components/Volunteer'
+import Volunteer from '@/src/components/Web/Volunteer'
 import React from 'react'
 
 const page = () => {

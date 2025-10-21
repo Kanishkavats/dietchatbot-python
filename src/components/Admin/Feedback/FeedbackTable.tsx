@@ -1,25 +1,25 @@
 "use client";
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
-import Dropdown from "../Common/Dropdown";
-import DataTableWrapper from "../Common/DataTableWrapper";
-import Drawer from "../Common/Drawer";
-import AdminCustomPagination from "../Common/CustomePagination";
-import CustomLoader from "../../common/Loader/CustomLoader";
+import Dropdown from "../../UI/admin/Dropdown";
+import DataTableWrapper from "../../UI/admin/DataTableWrapper";
+import Drawer from "../../UI/admin/Drawer";
+import AdminCustomPagination from "../../UI/admin/CustomePagination";
 import { getFeedbackColumns } from "./getFeedbackColumns";
 import {
   useFetchFeedbacks,
   useFetchFeedbackById,
   useDeleteFeedback,
-} from "@/src/components/Admin/hooks/useFeedback";
-import { Feedback } from "@/src/types/feedback";
+} from "@/src/hooks/admin/useFeedback";
+import { Feedback } from "@/src/types/web/feedback";
 import FeedbackForm from "./FeedbackForm";
 import { filterOptions } from "@/src/staticResource";
-import ConfirmModal from "../Common/ConfirmModal";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
-import { FeedbackSearchField, FeedbackStatusField } from "../types/feedback";
-import CustomInput from "../Common/CustomInput";
-import useDebounce from "@/src/hooks/useDebounce";
+import { FeedbackSearchField, FeedbackStatusField } from "@/src/types/admin/feedback";
+import CustomInput from "../../UI/admin/CustomInput";
+import useDebounce from "@/src/hooks/web/useDebounce";
+import CustomLoader from "../../UI/web/Loader/CustomLoader";
 
 const FeedbackTable = () => {
   const [search, setSearch] = useState<string>('');

@@ -338,5 +338,6 @@
   "lastName is a required field":"last Name is a required field",
   "firstName is a required field":"firs tName is a required field",
   "Our Team":"Our Team",
-  "About us":"About us"
+  "About us":"About us",
+  "Our Blog": "Our Blog"
 }

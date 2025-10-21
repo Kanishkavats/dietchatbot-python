@@ -1,12 +1,7 @@
-// src/store/slice/navScrollSlice.ts
 
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-interface ScrollState {
-  navScrolled: boolean;
-}
-
-const initialState: ScrollState = {
+const initialState: {navScrolled: boolean; }= {
   navScrolled: false,
 };
 

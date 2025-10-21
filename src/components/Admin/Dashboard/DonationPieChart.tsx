@@ -2,11 +2,9 @@
 import React from "react";
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 import { FaUser } from "react-icons/fa";
+import { DonationPieChartProps } from "@/src/types/admin";
 
-interface DonationPieChartProps {
-  data: { name: string; value: number }[];
-  colors?: string[];
-}
+
 
 const defaultColors = ["var(--primaryColor)", "var(--blue)", "var(--lime-green)", "var(--purple)", "var(--red)", "var(--brown)"]; // violet, sky, rose, purple
 

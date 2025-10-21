@@ -1,5 +1,5 @@
 import React from "react";
-import { Blog, BlogColumnCallbacks } from "@/src/types/blog";
+import { Blog, BlogColumnCallbacks } from "@/src/types/admin/blog";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 import TableRowActions from "../Campaign/CampaignActions";
 

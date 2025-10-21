@@ -3,14 +3,7 @@ import React, { JSX } from "react";
 import Breadcrumb from "../Breadcrumb";
 import { motion, Variants } from "framer-motion";
 import { FaInfoCircle, FaCheckCircle, FaExclamationTriangle, FaBell } from "react-icons/fa";
-
-interface Notification {
-  id: number;
-  title: string;
-  description: string;
-  type: "info" | "success" | "warning" | "alert";
-  time: string;
-}
+import { Notification } from "@/src/types/admin";
 
 const Notifications = () => {
   const notifications: Notification[] = [

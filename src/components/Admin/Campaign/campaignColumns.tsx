@@ -1,6 +1,6 @@
 import React from "react";
 import { Campaign } from "../Data/staticData";
-import { CampaignColumnCallbacks } from "@/src/types/campaign";
+import { CampaignColumnCallbacks } from "@/src/types/admin/campaign";
 import TableRowActions from "./CampaignActions";
 import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
 

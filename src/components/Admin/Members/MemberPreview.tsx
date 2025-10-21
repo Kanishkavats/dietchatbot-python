@@ -1,23 +1,15 @@
 "use client";
 
 import React, { useEffect, useState, useMemo, JSX } from "react";
-import { MemberFormValues } from "@/src/utils/validations/FormValidation";
 import { motion } from "framer-motion";
 import { LucideCircleCheckBig } from "lucide-react";
-import Button from "../../common/Buttons/Button";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from "react-icons/fa";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import LanguageToggle from "../Common/LanguageToggle";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
 import { useTranslation } from "react-i18next";
-
-interface MemberPreviewProps {
-  data: MemberFormValues & { createdAt?: string };
-  onSubmit: () => void;
-  onBack: () => void;
-  mode?: "add" | "edit" | "view"|"preview-edit";
-  showButton?:boolean;
-}
+import Button from "../../UI/web/Buttons/Button";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
+import { MemberPreviewProps } from "@/src/types/admin";
 
 const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberPreviewProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);

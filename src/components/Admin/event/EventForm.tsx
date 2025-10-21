@@ -1,25 +1,22 @@
 "use client";
 
 import { Formik, Form } from "formik";
-import React, { useState, useEffect } from "react";
+import React, { useState} from "react";
 import { EventFormValues, EventSchema } from "@/src/utils/validations/FormValidation";
-import { EventFormProps } from "@/src/components/Admin/types/event";
-
-import Button from "../../common/Buttons/Button";
-import ButtonLoader from "../../common/Loader/ButtonLoader";
-import CustomInput from "../../Admin/Common/CustomInput";
-import CustomFileInput from "../../Admin/Common/CustomFileInput";
-import Dropdown from "../Common/Dropdown";
-import CancelButton from "../../common/Buttons/CancelButton";
-import { useLanguageToggle } from "../hooks/useLanguageToggle";
-import LanguageToggle from "../Common/LanguageToggle";
-import { getInitialCanpaignValues } from "../utils/campaignIntialValues";
-import MultiInputList from "../Common/MultiInputList";
-import { hasErrorsForLang } from "../Common/hasErrorsForLang";
+import CustomInput from "../../UI/admin/CustomInput";
+import CustomFileInput from "../../UI/admin/CustomFileInput";
+import LanguageToggle from "../../UI/admin/LanguageToggle";
+import MultiInputList from "../../UI/admin/MultiInputList";
+import { hasErrorsForLang } from "../../UI/admin/hasErrorsForLang";
 import { getInitialEventValues } from "../utils/eventInitialValues";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import LocationPicker from "../Common/LocationPicker";
+import LocationPicker from "../../UI/admin/LocationPicker";
+import Button from "../../UI/web/Buttons/Button";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import CancelButton from "../../UI/web/Buttons/CancelButton";
+import { EventFormProps } from "@/src/types/admin/event";
+import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 
 const EventForm = ({ initialData, onClose, mode, onPreview }: EventFormProps) => {
