@@ -9,8 +9,10 @@ export const createMember = async (member: MemberFormValues) => {
 };
 
 // Get all members with pagination
-export const fetchAllMembers = async (page: number = 1, limit: number = 10,search?:string) => {
-  const { data } = await api.get(`/admin/member/getAllMembers?page=${page}&limit=${limit}&search=${search}`);
+export const fetchAllMembers = async (page: number = 1, limit: number = 10,search?:string, searchField?: string) => {
+  let url = `/admin/member/getAllMembers?page=${page}&limit=${limit}`;
+  if(search && searchField) url += `&${encodeURIComponent(searchField)}=${encodeURIComponent(search)}`
+  const { data } = await api.get(url);
   return data;
 };
 

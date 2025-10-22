@@ -5,10 +5,10 @@ import toast from "react-hot-toast";
 
 
 // ======================= Fetch Categories ======================= //
-export const useFetchCategory = (page?: number, limit?: number) => {
+export const useFetchCategory = (page?: number, limit?: number, searchedData?: string, searchField?: string) => {
   return useQuery({
-    queryKey: ["categories",page, limit],
-    queryFn: ()=> fetchCategory(page, limit),
+    queryKey: ["categories",page, limit, searchedData, searchField],
+    queryFn: ()=> fetchCategory(page, limit, searchedData, searchField),
   });
 };
 

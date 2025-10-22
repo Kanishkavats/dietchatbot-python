@@ -3,8 +3,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { AdminDropdownProps } from "@/src/types/adminCommon";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { AdminDropdownProps } from "@/src/types/admin";
 
 const Dropdown = <T extends string | number>({
   options,

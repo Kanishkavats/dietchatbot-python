@@ -32,14 +32,14 @@ const LoginForm = () => {
             toast.dismiss();
             Cookies.set("token", data.token, { expires: 7, path: "/" });
             toast.success("Login successful 🎉");
-            setSubmitting(false); // ✅ reset submitting
+            setSubmitting(false); 
             window.location.href = "/dashboard";
           },
           onError: (err: any) => {
             toast.dismiss();
             console.log(err)
-            toast.error(err?.response?.data?.message || "Login failed ❌");
-            setSubmitting(false); // ✅ reset submitting
+            toast.error(err?.response?.data?.message || "Login failed ");
+            setSubmitting(false); 
           },
         });
       }}
@@ -64,8 +64,8 @@ const LoginForm = () => {
 
           {/* Submit button */}
           <Button
-            type="submit"
-            hoverBg="before:bg-[var(--green)]"
+          type="submit"
+            hoverBg="before:bg-green"
             disabled={isPending || isSubmitting}
           >
             {isPending || isSubmitting ? <ButtonLoader /> : "Submit"}

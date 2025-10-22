@@ -11,7 +11,7 @@ import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import BannerForm from "./BannerForm";
 import { getBannerColumns } from "./getBannerColumns";
-import { Banner, BannerSearchField } from "@/src/types/admin/banner";
+import { Banner } from "@/src/types/admin/banner";
 import { BannerFormValues } from "@/src/utils/validations/FormValidation";
 import {
   submitBannerForm,
@@ -28,6 +28,7 @@ import useDebounce from "@/src/hooks/web/useDebounce";
 import Button from "../../UI/web/Buttons/Button";
 import CustomLoader from "../../UI/web/Loader/CustomLoader";
 import { createBanner, updateBanner } from "@/src/services/admin/bannerApi";
+import { BannerSearchField } from "@/src/types/web/banner";
 
 const BannerTable = () => {
   const [search, setSearch] = useState("");

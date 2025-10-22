@@ -3,35 +3,26 @@ import { QueryFilters } from "@/src/types/web/query";
 import api from "./api";
 import { QueryFormValues } from "@/src/utils/validations/FormValidation";
 
-// ✅ Fetch all queries with pagination
-export const fetchAllQueries = async (page: number = 1, limit: number = 10, filters?: QueryFilters) => {
+//  Fetch all queries with pagination
+export const fetchAllQueries = async (page: number = 1, limit: number = 10, filterValue?: string, filterField?: string) => {
 
-  const params: Record<string, string> = {
-    page: String(page),
-    limit: String(limit),
-  };
+  let url = `/admin/form/getAllForms?page=${page}&limit=${limit}`;
+  console.log("object check", filterValue)
+  let searchValue = filterValue === "all" ? "" : filterValue;
 
-  if (filters?.formType && filters.formType !== "all") {
-    params.formType = filters.formType;
-  }
+  if (filterValue) url += `&${encodeURIComponent(filterField ?? "")}=${encodeURIComponent(searchValue ?? "")}`;
 
-  if (filters?.isViewed && filters.isViewed !== "all") {
-    params.isViewed = filters.isViewed;
-  }
-
-  const queryString = new URLSearchParams(params).toString();
-
-  const { data } = await api.get(`/admin/form/getAllForms?${queryString}`);
+  const { data } = await api.get(url);
   return data;
 };
 
-// ✅ Fetch a single query by ID
+// Fetch a single query by ID
 export const fetchQueryById = async (id: string) => {
   const { data } = await api.get(`/admin/form/getFormById/${id}`);
   return data;
 };
 
-// ✅ Update query (e.g., mark as viewed)
+//  Update query (e.g., mark as viewed)
 export const updateQuery = async (
   id: string,
   values: Partial<QueryFormValues>

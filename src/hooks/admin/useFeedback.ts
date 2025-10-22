@@ -1,5 +1,5 @@
 // src/hooks/useFeedback.ts
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
   fetchFeedbacks,
@@ -17,14 +17,14 @@ import { FeedbackFormValues } from "@/src/utils/validations/FormValidation";
 export const useFetchFeedbacks = (
   page: number,
   limit: number,
-  searchField: string,
-  search:string
+  searchedData:string,
+  searchField: string
 ) => {
   return useLanguageAwareQuery(
-    ["feedbacks", page, limit, searchField,search],
-    () => fetchFeedbacks(page, limit, searchField,search),
+    ["feedbacks", page, limit, searchedData,  searchField],
+    () => fetchFeedbacks(page, limit, searchedData, searchField),
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
     }
   );
 };
@@ -32,7 +32,7 @@ export const useFetchFeedbacks = (
 export const useFetchApprovedFeedbacks = (
   page: number,
   limit: number,
-  status: string | null = null
+  status: string
 ) => {
   return useLanguageAwareQuery(
     ["approved-feedbacks", page, limit, status],

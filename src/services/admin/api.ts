@@ -23,7 +23,6 @@ api.interceptors.request.use((config) => {
 
   // Dynamically set Content-Type
   if (config.data instanceof FormData) {
-    // Let browser set boundary automatically
     config.headers["Content-Type"] = "multipart/form-data";
   } else {
     config.headers["Content-Type"] = "application/json";

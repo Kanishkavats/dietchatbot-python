@@ -2,8 +2,8 @@
 import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import { MemberFormValues } from "@/src/utils/validations/FormValidation";
 import toast from "react-hot-toast";
-import { MemberFormProps } from "@/src/components/Admin/types/members";
 import { deleteMember, fetchAllMembers, fetchMemberById } from "@/src/services/admin/memberApi";
+import { MemberFormProps } from "@/src/types/admin/members";
 
 // ✅ Convert values to FormData (bilingual-aware, mirrors blog implementation)
 const buildFormData = (values: MemberFormValues) => {
@@ -130,10 +130,10 @@ export const submitMemberForm = (
 };
 
 // ✅ Fetch members with pagination
-export const useFetchAllMembers = (page: number, limit: number = 10,search?:string) => {
+export const useFetchAllMembers = (page: number, limit: number = 10,search?:string, searchField?: string) => {
   return useQuery({
-    queryKey: ["members", page, limit,search],
-    queryFn: () => fetchAllMembers(page, limit,search),
+    queryKey: ["members", page, limit,search, searchField],
+    queryFn: () => fetchAllMembers(page, limit,search, searchField),
     placeholderData: keepPreviousData,
   });
 };

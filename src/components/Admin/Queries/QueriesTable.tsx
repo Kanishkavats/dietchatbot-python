@@ -23,6 +23,7 @@ import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
 import CustomLoader from "../../UI/web/Loader/CustomLoader";
+import useDebounce from "@/src/hooks/web/useDebounce";
 
 const QueriesTable = () => {
   const [filterField, setFilterField] = useState<
@@ -37,35 +38,17 @@ const QueriesTable = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedQuerry, setSelectedQuerry] = useState<Query | null>(null);
 
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
 
-  const filters = useMemo(() => {
-    if (filterField === "none" || filterValue === "all") return {};
-
-    if (filterField === "isViewed") {
-      return {
-        isViewed: filterValue,
-      };
-    }
-
-    if (filterField === "formType") {
-      return {
-        formType: filterValue,
-      };
-    }
-
-    return {};
-  }, [filterField, filterValue]);
-
   const { data: allData, isLoading } = useFetchAllQueries(
     currentPage,
     itemsPerPage,
-    filters
-  );
+    filterValue,
+    filterField
+  ) as { data: { queries: Query[]; totalPages: number }, isLoading: boolean };
 
   const totalPages = allData?.totalPages ?? 1;
 

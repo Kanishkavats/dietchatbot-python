@@ -7,12 +7,7 @@ import DataTableWrapper from "../../UI/admin/DataTableWrapper";
 import CustomInput from "../../UI/admin/CustomInput";
 import Dropdown from "../../UI/admin/Dropdown";
 import Drawer from "../../UI/admin/Drawer";
-import {
-  useDeleteSingleEvent,
-  useFetchAllEvent,
-  useFetchSingleEvent,
-  submitEventForm
-} from '@/src/hooks/admin/useEvent';
+import { useDeleteSingleEvent, useFetchAllEvent, useFetchSingleEvent, submitEventForm } from '@/src/hooks/admin/useEvent';
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import AdminCustomPagination from "../../UI/admin/CustomePagination";
@@ -49,10 +44,10 @@ const EventTable = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
-  const debounceValue = useDebounce(search, 1000);
+  const searchedData = useDebounce(search, 1000);
   const { language, toggleLanguage } = useLanguageToggle();
 
-  const { data: eventData, isLoading } = useFetchAllEvent(currentPage, itemsPerPage, debounceValue, EventField || undefined);
+  const { data: eventData, isLoading } = useFetchAllEvent(currentPage, itemsPerPage, searchedData, searchField);
   const { data: singleEventData, isLoading: isLoadingEvent, refetch } = useFetchSingleEvent(editEvent || undefined);
   const { mutate: deleteEvent } = useDeleteSingleEvent();
   const totalPages = eventData?.totalPages || 1;
