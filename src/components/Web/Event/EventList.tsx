@@ -37,10 +37,10 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
 
         setEvents(transformedEvents);
         setTotalPages(response.totalPages);
-        console.log("✅ Events from backend:", transformedEvents);
+        console.log(" Events from backend:", transformedEvents);
       } catch (err) {
         setError("Failed to load events. Please try again.");
-        console.error("❌ Error loading events:", err);
+        console.error(" Error loading events:", err);
       } finally {
         setLoading(false);
       }
@@ -49,7 +49,7 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
     loadEvents();
   }, [currentPage]);
 
-  // 🌀 Loading State
+  //  Loading State
   if (loading) {
     return (
       <section>
@@ -60,7 +60,7 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
     );
   }
 
-  // ❌ Error State
+  //  Error State
   if (error) {
     return (
       <section className="py-16 bg-white">
@@ -71,15 +71,15 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
     );
   }
 
-  // 🧭 Event detail page condition
+  //  Event detail page condition
   if (currentPage === 2 || currentPage === 3) {
     return <Eventdetail />;
   }
 
-  // ✅ Dynamic Layout Rendering
+  //  Dynamic Layout Rendering
   return (
     <section className="py-12">
-      {/* 🧩 If exactly two events → 50%, 50% grid layout */}
+      {/*  If exactly two events → 50%, 50% grid layout */}
       {events.length === 2 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
           {events.map((event) => (
@@ -112,7 +112,7 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
           ))}
         </div>
       ) : (
-        // 🧩 Default layout (same as your original UI)
+        //  Default layout (same as  original UI)
         <div
           className="
             flex flex-col items-center gap-6
@@ -199,7 +199,7 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
         </div>
       )}
 
-      {/* 📄 Pagination */}
+      {/* Pagination */}
       {totalPages > 1 && onPageChange && (
         <div className="flex justify-center mt-12">
           <CustomPagination
