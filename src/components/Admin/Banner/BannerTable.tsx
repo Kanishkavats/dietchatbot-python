@@ -1,3 +1,5 @@
+
+
 "use client";
 
 import React, { useState, useMemo, useCallback, useRef } from "react";
@@ -11,7 +13,12 @@ import BannerForm from "./BannerForm";
 import { getBannerColumns } from "./getBannerColumns";
 import { Banner } from "@/src/types/admin/banner";
 import { BannerFormValues } from "@/src/utils/validations/FormValidation";
-import { submitBannerForm, useDeleteBanner, useFetchAllBanners, useFetchSingleBanner, } from "@/src/hooks/admin/useBanner";
+import {
+  submitBannerForm,
+  useDeleteBanner,
+  useFetchAllBanners,
+  useFetchSingleBanner,
+} from "@/src/hooks/admin/useBanner";
 import { BannerSearchOptions } from "../Data/staticData";
 import BannerPreview from "./BannerPreview";
 import AdminCustomPagination from "../../UI/admin/CustomePagination";
@@ -36,19 +43,25 @@ const BannerTable = () => {
   const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBanner, setSelectedBanner] = useState<Banner | null>(null);
-  const searchData = useDebounce(search, 1000);
+  const debounceValue = useDebounce(search, 1000);
   const queryClient = useQueryClient();
+
+  // ✅ Updated: Pass both field & search value
   const { data: bannerData, isLoading } = useFetchAllBanners(
     currentPage,
     itemsPerPage,
-    searchData,
-    searchField
+    debounceValue,
+    searchField    
+
   );
+
   const { mutate: deleteBanner } = useDeleteBanner();
   const totalPages = bannerData?.totalPages || 1;
-  const [bannerId, setbannerId] = useState<string | null>(null);
-  const { data: singleBannerData, isLoading: isPreviewLoading, refetch } =
-    useFetchSingleBanner(bannerId || undefined);
+
+  const [bannerId, setBannerId] = useState<string | null>(null);
+  const { data: singleBannerData, isLoading: isPreviewLoading, refetch } = useFetchSingleBanner(
+    bannerId || undefined
+  );
 
   const createMutation = useMutation({
     mutationFn: createBanner,
@@ -58,66 +71,58 @@ const BannerTable = () => {
   });
 
   const updateMutation = useMutation({
-    mutationFn: (data: { id: string; values: BannerFormValues }) =>
-      updateBanner(data.id, data.values),
+    mutationFn: (data: { id: string; values: BannerFormValues }) => updateBanner(data.id, data.values),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        predicate: (query) => query.queryKey[0] === "banners",
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["banner", bannerId],
-      });
+      queryClient.invalidateQueries({ queryKey: ["banners"] });
+      if (bannerId) queryClient.invalidateQueries({ queryKey: ["banner", bannerId] });
     },
   });
 
-  const handleDelete = useCallback(
-    (b: Banner) => {
-      if (!b.id) {
-        console.error("Cannot delete banner: ID is missing.");
-        return;
-      }
-
-
-      setSelectedBanner(b);
-      setIsOpen(true);
-    },
-    [deleteBanner]
-  );
+  const handleDelete = useCallback((b: Banner) => {
+    if (!b.id) {
+      console.error("Cannot delete banner: ID is missing.");
+      return;
+    }
+    setSelectedBanner(b);
+    setIsOpen(true);
+  }, []);
 
   const confirmDelete = useCallback(() => {
     if (selectedBanner?.id) {
-      toast.dismiss()
-      toast.loading("deleting banner....")
+      toast.dismiss();
+      toast.loading("Deleting banner...");
       deleteBanner(selectedBanner.id.toString());
       setIsOpen(false);
       setSelectedBanner(null);
     }
   }, [selectedBanner, deleteBanner]);
 
-  const handlePreview = useCallback(async (banner: Banner) => {
-    if (!banner.id) return;
-    setbannerId(banner.id);
-    setMode("view");
-    setDrawerOpen(true);
-    setPreviewData(null);
-    setShowPreview(false);
+  const handlePreview = useCallback(
+    async (banner: Banner) => {
+      if (!banner.id) return;
+      setBannerId(banner.id);
+      setMode("view");
+      setDrawerOpen(true);
+      setPreviewData(null);
+      setShowPreview(false);
 
-    try {
-      setTimeout(async () => {
-        const { data } = await refetch();
-        if (data) {
-          setShowPreview(true)
-          setPreviewData(data);
-        }
-      }, 100);
-    } catch (error) {
-      console.error("Failed to fetch campaign:", error);
-    }
-  }, [refetch]);
+      try {
+        setTimeout(async () => {
+          const { data } = await refetch();
+          if (data) {
+            setShowPreview(true);
+            setPreviewData(data);
+          }
+        }, 100);
+      } catch (error) {
+        console.error("Failed to fetch banner:", error);
+      }
+    },
+    [refetch]
+  );
 
-  // Handlers
   const handleEdit = useCallback((b: Banner) => {
-    setbannerId(b.id?.toString() ?? null);
+    setBannerId(b.id?.toString() ?? null);
     setMode("edit");
     setDrawerOpen(true);
   }, []);
@@ -134,7 +139,7 @@ const BannerTable = () => {
 
   return (
     <section>
-      {/* Top controls */}
+      {/* === Top Controls === */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         {/* Left: search field */}
         <AnimatedReveal direction="left" delay={0.1}>
@@ -144,7 +149,7 @@ const BannerTable = () => {
               value={searchField}
               onChange={(value: BannerSearchField) => {
                 setSearchField(value);
-                setSearch('')
+                setSearch("");
               }}
             />
             <CustomInput
@@ -156,7 +161,7 @@ const BannerTable = () => {
           </div>
         </AnimatedReveal>
 
-        {/* Right: add button */}
+        {/* Right: Add button */}
         <AnimatedReveal direction="left" delay={0.3}>
           <div className="w-fit">
             <Button
@@ -179,6 +184,7 @@ const BannerTable = () => {
         </AnimatedReveal>
       </div>
 
+      {/* === Table Data === */}
       {isLoading ? (
         <div className="flex justify-center py-8">
           <CustomLoader />
@@ -188,7 +194,7 @@ const BannerTable = () => {
       )}
 
       {totalPages > 1 && (
-        <div className="flex justify-end   mt-4">
+        <div className="flex justify-end mt-4">
           <AdminCustomPagination
             currentPage={currentPage}
             totalPages={totalPages}
@@ -197,7 +203,7 @@ const BannerTable = () => {
         </div>
       )}
 
-      {/* Drawer for Add/Edit */}
+      {/* === Drawer === */}
       {drawerOpen && (
         <Drawer
           isOpen={drawerOpen}
@@ -212,14 +218,13 @@ const BannerTable = () => {
             mode === "edit"
               ? "Edit Banner"
               : mode === "view" || mode === "preview-edit"
-                ? "View Banner"
-                : "Add Banner"
+              ? "View Banner"
+              : "Add Banner"
           }
           mode={mode}
         >
-          {(mode === "view" || mode === "preview-edit") && (
-            !previewData || isPreviewLoading ? (
-
+          {(mode === "view" || mode === "preview-edit") &&
+            (!previewData || isPreviewLoading ? (
               <div className="flex justify-center py-10">
                 <CustomLoader />
               </div>
@@ -229,7 +234,7 @@ const BannerTable = () => {
                 showButtons={mode === "preview-edit"}
                 data={previewData!}
                 onBack={() => {
-                  setShowPreview(false)
+                  setShowPreview(false);
                   setMode(editBannerId ? "edit" : "add");
                 }}
                 onSubmit={() => {
@@ -246,44 +251,42 @@ const BannerTable = () => {
                       setPreviewData(null);
                       setDrawerOpen(false);
                     },
-                    () => { },
+                    () => {},
                     () => setDrawerOpen(false)
                   );
                 }}
               />
+            ))}
 
-            )
-          )}
-          {(mode === "add" || mode === "edit") && (
-            isPreviewLoading ? (
-              <div><CustomLoader /></div>
-            ) :
-              (
-                <BannerForm
-                  initialData={{
-                    ...(singleBannerData || {}),
-                    ...(previewData || {}),
-                    image:
-                      previewData?.image || singleBannerData?.image || "",
-                    priority: previewData?.priority || singleBannerData?.priority || 0,
-                    // existingImage:
-                    //   previewData?.existingImage || singleBannerData?.image,
-                  }}
-                  onClose={() => {
-                    setDrawerOpen(false);
-                    setPreviewData(null);
-                    setShowPreview(false);
-                  }}
-                  mode={mode}
-                  onPreview={(data) => {
-                    setPreviewData(data);
-                    setShowPreview(true);
-                    setMode("preview-edit");
-                  }}
-                  createMutation={createMutation}
-                  updateMutation={updateMutation}
-                />
-              ))}
+          {(mode === "add" || mode === "edit") &&
+            (isPreviewLoading ? (
+              <div>
+                <CustomLoader />
+              </div>
+            ) : (
+              <BannerForm
+                initialData={{
+                  ...(singleBannerData || {}),
+                  ...(previewData || {}),
+                  image: previewData?.image || singleBannerData?.image || "",
+                  priority:
+                    previewData?.priority || singleBannerData?.priority || 0,
+                }}
+                onClose={() => {
+                  setDrawerOpen(false);
+                  setPreviewData(null);
+                  setShowPreview(false);
+                }}
+                mode={mode}
+                onPreview={(data) => {
+                  setPreviewData(data);
+                  setShowPreview(true);
+                  setMode("preview-edit");
+                }}
+                createMutation={createMutation}
+                updateMutation={updateMutation}
+              />
+            ))}
         </Drawer>
       )}
 
@@ -292,7 +295,7 @@ const BannerTable = () => {
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"
-        message="Are you sure you want to delete these record ?"
+        message="Are you sure you want to delete this record?"
         buttonText="Delete"
       />
     </section>
@@ -300,3 +303,5 @@ const BannerTable = () => {
 };
 
 export default BannerTable;
+
+

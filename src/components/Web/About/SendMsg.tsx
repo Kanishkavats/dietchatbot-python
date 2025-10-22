@@ -1,4 +1,3 @@
-
 "use client";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
@@ -10,8 +9,16 @@ import FadeInUp from "@/src/animations/FadeInUp";
 import { sendmessagefordonation, shapeleft } from "@/public/assets";
 import { Form, Formik } from "formik";
 import { Trans, useTranslation } from "react-i18next";
+<<<<<<< HEAD:src/components/About/SendMsg.tsx
+import {
+  SendMsgformSchema,
+  SendMsgFormValues,
+} from "@/src/utils/validations/FormValidation";
+import InputField from "../common/inputs/InputField";
+=======
 import { SendMsgformSchema, SendMsgFormValues } from "@/src/utils/validations/FormValidation";
 import InputField from "../../UI/web/InputField";
+>>>>>>> b900a869d4ed2ed8f7f7c21135559df99e35b365:src/components/Web/About/SendMsg.tsx
 import { Icon } from "@iconify/react";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import { useMutation } from "@tanstack/react-query";
@@ -41,7 +48,10 @@ const SendMsg: React.FC = () => {
     },
   });
 
-  const handleSubmit = (values: SendMsgFormValues, { resetForm }: { resetForm: () => void }) => {
+  const handleSubmit = (
+    values: SendMsgFormValues,
+    { resetForm }: { resetForm: () => void }
+  ) => {
     mutation.mutate(values, {
       onSuccess: () => {
         resetForm();
@@ -54,16 +64,27 @@ const SendMsg: React.FC = () => {
       <div
         className="absolute inset-0 bg-center bg-cover bg-no-repeat 
                    transform scale-[1.6] origin-bottom transition-transform duration-500 ease-in-out"
-        style={{ backgroundImage: `url(${sendmessagefordonation.src})` }}></div>
+        style={{ backgroundImage: `url(${sendmessagefordonation.src})` }}
+      ></div>
       <div className="absolute inset-0  bg-gradient-to-r from-dark-green via-foreground/2 to-foreground/5"></div>
 
-      <FadeInUp initialYExis={-60} delay={0.2} className="absolute top-[-40] md:top-[-90] left-0 w-1/4 md:w-2/5 lg:w-2/7 h-1/2 md:h-2/3 overflow-hidden z-20">
+      <FadeInUp
+        initialYExis={-60}
+        delay={0.2}
+        className="absolute top-[-40] md:top-[-90] left-0 w-1/4 md:w-2/5 lg:w-2/7 h-1/2 md:h-2/3 overflow-hidden z-20"
+      >
         <motion.div
           className="h-full w-full relative"
           animate={{ y: [0, -20, 0] }}
           transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
         >
-          <Image src={shapeleft} alt="Decorative shape" fill priority className="object-cover" />
+          <Image
+            src={shapeleft}
+            alt="Decorative shape"
+            fill
+            priority
+            className="object-cover"
+          />
         </motion.div>
       </FadeInUp>
 
@@ -77,19 +98,34 @@ const SendMsg: React.FC = () => {
         >
           <FadeUpCard delay={0.3}>
             <div className="flex gap-2 mt-10 xs:mt-15 p-1 xl:mt-20 ">
-              <Icon icon={"mdi:hand-heart"} className="text-[20px]  md:text-[24px] text-yellow" />
+              <Icon
+                icon={"mdi:hand-heart"}
+                className="text-[20px]  md:text-[24px] text-yellow"
+              />
               <span className=" text-yellow font-caveat font-extrabold block text-[18px]  md:text-[22px] ">
                 {t("Start Donating Poor People")}
               </span>
             </div>
-            <h2 className="text-[30px]  md:text-[40px] font-extrabold text-white lg:mt-4   p-0 xl:p-0 xs:p-0 font-nunito leading-10 md:leading-12 xl:leading-19 tracking-[1px] mt-5">
-              <Trans i18nKey="sendMessageForDonation_title" components={{ 1: <span className="text-yellow ml-1" /> }} />
+
+            <h2 className="mt-5 text-[30px] md:text-[40px] lg:text-[45px] xl:text-[55px] font-extrabold text-white leading-[1.1] tracking-[1px]">
+              <Trans
+                i18nKey="sendMessageForDonation_title"
+                components={{
+                  1: <span className="text-yellow ml-1 inline" />,
+
+                  2: <span className="block mt-[-6px]" />,
+                }}
+              />
             </h2>
           </FadeUpCard>
         </motion.div>
 
         <FadeUpCard>
-          <Formik initialValues={initialValues} validationSchema={SendMsgformSchema} onSubmit={handleSubmit}>
+          <Formik
+            initialValues={initialValues}
+            validationSchema={SendMsgformSchema}
+            onSubmit={handleSubmit}
+          >
             {({ isSubmitting }) => (
               <Form className="space-y-10 px-8 xs:px-2 xs:py-2 xl:px-6 xl:py-2 xl:mt-13 ">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-8 lg:gap-4">
@@ -115,29 +151,28 @@ const SendMsg: React.FC = () => {
                   />
                 </div>
 
-                  <InputField
-                    name="address"
-                    textSize="text-lg"
-                    errorTextSize="text-lg"
-                    placeholder={t("your address...")}
-                    icon={"mdi:location"}
-                    placeholderClassName="xl:placeholder:text-lg"
-                    iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                    className="w-full rounded-md border-2 border-white/20 flex xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
-                  />
+                <InputField
+                  name="address"
+                  textSize="text-lg"
+                  errorTextSize="text-lg"
+                  placeholder={t("your address...")}
+                  icon={"mdi:location"}
+                  placeholderClassName="xl:placeholder:text-lg"
+                  iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
+                  className="w-full rounded-md border-2 border-white/20 flex xs:h-[50px] xl:h-[60px] bg-foreground/18 px-4 py-4 text-white  focus:outline-none"
+                />
 
-                  <InputField
-                    as="textarea"
-                    name="message"
-                    textSize="text-lg"
-                    errorTextSize="text-lg"
-                    placeholderClassName="xl:placeholder:text-lg"
-                    placeholder={t("your message...")}
-                    icon={"mdi:envelope"}
-                    iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
-                    className="w-full rounded-md border-2 border-white/20 flex xs:h-[150px] xl:h-[160px] bg-foreground/18 px-4 py-4  focus:outline-none resize-none text-white"
-                  />
-            
+                <InputField
+                  as="textarea"
+                  name="message"
+                  textSize="text-lg"
+                  errorTextSize="text-lg"
+                  placeholderClassName="xl:placeholder:text-lg"
+                  placeholder={t("your message...")}
+                  icon={"mdi:envelope"}
+                  iconClassName="text-yellow text-lg font-bold size-5 xl:size-7 mt-[2px]"
+                  className="w-full rounded-md border-2 border-white/20 flex xs:h-[150px] xl:h-[160px] bg-foreground/18 px-4 py-4  focus:outline-none resize-none text-white"
+                />
 
                 <div className="w-fit">
                   <Button
@@ -149,7 +184,11 @@ const SendMsg: React.FC = () => {
                     paddingx="px-10 xl:px-12"
                     paddingy="py-4 xl:py-5"
                   >
-                    {isSubmitting || mutation.isPending ? <ButtonLoader /> : t("Get A Quote")}
+                    {isSubmitting || mutation.isPending ? (
+                      <ButtonLoader />
+                    ) : (
+                      t("Get A Quote")
+                    )}
                   </Button>
                 </div>
               </Form>
