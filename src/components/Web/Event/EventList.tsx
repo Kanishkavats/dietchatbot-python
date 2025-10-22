@@ -10,7 +10,6 @@ import CustomLoader from "../../UI/web/Loader/CustomLoader";
 import { EventsResponse, fetchAllEvents } from "@/src/services/web";
 import { EventListProps } from "@/src/types";
 
-
 export default function EventList({ currentPage, onPageChange }: EventListProps) {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
@@ -25,22 +24,23 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
         setError(null);
         const response: EventsResponse = await fetchAllEvents(currentPage, itemsPerPage);
 
-        // Transform API data to match component expectations
-        const transformedEvents: Event[] = response.events.map(event => ({
+        // Transform API data
+        const transformedEvents: Event[] = response.events.map((event) => ({
           ...event,
-          date: new Date(event.startTime).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
+          date: new Date(event.startTime).toLocaleDateString("en-US", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
           }),
-          image: event.images[0] || '/assets/events.jpg' 
+          image: event.images[0] || "/assets/events.jpg",
         }));
-        
+
         setEvents(transformedEvents);
         setTotalPages(response.totalPages);
+        console.log(" Events from backend:", transformedEvents);
       } catch (err) {
-        setError('Failed to load events. Please try again.');
-        console.error('Error loading events:', err);
+        setError("Failed to load events. Please try again.");
+        console.error(" Error loading events:", err);
       } finally {
         setLoading(false);
       }
@@ -49,9 +49,10 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
     loadEvents();
   }, [currentPage]);
 
+  //  Loading State
   if (loading) {
     return (
-      <section className="">
+      <section>
         <div className="flex justify-center items-center h-64">
           <CustomLoader />
         </div>
@@ -59,6 +60,7 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
     );
   }
 
+  //  Error State
   if (error) {
     return (
       <section className="py-16 bg-white">
@@ -69,112 +71,141 @@ export default function EventList({ currentPage, onPageChange }: EventListProps)
     );
   }
 
+  //  Event detail page condition
   if (currentPage === 2 || currentPage === 3) {
     return <Eventdetail />;
   }
 
+  //  Dynamic Layout Rendering
   return (
-    <section className=" py-12">
-      <div
-        className="
-          flex flex-col items-center gap-6
-          lg:grid lg:grid-cols-5
-           w-full
-        "
-      >
-        
-        {events[0] && (
-          <div
-            className=" col-span-3  relative w-full h-[250px] sm:h-[350px] lg:h-[700px] lg:w-full overflow-hidden "
-          >
-            
-            <motion.img
-              src="/assets/yellowspade.png"
-              alt="yellow heart"
-              initial={{ opacity: 0, x: -100, scale: 0.8 }}
-              animate={{
-                opacity: [0, 1, 0],
-                x: [-50, 0, -50],
-                scale: [0.8, 1.1, 0.5],
-              }}
-              transition={{ duration: 3, ease: "easeInOut" }}
-              className="absolute left-[20px] top-1/2 -translate-y-1/2 w-[80px] sm:w-[120px] h-auto z-20 animate-float"
-            />
-
-            
-            <Link href={`/events/${events[0].id}`} className="absolute inset-0">
-              <img
-                src={events[0].image}
-                alt={events[0].title}
-                className="absolute inset-0 w-full h-full rounded-xl  object-cover"
-              />
-            </Link>
-            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
-
-            <div className="absolute left-4  font-nunito font-extrabold sm:left-8 bottom-6 sm:bottom-10 flex flex-col gap-2 max-w-[400px] lg:max-w-[350px] text-white animate-slide-up-delay">
-              <span className="text-lg lg:text-base font-nunito font-bold">{events[0].date}</span>
-              <h3 className="text-xl sm:text-3xl lg:text-[34px] font-bold  leading-snug font-nunito">
-                <Link href={`/events/${events[0].id}`}>{events[0].title}</Link>
-              </h3>
-              <p className="text-base lg:text-base  flex items-center gap-2 font-nunito font-bold">
-                <Icon icon="ion:location" width="24" height="24" className="text-white lg:w-5 lg:h-5" />
-                {events[0].location}
-              </p>
-            </div>
-          </div>
-        )}
-
-        
-        <div
-          className=" col-span-2
-            flex flex-col gap-6 
-            w-full h-full
-          "
-        >
-          {events.slice(1,2).map((event: Event, index) => {
-          
-          return (
-            <div
+    <section className="py-12">
+      {/*  If exactly two events → 50%, 50% grid layout */}
+      {events.length === 2 ? (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
+          {events.map((event) => (
+            <motion.div
               key={event.id}
-              className={`
-                relative w-full h-[200px] sm:h-[250px] lg:h-full
-                bg-black rounded-[4px] overflow-hidden
-                 animate-fade-in card-stagger-${index + 2}
-              `}
+              initial={{ opacity: 0, y: 50 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="relative w-full h-[250px] sm:h-[350px] lg:h-[500px] overflow-hidden rounded-xl"
             >
-              <Link href={`/event-details/${event.id}`} className="absolute inset-0">
+              <Link href={`/events/${event.id}`} className="absolute inset-0">
                 <img
                   src={event.image}
                   alt={event.title}
-                  className="absolute inset-0 w-full h-full rounded-xl  object-cover"
+                  className="absolute inset-0 w-full h-full object-cover rounded-xl"
                 />
               </Link>
-              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
-
-              
-              <div className="absolute left-4  font-nunito  font-extrabold  sm:left-6 bottom-4 sm:bottom-6 text-white max-w-[350px] lg:max-w-[300px] animate-slide-up-delay">
-                <span className="text-base lg:text-sm font-nunito font-bold">{event.date}</span>
-                <h3 className="text-lg sm:text-2xl lg:text-[34px] font-bold leading-snug font-nunito">
+              <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
+              <div className="absolute bottom-6 left-4 sm:left-6 text-white font-nunito font-extrabold">
+                <span className="text-base lg:text-sm">{event.date}</span>
+                <h3 className="text-lg sm:text-2xl lg:text-[28px] font-bold leading-snug">
                   <Link href={`/events/${event.id}`}>{event.title}</Link>
                 </h3>
-                <p className="text-base lg:text-base flex items-center gap-2 font-nunito font-bold">
-                  <Icon icon="ion:location" width="24" height="24" className="text-white lg:w-5 lg:h-5" />
+                <p className="text-sm sm:text-base flex items-center gap-2">
+                  <Icon icon="ion:location" width="20" height="20" className="text-white" />
                   {event.location}
                 </p>
               </div>
-            </div>
-          );
-          })}
+            </motion.div>
+          ))}
         </div>
-      </div>
-      
+      ) : (
+        //  Default layout (same as  original UI)
+        <div
+          className="
+            flex flex-col items-center gap-6
+            lg:grid lg:grid-cols-5
+            w-full
+          "
+        >
+          {/* Main Big Event */}
+          {events[0] && (
+            <div className="col-span-3 relative w-full h-[250px] sm:h-[350px] lg:h-[700px] overflow-hidden">
+              <motion.img
+                src="/assets/yellowspade.png"
+                alt="yellow heart"
+                initial={{ opacity: 0, x: -100, scale: 0.8 }}
+                animate={{
+                  opacity: [0, 1, 0],
+                  x: [-50, 0, -50],
+                  scale: [0.8, 1.1, 0.5],
+                }}
+                transition={{ duration: 3, ease: "easeInOut" }}
+                className="absolute left-[20px] top-1/2 -translate-y-1/2 w-[80px] sm:w-[120px] h-auto z-20 animate-float"
+              />
+              <Link href={`/events/${events[0].id}`} className="absolute inset-0">
+                <img
+                  src={events[0].image}
+                  alt={events[0].title}
+                  className="absolute inset-0 w-full h-full rounded-xl object-cover"
+                />
+              </Link>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+              <div className="absolute left-4 sm:left-8 bottom-6 sm:bottom-10 text-white font-nunito font-extrabold animate-slide-up-delay max-w-[400px] lg:max-w-[350px]">
+                <span className="text-lg lg:text-base">{events[0].date}</span>
+                <h3 className="text-xl sm:text-3xl lg:text-[34px] font-bold leading-snug">
+                  <Link href={`/events/${events[0].id}`}>{events[0].title}</Link>
+                </h3>
+                <p className="text-base lg:text-base flex items-center gap-2">
+                  <Icon
+                    icon="ion:location"
+                    width="24"
+                    height="24"
+                    className="text-white lg:w-5 lg:h-5"
+                  />
+                  {events[0].location}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Side Events */}
+          <div className="col-span-2 flex flex-col gap-6 w-full h-full">
+            {events.slice(1, 2).map((event: Event, index) => (
+              <div
+                key={event.id}
+                className={`relative w-full h-[200px] sm:h-[250px] lg:h-full bg-black rounded-[4px] overflow-hidden animate-fade-in card-stagger-${
+                  index + 2
+                }`}
+              >
+                <Link href={`/event-details/${event.id}`} className="absolute inset-0">
+                  <img
+                    src={event.image}
+                    alt={event.title}
+                    className="absolute inset-0 w-full h-full rounded-xl object-cover"
+                  />
+                </Link>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
+                <div className="absolute left-4 sm:left-6 bottom-4 sm:bottom-6 text-white font-nunito font-extrabold max-w-[350px] lg:max-w-[300px] animate-slide-up-delay">
+                  <span className="text-base lg:text-sm">{event.date}</span>
+                  <h3 className="text-lg sm:text-2xl lg:text-[34px] font-bold leading-snug">
+                    <Link href={`/events/${event.id}`}>{event.title}</Link>
+                  </h3>
+                  <p className="text-base lg:text-base flex items-center gap-2">
+                    <Icon
+                      icon="ion:location"
+                      width="24"
+                      height="24"
+                      className="text-white lg:w-5 lg:h-5"
+                    />
+                    {event.location}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* Pagination */}
       {totalPages > 1 && onPageChange && (
         <div className="flex justify-center mt-12">
-          <CustomPagination 
-            currentPage={currentPage} 
-            totalPages={totalPages} 
-            onPageChange={onPageChange} 
+          <CustomPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={onPageChange}
           />
         </div>
       )}
