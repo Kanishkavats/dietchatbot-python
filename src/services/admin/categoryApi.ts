@@ -1,12 +1,33 @@
 // src/services/categoryApi.ts
 import api from "./api";
 
-export const fetchCategory = async (page?: number, limit?: number, searchedData?: string, searchField?: string) => {
-  let url = `/admin/category/get-category?page=${page}&limit=${limit}`;
-  if (searchField && searchedData) url += `&${encodeURIComponent(searchField)}=${encodeURIComponent(searchedData)}`
+export const fetchCategory = async (
+  page?: number,
+  limit?: number,
+  searchedData?: string,
+  searchField?: string
+) => {
+  // Start with base URL
+  let url = `/admin/category/get-category`;
+
+  // Create a params array to build the query string
+  const params: string[] = [];
+
+  if (page !== undefined) params.push(`page=${page}`);
+  if (limit !== undefined) params.push(`limit=${limit}`);
+  if (searchField && searchedData) {
+    params.push(`${encodeURIComponent(searchField)}=${encodeURIComponent(searchedData)}`);
+  }
+
+  // If we have any query params, append them
+  if (params.length > 0) {
+    url += `?${params.join("&")}`;
+  }
+
   const { data } = await api.get(url);
   return data;
 };
+
 export const fetchCategoryById = async (id: string) => {
   const { data } = await api.get(`/admin/category/getCategoryById/${id}`);
   return data;

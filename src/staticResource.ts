@@ -1,5 +1,6 @@
+import { FaEnvelope, FaFacebookF, FaLinkedinIn, FaMapMarkerAlt, FaPhoneAlt, FaShareAlt, FaTwitter, FaVimeoV } from "react-icons/fa";
 import {charityLife,  heartCare, loremIpsum, theBird, treeLife,  photo1, photo2, photo3, photo4 } from "../public/assets";
-import { CharityCard, DonationCardData, SocialMediaButton } from "./types";
+import { CharityCard, DonationCardData, InfoItem, SocialMediaButton } from "./types";
 import { FAQItem } from "./types/web/faq";
 
 
@@ -30,17 +31,18 @@ export const footerData = {
     { label: "Get A Quote", href: "/contact" },
   ],
   services: [
-    { label: "Our News", href: "/news-grid" },
-    { label: "Our Campaign", href: "/causes" },
+    { label: "Our Blog", href: "/blog" },
+    { label: "Our Campaign", href: "/campaign" },
     { label: "Education Support", href: "/events" },
   ],
   contact: {
     address: "455 west orchard street kings mountain, nc 280867",
-    phone: "+088 (246) 642-27-10",
+    phone_label: "+246-642-27-10",
+    phone_number: "+2466422710",
     email: "example@email.com",
   },
   bottomLinks: [
-    { label: "Terms & Conditions", href: "#" },
+    { label: "Terms & Conditions", href: "/term-and-conditions" },
     { label: "Privacy Policy", href: "/privacy-policy" },
     { label: "Cookie Settings", href: "#" },
   ],
@@ -401,3 +403,49 @@ export const defaultEventData = {
 };
 
 export const googleMapsEmbedUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d193595.15830869428!2d-74.11976378252907!3d40.69766374874312!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c2588f046ee661%3A0xa0b3281fcecc08c!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sin!4v1716298418080!5m2!1sen!2sin";
+
+export const ContactUsSocialMedia = [
+  {
+    icon: FaFacebookF,
+    href: "https://www.facebook.com/",
+  },
+  {
+    icon: FaVimeoV,
+    href: "https://vimeo.com/",
+  },
+  {
+    icon: FaTwitter,
+    href: "https://twitter.com/",
+  },
+  {
+    icon: FaLinkedinIn,
+    href: "https://www.linkedin.com/",
+  },
+];
+
+export const contactInfo: InfoItem[] = [
+  {
+    icon: FaMapMarkerAlt,
+    title: "Location",
+    lines: ['55 main street, 2nd block,', 'Melbourne, Australia'],
+    links: ["https://www.google.com/maps/search/?api=1&query=55+main+street,+Melbourne,+Australia"],
+  },
+  {
+    icon: FaPhoneAlt,
+    title: "Phone",
+    lines: ["+1 (368) 567 89 54", "+236 (456) 896 22"],
+    links: ["tel:+13685678954", "tel:+23645689622"],
+  },
+  {
+    icon: FaEnvelope,
+    title: "Email",
+    lines: ["example@email.com", "charifund@email.com"],
+    links: ["mailto:example@email.com", "mailto:charifund@email.com"],
+  },
+  {
+    icon: FaShareAlt,
+    title: "Social",
+    isSocial: true,
+  },
+];
+

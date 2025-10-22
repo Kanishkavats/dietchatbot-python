@@ -601,21 +601,21 @@ body {
 }
 
 .bg-image-1 {
-  background-image: url("/assets/charity_with_difference/bg-one.png");
+  background-image: url("/assets/charityYellowCard.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-2 {
-  background-image: url("/assets/charity_with_difference/bg-three.png");
+  background-image: url("/assets/charityGreenCard.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .bg-image-3 {
-  background-image: url("/assets/charity_with_difference/bg-two.png");
+  background-image: url("/assets/charityDarkGreenCard.png");
   background-size: 100% 100%;
   background-position: center;
   background-repeat: no-repeat;

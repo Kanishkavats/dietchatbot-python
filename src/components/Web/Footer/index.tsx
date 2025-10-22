@@ -9,6 +9,7 @@ import { footerData } from "@/src/staticResource";
 import { logo, spade2, spreadLight } from "@/public/assets";
 import Divider from "../../UI/web/HorizontalDevider";
 import { useTranslation } from "react-i18next";
+import { Link } from "lucide-react";
 
 const Footer = () => {
   const ref = useRef(null);
@@ -55,21 +56,21 @@ const Footer = () => {
 
       {/* Main Grid */}
       <motion.div
-        className="mx-auto max-w-screen-2xl py-10 grid grid-cols-2  xl:grid-cols-4  gap-10 md:gap-12 md:px-8 place-items-center"
+        className="mx-auto max-w-screen-2xl py-10 grid grid-cols-1 md:grid-cols-2  xl:grid-cols-4  gap-10 md:gap-12 md:px-8"
         variants={container}
         initial="hidden"
         animate={inView ? "show" : "hidden"}
       >
         {/* Brand Section */}
         <motion.div variants={item}>
-          
+
           <div className="h-18 w-62 md:h-12 md:w-56 lg:h-14  lg:w-64 xl:h-16 xl:w-72 relative -ml-15 md:-ml-22">
             <Image
-               src={logo}
-               fill
-               alt={footerData.brand.name}
-               className="object-contain"
-             />
+              src={logo}
+              fill
+              alt={footerData.brand.name}
+              className="object-contain"
+            />
           </div>
           <p className="mt-6 text-white/50 text-sm xl:text-base leading-7 w-full">
             {t(footerData.brand.description)}
@@ -162,7 +163,10 @@ const Footer = () => {
                 height="22"
                 className="text-yellow"
               />
-              <span>{footerData.contact.phone}</span>
+              <a href={`tel:${footerData.contact.phone_number}`}>
+                <span>{footerData.contact.phone_label}</span>
+              </a>
+
             </p>
             <p className={`${underlineOnHover} text-sm xl:text-base`}>
               <Icon
@@ -171,7 +175,10 @@ const Footer = () => {
                 height="22"
                 className="text-yellow"
               />
-              <span>{footerData.contact.email}</span>
+              <a href={`mailto:${footerData.contact.email}`}>
+                <span>{footerData.contact.email}</span>
+              </a>
+
             </p>
           </div>
 

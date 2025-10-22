@@ -1,10 +1,10 @@
 "use client";
-import Image from "next/image";
 import { Icon } from "@iconify/react";
 import { PageBannerProps } from "@/src/types/web/hero";
 import { horizontalWhiteShape, spradeBase } from "@/public/assets";
 import { useTranslation } from "react-i18next";
 import PulsingImage from "../components/UI/web/PulsingImage";
+import Image from "next/image";
 
 export const pageBannerBackgourndColor = {
   background: `

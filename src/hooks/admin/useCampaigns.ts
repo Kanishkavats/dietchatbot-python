@@ -124,24 +124,26 @@ export const submitCampaignForm = (
 };
 
 
-export const useFetchAllCampaigns = (page: number, limit: number = 10,search?:string, searchField?: string) => {
+export const useFetchAllCampaigns = (page: number, limit: number = 10, search?: string, searchField?: string) => {
   return useLanguageAwareQuery(
-    ["campaigns", page, limit,search, searchField], 
-    () => fetchAllCampaigns(page, limit,search, searchField),
+    ["campaigns", page, limit, search, searchField],
+    () => fetchAllCampaigns(page, limit, search, searchField),
     {
-      staleTime: 5 * 60 * 1000, 
+      staleTime: 5 * 60 * 1000,
+      placeholderData: keepPreviousData
     }
   );
 };
 
 
-export const useFetchSingleCampaign = (id?: string,options?: { enabled?: boolean }) => {
+export const useFetchSingleCampaign = (id?: string, options?: { enabled?: boolean }) => {
   return useLanguageAwareQuery(
     ["campaign", id],
     () => fetchCampaignById(id!),
     {
       enabled: options?.enabled ?? !!id,
-      staleTime: 5 * 60 * 1000, 
+      staleTime: 5 * 60 * 1000,
+      placeholderData: keepPreviousData
     }
   );
 };

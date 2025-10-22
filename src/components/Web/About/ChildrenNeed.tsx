@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { imageBottomTear } from "@/public/assets";
 import { useTranslation } from "react-i18next";
+import Link from "next/link";
 
 const ChildrenNeed = () => {
   const {t} = useTranslation();
@@ -58,14 +59,15 @@ const ChildrenNeed = () => {
             <div className="flex justify-center items-center gap-4 mt-6">
               <div className="flex items-center justify-center flex-wrap gap-3 mt-6">
                 <div className="text-white bg-black/30 transparent  rounded-full  ">
+                <Link href="/campaign">
                   <Button
                     text={t("Discover More")}
                     bgColor="bg-transparent"
                     textColor="text-white"
                     hoverTextColor="group-hover:text-black"
                     hoverBg="before:bg-[#FFC107]"
-                    // className="w-[100px] h-[60px]"
                   />
+                </Link>
                 </div>
 
                 <div className="">

@@ -1,55 +1,28 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useLanguage } from '@/src/contexts/LanguageContext';
+import { useQuery, useQueryClient, UseQueryOptions, QueryKey } from "@tanstack/react-query";
+import { useLanguage } from "@/src/contexts/LanguageContext";
 
 /**
  * Custom hook for language-aware API queries
  * Automatically refetches data when language changes
  */
-export const useLanguageAwareQuery = <T>(
-  queryKey: (string | number | boolean | undefined)[],
-  queryFn: () => Promise<T>,
-  options?: {
-    enabled?: boolean;
-    staleTime?: number;
-    cacheTime?: number;
-  }
+export const useLanguageAwareQuery = <
+  TQueryFnData = unknown,
+  TError = Error,
+  TData = TQueryFnData
+>(
+  queryKey: QueryKey,
+  queryFn: () => Promise<TQueryFnData>,
+  options?: Omit<UseQueryOptions<TQueryFnData, TError, TData, QueryKey>, "queryKey" | "queryFn">
 ) => {
   const { currentLanguage } = useLanguage();
   const queryClient = useQueryClient();
 
-  // Include language in query key to trigger refetch when language changes
-  const languageAwareQueryKey = [...queryKey, currentLanguage];
+  // Include language in query key so data refetches when language changes
+  const languageAwareQueryKey: QueryKey = [...queryKey, currentLanguage];
 
-
-  const query = useQuery({
+  return useQuery<TQueryFnData, TError, TData>({
     queryKey: languageAwareQueryKey,
     queryFn,
-    enabled: options?.enabled,
-    staleTime: options?.staleTime,
-    cacheTime: options?.cacheTime,
+    ...options, // ✅ forward all other options (staleTime, placeholderData, etc.)
   });
-
-  return query;
-};
-
-/**
- * Hook to invalidate all queries when language changes
- * This ensures fresh data is fetched with the new language
- */
-export const useLanguageInvalidation = () => {
-  const queryClient = useQueryClient();
-  const { currentLanguage } = useLanguage();
-
-  const invalidateAllQueries = () => {
-    queryClient.invalidateQueries();
-  };
-
-  const invalidateQueriesByKey = (queryKey: string[]) => {
-    queryClient.invalidateQueries({ queryKey });
-  };
-
-  return {
-    invalidateAllQueries,
-    invalidateQueriesByKey,
-  };
 };

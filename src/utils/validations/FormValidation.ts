@@ -28,7 +28,7 @@ export type FormValues = Yup.InferType<typeof DetailsformSchema>;
 
 export const SendMsgformSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required(),
-  phone: Yup.string().length(10, "Phone must be at least 10 digits").required(),
+  phone: Yup.string().length(10, "Phone must be exactly 10 digits").required(),
   address: Yup.string().min(5, "Address is required").required(),
   message: Yup.string().min(20, "Message must be of 20 Words").required("Message is required"),
 });
@@ -47,7 +47,7 @@ export const volunteerSchema = Yup.object().shape({
   firstName: Yup.string().required(i18n.t("First Name is required")),
   lastName: Yup.string().required(i18n.t("Last Name is required")),
   email: Yup.string().email(i18n.t("Invalid email")).required(i18n.t("Email is required")),
-  phone: Yup.string().required(i18n.t("Phone Number is required")),
+  phone: Yup.string().matches(/^\d{10}$/, i18n.t("Phone must be exactly 10 digits")).required(i18n.t("Phone is required")),
   occupation: Yup.string().required(i18n.t("Occupation is required")),
   message: Yup.string().required(i18n.t("Message is required")),
 });
@@ -69,7 +69,7 @@ export const registerSchema = Yup.object({
   email: Yup.string().email("Invalid email").required("Email is required"),
   phone: Yup.string()
     .matches(/^[0-9]+$/, "Phone must be digits only")
-    .min(10, "Phone must be at least 10 digits")
+    .min(10, "Phone must be exactly 10 digits")
     .required("Phone is required"),
   password: Yup.string()
     .min(6, "Password must be at least 6 characters")

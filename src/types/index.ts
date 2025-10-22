@@ -216,20 +216,13 @@ export interface InfoItem {
   icon: IconType;
   title: string;
   lines?: string[];
+  links?: string[];
   isSocial?: boolean;
 }
 
 export interface SocialLink {
   icon: IconType;
   href: string;
-}
-
-
-export interface ContactInfoBlockProps {
-  icon: IconType;
-  title: string;
-  lines?: string[];
-  isSocial?: boolean;
 }
 
 export interface DonationInputProps {

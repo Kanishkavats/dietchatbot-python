@@ -1,5 +1,5 @@
 // src/hooks/useFeedback.ts
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { keepPreviousData, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
   fetchFeedbacks,
@@ -17,14 +17,16 @@ import { FeedbackFormValues } from "@/src/utils/validations/FormValidation";
 export const useFetchFeedbacks = (
   page: number,
   limit: number,
-  searchedData:string,
+  searchedData: string,
   searchField: string
 ) => {
   return useLanguageAwareQuery(
-    ["feedbacks", page, limit, searchedData,  searchField],
+    ["feedbacks", page, limit, searchedData, searchField],
     () => fetchFeedbacks(page, limit, searchedData, searchField),
     {
-      staleTime: 5 * 60 * 1000, 
+      staleTime: 5 * 60 * 1000,
+      placeholderData: keepPreviousData
+
     }
   );
 };
@@ -88,8 +90,8 @@ const handleCreateFeedback = (
   setSubmitting: (isSubmitting: boolean) => void,
   onClose: () => void
 ) => {
- 
-  
+
+
   toast.dismiss();
   toast.loading("Submitting feedback...");
   const formData = buildFeedbackFormData(values);
@@ -97,8 +99,8 @@ const handleCreateFeedback = (
   console.log('🌐 Sending API request to backend...');
   createMutation.mutate(formData, {
     onSuccess: (response: any) => {
-      
-     
+
+
       toast.dismiss();
       toast.success("Feedback submitted successfully");
       resetForm();
@@ -107,8 +109,8 @@ const handleCreateFeedback = (
     },
     onError: (err: any) => {
       console.log('❌ FEEDBACK SUBMISSION FAILED!');
-     
-     
+
+
       toast.dismiss();
       toast.error(err?.response?.data?.message || "Failed to submit feedback");
       setSubmitting(false);
