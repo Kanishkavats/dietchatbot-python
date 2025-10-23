@@ -1,16 +1,18 @@
 // // src/hooks/useComment.ts
 import { deleteComment, fetchComments, fetchCommentsById, fetchgetcomments, updateComment } from "@/src/services/admin/commentsApi";
-import { useQuery, useMutation, useQueryClient, useInfiniteQuery, QueryFunctionContext } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, useInfiniteQuery, QueryFunctionContext, keepPreviousData } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 
-const Replylimit=3;
+const Replylimit = 3;
 // ======================= Fetch all Comments ======================= //
 
 export const useFetchComments = (page: number, limit: number, status: string | null) => {
   return useQuery({
     queryKey: ["comments", page, limit, status],
     queryFn: () => fetchComments(page, limit, status),
+    placeholderData: keepPreviousData
+
   });
 };
 
@@ -24,7 +26,7 @@ export const useFetchCommentById = (id: string) => {
     queryKey: ["comment", id],
     queryFn: () => fetchCommentsById(id),
     retry: 0,
-    select: (data) => data || [], 
+    select: (data) => data || [],
   });
 };
 

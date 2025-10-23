@@ -9,16 +9,8 @@ import FadeInUp from "@/src/animations/FadeInUp";
 import { sendmessagefordonation, shapeleft } from "@/public/assets";
 import { Form, Formik } from "formik";
 import { Trans, useTranslation } from "react-i18next";
-<<<<<<< HEAD:src/components/About/SendMsg.tsx
-import {
-  SendMsgformSchema,
-  SendMsgFormValues,
-} from "@/src/utils/validations/FormValidation";
-import InputField from "../common/inputs/InputField";
-=======
 import { SendMsgformSchema, SendMsgFormValues } from "@/src/utils/validations/FormValidation";
 import InputField from "../../UI/web/InputField";
->>>>>>> b900a869d4ed2ed8f7f7c21135559df99e35b365:src/components/Web/About/SendMsg.tsx
 import { Icon } from "@iconify/react";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import { useMutation } from "@tanstack/react-query";
@@ -127,7 +119,7 @@ const SendMsg: React.FC = () => {
             onSubmit={handleSubmit}
           >
             {({ isSubmitting }) => (
-              <Form className="space-y-10 px-8 xs:px-2 xs:py-2 xl:px-6 xl:py-2 xl:mt-13 ">
+              <Form className="space-y-10 px-6 xs:px-0 xs:py-2 xl:px-6 xl:py-2 xl:mt-13">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 xs:gap-8 lg:gap-4">
                   <InputField
                     name="email"

@@ -1,4 +1,4 @@
-import Footer from '@/src/components/Footer'
+import Footer from '@/src/components/Web/Footer'
 import React from 'react'
 
 const page = () => {

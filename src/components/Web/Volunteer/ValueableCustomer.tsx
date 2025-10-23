@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { IoMdStar } from "react-icons/io";
+import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
@@ -15,6 +15,7 @@ import "swiper/css/navigation";
 import CustomLoader from "../../UI/web/Loader/CustomLoader";
 import { bgOneVolunteer, image99, valueableshape } from "@/public/assets";
 import { fetchFeedback } from "@/src/services/web";
+import StarRating from "../../UI/web/StarRating";
 
 const truncateText = (text: string, maxLength: number): string =>
   !text ? "" : text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
@@ -48,8 +49,8 @@ const ValueableCustomer = () => {
       {/* Heading */}
       <div className="mt-[140px] px-4 sm:px-6 md:px-8 text-center relative z-20">
         <div className="flex justify-center items-center gap-1 mb-4">
-          <i className="text-2xl text-[#00715D] hand-icon" />
-          <span className="text-[#00715D] text-[16px] sm:text-[24px] font-caveat font-semibold leading-[34px]">
+          <i className="text-2xl text-green hand-icon" />
+          <span className="text-green text-[16px] sm:text-[24px] font-caveat font-semibold leading-[34px]">
             {t("Start Donating Poor People")}
           </span>
         </div>
@@ -95,11 +96,8 @@ const ValueableCustomer = () => {
                 />
 
                 {/* Rating */}
-                <div className="flex mb-3">
-                  {Array.from({ length: item.rating || 5 }).map((_, i) => (
-                    <IoMdStar key={i} className="fill-yellow text-yellow w-5 h-5" />
-                  ))}
-                </div>
+                <StarRating rating={item.rating || 0} size={20} className="mb-3 text-yellow" />
+
 
                 {/* Feedback Text */}
                 <p className="text-gray-500 font-nunito text-base leading-relaxed">

@@ -57,11 +57,10 @@ const BlogTable = () => {
   );
   const { data: categoryData } = useFetchCategory();
 
-  const categoryOptions =
-    categoryData?.category?.map((category: Category) => ({
-      label: category.name?.[language] || category.name.en,
-      value: category.name?.[language] || category.name.en,
-    })) ?? [];
+  const categoryOptions = categoryData?.category?.map((category: Category) => ({
+    label: category.name?.[language] || category.name.en,
+    value: category.name?.[language] || category.name.en,
+  })) ?? [];
   const { mutate: deleteBlog } = useDeleteSingleBlog();
   const totalPages = blogData?.totalPages || 1;
 
@@ -129,9 +128,6 @@ const BlogTable = () => {
     }));
   }, [blogData]);
 
-  const filteredData = useMemo(() => paginatedData, [paginatedData]);
-
-
   // Mutations
   const queryClient = useQueryClient();
 
@@ -174,9 +170,10 @@ const BlogTable = () => {
         <AnimatedReveal direction="left" delay={0.1}>
           <div className="w-fit flex flex-row gap-2">
             <Dropdown
+              width="w-[200px]"
               options={BlogSearchOptions}
               value={searchField}
-              onChange={(value:SearchField) => {
+              onChange={(value: SearchField) => {
                 setSearchField(value);
                 setSearch("");
                 setTimeout(() => {
@@ -188,7 +185,7 @@ const BlogTable = () => {
               <Dropdown
                 options={categoryOptions}
                 value={search || ''}
-                onChange={(value:SearchField) => {
+                onChange={(value: SearchField) => {
                   setSearch(value)
                 }}
               />

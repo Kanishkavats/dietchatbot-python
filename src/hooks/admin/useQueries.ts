@@ -4,28 +4,30 @@ import { useQuery, useMutation, useQueryClient, keepPreviousData, UseMutationOpt
 import toast from "react-hot-toast";
 import { QueryFormValues } from "@/src/utils/validations/FormValidation";
 import { deleteQuery, fetchAllQueries, fetchQueryById, updateQuery } from "@/src/services/admin/queryApi";
-import { useLanguageAwareQuery } from "@/src/hooks/web/useLanguageAwareQuery"; 
+import { useLanguageAwareQuery } from "@/src/hooks/web/useLanguageAwareQuery";
 
-// ✅ Fetch all queries (paginated) - language-aware
+//  Fetch all queries (paginated) - language-aware
 export const useFetchAllQueries = (page: number, limit: number = 10, filterValue?: string, filterField?: string) => {
-  
+
   return useLanguageAwareQuery(
     ["queries", page, limit, filterValue, filterField],
     () => fetchAllQueries(page, limit, filterValue, filterField),
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
+      placeholderData: keepPreviousData
+
     }
   );
 };
 
-// ✅ Fetch a single query by ID - language-aware
+//  Fetch a single query by ID - language-aware
 export const useFetchSingleQuery = (id?: string | null) => {
   return useLanguageAwareQuery(
     ["query", id],
     () => fetchQueryById(id!),
     {
       enabled: !!id,
-      staleTime: 5 * 60 * 1000, // 5 minutes
+      staleTime: 5 * 60 * 1000, 
     }
   );
 };
@@ -65,20 +67,20 @@ export const useUpdateQuery = () => {
 export const useMarkQueryAsViewed = () => {
   const updateMutation = useUpdateQuery();
 
-  const markQueryAsViewed = (query: { id: string; isViewed: boolean },options?: UseMutationOptions<any, any, any>) => {
+  const markQueryAsViewed = (query: { id: string; isViewed: boolean }, options?: UseMutationOptions<any, any, any>) => {
     if (!query.isViewed) {
       updateMutation.mutate({
         id: query.id,
         values: { isViewed: true },
       },
-    options
-  );
+        options
+      );
     }
   };
 
   return {
     markQueryAsViewed,
-    isPending: updateMutation.isPending, 
+    isPending: updateMutation.isPending,
   };
 };
 

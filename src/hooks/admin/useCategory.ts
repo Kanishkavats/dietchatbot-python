@@ -1,22 +1,24 @@
 // src/hooks/useCategory.ts
 import { createCategory, deleteCategory, fetchCategory, fetchCategoryById, updateCategory } from "@/src/services/admin/categoryApi";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient, keepPreviousData } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 
 
 // ======================= Fetch Categories ======================= //
 export const useFetchCategory = (page?: number, limit?: number, searchedData?: string, searchField?: string) => {
   return useQuery({
-    queryKey: ["categories",page, limit, searchedData, searchField],
-    queryFn: ()=> fetchCategory(page, limit, searchedData, searchField),
+    queryKey: ["categories", page, limit, searchedData, searchField],
+    queryFn: () => fetchCategory(page, limit, searchedData, searchField),
+    placeholderData: keepPreviousData
+
   });
 };
 
-export const useFetchCategoryById = (id:string) => {
+export const useFetchCategoryById = (id: string) => {
   return useQuery({
-    queryKey: ["categories",id],
-    queryFn: ()=> fetchCategoryById(id),
-   enabled: !!id,
+    queryKey: ["categories", id],
+    queryFn: () => fetchCategoryById(id),
+    enabled: !!id,
   });
 };
 

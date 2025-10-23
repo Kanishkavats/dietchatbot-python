@@ -8,9 +8,9 @@ import Button from "../../UI/web/Buttons/Button";
 import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 import toast from "react-hot-toast";
 import Cookies from "js-cookie";
-import { registerUser } from "@/src/services/authApi"; // your API
 import { registerSchema, registerValues } from "@/src/utils/validations/FormValidation"; // validation
 import Link from "next/link";
+import { registerUser } from "@/src/services/web/authApi";
 
 const initialValues: registerValues = {
   name: "",

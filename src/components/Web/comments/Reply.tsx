@@ -69,7 +69,7 @@ const handleSubmit = (values: CommentReplyFormValues, { resetForm }: { resetForm
 
 
   return (
-    <div className="w-full mt-10 p-4 sm:p-6 h-[75vh] xs:w-[70vh] md:max-h-[68vh] lg:max-w-[75vh] lg:max-h-[56vh] xl:max-h-[55vh] 2xl:max-h-[30vh] 2xl:max-w-[70vh]  md:max-w-[80vh] bg-white rounded-lg shadow-lg border border-gray-100 py-5">
+    <div className="w-full mt-10 p-4 sm:p-6  bg-white rounded-lg shadow-lg border border-gray-100 py-5">
       <div className="flex items-center justify-between mb-10">
         <h2 className="text-xl sm:text-2xl lg:text-[27px] font-nunito font-extrabold text-foreground ">
           Reply

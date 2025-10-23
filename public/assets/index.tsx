@@ -98,11 +98,16 @@ import eventdetail from "./eventdetail.jpg";
 import eventdetail1 from "./eventdetail1.jpg";
 import blurTransparentBg from "./latestNewsArticalbg.png"
 
+import charityGreenCard from "./charityGreenCard.png";
+import charityDarkGreenCard from "./charityDarkGreenCard.png";
+import charityYellowCard from "./charityYellowCard.png";
+import termsAndConditions from "./terms&Condtions.jpg";
+
 
 
 export {
   logo,
- 
+
   heartLogoIcon,
   homeOne,
   homeTwo,
@@ -149,7 +154,7 @@ export {
   donatediffway,
   eventdetail,
   eventdetail1,
- 
+
   icon1,
   icon2,
   childoldcare1,
@@ -168,35 +173,40 @@ export {
   givehealthsupport,
   helpforeducation,
   helpforfood,
- imageBottomTear,
+  imageBottomTear,
 
- photo1,
- photo2,
- photo3,
- photo4,
- photo5,
- photo6,
- photo7,
- photo8,
+  photo1,
+  photo2,
+  photo3,
+  photo4,
+  photo5,
+  photo6,
+  photo7,
+  photo8,
 
   aboutus,
   askedquestion,
   askedquestion1,
-  
-  sendmessagefordonation,
- voluntear5,
- voluntear6,
- voluntear7,
- voluntear8,
- contactbg,
- bgOneVolunteer,
- image99,
- greenspade,
- spreadLight,
- gridDot,
- footballhandbg,
- heartHandbg,
 
- blurTransparentBg,
+  sendmessagefordonation,
+  voluntear5,
+  voluntear6,
+  voluntear7,
+  voluntear8,
+  contactbg,
+  bgOneVolunteer,
+  image99,
+  greenspade,
+  spreadLight,
+  gridDot,
+  footballhandbg,
+  heartHandbg,
+
+  blurTransparentBg,
   contactbanner,
+
+  charityGreenCard,
+  charityDarkGreenCard,
+  charityYellowCard,
+  termsAndConditions
 };

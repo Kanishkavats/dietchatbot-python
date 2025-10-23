@@ -156,7 +156,7 @@ const BannerTable = () => {
               ref={searchInputRef}
               placeholder={`Search by ${searchField}...`}
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e:React.ChangeEvent<HTMLInputElement>) => setSearch(e.target.value)}
             />
           </div>
         </AnimatedReveal>

@@ -156,7 +156,8 @@ export interface    AdminDropdownProps<T> {
   error?: string;
   className?: string;
   disabled?: boolean;
-  readOnly?: boolean
+  readOnly?: boolean;
+  width?: string
 }
 
 export interface AdminCustomInputProps {

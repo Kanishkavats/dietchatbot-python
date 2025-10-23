@@ -1,6 +1,6 @@
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { deleteSingleEvent,fetchAllEvent,fetchEventById} from "@/src/services/admin/eventApi";
+import { keepPreviousData, useMutation, useQueryClient } from "@tanstack/react-query";
+import { deleteSingleEvent, fetchAllEvent, fetchEventById } from "@/src/services/admin/eventApi";
 import { CampaignFormValues, EventFormValues } from "@/src/utils/validations/FormValidation";
 import toast from "react-hot-toast";
 import { useLanguageAwareQuery } from "@/src/hooks/web/useLanguageAwareQuery";
@@ -124,24 +124,26 @@ export const submitEventForm = (
 };
 
 
-export const useFetchAllEvent = (page: number, limit: number = 10,search?:string,searchedData?:string) => {
+export const useFetchAllEvent = (page: number, limit: number = 10, search?: string, searchedData?: string) => {
   return useLanguageAwareQuery(
-    ["event", page, limit,search,searchedData], 
-    () => fetchAllEvent(page, limit,search,searchedData),
+    ["event", page, limit, search, searchedData],
+    () => fetchAllEvent(page, limit, search, searchedData),
     {
-      staleTime: 5 * 60 * 1000, 
+      staleTime: 5 * 60 * 1000,
+      placeholderData: keepPreviousData
+
     }
   );
 };
 
 
-export const useFetchSingleEvent = (id?: string,options?: { enabled?: boolean }) => {
+export const useFetchSingleEvent = (id?: string, options?: { enabled?: boolean }) => {
   return useLanguageAwareQuery(
     ["event", id],
     () => fetchEventById(id!),
     {
       enabled: options?.enabled ?? !!id,
-      staleTime: 5 * 60 * 1000, 
+      staleTime: 5 * 60 * 1000,
     }
   );
 };

@@ -120,15 +120,16 @@ export default function HeroStaticSlider() {
 
             <div className="flex flex-col min-[450px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
               <div className="w-auto sm:w-auto min-w-[50px] sm:min-w-[120px]">
+                <Link href="/campaign">
                 <Button
                   text="Discover More"
                   textColor="text-white"
                   bgColor="bg-black/30"
                   hoverBg="before:bg-yellow"
                   hoverTextColor="group-hover:text-foreground"
-                  onClick={() => window.open(bannerLink, '_blank')}
                   paddingy="py-5"
                 />
+                </Link>
               </div>
               <div className="sm:w-auto min-w-[50px] sm:min-w-[120px]">
                 <Link href="/contact">

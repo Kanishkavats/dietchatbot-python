@@ -66,7 +66,7 @@ const LocationPicker: React.FC<LocationPickerProps> = ({ value, onChange, disabl
       <Autocomplete onLoad={onLoadAutocomplete} onPlaceChanged={onPlaceChanged}>
         <CustomInput
         value={searchLocationText}
-        onChange={(e)=>{setSearchLocationtext(e.target.value)}}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>)=>{setSearchLocationtext(e.target.value)}}
           type="text"
           placeholder="Search location..."
           className="  rounded w-full"

@@ -6,32 +6,34 @@ import Image from "next/image";
 import { FaHandHoldingHeart, FaStar } from "react-icons/fa";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import ContactForm from "./ContactForm";
-import ContactInfoBlock, { contactInfo } from "./ContactInfoBlock";
+import ContactInfoBlock from "./ContactInfoBlock";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { useTranslation } from "react-i18next";
-import { Feedback } from "@/src/types/web/feedback";
+import { Feedback, FeedbackApiResponse } from "@/src/types/web/feedback";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { useFetchApprovedFeedbacks } from "@/src/hooks/web/useFeedback";
+import StarRating from "../../UI/web/StarRating";
+import { contactInfo } from "@/src/staticResource";
 
 const ContactUs = () => {
   const { t } = useTranslation();
-  const { data } = useFetchApprovedFeedbacks(1, 10, "all");
+  const { data } = useFetchApprovedFeedbacks(1, 10, "all") as { data: FeedbackApiResponse };
+  console.log("data", data)
 
   const truncateText = (text: string, maxLength: number) => {
     if (!text) return "";
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
   };
 
-  const feedbacks =
-    data?.feedback && Array.isArray(data.feedback)
+  const feedbacks = data?.feedback && Array.isArray(data.feedback)
       ? data.feedback.slice(0, 9)
       : [];
 
   return (
-    <div className="bg-white px-4 sm:px-6 md:px-12 xl:px-20 py-12 border">
+    <div className="bg-white px-4 sm:px-6 md:px-12 xl:px-20 py-12">
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16">
         {/* LEFT SECTION */}
         <AnimatedReveal className="flex-1">
@@ -48,7 +50,7 @@ const ContactUs = () => {
             )}
           </p>
 
-          {/* 🟡 SWIPER FEEDBACK SECTION */}
+          {/* SWIPER FEEDBACK SECTION */}
           {feedbacks.length > 0 && (
             <div className="mb-14">
               <h2 className="text-2xl sm:text-3xl font-bold text-dark-green mb-6 sm:mb-8 text-center lg:text-left">
@@ -82,15 +84,11 @@ const ContactUs = () => {
                 modules={[Navigation, Autoplay]}
                 className="pb-12"
               >
-                {feedbacks.map((item: Feedback, idx: number) => (
+                {feedbacks?.map((item: Feedback, idx: number) => (
                   <SwiperSlide key={`${item.id}-${idx}`}> 
                     <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-6 py-8 w-full sm:w-[280px] md:w-[315px] lg:w-[220px] lg:h-[385.6px] xl:h-[385.6px] 2xl:w-[315.6px] 2xl:h-[385.6px] xl:w-[230px] h-auto min-h-[340px] mx-auto hover:shadow-lg transition-all duration-500 lg:w-full xl:w-full">
                       {/* Rating */}
-                      <div className="flex mb-4 px-2">
-                        {[...Array(item.rating || 5)].map((_, i) => (
-                          <FaStar key={i} className="text-yellow" size={18} />
-                        ))}
-                      </div>
+                     <StarRating rating={item.rating || 0} size={20} className="mb-3 text-yellow" />
 
                       {/* Feedback */}
                       <p className="text-[#667471] font-nunito text-sm sm:text-base leading-relaxed px-2 flex-grow">
@@ -148,6 +146,7 @@ const ContactUs = () => {
                 title={info.title}
                 lines={info.lines}
                 isSocial={info.isSocial}
+                links={info.links}
               />
             ))}
           </div>
