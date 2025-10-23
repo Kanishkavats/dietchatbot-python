@@ -9,10 +9,10 @@ import CampaignGrid from './CampaignGrid';
 import PageBanner from '@/src/helper/PageBanner';
 
 const Campaign = () => {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   return (
     <div>
-        <PageBanner
+      <PageBanner
         bgImage={ourcausebanner}
         tagline={t("Start Donating Poor People")}
         title={t("Our Campaign")}

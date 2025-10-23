@@ -22,9 +22,7 @@ import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 const EventForm = ({ initialData, onClose, mode, onPreview }: EventFormProps) => {
 
   const initialValues= getInitialEventValues(initialData)
-  console.log(initialValues)
 
-  const [keyPointInput, setKeyPointInput] = useState("");
   const { language, toggleLanguage } = useLanguageToggle();
 
   const isView = mode === "view";

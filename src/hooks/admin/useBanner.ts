@@ -44,7 +44,7 @@ const handleCreateBanner = (
         },
         onError: (err: any) => {
             toast.dismiss();
-            toast.error(err?.message || "Failed to create banner");
+            toast.error(err?.response?.data?.message || "Failed to create banner");
             setSubmitting(false);
         },
     });
@@ -75,7 +75,7 @@ const handleUpdateBanner = (
             },
             onError: (err: any) => {
                 toast.dismiss();
-                toast.error(err?.message || "Failed to update banner");
+                toast.error(err?.response?.data?.message|| "Failed to update banner");
                 setSubmitting(false);
             },
         }
@@ -136,7 +136,7 @@ export const useDeleteBanner = () => {
             toast.success("Banner deleted successfully");
         },
         onError: (error: any) => {
-            toast.error(error?.message || "Failed to delete banner");
+            toast.error(error?.response?.data?.message || "Failed to delete banner");
         },
     });
 };

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Image from "next/image";
 import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -16,6 +16,9 @@ import CustomLoader from "../../UI/web/Loader/CustomLoader";
 import { bgOneVolunteer, image99, valueableshape } from "@/public/assets";
 import { fetchFeedback } from "@/src/services/web";
 import StarRating from "../../UI/web/StarRating";
+import ComponentLabel from "../../UI/web/ComponentLabel";
+import { useInView } from "framer-motion";
+import ComponentTitle from "../../UI/web/ComponentTitle";
 
 const truncateText = (text: string, maxLength: number): string =>
   !text ? "" : text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
@@ -31,37 +34,39 @@ const ValueableCustomer = () => {
   const validFeedbacks = feedbacks.filter(
     (f: any) => f.name && f.feedback && f.rating && f.image
   );
+  
+    const headerRef = useRef(null);
+    const isHeaderInView = useInView(headerRef, { once: true });
 
   if (isLoading) return <CustomLoader />;
   if (validFeedbacks.length === 0) return null;
 
   return (
     <section
-      className="relative w-full min-h-screen bg-cover bg-center py-8 sm:py-12 md:py-16 pb-20 xl:pb-48"
+      className="relative w-full min-h-screen bg-cover bg-center pt-3 sm:py-12 md:py-16 pb-16 xl:pb-48 "
       style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       {/* Background shape */}
       <div
-        className="absolute top-0 left-0 w-[80%] sm:w-[70%] md:w-[60%] h-[30%] bg-no-repeat bg-contain z-10"
+        className="absolute top-0 left-0 w-[80%] sm:w-[70%] md:w-[60%] h-[30%] bg-no-repeat bg-contain z-10 "
         style={{ backgroundImage: `url(${valueableshape.src})` }}
       />
 
       {/* Heading */}
-      <div className="mt-[140px] px-4 sm:px-6 md:px-8 text-center relative z-20">
-        <div className="flex justify-center items-center gap-1 mb-4">
-          <i className="text-2xl text-green hand-icon" />
-          <span className="text-green text-[16px] sm:text-[24px] font-caveat font-semibold leading-[34px]">
-            {t("Start Donating Poor People")}
-          </span>
+      <div ref={headerRef} className=" mt-20  md:mt-[140px] px-4 sm:px-6 md:px-8  relative z-20 flex justify-center items-center">
+       <div className="lg:max-w-[700px]">
+          <ComponentLabel
+            className='md:justify-center'
+            text="Start Donating Poor People"
+            isVisible={isHeaderInView}
+          />
+          <ComponentTitle
+            className='lg:text-center'
+             preText="Our"
+          highlightText="Valuable Customers"
+          postText=" Awesome Feedback"
+          />
         </div>
-
-        <h2 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-tight">
-          {t("Our")}{" "}
-          <span className="text-yellow font-nunito">{t("Valuable Customers")}</span>
-        </h2>
-        <h3 className="text-[22px] sm:text-[28px] md:text-[35px] lg:text-[45px] xl:text-[55px] font-nunito font-extrabold text-[#122F2A] leading-tight mt-2">
-          {t("Awesome Feedback")}
-        </h3>
       </div>
 
       {/* Carousel */}

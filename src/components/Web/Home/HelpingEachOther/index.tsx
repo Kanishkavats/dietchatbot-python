@@ -9,16 +9,17 @@ import Button from "../../../UI/web/Buttons/Button";
 
 import { useTranslation } from "react-i18next";
 import { footballhandbg, heartHandbg } from "@/public/assets";
+import ComponentTitle from "@/src/components/UI/web/ComponentTitle";
 
 export default function HelpingEachOther() {
   const [isVideoOpen, setIsVideoOpen] = useState(false);
   const router = useRouter();
   const { t } = useTranslation();
-const imageRef = useRef(null);
-const overlayRef = useRef(null);
+  const imageRef = useRef(null);
+  const overlayRef = useRef(null);
 
-const isImageInView = useInView(imageRef, { once: true, amount: 0.1 });
-const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
+  const isImageInView = useInView(imageRef, { once: true, amount: 0.1 });
+  const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
 
 
   const handleVideoOpen = useCallback(() => {
@@ -97,9 +98,9 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
 
         <div className=" w-full mx-auto xl:px-2 2xl:px-0 mt-10 lg:mt-20 max-w-[1440px]">
           <div className="grid grid-cols-1 lg:grid-cols-7 xl:pl-30  xl:gap-15">
-            
+
             <div className="relative  col-span-3  opacity-0 anim-fade-in-left hidden lg:block">
-            
+
               <div className="hidden xl:block lg:h-[450px] absolute -left-1 top-42 -bottom-15 w-16 lg:w-16 xl:w-23 bg-green rounded-3xl border-t-4 border-b-4 border-yellow-500  items-center justify-center z-20 transition-all duration-300">
                 <div
                   className="transform -rotate-90 text-white font-extrabold text-xl whitespace-nowrap mt-80 px-2"
@@ -147,20 +148,20 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                   />
                 </div>
 
-                
+
                 <div className="relative hidden lg:block  ">
-                
+
                   <motion.div
                     ref={imageRef}
                     className="relative  max-w-[500px] h-[500px] xl:h-[550px] rounded-2xl overflow-hidden border-8 border-white shadow-xl shadow-foreground/20 "
-                    initial={{ opacity: 0, x:100 }}
+                    initial={{ opacity: 0, x: 100 }}
                     animate={
-                      isImageInView?{opacity:1,x:0}:{}
+                      isImageInView ? { opacity: 1, x: 0 } : {}
                     }
-                    transition={{ 
+                    transition={{
                       duration: 1,
-                      ease:"easeOut",
-                      delay:0.1
+                      ease: "easeOut",
+                      delay: 0.1
                     }}
                   >
                     <Image
@@ -234,18 +235,18 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                   </div>
                 </div>
                 <motion.div
-                ref={overlayRef}
-                 className="hidden lg:block absolute -bottom-28 xl:-bottom-20 md:right-40 xl:left-20 w-50 h-60  bg-white border-1 border-yellow rounded-lg overflow-hidden -z-10"
-                 initial={{ opacity: 0, x:100 }}
-                    animate={
-                      isOverlayInView ?{opacity:1,x:0}:{}
-                    }
-                    transition={{ 
-                      duration: 1,
-                      ease:"easeOut",
-                      delay:0.4
-                    }}
-                 ></motion.div>
+                  ref={overlayRef}
+                  className="hidden lg:block absolute -bottom-28 xl:-bottom-20 md:right-40 xl:left-20 w-50 h-60  bg-white border-1 border-yellow rounded-lg overflow-hidden -z-10"
+                  initial={{ opacity: 0, x: 100 }}
+                  animate={
+                    isOverlayInView ? { opacity: 1, x: 0 } : {}
+                  }
+                  transition={{
+                    duration: 1,
+                    ease: "easeOut",
+                    delay: 0.4
+                  }}
+                ></motion.div>
               </div>
 
 
@@ -253,7 +254,7 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
               <motion.div
                 className="absolute hidden lg:block top-0 -left-40 w-10 h-10 lg:h-40 lg:w-40 xl:w-50 xl:h-50 bottom-20 hover:scale-110 transition-transform duration-300"
                 animate={{
-                  top: [-300,1200],
+                  top: [-300, 1200],
                   x: [0, -53.371, 0],
                   rotate: [0, -23.4842, 0],
                 }}
@@ -286,8 +287,8 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
               <motion.div
                 className="absolute lg:hidden top-0 left-0 w-10 h-10 md:w-16 md:h-16 transition-transform duration-300"
                 animate={{
-                  top: [-60,1200],
-                   x: [0, -50, 0],
+                  top: [-60, 1200],
+                  x: [0, -50, 0],
                   rotate: [0, -23.4842, 0],
                 }}
                 transition={{
@@ -317,14 +318,11 @@ const isOverlayInView = useInView(overlayRef, { once: true, amount: 0.1 });
                   {t("Start Donating Poor People")}
                 </span>
               </div>
-
-              <div className=" mb-3 md:mb-3 lg:mb-3 md:pr-15 lg:pr-10 xs:pr-1 xl:pr-0">
-                <h2 className="text-[24px] font-nunito  md:text-4xl lg:text-4xl xl:text-[56px] md:tracking-normal lg:tracking-tight font-extrabold text-dark-green leading-tight tracking opacity-0 anim-fade-in-up">
-                  {t("Helping Each Other Can Make")}{" "}
-                  <span className="text-yellow">{t("World")}</span>
-                  {t(" Better")}
-                </h2>
-              </div>
+              <ComponentTitle
+                preText="Helping Each Other Can Make"
+                highlightText="World"
+                postText=" Better"
+              />
 
               <p
                 className="text-gray-green   xs:pl-1 pr-2 md:pr-15 lg:pr-2 md:pl-0 xs:pr-5 text-[14px] md:text-[14px] md:tracking-wide md:font-normal tracking-wide xs:-tracking-normal xs:leading-7 lg:font-normal leading-7  lg:text-[14px] xl:text-[16px] xl:tracking-wide lg:leading-7 lg:tracking-normal font-nunito xl:pr-5  opacity-0 anim-fade-in-up"

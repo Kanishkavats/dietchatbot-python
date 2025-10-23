@@ -1,10 +1,10 @@
 "use client";
-import React, { useState, ChangeEvent, DragEvent, useEffect, useRef } from "react";
+import React, { useState, ChangeEvent, DragEvent, useRef, use } from "react";
 import { IoMdClose } from "react-icons/io";
 import { Icon } from "@iconify/react";
-import { AdminCustomFileInputProps, AdminFileItem } from "@/src/types/adminCommon";
-
-
+import toast from "react-hot-toast";
+import { AdminCustomFileInputProps, AdminFileItem } from "@/src/types/admin";
+import { useTranslation } from "react-i18next";
 
 const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
   label,
@@ -18,15 +18,24 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
   uploadType = "single",
 }) => {
   const [files, setFiles] = useState<AdminFileItem[]>([
-    ...initialUrls.map((url) => ({ url, status: "success", progress: 100 })),
-    ...initialFiles.map((file) => ({ file, url: URL.createObjectURL(file), status: "success", progress: 100 })),
+    ...initialUrls.map((url) => ({
+      url,
+      status: "success" as "success",
+      progress: 100,
+    })),
+    ...initialFiles.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+      status: "success" as "success",
+      progress: 100,
+    })),
   ]);
+
+
   const inputRef = useRef<HTMLInputElement>(null);
-
-  // Note: Do not auto-sync after mount to avoid clobbering user changes
-
   const isView = mode === "view";
   const isEditable = mode === "add" || mode === "edit";
+  const { t } = useTranslation();
 
   // Simulate upload progress
   const simulateUpload = (index: number) => {
@@ -36,18 +45,39 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
       setFiles((prev) =>
         prev.map((f, i) =>
           i === index
-            ? { ...f, progress, status: progress >= 100 ? "success" : "processing" }
+            ? {
+              ...f,
+              progress,
+              status: progress >= 100 ? "success" : "processing",
+            }
             : f
         )
       );
       if (progress >= 100) clearInterval(interval);
-    }, 200); // update every 200ms
+    }, 200);
   };
 
-  // Handle file selection
+  // ✅ Handle file selection with size check
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const selected = Array.from(e.target.files || []);
-    const newItems: AdminFileItem[] = selected.map((file) => ({
+    if (selected.length === 0) return;
+
+    const validFiles: File[] = [];
+    for (const file of selected) {
+      const fileSizeKB = file.size / 1024;
+      if (fileSizeKB > 500) {
+        toast.error(t("Please select an image under 500KB."));
+        continue;
+      }
+      validFiles.push(file);
+    }
+
+    if (validFiles.length === 0) {
+      if (inputRef.current) inputRef.current.value = "";
+      return;
+    }
+
+    const newItems: AdminFileItem[] = validFiles.map((file) => ({
       file,
       url: URL.createObjectURL(file),
       status: "processing",
@@ -65,50 +95,57 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
         .filter((u) => typeof u === "string" && !u.startsWith("blob:"))
     );
 
-    // simulate progress for new items
     newItems.forEach((_, idx) => {
       const actualIndex = uploadType === "single" ? idx : files.length + idx;
       simulateUpload(actualIndex);
     });
-        if (inputRef.current) inputRef.current.value = "";
 
+    if (inputRef.current) inputRef.current.value = "";
   };
 
-  // Drag & Drop
+  // ✅ Handle drag & drop with size check
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    if (disabled) return;
+
     const dropped = Array.from(e.dataTransfer.files || []);
-    if (dropped.length > 0) {
-      const newItems: AdminFileItem[] = dropped.map((file) => ({
-        file,
-        url: URL.createObjectURL(file),
-        status: "processing",
-        progress: 0,
-      }));
+    const validFiles = dropped.filter((file) => {
+      const fileSizeKB = file.size / 1024;
+      if (fileSizeKB > 500) {
+        toast.error(t("Please select an image under 500KB."));
+        return false;
+      }
+      return true;
+    });
 
-      const updated = uploadType === "single" ? newItems : [...files, ...newItems];
-      setFiles(updated);
+    if (validFiles.length === 0) return;
 
-      onChange(
-        updated.filter((f) => f.file).map((f) => f.file!),
-        updated
-          .filter((f) => !f.file)
-          .map((f) => f.url)
-          .filter((u) => typeof u === "string" && !u.startsWith("blob:"))
-      );
+    const newItems: AdminFileItem[] = validFiles.map((file) => ({
+      file,
+      url: URL.createObjectURL(file),
+      status: "processing",
+      progress: 0,
+    }));
 
-      newItems.forEach((_, idx) => {
-        const actualIndex = uploadType === "single" ? idx : files.length + idx;
-        simulateUpload(actualIndex);
-      });
-    }
+    const updated = uploadType === "single" ? newItems : [...files, ...newItems];
+    setFiles(updated);
+
+    onChange(
+      updated.filter((f) => f.file).map((f) => f.file!),
+      updated
+        .filter((f) => !f.file)
+        .map((f) => f.url)
+        .filter((u) => typeof u === "string" && !u.startsWith("blob:"))
+    );
+
+    newItems.forEach((_, idx) => {
+      const actualIndex = uploadType === "single" ? idx : files.length + idx;
+      simulateUpload(actualIndex);
+    });
   };
 
-  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-  };
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => e.preventDefault();
 
-  // Remove file
   const removeFile = (idx: number) => {
     const updated = files.filter((_, i) => i !== idx);
     setFiles(updated);
@@ -123,7 +160,10 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
   return (
     <div className="w-full">
       {label && (
-        <label htmlFor={name} className="block mb-1 font-medium text-gray-700 text-[14px]">
+        <label
+          htmlFor={name}
+          className="block mb-1 font-medium text-gray-700 text-[14px]"
+        >
           {label}
         </label>
       )}
@@ -147,7 +187,10 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
             className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             disabled={disabled}
           />
-          <Icon icon="mdi:image-plus-outline" className="text-3xl text-yellow mx-auto" />
+          <Icon
+            icon="mdi:image-plus-outline"
+            className="text-3xl text-yellow mx-auto"
+          />
           <p className="mt-2 text-sm text-gray-600">
             Drag & Drop your images here or{" "}
             <span className="text-yellow underline">browse files</span>
@@ -155,7 +198,6 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
         </div>
       )}
 
-      {/* Uploaded files list */}
       {files.length > 0 && (
         <div className="mt-4 space-y-2">
           {files.map((f, idx) => (
@@ -175,7 +217,11 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
                   </p>
                   <p className="text-xs text-gray-400">
                     {f.status === "processing" && `Uploading... ${f.progress}%`}
-                    {f.status === "success" && <span className="text-green text-xs">Uploaded successfully</span>}
+                    {f.status === "success" && (
+                      <span className="text-green text-xs">
+                        Uploaded successfully
+                      </span>
+                    )}
                     {f.status === "error" && "Failed to upload"}
                   </p>
                 </div>
@@ -184,7 +230,11 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
               {isEditable && (
                 <button
                   type="button"
-                  onClick={(e) => { e.preventDefault(); e.stopPropagation(); removeFile(idx); }}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    removeFile(idx);
+                  }}
                   className="text-red hover:text-red-50 p-1 cursor-pointer"
                 >
                   <IoMdClose size={18} />

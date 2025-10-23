@@ -43,7 +43,7 @@ export const useDeleteQuery = () => {
       toast.success("Query deleted successfully");
     },
     onError: (err: any) => {
-      toast.error(err?.message || "Failed to delete query");
+      toast.error(err?.response?.data?.message || "Failed to delete query");
     },
   });
 };
@@ -59,7 +59,7 @@ export const useUpdateQuery = () => {
       toast.success("Query updated");
     },
     onError: (err: any) => {
-      toast.error(err?.message || "Failed to update query");
+      toast.error(err?.response?.data?.message || "Failed to update query");
     },
   });
 };
@@ -105,7 +105,7 @@ export const submitQueryForm = (
       },
       onError: (err: any) => {
         toast.dismiss();
-        toast.error(err?.message || "Failed to update query");
+        toast.error(err?.response?.data?.message || "Failed to update query");
         setSubmitting(false);
       },
     }

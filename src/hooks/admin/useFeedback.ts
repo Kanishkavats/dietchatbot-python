@@ -1,4 +1,3 @@
-// src/hooks/useFeedback.ts
 import { keepPreviousData, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import {
@@ -12,8 +11,7 @@ import {
 import { useLanguageAwareQuery } from "@/src/hooks/web/useLanguageAwareQuery";
 import { FeedbackFormValues } from "@/src/utils/validations/FormValidation";
 
-// ======================= Fetch All Feedbacks (Admin) ======================= //
-
+//  Fetch All Feedbacks (
 export const useFetchFeedbacks = (
   page: number,
   limit: number,
@@ -45,8 +43,7 @@ export const useFetchApprovedFeedbacks = (
   );
 };
 
-// ======================= Fetch Feedback by ID ======================= //
-
+//  Fetch Single Feedback (Admin)
 export const useFetchFeedbackById = (id: string, enabled: boolean = true) => {
   return useLanguageAwareQuery(
     ["feedback", id],
@@ -58,7 +55,6 @@ export const useFetchFeedbackById = (id: string, enabled: boolean = true) => {
   );
 };
 
-// ======================= Create Feedback ======================= //
 
 // ✅ Convert values to FormData
 const buildFeedbackFormData = (values: FeedbackFormValues) => {
@@ -99,8 +95,6 @@ const handleCreateFeedback = (
   console.log('🌐 Sending API request to backend...');
   createMutation.mutate(formData, {
     onSuccess: (response: any) => {
-
-
       toast.dismiss();
       toast.success("Feedback submitted successfully");
       resetForm();
@@ -108,9 +102,6 @@ const handleCreateFeedback = (
       onClose();
     },
     onError: (err: any) => {
-      console.log('❌ FEEDBACK SUBMISSION FAILED!');
-
-
       toast.dismiss();
       toast.error(err?.response?.data?.message || "Failed to submit feedback");
       setSubmitting(false);
@@ -127,7 +118,9 @@ export const useCreateFeedback = () => {
       queryClient.invalidateQueries({ queryKey: ["feedbacks"] });
     },
     onError: (err: any) => {
-      // Error handling is done in handleCreateFeedback
+      toast.dismiss();
+      console.log("error check", err)
+      toast.error(err?.response?.data?.message || "Failed to update blog");
     },
   });
 };

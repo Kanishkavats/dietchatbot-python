@@ -29,12 +29,11 @@ const Home = () => {
       <Community hasfeedback={hasFeedback} />
       <div className="mt-8 md:mt-0"></div>
       {hasFeedback ? (
-        <ValueableCustomer setHasFeedback={setHasFeedback}/>
+        <ValueableCustomer/>
       ) : (
         <div className="mt-[100px] md:mt-[112px] " />
       )}
       <FeedbackForm />
-      
       {/* <ChildOldCare  /> */}
       <DonateDifferentWay />
       <LatestNewsArticle />

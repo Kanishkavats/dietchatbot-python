@@ -75,7 +75,7 @@ const handleCreateBlog = (
     },
     onError: (err: any) => {
       toast.dismiss();
-      toast.error(err?.message || "Failed to create blog");
+      toast.error(err?.response?.data?.message || "Failed to create blog");
       setSubmitting(false);
     },
   });
@@ -93,7 +93,7 @@ const handleUpdateBlog = (
   toast.dismiss();
   toast.loading("Updating blog...");
   const formData = buildFormData(values);
-
+  console.log("data", formData)
   updateMutation.mutate(
     { id, values: formData },
     {
@@ -106,7 +106,8 @@ const handleUpdateBlog = (
       },
       onError: (err: any) => {
         toast.dismiss();
-        toast.error(err?.message || "Failed to update blog");
+        console.log("error check", err)
+        toast.error(err?.response?.data?.message || "Failed to update blog");
         setSubmitting(false);
       },
     }
@@ -159,7 +160,7 @@ export const useDeleteSingleBlog = () => {
       toast.success("Blog deleted successfully");
     },
     onError: (error: any) => {
-      toast.error(error?.message || "Failed to delete blog");
+      toast.error(error?.response?.data?.message || "Failed to delete blog");
     },
   });
 };

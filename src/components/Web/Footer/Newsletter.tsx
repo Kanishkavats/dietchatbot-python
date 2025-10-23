@@ -42,8 +42,8 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="text-white font-nunito py-16 xl:py-20">
-      <div className="container w-full max-w-screen-2xl mx-auto pb-20 flex flex-col lg:flex-row lg:items-center justify-start gap-8 px-0 sm:px-3 md:px-8 2xl:px-0 border-b-[1px] border-white/10 ">
+    <section className="text-white font-nunito py-0 xl:py-20">
+      <div className="container w-full max-w-screen-2xl mx-auto pb-10 lg:pb-20 flex flex-col lg:flex-row lg:items-center justify-start gap-8 px-0 sm:px-3 md:px-0 border-b-[1px] border-white/10 ">
         {/* Text Section */}
         <SlideinFromLeft>
           <div>
@@ -63,7 +63,7 @@ const Newsletter = () => {
           onSubmit={handleSubmit}
         >
           {({ isSubmitting }) => (
-            <Form className="flex items-center gap-3 md:gap-4 lg:gap-5 w-full lg:w-2/5 lg:ml-auto">
+            <Form className="flex items-center gap-3 md:gap-4 lg:gap-5 w-fit lg:w-2/5 lg:ml-auto">
               <InputField
                 name="email"
                 placeholder={t("Enter Email")}

@@ -10,7 +10,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
 
-import { useTranslation } from "react-i18next"; 
+import { useTranslation } from "react-i18next";
 import { useFetchAllCampaigns } from '@/src/hooks/web/useCampaigns';
 import { allDonationCards } from '@/src/staticResource';
 
@@ -18,9 +18,11 @@ import NavigationButton from './NavigationButton';
 import CarouselIndicators from './CarouselIndicators';
 import CampaignCard from '../../Campaign/CampaignCard';
 import { CampaignApiResponse, CampaignCardInterface } from '@/src/types/web/campaign';
+import ComponentLabel from '@/src/components/UI/web/ComponentLabel';
+import ComponentTitle from '@/src/components/UI/web/ComponentTitle';
 
 const HelpAndDonate: React.FC = () => {
-  const { t } = useTranslation(); 
+  const { t } = useTranslation();
   const router = useRouter();
 
   const [activeIndex, setActiveIndex] = useState(0);
@@ -89,6 +91,10 @@ const HelpAndDonate: React.FC = () => {
   const onRightButtonMouseEnter = useCallback(() => setRightButtonColor("green"), []);
   const onRightButtonMouseLeave = useCallback(() => setRightButtonColor("yellow"), []);
 
+  const headerRef = useRef(null);
+  const isHeaderInView = useInView(headerRef, { once: true });
+
+
   return (
     <section
       ref={sectionRef}
@@ -104,45 +110,19 @@ const HelpAndDonate: React.FC = () => {
 
       <div className="relative z-10 container mx-auto px-3 sm:px-6 lg:px-0 xl:px-0 max-w-7xl">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 md:mb-12 lg:mb-6">
+        <div ref={headerRef} className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 md:mb-12 lg:mb-6">
           {/* Left Content */}
           <div className="flex-1 max-w-2xl mb-6 md:mb-0 flex-grow">
-            <div className="flex items-center mb-4 md:mb-6">
-              <i className="text-lg md:text-xl mr-2 text-[var(--green)] hand-icon" />
-              <span
-                className={`text-[var(--green)] font-caveat font-bold ${
-                  t("Start Donating Poor People").length > 25
-                    ? "text-sm md:text-lg lg:text-lg"
-                    : "text-lg md:text-2xl lg:text-2xl"
-                }`}
-              >
-                {t("Start Donating Poor People")}
-              </span>
-            </div>
 
-            <h2
-              className={`font-bold leading-tight mb-2 md:mb-4 ${
-                t("Help & ").length > 10 ||
-                t("Donate").length > 10 ||
-                t("Them when").length > 10 ||
-                t("They are In Need").length > 10
-                  ? "text-2xl sm:text-3xl md:text-5xl lg:text-5xl"
-                  : "text-3xl sm:text-4xl md:text-6xl lg:text-6xl"
-              }`}
-              style={{
-                fontFamily: 'var(--font-nunito), Nunito, sans-serif',
-                fontWeight: 700,
-              }}
-            >
-              <div className="w-full lg:w-[761px]">
-                <span className="text-gray-800">{t("Help & ")}</span>
-                <span className="text-yellow-400">{t("Donate")} </span>
-                <span className="text-gray-800">{t("Them when")}</span>
-              </div>
-              <div>
-                <span className="text-gray-800">{t("They are In Need")}</span>
-              </div>
-            </h2>
+            <ComponentLabel
+              text="Start Donating Poor People"
+              isVisible={isHeaderInView}
+            />
+            <ComponentTitle
+              preText="Help & "
+              highlightText="Donate"
+              postText=" Them when They are In Need"
+            />
           </div>
 
           {/* Navigation buttons if enough campaigns */}

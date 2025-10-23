@@ -68,7 +68,7 @@ const handleCreateCampaign = (
     },
     onError: (err: any) => {
       toast.dismiss();
-      toast.error(err?.message || "Failed to create");
+      toast.error(err?.response?.data?.message || "Failed to create");
       setSubmitting(false);
     },
   });
@@ -99,7 +99,7 @@ const handleUpdateCampaign = (
       },
       onError: (err: any) => {
         toast.dismiss();
-        toast.error(err?.message || "Failed to update");
+        toast.error(err?.response?.data?.message || "Failed to update");
         setSubmitting(false);
       },
     }
@@ -160,7 +160,7 @@ export const useDeleteSignleCampaign = () => {
       toast.success("Campaign deleted successfully");
     },
     onError: (error: any) => {
-      toast.error(error?.message || "Failed to delete campaign");
+      toast.error(error?.response?.data?.message || "Failed to delete campaign");
     }
   });
 };

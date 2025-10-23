@@ -126,7 +126,7 @@
   "role_3": "क्लॉथ स्टोर इंक.",
   "Our Latest ": "हमारा नवीनतम ",
   "You Like": "जो आपको पसंद आएगा",
-  "& Articles ": "एवं लेख ",
+  "& Articles You Like": "और लेख जो आपको पसंद हैं",
   "Charity With Difference": "अंतर के साथ दान",
   "Join Our Monthly Giving Program To Provide Consistent Support To Our Initiatives. Regular Contributions, No Matter The Size, Help Us Plan And Sustain Long-Term Projects.": "हमारे पहलों को लगातार समर्थन प्रदान करने के लिए हमारे मासिक दान कार्यक्रम में शामिल हों। नियमित योगदान, चाहे कितना भी छोटा हो, हमें दीर्घकालिक परियोजनाओं की योजना बनाने और बनाए रखने में मदद करता है।",
   "Healthy Food": "स्वस्थ भोजन",
@@ -328,7 +328,6 @@
   "Our Blog":"हमारा ब्लॉग",
   "1. Introduction": "1. परिचय",
   "Our Commitment to Your Privacy": "आपकी गोपनीयता के प्रति हमारी प्रतिबद्धता",
-  "Privacy Policy": "गोपनीयता नीति",
   "Your privacy matters to us. This Privacy Policy explains how we collect, use, and protect your personal information when you engage with our website or services. By accessing our platform, you agree to the terms described below. We encourage you to read this policy carefully to understand how your information is handled.": "आपकी गोपनीयता हमारे लिए महत्वपूर्ण है। यह गोपनीयता नीति बताती है कि जब आप हमारी वेबसाइट या सेवाओं का उपयोग करते हैं, तो हम आपकी व्यक्तिगत जानकारी को कैसे एकत्रित, उपयोग और सुरक्षित करते हैं। हमारे प्लेटफ़ॉर्म का उपयोग करके, आप नीचे दिए गए शर्तों से सहमत होते हैं। हम आपको इस नीति को ध्यान से पढ़ने के लिए प्रोत्साहित करते हैं ताकि आप समझ सकें कि आपकी जानकारी कैसे संभाली जाती है।",
 
   "2. Information We Collect": "2. हम कौन सी जानकारी एकत्र करते हैं",
@@ -358,5 +357,8 @@
   "We may update this Privacy Policy periodically to reflect changes in our practices or for other operational, legal, or regulatory reasons. Any modifications will be posted on this page with an updated revision date.": "हम समय-समय पर इस गोपनीयता नीति को अद्यतन कर सकते हैं ताकि हमारे अभ्यासों या कानूनी, संचालन या नियामक कारणों में हुए बदलावों को प्रतिबिंबित किया जा सके। कोई भी संशोधन इस पृष्ठ पर अद्यतन तिथि के साथ पोस्ट किया जाएगा।",
 
   "8. Contact Us": "8. हमसे संपर्क करें",
-  "If you have any questions, concerns, or requests related to this Privacy Policy, please contact us at support@example.com. We are here to ensure your experience with us remains safe, transparent, and respectful of your privacy.": "यदि आपके पास इस गोपनीयता नीति से संबंधित कोई प्रश्न, चिंता या अनुरोध है, तो कृपया हमसे support@example.com पर संपर्क करें। हम यह सुनिश्चित करने के लिए प्रतिबद्ध हैं कि आपका अनुभव हमारे साथ सुरक्षित, पारदर्शी और आपकी गोपनीयता के प्रति सम्मानजनक बना रहे।"
+  "If you have any questions, concerns, or requests related to this Privacy Policy, please contact us at support@example.com. We are here to ensure your experience with us remains safe, transparent, and respectful of your privacy.": "यदि आपके पास इस गोपनीयता नीति से संबंधित कोई प्रश्न, चिंता या अनुरोध है, तो कृपया हमसे support@example.com पर संपर्क करें। हम यह सुनिश्चित करने के लिए प्रतिबद्ध हैं कि आपका अनुभव हमारे साथ सुरक्षित, पारदर्शी और आपकी गोपनीयता के प्रति सम्मानजनक बना रहे।",
+  "Please select an image under 500KB.":"कृपया 500KB से छोटी इमेज अपलोड करें।",
+   "Be the reason of someone": "किसी के लिए वजह बनें",
+  "smiles":"खुशी का"
 }
