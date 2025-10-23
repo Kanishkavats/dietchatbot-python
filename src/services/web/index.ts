@@ -27,13 +27,19 @@ export const createFeedback = async (formData: FormData) => {
 
 
 // ✅ Get all events with pagination
-export const fetchAllEvents = async (page: number = 1, limit: number = 10) => {
-  const { data } = await api.get(`/web/event/getAllEvents?page=${page}&limit=${limit}` , {
-    headers: {
-      'Accept-Language': 'en',
-      'X-Language': 'en',
-    }
-  });
+export const fetchAllEvents = async (
+  page: number = 1,
+  limit: number = 10,
+  search?: string
+) => {
+  let url = `/web/event/getAllEvents?page=${page}&limit=${limit}`;
+
+  
+  if (search && search.trim() !== "") {
+    url += `&search=${encodeURIComponent(search)}`;
+  }
+
+  const { data } = await api.get(url);
   return data;
 };
 

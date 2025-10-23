@@ -2,10 +2,10 @@
 import { useLanguageAwareQuery } from "@/src/hooks/web/useLanguageAwareQuery";
 import { fetchAllEvents, fetchEventById } from "@/src/services/web";
 
-export const useFetchAllEvent = (page: number, limit: number = 10) => {
+export const useFetchAllEvent = (page: number, limit: number = 10,search?:string) => {
   return useLanguageAwareQuery(
-    ["event", page, limit], 
-    () => fetchAllEvents(page, limit),
+    ["event", page, limit,search], 
+    () => fetchAllEvents(page, limit,search),
     {
       staleTime: 5 * 60 * 1000, 
     }

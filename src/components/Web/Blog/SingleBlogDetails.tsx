@@ -16,16 +16,15 @@ import { FaVimeoV } from "react-icons/fa";
 import { useTranslation } from "react-i18next";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import LeaveComment from "../comments/LeaveComment";
-import CustomLoader from "../../UI/web/Loader/CustomLoader";
 import { capitalizeWords } from "../../../helper/CapitalizeWords";
 import Comments from "../comments/Comments";
-import { useFetchSingleBlog } from "@/src/hooks/web/useBlog";
 
-
-const SingleBlogDetails = ({ id }: { id: string })=> {
+interface props{
+  data?:any
+  id:string
+}
+const SingleBlogDetails = ({data,id}:props)=> {
   const { t } = useTranslation();
-  const { data, isLoading, isError } = useFetchSingleBlog(id);
-
   const { title, description, createdAt, quote, quoteAuthor, location, summary, keyPoints, tags, images, } = data || {};
 
   const formattedDate = useMemo(() => {
@@ -37,18 +36,6 @@ const SingleBlogDetails = ({ id }: { id: string })=> {
         }).format(new Date(createdAt))
       : "";
   }, [createdAt]);
-
-  if (isLoading) {
-    return <div><CustomLoader /></div>;
-  }
-
-  if (isError) {
-    return (
-      <p className="text-center text-red">
-        Failed to fetch blog details.
-      </p>
-    );
-  }
 
   return (
     <motion.div

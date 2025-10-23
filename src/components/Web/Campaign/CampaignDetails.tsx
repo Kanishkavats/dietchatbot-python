@@ -24,6 +24,7 @@ const CampaignDetails: React.FC = () => {
   const [page] = useState(1);
   const { data: allCampaigns, isLoading: allCampaignsLoading } = useFetchAllCampaigns(page, 10);
 
+  if(allCampaignsLoading||isLoading) return <div className="flex items-center justify-center h-full"><CustomLoader/></div>
 
     return (
     <section className="bg-white py-16  text-gray-green flex justify-center items-center w-full">

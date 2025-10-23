@@ -1,14 +1,15 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
-import { mergeComments, CommentType, updateLikeCount } from '@/src/utils/mergedComment';
-import ReplyComment from './Reply';
-import FadeUpCard from '@/src/animations/FadeButtomUp';
-import ShowReply from './ShowReplies';
-import { fetchgetcomments, likeComment } from '@/src/services/web';
-import { Comment, CommentsProps } from '@/src/types/web/comments';
+import { mergeComments, updateLikeCount } from "@/src/utils/mergedComment";
+import { CommentType } from "@/src/types/web/comments";
+import ReplyComment from "./Reply";
+import FadeUpCard from "@/src/animations/FadeButtomUp";
+import ShowReply from "./ShowReplies";
+import { fetchgetcomments, likeComment } from "@/src/services/web";
+import { Comment, CommentsProps } from "@/src/types/web/comments";
 
 export default function Comments({ CommentId }: CommentsProps) {
   const [allComments, setAllComments] = useState<Comment[]>([]);
@@ -17,7 +18,6 @@ export default function Comments({ CommentId }: CommentsProps) {
   const [isOpenReply, setIsOpenReply] = useState<boolean>(false);
   const [replyCommentId, setReplyCommentId] = useState<string | null>(null);
   const [showReplies, setShowReplies] = useState<Record<string, boolean>>({});
-
 
   useEffect(() => {
     if (isOpenReply) {
@@ -41,7 +41,6 @@ export default function Comments({ CommentId }: CommentsProps) {
   });
 
   useEffect(() => {
-
     if (data?.comments) {
       const mergedComments = mergeComments(data.comments, CommentId);
       const liked = getLikedComments();
@@ -52,8 +51,12 @@ export default function Comments({ CommentId }: CommentsProps) {
 
       setAllComments(updated);
     } else {
-      const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
-      const filteredLocalComments = localComments.filter((comment: CommentType) => comment.blogId === CommentId);
+      const localComments = JSON.parse(
+        localStorage.getItem("LocalComments") || "[]"
+      );
+      const filteredLocalComments = localComments.filter(
+        (comment: CommentType) => comment.blogId === CommentId
+      );
 
       const liked = getLikedComments();
       const updated = filteredLocalComments.map((c: Comment) => ({
@@ -67,8 +70,12 @@ export default function Comments({ CommentId }: CommentsProps) {
 
   useEffect(() => {
     const handleStorageChange = () => {
-      const localComments = JSON.parse(localStorage.getItem("LocalComments") || "[]");
-      const filteredLocalComments = localComments.filter((comment: CommentType) => comment.blogId === CommentId);
+      const localComments = JSON.parse(
+        localStorage.getItem("LocalComments") || "[]"
+      );
+      const filteredLocalComments = localComments.filter(
+        (comment: CommentType) => comment.blogId === CommentId
+      );
 
       const liked = getLikedComments();
 
@@ -88,33 +95,34 @@ export default function Comments({ CommentId }: CommentsProps) {
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
+    window.addEventListener("storage", handleStorageChange);
 
-    window.addEventListener('commentAdded', handleStorageChange);
+    window.addEventListener("commentAdded", handleStorageChange);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('commentAdded', handleStorageChange);
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("commentAdded", handleStorageChange);
     };
   }, [data, CommentId]);
-
 
   const getTimeAgo = (commentTime: string) => {
     const commentDate = new Date(commentTime);
     const now = currentTime;
-    const diffInSeconds = Math.floor((now.getTime() - commentDate.getTime()) / 1000);
+    const diffInSeconds = Math.floor(
+      (now.getTime() - commentDate.getTime()) / 1000
+    );
 
     if (diffInSeconds < 60) {
       return "Just now";
     } else if (diffInSeconds < 3600) {
       const minutes = Math.floor(diffInSeconds / 60);
-      return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+      return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
     } else if (diffInSeconds < 86400) {
       const hours = Math.floor(diffInSeconds / 3600);
-      return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+      return `${hours} hour${hours > 1 ? "s" : ""} ago`;
     } else {
       const days = Math.floor(diffInSeconds / 86400);
-      return `${days} day${days > 1 ? 's' : ''} ago`;
+      return `${days} day${days > 1 ? "s" : ""} ago`;
     }
   };
 
@@ -164,10 +172,10 @@ export default function Comments({ CommentId }: CommentsProps) {
   };
   const handleReplyModel = (value: boolean) => {
     setIsOpenReply(value);
-  }
+  };
   // Function to handle load more
   const handleLoadMore = () => {
-    setVisibleCommentsCount(prev => prev + 5);
+    setVisibleCommentsCount((prev) => prev + 5);
   };
 
   const toggleReplies = (commentId: string) => {
@@ -184,7 +192,7 @@ export default function Comments({ CommentId }: CommentsProps) {
     return <p>Loading comments...</p>;
   }
   if (isError) {
-    return <p>No comments available</p>
+    return <p>No comments available</p>;
   }
 
   // Hide the entire comments section if there are no comments
@@ -201,10 +209,9 @@ export default function Comments({ CommentId }: CommentsProps) {
         {visibleComments.map((comment) => (
           <div
             key={comment.id}
-            className="flex flex-col sm:flex-row items-start gap-3 sm:gap-4 md:gap-6"
+            className="flex flex-row items-start gap-3 sm:gap-4 md:gap-6"
           >
             <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-[98.4px] md:h-[98.4px] flex-shrink-0 rounded-full overflow-hidden border-2 border-dashed border-yellow-400 p-1 bg-white flex items-center justify-center">
-
               <span className="text-3xl sm:text-4xl md:text-6xl font-bold text-gray-500">
                 {comment.name.charAt(0).toUpperCase()}
               </span>
@@ -219,50 +226,71 @@ export default function Comments({ CommentId }: CommentsProps) {
               </p>
               <div className="mt-3 flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-[#6B7280]">
                 <button
-                  className={`flex items-center gap-1 hover:text-red transition-colors cursor-pointer ${comment.isLiked ? "text-red" : ""
-                    }`}
+                  className={`flex items-center gap-1 hover:text-red transition-colors cursor-pointer ${
+                    comment.isLiked ? "text-red" : ""
+                  }`}
                   onClick={() => handleLike(comment.id)}
                 >
                   <div className="w-3 h-3 sm:w-[15px] sm:h-[15px]">
-                    {comment.isLiked ? (
-                      <FaHeart />
-                    ) : (
-                      <FiHeart />
-                    )}
+                    {comment.isLiked ? <FaHeart /> : <FiHeart />}
                   </div>
-
-                  <span className="hidden xs:inline">Like</span> {comment.likeCount || 0}
+                  <span className="hidden xs:inline">Like</span>{" "}
+                  {comment.likeCount || 0}
                 </button>
-                <button onClick={() => {
-                  setReplyCommentId(comment.id);
-                  setIsOpenReply(true)
-                }} className="flex items-center gap-1 cursor-pointer hover:text-olive-brown transition-colors">
+                <button
+                  onClick={() => {
+                    setReplyCommentId(comment.id);
+                    setIsOpenReply(true);
+                  }}
+                  className="flex items-center gap-1 cursor-pointer hover:text-olive-brown transition-colors"
+                >
                   <FiCornerUpLeft className="w-3 h-3 sm:w-4 sm:h-4" />
-                  <span className="hidden xs:inline">Reply</span>
+                  <span className="">Reply</span>
                 </button>
                 <span className="text-gray-500 text-xs sm:text-sm">
-                  {comment.createdAt ? getTimeAgo(comment.createdAt) : (comment.timeAgo || "Just now")}
+                  {comment.createdAt
+                    ? getTimeAgo(comment.createdAt)
+                    : comment.timeAgo || "Just now"}
                 </span>
               </div>
-              {(comment?.totalReplies || 0) > 0 && (
-                <>
-                  <div className='flex items-center mt-4 sm:mt-5 space-x-2 sm:space-x-3 justify-start'>
-                    <div className='border border-gray-300 w-[2vh] sm:w-[4vh]'></div>
-                    <div>{(comment?.totalReplies || 0) > 0 && (
-                      <div onClick={() => {
-                        setReplyCommentId(comment.id)
-                        toggleReplies(comment.id)
-                      }} className='cursor-pointer font-bold text-xs sm:text-sm text-gray-green hover:text-green-600 transition-colors'>
+              {(() => {
+                const localReplies = JSON.parse(
+                  localStorage.getItem("LocalReplies") || "[]"
+                );
+                const localReplyCount = localReplies.filter(
+                  (r: any) => String(r.commentId) === String(comment.id)
+                ).length;
+
+                const totalReplies = comment?.totalReplies
+                  ? comment.totalReplies
+                  : localReplyCount;
+
+                if (totalReplies <= 0) return null;
+
+                return (
+                  <>
+                    <div className="flex items-center mt-4 sm:mt-5 space-x-2 sm:space-x-3 justify-start">
+                      <div className="border border-gray-300 w-[2vh] sm:w-[4vh]"></div>
+                      <div
+                        onClick={() => {
+                          setReplyCommentId(comment.id);
+                          toggleReplies(comment.id);
+                        }}
+                        className="cursor-pointer font-bold text-xs sm:text-sm text-gray-green hover:text-green transition-colors"
+                      >
                         {showReplies[comment.id]
                           ? "Hide replies"
-                          : `View ${comment?.totalReplies || 0} more replies`}</div>
-                    )}</div>
-                  </div>
-                  {showReplies[comment.id] && (
-                    <ShowReply commentId={comment.id} />
-                  )}
-                </>
-              )}
+                          : `View ${totalReplies} repl${
+                              totalReplies > 1 ? "ies" : "y"
+                            }`}
+                      </div>
+                    </div>
+                    {showReplies[comment.id] && (
+                      <ShowReply commentId={comment.id} />
+                    )}
+                  </>
+                );
+              })()}
             </div>
           </div>
         ))}
@@ -277,7 +305,10 @@ export default function Comments({ CommentId }: CommentsProps) {
               onClick={(e) => e.stopPropagation()}
               className="w-full max-w-md sm:max-w-lg md:max-w-xl lg:max-w-2xl"
             >
-              <ReplyComment id={replyCommentId} handleReplyModel={handleReplyModel} />
+              <ReplyComment
+                id={replyCommentId}
+                handleReplyModel={handleReplyModel}
+              />
             </div>
           </FadeUpCard>
         </div>
@@ -297,7 +328,9 @@ export default function Comments({ CommentId }: CommentsProps) {
             <span className="text-black font-bold font-nunito text-sm sm:text-base px-2 sm:px-3 py-2 sm:py-3 z-8 bg-white flex items-center gap-2 sm:gap-3 rounded-full hover:shadow-sm hover:px-2 sm:hover:px-3 hover:bg-yellow hover:text-black hover:cursor-pointer duration-300">
               <span className="hidden sm:inline">Load More comments</span>
               <span className="sm:hidden">Load More</span>
-              <span className="text-black text-lg sm:text-xl group-hover:text-black">↓</span>
+              <span className="text-black text-lg sm:text-xl group-hover:text-black">
+                ↓
+              </span>
             </span>
 
             {/* Right gray line */}
@@ -305,7 +338,6 @@ export default function Comments({ CommentId }: CommentsProps) {
           </button>
         </div>
       )}
-
     </div>
   );
 }

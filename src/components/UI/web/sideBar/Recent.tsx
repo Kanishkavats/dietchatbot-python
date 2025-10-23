@@ -1,5 +1,5 @@
 "use client";
-import { causes } from "@/src/staticResource";
+// import { causes } from "@/src/staticResource";
 import CauseCard from "./CauseCard"; 
 import { motion } from "framer-motion";
 import FadeInUp from "@/src/animations/FadeInUp";
@@ -12,13 +12,19 @@ const Recent = ({ causes,name,bgColor,route }: { causes: any,name?:string,bgColo
   console.log(causes)
  return( 
   <FadeInUp
-    className={`${bgColor} p-6 rounded-2xl shadow-md`}>
+    className={`${bgColor} px-3 py-5 rounded-2xl shadow-md`}>
     <h3 className="font-extrabold text-dark-green font-nunito text-2xl mb-6">{t(name || "Recent Cause")}</h3>
     {(route==='donate-us'||route==='campaign')?(
       <>
       {(causes?.campaigns||[]).map((cause:any) => (
       <CauseCard key={cause.id} route={route} cause={cause} />
     ))}
+      </>
+    ):(route==='events')?(
+      <>
+      {(causes?.events||[]).map((cause:any)=>(
+        <CauseCard key={cause.id} route={route} cause={cause} />
+      ))}
       </>
     ):(
       <>
