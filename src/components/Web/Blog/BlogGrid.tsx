@@ -14,7 +14,7 @@ const BlogGrid = () => {
         setCurrentPage(page);
     }
     console.log("blog", data)
-
+    if(isLoading) return <div className="flex items-center justify-center text-center"><CustomLoader/></div>
     return (
         <div className="w-full mx-auto xl:max-w-[1440px]">
             <div className=" mt-0 max-[719px]:mt-20 md:mt-15 lg:mt-10 md:pl-7 md:pr-7 lg:p-10  p-2 sm:p-4 xl:p-23 ">
@@ -42,7 +42,7 @@ const BlogGrid = () => {
                         }
                     </div>
                     <div className="xl:col-span-1  md:col-span-2 col-span-1 w-full mt-5 md:mt-0  ">
-                        <Sidebar pathName="campaigns" as="Recent Post" />
+                        <Sidebar pathName="blogs" as="Recent Post" />
                     </div>
                 </div>
             </div>

@@ -1,6 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { motion } from "framer-motion";
+import React, { useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import EventList from "./EventList";
 import { oureventbanner } from "@/public/assets";
 import { Trans, useTranslation } from "react-i18next";
