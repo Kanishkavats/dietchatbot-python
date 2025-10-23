@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import CustomLoader from '../../UI/web/Loader/CustomLoader';
 import CampaignCard from './CampaignCard';
 import { useFetchAllCampaigns } from '@/src/hooks/web/useCampaigns';
+import ComponentLabel from '../../UI/web/ComponentLabel';
+import ComponentTitle from '../../UI/web/ComponentTitle';
 
 
 const CampaignGrid = () => {
@@ -37,37 +39,32 @@ const CampaignGrid = () => {
         router.push(`/campaign/${id}`);
     };
 
+    const headerRef = useRef(null);
+    const isHeaderInView = useInView(headerRef, { once: true });
+
     return (
         <section ref={sectionRef} className="relative py-20 min-h-[500px] overflow-hidden">
             <div className="container mx-auto px-4 max-w-7xl ">
-                <FadeUpCard delay={0.3}>
-                    <div className="text-center mb-16">
-                        <div className="flex items-center justify-center mb-6">
-                            <i className="text-xl mr-2 text-green hand-icon"></i>
-                            <span className={`text-green font-caveat font-bold ${t("Start Donating Poor People").length > 25
-                                ? "text-lg sm:text-xl md:text-2xl"
-                                : "text-2xl"
-                                }`}>
-                                {t("Start Donating Poor People")}
-                            </span>
-                        </div>
-                        <h2 className={`font-extrabold font-nunito leading-tight mb-8 ${t("Be The Reason Of Someone").length > 20
-                            ? "text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl"
-                            : "text-3xl sm:text-4xl md:text-5xl lg:text-6xl"
-                            }`}>
-                            <span className="text-dark-green font-extrabold">{t("Be The Reason Of Someone")} </span>
-                            <br />
-                            <span className="text-yellow-400 font-extrabold">{t("Smiles")} </span>
-                            <span className="text-dark-green font-extrabold">{t("Causes")}</span>
-                            
-                        </h2>
+                <div ref={headerRef} className='flex justify-center items-center'>
+                    <div className="lg:text-center lg:max-w-[830px] mb-5">
+
+                        <ComponentLabel
+                            text="Start Donating Poor People"
+                            isVisible={isHeaderInView}
+                        />
+                        <ComponentTitle
+                            preText="Be the reason of someone"
+                            highlightText="smiles"
+                            postText=""
+                        />
                     </div>
-                </FadeUpCard>
+                </div>
+
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {isLoading ? (
                         <div className="col-span-full text-center py-8">
-                           <CustomLoader />
+                            <CustomLoader />
                         </div>
                     ) : isError ? (
                         <div className="col-span-full text-center py-8">

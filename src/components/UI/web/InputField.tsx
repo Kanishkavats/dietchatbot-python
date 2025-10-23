@@ -2,8 +2,9 @@
 
 import { FieldHookConfig, useField } from "formik";
 import { Icon } from "@iconify/react";
-import { ReactNode, useState } from "react";
+import {  useState } from "react";
 import { useTranslation } from "react-i18next";
+import { InputFieldProps } from "@/src/types";
 
 
 const InputField: React.FC<InputFieldProps & FieldHookConfig<string>> = ({

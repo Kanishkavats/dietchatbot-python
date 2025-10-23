@@ -27,7 +27,7 @@ const BecomeVolunteer: React.FC = () => {
   const handleContactNow = () => router.push("/volunteer");
 
   return (
-    <section className="relative w-full lg:h-[500px] md:h-auto h-auto overflow-hidden lg:px-0 md:px-4 ">
+    <section className="relative w-full lg:h-[500px] md:h-auto h-auto overflow-hidden lg:px-0 md:px-4  ">
       {/* Three Panel Layout */}
       <div className="flex h-full lg:flex-row flex-col gap-4 lg:gap-0 relative">
         {/* Left Panel */}

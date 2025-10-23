@@ -159,7 +159,7 @@ export const useDeleteSingleMember = () => {
       toast.success("Member deleted successfully");
     },
     onError: (error: any) => {
-      toast.error(error?.message || "Failed to delete member");
+      toast.error(error?.response?.data?.message || "Failed to delete member");
     },
   });
 };

@@ -12,6 +12,7 @@ import { useCreateComment } from "@/src/hooks/web/useComments";
 import { Form, Formik, FormikHelpers } from "formik";
 import { LeaveCommentFormValues, LeaveCommentSchema } from "@/src/utils/validations/FormValidation";
 import InputField from "../../UI/web/InputField";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 
 const initialValues: LeaveCommentFormValues = {
   name: "",
@@ -19,7 +20,7 @@ const initialValues: LeaveCommentFormValues = {
   comment: "",
 };
 export default function LeaveComment({ blogId }: { blogId: string }) {
-  if (!blogId) return null; 
+  if (!blogId) return null;
   const { t } = useTranslation();
   const queryClient = useQueryClient();
   const mutation = useCreateComment();
@@ -29,17 +30,17 @@ export default function LeaveComment({ blogId }: { blogId: string }) {
     toast.dismiss()
     toast.loading("Adding Comment...")
 
-   mutation.mutate(
-  { id: blogId, data: values },
-  {
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
-      toast.dismiss()
-      toast.success(t("Comment submitted successfully"));
-      resetForm()
-    },
-  }
-);
+    mutation.mutate(
+      { id: blogId, data: values },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
+          toast.dismiss()
+          toast.success(t("Comment submitted successfully"));
+          resetForm()
+        },
+      }
+    );
   };
 
   return (
@@ -47,61 +48,61 @@ export default function LeaveComment({ blogId }: { blogId: string }) {
       <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
         {t("Leave A Comment")}
       </h2>
-<Formik
+      <Formik
         initialValues={initialValues}
         validationSchema={LeaveCommentSchema}
         onSubmit={handleSubmit}
       >
         {() => (
-      <Form className="space-y-4">
-        <div className="grid grid-cols-1 md:flex gap-4 lg:flex lg:gap-5">
-          <div className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
-            <InputField
-                  type="text"
-                  name='name'
-                  icon={"mdi:user"}
-                  placeholder={t("Your Name")}
-                  className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full "
-                />
-          </div>
-
-          <div className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
-            <InputField
-                  type="email"
-                  icon={'mdi:envelope'}
-                  name="email"
-                  placeholder="Enter Email"
-                  className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full"
-                />
-          </div>
-        </div>
-
-        <div className="flex items-start bg-gray-light rounded-md px-4 py-2 w-full lg:w-[820px] lg:h-[184px]">
-          <InputField
-                as='textarea'
-                icon={'fa7-regular:comments'}
-                name="comment"
-                placeholder="Type Your Reply..."
-                className="w-full items-start flex bg-gray-light rounded-md px-4 py-2 focus:outline-none resize-none "
+          <Form className="space-y-4">
+            <div className="grid grid-cols-1 md:flex gap-4 lg:flex lg:gap-5">
+              <InputField
+                type="text"
+                name='name'
+                icon={"mdi:user"}
+                placeholder={t("Your Name")}
+                className="flex items-center bg-gray-light rounded-md  w-full"
+                textSize="py-10 px-4"
               />
-        </div>
 
-        <div className="flex justify-start mt-8">
-          <div className="w-fit">
-          <Button
-            text={mutation.isPending ? t("Submitting...") : t("Submit Comment")}
-            bgColor="bg-dark-green"
-            type="submit"
-            textColor="text-white"
-            rounded="rounded-full"
-            hoverTextColor="group-hover:text-black"
-            hoverBg="before:bg-yellow"
-            paddingx="px-6"
-            paddingy="py-5"
-          />
-          </div>
-        </div>
-       </Form>
+              <InputField
+                type="email"
+                icon={'mdi:envelope'}
+                name="email"
+                placeholder="Enter Email"
+                className="flex items-center bg-gray-light rounded-md  w-full"
+                textSize="py-10 px-4"
+              />
+            </div>
+
+            <InputField
+              as='textarea'
+              icon={'fa7-regular:comments'}
+              name="comment"
+              placeholder="Type Your Reply..."
+              className="w-full items-start flex bg-gray-light rounded-md px-4 py-2 focus:outline-none resize-none "
+              textSize="py-10 px-4"
+
+            />
+
+            <div className="flex justify-start mt-8">
+              <div className="w-fit">
+                <Button
+                  bgColor="bg-dark-green"
+                  type="submit"
+                  textColor="text-white"
+                  rounded="rounded-full"
+                  hoverTextColor="group-hover:text-black"
+                  hoverBg="before:bg-yellow"
+                  paddingx="px-6"
+                  paddingy="py-5"
+                  icon=""
+                >
+                  {mutation.isPending ? <ButtonLoader /> : t("Submit Comment")}
+                </Button>
+              </div>
+            </div>
+          </Form>
         )}
       </Formik>
     </div>

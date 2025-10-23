@@ -24,10 +24,10 @@ const Header = () => {
 
   return (
     <div className="sticky top-0 z-50 bg-background transition-all duration-300">
-      <div className="px-10">
+      <div>
         <InfoBar />
         {!scrolled && (
-          <div className="transition-opacity duration-300 md:px-8">
+          <div className="transition-opacity duration-300 px-2 md:px-3">
             <Navbar />
           </div>
         )}

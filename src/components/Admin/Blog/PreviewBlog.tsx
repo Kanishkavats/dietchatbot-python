@@ -8,37 +8,40 @@ import { LucideCircleCheckBig } from "lucide-react";
 import Button from "../../UI/web/Buttons/Button";
 import { BlogPreviewProps } from "@/src/types/admin";
 
-const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPreviewProps) => {
+const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true }: BlogPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [language, setLanguage] = useState<"en" | "hi">("en");
 
-  
+
   useEffect(() => {
-      if (!data) return;
-      const seen = new Set<string>();
-      const list: string[] = [];
-      const addUrl = (url?: string) => {
-        if (!url || typeof url !== 'string') return;
-        if (seen.has(url)) return;
-        list.push(url);
-        seen.add(url);
-      };
-  
-      // First: server URLs
-      data.existingImages?.forEach((u) => addUrl(u));
-      // Then: files or strings in images
-      data.images?.forEach((img) => {
-        if (img && typeof img === 'object' && img instanceof Blob) {
-          const objectUrl = (img as any)._objectUrl || ((img as any)._objectUrl = URL.createObjectURL(img));
-          addUrl(objectUrl);
-        } else if (typeof img === 'string') {
-          addUrl(img);
-        }
-      });
-  
-      setImagePreviews(list);
-      return () => {};
-    }, [data]);
+    if (!data) return;
+    const seen = new Set<string>();
+    const list: string[] = [];
+    const addUrl = (url?: string) => {
+      if (!url || typeof url !== 'string') return;
+      if (seen.has(url)) return;
+      list.push(url);
+      seen.add(url);
+    };
+
+    // First: server URLs
+    data.existingImages?.forEach((u) => {
+      if (u) addUrl(u); 
+    });
+
+    // Then: files or strings in images
+    data.images?.forEach((img) => {
+      if (img && typeof img === 'object' && img instanceof Blob) {
+        const objectUrl = (img as any)._objectUrl || ((img as any)._objectUrl = URL.createObjectURL(img));
+        addUrl(objectUrl);
+      } else if (typeof img === 'string') {
+        addUrl(img);
+      }
+    });
+
+    setImagePreviews(list);
+    return () => { };
+  }, [data]);
 
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);
@@ -47,7 +50,7 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
 
   return (
     <motion.div
-      className="bg-white lg:px-4 py-8 max-w-5xl mx-auto font-sans text-black"
+      className="bg-white lg:px-2 py-8 max-w-5xl mx-auto font-sans text-black"
       initial={{ opacity: 0, y: 30 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.6, ease: "easeOut" }}
@@ -56,22 +59,20 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
       <div className="flex justify-start text-[13px] mb-6">
         <button
           type="button"
-          className={`cursor-pointer px-2 py-1 ${
-            lang === "en"
+          className={`cursor-pointer px-2 py-1 ${lang === "en"
               ? "bg-lime-green text-white"
               : "bg-gray-200 text-gray-800"
-          } rounded-l`}
+            } rounded-l`}
           onClick={() => setLanguage("en")}
         >
           English
         </button>
         <button
           type="button"
-          className={`cursor-pointer px-2 py-1 ${
-            lang === "hi"
+          className={`cursor-pointer px-2 py-1 ${lang === "hi"
               ? "bg-lime-green text-white"
               : "bg-gray-200 text-gray-800"
-          } rounded-r`}
+            } rounded-r`}
           onClick={() => setLanguage("hi")}
         >
           हिंदी
@@ -104,7 +105,7 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
       </div>
 
       {/* Title */}
-      <h2 className="text-2xl lg:text-4xl font-bold mb-4 font-nunito text-foreground">
+      <h2 className="text-xl lg:text-2xl font-bold mb-4 font-nunito text-foreground">
         {data.title?.[lang]}
       </h2>
 
@@ -130,7 +131,7 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
             {(data.tags?.[lang] ?? []).map((tag, idx) => (
               <p key={idx} className="flex items-center gap-2 text-foreground">
                 <LucideCircleCheckBig className="text-yellow h-5 w-5" />
-                <span className="text-[16px]">{tag}</span>
+                <span className=" text-foreground/60 font-[400] text-md leading-relaxed">{tag}</span>
               </p>
             ))}
           </div>
@@ -145,7 +146,7 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
             {(data.keyPoints?.[lang] ?? []).map((point, idx) => (
               <p key={idx} className="flex items-start gap-2 text-foreground">
                 <LucideCircleCheckBig className="text-yellow h-5 w-5" />
-                <span className="text-[16px]">{point}</span>
+                <span className=" text-foreground/60 font-[400] text-md leading-relaxed">{point}</span>
               </p>
             ))}
           </div>
@@ -173,14 +174,15 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
       {/* Action Buttons */}
       {/* {data?._id === null && (
       )} */}
-      {showButton&&(
-        <div className="mt-12 flex flex-wrap gap-6 justify-end md:w-fit">
+      {showButton && (
+        <div className="mt-12 flex flex-row gap-4 lg:gap-6 w-fit">
           <Button
             bgColor="bg-red"
             rounded="rounded-lg"
             hoverBg="before:bg-red-50"
             onClick={onBack}
             text="Edit"
+            icon=""
           />
 
           <Button
@@ -189,9 +191,10 @@ const BlogPreview = ({ data, onSubmit, onBack, mode,showButton=true }: BlogPrevi
             text="Submit"
             bgColor="bg-lime-green"
             hoverBg="before:bg-green"
+            icon=""
           />
         </div>
-        )}
+      )}
     </motion.div>
   );
 };

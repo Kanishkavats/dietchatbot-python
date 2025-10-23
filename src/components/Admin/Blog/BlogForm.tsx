@@ -216,7 +216,7 @@ const BlogForm = ({
               <MultiInputList
                 label={`${lang === "en" ? "Tags" : "टैग"}`}
                 values={values.tags[lang]}
-                onChange={(newTags) => setFieldValue(`tags.${lang}`, newTags)}
+                onChange={(newTags: string) => setFieldValue(`tags.${lang}`, newTags)}
                 placeholder={lang === "en" ? "Add a tag" : "टैग जोड़ें"}
                 isView={isView}
                 error={touched.tags?.[lang] && errors.tags?.[lang] ? [String(errors.tags?.[lang])] : undefined}
@@ -227,7 +227,7 @@ const BlogForm = ({
               <MultiInputList
                 label={`${lang === "en" ? "Key Points" : "मुख्य बिंदु"}`}
                 values={values.keyPoints[lang]}
-                onChange={(newKeyPoints) => setFieldValue(`keyPoints.${lang}`, newKeyPoints)}
+                onChange={(newKeyPoints: string) => setFieldValue(`keyPoints.${lang}`, newKeyPoints)}
                 placeholder={lang === "en" ? "Add a key point" : "मुख्य बिंदु जोड़ें"}
                 isView={isView}
                 error={touched.keyPoints?.[lang] && errors.keyPoints?.[lang] ? [String(errors.keyPoints?.[lang])] : undefined}
@@ -259,7 +259,6 @@ const BlogForm = ({
                 mode={mode}
                 initialUrls={(() => {
                   const urls: string[] = [];
-                  // Only include existing server URLs here to avoid duplicates
                   if (Array.isArray(values.existingImages)) {
                     urls.push(
                       ...values.existingImages.filter(

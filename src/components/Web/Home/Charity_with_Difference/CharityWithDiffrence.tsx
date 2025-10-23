@@ -17,6 +17,8 @@ import FadeUpCard from '@/src/animations/FadeButtomUp';
 import SlideinFromLeft from '@/src/animations/SlideInFromLeft';
 import { useTranslation } from 'react-i18next';
 import { charityCards } from '@/src/staticResource';
+import ComponentLabel from '@/src/components/UI/web/ComponentLabel';
+import ComponentTitle from '@/src/components/UI/web/ComponentTitle';
 
 export default function CharityWithDifference() {
   // Animation refs
@@ -30,25 +32,17 @@ export default function CharityWithDifference() {
       <div className="max-w-7xl mx-auto mt-15">
         {/* Header Section */}
         <FadeUpCard delay={0.3}>
-          <div ref={headerRef} className="text-center mb-4 lg:mb-6 relative z-10">
-            <motion.div
-              className="flex items-center justify-center mb-4 space-x-3"
-              initial={{ opacity: 0, transform: 'translateZ(0)' }}
-              animate={isHeaderInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
-              transition={{ duration: 1 }}
-            >
-              <i className="text-xl md:text-2xl text-green hand-icon"></i>
-              <span className="text-green font-caveat text-lg md:text-[22px] xl:text-2xl font-bold">{t("Start Donating Poor People")}</span>
-            </motion.div>
-            <motion.h2
-              className="text-[28px] leading-tight font-nunito md:text-4xl xl:text-[50px] font-bold text-dark-green mb-6 xs:mb-4"
-              style={{ fontFamily: 'var(--font-nunito), Nunito, sans-serif', fontWeight: '800' }}
-              initial={{ opacity: 0, transform: 'translateZ(0)' }}
-              animate={isHeaderInView ? { opacity: 1, transform: 'translateZ(0)' } : { opacity: 0, transform: 'translateZ(0)' }}
-              transition={{ duration: 1, delay: 0.2 }}
-            >
-              {t("Charity With Difference")}
-            </motion.h2>
+          <div ref={headerRef} className="md:text-center mb-4 lg:mb-6 relative z-10">
+           
+            <ComponentLabel
+              text="Start Donating Poor People"
+              isVisible={isHeaderInView}
+            />
+            <ComponentTitle
+              preText="Charity With Difference"
+              highlightText=""
+              postText=" "
+            />
             <motion.p
               className="text-gray-green text-[16px] font-semibold max-w-[780px] font-nunito lg:max-w-2xl xl:max-w-3xl md:text-[16px] md:tracking-tight font-nunito xl:tracking-wide leading-7 mx-auto"
               style={{ fontWeight: '400', marginTop: '20px' }}
