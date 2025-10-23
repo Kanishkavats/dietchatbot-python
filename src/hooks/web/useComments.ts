@@ -73,7 +73,7 @@ export const useCreateComment = () => {
         detail: { blogId: variables.id, comment: newComment } 
       }));
       
-      toast.success("Comment created successfully");
+      
     },
     onError: (err: any) => {
       toast.error(err?.response?.data?.message || "Failed to create comment");

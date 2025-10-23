@@ -448,4 +448,110 @@ export const contactInfo: InfoItem[] = [
     isSocial: true,
   },
 ];
+export const termsSections = [
+  {
+    id: 1,
+    title: "Introduction",
+    content:
+      "Welcome to our website. These Terms and Conditions govern your use of our platform. By accessing or using our services, you agree to comply with these terms. Please read them carefully before proceeding."
+  },
+  {
+    id: 2,
+    title: "Use of the Site",
+    content:
+      "You agree to use the site for lawful purposes only and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use of the site. Prohibited behavior includes harassing or causing distress to any person, transmitting obscene or offensive content, or disrupting normal flow of dialogue."
+  },
+  {
+    id: 3,
+    title: "Intellectual Property",
+    content:
+      "All content on this website, including text, graphics, logos, and images, is the property of the company or its licensors and is protected by copyright and intellectual property laws. You may not reproduce, distribute, or exploit any content without prior written permission."
+  },
+  {
+    id: 4,
+    title: "User Accounts",
+    content:
+      "If you create an account on our platform, you are responsible for maintaining the confidentiality of your login information and for all activities that occur under your account."
+  },
+  {
+    id: 5,
+    title: "Limitation of Liability",
+    content:
+      "We are not liable for any direct, indirect, incidental, or consequential damages resulting from the use or inability to use our services, even if we have been advised of the possibility of such damages."
+  },
+  {
+    id: 6,
+    title: "Termination",
+    content:
+      "We reserve the right to terminate or suspend your access to our website or services at any time, without notice, for conduct that we believe violates these Terms and Conditions or is harmful to other users or the business."
+  },
+  {
+    id: 7,
+    title: "Changes to These Terms",
+    content:
+      "We may modify these Terms and Conditions from time to time. Any changes will be effective immediately upon posting. Continued use of the site indicates your acceptance of the updated terms."
+  },
+  {
+    id: 8,
+    title: "Contact Us",
+    content:
+      "If you have any questions about these Terms and Conditions, please contact us at support@example.com. We are here to help and provide clarity where needed."
+  }
+];
 
+export const privacyPolicySections = [
+  {
+    id: 1,
+    title: "1. Introduction",
+    heading: "Our Commitment to Your Privacy",
+    banner: "Privacy Policy",
+    content: "Your privacy matters to us. This Privacy Policy explains how we collect, use, and protect your personal information when you engage with our website or services. By accessing our platform, you agree to the terms described below. We encourage you to read this policy carefully to understand how your information is handled."
+  },
+  {
+    id: 2,
+    title: "2. Information We Collect",
+    content: "We collect both personal and non-personal information to improve your experience and ensure smooth operation of our website. This may include:",
+    list: [
+      "Personal details such as your name, email address, and phone number.",
+      "Information submitted through forms, surveys, or sign-up processes.",
+      "Usage data, including IP address, browser type, and pages visited.",
+      "Cookies and similar tracking technologies to enhance site performance."
+    ]
+  },
+  {
+    id: 3,
+    title: "3. How We Use Your Information",
+    content: "The data we collect allows us to provide a seamless experience, improve our content, and communicate effectively with you. We use your information to:",
+    list: [
+      "Respond to inquiries, feedback, or service requests.",
+      "Personalize and improve user experience on our platform.",
+      "Send important updates, newsletters, or promotional materials (only if you opt-in).",
+      "Monitor and analyze usage patterns to enhance website performance."
+    ]
+  },
+  {
+    id: 4,
+    title: "4. Data Protection",
+    content: "We prioritize the security of your personal data. All information is stored using secure servers and protected by appropriate administrative, technical, and physical safeguards. While we strive to ensure the highest level of security, please note that no method of electronic storage or transmission over the internet is 100% secure."
+  },
+  {
+    id: 5,
+    title: "5. Sharing Your Information",
+    content: "We do not sell or rent your personal data to third parties. However, we may share limited information with trusted partners or service providers who help us operate our website or deliver services — always under strict confidentiality agreements and only for legitimate business purposes."
+  },
+  {
+    id: 6,
+    title: "6. Your Rights",
+    content: "You have full control over your personal information. You may request access, correction, or deletion of your data at any time. You can also choose to unsubscribe from our emails or withdraw consent where applicable."
+  },
+  {
+    id: 7,
+    title: "7. Changes to This Policy",
+    content: "We may update this Privacy Policy periodically to reflect changes in our practices or for other operational, legal, or regulatory reasons. Any modifications will be posted on this page with an updated revision date."
+  },
+  {
+    id: 8,
+    title: "8. Contact Us",
+    content: "If you have any questions, concerns, or requests related to this Privacy Policy, please contact us at support@example.com. We are here to ensure your experience with us remains safe, transparent, and respectful of your privacy."
+  }
+];

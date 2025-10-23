@@ -9,103 +9,101 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import Button from "../../UI/web/Buttons/Button";
 import { useCreateComment } from "@/src/hooks/web/useComments";
+import { Form, Formik, FormikHelpers } from "formik";
+import { LeaveCommentFormValues, LeaveCommentSchema } from "@/src/utils/validations/FormValidation";
+import InputField from "../../UI/web/InputField";
 
+const initialValues: LeaveCommentFormValues = {
+  name: "",
+  email: "",
+  comment: "",
+};
 export default function LeaveComment({ blogId }: { blogId: string }) {
   if (!blogId) return null; 
   const { t } = useTranslation();
   const queryClient = useQueryClient();
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [comment, setComment] = useState("");
-
   const mutation = useCreateComment();
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-
-    if (!name || !email || !comment) {
-      alert(t("Please fill out all fields"));
-      return;
-    }
-
-    if (!blogId) {
-      alert(t("Blog ID is missing"));
-      return;
-    }
+  const handleSubmit = (values: LeaveCommentFormValues,
+    { resetForm }: FormikHelpers<LeaveCommentFormValues>) => {
+    toast.dismiss()
+    toast.loading("Adding Comment...")
 
    mutation.mutate(
-  { id: blogId, data: { name, comment, email } },
+  { id: blogId, data: values },
   {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["comments", blogId] });
+      toast.dismiss()
       toast.success(t("Comment submitted successfully"));
-      setName("");
-      setEmail("");
-      setComment("");
+      resetForm()
     },
   }
 );
   };
 
   return (
-    <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg shadow-lg border border-gray-100 max-w-4xl mx-auto lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
+    <div className="w-full mt-10 p-4 sm:p-6 bg-white rounded-lg md:shadow-lg border border-gray-100 max-w-4xl mx-auto lg:w-[896px] lg:h-[595px] lg:mt-20 lg:px-5 lg:py-15">
       <h2 className="text-xl sm:text-2xl font-nunito font-extrabold text-black mb-6">
         {t("Leave A Comment")}
       </h2>
-
-      <form onSubmit={handleSubmit} className="space-y-4">
+<Formik
+        initialValues={initialValues}
+        validationSchema={LeaveCommentSchema}
+        onSubmit={handleSubmit}
+      >
+        {() => (
+      <Form className="space-y-4">
         <div className="grid grid-cols-1 md:flex gap-4 lg:flex lg:gap-5">
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
-            <FaUser className="text-[#6B7280]" size={18} />
-            <input
-              type="text"
-              placeholder={t("Your Name")}
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              className="w-full bg-transparent focus:outline-none ml-2"
-            />
+          <div className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
+            <InputField
+                  type="text"
+                  name='name'
+                  icon={"mdi:user"}
+                  placeholder={t("Your Name")}
+                  className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full "
+                />
           </div>
 
-          <div className="flex items-center bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
-            <FaRegEnvelope className="text-xl mt-1 text-[#6B7280]" />
-            <input
-              type="email"
-              placeholder={t("Enter Email")}
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-transparent focus:outline-none ml-2"
-            />
+          <div className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full lg:w-[400px] lg:h-[96px]">
+            <InputField
+                  type="email"
+                  icon={'mdi:envelope'}
+                  name="email"
+                  placeholder="Enter Email"
+                  className="flex items-center bg-gray-light rounded-md px-4 py-2 w-full"
+                />
           </div>
         </div>
 
-        <div className="flex items-start bg-[#F2F2F2] rounded-md px-4 py-2 w-full lg:w-[820px] lg:h-[184px]">
-          <FaRegComments className="text-[#6B7280]" size={18} />
-          <textarea
-            placeholder={t("Type Your Comments...")}
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
-            className="w-full bg-transparent focus:outline-none resize-none ml-2"
-            rows={4}
-          />
+        <div className="flex items-start bg-gray-light rounded-md px-4 py-2 w-full lg:w-[820px] lg:h-[184px]">
+          <InputField
+                as='textarea'
+                icon={'fa7-regular:comments'}
+                name="comment"
+                placeholder="Type Your Reply..."
+                className="w-full items-start flex bg-gray-light rounded-md px-4 py-2 focus:outline-none resize-none "
+              />
         </div>
 
         <div className="flex justify-start mt-8">
           <div className="w-fit">
           <Button
             text={mutation.isPending ? t("Submitting...") : t("Submit Comment")}
-            bgColor="bg-[#122F2A]"
+            bgColor="bg-dark-green"
+            type="submit"
             textColor="text-white"
             rounded="rounded-full"
             hoverTextColor="group-hover:text-black"
             hoverBg="before:bg-yellow"
             paddingx="px-6"
             paddingy="py-5"
-            onClick={handleSubmit}
           />
           </div>
         </div>
-      </form>
+       </Form>
+        )}
+      </Formik>
     </div>
   );
 }

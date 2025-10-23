@@ -30,7 +30,8 @@ const handleSubmit = (values: CommentReplyFormValues, { resetForm }: { resetForm
     commentId: id,
     isPending: true,
   };
-
+  toast.dismiss()
+  toast.loading("Reply .....")
   // Save to LocalReplies
   const localReplies = JSON.parse(localStorage.getItem('LocalReplies') || '[]');
   localStorage.setItem('LocalReplies', JSON.stringify([...localReplies, tempReply]));
@@ -56,11 +57,13 @@ const handleSubmit = (values: CommentReplyFormValues, { resetForm }: { resetForm
     { id: id, data: values },
     {
       onSuccess: () => {
-        toast.success("Comment submitted successfully");
+        toast.dismiss()
+        toast.success("Reply submitted successfully");
         resetForm();
         handleReplyModel(false);
       },
       onError: () => {
+        toast.dismiss()
         toast.error("Reply can not be added, please try again later!");
       },
     }
