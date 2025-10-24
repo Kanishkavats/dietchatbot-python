@@ -41,6 +41,7 @@ const BlogTable = () => {
   const [previewData, setPreviewData] = useState<BlogFormValues | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const [deleteLoading,setDeleteLoading]=useState<boolean>(false);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedBlog, setSelectedBlog] = useState<Blog | null>(null);
   const searchedData = useDebounce(search, 1000);
@@ -61,7 +62,7 @@ const BlogTable = () => {
     label: category.name?.[language] || category.name.en,
     value: category.name?.[language] || category.name.en,
   })) ?? [];
-  const { mutate: deleteBlog } = useDeleteSingleBlog();
+  const deleteMutation = useDeleteSingleBlog();
   const totalPages = blogData?.totalPages || 1;
 
   const handleEdit = useCallback((b: Blog) => {
@@ -96,18 +97,26 @@ const BlogTable = () => {
       setSelectedBlog(b);
       setIsOpen(true);
     },
-    [deleteBlog]
+    [deleteMutation]
   );
 
   const confirmDelete = useCallback(() => {
     if (selectedBlog) {
+      setDeleteLoading(true);
       toast.dismiss();
       toast.loading("Deleting Blog....")
-      deleteBlog(selectedBlog.id.toString());
-      setIsOpen(false);
+     deleteMutation.mutate(selectedBlog.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+         setIsOpen(false);
       setSelectedBlog(null);
+      },
+      onError: () => {
+        setIsOpen(false); 
+      },
+    });
     }
-  }, [selectedBlog, deleteBlog]);
+  }, [selectedBlog, deleteMutation]);
 
   const columns = useMemo(
     () =>
@@ -274,6 +283,8 @@ const BlogTable = () => {
                   setShowPreview(false);
                   setMode(blogId ? "edit" : "add");
                 }}
+                createMutation={createMutation}
+                updateMutation={updateMutation}
                 onSubmit={() => {
                   submitBlogForm(
                     { ...previewData, keyPoints: previewData.keyPoints },
@@ -326,6 +337,7 @@ const BlogTable = () => {
       )}
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"

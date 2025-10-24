@@ -1,6 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ConfirmModalProps } from "@/src/types/admin";
+import ButtonLoader from "../web/Loader/ButtonLoader";
 
 
 const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -9,6 +10,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
   message = "Are you sure you want to continue?",
   onConfirm,
   onCancel,
+  loading,
   buttonText= "Confirm"
 }) => {
   return (
@@ -44,7 +46,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({
                   onClick={onConfirm}
                   className="px-4 cursor-pointer py-2 rounded-xl bg-yellow-500 text-white hover:bg-yellow-700 transition"
                 >
-                  {buttonText}
+                  {loading?<><ButtonLoader/></>:<>{buttonText}</>}
                 </button>
               </div>
             </div>

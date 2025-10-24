@@ -151,6 +151,7 @@ const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberP
           rounded="rounded-lg"
           hoverBg="before:bg-red-50"
           onClick={onBack}
+          icon=""
         >
           {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
         </Button>
@@ -160,6 +161,7 @@ const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberP
           text={lang === "hi" ? "संपादित करें" : "Save"}
           bgColor="bg-lime-green"
           hoverBg="before:bg-green"
+          icon=""
           disabled={isSubmitting}
         >
           {isSubmitting && <ButtonLoader />}

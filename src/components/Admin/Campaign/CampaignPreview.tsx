@@ -8,15 +8,16 @@ import LanguageToggle from "../../UI/admin/LanguageToggle";
 import Button from "../../UI/web/Buttons/Button";
 import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 import { CampaignPreviewProps } from "@/src/types/admin";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 
-const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: CampaignPreviewProps) => {
+const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true ,createMutation,updateMutation}: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { language, toggleLanguage } = useLanguageToggle();
   useEffect(() => {
     if (!data) return;
     const seen = new Set<string>();
     const list: string[] = [];
-    const addUrl = (url?: string) => {
+    const addUrl = (url?: string|null) => {
       if (!url || typeof url !== 'string') return;
       if (seen.has(url)) return;
       list.push(url);
@@ -38,6 +39,8 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
     setImagePreviews(list);
     return () => {};
   }, [data]);
+  const isView = mode === "view";
+  const isEdit = mode === "edit";
   const bannerImage = imagePreviews[0] || null;
   const gridImages = imagePreviews.slice(1);
   const lang=language
@@ -122,23 +125,29 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
 
       {/* Buttons */}
       {showButton&&(
-        <div className="mt-12 flex flex-wrap gap-6 justify-end md:w-fit">
+        <div className="mt-12 flex  gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
             rounded="rounded-lg"
             hoverBg="before:bg-red-50"
             onClick={onBack}
+            icon=""
           >
-            Back to Edit
+            {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
           </Button>
-
+        
           <Button
             rounded="rounded-lg"
             onClick={onSubmit}
-            text="Submit"
+            
             bgColor="bg-lime-green"
             hoverBg="before:bg-green"
-          />
+            icon=""
+          >
+            {createMutation?.isPending || updateMutation?.isPending ? (
+                      <ButtonLoader />
+                    ) : <>{lang === "hi" ? "सबमिट" : "Submit"}</>}
+                  </Button>
         </div>
         )}
     </motion.div>

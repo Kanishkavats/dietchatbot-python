@@ -25,6 +25,7 @@ import ConfirmModal from "../../UI/admin/ConfirmModal";
 import useDebounce from "@/src/hooks/web/useDebounce";
 import Button from "../../UI/web/Buttons/Button";
 import CustomLoader from "../../UI/web/Loader/CustomLoader";
+import toast from "react-hot-toast";
 
 const MemberTable = () => {
   const [search, setSearch] = useState("");
@@ -39,6 +40,7 @@ const MemberTable = () => {
   const [itemsPerPage] = useState(5);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const[deleteLoading,setDeleteLoading]=useState<boolean>(false);
 
   const searchedData = useDebounce(search, 1000);
 
@@ -52,7 +54,7 @@ const MemberTable = () => {
     useFetchSingleMember(editMember || undefined);
   console.log("check", singleMemberData)
 
-  const { mutate: deleteMember } = useDeleteSingleMember();
+  const deleteMember = useDeleteSingleMember();
 
   const handleEdit = useCallback((m: Member) => {
     setEditMember(m.id.toString());
@@ -89,9 +91,20 @@ const MemberTable = () => {
   );
   const confirmDelete = useCallback(() => {
     if (selectedMember) {
-      deleteMember(selectedMember.id.toString());
-      setIsOpen(false);
+      setDeleteLoading(true);
+      toast.dismiss();
+      toast.loading("Deleting Member....")
+      deleteMember.mutate(selectedMember.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
       setSelectedMember(null);
+      },
+      onError: () => {
+        setDeleteLoading(false)
+        setIsOpen(false); 
+      },
+    });      
     }
   }, [selectedMember, deleteMember]);
 
@@ -282,6 +295,7 @@ const MemberTable = () => {
       )}
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"

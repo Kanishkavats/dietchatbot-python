@@ -6,8 +6,9 @@ import Image from "next/image";
 import Button from "../../UI/web/Buttons/Button";
 import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 import { BannerPreviewProps } from "@/src/types/admin";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 
-const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, mode, showButtons = true }) => {
+const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, mode, showButtons = true ,createMutation,updateMutation}) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   const { language, toggleLanguage } = useLanguageToggle();
@@ -55,12 +56,13 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, m
 
       </div>
       {showButtons && (
-        <div className="mt-12 flex  gap-6 justify-start w-fit ">
+        <div className="mt-12 flex gap-6 justify-start w-fit ">
           <Button
             bgColor="bg-red"
             rounded="rounded-lg"
             hoverBg="before:bg-red-50"
             onClick={onBack}
+            icon=""
           >
             {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"} 
           </Button>
@@ -68,10 +70,15 @@ const BannerPreview: React.FC<BannerPreviewProps> = ({ data, onSubmit, onBack, m
           <Button
             rounded="rounded-lg"
             onClick={onSubmit}
-            text={lang === "hi" ? "संपादित करें" : "Save"}
             bgColor="bg-lime-green"
             hoverBg="before:bg-green"
-          />
+            icon=""
+          >
+            {createMutation?.isPending || updateMutation?.isPending ? (
+                      <ButtonLoader />
+                    ) : <>{lang === "hi" ? "सबमिट" : "Submit"}</>}
+                  </Button>
+
         </div>
       )}
     </div>
