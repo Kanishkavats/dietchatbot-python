@@ -92,7 +92,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true ,createM
         <p>
           <span className="font-semibold text-foreground">Organizer
             : </span>
-          {data.organizer}
+          {data.organizer || "Admin"}
         </p>
         <p>
           <span className="font-semibold text-foreground">Goal Amount: </span>
@@ -133,7 +133,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true ,createM
             onClick={onBack}
             icon=""
           >
-            {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
+            {lang === "hi" ? "संपादन" : "Edit"}
           </Button>
         
           <Button

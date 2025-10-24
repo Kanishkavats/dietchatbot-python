@@ -19,6 +19,7 @@ import Loader from '../components/UI/web/Loader';
 import Header from '../components/Web/Header';
 import Footer from '../components/Web/Footer';
 import CustomCursor from '../components/Web/CustomCursor/CustomCursor';
+import LanguageInitializer from '../components/UI/web/LanguageSwitcher/LanguageInitializer';
 
 export default function AppProviders({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => new QueryClient());
@@ -68,37 +69,39 @@ export default function AppProviders({ children }: { children: ReactNode }) {
   }
 
   return (
-    <I18nProvider>
-    <LanguageProviders>
-      <LanguageProvider>
-        <Provider store={store}>
-          <QueryClientProvider client={queryClient}>
-            <ThemeApplier />
-            {loading ? (
-              <Loader />
-            ) : showLayout ? (
-              <>
-                {!hideHeaderFooter && (
-                  <header>
-                    <Header />
-                  </header>
+    <LanguageInitializer>
+      <I18nProvider>
+        <LanguageProviders>
+          <LanguageProvider>
+            <Provider store={store}>
+              <QueryClientProvider client={queryClient}>
+                <ThemeApplier />
+                {loading ? (
+                  <Loader />
+                ) : showLayout ? (
+                  <>
+                    {!hideHeaderFooter && (
+                      <header>
+                        <Header />
+                      </header>
+                    )}
+                    <main>{children}</main>
+                    {!hideHeaderFooter && (
+                      <footer>
+                        <Footer />
+                      </footer>
+                    )}
+                  </>
+                ) : (
+                  children
                 )}
-                <main>{children}</main>
-                {!hideHeaderFooter && (
-                  <footer>
-                    <Footer />
-                  </footer>
-                )}
-              </>
-            ) : (
-              children
-            )}
-            <CustomCursor />
-            <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
-          </QueryClientProvider>
-        </Provider>
-      </LanguageProvider>
-    </LanguageProviders>
-    </I18nProvider>
+                <CustomCursor />
+                <Toaster position="top-center" toastOptions={{ duration: 3000 }} />
+              </QueryClientProvider>
+            </Provider>
+          </LanguageProvider>
+        </LanguageProviders>
+      </I18nProvider>
+    </LanguageInitializer>
   );
 }

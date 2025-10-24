@@ -20,15 +20,27 @@ import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 
 const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
 
-  const initialValues= getInitialCanpaignValues(initialData)
+  const initialValues = getInitialCanpaignValues(initialData)
+
   const { language, toggleLanguage } = useLanguageToggle();
+  const [categories, setCategories] = useState<{ en?: any[]; hi?: any[] }>({});
   const { data: categoryData } = useFetchCategory();
-  console.log(categoryData)
-  const categoryOptions =
-  categoryData?.category?.map((category: Category) => ({
-    label: category.name?.[language] || category.name.en, 
-    value: category.name?.[language] || category.name.en,
-  })) ?? [];
+
+  useEffect(() => {
+    if (categoryData?.category) {
+      setCategories((prev) => ({
+        ...prev,
+        [language]: categoryData.category,
+      }));
+    }
+  }, [categoryData, language]);
+
+  const mergedCategories =
+    categoryData?.category?.map((cat: any) => ({
+      label: cat.name[language],
+      value: cat.name,
+      names: cat.name,
+    })) || [];
 
   const isView = mode === "view";
   const isEdit = mode === "edit";
@@ -41,13 +53,12 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
         enableReinitialize
         initialValues={initialValues}
         validationSchema={campaignSchema}
-       onSubmit={(values: CampaignFormValues) => {
-        console.log("reached")
+        onSubmit={(values: CampaignFormValues) => {
           const payload = { ...values };
           onPreview?.(payload);
         }}
       >
-        {({values,
+        {({ values,
           handleChange,
           setFieldValue,
           errors,
@@ -57,43 +68,43 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
           submitForm,
           setTouched }) => {
           const lang = language;
-          
+
           const handlePreviewClick = async () => {
-                      const touchAllFields = (obj: any): any => {
-                        if (typeof obj !== 'object' || obj === null) return true;
-          
-                        const touchedObj: any = {};
-                        for (const key in obj) {
-                          if (!obj.hasOwnProperty(key)) continue;
-          
-                          const value = obj[key];
-                          if (typeof value === 'object' && value !== null) {
-                            touchedObj[key] = touchAllFields(value);
-                          } else {
-                            touchedObj[key] = true;
-                          }
-                        }
-                        return touchedObj;
-                      };
-          
-                      setTouched(touchAllFields(values));
-          
-                      const formErrors = await validateForm();
-                      console.log("Form Errors:", formErrors);
-          
-                      for (const l of ["en", "hi"] as const) {
-                        if (hasErrorsForLang(formErrors, l)) {
-                          toggleLanguage(l); 
-                          return; 
-                        }
-                      }
-          
-                      if (formErrors.images) {
-                        return;
-                      }
-          
-                      submitForm();
-                    };
+            const touchAllFields = (obj: any): any => {
+              if (typeof obj !== 'object' || obj === null) return true;
+
+              const touchedObj: any = {};
+              for (const key in obj) {
+                if (!obj.hasOwnProperty(key)) continue;
+
+                const value = obj[key];
+                if (typeof value === 'object' && value !== null) {
+                  touchedObj[key] = touchAllFields(value);
+                } else {
+                  touchedObj[key] = true;
+                }
+              }
+              return touchedObj;
+            };
+
+            setTouched(touchAllFields(values));
+
+            const formErrors = await validateForm();
+            console.log("Form Errors:", formErrors);
+
+            for (const l of ["en", "hi"] as const) {
+              if (hasErrorsForLang(formErrors, l)) {
+                toggleLanguage(l);
+                return;
+              }
+            }
+
+            if (formErrors.images) {
+              return;
+            }
+
+            submitForm();
+          };
 
           return (
             <Form className="flex flex-col gap-3">
@@ -108,13 +119,22 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
               />
 
               <Dropdown
-                label={`${lang === "en" ? "Category" : "श्रेणी"}*`}
-                options={categoryOptions}
-                value={values.category[lang]}
-                onChange={(val) => setFieldValue(`category.${lang}`, val)}
-                placeholder={lang==='en'?"Select category":"श्रेणी चुनें"}
-                error={touched.category?.[lang] ? errors.category?.[lang] : ""}
-                disabled={isView}
+                label={lang === "en" ? "Category" : "श्रेणी"}
+                options={mergedCategories}
+                value={values.category || ""}
+                onChange={(val) => {
+                  const selected = mergedCategories.find((opt: { value: { en: string; hi: string; }; names: { en: string; hi: string; }; }) => opt.value === val);
+                  if (selected) {
+                    setFieldValue("category", {
+                      id: val,
+                      en: selected.names.en,
+                      hi: selected.names.hi,
+                    });
+                  }
+                }}
+                placeholder={lang === "en" ? "Select category" : "श्रेणी चुनें"}
+                width="w-full"
+                error={touched.category && (errors.category as any)?.id ? (errors.category as any).id : ""}
               />
 
               <CustomInput
@@ -134,7 +154,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 value={values.goalAmount}
                 name="goalAmount"
                 onChange={handleChange}
-                error={ touched.goalAmount ? errors.goalAmount : ""}
+                error={touched.goalAmount ? errors.goalAmount : ""}
                 disabled={isView}
               />
 
@@ -164,10 +184,10 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
               <MultiInputList
                 label={`${lang === "en" ? "Key Points" : "मुख्य बिंदु"}`}
                 values={values.keyPoints[lang]}
-                onChange={newPoints => setFieldValue(`keyPoints.${lang}`, newPoints)}
+                onChange={(newPoints: string[]) => setFieldValue(`keyPoints.${lang}`, newPoints)}
                 placeholder={lang === "en" ? "Add a key point" : "मुख्य बिंदु जोड़ें"}
                 isView={isView}
-                // error={touched.keyPoints?.[lang] && errors.keyPoints?.[lang] ? errors.keyPoints?.[lang] : ""}
+              // error={touched.keyPoints?.[lang] && errors.keyPoints?.[lang] ? errors.keyPoints?.[lang] : ""}
               />
 
               {/* Images */}
@@ -184,7 +204,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 mode={mode}
                 initialUrls={(() => {
                   const urls: string[] = [];
-                  
+
                   if (Array.isArray(values.existingImages)) {
                     urls.push(
                       ...values.existingImages.filter(
@@ -200,30 +220,27 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                   }
                   return urls;
                 })()}
-                initialFiles={Array.isArray(values.images) ? values.images.filter((f:any) => f instanceof File) as File[] : []}
+                initialFiles={Array.isArray(values.images) ? values.images.filter((f: any) => f instanceof File) as File[] : []}
               />
 
               {/* Buttons */}
               {!isView && (
-                              <div className="flex gap-2 mt-4 w-fit">
-                                <Button
-                                  type="button"
-                                  onClick={handlePreviewClick}
-                                  disabled={
-                                    isSubmitting
-                                    // isSubmitting || createMutation.isPending || updateMutation.isPending
-                                  }
-                                  bgColor="bg-lime-green"
-                                  paddingx="px-4"
-                                  paddingy="py-2"
-                                  rounded="rounded-[5px]"
-                                  text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
-                                >
-                                </Button>
-              
-                                <CancelButton text={lang==='hi'?'रद्द करें':"Cancel"} onClose={onClose} />
-                              </div>
-                            )}
+                <div className="flex gap-2 mt-4 w-fit">
+                  <Button
+                    type="button"
+                    onClick={handlePreviewClick}
+                    disabled={  isSubmitting }
+                    bgColor="bg-lime-green"
+                    paddingx="px-4"
+                    paddingy="py-2"
+                    rounded="rounded-[5px]"
+                    text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
+                  >
+                  </Button>
+
+                  <CancelButton text={lang === 'hi' ? 'रद्द करें' : "Cancel"} onClose={onClose} />
+                </div>
+              )}
             </Form>
           );
         }}

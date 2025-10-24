@@ -1,10 +1,10 @@
-import Banner from '@/src/components/Admin/Banner'
+import CookiePolicy from '@/src/components/Primary/CookiePolicy'
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <Banner />
+      <CookiePolicy />
     </div>
   )
 }

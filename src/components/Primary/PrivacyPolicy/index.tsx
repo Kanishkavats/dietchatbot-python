@@ -11,16 +11,16 @@ export default function PrivacyPolicyPage() {
     <>
       {/* Main Content */}
       <section className="bg-gray-50 py-5 lg:py-16 lg:px-4">
-        <div className="max-w-5xl mx-auto space-y-2 lg:space-y-12">
+        <div className="max-w-5xl mx-auto space-y-2 lg:space-y-0">
           {privacyPolicySections.map((section) => (
             <div
               key={section.id}
-              className="bg-white lg:shadow-lg rounded-xl px-4 py-4 md:px-8 md:py-8 transition-transform duration-300 hover:scale-[1.02]"
+              className="bg-white  rounded-xl px-4 py-4 md:px-8 md:py-5 "
             >
               <h2 className=" text-xl lg:text-2xl font-semibold text-gray-800 mb-4 ">{t(section.title)}</h2>
               <p className="text-gray-700 leading-relaxed">{t(section.content)}</p>
               {section.list && (
-                <ul className="list-disc pl-6 mt-4 space-y-2 text-gray-700">
+                <ul className="list-disc pl-6 mt-4 space-y-0 text-base  text-gray-700">
                   {section?.list.map((item, index) => (
                     <li key={index}>{t(item)}</li>
                   ))}

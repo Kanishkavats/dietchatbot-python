@@ -17,6 +17,7 @@ export interface BannerFormProps {
   mode?: "add" | "edit"|"view"|"preview-edit"; 
   createMutation: UseMutationResult<any, Error, BannerFormValues, unknown>;
   updateMutation: UseMutationResult<any, Error, { id: string; values: BannerFormValues }, unknown>;
+  onPreview?: (values: BannerFormValues) => void
 }
 // Banner Column Callbacks - used in getBannerColumns.ts
 export interface BannerColumnCallbacks {

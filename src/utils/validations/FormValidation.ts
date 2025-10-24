@@ -122,7 +122,6 @@ export const campaignSchema = Yup.object({
     .of(Yup.mixed())
     .default([]),
   existingImages: Yup.array().of(Yup.string().nullable()).default([]),
-  // Require at least one across images (Files) or existingImages (URLs)
   _combinedImagesGuard: Yup.mixed().test(
     "at-least-one-image",
     "At least one image is required",

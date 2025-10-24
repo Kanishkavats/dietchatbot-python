@@ -382,5 +382,20 @@
   "and we’ll get back to you shortly.":"और हम शीघ्र ही आपसे संपर्क करेंगे।",
   "Still have questions?":"क्या आपके पास अभी भी प्रश्न हैं?",
   "Contact our support team at":"हमारी सहायता टीम से संपर्क करें",
-  "and we’ll be happy to help.":"और हमें मदद करने में खुशी होगी."
+  "and we’ll be happy to help.":"और हमें मदद करने में खुशी होगी.",
+  "Cookie Policy": "कुकी नीति",
+  "This Cookie Policy explains how <1>Charifund</1> uses cookies and similar technologies on our website. By using our site, you consent to the use of cookies as described in this policy.": "यह कुकी नीति बताती है कि हमारी वेबसाइट पर <1>Charifund</1> कुकीज़ और इसी तरह की तकनीकों का उपयोग कैसे करता है। हमारी साइट का उपयोग करके, आप इस नीति में वर्णित कुकीज़ के उपयोग के लिए सहमति देते हैं।",
+  "What Are Cookies?": "कुकीज़ क्या हैं?",
+  "Cookies are small text files stored on your device when you visit a website. They help us enhance user experience, analyze website traffic, and deliver personalized content or ads.": "कुकीज़ आपके डिवाइस पर छोटे टेक्स्ट फ़ाइलें होती हैं जो तब स्टोर होती हैं जब आप हमारी वेबसाइट पर जाते हैं। ये हमें उपयोगकर्ता अनुभव को बेहतर बनाने, वेबसाइट ट्रैफ़िक का विश्लेषण करने और व्यक्तिगत सामग्री या विज्ञापन प्रदान करने में मदद करती हैं।",
+  "Types of Cookies We Use": "हम किन प्रकार की कुकीज़ का उपयोग करते हैं",
+  "1. Necessary Cookies": "1. आवश्यक कुकीज़",
+  "These cookies are essential for the website to function correctly. They enable basic features like page navigation and access to secure areas. The website cannot function properly without these cookies.": "ये कुकीज़ वेबसाइट को सही ढंग से काम करने के लिए आवश्यक हैं। ये बुनियादी सुविधाओं जैसे पृष्ठ नेविगेशन और सुरक्षित क्षेत्रों तक पहुंच की अनुमति देती हैं। इन कुकीज़ के बिना वेबसाइट सही ढंग से काम नहीं कर सकती।",
+  "2. Functional Cookies": "2. फ़ंक्शनल कुकीज़",
+  "Functional cookies allow us to remember your preferences and provide enhanced, more personalized features such as language selection and saved donation details.": "फ़ंक्शनल कुकीज़ हमें आपकी प्राथमिकताओं को याद रखने और अधिक व्यक्तिगत सुविधाएँ प्रदान करने में मदद करती हैं, जैसे भाषा चयन और सहेजे गए दान विवरण।",
+  "Managing Cookies": "कुकीज़ का प्रबंधन",
+  "You can manage or disable cookies through your browser settings. However, disabling certain cookies may affect your experience on our website. You can also update your preferences at any time using the <1>Cookie Settings</1> link in the footer.": "आप अपने ब्राउज़र सेटिंग्स के माध्यम से कुकीज़ को प्रबंधित या अक्षम कर सकते हैं। हालाँकि, कुछ कुकीज़ को अक्षम करने से आपकी वेबसाइट अनुभव प्रभावित हो सकता है। आप किसी भी समय <1>कुकी सेटिंग्स</1> लिंक के माध्यम से अपनी प्राथमिकताएँ अपडेट कर सकते हैं।",
+  "Updates to This Policy": "इस नीति में अपडेट",
+  "We may update this Cookie Policy periodically to reflect changes in our practices or for other operational, legal, or regulatory reasons. Please review this page regularly for updates.": "हम समय-समय पर इस कुकी नीति को अपडेट कर सकते हैं ताकि हमारी प्रथाओं में बदलाव, संचालन, कानूनी या नियामक कारणों को प्रतिबिंबित किया जा सके। कृपया इस पृष्ठ की नियमित रूप से समीक्षा करें।",
+  "Last Updated: <1>October 2025</1>": "अंतिम अपडेट: <1>अक्टूबर 2025</1>",
+  "Accept Cookie Policy": "कुकी नीति स्वीकार करें"
 }

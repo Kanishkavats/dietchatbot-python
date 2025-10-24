@@ -83,7 +83,7 @@ const AdminSideBarTab = ({
                     key={i}
                     onClick={() => {
                       setActiveTab(item.nav);
-                      setMobileDrawerOpen(false); // close drawer on mobile click
+                      setMobileDrawerOpen(false);
                     }}
                     whileHover={{ scale: 1.05 }}
                     transition={{ type: "spring", stiffness: 300, damping: 20 }}
