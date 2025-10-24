@@ -57,7 +57,7 @@ const VolunteerTeam = ({ bg = '' }: { bg?: string }) => {
       <div ref={headerRef} className="w-full md:w-10/11 flex flex-col justify-center items-center ">
         <div className="lg:max-w-[600px]">
           <ComponentLabel
-            className='lg:justify-center'
+            className='text-center'
             text="Start Donating Poor People"
             isVisible={isHeaderInView}
           />

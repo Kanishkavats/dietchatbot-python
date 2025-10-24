@@ -9,6 +9,8 @@ import AnimatedCircle from './AnimatedCircle';
 import { donateDifferentWayMissionItems, donateDifferentWayTabs } from '@/src/staticResource';
 import ComponentTitle from '@/src/components/UI/web/ComponentTitle';
 import ComponentLabel from '@/src/components/UI/web/ComponentLabel';
+import { FaHandHoldingHeart } from 'react-icons/fa';
+
 
 const DonateDifferentWay: React.FC = () => {
   const [activeTab, setActiveTab] = useState('mission');
@@ -125,10 +127,22 @@ const DonateDifferentWay: React.FC = () => {
             <div className='space-y-4 sm:space-y-6 flex-1 '>
               <div ref={headerRef} className='font-nunito font-extrabold relative'>
 
-                <ComponentLabel
+                {/* <ComponentLabel
+
                   text="Start Donating Poor People"
                   isVisible={isHeaderInView}
-                />
+                /> */}
+                <div
+                  className="flex items-center mb-5  opacity-0 anim-fade-in-up"
+                  style={{ animationDelay: "0.6s" }}
+                >
+                  {/* <i className="text-lg md:text-xl mr-2 text-green hand-icon"></i> */}
+                  <FaHandHoldingHeart className="text-lg md:text-xl mr-2 text-green" />
+
+                  <span className="text-green font-caveat text-lg md:text-2xl lg:text-2xl font-bold">
+                    {t("Start Donating Poor People")}
+                  </span>
+                </div>
                 <ComponentTitle
                   preText="Donate"
                   highlightText="Support"
@@ -145,13 +159,15 @@ const DonateDifferentWay: React.FC = () => {
                     repeat: Infinity
                   }}
                 >
-                  <Image
-                    src='/assets/spade-green-heart.png'
-                    alt='Green heart'
-                    width={100}
-                    height={100}
-                    className='w-12 h-12 sm:w-16 sm:h-16 lg:w-20 lg:h-20 object-contain'
-                  />
+                  
+                  <div className="relative w-full h-full">
+                    <Image
+                      src='/assets/spade-green-heart.png'
+                      alt='Green heart'
+                      fill
+                      className='object-contain'
+                    />
+                  </div>
                 </motion.div>
               </div>
 
