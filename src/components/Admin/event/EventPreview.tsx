@@ -9,9 +9,10 @@ import LanguageToggle from "../../UI/admin/LanguageToggle";
 import Button from "../../UI/web/Buttons/Button";
 import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 import { EventPreviewProps } from "@/src/types/admin";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 
 
-const EventPreview = ({ data, onSubmit, onBack, mode,showButton=true }: EventPreviewProps) => {
+const EventPreview = ({ data, onSubmit, onBack, mode,showButton=true,createMutation,updateMutation }: EventPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const { language, toggleLanguage } = useLanguageToggle();
   useEffect(() => {
@@ -86,7 +87,9 @@ const formatTime = (dateStr?: Date|null) => {
         {data.location && (
           <p className="flex items-center text-[16px] gap-2">
             <MdLocationPin className="text-yellow" />
-            {data.location?.[lang]}
+            {data.location?.[lang]}<br/>
+            {" Latitude: "}{data.latitude}
+            {" Longitude: "}{data.longitude}
           </p>
         )}
       </div>
@@ -135,17 +138,22 @@ const formatTime = (dateStr?: Date|null) => {
             rounded="rounded-lg"
             hoverBg="before:bg-red-50"
             onClick={onBack}
+            icon=""
           >
-            Back to Edit
+            {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
           </Button>
 
           <Button
             rounded="rounded-lg"
             onClick={onSubmit}
-            text="Submit"
             bgColor="bg-lime-green"
             hoverBg="before:bg-green"
-          />
+            icon=""
+          >
+            {createMutation?.isPending || updateMutation?.isPending ? (
+                      <ButtonLoader />
+                    ) : <>{lang === "hi" ? "सबमिट" : "Submit"}</>}
+                  </Button>
         </div>
         )}
     </motion.div>

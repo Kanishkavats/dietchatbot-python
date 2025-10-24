@@ -217,17 +217,11 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                                   paddingx="px-4"
                                   paddingy="py-2"
                                   rounded="rounded-[5px]"
+                                  text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
                                 >
-                                  {isSubmitting ? (
-                                    <ButtonLoader />
-                                  ) : isEdit ? (
-                                    "Update"
-                                  ) : (
-                                    "Preview"
-                                  )}
                                 </Button>
               
-                                <CancelButton text={lang==='hi'?'इसे रद्द करें':"Cancel"} onClose={onClose} />
+                                <CancelButton text={lang==='hi'?'रद्द करें':"Cancel"} onClose={onClose} />
                               </div>
                             )}
             </Form>

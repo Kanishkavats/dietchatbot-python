@@ -290,19 +290,12 @@ const BlogForm = ({
                     paddingx="px-4"
                     paddingy="py-2"
                     rounded="rounded-[5px]"
-                  >
-                     {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
-                      <ButtonLoader />
-                    ) : isEdit ? (
-                      "Update"
-                    ) : (
-                      "Preview"
-                    )} 
-                    
+                    text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
+                  >  
 
                   </Button>
 
-                  <CancelButton text="Cancel" onClose={onClose} />
+                  <CancelButton text={lang==='hi'?'रद्द करें':"Cancel"} onClose={onClose} />
                 </div>
               )}
             </Form>
