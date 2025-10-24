@@ -6,6 +6,7 @@ import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import ArrowButton from "../../Button";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
@@ -136,14 +137,24 @@ const ValueableCustomer = () => {
         </Swiper>
 
         {/* Navigation buttons */}
-        <div className="flex justify-center gap-4 mt-10">
+       {/* <div className="flex justify-center gap-4 mt-10">
           <button className="prev-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors">
             <ArrowLeft size={24} />
           </button>
           <button className="next-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors">
             <ArrowRight size={24} />
           </button>
-        </div>
+        </div>*/}
+
+                 
+         <div className="flex justify-center items-center mt-6 lg:mt-10 space-x-4">
+  <div className="swiper-button-prev-custom">
+    <ArrowButton direction="left" size={60} />
+  </div>
+  <div className="swiper-button-next-custom">
+    <ArrowButton direction="right" size={60} />
+  </div>
+</div>
       </div>
     </section>
   );

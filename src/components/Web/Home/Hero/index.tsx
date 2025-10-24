@@ -11,6 +11,7 @@ import Link from "next/link";
 import { useFetchAllBanners } from "@/src/hooks/web/useBanner";
 import { pageBannerBackgourndColor } from "@/src/helper/PageBanner";
 import { Banner } from "@/src/types/web/banner";
+import ArrowButton from "@/src/components/Button";
 
 // Static fallback images
 const staticImages = [bannerOne.src, bannerTwo.src];
@@ -145,7 +146,7 @@ export default function HeroStaticSlider() {
 
         {/* ✅ Navigation Arrows - Desktop */}
         <div className="absolute right-4 md:right-22 top-1/2 -translate-y-1/2 hidden min-[800px]:flex flex-col gap-4 z-30">
-          <button
+         {/* <button
             onClick={handlePrev}
             className="w-15 h-15 cursor-pointer rounded-full bg-dark-green flex items-center justify-center text-white shadow-md  hover:text-black hover:scale-105 hover:bg-yellow transition"
           >
@@ -156,7 +157,20 @@ export default function HeroStaticSlider() {
             className="w-15 h-15 rounded-full bg-yellow cursor-pointer flex items-center justify-center text-black shadow-md hover:text-white hover:scale-105 hover:bg-dark-green transition"
           >
             <Icon icon="mdi:arrow-right" className="text-3xl" />
-          </button>
+          </button>*/}
+
+          <ArrowButton
+    direction="left"
+    onClick={handlePrev}
+    size={60}
+    className="shadow-md hover:scale-105"
+  />
+  <ArrowButton
+    direction="right"
+    onClick={handleNext}
+    size={60}
+    className="shadow-md hover:scale-105"
+  />
 
           {/* Floating Decorative Icon */}
           <motion.div

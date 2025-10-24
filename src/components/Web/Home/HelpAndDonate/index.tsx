@@ -9,7 +9,7 @@ import "swiper/css/navigation";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
-
+import ArrowButton from '@/src/components/Button';
 import { useTranslation } from "react-i18next";
 import { useFetchAllCampaigns } from '@/src/hooks/web/useCampaigns';
 import { allDonationCards } from '@/src/staticResource';
@@ -126,7 +126,7 @@ const HelpAndDonate: React.FC = () => {
           </div>
 
           {/* Navigation buttons if enough campaigns */}
-          {campaignsToDisplay.length > 4 && (
+         {/* {campaignsToDisplay.length > 4 && (
             <div className="flex items-center gap-3 md:gap-4 mt-0 md:mt-0 ml-auto md:ml-6">
               <NavigationButton
                 direction="left"
@@ -145,7 +145,33 @@ const HelpAndDonate: React.FC = () => {
                 ariaLabel="Next"
               />
             </div>
-          )}
+          )}*/}
+
+          {campaignsToDisplay.length > 4 && (
+  <div className="flex items-center gap-3 md:gap-4 mt-0 md:mt-0 ml-auto md:ml-6">
+    <ArrowButton
+      direction="left"
+      onClick={handlePrev}
+      size={55}
+      className={`shadow-md hover:scale-105 transition-transform ${
+        leftButtonColor === "green"
+          ? "bg-[#122F2A] text-white hover:bg-[#FFC107] hover:text-black"
+          : "bg-[#FFC107] text-black hover:bg-[#122F2A] hover:text-white"
+      }`}
+    />
+    <ArrowButton
+      direction="right"
+      onClick={handleNext}
+      size={55}
+      className={`shadow-md hover:scale-105 transition-transform ${
+        rightButtonColor === "yellow"
+          ? "bg-[#FFC107] text-black hover:bg-[#122F2A] hover:text-white"
+          : "bg-[#122F2A] text-white hover:bg-[#FFC107] hover:text-black"
+      }`}
+    />
+  </div>
+)}
+
         </div>
 
         {/* Floating Spade Image */}
