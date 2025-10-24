@@ -4,17 +4,20 @@ import { Icon } from "@iconify/react";
 import Newsletter from "./Newsletter";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { footerData } from "@/src/staticResource";
 import { logo, spade2, spreadLight } from "@/public/assets";
 import Divider from "../../UI/web/HorizontalDevider";
 import { useTranslation } from "react-i18next";
 import { Link } from "lucide-react";
+import CookieSettingsModal from "../../UI/web/CookieSettingsModal";
 
 const Footer = () => {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, amount: 0.2 });
   const { t } = useTranslation();
+  const [isCookieModalOpen, setIsCookieModalOpen] = useState(false);
+
 
   const container = {
     hidden: {},
@@ -216,6 +219,12 @@ const Footer = () => {
               <a
                 key={i}
                 href={link.href}
+                onClick={(e) => {
+                  if (link.label === "Cookie Settings") {
+                    e.preventDefault();
+                    setIsCookieModalOpen(true);
+                  }
+                }}
                 className="relative inline-flex items-center gap-2 hover:text-yellow before:content-[''] before:absolute before:left-0 before:bottom-0 before:h-[1px] before:w-full before:bg-yellow before:scale-x-0 hover:before:scale-x-100 before:transition-transform before:duration-300"
               >
                 {t(link.label)}
@@ -224,6 +233,11 @@ const Footer = () => {
           </div>
         </div>
       </motion.div>
+      <CookieSettingsModal
+        isOpen={isCookieModalOpen}
+        onClose={() => setIsCookieModalOpen(false)}
+      />
+
     </footer>
   );
 };

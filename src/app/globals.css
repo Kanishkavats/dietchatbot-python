@@ -543,8 +543,10 @@ body {
   animation-duration: 2s;
 }
 
+
 .hand-icon::before {
   content: "\e821";
+  
 }
 
 /* Font Awesome Icon Classes for Charity Cards */

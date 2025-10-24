@@ -167,14 +167,13 @@ const CategoryForm = ({ initialData, onClose, mode }: CategoryFormProps) => {
                   >
                     {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
                       <ButtonLoader />
-                    ) : isEdit ? (
-                      "Update"
+                    ) : isEdit ? (<>{lang==='hi'?"अद्यतन":"Update"}</>
                     ) : (
-                      "Create"
+                      <>{lang==='hi'?"बनाएं":"Create"}</>
                     )}
                   </Button>
                    <CancelButton
-                      text="Cancel"
+                      text={lang==='hi'?'रद्द करें':"Cancel"}
                       onClose={onClose}
                     />
                 </div>

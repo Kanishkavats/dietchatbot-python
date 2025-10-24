@@ -270,9 +270,10 @@ const MemberForm = ({
                                     paddingy="py-2"
                                     rounded="rounded-[5px]"
                                     text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
+                                    icon=""
                                 >
                                 </Button>
-                                <CancelButton text={lang === "en" ? "Cancel" : "रद्द करें"} onClose={onClose} />
+                                <CancelButton text={lang === "en" ? "Cancel" : "रद्द करें"} onClose={onClose} icon="" />
                             </div>
                         </Form>
                     );

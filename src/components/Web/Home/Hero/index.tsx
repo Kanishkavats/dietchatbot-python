@@ -1,9 +1,16 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
-import { bannerOne, bannerTwo, horizontalWhiteShape, spradeBase, verticleYellowShape } from "@/public/assets";
+import {
+  bannerOne,
+  bannerTwo,
+  horizontalWhiteShape,
+  spradeBase,
+  verticleYellowShape,
+} from "@/public/assets";
 import Button from "../../../UI/web/Buttons/Button";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import Image from "next/image";
@@ -24,12 +31,12 @@ export default function HeroStaticSlider() {
   const { data: bannersData, isLoading, error } = useFetchAllBanners(1, 10);
   const banners = bannersData?.banners || [];
 
-  const images = banners.length > 0
-    ? banners
-      .filter((banner: Banner) => banner.image && banner.image.trim() !== '')
-      .map((banner: Banner) => banner.image)
-
-    : staticImages;
+  const images =
+    banners.length > 0
+      ? banners
+          .filter((banner: Banner) => banner.image && banner.image.trim() !== "")
+          .map((banner: Banner) => banner.image)
+      : staticImages;
 
   // If no valid dynamic images, use static fallback
   const finalImages = images.length > 0 ? images : staticImages;
@@ -43,15 +50,19 @@ export default function HeroStaticSlider() {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [paused]);
+  }, [paused, finalImages.length]);
 
-  const handlePrev = () => setIndex((prev) => (prev - 1 + finalImages.length) % finalImages.length);
-  const handleNext = () => setIndex((prev) => (prev + 1) % finalImages.length);
+  const handlePrev = () =>
+    setIndex((prev) => (prev - 1 + finalImages.length) % finalImages.length);
+  const handleNext = () =>
+    setIndex((prev) => (prev + 1) % finalImages.length);
 
   // Get current banner data
   const currentBanner = banners[index] || {};
-  const bannerTitle = currentBanner.title || "Giving Help To Those Who Need It";
-  const bannerSubtitle = currentBanner.subtitle || "Start Donating Poor People";
+  const bannerTitle =
+    currentBanner.title || "Giving Help To Those Who Need It";
+  const bannerSubtitle =
+    currentBanner.subtitle || "Start Donating Poor People";
   const bannerLink = currentBanner.link || "/contact";
 
   return (
@@ -69,16 +80,22 @@ export default function HeroStaticSlider() {
         className="absolute inset-0 bg-cover bg-center"
         style={{
           backgroundImage: `url(${finalImages[index]})`,
-          backgroundSize: "cover",    
-          backgroundPosition: "center", 
+          backgroundSize: "cover",
+          backgroundPosition: "center",
           width: "100%",
           height: "922.4px",
         }}
       />
+
       <section className="relative h-5 w-full z-22">
-        <Image src={horizontalWhiteShape.src} alt="Horizontal White Shape" fill />
+        <Image
+          src={horizontalWhiteShape.src}
+          alt="Horizontal White Shape"
+          fill
+        />
       </section>
-      <section className="relative h-[80vh] xl:h-screen w-20 md:w-30 z-21 ">
+
+      <section className="relative h-[80vh] xl:h-screen w-20 md:w-30 z-21">
         <motion.div
           animate={{ y: [0, -20, 0, 20, 0] }}
           transition={{
@@ -111,7 +128,10 @@ export default function HeroStaticSlider() {
             className="space-y-6"
           >
             <p className="text-yellow text-xl sm:text-2xl font-medium flex items-center gap-2 font-caveat">
-              <Icon icon="mdi:hand-heart" className="text-2xl sm:text-3xl font-medium cursor-pointer" />
+              <Icon
+                icon="mdi:hand-heart"
+                className="text-2xl sm:text-3xl font-medium cursor-pointer"
+              />
               {bannerSubtitle}
             </p>
 
@@ -122,37 +142,34 @@ export default function HeroStaticSlider() {
             <div className="flex flex-col min-[450px]:flex-row md:flex-nowrap gap-2 sm:gap-4 mt-6 w-fit">
               <div className="w-auto sm:w-auto min-w-[50px] sm:min-w-[120px]">
                 <Link href="/campaign">
-                <Button
-                  text="Discover More"
-                  textColor="text-white"
-                  bgColor="bg-black/30"
-                  hoverBg="before:bg-yellow"
-                  hoverTextColor="group-hover:text-foreground"
-                  paddingy="py-5"
-                />
+                  <Button
+                    text="Discover More"
+                    textColor="text-white"
+                    bgColor="bg-black/30"
+                    hoverBg="before:bg-yellow"
+                    hoverTextColor="group-hover:text-foreground"
+                    paddingy="py-5"
+                  />
                 </Link>
               </div>
               <div className="sm:w-auto min-w-[50px] sm:min-w-[120px]">
                 <Link href="/contact">
-                  <Button
-                    text="Get A Quote"
-                    paddingy="py-5"
-                  />
+                  <Button text="Get A Quote" paddingy="py-5" />
                 </Link>
               </div>
             </div>
           </AnimatedReveal>
         </div>
 
-        {/* ✅ Navigation Arrows - Desktop */}
+        {/* ✅ Navigation Arrows - Desktop (Updated) */}
         <div className="absolute right-4 md:right-22 top-1/2 -translate-y-1/2 hidden min-[800px]:flex flex-col gap-4 z-30">
          {/* <button
             onClick={handlePrev}
-            className="w-15 h-15 cursor-pointer rounded-full bg-dark-green flex items-center justify-center text-white shadow-md  hover:text-black hover:scale-105 hover:bg-yellow transition"
-          >
-            <Icon icon="mdi:arrow-left" className="text-3xl" />
-          </button>
-          <button
+            size={60}
+            className="shadow-md hover:scale-105"
+          />
+          <ArrowButton
+            direction="right"
             onClick={handleNext}
             className="w-15 h-15 rounded-full bg-yellow cursor-pointer flex items-center justify-center text-black shadow-md hover:text-white hover:scale-105 hover:bg-dark-green transition"
           >
@@ -188,7 +205,6 @@ export default function HeroStaticSlider() {
             <img src={spradeBase.src} alt="decoration" />
           </motion.div>
         </div>
-
       </div>
     </div>
   );

@@ -39,6 +39,7 @@ const EventTable = () => {
   const [selectedEvent, setSelectedEvent] = useState<Event | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const[deleteLoading,setDeleteLoading]=useState<boolean>(false);
 
   const [previewData, setPreviewData] = useState<EventFormValues | null>(null);
 
@@ -49,9 +50,9 @@ const EventTable = () => {
 
   const { data: eventData, isLoading } = useFetchAllEvent(currentPage, itemsPerPage, searchedData, searchField);
   const { data: singleEventData, isLoading: isLoadingEvent, refetch } = useFetchSingleEvent(editEvent || undefined);
-  const { mutate: deleteEvent } = useDeleteSingleEvent();
+  const deleteEvent = useDeleteSingleEvent();
   const totalPages = eventData?.totalPages || 1;
-
+  console.log(eventData)
   const lang = language
   const queryClient = useQueryClient();
 
@@ -128,11 +129,20 @@ const EventTable = () => {
   );
   const confirmDelete = useCallback(() => {
     if (selectedEvent?.id) {
+      setDeleteLoading(true)
       toast.dismiss();
       toast.loading("Deleting Event....")
-      deleteEvent(selectedEvent.id.toString());
-      setIsOpen(false);
+      deleteEvent.mutate(selectedEvent.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
       setSelectedEvent(null);
+      },
+      onError: () => {
+        setDeleteLoading(false)
+        setIsOpen(false); 
+      },
+    });      
     }
   }, [selectedEvent, deleteEvent]);
 
@@ -222,6 +232,7 @@ const EventTable = () => {
                 value={EventField}
                 onChange={(value) => {
                   setEventField(value)
+                  setSearch(value)
                 }}
 
               />
@@ -316,8 +327,10 @@ const EventTable = () => {
                 data={normalizeEventData(previewData)}
                 onBack={() => {
                   setShowPreview(false);
-
+                  setMode(editEvent ? "edit" : "add");
                 }}
+                createMutation={createMutation}
+                updateMutation={updateMutation}
                 onSubmit={() => {
                   submitEventForm(
                     { ...previewData!, keyPoints: previewData!.keyPoints },
@@ -370,6 +383,7 @@ const EventTable = () => {
       )}
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"

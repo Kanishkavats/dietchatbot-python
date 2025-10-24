@@ -1,6 +1,6 @@
-import { CampaignFormValues, CategoryFormValues } from "../../../utils/validations/FormValidation"
-import { Category } from "../../../types/web/category";
-
+import { CampaignFormValues, CategoryFormValues } from "../../utils/validations/FormValidation"
+// import { Category } from "../../../types/web/category";
+import { Category } from "../web/category";
 export interface Campaign {
   id: number;
   title: string;
@@ -16,6 +16,7 @@ export interface Campaign {
   images?: (string | File)[];
   imageUrl?: string[]; 
   location: string;
+  existingImages:(string|File)[];
 }
 
 export interface CampaignFormProps {

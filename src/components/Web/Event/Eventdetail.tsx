@@ -42,7 +42,7 @@ const EventDetail = () => {
   const mapUrl = event?.latitude && event?.longitude
     ? `https://maps.google.com/maps?q=${event.latitude},${event.longitude}&z=15&output=embed`
     : "";
-if(isLoading) return <div className="flex items-center justify-center"><CustomLoader/></div>
+  if (isLoading) return <div className="flex items-center justify-center"><CustomLoader /></div>
 
 
   return (

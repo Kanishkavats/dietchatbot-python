@@ -1,3 +1,6 @@
+
+
+
 "use client";
 
 import React, { useState, useRef, useCallback, useMemo } from 'react';
@@ -11,15 +14,16 @@ import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
 import ArrowButton from '@/src/components/Button';
 import { useTranslation } from "react-i18next";
+
 import { useFetchAllCampaigns } from '@/src/hooks/web/useCampaigns';
 import { allDonationCards } from '@/src/staticResource';
 
-import NavigationButton from './NavigationButton';
 import CarouselIndicators from './CarouselIndicators';
 import CampaignCard from '../../Campaign/CampaignCard';
 import { CampaignApiResponse, CampaignCardInterface } from '@/src/types/web/campaign';
 import ComponentLabel from '@/src/components/UI/web/ComponentLabel';
 import ComponentTitle from '@/src/components/UI/web/ComponentTitle';
+//import ArrowButton from '@/src/components/Button'; // ✅ your new button
 
 const HelpAndDonate: React.FC = () => {
   const { t } = useTranslation();
@@ -27,8 +31,10 @@ const HelpAndDonate: React.FC = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
   const [leftButtonColor, setLeftButtonColor] = useState<'yellow' | 'green'>('green');
-  const [rightButtonColor, setRightButtonColor] = useState<'yellow' | 'green'>('yellow');
+const [rightButtonColor, setRightButtonColor] = useState<'yellow' | 'green'>('yellow');
+
 
   const swiperRef = useRef<SwiperType | null>(null);
   const spadeRef = useRef(null);
@@ -37,9 +43,11 @@ const HelpAndDonate: React.FC = () => {
   const isSpadeInView = useInView(spadeRef, { once: true, amount: 0.3 });
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  const { data: campaignsData, isLoading, error } = useFetchAllCampaigns(1, 8) as { data: { campaigns: CampaignApiResponse[] }, isLoading: boolean, error: any };
+  const { data: campaignsData, isLoading } = useFetchAllCampaigns(1, 8) as {
+    data: { campaigns: CampaignApiResponse[] },
+    isLoading: boolean
+  };
 
-  // Map API data once memoized
   const campaignsToDisplay = useMemo(() => {
     if (campaignsData?.campaigns?.length) {
       return campaignsData.campaigns.map((campaign: any) => {
@@ -63,37 +71,20 @@ const HelpAndDonate: React.FC = () => {
 
   if (!isLoading && (!campaignsToDisplay.length)) return null;
 
-  // Navigate to campaign/donation
   const handleCardClick = useCallback((id?: string) => {
-    if (id) {
-      router.push(`/campaign/${id}`);
-    } else {
-      router.push('/donation');
-    }
+    router.push(id ? `/campaign/${id}` : '/donation');
   }, [router]);
 
-  // Navigation button handlers merged to reduce repetition
   const handlePrev = useCallback(() => {
     swiperRef.current?.slidePrev();
-    setLeftButtonColor("green");
-    setRightButtonColor("green");
   }, []);
 
   const handleNext = useCallback(() => {
     swiperRef.current?.slideNext();
-    setLeftButtonColor("yellow");
-    setRightButtonColor("yellow");
   }, []);
-
-  // Button hover handlers to avoid inline anonymous functions in JSX
-  const onLeftButtonMouseEnter = useCallback(() => setLeftButtonColor("yellow"), []);
-  const onLeftButtonMouseLeave = useCallback(() => setLeftButtonColor("green"), []);
-  const onRightButtonMouseEnter = useCallback(() => setRightButtonColor("green"), []);
-  const onRightButtonMouseLeave = useCallback(() => setRightButtonColor("yellow"), []);
 
   const headerRef = useRef(null);
   const isHeaderInView = useInView(headerRef, { once: true });
-
 
   return (
     <section
@@ -113,7 +104,6 @@ const HelpAndDonate: React.FC = () => {
         <div ref={headerRef} className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 md:mb-12 lg:mb-6">
           {/* Left Content */}
           <div className="flex-1 max-w-2xl mb-6 md:mb-0 flex-grow">
-
             <ComponentLabel
               text="Start Donating Poor People"
               isVisible={isHeaderInView}
@@ -128,15 +118,12 @@ const HelpAndDonate: React.FC = () => {
           {/* Navigation buttons if enough campaigns */}
          {/* {campaignsToDisplay.length > 4 && (
             <div className="flex items-center gap-3 md:gap-4 mt-0 md:mt-0 ml-auto md:ml-6">
-              <NavigationButton
+              <ArrowButton
                 direction="left"
                 onClick={handlePrev}
-                onMouseEnter={onLeftButtonMouseEnter}
-                onMouseLeave={onLeftButtonMouseLeave}
-                color={leftButtonColor}
-                ariaLabel="Previous"
+                size={60}
               />
-              <NavigationButton
+              <ArrowButton
                 direction="right"
                 onClick={handleNext}
                 onMouseEnter={onRightButtonMouseEnter}

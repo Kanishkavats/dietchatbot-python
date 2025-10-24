@@ -288,14 +288,13 @@ const EventForm = ({ initialData, onClose, mode, onPreview }: EventFormProps) =>
                                 >
                                   {isSubmitting ? (
                                     <ButtonLoader />
-                                  ) : isEdit ? (
-                                    "Update"
-                                  ) : (
-                                    "Preview"
-                                  )}
+                                  ) : isEdit ? (<>{lang==='hi'?"अद्यतन":"Update"}</>
+                    ) : (
+                      <>{lang==='hi'?"बनाएं":"Create"}</>
+                    )}
                                 </Button>
               
-                                <CancelButton text="Cancel" onClose={onClose} />
+                                <CancelButton text={lang==='hi'?'रद्द करें':"Cancel"} onClose={onClose} />
                               </div>
                             )}
             </Form>

@@ -11,7 +11,7 @@ import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 import { MemberPreviewProps } from "@/src/types/admin";
 
-const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberPreviewProps) => {
+const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true,createMutation,updateMutation }: MemberPreviewProps) => {
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -151,19 +151,22 @@ const MemberPreview = ({ data, onSubmit, onBack, mode,showButton=true }: MemberP
           rounded="rounded-lg"
           hoverBg="before:bg-red-50"
           onClick={onBack}
+          icon=""
         >
           {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
         </Button>
         <Button
           rounded="rounded-lg"
           onClick={handleSubmit}
-          text={lang === "hi" ? "संपादित करें" : "Save"}
           bgColor="bg-lime-green"
           hoverBg="before:bg-green"
+          icon=""
           disabled={isSubmitting}
         >
-          {isSubmitting && <ButtonLoader />}
-        </Button>
+          {isSubmitting||createMutation?.isPending || updateMutation?.isPending ? (
+                      <ButtonLoader />
+                    ) : <>{lang === "hi" ? "सबमिट" : "Submit"}</>}
+                  </Button>
       </div>
       )}
     </motion.div>

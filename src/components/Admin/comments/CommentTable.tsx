@@ -26,6 +26,7 @@ const CommentTable = () => {
   const [CommentId, setCommentId] = useState<string | null>(null);
   const [mode, setMode] = useState<"edit" | "view">("view");
   const [currentPage, setCurrentPage] = useState(1);
+  const[deleteLoading,setDeleteLoading]=useState<boolean>(false);
   const [itemsPerPage] = useState(10);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedComment, setSelectedComment] = useState<Comment | null>(null);
@@ -36,7 +37,7 @@ const CommentTable = () => {
     status
   );
 
-  const { mutate: deleteComment } = useDeleteComment();
+  const deleteComment = useDeleteComment();
   const totalPages = commentData?.totalPages || 1;
 
   const {
@@ -82,11 +83,20 @@ const CommentTable = () => {
 
   const confirmDelete = useCallback(() => {
     if (selectedComment) {
+      setDeleteLoading(true)
       toast.dismiss();
         toast.loading("Deleting Comment....")
-      deleteComment(selectedComment.id.toString());
-      setIsOpen(false);
+        deleteComment.mutate(selectedComment.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
       setSelectedComment(null);
+      },
+      onError: () => {
+        setDeleteLoading(false)
+        setIsOpen(false); 
+      },
+    });      
     }
   }, [selectedComment, deleteComment]);
 
@@ -172,6 +182,7 @@ const CommentTable = () => {
 
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"

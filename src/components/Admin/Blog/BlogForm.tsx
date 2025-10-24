@@ -3,7 +3,7 @@
 import { Formik, Form, FieldArray } from "formik";
 import React from "react";
 import { useFetchCategory } from "@/src/hooks/admin/useCategory";
-import {  blogSchema } from "@/src/utils/validations/FormValidation";
+import { blogSchema } from "@/src/utils/validations/FormValidation";
 import { BlogFormProps } from "@/src/types/admin/blog";
 import CustomInput from "../../UI/admin/CustomInput";
 import CustomFileInput from "../../UI/admin/CustomFileInput";
@@ -32,15 +32,15 @@ const BlogForm = ({
   const { language, toggleLanguage } = useLanguageToggle();
 
   const { data: categoryData } = useFetchCategory();
-   console.log(categoryData);
+  console.log(categoryData);
 
   const categoryOptions =
     categoryData?.category?.map((category: Category) => ({
-      label: category.name?.[language] || category.name.en, 
+      label: category.name?.[language] || category.name.en,
       value: category.name?.[language] || category.name.en,
     })) ?? [];
 
-      
+
 
 
   const isView = mode === "view";
@@ -51,7 +51,7 @@ const BlogForm = ({
 
       {/* Language Toggle */}
 
-    <LanguageToggle language={language} onChange={toggleLanguage} />
+      <LanguageToggle language={language} onChange={toggleLanguage} />
 
       <Formik
         enableReinitialize
@@ -75,7 +75,7 @@ const BlogForm = ({
             existingImages: values.existingImages,
           };
 
-          
+
           onPreview?.(payload);
         }}
       >
@@ -117,8 +117,8 @@ const BlogForm = ({
 
             for (const l of ["en", "hi"] as const) {
               if (hasErrorsForLang(formErrors, l)) {
-                toggleLanguage(l); 
-                return; 
+                toggleLanguage(l);
+                return;
               }
             }
 
@@ -203,13 +203,31 @@ const BlogForm = ({
               {/* Category Dropdown */}
               <Dropdown
                 label={`${lang === "en" ? "Category" : "श्रेणी"}*`}
-                options={categoryOptions}
-                value={values.category[lang]}
-                onChange={(val) => setFieldValue(`category.${lang}`, val)}
-                placeholder={lang==='en'?"Select category":"श्रेणी चुनें"}
-                error={touched.category?.[lang] ? errors.category?.[lang] : ""}
-                disabled={isView}
+                options={
+                  categoryData?.category?.map((cat: Category) => ({
+                    label: cat.name[language] || cat.name.en,
+                    value: cat.name, // keep full multilingual object
+                    names: cat.name,
+                  })) || []
+                }
+                value={values.category || ""}
+                onChange={(val) => {
+                  const selected = categoryData?.category?.find(
+                    (cat: Category) => cat.name === val
+                  );
+                  if (selected) {
+                    setFieldValue("category", {
+                      id: val,
+                      en: selected.name.en,
+                      hi: selected.name.hi,
+                    });
+                  }
+                }}
+                placeholder={lang === "en" ? "Select category" : "श्रेणी चुनें"}
+                width="w-full"
+                error={touched.category && (errors.category as any)?.id ? (errors.category as any).id : ""}
               />
+
 
 
               {/* Tags (shared across languages) */}
@@ -274,7 +292,7 @@ const BlogForm = ({
                   }
                   return urls;
                 })()}
-                initialFiles={Array.isArray(values.images) ? values.images.filter((f:any) => f instanceof File) as File[] : []}
+                initialFiles={Array.isArray(values.images) ? values.images.filter((f: any) => f instanceof File) as File[] : []}
               />
 
               {/* Action Buttons */}
@@ -290,19 +308,12 @@ const BlogForm = ({
                     paddingx="px-4"
                     paddingy="py-2"
                     rounded="rounded-[5px]"
-                  >
-                     {isSubmitting || createMutation.isPending || updateMutation.isPending ? (
-                      <ButtonLoader />
-                    ) : isEdit ? (
-                      "Update"
-                    ) : (
-                      "Preview"
-                    )} 
-                    
+                    text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
+                  >  
 
                   </Button>
 
-                  <CancelButton text="Cancel" onClose={onClose} />
+                  <CancelButton text={lang==='hi'?'रद्द करें':"Cancel"} onClose={onClose} />
                 </div>
               )}
             </Form>
