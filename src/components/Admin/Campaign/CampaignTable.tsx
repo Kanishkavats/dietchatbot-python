@@ -44,6 +44,7 @@ const CampaignTable = () => {
   const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const[deleteLoading,setDeleteLoading]=useState<boolean>(false);
 
   const [previewData, setPreviewData] = useState<CampaignFormValues | null>(null);
 
@@ -54,7 +55,7 @@ const CampaignTable = () => {
 
   const { data: campaignData, isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage, searchedData, searchField) as { data: { campaigns: Campaign[]; totalPages: number }, isLoading: boolean };
   const { data: singleCampaignData, isLoading: isLoadingCampaign, refetch } = useFetchSingleCampaign(editCampaign || undefined) as { data: Campaign, isLoading: boolean, refetch: any}; ;
-  const { mutate: deleteCampaign } = useDeleteSignleCampaign();
+  const deleteMutation = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
   const { data: categoryData } = useFetchCategory();
   const categoryOptions =
@@ -143,17 +144,27 @@ const CampaignTable = () => {
       setSelectedCampaign(c);
       setIsOpen(true);
     },
-    [deleteCampaign]
+    [deleteMutation]
   );
   const confirmDelete = useCallback(() => {
     if (selectedCampaign?.id) {
+      setDeleteLoading(true);
       toast.dismiss();
       toast.loading("Deleting Campaign....")
-      deleteCampaign(selectedCampaign.id.toString());
-      setIsOpen(false);
-      setSelectedCampaign(null);
+      deleteMutation.mutate(selectedCampaign.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
+        setSelectedCampaign(null);
+      },
+      onError: () => {
+        setDeleteLoading(false)
+        setIsOpen(false); 
+      },
+    });
     }
-  }, [selectedCampaign, deleteCampaign]);
+  }, [selectedCampaign, deleteMutation]);
+  
 
   const columns = useMemo(
     () =>
@@ -325,6 +336,8 @@ const CampaignTable = () => {
                   setMode(editCampaign ? "edit" : "add");
 
                 }}
+                createMutation={createMutation}
+                updateMutation={updateMutation}
                 onSubmit={() => {
 
                   submitCampaignForm(
@@ -382,6 +395,7 @@ const CampaignTable = () => {
       )}
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"

@@ -37,6 +37,7 @@ const QueriesTable = () => {
   const [previewData, setPreviewData] = useState<Query | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedQuerry, setSelectedQuerry] = useState<Query | null>(null);
+  const[deleteLoading,setDeleteLoading]=useState<boolean>(false)
 
 
   // Pagination state
@@ -60,7 +61,7 @@ const QueriesTable = () => {
   } = useFetchSingleQuery(queryId);
 
   // Delete mutation
-  const { mutate: deleteQuery } = useDeleteQuery();
+  const deleteQuery = useDeleteQuery();
 
   // Handlers
   const handleView = useCallback(
@@ -86,18 +87,27 @@ const QueriesTable = () => {
 
   const confirmDelete = useCallback(() => {
     if (selectedQuerry?.id) {
+      setDeleteLoading(true)
       toast.dismiss();
       toast.loading("Deleting Query....")
-      deleteQuery(selectedQuerry.id.toString());
-      setIsOpen(false);
+      deleteQuery.mutate(selectedQuerry.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
       setSelectedQuerry(null);
+      },
+      onError: () => {
+        setDeleteLoading(false)
+        setIsOpen(false); 
+      },
+    });      
     }
   }, [selectedQuerry, deleteQuery]);
 
   const columns = useMemo(
     () =>
       getQueryColumns({
-        onEdit: () => {}, // No edit now
+        onEdit: () => {}, 
         onDelete: handleDelete,
         onView: handleView,
       }),
@@ -183,6 +193,7 @@ const QueriesTable = () => {
       )}
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"

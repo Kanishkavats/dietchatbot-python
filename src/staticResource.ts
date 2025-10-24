@@ -353,6 +353,10 @@ export const filterFields = [
   { label: "Viewed Status", value: "isViewed" },
   { label: "Form Type", value: "formType" },
 ];
+export const CategoryfilterFields = [
+  { label: "Select filter", value: "none" },
+  { label: "Name", value: "name" },
+];
 
 export const isViewedOptions = [
   { label: "All", value: "all" },

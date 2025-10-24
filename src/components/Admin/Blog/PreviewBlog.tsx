@@ -7,8 +7,9 @@ import { MdLocationPin } from "react-icons/md";
 import { LucideCircleCheckBig } from "lucide-react";
 import Button from "../../UI/web/Buttons/Button";
 import { BlogPreviewProps } from "@/src/types/admin";
+import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
 
-const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true }: BlogPreviewProps) => {
+const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMutation,updateMutation }: BlogPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [language, setLanguage] = useState<"en" | "hi">("en");
 
@@ -181,18 +182,23 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true }: BlogPr
             rounded="rounded-lg"
             hoverBg="before:bg-red-50"
             onClick={onBack}
-            text="Edit"
+            
             icon=""
-          />
+          >
+             {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
+          </Button>
 
           <Button
             rounded="rounded-lg"
             onClick={onSubmit}
-            text="Submit"
             bgColor="bg-lime-green"
             hoverBg="before:bg-green"
             icon=""
-          />
+          >
+             {createMutation?.isPending || updateMutation?.isPending ? (
+                      <ButtonLoader />
+                    ) : <>{lang === "hi" ? "सबमिट" : "Submit"}</>}
+                  </Button>
         </div>
       )}
     </motion.div>
