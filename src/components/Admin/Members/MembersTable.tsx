@@ -244,6 +244,8 @@ const MemberTable = () => {
                 data={previewData!}
                 showButton={mode === "preview-edit"}
                 mode={mode}
+                createMutation={createMutation}
+                updateMutation={updateMutation}
                 onBack={() => {
                   setShowPreview(false)
                   setMode(editMember ? "edit" : "add");
