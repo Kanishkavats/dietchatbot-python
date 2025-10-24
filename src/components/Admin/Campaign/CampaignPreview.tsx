@@ -89,7 +89,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
         <p>
           <span className="font-semibold text-foreground">Organizer
             : </span>
-          {data.organizer}
+          {data.organizer || "Admin"}
         </p>
         <p>
           <span className="font-semibold text-foreground">Goal Amount: </span>
@@ -122,14 +122,15 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
 
       {/* Buttons */}
       {showButton&&(
-        <div className="mt-12 flex flex-wrap gap-6 justify-end md:w-fit">
+        <div className="mt-12 flex  gap-6 justify-end md:w-fit">
           <Button
             bgColor="bg-red"
             rounded="rounded-lg"
             hoverBg="before:bg-red-50"
             onClick={onBack}
+            icon=""
           >
-            Back to Edit
+           Edit
           </Button>
 
           <Button
@@ -138,6 +139,7 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true }: Campa
             text="Submit"
             bgColor="bg-lime-green"
             hoverBg="before:bg-green"
+            icon=""
           />
         </div>
         )}

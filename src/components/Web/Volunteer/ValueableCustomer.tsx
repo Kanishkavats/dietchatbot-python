@@ -34,9 +34,9 @@ const ValueableCustomer = () => {
   const validFeedbacks = feedbacks.filter(
     (f: any) => f.name && f.feedback && f.rating && f.image
   );
-  
-    const headerRef = useRef(null);
-    const isHeaderInView = useInView(headerRef, { once: true });
+
+  const headerRef = useRef(null);
+  const isHeaderInView = useInView(headerRef, { once: true });
 
   if (isLoading) return <CustomLoader />;
   if (validFeedbacks.length === 0) return null;
@@ -54,7 +54,7 @@ const ValueableCustomer = () => {
 
       {/* Heading */}
       <div ref={headerRef} className=" mt-20  md:mt-[140px] px-4 sm:px-6 md:px-8  relative z-20 flex justify-center items-center">
-       <div className="lg:max-w-[700px]">
+        <div className="lg:max-w-[700px]">
           <ComponentLabel
             className='md:justify-center'
             text="Start Donating Poor People"
@@ -62,9 +62,9 @@ const ValueableCustomer = () => {
           />
           <ComponentTitle
             className='lg:text-center'
-             preText="Our"
-          highlightText="Valuable Customers"
-          postText=" Awesome Feedback"
+            preText="Our"
+            highlightText="Valuable Customers"
+            postText=" Awesome Feedback"
           />
         </div>
       </div>
