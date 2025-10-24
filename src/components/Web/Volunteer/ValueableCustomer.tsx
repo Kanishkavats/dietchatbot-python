@@ -1,24 +1,25 @@
+
+
+
 "use client";
 
 import React, { useRef } from "react";
 import Image from "next/image";
-import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
-import { ArrowLeft, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import { useInView } from "framer-motion";
 
 import CustomLoader from "../../UI/web/Loader/CustomLoader";
 import { bgOneVolunteer, image99, valueableshape } from "@/public/assets";
 import { fetchFeedback } from "@/src/services/web";
 import StarRating from "../../UI/web/StarRating";
 import ComponentLabel from "../../UI/web/ComponentLabel";
-import { useInView } from "framer-motion";
 import ComponentTitle from "../../UI/web/ComponentTitle";
+import ArrowButton from "@/src/components/Button"; // ✅ Imported your new button
 
 const truncateText = (text: string, maxLength: number): string =>
   !text ? "" : text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
@@ -34,37 +35,40 @@ const ValueableCustomer = () => {
   const validFeedbacks = feedbacks.filter(
     (f: any) => f.name && f.feedback && f.rating && f.image
   );
-  
-    const headerRef = useRef(null);
-    const isHeaderInView = useInView(headerRef, { once: true });
+
+  const headerRef = useRef(null);
+  const isHeaderInView = useInView(headerRef, { once: true });
 
   if (isLoading) return <CustomLoader />;
   if (validFeedbacks.length === 0) return null;
 
   return (
     <section
-      className="relative w-full min-h-screen bg-cover bg-center pt-3 sm:py-12 md:py-16 pb-16 xl:pb-48 "
+      className="relative w-full min-h-screen bg-cover bg-center pt-3 sm:py-12 md:py-16 pb-16 xl:pb-48"
       style={{ backgroundImage: `url(${bgOneVolunteer.src})` }}
     >
       {/* Background shape */}
       <div
-        className="absolute top-0 left-0 w-[80%] sm:w-[70%] md:w-[60%] h-[30%] bg-no-repeat bg-contain z-10 "
+        className="absolute top-0 left-0 w-[80%] sm:w-[70%] md:w-[60%] h-[30%] bg-no-repeat bg-contain z-10"
         style={{ backgroundImage: `url(${valueableshape.src})` }}
       />
 
       {/* Heading */}
-      <div ref={headerRef} className=" mt-20  md:mt-[140px] px-4 sm:px-6 md:px-8  relative z-20 flex justify-center items-center">
-       <div className="lg:max-w-[700px]">
+      <div
+        ref={headerRef}
+        className="mt-20 md:mt-[140px] px-4 sm:px-6 md:px-8 relative z-20 flex justify-center items-center"
+      >
+        <div className="lg:max-w-[700px]">
           <ComponentLabel
-            className='md:justify-center'
+            className="text-center"
             text="Start Donating Poor People"
             isVisible={isHeaderInView}
           />
           <ComponentTitle
-            className='lg:text-center'
-             preText="Our"
-          highlightText="Valuable Customers"
-          postText=" Awesome Feedback"
+            className="lg:text-center"
+            preText="Our"
+            highlightText="Valuable Customers"
+            postText=" Awesome Feedback"
           />
         </div>
       </div>
@@ -101,8 +105,11 @@ const ValueableCustomer = () => {
                 />
 
                 {/* Rating */}
-                <StarRating rating={item.rating || 0} size={20} className="mb-3 text-yellow" />
-
+                <StarRating
+                  rating={item.rating || 0}
+                  size={20}
+                  className="mb-3 text-yellow"
+                />
 
                 {/* Feedback Text */}
                 <p className="text-gray-500 font-nunito text-base leading-relaxed">
@@ -124,7 +131,9 @@ const ValueableCustomer = () => {
                     />
                   </div>
                   <div>
-                    <h4 className="font-bold font-nunito text-base text-foreground">{t(item.name)}</h4>
+                    <h4 className="font-bold font-nunito text-base text-foreground">
+                      {t(item.name)}
+                    </h4>
                     <p className="text-gray-500 font-nunito text-sm">
                       {t(item.designation || item.role)}
                     </p>
@@ -135,14 +144,14 @@ const ValueableCustomer = () => {
           ))}
         </Swiper>
 
-        {/* Navigation buttons */}
+        {/* ✅ Replaced Navigation Buttons */}
         <div className="flex justify-center gap-4 mt-10">
-          <button className="prev-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors">
-            <ArrowLeft size={24} />
-          </button>
-          <button className="next-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors">
-            <ArrowRight size={24} />
-          </button>
+          <div className="prev-btn">
+            <ArrowButton direction="left" size={56} />
+          </div>
+          <div className="next-btn">
+            <ArrowButton direction="right" size={56} />
+          </div>
         </div>
       </div>
     </section>

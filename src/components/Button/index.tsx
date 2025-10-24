@@ -28,7 +28,7 @@ const ArrowButton: React.FC<ArrowButtonProps> = ({
   return (
     <button
       onClick={onClick}
-      className={`group flex items-center justify-center rounded-full transition-all duration-300 ${bgColor} ${hoverBg} ${className}`}
+      className={`group flex items-center justify-center rounded-full cursor-pointer transition-all duration-300 ${bgColor} ${hoverBg} ${className}`}
       style={{ width: size, height: size }}
     >
       <IconComponent
