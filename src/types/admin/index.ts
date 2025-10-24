@@ -28,6 +28,8 @@ export interface EventPreviewProps {
   onBack: () => void;
   mode?: "add" | "edit" | "view"|"preview-edit";
   showButton?:boolean;
+  createMutation?: UseMutationResult<any, Error, EventFormValues>;
+  updateMutation?: UseMutationResult<any, Error, { id: string; values: EventFormValues }>;
 }
 export interface MemberPreviewProps {
   data: MemberFormValues & { createdAt?: string };
@@ -35,6 +37,8 @@ export interface MemberPreviewProps {
   onBack: () => void;
   mode?: "add" | "edit" | "view"|"preview-edit";
   showButton?:boolean;
+  createMutation?: UseMutationResult<any, Error, MemberFormValues>;
+  updateMutation?: UseMutationResult<any, Error, { id: string; values:MemberFormValues }>;
 }
 
 export interface BannerColumnCallbacks {

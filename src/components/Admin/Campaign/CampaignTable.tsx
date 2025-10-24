@@ -52,12 +52,25 @@ const CampaignTable = () => {
   const [itemsPerPage] = useState(10);
   const searchedData = useDebounce(search, 1000);
   const { language } = useLanguageToggle();
+  const[localLoading,setLocalLoading]=useState(false)
 
   const { data: campaignData, isLoading } = useFetchAllCampaigns(currentPage, itemsPerPage, searchedData, searchField) as { data: { campaigns: Campaign[]; totalPages: number }, isLoading: boolean };
   const { data: singleCampaignData, isLoading: isLoadingCampaign, refetch } = useFetchSingleCampaign(editCampaign || undefined) as { data: Campaign, isLoading: boolean, refetch: any}; ;
   const deleteMutation = useDeleteSignleCampaign();
   const totalPages = campaignData?.totalPages || 1;
   const { data: categoryData } = useFetchCategory();
+  React.useEffect(() => {
+  if (editCampaign) {
+    setLocalLoading(true);
+  }
+}, [editCampaign]);
+
+
+React.useEffect(() => {
+  if (!isLoadingCampaign && singleCampaignData) {
+    setLocalLoading(false);
+  }
+}, [isLoadingCampaign, singleCampaignData]);
   const categoryOptions =
     categoryData?.category?.map((category: Category) => ({
       label: category.name?.[language] || category.name.en,
@@ -358,7 +371,7 @@ const CampaignTable = () => {
             )
           )}
           {(mode === "add" || mode === "edit") && (
-            isLoadingCampaign ? (
+            localLoading ? (
               <div><CustomLoader /></div>
             ) :
               (

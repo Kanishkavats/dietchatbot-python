@@ -165,36 +165,27 @@ const BannerForm = ({
                   }
                 }}
               />
-
-              {/* Action Buttons */}
-              {!isView && (
-                <div className="flex gap-2 mt-4 w-fit">
-                  <Button
-                    type="button"
-                    onClick={handlePreviewClick}
-                    disabled={
-                      isSubmitting || createMutation.isPending || updateMutation.isPending
-                    }
-                    bgColor="bg-lime-green"
-                    paddingx="px-4"
-                    paddingy="py-2"
-                    rounded="rounded-[5px]"
-                  >
-                    {isSubmitting ? (
-                      <ButtonLoader />
-                    ) : isEdit ? (
-                      "Update"
-                    ) : (
-                      "Preview"
-                    )}
-                  </Button>
-
-                  <CancelButton text="Cancel" onClose={onClose} />
-                </div>
-              )}
-            </Form>
-          )
-        }}
+            {/* Action Buttons */}
+             {!isView && (
+                              <div className="flex gap-2 mt-4 w-fit">
+                                <Button
+                                  type="button"
+                                  onClick={handlePreviewClick}
+                                  disabled={
+                                     isSubmitting || createMutation.isPending || updateMutation.isPending
+                                  }
+                                  bgColor="bg-lime-green"
+                                  paddingx="px-4"
+                                  paddingy="py-2"
+                                  rounded="rounded-[5px]"
+                                  text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
+                                >
+                                </Button>
+                                <CancelButton text={lang==='hi'?'रद्द करें':"Cancel"} onClose={onClose} />
+                              </div>
+                            )}
+          </Form>
+        )}}
       </Formik>
     </div>
   );

@@ -111,14 +111,14 @@ const AdminSideBarTab = ({
             className={`bg-white rounded-r-3xl shadow-md flex flex-col z-50 sticky top-0 bottom-0 `}
           >
             {/* Logo */}
-            <div className="flex flex-col items-center pb-6 pt-10">
+            <div className="flex flex-col items-center pb-4 pt-8">
               {isOpen ? (
                 <Image
                   src={logo.src}
                   alt="logo"
                   width={180}
                   height={80}
-                  className="mb-6 h-10 w-auto"
+                  className="mb-6 h-15 w-auto"
                 />
               ) : (
                 <div className="h-10" />

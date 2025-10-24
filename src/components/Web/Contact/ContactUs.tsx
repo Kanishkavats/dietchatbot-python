@@ -1,10 +1,8 @@
 
-
 "use client";
 import React from "react";
 import Image from "next/image";
-import { FaHandHoldingHeart, FaStar } from "react-icons/fa";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { FaHandHoldingHeart } from "react-icons/fa";
 import ContactForm from "./ContactForm";
 import ContactInfoBlock from "./ContactInfoBlock";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
@@ -17,18 +15,21 @@ import "swiper/css/navigation";
 import { useFetchApprovedFeedbacks } from "@/src/hooks/web/useFeedback";
 import StarRating from "../../UI/web/StarRating";
 import { contactInfo } from "@/src/staticResource";
+import ArrowButton from "@/src/components/Button"; // ✅ Using your custom button
 
 const ContactUs = () => {
   const { t } = useTranslation();
-  const { data } = useFetchApprovedFeedbacks(1, 10, "all") as { data: FeedbackApiResponse };
-  console.log("data", data)
+  const { data } = useFetchApprovedFeedbacks(1, 10, "all") as {
+    data: FeedbackApiResponse;
+  };
 
   const truncateText = (text: string, maxLength: number) => {
     if (!text) return "";
     return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
   };
 
-  const feedbacks = data?.feedback && Array.isArray(data.feedback)
+  const feedbacks =
+    data?.feedback && Array.isArray(data.feedback)
       ? data.feedback.slice(0, 9)
       : [];
 
@@ -63,7 +64,7 @@ const ContactUs = () => {
                 breakpoints={{
                   320: { slidesPerView: 1, spaceBetween: 10 },
                   640: { slidesPerView: 2, spaceBetween: 10 },
-                  724: {slidesPerView:2, spaceBetween:6},
+                  724: { slidesPerView: 2, spaceBetween: 6 },
                   768: { slidesPerView: 2, spaceBetween: 12 },
                   1020: { slidesPerView: 1, spaceBetween: 12 },
                   1220: { slidesPerView: 1, spaceBetween: 12 },
@@ -85,10 +86,14 @@ const ContactUs = () => {
                 className="pb-12"
               >
                 {feedbacks?.map((item: Feedback, idx: number) => (
-                  <SwiperSlide key={`${item.id}-${idx}`}> 
+                  <SwiperSlide key={`${item.id}-${idx}`}>
                     <div className="relative bg-white border border-yellow rounded-3xl flex flex-col justify-between shadow-sm overflow-hidden px-6 py-8 w-full sm:w-[280px] md:w-[315px] lg:w-[220px] lg:h-[385.6px] xl:h-[385.6px] 2xl:w-[315.6px] 2xl:h-[385.6px] xl:w-[230px] h-auto min-h-[340px] mx-auto hover:shadow-lg transition-all duration-500 lg:w-full xl:w-full">
                       {/* Rating */}
-                     <StarRating rating={item.rating || 0} size={20} className="mb-3 text-yellow" />
+                      <StarRating
+                        rating={item.rating || 0}
+                        size={20}
+                        className="mb-3 text-yellow"
+                      />
 
                       {/* Feedback */}
                       <p className="text-[#667471] font-nunito text-sm sm:text-base leading-relaxed px-2 flex-grow">
@@ -125,14 +130,22 @@ const ContactUs = () => {
                 ))}
               </Swiper>
 
-              {/* Swiper Navigation Buttons */}
+              {/* ✅ Swiper Navigation Buttons (Updated with ArrowButton) */}
               <div className="flex justify-center gap-4 mt-6 sm:mt-8">
-                <button className="prev-btn  cursor-pointer w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-all duration-500 ease-in-out">
-                  <ArrowLeft size={24} />
-                </button>
-                <button className="next-btn  cursor-pointer w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-yellow hover:bg-[#122F2A] text-black hover:text-white flex items-center justify-center transition-all duration-500 ease-in-out">
-                  <ArrowRight size={24} />
-                </button>
+                <div className="prev-btn">
+                  <ArrowButton
+                    direction="left"
+                    size={56}
+                    className="shadow-md hover:scale-105"
+                  />
+                </div>
+                <div className="next-btn">
+                  <ArrowButton
+                    direction="right"
+                    size={56}
+                    className="shadow-md hover:scale-105"
+                  />
+                </div>
               </div>
             </div>
           )}

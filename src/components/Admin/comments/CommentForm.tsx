@@ -169,7 +169,7 @@ const CommentForm: React.FC<CommentFormProps> = ({ initialData, onClose, mode })
                   {isSubmitting || updateMutation.isPending ? <ButtonLoader /> : "Update"}
                 </Button>
                 <CancelButton
-                  text="Canceld"
+                  text="Cancel"
                   onClose={onClose}
                 />
               </div>

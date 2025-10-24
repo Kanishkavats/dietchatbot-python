@@ -21,7 +21,7 @@ import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormProps) => {
 
   const initialValues = getInitialCanpaignValues(initialData)
-  
+
   const { language, toggleLanguage } = useLanguageToggle();
   const [categories, setCategories] = useState<{ en?: any[]; hi?: any[] }>({});
   const { data: categoryData } = useFetchCategory();
@@ -54,7 +54,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
         initialValues={initialValues}
         validationSchema={campaignSchema}
         onSubmit={(values: CampaignFormValues) => {
-          const payload  = { ...values };
+          const payload = { ...values };
           onPreview?.(payload);
         }}
       >
@@ -123,7 +123,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                 options={mergedCategories}
                 value={values.category || ""}
                 onChange={(val) => {
-                  const selected = mergedCategories.find((opt:{ value: { en: string; hi: string; }; names: { en: string; hi: string; }; }) => opt.value === val);
+                  const selected = mergedCategories.find((opt: { value: { en: string; hi: string; }; names: { en: string; hi: string; }; }) => opt.value === val);
                   if (selected) {
                     setFieldValue("category", {
                       id: val,
@@ -184,7 +184,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
               <MultiInputList
                 label={`${lang === "en" ? "Key Points" : "मुख्य बिंदु"}`}
                 values={values.keyPoints[lang]}
-                onChange={(newPoints : string[]) => setFieldValue(`keyPoints.${lang}`, newPoints)}
+                onChange={(newPoints: string[]) => setFieldValue(`keyPoints.${lang}`, newPoints)}
                 placeholder={lang === "en" ? "Add a key point" : "मुख्य बिंदु जोड़ें"}
                 isView={isView}
               // error={touched.keyPoints?.[lang] && errors.keyPoints?.[lang] ? errors.keyPoints?.[lang] : ""}
@@ -229,25 +229,16 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                   <Button
                     type="button"
                     onClick={handlePreviewClick}
-                    disabled={
-                      isSubmitting
-                      // isSubmitting || createMutation.isPending || updateMutation.isPending
-                    }
+                    disabled={  isSubmitting }
                     bgColor="bg-lime-green"
                     paddingx="px-4"
                     paddingy="py-2"
                     rounded="rounded-[5px]"
+                    text={lang === "en" ? "Preview" : "पूर्वावलोकन"}
                   >
-                    {isSubmitting ? (
-                      <ButtonLoader />
-                    ) : isEdit ? (
-                      "Update"
-                    ) : (
-                      "Preview"
-                    )}
                   </Button>
 
-                  <CancelButton text={lang === 'hi' ? 'इसे रद्द करें' : "Cancel"} onClose={onClose} />
+                  <CancelButton text={lang === 'hi' ? 'रद्द करें' : "Cancel"} onClose={onClose} />
                 </div>
               )}
             </Form>
