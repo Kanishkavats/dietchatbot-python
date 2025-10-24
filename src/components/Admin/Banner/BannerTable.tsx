@@ -38,6 +38,7 @@ const BannerTable = () => {
   const [mode, setMode] = useState<"add" | "edit" | "view" | "preview-edit">("add");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
+  const [deleteLoading,setDeleteLoading]=useState<boolean>(false)
   const [itemsPerPage] = useState(10);
   const [showPreview, setShowPreview] = useState(false);
   const [previewData, setPreviewData] = useState<BannerFormValues | null>(null);
@@ -55,7 +56,7 @@ const BannerTable = () => {
 
   );
 
-  const { mutate: deleteBanner } = useDeleteBanner();
+  const deleteMutation = useDeleteBanner();
   const totalPages = bannerData?.totalPages || 1;
 
   const [bannerId, setBannerId] = useState<string | null>(null);
@@ -85,17 +86,25 @@ const BannerTable = () => {
     }
     setSelectedBanner(b);
     setIsOpen(true);
-  }, []);
+  }, [deleteMutation]);
 
   const confirmDelete = useCallback(() => {
     if (selectedBanner?.id) {
+      setDeleteLoading(true)
       toast.dismiss();
       toast.loading("Deleting banner...");
-      deleteBanner(selectedBanner.id.toString());
-      setIsOpen(false);
+      deleteMutation.mutate(selectedBanner.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
       setSelectedBanner(null);
+      },
+      onError: () => {
+        setIsOpen(false); 
+      },
+    });
     }
-  }, [selectedBanner, deleteBanner]);
+  }, [selectedBanner, deleteMutation]);
 
   const handlePreview = useCallback(
     async (banner: Banner) => {
@@ -237,6 +246,8 @@ const BannerTable = () => {
                   setShowPreview(false);
                   setMode(editBannerId ? "edit" : "add");
                 }}
+                createMutation={createMutation}
+                updateMutation={updateMutation}
                 onSubmit={() => {
                   if (!previewData) return;
                   const editBannerData = singleBannerData ?? null;
@@ -278,7 +289,7 @@ const BannerTable = () => {
                   setShowPreview(false);
                 }}
                 mode={mode}
-                onPreview={(data) => {
+                onPreview={(data:any) => {
                   setPreviewData(data);
                   setShowPreview(true);
                   setMode("preview-edit");
@@ -292,6 +303,7 @@ const BannerTable = () => {
 
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"

@@ -156,6 +156,7 @@ export const useDeleteSingleMember = () => {
     mutationFn: deleteMember,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["members"] });
+      toast.dismiss()
       toast.success("Member deleted successfully");
     },
     onError: (error: any) => {

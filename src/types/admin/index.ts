@@ -18,6 +18,8 @@ export interface BannerPreviewProps {
   onSubmit: () => void;
   mode?: "add" | "edit" | "view" | "preview-edit";
   showButtons?: boolean
+  createMutation?: UseMutationResult<any, Error, BannerFormValues>;
+  updateMutation?: UseMutationResult<any, Error, { id: string; values:BannerFormValues }>;
 }
 
 export interface EventPreviewProps {
@@ -60,6 +62,8 @@ export interface BlogPreviewProps {
   onBack: () => void;
   mode: string;
   showButton?:boolean
+  createMutation?: UseMutationResult<any, Error, FormData>;
+  updateMutation?: UseMutationResult<any, Error, { id: string; values:FormData }>;
 }
 
  export interface CampaignPreviewProps {
@@ -68,6 +72,8 @@ export interface BlogPreviewProps {
   onBack: () => void;
   mode?: "add" | "edit" | "view"|"preview-edit";
   showButton?:boolean
+ createMutation?: UseMutationResult<any, Error, CampaignFormValues>;
+  updateMutation?: UseMutationResult<any, Error, { id: string; values: CampaignFormValues }>;
 }
 
 export interface CommentFormProps {
@@ -95,6 +101,7 @@ export interface ConfirmModalProps {
   onConfirm: () => void;
   onCancel: () => void;
   buttonText: string;
+  loading?:boolean
 }
 
 export interface LanguageToggleProps {
@@ -138,6 +145,7 @@ export interface SettingItem {
 import { ChangeEvent, KeyboardEvent, ReactNode, RefObject } from "react";
 import { TableColumn } from "react-data-table-component";
 import { Banner } from "./banner";
+import { UseMutationResult } from "@tanstack/react-query";
 
 
 export interface DropdownOption<T> {
