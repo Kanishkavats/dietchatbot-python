@@ -11,8 +11,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CharityCard from './CharityCard';
 import { hand } from '@/public/assets';
-import { FaArrowLeft } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa";
+//import { FaArrowLeft } from "react-icons/fa";
+//import { FaArrowRight } from "react-icons/fa";
+import ArrowButton from '@/src/components/Button';
+
 import FadeUpCard from '@/src/animations/FadeButtomUp';
 import SlideinFromLeft from '@/src/animations/SlideInFromLeft';
 import { useTranslation } from 'react-i18next';
@@ -179,7 +181,7 @@ export default function CharityWithDifference() {
             </Swiper>
           </div>
           {/* Custom Navigation Buttons */}
-          <div className="flex justify-center items-center mt-6 lg:mt-10 space-x-4">
+         {/* <div className="flex justify-center items-center mt-6 lg:mt-10 space-x-4">
             <button
               className="swiper-button-prev-custom group bg-dark-green rounded-full w-14 h-14  flex items-center justify-center hover:bg-yellow transition-all duration-300"
               onMouseEnter={() => swiperRef.current?.autoplay?.start()}
@@ -197,7 +199,16 @@ export default function CharityWithDifference() {
               <FaArrowRight className="text-black cursor-pointer group-hover:text-white transition-colors duration-300" />
 
             </button>
-          </div>
+          </div>*/}
+         
+         <div className="flex justify-center items-center mt-6 lg:mt-10 space-x-4">
+  <div className="swiper-button-prev-custom">
+    <ArrowButton direction="left" size={60} />
+  </div>
+  <div className="swiper-button-next-custom">
+    <ArrowButton direction="right" size={60} />
+  </div>
+</div>
 
 
         </div>
