@@ -1,192 +1,191 @@
 "use client";
-
-import React, { useState, useMemo, useCallback } from "react";
-import DataTableWrapper from "../../UI/admin/DataTableWrapper";
-import AdminCustomPagination from "../../UI/admin/CustomePagination";
-import Drawer from "../../UI/admin/Drawer";
-import {
-  useDeleteQuery,
-  useFetchAllQueries,
-  useFetchSingleQuery,
-} from "@/src/hooks/admin/useQueries";
-import { Query } from "@/src/types/web/query";
-import Dropdown from "../../UI/admin/Dropdown";
-import {
-  filterFields,
-  formTypeOptions,
-  isViewedOptions,
-} from "@/src/staticResource";
+import React, { useState, useMemo, useCallback, useRef, useEffect } from "react";
+import Dropdown from "../../UI/admin/Dropdown"; 
+import CustomInput from "../../UI/admin/CustomInput"; 
+import Button from "../../UI/web/Buttons/Button"; 
+import Drawer from "../../UI/admin/Drawer"; 
+import DataTableWrapper from "../../UI/admin/DataTableWrapper"; 
+import { CategorySearchOptions } from "../Data/staticData";
+import CategoryForm from "./CategoryForm";
+import { useFetchCategory, useDeleteCategory, useFetchCategoryById } from '@/src/hooks/admin/useCategory' 
+import { Category } from "@/src/types/admin/category";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
-import ConfirmModal from "../../UI/admin/ConfirmModal";
+import { getCategoryColumns } from "./categoryColumns";
+import AdminCustomPagination from "../../UI/admin/CustomePagination"; 
+import CustomLoader from "../../UI/web/Loader/CustomLoader"; 
 import toast from "react-hot-toast";
-import CustomLoader from "../../UI/web/Loader/CustomLoader";
-import QueryPreview from "../Queries/QueryPreview";
-import { getQueryColumns } from "../Queries/getQueriesColumns";
+import ConfirmModal from "../../UI/admin/ConfirmModal";
+import useDebounce from "@/src/hooks/web/useDebounce";
 
-const QueriesTable = () => {
-  // 🔹 Filter states
-  const [filterField, setFilterField] = useState<"none" | "isViewed" | "formType">("none");
-  const [filterValue, setFilterValue] = useState<string>("all");
-
-  // 🔹 Drawer & delete modal
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [queryId, setQueryId] = useState<string | null>(null);
-  const [previewData, setPreviewData] = useState<Query | null>(null);
+const CategoryTable = () => {
+  const [search, setSearch] = useState("");
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedQuery, setSelectedQuery] = useState<Query | null>(null);
-
-  // 🔹 Pagination
+  const[seletedCategory,setSelectedCategory]=useState<Category|null>()
+  const [searchField, setSearchField] = useState<"name">("name");
+  const[deleteLoading,setDeleteLoading]=useState<boolean>(false)
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [editCategory, setEditCategory] = useState<string | null>(null);
+  const [mode, setMode] = useState<"add" | "edit" | "view">("add");
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
+  const debounceValue=useDebounce(search,1000);
 
 
-  // 🔹 Fetch all queries from backend
-  const { data: allData, isLoading } = useFetchAllQueries(
-    currentPage,
-    itemsPerPage,
-    filterValue,
-    filterField
-  );
-
-  const totalPages = allData?.totalPages ?? 1;
-
-  // 🔹 Fetch single query (for preview)
-  const {
-    data: singleQueryData,
-    isLoading: isSingleQueryLoading,
-    refetch: refetchSingle,
-  } = useFetchSingleQuery(queryId);
-
-  // 🔹 Delete mutation
-  const { mutate: deleteQuery } = useDeleteQuery();
-
-  // 🔹 Handlers
-  const handleView = useCallback(
-    (query: Query) => {
-      setQueryId(query.id ?? null);
-      setPreviewData(query);
-      setDrawerOpen(true);
-      refetchSingle();
-    },
-    [refetchSingle]
-  );
-
-  const handleDelete = useCallback((query: Query) => {
-    setSelectedQuery(query);
-    setIsOpen(true);
+  const { data: categoryData, isLoading } = useFetchCategory(currentPage, itemsPerPage,debounceValue,searchField);
+  const{data:singleCategoryData,isLoading:singleCategoryLoading}=useFetchCategoryById(editCategory!)
+  const deleteCategory = useDeleteCategory();
+useEffect(() => {
+  if (mode === "view" && singleCategoryData) {
+    setDrawerOpen(true);
+  }
+}, [singleCategoryData, mode]);
+  const handleEdit = useCallback((c: Category) => {
+    setEditCategory(c.id);
+    setMode("edit");
+    setDrawerOpen(true);
   }, []);
 
+  const handleView = useCallback((c: Category) => {
+
+    setEditCategory(c.id);
+    setMode("view");
+    setDrawerOpen(true);
+  }, []);
+
+  const handleDelete = useCallback((category: Category) => {
+    setSelectedCategory(category);
+    setIsOpen(true);
+  }, [deleteCategory]);
+
   const confirmDelete = useCallback(() => {
-    if (selectedQuery?.id) {
+    if (seletedCategory?.id) {
+       setDeleteLoading(true);
       toast.dismiss();
-      toast.loading("Deleting Query...");
-      deleteQuery(selectedQuery.id.toString());
-      setIsOpen(false);
-      setSelectedQuery(null);
+      toast.loading("Deleting Category....")
+      deleteCategory.mutate(seletedCategory.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
+      setSelectedCategory(null);
+      },
+      onError: () => {
+        setDeleteLoading(false)
+        setIsOpen(false); 
+      },
+    });      
     }
-  }, [selectedQuery, deleteQuery]);
+  }, [seletedCategory, deleteCategory]);
 
   const columns = useMemo(
-    () =>
-      getQueryColumns({
-        onEdit: () => {}, 
-        onDelete: handleDelete,
-        onView: handleView,
-      }),
-    [handleDelete, handleView]
+    () => getCategoryColumns({ onEdit: handleEdit, onDelete: handleDelete, onView: handleView }),
+    [handleEdit, handleDelete, handleView]
   );
 
+  const totalPages = categoryData?.TotalPages || 1;
+
   return (
-    <section>
-      {/* 🔹 Filters */}
+    <div>
+      {/* Top controls */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <AnimatedReveal direction="left" delay={0.1}>
-          <div className="flex flex-row gap-2">
-            {/* Field selection */}
-            <Dropdown
-              options={filterFields}
-              value={filterField}
+          <div className="w-fit flex flex-row gap-2">
+             <Dropdown
+              options={CategorySearchOptions}
+              value={searchField}
               onChange={(value) => {
-                setFilterField(value as "none" | "isViewed" | "formType");
-                setFilterValue("all");
+                setSearchField(value);
+                setTimeout(() => {
+                  searchInputRef.current?.focus();
+                }, 0);
               }}
             />
+            <CustomInput
+              ref={searchInputRef}
+              placeholder={`Search by ${searchField}...`}
+              value={search}
+              onChange={(e:any) => setSearch(e.target.value)}
+            />
+          </div>
+        </AnimatedReveal>
 
-            {/* Value selection based on field */}
-            <Dropdown
-              options={
-                filterField === "isViewed"
-                  ? isViewedOptions
-                  : filterField === "formType"
-                  ? formTypeOptions
-                  : [{ label: "Select option", value: "all" }]
-              }
-              value={filterValue}
-              onChange={setFilterValue}
-              disabled={filterField === "none"}
+        <AnimatedReveal direction="left" delay={0.3}>
+          <div className="w-fit">
+            <Button
+              text="Add Category"
+              onClick={() => {
+                setDrawerOpen(true);
+                setEditCategory(null);
+                setMode("add");
+              }}
+              bgColor="bg-lime-green"
+              hoverBg="before:bg-primaryColor"
+              textColor="text-white"
+              hoverTextColor="group-hover:text-foreground"
+              paddingx="px-4"
+              paddingy="py-2"
+              rounded="rounded-[5px] "
             />
           </div>
         </AnimatedReveal>
       </div>
 
-      {/* 🔹 Table */}
+      {/* Table */}
       {isLoading ? (
         <div className="flex justify-center py-8">
           <CustomLoader />
         </div>
       ) : (
-        <DataTableWrapper columns={columns} data={allData?.forms ?? []} />
+        <DataTableWrapper columns={columns} data={categoryData?.category} />
+
       )}
 
-      {/* 🔹 Pagination */}
+      {/* Pagination */}
       {totalPages > 1 && (
         <div className="flex justify-end mt-4">
           <AdminCustomPagination
-            currentPage={currentPage}
             totalPages={totalPages}
+            currentPage={currentPage}
             onPageChange={setCurrentPage}
           />
         </div>
       )}
 
-      {/* 🔹 Drawer (Preview Query) */}
-      {drawerOpen && previewData && (
+      {/* Drawer */}
+      {drawerOpen && (
         <Drawer
           isOpen={drawerOpen}
           onClose={() => {
             setDrawerOpen(false);
-            setQueryId(null);
-            setPreviewData(null);
+            setEditCategory(null);
+            setMode("add");
           }}
-          title="Preview Query"
-          mode="view"
+          title={mode === "edit" ? "Edit Category" : mode === "view" ? "View Category" : "Add Category"}
+          width="400px"
         >
-          {isSingleQueryLoading ? (
-            <CustomLoader />
-          ) : (
-            <QueryPreview
-              data={singleQueryData}
-              onClose={() => {
-                setDrawerOpen(false);
-                setQueryId(null);
-                setPreviewData(null);
-              }}
-            />
-          )}
+          <CategoryForm
+            initialData={
+          singleCategoryData?.category ||
+          singleCategoryData ||
+          categoryData?.category?.find((c: Category) => c.id === editCategory)
+        }
+
+            onClose={() => setDrawerOpen(false)}
+            mode={mode}
+          />
         </Drawer>
       )}
-
-      {/* 🔹 Confirm Modal */}
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"
-        message="Are you sure you want to delete this record?"
+        message="Are you sure you want to delete these record ?"
         buttonText="Delete"
       />
-    </section>
+    </div>
   );
 };
 
-export default QueriesTable;
+export default CategoryTable;

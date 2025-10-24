@@ -227,7 +227,7 @@ const CampaignForm = ({ initialData, onClose, mode, onPreview }: CampaignFormPro
                                   )}
                                 </Button>
               
-                                <CancelButton text="Cancel" onClose={onClose} />
+                                <CancelButton text={lang==='hi'?'इसे रद्द करें':"Cancel"} onClose={onClose} />
                               </div>
                             )}
             </Form>

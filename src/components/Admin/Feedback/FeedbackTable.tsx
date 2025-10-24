@@ -39,6 +39,7 @@ const FeedbackTable = () => {
     null
   );
   const searchedData = useDebounce(search, 1000);
+  const[deleteLoading,setDeleteLoading]=useState<boolean>(false);
 
   // Fetch feedback data with filters
   const { data: feedbackData, isLoading } = useFetchFeedbacks(
@@ -48,7 +49,7 @@ const FeedbackTable = () => {
     searchField
   ) as { data: FeedbackApiResponse; isLoading: boolean , };
 
-  const { mutate: deleteFeedback } = useDeleteFeedback();
+  const deleteFeedback = useDeleteFeedback();
 
   const totalPages = feedbackData?.totalPages || 1;
 
@@ -96,11 +97,20 @@ const FeedbackTable = () => {
   );
   const confirmDelete = useCallback(() => {
     if (selectedFeedBack) {
+      setDeleteLoading(true)
       toast.dismiss();
       toast.loading("Deleting Feedback....")
-      deleteFeedback(selectedFeedBack.id.toString());
-      setIsOpen(false);
+      deleteFeedback.mutate(selectedFeedBack.id.toString(), {
+      onSuccess: () => {
+        setDeleteLoading(false)
+        setIsOpen(false);
       setSelectedFeedBack(null);
+      },
+      onError: () => {
+        setDeleteLoading(false)
+        setIsOpen(false); 
+      },
+    });      
     }
   }, [selectedFeedBack, deleteFeedback]);
 
@@ -201,6 +211,7 @@ const FeedbackTable = () => {
       )}
       <ConfirmModal
         isOpen={isOpen}
+        loading={deleteLoading}
         onConfirm={confirmDelete}
         onCancel={() => setIsOpen(false)}
         title="Confirm Delete"
