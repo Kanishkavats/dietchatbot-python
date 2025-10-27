@@ -1,5 +1,5 @@
 import React from "react";
-import { FaEdit, FaEye, FaTrash } from "react-icons/fa";
+import {  FaEye, FaTrash } from "react-icons/fa";
 import TableRowActions from "../Campaign/CampaignActions";
 import { Query } from "@/src/types/web/query";
 import { Icon } from "@iconify/react";

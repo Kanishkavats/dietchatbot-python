@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 
 
 
@@ -91,6 +91,7 @@ const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
                 alt="Additional Image 1"
                 fill
                 className="object-cover"
+                 loading="lazy"
               />
             </div>
             <div className="relative w-full h-[200px]  lg:h-[300px] rounded-lg overflow-hidden">
@@ -99,6 +100,7 @@ const CampaignInfo: React.FC<CampaignInfoProps> = ({ data, formattedDate }) => {
                 alt="Additional Image 2"
                 fill
                 className="object-cover"
+                 loading="lazy"
               />
             </div>
           </div>

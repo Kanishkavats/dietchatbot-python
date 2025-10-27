@@ -37,6 +37,7 @@ const ChildrenNeed = () => {
               alt="shape left"
               fill
               className="object-cover pointer-events-none select-none overflow-hidden"
+               loading="lazy"
             />
           </motion.div>
 
@@ -91,6 +92,7 @@ const ChildrenNeed = () => {
               alt="bottom shape"
               fill
               className="object-cover"
+               loading="lazy"
             />
           </div>
         </div>

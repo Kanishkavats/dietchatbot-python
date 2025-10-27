@@ -76,6 +76,7 @@ const SendMsg: React.FC = () => {
             fill
             priority
             className="object-cover"
+             loading="lazy"
           />
         </motion.div>
       </FadeInUp>

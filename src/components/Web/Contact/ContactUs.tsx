@@ -172,6 +172,7 @@ const ContactUs = () => {
               height={260}
               width={516}
               className="w-full h-auto object-cover"
+               loading="lazy"
             />
           </div>
         </AnimatedReveal>

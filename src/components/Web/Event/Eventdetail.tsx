@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { IoLocationSharp, IoCalendarSharp } from "react-icons/io5";
 import {
   FaRegCheckCircle,
@@ -68,6 +67,7 @@ const EventDetail = () => {
                     fill
                     priority
                     className="object-cover object-center"
+                     loading="lazy"
                   />
                 </div>
 
@@ -108,10 +108,10 @@ const EventDetail = () => {
                 {/* Detail Images */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                   <div className="relative w-full h-[300px] rounded-lg overflow-hidden">
-                    <Image src={event?.images?.[1] || eventdetail1} alt="Detail 1" fill className="object-cover" />
+                    <Image src={event?.images?.[1] || eventdetail1} alt="Detail 1" fill className="object-cover"  loading="lazy" />
                   </div>
                   <div className="relative w-full h-[220px] sm:h-[300px] rounded-lg overflow-hidden">
-                    <Image src={event?.images?.[2] || eventdetail1} alt="Detail 2" fill className="object-cover" />
+                    <Image src={event?.images?.[2] || eventdetail1} alt="Detail 2" fill className="object-cover"  loading="lazy" />
                   </div>
                 </div>
 

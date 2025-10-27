@@ -38,6 +38,7 @@ const FAQSideImages = () => {
           alt="Mother with child"
           fill
           className="object-cover"
+           loading="lazy"
         />
       </SlideInRight>
     </div>

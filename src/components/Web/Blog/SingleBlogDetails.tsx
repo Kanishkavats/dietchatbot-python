@@ -54,6 +54,7 @@ const SingleBlogDetails = ({data,id}:props)=> {
                 fill
                 priority
                 className="object-cover object-center"
+               
               />
             </div>
           )}

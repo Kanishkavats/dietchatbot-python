@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import {  useRef } from 'react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -11,8 +11,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import CharityCard from './CharityCard';
 import { hand } from '@/public/assets';
-//import { FaArrowLeft } from "react-icons/fa";
-//import { FaArrowRight } from "react-icons/fa";
+
 import ArrowButton from '@/src/components/Button';
 
 import FadeUpCard from '@/src/animations/FadeButtomUp';

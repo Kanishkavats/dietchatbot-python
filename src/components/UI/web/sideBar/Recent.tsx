@@ -1,7 +1,7 @@
 "use client";
-// import { causes } from "@/src/staticResource";
+
 import CauseCard from "./CauseCard"; 
-import { motion } from "framer-motion";
+
 import FadeInUp from "@/src/animations/FadeInUp";
 import { useTranslation } from "react-i18next";
 
