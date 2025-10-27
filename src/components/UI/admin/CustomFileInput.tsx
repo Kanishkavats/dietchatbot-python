@@ -5,6 +5,8 @@ import { Icon } from "@iconify/react";
 import toast from "react-hot-toast";
 import { AdminCustomFileInputProps, AdminFileItem } from "@/src/types/admin";
 import { useTranslation } from "react-i18next";
+import Image from "next/image";
+
 
 const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
   label,
@@ -206,11 +208,17 @@ const CustomFileInput: React.FC<AdminCustomFileInputProps> = ({
               className="flex items-center justify-between border border-gray-200 rounded-md px-3 py-2 bg-white shadow-sm"
             >
               <div className="flex items-center gap-2">
-                <img
-                  src={f.url}
-                  alt={f.file?.name || `file-${idx}`}
-                  className="w-10 h-10 object-cover rounded"
-                />
+                
+                <div className="relative w-10 h-10 rounded overflow-hidden">
+                  <Image
+                    src={f.url || "/default-image.jpg"} // fallback image
+                    alt={f.file?.name || `file-${idx}`}
+                    fill
+                    className="object-cover rounded"
+                    sizes="40px"
+                  />
+                </div>
+
                 <div className="text-sm">
                   <p className="font-medium text-blue-50">
                     {f.file?.name || f?.url?.split("/").pop()}

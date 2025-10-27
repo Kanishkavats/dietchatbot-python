@@ -10,6 +10,7 @@ import Button from "../../UI/web/Buttons/Button";
 import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 import { EventPreviewProps } from "@/src/types/admin";
 import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Image from "next/image"; 
 
 
 const EventPreview = ({ data, onSubmit, onBack, mode,showButton=true,createMutation,updateMutation }: EventPreviewProps) => {
@@ -68,10 +69,13 @@ const formatTime = (dateStr?: Date|null) => {
       {/* Banner Image */}
       {bannerImage && (
         <div className="w-full h-64 sm:h-80 mb-8 rounded-xl overflow-hidden">
-          <img
+          
+          <Image
             src={bannerImage}
             alt="Banner"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
           />
         </div>
       )}
@@ -120,10 +124,12 @@ const formatTime = (dateStr?: Date|null) => {
               key={idx}
               className="w-full h-40 rounded-lg overflow-hidden"
             >
-              <img
+              
+              <Image
                 src={img}
-                alt={`Campaign image ${idx + 2}`}
-                className="w-full h-full object-cover"
+                alt={`Event image ${idx + 2}`}
+                fill
+                className="object-cover"
               />
             </div>
           ))}
