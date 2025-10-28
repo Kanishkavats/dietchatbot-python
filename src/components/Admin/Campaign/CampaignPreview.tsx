@@ -9,6 +9,7 @@ import Button from "../../UI/web/Buttons/Button";
 import { useLanguageToggle } from "@/src/hooks/admin/useLanguageToggle";
 import { CampaignPreviewProps } from "@/src/types/admin";
 import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Image from "next/image"; 
 
 const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true ,createMutation,updateMutation}: CampaignPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
@@ -55,10 +56,13 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true ,createM
       {/* Banner Image */}
       {bannerImage && (
         <div className="w-full h-64 sm:h-80 mb-8 rounded-xl overflow-hidden">
-          <img
+          
+          <Image
             src={bannerImage}
             alt="Banner"
-            className="w-full h-full object-cover"
+            fill
+            className="object-cover"
+            priority
           />
         </div>
       )}
@@ -113,10 +117,12 @@ const CampaignPreview = ({ data, onSubmit, onBack, mode,showButton=true ,createM
               key={idx}
               className="w-full h-40 rounded-lg overflow-hidden"
             >
-              <img
+              
+              <Image
                 src={img}
                 alt={`Campaign image ${idx + 2}`}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
               />
             </div>
           ))}

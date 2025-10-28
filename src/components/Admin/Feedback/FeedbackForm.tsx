@@ -13,6 +13,8 @@ import Button from "../../UI/web/Buttons/Button";
 import CancelButton from "../../UI/web/Buttons/CancelButton";
 import { updateFeedback } from "@/src/services/admin/feedbackApi";
 import { FeedbackFormProps } from "@/src/types/admin";
+import Image from "next/image";
+
 
 
 const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode }) => {
@@ -144,10 +146,18 @@ const FeedbackForm: React.FC<FeedbackFormProps> = ({ initialData, onClose, mode 
               disabled
             />
 
-            <img
-              src={values.image} alt="fdsjlk"
-              className="w-[200px] h-[200px] object-cover object-center rounded-lg"
+            
+
+            <div className="relative w-[200px] h-[200px] rounded-lg overflow-hidden">
+              <Image
+                src={values.image || "/default-avatar.jpg"} // fallback agar image missing ho
+                alt="Feedback user"
+                fill
+                className="object-cover object-center rounded-lg"
+                priority
               />
+            </div>
+
 
 
             <CustomInput

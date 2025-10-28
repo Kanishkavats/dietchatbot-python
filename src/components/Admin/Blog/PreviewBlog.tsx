@@ -8,8 +8,9 @@ import { LucideCircleCheckBig } from "lucide-react";
 import Button from "../../UI/web/Buttons/Button";
 import { BlogPreviewProps } from "@/src/types/admin";
 import ButtonLoader from "../../UI/web/Loader/ButtonLoader";
+import Image from "next/image";
 
-const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMutation,updateMutation }: BlogPreviewProps) => {
+const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true, createMutation, updateMutation }: BlogPreviewProps) => {
   const [imagePreviews, setImagePreviews] = useState<string[]>([]);
   const [language, setLanguage] = useState<"en" | "hi">("en");
 
@@ -27,12 +28,12 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMut
 
     // First: server URLs
     data.existingImages?.forEach((u) => {
-      if (u) addUrl(u); 
+      if (u) addUrl(u);
     });
 
     // Then: files or strings in images
     data.images?.forEach((img) => {
-      if (img && typeof img === 'object' && img instanceof Blob) {
+      if (img  && typeof img === 'object' && img instanceof Blob) {
         const objectUrl = (img as any)._objectUrl || ((img as any)._objectUrl = URL.createObjectURL(img));
         addUrl(objectUrl);
       } else if (typeof img === 'string') {
@@ -61,8 +62,8 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMut
         <button
           type="button"
           className={`cursor-pointer px-2 py-1 ${lang === "en"
-              ? "bg-lime-green text-white"
-              : "bg-gray-200 text-gray-800"
+            ? "bg-lime-green text-white"
+            : "bg-gray-200 text-gray-800"
             } rounded-l`}
           onClick={() => setLanguage("en")}
         >
@@ -71,8 +72,8 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMut
         <button
           type="button"
           className={`cursor-pointer px-2 py-1 ${lang === "hi"
-              ? "bg-lime-green text-white"
-              : "bg-gray-200 text-gray-800"
+            ? "bg-lime-green text-white"
+            : "bg-gray-200 text-gray-800"
             } rounded-r`}
           onClick={() => setLanguage("hi")}
         >
@@ -83,11 +84,16 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMut
       {/* Banner Image */}
       {bannerImage && (
         <div className="w-full h-64 sm:h-80 mb-8 rounded-xl overflow-hidden">
-          <img
+           
+          <Image
             src={bannerImage}
             alt="Banner"
-            className="w-full h-full object-cover"
+            fill
+            priority
+            className="object-cover"
+            sizes="(max-width: 768px) 100vw, 800px"
           />
+          
         </div>
       )}
 
@@ -162,11 +168,15 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMut
               key={idx}
               className="w-full h-40 rounded-lg overflow-hidden"
             >
-              <img
+              <Image
                 src={img}
                 alt={`Blog image ${idx + 2}`}
-                className="w-full h-full object-cover"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 400px"
               />
+
+              
             </div>
           ))}
         </div>
@@ -182,10 +192,10 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMut
             rounded="rounded-lg"
             hoverBg="before:bg-red-50"
             onClick={onBack}
-            
+
             icon=""
           >
-             {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
+            {lang === "hi" ? "संपादन पर वापस जाएं" : "Back to Edit"}
           </Button>
 
           <Button
@@ -195,10 +205,10 @@ const BlogPreview = ({ data, onSubmit, onBack, mode, showButton = true,createMut
             hoverBg="before:bg-green"
             icon=""
           >
-             {createMutation?.isPending || updateMutation?.isPending ? (
-                      <ButtonLoader />
-                    ) : <>{lang === "hi" ? "सबमिट" : "Submit"}</>}
-                  </Button>
+            {createMutation?.isPending || updateMutation?.isPending ? (
+              <ButtonLoader />
+            ) : <>{lang === "hi" ? "सबमिट" : "Submit"}</>}
+          </Button>
         </div>
       )}
     </motion.div>

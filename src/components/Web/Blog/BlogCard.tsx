@@ -8,6 +8,7 @@ import { useTranslation } from "react-i18next";
 import { useRouter } from "next/navigation";
 import { BlogCardProps } from "@/src/types/web/blog";
 
+
 const heartVariants = {
   idle: {
     opacity: 0,

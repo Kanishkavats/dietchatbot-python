@@ -12,7 +12,7 @@ import Comments from "../comments";
 import Banner from "../Banner";
 import Queries from "../Queries";
 import Feedback from "../Feedback";
-import Event from "../Event";
+import Event from "../event";
 
 const AdminTab = () => {
   const [isOpen, setIsOpen] = useState(true);
