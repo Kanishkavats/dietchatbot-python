@@ -7,6 +7,8 @@ import React, { useRef } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import ArrowButton from "../../Button";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
@@ -19,7 +21,7 @@ import { fetchFeedback } from "@/src/services/web";
 import StarRating from "../../UI/web/StarRating";
 import ComponentLabel from "../../UI/web/ComponentLabel";
 import ComponentTitle from "../../UI/web/ComponentTitle";
-import ArrowButton from "@/src/components/Button"; // ✅ Imported your new button
+//import ArrowButton from "@/src/components/Button"; // ✅ Imported your new button
 
 const truncateText = (text: string, maxLength: number): string =>
   !text ? "" : text.length > maxLength ? `${text.slice(0, maxLength)}...` : text;
@@ -144,15 +146,25 @@ const ValueableCustomer = () => {
           ))}
         </Swiper>
 
-        {/* ✅ Replaced Navigation Buttons */}
-        <div className="flex justify-center gap-4 mt-10">
-          <div className="prev-btn">
-            <ArrowButton direction="left" size={56} />
-          </div>
-          <div className="next-btn">
-            <ArrowButton direction="right" size={56} />
-          </div>
-        </div>
+        {/* Navigation buttons */}
+       {/* <div className="flex justify-center gap-4 mt-10">
+          <button className="prev-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-[#122F2A] hover:bg-yellow hover:text-black text-white flex items-center justify-center transition-colors">
+            <ArrowLeft size={24} />
+          </button>
+          <button className="next-btn w-12 h-12 sm:w-14 sm:h-14 rounded-full bg-yellow hover:bg-[#122f2A] text-black hover:text-white flex items-center justify-center transition-colors">
+            <ArrowRight size={24} />
+          </button>
+        </div>*/}
+
+                 
+         <div className="flex justify-center items-center mt-6 lg:mt-10 space-x-4">
+  <div className="swiper-button-prev-custom">
+    <ArrowButton direction="left" size={60} />
+  </div>
+  <div className="swiper-button-next-custom">
+    <ArrowButton direction="right" size={60} />
+  </div>
+</div>
       </div>
     </section>
   );

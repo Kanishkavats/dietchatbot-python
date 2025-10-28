@@ -12,6 +12,7 @@ import "swiper/css/navigation";
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { motion, useInView } from 'framer-motion';
+import ArrowButton from '@/src/components/Button';
 import { useTranslation } from "react-i18next";
 
 import { useFetchAllCampaigns } from '@/src/hooks/web/useCampaigns';
@@ -22,7 +23,7 @@ import CampaignCard from '../../Campaign/CampaignCard';
 import { CampaignApiResponse, CampaignCardInterface } from '@/src/types/web/campaign';
 import ComponentLabel from '@/src/components/UI/web/ComponentLabel';
 import ComponentTitle from '@/src/components/UI/web/ComponentTitle';
-import ArrowButton from '@/src/components/Button'; // ✅ your new button
+//import ArrowButton from '@/src/components/Button'; // ✅ your new button
 
 const HelpAndDonate: React.FC = () => {
   const { t } = useTranslation();
@@ -30,6 +31,10 @@ const HelpAndDonate: React.FC = () => {
 
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+
+  const [leftButtonColor, setLeftButtonColor] = useState<'yellow' | 'green'>('green');
+const [rightButtonColor, setRightButtonColor] = useState<'yellow' | 'green'>('yellow');
+
 
   const swiperRef = useRef<SwiperType | null>(null);
   const spadeRef = useRef(null);
@@ -110,8 +115,8 @@ const HelpAndDonate: React.FC = () => {
             />
           </div>
 
-          {/* ✅ Replaced with ArrowButton */}
-          {campaignsToDisplay.length > 4 && (
+          {/* Navigation buttons if enough campaigns */}
+         {/* {campaignsToDisplay.length > 4 && (
             <div className="flex items-center gap-3 md:gap-4 mt-0 md:mt-0 ml-auto md:ml-6">
               <ArrowButton
                 direction="left"
@@ -121,10 +126,39 @@ const HelpAndDonate: React.FC = () => {
               <ArrowButton
                 direction="right"
                 onClick={handleNext}
-                size={60}
+                onMouseEnter={onRightButtonMouseEnter}
+                onMouseLeave={onRightButtonMouseLeave}
+                color={rightButtonColor}
+                ariaLabel="Next"
               />
             </div>
-          )}
+          )}*/}
+
+          {campaignsToDisplay.length > 4 && (
+  <div className="flex items-center gap-3 md:gap-4 mt-0 md:mt-0 ml-auto md:ml-6">
+    <ArrowButton
+      direction="left"
+      onClick={handlePrev}
+      size={55}
+      className={`shadow-md hover:scale-105 transition-transform ${
+        leftButtonColor === "green"
+          ? "bg-[#122F2A] text-white hover:bg-[#FFC107] hover:text-black"
+          : "bg-[#FFC107] text-black hover:bg-[#122F2A] hover:text-white"
+      }`}
+    />
+    <ArrowButton
+      direction="right"
+      onClick={handleNext}
+      size={55}
+      className={`shadow-md hover:scale-105 transition-transform ${
+        rightButtonColor === "yellow"
+          ? "bg-[#FFC107] text-black hover:bg-[#122F2A] hover:text-white"
+          : "bg-[#122F2A] text-white hover:bg-[#FFC107] hover:text-black"
+      }`}
+    />
+  </div>
+)}
+
         </div>
 
         {/* Floating Spade Image */}

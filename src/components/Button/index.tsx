@@ -36,8 +36,8 @@ const ArrowButton: React.FC<ArrowButtonProps> = ({
         height={20.8}
         className={`transition-colors duration-300 ${textColor} ${hoverText} transform ${
           isLeft
-            ? "scale-x-125 scale-y-115" // keep your perfect left look
-            : "scale-x-[1.40] scale-y-[1.30]" // slightly bolder & thicker for right
+            ? "scale-x-125 scale-y-115" 
+            : "scale-x-[1.40] scale-y-[1.30]" 
         }`}
       />
     </button>
