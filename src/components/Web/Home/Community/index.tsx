@@ -1,7 +1,7 @@
 "use client";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import Image from "next/image";
-import { useState } from "react";
+
 import { useRouter } from "next/navigation";
 import Notice from "../../../UI/web/Notice";
 import DonationInput from "../../DonateUs/DonationInput";
@@ -49,7 +49,7 @@ const Community = ({hasfeedback}:{hasfeedback?:boolean|null}) => {
                 }}
                 className="hidden md:block absolute top-[37%] xl:top-[32%] right-20 xl:right-58 transform -translate-y-1/2 text-palate-yellow  z-2"
             >
-                <img src={yellowspade.src} alt="decoration" className="size-20 xl:size-40" />
+                <Image src={yellowspade.src} alt="decoration" className="size-20 xl:size-40" fill/>
             </motion.div>
 
             <div className="inset-0 z-1 absolute"

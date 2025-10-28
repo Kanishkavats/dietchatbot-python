@@ -23,7 +23,7 @@ import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import ConfirmModal from "../../UI/admin/ConfirmModal";
 import toast from "react-hot-toast";
 import CustomLoader from "../../UI/web/Loader/CustomLoader";
-import useDebounce from "@/src/hooks/web/useDebounce";
+
 
 const QueriesTable = () => {
   const [filterField, setFilterField] = useState<
@@ -76,9 +76,7 @@ const QueriesTable = () => {
 
   const handleDelete = useCallback(
     (e: Query) => {
-      // if (confirm(`Are you sure you want to delete "${e.title}"?`)) {
-      //   deleteQuery(e.id ?? "");
-      // }
+    
       setSelectedQuerry(e);
       setIsOpen(true);
     },

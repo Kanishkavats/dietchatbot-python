@@ -1,7 +1,5 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import { FiHeart, FiCornerUpLeft } from "react-icons/fi";
-import { FaHeart } from "react-icons/fa";
 import { useQuery } from "@tanstack/react-query";
 import { mergeComments, updateLikeCount } from "@/src/utils/mergedComment";
 import { CommentType } from "@/src/types/web/comments";
@@ -10,6 +8,23 @@ import FadeUpCard from "@/src/animations/FadeButtomUp";
 import ShowReply from "./ShowReplies";
 import { fetchgetcomments, likeComment } from "@/src/services/web";
 import { Comment, CommentsProps } from "@/src/types/web/comments";
+
+// Dynamic icon loading system for optimization
+const iconMap = {
+  FiHeart: React.lazy(() => import("react-icons/fi").then(module => ({ default: module.FiHeart }))),
+  FaHeart: React.lazy(() => import("react-icons/fa").then(module => ({ default: module.FaHeart }))),
+  FiCornerUpLeft: React.lazy(() => import("react-icons/fi").then(module => ({ default: module.FiCornerUpLeft }))),
+};
+
+// Dynamic Icon Component
+const DynamicIcon = ({ name, ...props }: { name: keyof typeof iconMap; [key: string]: any }) => {
+  const IconComponent = iconMap[name];
+  return (
+    <React.Suspense fallback={<div className="w-3 h-3 sm:w-4 sm:h-4" />}>
+      <IconComponent {...props} />
+    </React.Suspense>
+  );
+};
 
 export default function Comments({ CommentId }: CommentsProps) {
   const [allComments, setAllComments] = useState<Comment[]>([]);
@@ -232,7 +247,7 @@ export default function Comments({ CommentId }: CommentsProps) {
                   onClick={() => handleLike(comment.id)}
                 >
                   <div className="w-3 h-3 sm:w-[15px] sm:h-[15px]">
-                    {comment.isLiked ? <FaHeart /> : <FiHeart />}
+                    {comment.isLiked ? <DynamicIcon name="FaHeart" /> : <DynamicIcon name="FiHeart" />}
                   </div>
                   <span className="hidden xs:inline">Like</span>{" "}
                   {comment.likeCount || 0}
@@ -244,7 +259,7 @@ export default function Comments({ CommentId }: CommentsProps) {
                   }}
                   className="flex items-center gap-1 cursor-pointer hover:text-olive-brown transition-colors"
                 >
-                  <FiCornerUpLeft className="w-3 h-3 sm:w-4 sm:h-4" />
+                  <DynamicIcon name="FiCornerUpLeft" className="w-3 h-3 sm:w-4 sm:h-4" />
                   <span className="">Reply</span>
                 </button>
                 <span className="text-gray-500 text-xs sm:text-sm">

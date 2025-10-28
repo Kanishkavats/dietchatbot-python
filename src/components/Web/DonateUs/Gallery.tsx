@@ -2,7 +2,7 @@
 
 import FadeInUp from "@/src/animations/FadeInUp";
 import { GalleryImage } from "@/src/staticResource";
-import { motion, useInView } from "framer-motion";
+
 import Image from "next/image";
 import { useRef } from "react";
 
@@ -22,6 +22,7 @@ const Gallery = () => {
               width={600}
               height={400}
               className="w-full h-full object-cover"
+               loading="lazy"
             />
           </FadeInUp>
         ))}

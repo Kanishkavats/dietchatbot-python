@@ -1,6 +1,6 @@
 "use client";
 import { Icon } from "@iconify/react";
-import { DropdownOption } from "./NavbarDropdown";
+
 import { DropdownSubmenu } from "./DropdownSubmenu";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
 import { usePathname } from "next/navigation";

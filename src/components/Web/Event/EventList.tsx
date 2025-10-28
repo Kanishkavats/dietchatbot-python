@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useMemo } from "react";
+import React, {  useMemo } from "react";
 import CustomPagination from "../../UI/web/Pagination";
 import CustomLoader from "../../UI/web/Loader/CustomLoader";
 import { EventListProps } from "@/src/types";

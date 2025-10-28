@@ -1,9 +1,9 @@
 "use client";
 import { AnimatePresence } from "framer-motion";
-import { DropdownOption } from "./NavbarDropdown";
+
 import { DropdownOptionItem } from "./DropdownOptionItem";
 import AnimatedReveal from "@/src/animations/AnimatedReveal";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import { DropdownSubmenuProps } from "@/src/types/web/navbar";
 
 

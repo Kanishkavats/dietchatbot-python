@@ -3,6 +3,8 @@ import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
+import Image from "next/image";
+
 
 interface EventCardProps {
   event: any;
@@ -25,10 +27,11 @@ export default function EventCard({ event, large = false, index = 0 }: EventCard
     >
       {/* Full card clickable */}
       <Link href={`/events/${event.id}`} className="absolute inset-0 z-0" aria-label={event.title} >
-      <img
+      <Image
         src={event.image}
         alt={event.title}
         className="absolute inset-0 w-full h-full object-cover rounded-xl"
+        fill={true}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/50 to-transparent" />
 

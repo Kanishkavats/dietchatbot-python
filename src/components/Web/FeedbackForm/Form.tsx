@@ -13,7 +13,8 @@ import InputField from "../../UI/web/InputField";
 import FadeUpCard from "@/src/animations/FadeButtomUp";
 import { useCreateFeedback, submitFeedbackForm } from '@/src/hooks/web/useFeedback';
 import { useTranslation } from 'react-i18next';
-import { FeedbackFormValues, feedbackSchema } from '@/src/utils/validations/FormValidation'
+import { FeedbackFormValues, feedbackSchema } from '@/src/utils/validations/FormValidation';
+import Image from "next/image";
 
 const initialValues: FeedbackFormValues = {
   name: '',
@@ -215,10 +216,11 @@ const FormComponent = ({ onClose }: { onClose: () => void }) => {
                         <div className="w-full rounded-md border-2 border-yellow bg-foreground/18 p-2 sm:p-3 md:p-4">
                           <div className="flex items-center gap-2 sm:gap-3 md:gap-4">
                             <div className="w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 rounded-md overflow-hidden bg-gray-200 flex-shrink-0">
-                              <img
+                              <Image
                                 src={imagePreview}
                                 alt="Preview"
                                 className="w-full h-full object-cover"
+                                fill
                               />
                             </div>
                             <div className="flex-1 min-w-0">

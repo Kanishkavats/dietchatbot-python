@@ -21,7 +21,7 @@ const DonationSection = ({data,isError,isLoading}:DonationSectionProps) => {
   return(
   <div className="relative w-full rounded-md xl:rounded-2xl">
     <div className="relative w-full h-[350px] md:h-[450px] bg-white rounded-xl xl:rounded-4xl overflow-hidden">
-      <Image src={data?.images?.[0]||posterTwo.src} alt="Hero Cause" fill className="object-cover" />
+      <Image src={data?.images?.[0]||posterTwo.src} alt="Hero Cause" fill className="object-cover"  loading="lazy"/>
     </div>
     <motion.div
       initial={{ opacity: 0, y: 40 }}

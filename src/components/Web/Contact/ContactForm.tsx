@@ -6,8 +6,6 @@ import * as Yup from "yup";
 import InputField from "../../UI/web/InputField";
 import Button from "../../UI/web/Buttons/Button";
 
-import { FaUser, FaPhoneAlt, FaEnvelope } from "react-icons/fa";
-import { FiMail } from "react-icons/fi";
 import { useTranslation } from "react-i18next";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
@@ -64,7 +62,7 @@ const ContactForm = () => {
                         <InputField
                             name="name"
                             placeholder={t("Enter Name")}
-                            icon={<FaUser className="text-gray-500 ml-3" />}
+                            icon="fa6-solid:user"
                             wrapperClass="flex items-center bg-gray-200 rounded-lg mb-6 p-3"
                             inputClass="flex-1 bg-transparent border-none outline-none px-2 text-sm"
                         />
@@ -73,7 +71,7 @@ const ContactForm = () => {
                         <InputField
                             name="email"
                             placeholder={t("Enter Email")}
-                            icon={<FiMail className="text-gray-500 ml-3" />}
+                            icon="fa6-solid:envelope"
                             wrapperClass="flex items-center bg-gray-200 rounded-lg mb-6 p-3"
                             inputClass="flex-1 bg-transparent border-none outline-none px-2 text-sm"
                         />
@@ -82,7 +80,7 @@ const ContactForm = () => {
                         <InputField
                             name="phone"
                             placeholder={t("Phone Number")}
-                            icon={<FaPhoneAlt className="text-gray-500 ml-3" />}
+                            icon="fa6-solid:phone"
                             wrapperClass="flex items-center bg-gray-200 rounded-lg mb-6 p-3"
                             inputClass="flex-1 bg-transparent border-none outline-none px-2 text-sm"
                         />

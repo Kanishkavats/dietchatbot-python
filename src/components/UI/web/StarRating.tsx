@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { IoMdStar, IoMdStarHalf, IoMdStarOutline } from "react-icons/io";
+import { IoMdStar } from "react-icons/io";
 
 interface StarRatingProps {
   rating: number;
@@ -19,16 +19,35 @@ const StarRating: React.FC<StarRatingProps> = ({
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
 
+  const getStarIcon = (index: number) => {
+    if (index < fullStars) {
+      return "full";
+    } else if (index === fullStars && hasHalfStar) {
+      return "half";
+    } else {
+      return "empty";
+    }
+  };
+
   return (
     <div className={`flex ${className}`}>
       {Array.from({ length: max }).map((_, i) => {
-        if (i < fullStars) {
-          return <IoMdStar key={i} className={`w-[${size}px] h-[${size}px]`} />;
-        } else if (i === fullStars && hasHalfStar) {
-          return <IoMdStarHalf key={i} className={`w-[${size}px] h-[${size}px]`} />;
-        } else {
-          return <IoMdStarOutline key={i} className={`w-[${size}px] h-[${size}px]`} />;
-        }
+        const starType = getStarIcon(i);
+        return (
+          <IoMdStar
+            key={i}
+            className={`w-[${size}px] h-[${size}px] ${
+              starType === "full" 
+                ? "fill-current" 
+                : starType === "half" 
+                ? "fill-current opacity-50" 
+                : "fill-none stroke-current"
+            }`}
+            style={{
+              clipPath: starType === "half" ? "polygon(0 0, 50% 0, 50% 100%, 0 100%)" : "none"
+            }}
+          />
+        );
       })}
     </div>
   );

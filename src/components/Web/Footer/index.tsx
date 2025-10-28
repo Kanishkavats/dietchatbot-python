@@ -9,7 +9,7 @@ import { footerData } from "@/src/staticResource";
 import { logo, spade2, spreadLight } from "@/public/assets";
 import Divider from "../../UI/web/HorizontalDevider";
 import { useTranslation } from "react-i18next";
-import { Link } from "lucide-react";
+
 import CookieSettingsModal from "../../UI/web/CookieSettingsModal";
 
 const Footer = () => {
@@ -52,10 +52,11 @@ const Footer = () => {
           transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
           className="absolute top-[25%] left-0 xl:left-8 transform -translate-y-1/2 text-yellow  "
         >
-          <img
+          <Image
             src={spade2.src}
             alt="Logo"
             className="w-10 xl:w-14 h-10 xl:h-14"
+            fill
           />
         </motion.div>
 
@@ -192,10 +193,12 @@ const Footer = () => {
               transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
               className="absolute top-[28%] right-10 xl:right-0 text-white"
             >
-              <img
+              <Image
                 src={spreadLight.src}
                 alt="decoration"
                 className="w-12 h-12 xl:w-16 xl:h-16"
+                width={12}
+                height={12}
               />
             </motion.div>
           </motion.div>

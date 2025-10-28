@@ -1,5 +1,5 @@
 "use client";
-import { Icon } from "@iconify/react";
+
 import Button from "../../UI/web/Buttons/Button";
 import { RootState } from "@/src/store";
 import { useSelector } from "react-redux";

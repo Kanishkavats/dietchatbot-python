@@ -62,6 +62,7 @@ export default function ScrollImgSection() {
               <Image
                 src={src}
                 alt={`Image ${idx + 1}`}
+                 loading="lazy"
                 width={288}
                 height={288}
                 className={`object-cover w-full h-full transition-transform duration-300 ${

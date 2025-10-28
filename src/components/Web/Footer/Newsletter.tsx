@@ -2,7 +2,7 @@
 
 
 "use client";
-import { Icon } from "@iconify/react/dist/iconify.js";
+import { Icon } from "@iconify/react";
 import Button from "../../UI/web/Buttons/Button";
 import SlideinFromLeft from "@/src/animations/SlideInFromLeft";
 import { useTranslation } from "react-i18next";

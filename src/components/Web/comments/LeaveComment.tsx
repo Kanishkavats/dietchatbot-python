@@ -1,10 +1,10 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+
 
 "use client";
 
 import { useState } from "react";
 import { useQueryClient } from "@tanstack/react-query";
-import { FaUser, FaRegEnvelope, FaRegComments } from "react-icons/fa";
+
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import Button from "../../UI/web/Buttons/Button";

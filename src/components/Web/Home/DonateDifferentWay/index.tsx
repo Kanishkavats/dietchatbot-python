@@ -8,7 +8,7 @@ import { gridDot, donatediffway } from '@/public/assets';
 import AnimatedCircle from './AnimatedCircle';
 import { donateDifferentWayMissionItems, donateDifferentWayTabs } from '@/src/staticResource';
 import ComponentTitle from '@/src/components/UI/web/ComponentTitle';
-import ComponentLabel from '@/src/components/UI/web/ComponentLabel';
+
 import { FaHandHoldingHeart } from 'react-icons/fa';
 
 
@@ -127,16 +127,11 @@ const DonateDifferentWay: React.FC = () => {
             <div className='space-y-4 sm:space-y-6 flex-1 '>
               <div ref={headerRef} className='font-nunito font-extrabold relative'>
 
-                {/* <ComponentLabel
-
-                  text="Start Donating Poor People"
-                  isVisible={isHeaderInView}
-                /> */}
+                
                 <div
                   className="flex items-center mb-5  opacity-0 anim-fade-in-up"
                   style={{ animationDelay: "0.6s" }}
                 >
-                  {/* <i className="text-lg md:text-xl mr-2 text-green hand-icon"></i> */}
                   <FaHandHoldingHeart className="text-lg md:text-xl mr-2 text-green" />
 
                   <span className="text-green font-caveat text-lg md:text-2xl lg:text-2xl font-bold">

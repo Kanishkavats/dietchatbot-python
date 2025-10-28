@@ -202,7 +202,7 @@ export default function HeroStaticSlider() {
             }}
             className="absolute top-[29%] xl:top-[82%] right-38 xl:right-40 transform -translate-y-1/2 text-yellow size-20"
           >
-            <img src={spradeBase.src} alt="decoration" />
+            <Image src={spradeBase.src} alt="decoration" width={28} height={28}/>
           </motion.div>
         </div>
       </div>

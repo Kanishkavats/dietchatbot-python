@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import { Icon } from "@iconify/react";
+
 import FAQList from "./FAQList";
 import FAQSideImages from "./FAQSideImages";
 import FadeInUp from "@/src/animations/FadeInUp";
